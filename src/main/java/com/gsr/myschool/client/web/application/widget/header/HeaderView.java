@@ -14,19 +14,29 @@
  * the License.
  */
 
-package com.gsr.myschool.client.web.application.widget;
+package com.gsr.myschool.client.web.application.widget.header;
 
+import com.arcbees.core.client.mvp.ViewWithUiHandlers;
+import com.arcbees.core.client.mvp.uihandlers.UiHandlersStrategy;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
-public class FooterView extends Composite {
-    public interface Binder extends UiBinder<Widget, FooterView> {
+public class HeaderView extends ViewWithUiHandlers<HeaderUiHandlers> implements HeaderPresenter.MyView {
+    public interface Binder extends UiBinder<Widget, HeaderView> {
     }
 
     @Inject
-    public FooterView(final Binder uiBinder) {
+    public HeaderView(final Binder uiBinder, final UiHandlersStrategy<HeaderUiHandlers> uiHandlersStrategy) {
+        super(uiHandlersStrategy);
+
         initWidget(uiBinder.createAndBindUi(this));
+    }
+
+    @UiHandler("logout")
+    void onLogoutClicked(ClickEvent event) {
+        getUiHandlers().logout();
     }
 }

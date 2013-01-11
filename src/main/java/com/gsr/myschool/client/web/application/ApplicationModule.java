@@ -16,17 +16,25 @@
 
 package com.gsr.myschool.client.web.application;
 
+import com.arcbees.core.client.mvp.uihandlers.SetterUiHandlersStrategy;
+import com.arcbees.core.client.mvp.uihandlers.UiHandlersStrategy;
+import com.google.inject.TypeLiteral;
 import com.gsr.myschool.client.web.application.home.HomeModule;
-import com.gsr.myschool.client.web.application.widget.HeaderPresenter;
-import com.gsr.myschool.client.web.application.widget.HeaderView;
-import com.gsr.myschool.client.web.application.widget.SiderHolderPresenter;
-import com.gsr.myschool.client.web.application.widget.SiderHolderView;
+import com.gsr.myschool.client.web.application.home.HomeUiHandlers;
+import com.gsr.myschool.client.web.application.widget.header.HeaderPresenter;
+import com.gsr.myschool.client.web.application.widget.header.HeaderUiHandlers;
+import com.gsr.myschool.client.web.application.widget.header.HeaderView;
+import com.gsr.myschool.client.web.application.widget.sider.SiderHolderPresenter;
+import com.gsr.myschool.client.web.application.widget.sider.SiderHolderView;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 public class ApplicationModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
         install(new HomeModule());
+
+        bind(new TypeLiteral<UiHandlersStrategy<HeaderUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<HeaderUiHandlers>>() {});
 
         bindPresenter(ApplicationPresenter.class, ApplicationPresenter.MyView.class, ApplicationView.class,
                 ApplicationPresenter.MyProxy.class);

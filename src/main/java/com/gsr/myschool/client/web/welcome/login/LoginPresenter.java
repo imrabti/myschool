@@ -23,6 +23,8 @@ import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
+import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gsr.myschool.client.BootstrapperImpl;
 import com.gsr.myschool.client.place.NameTokens;
@@ -48,16 +50,18 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
     private final MyRequestFactory requestFactory;
     private final SecurityUtils securityUtils;
     private final BootstrapperImpl bootstrapper;
+    private final PlaceManager placeManager;
 
     @Inject
     public LoginPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                           final MyRequestFactory requestFactory, final SecurityUtils securityUtils,
-                          final BootstrapperImpl bootstrapper) {
+                          final BootstrapperImpl bootstrapper, final PlaceManager placeManager) {
         super(eventBus, view, proxy, RootPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
         this.securityUtils = securityUtils;
         this.bootstrapper = bootstrapper;
+        this.placeManager = placeManager;
 
         getView().setUiHandlers(this);
     }
@@ -76,6 +80,11 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
                 }
             }
         });
+    }
+
+    @Override
+    public void register() {
+        placeManager.revealPlace(new PlaceRequest(NameTokens.getRegister()));
     }
 
     @Override

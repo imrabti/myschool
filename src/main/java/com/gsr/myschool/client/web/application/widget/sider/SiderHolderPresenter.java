@@ -14,19 +14,19 @@
  * the License.
  */
 
-package com.gsr.myschool.client.web.application.widget;
+package com.gsr.myschool.client.web.application.widget.sider;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;
 
-public class HeaderPresenter extends PresenterWidget<HeaderPresenter.MyView> {
+public class SiderHolderPresenter extends PresenterWidget<SiderHolderPresenter.MyView> {
     public interface MyView extends View {
     }
 
     @Inject
-    public HeaderPresenter(EventBus eventBus, MyView view) {
+    public SiderHolderPresenter(EventBus eventBus, MyView view) {
         super(eventBus, view);
     }
 }

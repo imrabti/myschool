@@ -14,19 +14,19 @@
  * the License.
  */
 
-package com.gsr.myschool.client.web.application.widget;
+package com.gsr.myschool.client.web.application.widget.sider;
 
 import com.arcbees.core.client.mvp.ViewImpl;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
-public class HeaderView extends ViewImpl implements HeaderPresenter.MyView {
-    public interface Binder extends UiBinder<Widget, HeaderView> {
+public class SiderHolderView extends ViewImpl implements SiderHolderPresenter.MyView {
+    public interface Binder extends UiBinder<Widget, SiderHolderView> {
     }
 
     @Inject
-    public HeaderView(final Binder uiBinder) {
+    public SiderHolderView(final Binder uiBinder) {
         initWidget(uiBinder.createAndBindUi(this));
     }
 }

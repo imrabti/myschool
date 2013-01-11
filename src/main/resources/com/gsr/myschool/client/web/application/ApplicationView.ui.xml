@@ -1,6 +1,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:s='urn:import:com.gsr.myschool.client.web.application.widget'
+             xmlns:s='urn:import:com.gsr.myschool.client.web.application.widget.footer'
              xmlns:f='urn:import:com.gsr.myschool.client.web.application.ui'>
     <g:SimpleLayoutPanel>
         <g:DockLayoutPanel unit='PX'>

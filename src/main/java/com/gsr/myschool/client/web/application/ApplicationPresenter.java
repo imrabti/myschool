@@ -17,8 +17,8 @@
 package com.gsr.myschool.client.web.application;
 
 import com.gsr.myschool.client.web.RootPresenter;
-import com.gsr.myschool.client.web.application.widget.HeaderPresenter;
-import com.gsr.myschool.client.web.application.widget.SiderHolderPresenter;
+import com.gsr.myschool.client.web.application.widget.header.HeaderPresenter;
+import com.gsr.myschool.client.web.application.widget.sider.SiderHolderPresenter;
 import com.gsr.myschool.client.event.RequestEvent;
 import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.inject.Inject;

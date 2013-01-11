@@ -14,19 +14,19 @@
  * the License.
  */
 
-package com.gsr.myschool.client.web.application.widget;
+package com.gsr.myschool.client.web.application.widget.footer;
 
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.google.web.bindery.event.shared.EventBus;
-import com.gwtplatform.mvp.client.PresenterWidget;
-import com.gwtplatform.mvp.client.View;
 
-public class SiderHolderPresenter extends PresenterWidget<SiderHolderPresenter.MyView> {
-    public interface MyView extends View {
+public class FooterView extends Composite {
+    public interface Binder extends UiBinder<Widget, FooterView> {
     }
 
     @Inject
-    public SiderHolderPresenter(EventBus eventBus, MyView view) {
-        super(eventBus, view);
+    public FooterView(final Binder uiBinder) {
+        initWidget(uiBinder.createAndBindUi(this));
     }
 }

@@ -2,5 +2,6 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
     <g:HTMLPanel>
         <h1>Here will be the Header of the Application...</h1>
+        <g:Button ui:field="logout" text="Logout"/>
     </g:HTMLPanel>
 </ui:UiBinder>

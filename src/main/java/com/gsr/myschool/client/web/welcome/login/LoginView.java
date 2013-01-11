@@ -90,6 +90,11 @@ public class LoginView extends ViewWithUiHandlers<LoginUiHandlers> implements Lo
         loginError.setText(messageBundle.wrongLoginOrPassword());
     }
 
+    @UiHandler("register")
+    void onRegisterClicked(ClickEvent event) {
+        getUiHandlers().register();
+    }
+
     @UiHandler("login")
     void onLoginClicked(ClickEvent event) {
         processLoginAction();

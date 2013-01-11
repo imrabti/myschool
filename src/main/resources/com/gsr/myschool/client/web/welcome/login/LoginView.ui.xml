@@ -14,6 +14,7 @@
             <g:PasswordTextBox ui:field="password"/>
 
             <g:Button ui:field="login" text="Login"/>
+            <g:Button ui:field="register" text="Register"/>
         </div>
     </g:HTMLPanel>
 </ui:UiBinder>
