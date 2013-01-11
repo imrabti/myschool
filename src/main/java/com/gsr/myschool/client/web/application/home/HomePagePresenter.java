@@ -18,6 +18,7 @@ package com.gsr.myschool.client.web.application.home;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.gsr.myschool.client.resource.message.MessageBundle;
+import com.gsr.myschool.client.security.LoggedInGatekeeper;
 import com.gsr.myschool.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.client.mvp.ValidatedView;
 import com.gsr.myschool.client.place.NameTokens;
@@ -32,6 +33,7 @@ import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gsr.myschool.client.web.widget.message.CloseDelay;
 import com.gsr.myschool.client.web.widget.message.Message;
@@ -51,6 +53,7 @@ public class HomePagePresenter extends Presenter<HomePagePresenter.MyView, HomeP
 
     @ProxyStandard
     @NameToken(NameTokens.home)
+    @UseGatekeeper(LoggedInGatekeeper.class)
     public interface MyProxy extends ProxyPlace<HomePagePresenter> {
     }
 
