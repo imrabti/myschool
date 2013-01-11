@@ -20,7 +20,7 @@ import com.gwtplatform.mvp.client.ApplicationController;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 
-public class MyProject implements EntryPoint {
+public class MySchool implements EntryPoint {
 
     private static ApplicationController controller = GWT.create(ApplicationController.class);
 

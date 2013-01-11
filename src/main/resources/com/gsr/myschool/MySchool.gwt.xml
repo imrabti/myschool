@@ -31,7 +31,7 @@
     <inherits name="com.google.common.base.Base"/>
     <inherits name="com.github.gwtbootstrap.Bootstrap" />
 
-    <entry-point class='com.gsr.myschool.client.MyProject'/>
+    <entry-point class='com.gsr.myschool.client.MySchool'/>
 
     <source path='client'/>
     <source path='shared'/>
