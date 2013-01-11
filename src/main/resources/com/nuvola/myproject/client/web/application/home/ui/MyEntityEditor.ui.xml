@@ -1,0 +1,15 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:b='urn:import:com.github.gwtbootstrap.client.ui'>
+    <g:HTMLPanel>
+        <b:ControlGroup>
+            <g:InlineLabel text="First name: "/>
+            <g:TextBox ui:field="firstName"/>
+        </b:ControlGroup>
+
+        <b:ControlGroup>
+            <g:InlineLabel text="Last name: "/>
+            <g:TextBox ui:field="lastName"/>
+        </b:ControlGroup>
+    </g:HTMLPanel>
+</ui:UiBinder>
