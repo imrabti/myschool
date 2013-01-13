@@ -11,6 +11,8 @@
             http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
             http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd">
 
+    <context:annotation-config/>
+
     <!-- Bean annotated scan -->
     <context:component-scan base-package="com.gsr.myschool.server.*"/>
 
@@ -34,5 +36,20 @@
     <jpa:repositories base-package="com.gsr.myschool.server.repos" repository-impl-postfix="Impl"/>
 
     <!-- DEV Datasource configuration -->
-    <jdbc:embedded-database id="dataSource" type="HSQL"/>
+    <jdbc:embedded-database id="dataSource" type="H2"/>
+
+    <!-- VelocityEngine configuration -->
+    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="velocityProperties">
+            <props>
+                <prop key="resource.loader">class</prop>
+                <prop key="class.resource.loader.class">
+                    org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+                </prop>
+                <prop key="input.encoding">UTF-8</prop>
+            </props>
+        </property>
+    </bean>
+
+    <import resource="applicationContext-activiti.xml"/>
 </beans>
