@@ -14,11 +14,9 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.web.application.home;
+package com.gsr.myschool.front.client.web.application.inscription;
 
-import com.gsr.myschool.front.client.request.proxy.MyEntityProxy;
 import com.gwtplatform.mvp.client.UiHandlers;
 
-public interface HomeUiHandlers extends UiHandlers {
-    void saveEntity(MyEntityProxy myEntity);
+public interface InscriptionUiHandlers extends UiHandlers {
 }

@@ -45,7 +45,7 @@ public class ClientModule extends AbstractPresenterModule {
         install(new RootModule());
 
         bind(MyRequestFactory.class).toProvider(RequestFactoryProvider.class).in(Singleton.class);
-        bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.home);
+        bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.login);
 
         bind(Resources.class).in(Singleton.class);
         bind(MessageBundle.class).in(Singleton.class);

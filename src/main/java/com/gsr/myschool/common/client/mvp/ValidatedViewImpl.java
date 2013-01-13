@@ -16,7 +16,6 @@
 
 package com.gsr.myschool.common.client.mvp;
 
-import com.arcbees.core.client.mvp.ViewImpl;
 import com.github.gwtbootstrap.client.ui.ControlGroup;
 import com.github.gwtbootstrap.client.ui.constants.ControlGroupType;
 import com.google.gwt.dom.client.Element;

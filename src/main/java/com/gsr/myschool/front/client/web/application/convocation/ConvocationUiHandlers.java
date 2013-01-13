@@ -14,29 +14,9 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.request.proxy;
+package com.gsr.myschool.front.client.web.application.convocation;
 
-import com.gsr.myschool.server.business.MyEntity;
-import com.google.web.bindery.requestfactory.shared.ProxyFor;
-import com.google.web.bindery.requestfactory.shared.ValueProxy;
+import com.gwtplatform.mvp.client.UiHandlers;
 
-import java.util.Date;
-
-@ProxyFor(value = MyEntity.class)
-public interface MyEntityProxy extends ValueProxy {
-    Long getId();
-
-    void setId(Long id);
-
-    String getFirstName();
-
-    void setFirstName(String firstName);
-
-    String getLastName();
-
-    void setLastName(String lastName);
-
-    Date getCreated();
-
-    void setCreated(Date created);
+public interface ConvocationUiHandlers extends UiHandlers {
 }
