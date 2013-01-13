@@ -23,15 +23,15 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
-public class SiderHolderView extends ViewImpl implements SiderHolderPresenter.MyView {
-    public interface Binder extends UiBinder<Widget, SiderHolderView> {
+public class FrontMenuView extends ViewImpl implements FrontMenuPresenter.MyView {
+    public interface Binder extends UiBinder<Widget, FrontMenuView> {
     }
 
     @UiField
     SimplePanel siderContainer;
 
     @Inject
-    public SiderHolderView(final Binder uiBinder) {
+    public FrontMenuView(final Binder uiBinder) {
         initWidget(uiBinder.createAndBindUi(this));
     }
 

@@ -18,30 +18,15 @@ package com.gsr.myschool.front.client.web.application.widget.sider;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-import com.gsr.myschool.common.client.event.SetVisibleSiderEvent;
 import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;
 
-public class SiderHolderPresenter extends PresenterWidget<SiderHolderPresenter.MyView>
-        implements SetVisibleSiderEvent.SetVisibleSiderHandler {
+public class FrontMenuPresenter extends PresenterWidget<FrontMenuPresenter.MyView> {
     public interface MyView extends View {
     }
 
-    public static final Object TYPE_SetSiderContent = new Object();
-
     @Inject
-    public SiderHolderPresenter(EventBus eventBus, MyView view) {
+    public FrontMenuPresenter(EventBus eventBus, MyView view) {
         super(eventBus, view);
-    }
-
-    @Override
-    public void onVisibleSider(SetVisibleSiderEvent event) {
-        clearSlot(TYPE_SetSiderContent);
-        setInSlot(TYPE_SetSiderContent, event.getSider());
-    }
-
-    @Override
-    protected void onBind() {
-        addRegisteredHandler(SetVisibleSiderEvent.getType(), this);
     }
 }

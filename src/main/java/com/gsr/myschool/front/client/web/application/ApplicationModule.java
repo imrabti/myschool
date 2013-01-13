@@ -23,8 +23,8 @@ import com.gsr.myschool.front.client.web.application.home.HomeModule;
 import com.gsr.myschool.front.client.web.application.widget.header.HeaderPresenter;
 import com.gsr.myschool.front.client.web.application.widget.header.HeaderUiHandlers;
 import com.gsr.myschool.front.client.web.application.widget.header.HeaderView;
-import com.gsr.myschool.front.client.web.application.widget.sider.SiderHolderPresenter;
-import com.gsr.myschool.front.client.web.application.widget.sider.SiderHolderView;
+import com.gsr.myschool.front.client.web.application.widget.sider.FrontMenuPresenter;
+import com.gsr.myschool.front.client.web.application.widget.sider.FrontMenuView;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 public class ApplicationModule extends AbstractPresenterModule {
@@ -40,7 +40,7 @@ public class ApplicationModule extends AbstractPresenterModule {
 
         bindSingletonPresenterWidget(HeaderPresenter.class, HeaderPresenter.MyView.class,
                 HeaderView.class);
-        bindSingletonPresenterWidget(SiderHolderPresenter.class, SiderHolderPresenter.MyView.class,
-                SiderHolderView.class);
+        bindSingletonPresenterWidget(FrontMenuPresenter.class, FrontMenuPresenter.MyView.class,
+                FrontMenuView.class);
     }
 }

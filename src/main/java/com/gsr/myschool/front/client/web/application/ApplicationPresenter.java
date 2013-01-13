@@ -18,7 +18,7 @@ package com.gsr.myschool.front.client.web.application;
 
 import com.gsr.myschool.front.client.web.RootPresenter;
 import com.gsr.myschool.front.client.web.application.widget.header.HeaderPresenter;
-import com.gsr.myschool.front.client.web.application.widget.sider.SiderHolderPresenter;
+import com.gsr.myschool.front.client.web.application.widget.sider.FrontMenuPresenter;
 import com.gsr.myschool.common.client.event.RequestEvent;
 import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.inject.Inject;
@@ -50,16 +50,16 @@ public class ApplicationPresenter extends Presenter<ApplicationPresenter.MyView,
     private static final int LOADING_TIMEOUT = 250;
 
     private final HeaderPresenter headerPresenter;
-    private final SiderHolderPresenter siderHolderPresenter;
+    private final FrontMenuPresenter frontMenuPresenter;
 
     @Inject
     public ApplicationPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                                 final HeaderPresenter headerPresenter,
-                                final SiderHolderPresenter siderHolderPresenter) {
+                                final FrontMenuPresenter frontMenuPresenter) {
         super(eventBus, view, proxy, RootPresenter.TYPE_SetMainContent);
 
         this.headerPresenter = headerPresenter;
-        this.siderHolderPresenter = siderHolderPresenter;
+        this.frontMenuPresenter = frontMenuPresenter;
     }
 
     @Override
@@ -79,6 +79,6 @@ public class ApplicationPresenter extends Presenter<ApplicationPresenter.MyView,
     @Override
     protected void onReveal() {
         setInSlot(TYPE_SetHeaderContent, headerPresenter);
-        setInSlot(TYPE_SetSiderContent, siderHolderPresenter);
+        setInSlot(TYPE_SetSiderContent, frontMenuPresenter);
     }
 }
