@@ -16,8 +16,8 @@
 
 package com.gsr.myschool.common.client.mvp;
 
-import com.arcbees.core.client.mvp.uihandlers.UiHandlersStrategy;
 import com.google.web.bindery.event.shared.EventBus;
+import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public class ValidatedPopupViewImplWithUiHandlers<H extends UiHandlers> extends ValidatedPopupViewImpl

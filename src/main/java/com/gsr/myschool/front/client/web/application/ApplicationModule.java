@@ -16,9 +16,9 @@
 
 package com.gsr.myschool.front.client.web.application;
 
-import com.arcbees.core.client.mvp.uihandlers.SetterUiHandlersStrategy;
-import com.arcbees.core.client.mvp.uihandlers.UiHandlersStrategy;
 import com.google.inject.TypeLiteral;
+import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
+import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.front.client.web.application.home.HomeModule;
 import com.gsr.myschool.front.client.web.application.widget.header.HeaderPresenter;
 import com.gsr.myschool.front.client.web.application.widget.header.HeaderUiHandlers;

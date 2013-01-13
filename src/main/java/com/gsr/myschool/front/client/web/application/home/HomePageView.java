@@ -16,7 +16,7 @@
 
 package com.gsr.myschool.front.client.web.application.home;
 
-import com.arcbees.core.client.mvp.uihandlers.UiHandlersStrategy;
+import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.front.client.web.application.home.ui.MyEntityEditor;
 import com.gsr.myschool.common.client.mvp.ValidatedViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;

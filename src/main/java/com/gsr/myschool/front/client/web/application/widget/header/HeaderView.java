@@ -16,13 +16,13 @@
 
 package com.gsr.myschool.front.client.web.application.widget.header;
 
-import com.arcbees.core.client.mvp.ViewWithUiHandlers;
-import com.arcbees.core.client.mvp.uihandlers.UiHandlersStrategy;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
+import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 
 public class HeaderView extends ViewWithUiHandlers<HeaderUiHandlers> implements HeaderPresenter.MyView {
     public interface Binder extends UiBinder<Widget, HeaderView> {
