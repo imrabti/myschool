@@ -19,21 +19,28 @@ package com.gsr.myschool.front.client.web.application;
 import com.google.inject.TypeLiteral;
 import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
-import com.gsr.myschool.front.client.web.application.home.HomeModule;
+import com.gsr.myschool.front.client.web.application.convocation.ConvocationModule;
+import com.gsr.myschool.front.client.web.application.inbox.InboxModule;
+import com.gsr.myschool.front.client.web.application.inscription.InscriptionModule;
 import com.gsr.myschool.front.client.web.application.widget.header.HeaderPresenter;
 import com.gsr.myschool.front.client.web.application.widget.header.HeaderUiHandlers;
 import com.gsr.myschool.front.client.web.application.widget.header.HeaderView;
 import com.gsr.myschool.front.client.web.application.widget.sider.FrontMenuPresenter;
+import com.gsr.myschool.front.client.web.application.widget.sider.FrontMenuUiHandlers;
 import com.gsr.myschool.front.client.web.application.widget.sider.FrontMenuView;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 public class ApplicationModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
-        install(new HomeModule());
+        install(new InscriptionModule());
+        install(new ConvocationModule());
+        install(new InboxModule());
 
         bind(new TypeLiteral<UiHandlersStrategy<HeaderUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<HeaderUiHandlers>>() {});
+        bind(new TypeLiteral<UiHandlersStrategy<FrontMenuUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<FrontMenuUiHandlers>>() {});
 
         bindPresenter(ApplicationPresenter.class, ApplicationPresenter.MyView.class, ApplicationView.class,
                 ApplicationPresenter.MyProxy.class);

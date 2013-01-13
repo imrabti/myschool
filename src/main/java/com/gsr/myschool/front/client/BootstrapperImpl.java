@@ -76,7 +76,7 @@ public class BootstrapperImpl implements Bootstrapper {
     }
 
     private void bounceToHome() {
-        PlaceRequest place = new PlaceRequest(NameTokens.getHome());
+        PlaceRequest place = new PlaceRequest(NameTokens.getInscription());
         placeManager.revealPlace(place);
     }
 
