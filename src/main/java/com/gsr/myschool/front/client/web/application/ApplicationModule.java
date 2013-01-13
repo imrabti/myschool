@@ -25,9 +25,9 @@ import com.gsr.myschool.front.client.web.application.inscription.InscriptionModu
 import com.gsr.myschool.front.client.web.application.widget.header.HeaderPresenter;
 import com.gsr.myschool.front.client.web.application.widget.header.HeaderUiHandlers;
 import com.gsr.myschool.front.client.web.application.widget.header.HeaderView;
-import com.gsr.myschool.front.client.web.application.widget.sider.FrontMenuPresenter;
-import com.gsr.myschool.front.client.web.application.widget.sider.FrontMenuUiHandlers;
-import com.gsr.myschool.front.client.web.application.widget.sider.FrontMenuView;
+import com.gsr.myschool.front.client.web.application.widget.sider.MenuPresenter;
+import com.gsr.myschool.front.client.web.application.widget.sider.MenuUiHandlers;
+import com.gsr.myschool.front.client.web.application.widget.sider.MenuView;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 public class ApplicationModule extends AbstractPresenterModule {
@@ -39,15 +39,15 @@ public class ApplicationModule extends AbstractPresenterModule {
 
         bind(new TypeLiteral<UiHandlersStrategy<HeaderUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<HeaderUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<FrontMenuUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<FrontMenuUiHandlers>>() {});
+        bind(new TypeLiteral<UiHandlersStrategy<MenuUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<MenuUiHandlers>>() {});
 
         bindPresenter(ApplicationPresenter.class, ApplicationPresenter.MyView.class, ApplicationView.class,
                 ApplicationPresenter.MyProxy.class);
 
         bindSingletonPresenterWidget(HeaderPresenter.class, HeaderPresenter.MyView.class,
                 HeaderView.class);
-        bindSingletonPresenterWidget(FrontMenuPresenter.class, FrontMenuPresenter.MyView.class,
-                FrontMenuView.class);
+        bindSingletonPresenterWidget(MenuPresenter.class, MenuPresenter.MyView.class,
+                MenuView.class);
     }
 }

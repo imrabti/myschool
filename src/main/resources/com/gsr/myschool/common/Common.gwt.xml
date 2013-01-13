@@ -3,8 +3,8 @@
     <inherits name='com.google.gwt.user.User'/>
     <inherits name="com.google.common.base.Base"/>
     <inherits name="com.google.gwt.query.Query"/>
-    <inherits name="com.gwtplatform.mvp.Mvp"/>
     <inherits name="com.github.gwtbootstrap.Bootstrap"/>
+    <inherits name="com.gwtplatform.mvp.Mvp"/>
 
     <source path='client'/>
     <source path='shared'/>
