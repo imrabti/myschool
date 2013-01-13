@@ -14,16 +14,9 @@
  * the License.
  */
 
-package com.gsr.myschool.server.service;
+package com.gsr.myschool.front.client.web.application.inbox;
 
-import java.util.List;
+import com.gwtplatform.mvp.client.UiHandlers;
 
-import com.gsr.myschool.server.business.MyEntity;
-
-public interface MyService {
-    void create(MyEntity entity);
-
-    void delete(MyEntity entity);
-
-    List<MyEntity> loadAll(String searchToken);
+public interface InboxUiHandlers extends UiHandlers {
 }

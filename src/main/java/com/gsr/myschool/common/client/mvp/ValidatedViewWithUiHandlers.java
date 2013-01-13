@@ -16,7 +16,7 @@
 
 package com.gsr.myschool.common.client.mvp;
 
-import com.arcbees.core.client.mvp.uihandlers.UiHandlersStrategy;
+import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public abstract class ValidatedViewWithUiHandlers<H extends UiHandlers> extends ValidatedViewImpl

@@ -24,10 +24,6 @@
     <inherits name='com.google.gwt.user.theme.standard.Standard'/>
 
     <!-- Other module inherits                                      -->
-    <inherits name="com.arcbees.core.Mvp"/>
-    <inherits name="com.google.gwt.query.Query"/>
-    <inherits name="com.google.common.base.Base"/>
-    <inherits name="com.github.gwtbootstrap.Bootstrap"/>
     <inherits name="com.gsr.myschool.common.Common"/>
 
     <entry-point class='com.gsr.myschool.front.client.MySchoolFront'/>

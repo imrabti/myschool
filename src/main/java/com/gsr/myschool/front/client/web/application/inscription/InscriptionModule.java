@@ -14,20 +14,20 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.web.application.home;
+package com.gsr.myschool.front.client.web.application.inscription;
 
-import com.arcbees.core.client.mvp.uihandlers.SetterUiHandlersStrategy;
-import com.arcbees.core.client.mvp.uihandlers.UiHandlersStrategy;
 import com.google.inject.TypeLiteral;
+import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
+import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
-public class HomeModule extends AbstractPresenterModule {
+public class InscriptionModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
-        bind(new TypeLiteral<UiHandlersStrategy<HomeUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<HomeUiHandlers>>() {});
+        bind(new TypeLiteral<UiHandlersStrategy<InscriptionUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<InscriptionUiHandlers>>() {});
 
-        bindPresenter(HomePagePresenter.class, HomePagePresenter.MyView.class, HomePageView.class,
-                HomePagePresenter.MyProxy.class);
+        bindPresenter(InscriptionPresenter.class, InscriptionPresenter.MyView.class, InscriptionView.class,
+                InscriptionPresenter.MyProxy.class);
     }
 }

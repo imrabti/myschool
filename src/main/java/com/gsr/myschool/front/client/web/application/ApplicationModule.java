@@ -16,31 +16,38 @@
 
 package com.gsr.myschool.front.client.web.application;
 
-import com.arcbees.core.client.mvp.uihandlers.SetterUiHandlersStrategy;
-import com.arcbees.core.client.mvp.uihandlers.UiHandlersStrategy;
 import com.google.inject.TypeLiteral;
-import com.gsr.myschool.front.client.web.application.home.HomeModule;
+import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
+import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.front.client.web.application.convocation.ConvocationModule;
+import com.gsr.myschool.front.client.web.application.inbox.InboxModule;
+import com.gsr.myschool.front.client.web.application.inscription.InscriptionModule;
 import com.gsr.myschool.front.client.web.application.widget.header.HeaderPresenter;
 import com.gsr.myschool.front.client.web.application.widget.header.HeaderUiHandlers;
 import com.gsr.myschool.front.client.web.application.widget.header.HeaderView;
-import com.gsr.myschool.front.client.web.application.widget.sider.SiderHolderPresenter;
-import com.gsr.myschool.front.client.web.application.widget.sider.SiderHolderView;
+import com.gsr.myschool.front.client.web.application.widget.sider.MenuPresenter;
+import com.gsr.myschool.front.client.web.application.widget.sider.MenuUiHandlers;
+import com.gsr.myschool.front.client.web.application.widget.sider.MenuView;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 public class ApplicationModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
-        install(new HomeModule());
+        install(new InscriptionModule());
+        install(new ConvocationModule());
+        install(new InboxModule());
 
         bind(new TypeLiteral<UiHandlersStrategy<HeaderUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<HeaderUiHandlers>>() {});
+        bind(new TypeLiteral<UiHandlersStrategy<MenuUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<MenuUiHandlers>>() {});
 
         bindPresenter(ApplicationPresenter.class, ApplicationPresenter.MyView.class, ApplicationView.class,
                 ApplicationPresenter.MyProxy.class);
 
         bindSingletonPresenterWidget(HeaderPresenter.class, HeaderPresenter.MyView.class,
                 HeaderView.class);
-        bindSingletonPresenterWidget(SiderHolderPresenter.class, SiderHolderPresenter.MyView.class,
-                SiderHolderView.class);
+        bindSingletonPresenterWidget(MenuPresenter.class, MenuPresenter.MyView.class,
+                MenuView.class);
     }
 }

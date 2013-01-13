@@ -14,32 +14,23 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.web.application.widget.sider;
+package com.gsr.myschool.front.client.web.application.inbox;
 
-import com.arcbees.core.client.mvp.ViewImpl;
 import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
+import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 
-public class SiderHolderView extends ViewImpl implements SiderHolderPresenter.MyView {
-    public interface Binder extends UiBinder<Widget, SiderHolderView> {
+public class InboxView extends ViewWithUiHandlers<InboxUiHandlers> implements InboxPresenter.MyView {
+    public interface Binder extends UiBinder<Widget, InboxView> {
     }
-
-    @UiField
-    SimplePanel siderContainer;
 
     @Inject
-    public SiderHolderView(final Binder uiBinder) {
-        initWidget(uiBinder.createAndBindUi(this));
-    }
+    public InboxView(final Binder uiBinder,
+                     final UiHandlersStrategy<InboxUiHandlers> uiHandlers) {
+        super(uiHandlers);
 
-    @Override
-    public void setInSlot(Object slot, Widget content) {
-        siderContainer.clear();
-        if (content != null) {
-            siderContainer.setWidget(content);
-        }
+        initWidget(uiBinder.createAndBindUi(this));
     }
 }

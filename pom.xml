@@ -14,7 +14,6 @@
         <gwt.version>2.5.0</gwt.version>
         <gwtp.version>0.8-alpha-3</gwtp.version>
         <gin.version>2.0.0</gin.version>
-        <arcbees-core.version>1.0-SNAPSHOT</arcbees-core.version>
         <gwt-query.version>1.2.0</gwt-query.version>
         <gwt-bootstrap.version>2.0.4.0</gwt-bootstrap.version>
         <gwt.style>OBF</gwt.style>
@@ -143,7 +142,7 @@
                 </executions>
             </plugin>
 
-            <!-- Run annotation processors on src/home/java sources -->
+            <!-- Run annotation processors on src/inscription/java sources -->
             <plugin>
                 <groupId>org.bsc.maven</groupId>
                 <artifactId>maven-processor-plugin</artifactId>
@@ -219,12 +218,6 @@
         </dependency>
 
         <!-- GWT-Platform dependencies -->
-        <dependency>
-            <groupId>com.arcbees.core</groupId>
-            <artifactId>arcbees-core</artifactId>
-            <version>${arcbees-core.version}</version>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>com.gwtplatform</groupId>
             <artifactId>gwtp-mvp-client</artifactId>

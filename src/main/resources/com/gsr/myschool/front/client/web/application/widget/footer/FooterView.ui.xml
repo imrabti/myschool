@@ -1,6 +1,17 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-    <g:HTMLPanel>
-        Here will be the footer of the application...
+    <ui:style>
+        .footerWrapper {
+            background-color: #dddddd;
+            border-top: 4px solid #cccccc;
+            padding-top: 15px;
+            padding-left: 10px;
+            text-shadow: 0 1px 1px rgba(255,255,255, 1);
+            text-align: center;
+        }
+    </ui:style>
+
+    <g:HTMLPanel styleName="{style.footerWrapper}">
+        Copyright 2013 <strong>Out Of Box</strong>. All rights reserved.
     </g:HTMLPanel>
 </ui:UiBinder> 

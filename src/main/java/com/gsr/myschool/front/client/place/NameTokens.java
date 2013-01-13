@@ -19,7 +19,9 @@ package com.gsr.myschool.front.client.place;
 public class NameTokens {
     public static final String login = "login";
     public static final String register = "register";
-    public static final String home = "home";
+    public static final String inscription = "inscription";
+    public static final String convocation = "convocation";
+    public static final String inbox = "inbox";
 
     public static String getLogin() {
         return login;
@@ -29,7 +31,15 @@ public class NameTokens {
         return register;
     }
 
-    public static String getHome() {
-        return home;
+    public static String getInscription() {
+        return inscription;
+    }
+
+    public static String getConvocation() {
+        return convocation;
+    }
+
+    public static String getInbox() {
+        return inbox;
     }
 }
