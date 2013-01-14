@@ -7,12 +7,15 @@ import com.gsr.myschool.server.repos.EmailTemplateRepos;
 import com.gsr.myschool.server.repos.UserRepos;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.test.Deployment;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import static java.lang.Thread.sleep;
 
@@ -70,6 +73,12 @@ public class RegisterProcessServiceTest {
         user.setFirstName(fname);
         user.setLastName(lname);
         userRepos.save(user);
+    }
+
+    @After
+    public void terminate(){
+        userRepos.delete(1L);
+        emailTemplateRepos.deleteAll();
     }
 
     // tests the first scenario witch sends another mail, and finaly deletes the account
