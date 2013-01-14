@@ -14,23 +14,20 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.web;
+package com.gsr.myschool.front.client.web.administration;
 
-import com.gsr.myschool.front.client.web.administration.AdministrationModule;
+import com.google.inject.TypeLiteral;
+import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
+import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
-import com.gsr.myschool.front.client.web.application.ApplicationModule;
-import com.gsr.myschool.front.client.web.welcome.WelcomeModule;
-import com.gsr.myschool.common.client.widget.messages.MessageModule;
 
-public class RootModule extends AbstractPresenterModule {
+public class AdministrationModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
-        install(new ApplicationModule());
-		install(new AdministrationModule());
-        install(new WelcomeModule());
-        install(new MessageModule());
+        bind(new TypeLiteral<UiHandlersStrategy<AdministrationUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<AdministrationUiHandlers>>() {});
 
-        bindPresenter(RootPresenter.class, RootPresenter.MyView.class, RootView.class,
-                RootPresenter.MyProxy.class);
+        bindPresenter(AdministrationPresenter.class, AdministrationPresenter.MyView.class, AdministrationView.class,
+                AdministrationPresenter.MyProxy.class);
     }
 }

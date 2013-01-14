@@ -18,6 +18,13 @@ package com.gsr.myschool.front.client.web.welcome.login;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.common.client.security.SecurityUtils;
+import com.gsr.myschool.common.shared.dto.UserCredentials;
+import com.gsr.myschool.front.client.BootstrapperImpl;
+import com.gsr.myschool.front.client.place.NameTokens;
+import com.gsr.myschool.front.client.request.MyRequestFactory;
+import com.gsr.myschool.front.client.web.RootPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -26,13 +33,9 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
-import com.gsr.myschool.front.client.BootstrapperImpl;
-import com.gsr.myschool.front.client.place.NameTokens;
-import com.gsr.myschool.front.client.request.MyRequestFactory;
-import com.gsr.myschool.common.client.request.ReceiverImpl;
-import com.gsr.myschool.common.client.security.SecurityUtils;
-import com.gsr.myschool.front.client.web.RootPresenter;
-import com.gsr.myschool.common.shared.dto.UserCredentials;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresenter.MyProxy>
         implements LoginUiHandlers {
@@ -74,7 +77,12 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
             public void onSuccess(Boolean authenticated) {
                 if (authenticated) {
                     securityUtils.setCredentials(credentials.getUsername(), credentials.getPassword());
-                    bootstrapper.init();
+
+					List<String> authorities = new ArrayList<String>();
+					authorities.add("ADMINISTRATOR");
+					securityUtils.setAuthorities(authorities);
+
+					bootstrapper.init();
                 } else {
                     getView().displayLoginError(true);
                 }

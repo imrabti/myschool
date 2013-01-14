@@ -1,0 +1,7 @@
+package com.gsr.myschool.front.client.web.administration.widget.sider;
+
+import com.gwtplatform.mvp.client.UiHandlers;
+
+public interface BackOfficeMenuUiHandlers extends UiHandlers {
+    void onMenuChanged(BackOfficeMenuItem selectedMenu);
+}
