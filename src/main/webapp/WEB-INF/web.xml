@@ -8,6 +8,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
             classpath*:META-INF/applicationContext.xml,
+            classpath*:META-INF/applicationContext-activiti.xml,
             classpath*:META-INF/applicationContext-security.xml
         </param-value>
     </context-param>

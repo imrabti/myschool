@@ -28,14 +28,13 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ValidatedViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.front.client.request.proxy.UserProxy;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.common.client.util.EditorView;
-
-import javax.inject.Inject;
 
 import static com.google.gwt.query.client.GQuery.$;
 
