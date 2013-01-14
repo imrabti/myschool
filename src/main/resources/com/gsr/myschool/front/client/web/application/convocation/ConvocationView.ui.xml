@@ -1,4 +1,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-    <g:SimplePanel ui:field="siderContainer"/>
+    <g:HTMLPanel>
+        This is the convocation view
+    </g:HTMLPanel>
 </ui:UiBinder>

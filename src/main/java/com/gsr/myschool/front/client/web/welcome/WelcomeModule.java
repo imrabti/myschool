@@ -16,9 +16,9 @@
 
 package com.gsr.myschool.front.client.web.welcome;
 
-import com.arcbees.core.client.mvp.uihandlers.SetterUiHandlersStrategy;
-import com.arcbees.core.client.mvp.uihandlers.UiHandlersStrategy;
 import com.google.inject.TypeLiteral;
+import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
+import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 import com.gsr.myschool.front.client.web.welcome.login.LoginPresenter;
 import com.gsr.myschool.front.client.web.welcome.login.LoginUiHandlers;

@@ -16,7 +16,7 @@
 
 package com.gsr.myschool.front.client.web.application;
 
-import com.arcbees.core.client.mvp.ViewImpl;
+import com.gsr.myschool.common.client.mvp.ViewImpl;
 import com.gsr.myschool.common.client.widget.AjaxLoader;
 import com.gsr.myschool.front.client.web.application.widget.footer.FooterView;
 import com.google.gwt.uibinder.client.UiBinder;

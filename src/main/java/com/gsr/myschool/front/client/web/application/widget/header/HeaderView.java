@@ -16,27 +16,48 @@
 
 package com.gsr.myschool.front.client.web.application.widget.header;
 
-import com.arcbees.core.client.mvp.ViewWithUiHandlers;
-import com.arcbees.core.client.mvp.uihandlers.UiHandlersStrategy;
+import com.github.gwtbootstrap.client.ui.NavText;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
+import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.front.client.resource.message.MessageBundle;
 
 public class HeaderView extends ViewWithUiHandlers<HeaderUiHandlers> implements HeaderPresenter.MyView {
     public interface Binder extends UiBinder<Widget, HeaderView> {
     }
 
+    @UiField
+    NavText welcomeMessage;
+
+    private final MessageBundle messageBundle;
+
     @Inject
-    public HeaderView(final Binder uiBinder, final UiHandlersStrategy<HeaderUiHandlers> uiHandlersStrategy) {
+    public HeaderView(final Binder uiBinder, final MessageBundle messageBundle,
+                      final UiHandlersStrategy<HeaderUiHandlers> uiHandlersStrategy) {
         super(uiHandlersStrategy);
 
+        this.messageBundle = messageBundle;
+
         initWidget(uiBinder.createAndBindUi(this));
+    }
+
+    @Override
+    public void displayUserInfo(String username) {
+        welcomeMessage.setText(messageBundle.welcomeMessage(username));
     }
 
     @UiHandler("logout")
     void onLogoutClicked(ClickEvent event) {
         getUiHandlers().logout();
+    }
+
+    @UiHandler("setting")
+    void onSettingClicked(ClickEvent event) {
+        getUiHandlers().setting();
     }
 }
