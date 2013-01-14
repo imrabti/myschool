@@ -1,7 +1,7 @@
 package com.gsr.myschool.server.service.impl;
 
 import com.gsr.myschool.common.shared.dto.EmailDTO;
-import com.gsr.myschool.common.shared.type.Email;
+import com.gsr.myschool.common.shared.type.EmailType;
 import com.gsr.myschool.server.business.EmailTemplate;
 import com.gsr.myschool.server.repos.EmailTemplateRepos;
 import com.gsr.myschool.server.service.EmailService;
@@ -21,7 +21,7 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     private EmailTemplateRepos emailTemplateRepos;
 
-    public EmailDTO populateEmail(Email code, String to, String from, Map<String, String> params, String cc,
+    public EmailDTO populateEmail(EmailType code, String to, String from, Map<String, String> params, String cc,
                                   String bcc) throws Exception {
         velocityEngine.init();
         VelocityContext context = new VelocityContext();

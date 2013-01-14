@@ -2,12 +2,11 @@ package com.gsr.myschool.server.process.impl;
 
 import com.gsr.myschool.common.client.util.Base64;
 import com.gsr.myschool.common.shared.dto.EmailDTO;
-import com.gsr.myschool.common.shared.type.Email;
+import com.gsr.myschool.common.shared.type.EmailType;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.process.RegisterProcessService;
 import com.gsr.myschool.server.repos.UserRepos;
 import com.gsr.myschool.server.service.EmailService;
-import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
@@ -38,10 +37,10 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
         params.put("firstname", user.getFirstName());
         params.put("link", "mylink/?token=" + token);
 
-        EmailDTO email = emailService.populateEmail(Email.REGISTRATION, user.getEmail(), "todefine@myschool.com", params, "", "");
+        EmailDTO email = emailService.populateEmail(EmailType.REGISTRATION, user.getEmail(), "todefine@myschool.com", params, "", "");
 
         Map<String, Object> processParams = new HashMap<String, Object>();
-        processParams.put("token", "test");
+        processParams.put("token", token);
         processParams.put("email", email);
         processParams.put("userId", user.getId());
 
@@ -56,10 +55,10 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
         params.put("firstname", user.getFirstName());
         params.put("link", "mylink/?token=" + token);
 
-        EmailDTO email = emailService.populateEmail(Email.REGISTRATION, user.getEmail(), "todefine@myschool.com", params, "", "");
+        EmailDTO email = emailService.populateEmail(EmailType.REGISTRATION, user.getEmail(), "todefine@myschool.com", params, "", "");
 
         Map<String, Object> processParams = new HashMap<String, Object>();
-        processParams.put("token", "test");
+        processParams.put("token", token);
         processParams.put("email", email);
         processParams.put("userId", user.getId());
 
@@ -92,7 +91,7 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
         params.put("firstname", user.getFirstName());
         params.put("link", "mylink/?token=" + token);
 
-        email = emailService.populateEmail(Email.RELANCE, email.getTo(), email.getFrom(), params, "", "");
+        email = emailService.populateEmail(EmailType.RELANCE, email.getTo(), email.getFrom(), params, "", "");
         return email;
     }
 
@@ -103,7 +102,7 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
         params.put("lastname", user.getLastName());
         params.put("firstname", user.getFirstName());
 
-        email = emailService.populateEmail(Email.ACTIVATION, email.getTo(), email.getFrom(), params, "", "");
+        email = emailService.populateEmail(EmailType.ACTIVATION, email.getTo(), email.getFrom(), params, "", "");
         return email;
     }
 }

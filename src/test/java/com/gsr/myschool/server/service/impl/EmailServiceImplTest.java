@@ -1,7 +1,7 @@
 package com.gsr.myschool.server.service.impl;
 
 import com.gsr.myschool.common.shared.dto.EmailDTO;
-import com.gsr.myschool.common.shared.type.Email;
+import com.gsr.myschool.common.shared.type.EmailType;
 import com.gsr.myschool.server.business.EmailTemplate;
 import com.gsr.myschool.server.repos.EmailTemplateRepos;
 import com.gsr.myschool.server.service.EmailService;
@@ -28,7 +28,7 @@ public class EmailServiceImplTest {
     public void populatedb() {
         EmailTemplate email = new EmailTemplate();
         email.setId(1L);
-        email.setCode(Email.ACTIVATION);
+        email.setCode(EmailType.ACTIVATION);
         email.setMessage("hello $key1, how is your $key2 and $key");
         email.setSubject("this a subject");
 
@@ -49,7 +49,7 @@ public class EmailServiceImplTest {
         params.put("key3", "valeur3");
 
         // populate the mail template and return a mailDTO
-        EmailDTO result = emailService.populateEmail(Email.ACTIVATION, to, from, params, cc, bcc);
+        EmailDTO result = emailService.populateEmail(EmailType.ACTIVATION, to, from, params, cc, bcc);
 
         // show result
         System.out.println("==");

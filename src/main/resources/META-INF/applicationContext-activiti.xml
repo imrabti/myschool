@@ -6,10 +6,14 @@
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
     <!-- property place holder for external properties -->
-    <p:property-placeholder location="classpath*:/META-INF/process/*.properties"/>
+    <p:property-placeholder location="classpath*:/META-INF/*.properties"/>
+
+    <bean id="activiti-datasource" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
+        <property name="targetDataSource" ref="dataSource" />
+    </bean>
 
     <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
-        <property name="dataSource" ref="dataSource"/>
+        <property name="dataSource" ref="activiti-datasource"/>
         <property name="transactionManager" ref="transactionManager"/>
         <property name="databaseSchemaUpdate" value="true"/>
         <property name="mailServerHost" value="${mailserver.host}"/>

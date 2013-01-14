@@ -1,5 +1,5 @@
 package com.gsr.myschool.common.shared.type;
 
-public enum Email {
+public enum EmailType {
     REGISTRATION, ACTIVATION, RELANCE;
 }

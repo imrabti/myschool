@@ -50,6 +50,4 @@
             </props>
         </property>
     </bean>
-
-    <import resource="applicationContext-activiti.xml"/>
 </beans>

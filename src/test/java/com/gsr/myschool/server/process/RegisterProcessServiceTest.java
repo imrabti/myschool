@@ -1,6 +1,6 @@
 package com.gsr.myschool.server.process;
 
-import com.gsr.myschool.common.shared.type.Email;
+import com.gsr.myschool.common.shared.type.EmailType;
 import com.gsr.myschool.server.business.EmailTemplate;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.repos.EmailTemplateRepos;
@@ -18,10 +18,10 @@ import static java.lang.Thread.sleep;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath*:META-INF/applicationContext.xml",
-        "classpath*:/META-INF/applicationContext-security.xml"})
+        "classpath*:META-INF/applicationContext-activiti.xml","classpath*:/META-INF/applicationContext-security.xml"})
 public class RegisterProcessServiceTest {
     @Autowired
-    RuntimeService runtimeService;
+    private RuntimeService runtimeService;
     @Autowired
     private RegisterProcessService registerProcessService;
     @Autowired
@@ -38,7 +38,7 @@ public class RegisterProcessServiceTest {
         // populate the email templates
         EmailTemplate email = new EmailTemplate();
         email.setId(1L);
-        email.setCode(Email.REGISTRATION);
+        email.setCode(EmailType.REGISTRATION);
         email.setMessage("<html><body> hello $firstname $lastname," +
                 "<br> to complete your registration please visit this url : $link <br> best regards, " +
                 "<br> myschool.com</body></html>");
@@ -46,7 +46,7 @@ public class RegisterProcessServiceTest {
         emailTemplateRepos.save(email);
 
         email.setId(2L);
-        email.setCode(Email.ACTIVATION);
+        email.setCode(EmailType.ACTIVATION);
         email.setMessage("<html><body> hello $firstname $lastname," +
                 "<br> Your account has been succesfully activated, " +
                 "<br> best regards, <br> myschool.com</body></html>");
@@ -54,7 +54,7 @@ public class RegisterProcessServiceTest {
         emailTemplateRepos.save(email);
 
         email.setId(3L);
-        email.setCode(Email.RELANCE);
+        email.setCode(EmailType.RELANCE);
         email.setMessage("<html><body> hello $firstname $lastname," +
                 "<br> to complete your registration please visit this url: $link " +
                 "<br> best regards," +

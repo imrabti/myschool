@@ -1,6 +1,6 @@
 package com.gsr.myschool.server.business;
 
-import com.gsr.myschool.common.shared.type.Email;
+import com.gsr.myschool.common.shared.type.EmailType;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -11,7 +11,7 @@ public class EmailTemplate {
     @Id
     private Long id;
     @Enumerated
-    private Email code;
+    private EmailType code;
     private String message;
     private String subject;
 
@@ -23,11 +23,11 @@ public class EmailTemplate {
         this.id = id;
     }
 
-    public Email getCode() {
+    public EmailType getCode() {
         return code;
     }
 
-    public void setCode(Email code) {
+    public void setCode(EmailType code) {
         this.code = code;
     }
 
