@@ -37,6 +37,7 @@ public class User implements Serializable {
     private String lastName;
     @Enumerated
     private Authority authority;
+    private Boolean active;
 
     public Long getId() {
         return id;
@@ -92,5 +93,13 @@ public class User implements Serializable {
 
     public void setAuthority(Authority authority) {
         this.authority = authority;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }
