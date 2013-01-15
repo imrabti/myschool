@@ -14,13 +14,9 @@
  * the License.
  */
 
-package com.gsr.myschool.server.security;
+package com.gsr.myschool.back.client.web.administration;
 
-import com.gsr.myschool.server.business.AdminUser;
-import com.gsr.myschool.server.business.User;
+import com.gwtplatform.mvp.client.UiHandlers;
 
-public interface SecurityContextProvider {
-    User getCurrentUser();
-
-	AdminUser getCurrentAdmin();
+public interface AdministrationUiHandlers extends UiHandlers {
 }

@@ -14,25 +14,27 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.web.welcome.login;
+package com.gsr.myschool.back.client.web.welcome.login;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+import com.gsr.myschool.back.client.BootstrapperImpl;
+import com.gsr.myschool.back.client.place.NameTokens;
+import com.gsr.myschool.back.client.place.PlaceManager;
+import com.gsr.myschool.back.client.request.BackRequestFactory;
+import com.gsr.myschool.back.client.web.RootPresenter;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gsr.myschool.common.shared.dto.UserCredentials;
-import com.gsr.myschool.front.client.BootstrapperImpl;
-import com.gsr.myschool.front.client.place.NameTokens;
-import com.gsr.myschool.front.client.request.MyRequestFactory;
-import com.gsr.myschool.front.client.web.RootPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
-import com.gwtplatform.mvp.client.proxy.PlaceManager;
-import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresenter.MyProxy>
         implements LoginUiHandlers {
@@ -47,14 +49,14 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
     public interface MyProxy extends ProxyPlace<LoginPresenter> {
     }
 
-    private final MyRequestFactory requestFactory;
+    private final BackRequestFactory requestFactory;
     private final SecurityUtils securityUtils;
     private final BootstrapperImpl bootstrapper;
     private final PlaceManager placeManager;
 
     @Inject
     public LoginPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
-                          final MyRequestFactory requestFactory, final SecurityUtils securityUtils,
+                          final BackRequestFactory requestFactory, final SecurityUtils securityUtils,
                           final BootstrapperImpl bootstrapper, final PlaceManager placeManager) {
         super(eventBus, view, proxy, RootPresenter.TYPE_SetMainContent);
 
@@ -70,21 +72,21 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
     public void login(final UserCredentials credentials) {
         requestFactory.authenticationService().authenticate(credentials.getUsername(), credentials.getPassword())
                 .fire(new ReceiverImpl<Boolean>() {
-            @Override
-            public void onSuccess(Boolean authenticated) {
-                if (authenticated) {
-                    securityUtils.setCredentials(credentials.getUsername(), credentials.getPassword());
-					bootstrapper.init();
-                } else {
-                    getView().displayLoginError(true);
-                }
-            }
-        });
-    }
+					@Override
+					public void onSuccess(Boolean authenticated) {
+						if (authenticated) {
+							securityUtils.setCredentials(credentials.getUsername(), credentials.getPassword());
 
-    @Override
-    public void register() {
-        placeManager.revealPlace(new PlaceRequest(NameTokens.getRegister()));
+							List<String> authorities = new ArrayList<String>();
+							authorities.add("ROLE_ADMIN");
+							securityUtils.setAuthorities(authorities);
+
+							bootstrapper.init();
+						} else {
+							getView().displayLoginError(true);
+						}
+					}
+				});
     }
 
     @Override

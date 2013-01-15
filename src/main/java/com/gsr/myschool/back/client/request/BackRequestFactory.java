@@ -14,13 +14,10 @@
  * the License.
  */
 
-package com.gsr.myschool.server.security;
+package com.gsr.myschool.back.client.request;
 
-import com.gsr.myschool.server.business.AdminUser;
-import com.gsr.myschool.server.business.User;
+import com.google.web.bindery.requestfactory.shared.RequestFactory;
 
-public interface SecurityContextProvider {
-    User getCurrentUser();
-
-	AdminUser getCurrentAdmin();
+public interface BackRequestFactory extends RequestFactory {
+    AuthenticationRequest authenticationService();
 }

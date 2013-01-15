@@ -14,15 +14,15 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.request.proxy;
+package com.gsr.myschool.back.client.request.proxy;
 
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;
 import com.gsr.myschool.common.shared.type.AuthorityType;
-import com.gsr.myschool.server.business.User;
+import com.gsr.myschool.server.business.AdminUser;
 
-@ProxyFor(User.class)
-public interface UserProxy extends ValueProxy {
+@ProxyFor(AdminUser.class)
+public interface AdminUserProxy extends ValueProxy {
     Long getId();
 
     void setId(Long id);
@@ -49,5 +49,5 @@ public interface UserProxy extends ValueProxy {
 
     AuthorityType getAuthority();
 
-    void setAuthority(AuthorityType authorityType);
+    void setAuthority(AuthorityType authority);
 }

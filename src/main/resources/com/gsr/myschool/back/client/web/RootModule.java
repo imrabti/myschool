@@ -14,17 +14,17 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.web;
+package com.gsr.myschool.back.client.web;
 
+import com.gsr.myschool.back.client.web.administration.AdministrationModule;
+import com.gsr.myschool.back.client.web.welcome.WelcomeModule;
 import com.gsr.myschool.common.client.widget.messages.MessageModule;
-import com.gsr.myschool.front.client.web.application.ApplicationModule;
-import com.gsr.myschool.front.client.web.welcome.WelcomeModule;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 public class RootModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
-        install(new ApplicationModule());
+		install(new AdministrationModule());
         install(new WelcomeModule());
         install(new MessageModule());
 
