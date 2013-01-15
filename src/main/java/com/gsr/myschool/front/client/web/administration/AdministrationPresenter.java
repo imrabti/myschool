@@ -48,7 +48,7 @@ public class AdministrationPresenter extends Presenter<AdministrationPresenter.M
 	@ProxyStandard
 	@NameToken(NameTokens.administration)
 	@UseGatekeeper(HasRoleGatekeeper.class)
-	@GatekeeperParams("ADMINISTRATOR")
+	@GatekeeperParams({ "ROLE_ADMIN" })
 	public interface MyProxy extends ProxyPlace<AdministrationPresenter> {
 	}
 

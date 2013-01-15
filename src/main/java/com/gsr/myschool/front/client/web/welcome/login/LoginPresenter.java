@@ -79,7 +79,7 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
                     securityUtils.setCredentials(credentials.getUsername(), credentials.getPassword());
 
 					List<String> authorities = new ArrayList<String>();
-					authorities.add("ADMINISTRATOR");
+					authorities.add("ROLE_ADMIN");
 					securityUtils.setAuthorities(authorities);
 
 					bootstrapper.init();

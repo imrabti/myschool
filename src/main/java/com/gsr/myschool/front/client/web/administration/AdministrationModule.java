@@ -19,6 +19,12 @@ package com.gsr.myschool.front.client.web.administration;
 import com.google.inject.TypeLiteral;
 import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.front.client.web.administration.widget.header.BackOfficeHeaderPresenter;
+import com.gsr.myschool.front.client.web.administration.widget.header.BackOfficeHeaderUiHandlers;
+import com.gsr.myschool.front.client.web.administration.widget.header.BackOfficeHeaderView;
+import com.gsr.myschool.front.client.web.administration.widget.sider.BackOfficeMenuPresenter;
+import com.gsr.myschool.front.client.web.administration.widget.sider.BackOfficeMenuUiHandlers;
+import com.gsr.myschool.front.client.web.administration.widget.sider.BackOfficeMenuView;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 public class AdministrationModule extends AbstractPresenterModule {
@@ -26,8 +32,16 @@ public class AdministrationModule extends AbstractPresenterModule {
     protected void configure() {
         bind(new TypeLiteral<UiHandlersStrategy<AdministrationUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<AdministrationUiHandlers>>() {});
+		bind(new TypeLiteral<UiHandlersStrategy<BackOfficeHeaderUiHandlers>>() {})
+				.to(new TypeLiteral<SetterUiHandlersStrategy<BackOfficeHeaderUiHandlers>>() {});
+		bind(new TypeLiteral<UiHandlersStrategy<BackOfficeMenuUiHandlers>>() {})
+				.to(new TypeLiteral<SetterUiHandlersStrategy<BackOfficeMenuUiHandlers>>() {});
 
         bindPresenter(AdministrationPresenter.class, AdministrationPresenter.MyView.class, AdministrationView.class,
                 AdministrationPresenter.MyProxy.class);
+		bindSingletonPresenterWidget(BackOfficeHeaderPresenter.class, BackOfficeHeaderPresenter.MyView.class,
+				BackOfficeHeaderView.class);
+		bindSingletonPresenterWidget(BackOfficeMenuPresenter.class, BackOfficeMenuPresenter.MyView.class,
+				BackOfficeMenuView.class);
     }
 }
