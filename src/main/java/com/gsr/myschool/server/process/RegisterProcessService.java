@@ -12,7 +12,7 @@ public interface RegisterProcessService {
 
     EmailDTO getRelanceMail(Long id, String token, EmailDTO email) throws Exception;
 
-    public void acctivateAccount(String token) throws Exception;
+    void activateAccount(String token) throws Exception;
 
     void register(User user, String token) throws Exception;
 }

@@ -66,7 +66,7 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
     }
 
     @Override
-    public void acctivateAccount(String token) throws Exception {
+    public void activateAccount(String token) throws Exception {
         Task task = taskService.createTaskQuery().taskAssignee(token).singleResult();
         if (task == null) throw new Exception();
 

@@ -14,8 +14,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 import static java.lang.Thread.sleep;
 
@@ -95,7 +93,7 @@ public class RegisterProcessServiceTest {
     public void testScenarion2() throws Exception {
         String token = "test";
         registerProcessService.register(user, token);
-        registerProcessService.acctivateAccount(token);
+        registerProcessService.activateAccount(token);
         sleep(10000);
     }
 }
