@@ -1,23 +1,27 @@
 package com.gsr.myschool.server.business;
 
-import com.gsr.myschool.common.shared.type.EmailType;
+import com.gsr.myschool.common.shared.type.InscriptionStatusType;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class EmailTemplate implements Serializable {
+public class Inscription implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Enumerated
-    private EmailType code;
-    private String message;
-    private String subject;
+    private InscriptionStatusType status;
+    @ManyToOne
+    private User user;
     private Date created;
     private Date updated;
 
@@ -29,28 +33,20 @@ public class EmailTemplate implements Serializable {
         this.id = id;
     }
 
-    public EmailType getCode() {
-        return code;
+    public InscriptionStatusType getStatus() {
+        return status;
     }
 
-    public void setCode(EmailType code) {
-        this.code = code;
+    public void setStatus(InscriptionStatusType status) {
+        this.status = status;
     }
 
-    public String getMessage() {
-        return message;
+    public User getUser() {
+        return user;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Date getCreated() {

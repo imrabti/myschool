@@ -16,6 +16,6 @@
 
 package com.gsr.myschool.common.shared.type;
 
-public enum Authority {
+public enum AuthorityType {
     ROLE_USER, ROLE_ADMIN;
 }
