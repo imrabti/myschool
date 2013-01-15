@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -17,19 +18,20 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.Map;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = {"classpath*:META-INF/applicationContext.xml",
-//        "classpath*:/META-INF/applicationContext-activiti.xml", "classpath*:/META-INF/applicationContext-security.xml"})
-//@TransactionConfiguration(defaultRollback = true)
-//@Transactional
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath*:META-INF/applicationContext.xml",
+        "classpath*:/META-INF/applicationContext-activiti.xml", "classpath*:/META-INF/applicationContext-security.xml"})
+@TransactionConfiguration(defaultRollback = true)
+@Transactional
+@ActiveProfiles("test")
 public class EmailServiceImplTest {
-//    @Autowired
+    @Autowired
     private EmailService emailService;
-//    @Autowired
+    @Autowired
     private EmailTemplateRepos emailTemplateRepos;
     EmailTemplate email = new EmailTemplate();
 
-    //@Before
+    @Before
     public void populatedb() {
         email.setId(1L);
         email.setCode(EmailType.ACTIVATION);
@@ -37,7 +39,7 @@ public class EmailServiceImplTest {
         email.setSubject("this a subject");
     }
 
-//    @Test
+    @Test
     public void testPopulateEmail() throws Exception {
         emailTemplateRepos.save(email);
 
@@ -62,7 +64,4 @@ public class EmailServiceImplTest {
         System.out.println("message : " + result.getMessage());
         System.out.println("==");
     }
-
-    @Test
-    public void clear(){}
 }
