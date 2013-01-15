@@ -14,13 +14,20 @@
  * the License.
  */
 
-package com.gsr.myschool.server.security;
+package com.gsr.myschool.back.client.place;
 
-import com.gsr.myschool.server.business.AdminUser;
-import com.gsr.myschool.server.business.User;
+import com.google.inject.BindingAnnotation;
 
-public interface SecurityContextProvider {
-    User getCurrentUser();
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
-	AdminUser getCurrentAdmin();
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+@BindingAnnotation
+@Target({FIELD, PARAMETER, METHOD})
+@Retention(RUNTIME)
+public @interface DefaultPlace {
 }

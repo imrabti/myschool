@@ -14,13 +14,19 @@
  * the License.
  */
 
-package com.gsr.myschool.server.security;
+package com.gsr.myschool.back.client;
 
-import com.gsr.myschool.server.business.AdminUser;
-import com.gsr.myschool.server.business.User;
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
+import com.gwtplatform.mvp.client.ApplicationController;
 
-public interface SecurityContextProvider {
-    User getCurrentUser();
+public class MySchoolBack implements EntryPoint {
 
-	AdminUser getCurrentAdmin();
+    private static ApplicationController controller = GWT.create(ApplicationController.class);
+
+    @Override
+    public void onModuleLoad() {
+        controller.init();
+    }
 }
+

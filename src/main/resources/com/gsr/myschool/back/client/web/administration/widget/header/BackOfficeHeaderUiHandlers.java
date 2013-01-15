@@ -1,4 +1,4 @@
-package com.gsr.myschool.front.client.web.administration.widget.header;
+package com.gsr.myschool.back.client.web.administration.widget.header;
 
 import com.gwtplatform.mvp.client.UiHandlers;
 

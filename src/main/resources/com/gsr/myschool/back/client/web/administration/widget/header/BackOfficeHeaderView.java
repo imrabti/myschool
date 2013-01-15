@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.web.administration.widget.header;
+package com.gsr.myschool.back.client.web.administration.widget.header;
 
 import com.github.gwtbootstrap.client.ui.NavText;
 import com.google.gwt.event.dom.client.ClickEvent;

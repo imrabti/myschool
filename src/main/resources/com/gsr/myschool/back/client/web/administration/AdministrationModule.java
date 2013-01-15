@@ -14,17 +14,17 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.web.administration;
+package com.gsr.myschool.back.client.web.administration;
 
 import com.google.inject.TypeLiteral;
 import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
-import com.gsr.myschool.front.client.web.administration.widget.header.BackOfficeHeaderPresenter;
-import com.gsr.myschool.front.client.web.administration.widget.header.BackOfficeHeaderUiHandlers;
-import com.gsr.myschool.front.client.web.administration.widget.header.BackOfficeHeaderView;
-import com.gsr.myschool.front.client.web.administration.widget.sider.BackOfficeMenuPresenter;
-import com.gsr.myschool.front.client.web.administration.widget.sider.BackOfficeMenuUiHandlers;
-import com.gsr.myschool.front.client.web.administration.widget.sider.BackOfficeMenuView;
+import com.gsr.myschool.back.client.web.administration.widget.header.BackOfficeHeaderPresenter;
+import com.gsr.myschool.back.client.web.administration.widget.header.BackOfficeHeaderUiHandlers;
+import com.gsr.myschool.back.client.web.administration.widget.header.BackOfficeHeaderView;
+import com.gsr.myschool.back.client.web.administration.widget.sider.BackOfficeMenuPresenter;
+import com.gsr.myschool.back.client.web.administration.widget.sider.BackOfficeMenuUiHandlers;
+import com.gsr.myschool.back.client.web.administration.widget.sider.BackOfficeMenuView;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 public class AdministrationModule extends AbstractPresenterModule {

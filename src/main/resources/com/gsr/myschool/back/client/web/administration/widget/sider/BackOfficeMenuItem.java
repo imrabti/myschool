@@ -1,4 +1,4 @@
-package com.gsr.myschool.front.client.web.administration.widget.sider;
+package com.gsr.myschool.back.client.web.administration.widget.sider;
 
 public enum BackOfficeMenuItem {
     PRE_INSCRIPTION("PRE-INSCRIPTIONS"),

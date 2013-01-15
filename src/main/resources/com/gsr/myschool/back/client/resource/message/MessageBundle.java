@@ -14,13 +14,18 @@
  * the License.
  */
 
-package com.gsr.myschool.server.security;
+package com.gsr.myschool.back.client.resource.message;
 
-import com.gsr.myschool.server.business.AdminUser;
-import com.gsr.myschool.server.business.User;
+import com.google.gwt.i18n.client.Messages;
 
-public interface SecurityContextProvider {
-    User getCurrentUser();
+public interface MessageBundle extends Messages {
+    String wrongLoginOrPassword();
 
-	AdminUser getCurrentAdmin();
+    String loginPasswordRequired();
+
+    String registerInfoMissing();
+
+    String welcomeMessage(String username);
+
+    String myEntitySaveSucess();
 }

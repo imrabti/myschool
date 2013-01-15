@@ -1,8 +1,8 @@
-package com.gsr.myschool.front.client.web.administration.widget.sider;
+package com.gsr.myschool.back.client.web.administration.widget.sider;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-import com.gsr.myschool.front.client.place.NameTokens;
+import com.gsr.myschool.back.client.place.NameTokens;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;

@@ -14,13 +14,10 @@
  * the License.
  */
 
-package com.gsr.myschool.server.security;
+package com.gsr.myschool.back.client.resource.style;
 
-import com.gsr.myschool.server.business.AdminUser;
-import com.gsr.myschool.server.business.User;
+import com.google.gwt.resources.client.CssResource;
 
-public interface SecurityContextProvider {
-    User getCurrentUser();
-
-	AdminUser getCurrentAdmin();
+public interface GeneralStyle extends CssResource {
+    String ajaxLoader();
 }

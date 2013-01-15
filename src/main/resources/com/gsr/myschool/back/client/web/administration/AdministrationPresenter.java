@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.web.administration;
+package com.gsr.myschool.back.client.web.administration;
 
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.GwtEvent.Type;
@@ -22,10 +22,10 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.event.RequestEvent;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
-import com.gsr.myschool.front.client.place.NameTokens;
-import com.gsr.myschool.front.client.web.RootPresenter;
-import com.gsr.myschool.front.client.web.administration.widget.header.BackOfficeHeaderPresenter;
-import com.gsr.myschool.front.client.web.administration.widget.sider.BackOfficeMenuPresenter;
+import com.gsr.myschool.back.client.place.NameTokens;
+import com.gsr.myschool.back.client.web.RootPresenter;
+import com.gsr.myschool.back.client.web.administration.widget.header.BackOfficeHeaderPresenter;
+import com.gsr.myschool.back.client.web.administration.widget.sider.BackOfficeMenuPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;

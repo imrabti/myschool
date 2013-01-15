@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.web.administration;
+package com.gsr.myschool.back.client.web.administration;
 
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -25,7 +25,7 @@ import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.widget.AjaxLoader;
-import com.gsr.myschool.front.client.web.application.widget.footer.FooterView;
+import com.gsr.myschool.back.client.web.administration.widget.footer.FooterView;
 
 public class AdministrationView extends ViewWithUiHandlers<AdministrationUiHandlers> implements AdministrationPresenter.MyView {
     public interface Binder extends UiBinder<Widget, AdministrationView> {

@@ -1,4 +1,4 @@
-package com.gsr.myschool.front.client.web.administration.widget.sider;
+package com.gsr.myschool.back.client.web.administration.widget.sider;
 
 import com.github.gwtbootstrap.client.ui.NavLink;
 import com.google.gwt.event.dom.client.ClickEvent;
