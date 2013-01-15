@@ -6,6 +6,8 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <class>com.gsr.myschool.server.business.User</class>
         <class>com.gsr.myschool.server.business.EmailTemplate</class>
+        <class>com.gsr.myschool.server.business.ValueList</class>
+        <class>com.gsr.myschool.server.business.ValueType</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
             <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
