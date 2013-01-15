@@ -17,6 +17,7 @@
 package com.gsr.myschool.front.client;
 
 import com.google.inject.Inject;
+import com.gsr.myschool.common.client.resource.SharedResources;
 import com.gwtplatform.mvp.client.Bootstrapper;
 import com.gwtplatform.mvp.client.annotations.IsTheBootstrapper;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
@@ -41,6 +42,7 @@ public class BootstrapperImpl implements Bootstrapper {
 
     @Inject
     public BootstrapperImpl(final PlaceManager placeManager, final Resources resources,
+                            final SharedResources sharedResources,
                             final SecurityUtils securityUtils,
                             final CurrentUserProvider currentUserProvider) {
         this.placeManager = placeManager;
@@ -48,6 +50,7 @@ public class BootstrapperImpl implements Bootstrapper {
         this.currentUserProvider = currentUserProvider;
 
         resources.generalStyleCss().ensureInjected();
+        sharedResources.sharedStyleCss().ensureInjected();
 
         getCurrentUserCallback = new CallbackImpl<UserProxy>() {
             @Override
