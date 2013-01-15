@@ -16,6 +16,11 @@
                 <div style="clear: both;"/>
             </g:HTMLPanel>
         </g:layer>
+
+        <g:layer top="50px" bottom="20px">
+            <boot:DataGrid ui:field="inscriptionsTable" striped="true"
+                           width="100%" height="100%"/>
+        </g:layer>
     </g:LayoutPanel>
 </ui:UiBinder>
 

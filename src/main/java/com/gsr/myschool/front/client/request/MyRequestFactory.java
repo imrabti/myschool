@@ -22,4 +22,6 @@ public interface MyRequestFactory extends RequestFactory {
     AuthenticationRequest authenticationService();
 
     RegistrationRequest registrationService();
+
+    InscriptionRequest inscriptionService();
 }
