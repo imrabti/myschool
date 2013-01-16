@@ -23,8 +23,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -122,15 +120,5 @@ public class User implements Serializable {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
-    }
-
-    @PrePersist
-    protected void onCreate() {
-        created = new Date();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updated = new Date();
     }
 }

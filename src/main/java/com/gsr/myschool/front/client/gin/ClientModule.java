@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.front.client.gin;
 
+import com.gsr.myschool.common.client.CommonModule;
 import com.gsr.myschool.common.client.security.CurrentUserProvider;
 import com.gsr.myschool.front.client.web.RootModule;
 import com.gsr.myschool.common.client.event.EventSourceRequestTransport;
@@ -42,6 +43,7 @@ public class ClientModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
         install(new DefaultModule(PlaceManager.class));
+        install(new CommonModule());
         install(new RootModule());
 
         bind(MyRequestFactory.class).toProvider(RequestFactoryProvider.class).in(Singleton.class);
