@@ -1,0 +1,22 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <ui:style>
+        .messageWrapper {
+            margin-right: auto;
+            margin-left: auto;
+            width: 500px;
+            margin-top: 20px;
+        }
+    </ui:style>
+
+    <g:LayoutPanel>
+        <g:layer>
+            <!-- Info, warning, error messages displayer -->
+            <g:SimplePanel ui:field="messageDisplay" styleName="{style.messageWrapper}"/>
+        </g:layer>
+
+        <g:layer>
+            <g:SimpleLayoutPanel ui:field="main"/>
+        </g:layer>
+    </g:LayoutPanel>
+</ui:UiBinder>

@@ -35,7 +35,7 @@ public class AdminAuthenticationServiceImpl implements AdminAuthenticationServic
 
     @Override
     @Secured({ "ROLE_USER" })
-    public AdminUser currentAdmin() {
+    public AdminUser currentUser() {
         return securityContext.getCurrentAdmin();
     }
 

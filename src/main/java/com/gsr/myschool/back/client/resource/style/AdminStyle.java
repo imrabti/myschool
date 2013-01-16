@@ -18,6 +18,6 @@ package com.gsr.myschool.back.client.resource.style;
 
 import com.google.gwt.resources.client.CssResource;
 
-public interface GeneralStyle extends CssResource {
+public interface AdminStyle extends CssResource {
     String ajaxLoader();
 }

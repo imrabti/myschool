@@ -87,7 +87,7 @@ public class RegisterProcessServiceTest {
     public void testScenarion2() throws Exception {
         String token = "test";
         registerProcessService.register(user, token);
-        registerProcessService.acctivateAccount(token);
+        registerProcessService.activateAccount(token);
         Thread.sleep(10000);
     }
 

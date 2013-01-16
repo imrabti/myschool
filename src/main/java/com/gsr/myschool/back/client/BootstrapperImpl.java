@@ -19,7 +19,7 @@ package com.gsr.myschool.back.client;
 import com.google.inject.Inject;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.proxy.AdminUserProxy;
-import com.gsr.myschool.back.client.resource.Resources;
+import com.gsr.myschool.back.client.resource.AdminResources;
 import com.gsr.myschool.common.client.security.AdminUserProvider;
 import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gsr.myschool.common.client.util.CallbackImpl;
@@ -40,14 +40,14 @@ public class BootstrapperImpl implements Bootstrapper {
     private final CallbackImpl<AdminUserProxy> getCurrentUserCallback;
 
     @Inject
-    public BootstrapperImpl(final PlaceManager placeManager, final Resources resources,
+    public BootstrapperImpl(final PlaceManager placeManager, final AdminResources adminResources,
                             final SecurityUtils securityUtils,
                             final AdminUserProvider adminUserProvider) {
         this.placeManager = placeManager;
         this.securityUtils = securityUtils;
         this.adminUserProvider = adminUserProvider;
 
-        resources.generalStyleCss().ensureInjected();
+        adminResources.adminStyleCss().ensureInjected();
 
         getCurrentUserCallback = new CallbackImpl<AdminUserProxy>() {
             @Override

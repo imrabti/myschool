@@ -16,10 +16,10 @@
 
 package com.gsr.myschool.back.client.resource;
 
-import com.gsr.myschool.front.client.resource.style.GeneralStyle;
+import com.gsr.myschool.back.client.resource.style.AdminStyle;
 import com.google.gwt.resources.client.ClientBundle;
 
-public interface Resources extends ClientBundle {
-    @Source("com/gsr/myschool/front/client/resource/style/generalStyle.css")
-    GeneralStyle generalStyleCss();
+public interface AdminResources extends ClientBundle {
+    @Source("com/gsr/myschool/back/client/resource/style/adminStyle.css")
+    AdminStyle adminStyleCss();
 }

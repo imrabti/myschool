@@ -19,7 +19,7 @@ package com.gsr.myschool.server.security;
 import com.gsr.myschool.server.business.AdminUser;
 
 public interface AdminAuthenticationService {
-    AdminUser currentAdmin();
+    AdminUser currentUser();
 
     Boolean authenticate(String username, String password);
 }

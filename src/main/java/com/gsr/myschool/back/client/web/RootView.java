@@ -23,7 +23,6 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ViewImpl;
-import com.gsr.myschool.back.client.web.RootPresenter;
 
 public class RootView extends ViewImpl implements RootPresenter.MyView {
     public interface Binder extends UiBinder<Widget, RootView> {

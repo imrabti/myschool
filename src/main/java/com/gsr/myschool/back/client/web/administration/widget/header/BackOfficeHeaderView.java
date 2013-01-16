@@ -25,7 +25,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
-import com.gsr.myschool.front.client.resource.message.MessageBundle;
+import com.gsr.myschool.back.client.resource.message.MessageBundle;
 
 public class BackOfficeHeaderView extends ViewWithUiHandlers<BackOfficeHeaderUiHandlers> implements BackOfficeHeaderPresenter.MyView {
     public interface Binder extends UiBinder<Widget, BackOfficeHeaderView> {

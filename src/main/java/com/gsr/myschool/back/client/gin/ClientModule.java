@@ -24,7 +24,7 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.place.PlaceManager;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
-import com.gsr.myschool.back.client.resource.Resources;
+import com.gsr.myschool.back.client.resource.AdminResources;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.web.RootModule;
 import com.gsr.myschool.common.client.event.EventSourceRequestTransport;
@@ -34,7 +34,7 @@ import com.gsr.myschool.common.client.security.AdminUserProvider;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
 import com.gsr.myschool.common.client.security.SecurityUtils;
-import com.gsr.myschool.front.client.place.DefaultPlace;
+import com.gsr.myschool.back.client.place.DefaultPlace;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 import com.gwtplatform.mvp.client.gin.DefaultModule;
 
@@ -47,7 +47,7 @@ public class ClientModule extends AbstractPresenterModule {
         bind(BackRequestFactory.class).toProvider(RequestFactoryProvider.class).in(Singleton.class);
         bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.login);
 
-        bind(Resources.class).in(Singleton.class);
+        bind(AdminResources.class).in(Singleton.class);
         bind(MessageBundle.class).in(Singleton.class);
         bind(SecurityUtils.class).in(Singleton.class);
         bind(AdminUserProvider.class).in(Singleton.class);
