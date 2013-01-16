@@ -24,8 +24,8 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
-import com.gsr.myschool.common.client.widget.AjaxLoader;
 import com.gsr.myschool.back.client.web.administration.widget.footer.FooterView;
+import com.gsr.myschool.common.client.widget.BackAjaxLoader;
 
 public class AdministrationView extends ViewWithUiHandlers<AdministrationUiHandlers> implements AdministrationPresenter.MyView {
     public interface Binder extends UiBinder<Widget, AdministrationView> {
@@ -40,11 +40,11 @@ public class AdministrationView extends ViewWithUiHandlers<AdministrationUiHandl
 	@UiField(provided = true)
 	FooterView footer;
 	@UiField(provided = true)
-	AjaxLoader ajaxLoader;
+	BackAjaxLoader ajaxLoader;
 
     @Inject
     public AdministrationView(final Binder uiBinder, final FooterView footer,
-			final AjaxLoader ajaxLoader, final UiHandlersStrategy<AdministrationUiHandlers> uiHandlers) {
+			final BackAjaxLoader ajaxLoader, final UiHandlersStrategy<AdministrationUiHandlers> uiHandlers) {
         super(uiHandlers);
 
 		this.footer = footer;

@@ -7,7 +7,7 @@
             <g:north size="64">
                 <g:HTMLPanel>
                     <!-- Ajax Loader displayer -->
-                    <f:AjaxLoader ui:field="ajaxLoader"/>
+                    <f:BackAjaxLoader ui:field="ajaxLoader"/>
 
                     <g:SimplePanel ui:field="headerDisplay"/>
                 </g:HTMLPanel>

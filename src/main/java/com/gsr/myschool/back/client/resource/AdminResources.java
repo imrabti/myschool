@@ -20,6 +20,6 @@ import com.gsr.myschool.back.client.resource.style.AdminStyle;
 import com.google.gwt.resources.client.ClientBundle;
 
 public interface AdminResources extends ClientBundle {
-    @Source("com/gsr/myschool/back/client/resource/style/adminStyle.css")
-    AdminStyle adminStyleCss();
+    @Source("com/gsr/myschool/back/client/resource/style/generalStyle.css")
+    AdminStyle generalStyleCss();
 }

@@ -34,7 +34,7 @@ public class AdminUserProvider {
     }
 
 	public void load(final CallbackImpl<AdminUserProxy> callback) {
-		requestFactory.authenticationService().currentUser().fire(new ReceiverImpl<AdminUserProxy>() {
+		requestFactory.adminAuthenticationService().currentUser().fire(new ReceiverImpl<AdminUserProxy>() {
 			@Override
 			public void onSuccess(AdminUserProxy userProxy) {
 				currentAdmin = userProxy;

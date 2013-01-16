@@ -1,7 +1,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
     <g:HTMLPanel>
-        <h2>Login to the application</h2>
+        <h2>Login to the administration</h2>
 
         <div>
             <g:Label ui:field="loginError" visible="false"
@@ -14,7 +14,6 @@
             <g:PasswordTextBox ui:field="password"/>
 
             <g:Button ui:field="login" text="Login"/>
-            <g:Button ui:field="register" text="Register"/>
         </div>
     </g:HTMLPanel>
 </ui:UiBinder>

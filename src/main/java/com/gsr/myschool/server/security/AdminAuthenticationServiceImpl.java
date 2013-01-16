@@ -28,13 +28,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdminAuthenticationServiceImpl implements AdminAuthenticationService {
     @Autowired
-    @Qualifier("authenticationProvider")
+    @Qualifier("adminAuthenticationProvider")
     private AuthenticationManager authenticationManager;
     @Autowired
     private SecurityContextProvider securityContext;
 
     @Override
-    @Secured({ "ROLE_USER" })
+    @Secured({ "ROLE_ADMIN" })
     public AdminUser currentUser() {
         return securityContext.getCurrentAdmin();
     }

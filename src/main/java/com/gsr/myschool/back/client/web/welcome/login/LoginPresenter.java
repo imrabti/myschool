@@ -70,7 +70,7 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
 
     @Override
     public void login(final UserCredentials credentials) {
-        requestFactory.authenticationService().authenticate(credentials.getUsername(), credentials.getPassword())
+        requestFactory.adminAuthenticationService().authenticate(credentials.getUsername(), credentials.getPassword())
                 .fire(new ReceiverImpl<Boolean>() {
 					@Override
 					public void onSuccess(Boolean authenticated) {

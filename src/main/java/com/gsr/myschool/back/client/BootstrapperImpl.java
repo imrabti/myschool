@@ -47,7 +47,7 @@ public class BootstrapperImpl implements Bootstrapper {
         this.securityUtils = securityUtils;
         this.adminUserProvider = adminUserProvider;
 
-        adminResources.adminStyleCss().ensureInjected();
+        adminResources.generalStyleCss().ensureInjected();
 
         getCurrentUserCallback = new CallbackImpl<AdminUserProxy>() {
             @Override
@@ -81,7 +81,8 @@ public class BootstrapperImpl implements Bootstrapper {
     }
 
     private void bounceToLogin() {
-        PlaceRequest place = new PlaceRequest(NameTokens.getLogin());
+		// TODO: change this place to login when the stateless security will be fixed
+        PlaceRequest place = new PlaceRequest(NameTokens.getAdministration());
         placeManager.revealPlace(place);
     }
 }
