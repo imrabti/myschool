@@ -17,9 +17,11 @@
 package com.gsr.myschool.front.client.web.application.inscription;
 
 import com.github.gwtbootstrap.client.ui.CellTable;
+import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.view.client.ListDataProvider;
@@ -29,6 +31,8 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.front.client.request.proxy.InscriptionProxy;
+import com.gsr.myschool.front.client.web.application.inscription.renderer.InscriptionActionCell;
+import com.gsr.myschool.front.client.web.application.inscription.renderer.InscriptionActionCellFactory;
 
 import java.util.List;
 
@@ -41,13 +45,24 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
 
     private final DateTimeFormat dateFormat;
     private final ListDataProvider<InscriptionProxy> dataProvider;
+    private final InscriptionActionCellFactory actionCellFactory;
+
+    private Delegate<InscriptionProxy> previewAction;
+    private Delegate<InscriptionProxy> editAction;
+    private Delegate<InscriptionProxy> deleteAction;
+    private Delegate<InscriptionProxy> submitAction;
+    private Delegate<InscriptionProxy> printAction;
 
     @Inject
     public InscriptionView(final Binder uiBinder,
-                           final UiHandlersStrategy<InscriptionUiHandlers> uiHandlers) {
+                           final UiHandlersStrategy<InscriptionUiHandlers> uiHandlers,
+                           final InscriptionActionCellFactory actionCellFactory) {
         super(uiHandlers);
 
+        this.actionCellFactory = actionCellFactory;
+
         initWidget(uiBinder.createAndBindUi(this));
+        initActions();
         initDataGrid();
 
         dataProvider = new ListDataProvider<InscriptionProxy>();
@@ -61,6 +76,38 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         dataProvider.getList().addAll(data);
     }
 
+    private void initActions() {
+        previewAction = new Delegate<InscriptionProxy>() {
+            @Override
+            public void execute(InscriptionProxy inscription) {
+            }
+        };
+
+        editAction = new Delegate<InscriptionProxy>() {
+            @Override
+            public void execute(InscriptionProxy inscription) {
+            }
+        };
+
+        deleteAction = new Delegate<InscriptionProxy>() {
+            @Override
+            public void execute(InscriptionProxy inscription) {
+            }
+        };
+
+        submitAction = new Delegate<InscriptionProxy>() {
+            @Override
+            public void execute(InscriptionProxy inscription) {
+            }
+        };
+
+        printAction = new Delegate<InscriptionProxy>() {
+            @Override
+            public void execute(InscriptionProxy inscription) {
+            }
+        };
+    }
+
     private void initDataGrid() {
         TextColumn<InscriptionProxy> idColumn = new TextColumn<InscriptionProxy>() {
             @Override
@@ -68,7 +115,6 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
                 return object.getId().toString();
             }
         };
-
         idColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         inscriptionsTable.addColumn(idColumn, "ID");
         inscriptionsTable.setColumnWidth(idColumn, 70, Style.Unit.PX);
@@ -79,7 +125,6 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
                 return object.getStatus().name();
             }
         };
-
         statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         inscriptionsTable.addColumn(statusColumn, "Status");
         inscriptionsTable.setColumnWidth(statusColumn, 150, Style.Unit.PX);
@@ -90,9 +135,21 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
                 return dateFormat.format(object.getCreated());
             }
         };
-
         createdColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         inscriptionsTable.addColumn(createdColumn, "Date d'inscription");
         inscriptionsTable.setColumnWidth(createdColumn, 160, Style.Unit.PX);
+
+        InscriptionActionCell actionsCell = actionCellFactory.create(previewAction, editAction,
+                deleteAction, submitAction, printAction);
+        Column<InscriptionProxy, InscriptionProxy> actionsColumn = new
+                Column<InscriptionProxy, InscriptionProxy>(actionsCell) {
+            @Override
+            public InscriptionProxy getValue(InscriptionProxy object) {
+                return object;
+            }
+        };
+        actionsColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+        inscriptionsTable.addColumn(actionsColumn, "Actions");
+        inscriptionsTable.setColumnWidth(actionsColumn, 70, Style.Unit.PX);
     }
 }
