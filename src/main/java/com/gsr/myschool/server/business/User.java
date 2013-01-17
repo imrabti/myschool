@@ -16,7 +16,7 @@
 
 package com.gsr.myschool.server.business;
 
-import com.gsr.myschool.common.shared.type.Authority;
+import com.gsr.myschool.common.shared.type.AuthorityType;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -24,6 +24,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 public class User implements Serializable {
@@ -36,8 +37,10 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     @Enumerated
-    private Authority authority;
+    private AuthorityType authority;
     private Boolean active;
+    private Date created;
+    private Date updated;
 
     public Long getId() {
         return id;
@@ -87,11 +90,11 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    public Authority getAuthority() {
+    public AuthorityType getAuthority() {
         return authority;
     }
 
-    public void setAuthority(Authority authority) {
+    public void setAuthority(AuthorityType authority) {
         this.authority = authority;
     }
 
@@ -101,5 +104,21 @@ public class User implements Serializable {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
     }
 }

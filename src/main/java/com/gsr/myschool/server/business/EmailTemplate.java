@@ -5,15 +5,19 @@ import com.gsr.myschool.common.shared.type.EmailType;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import java.io.Serializable;
+import java.util.Date;
 
 @Entity
-public class EmailTemplate {
+public class EmailTemplate implements Serializable {
     @Id
     private Long id;
     @Enumerated
     private EmailType code;
     private String message;
     private String subject;
+    private Date created;
+    private Date updated;
 
     public Long getId() {
         return id;
@@ -45,5 +49,21 @@ public class EmailTemplate {
 
     public void setSubject(String subject) {
         this.subject = subject;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
     }
 }

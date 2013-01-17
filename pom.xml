@@ -108,7 +108,7 @@
 
                     <testTimeOut>180</testTimeOut>
                     <localWorkers>2</localWorkers>
-                    <extraJvmArgs>-Xmx1024m -XX:MaxPermSize=512m</extraJvmArgs>
+                    <extraJvmArgs>-Xmx512m -XX:MaxPermSize=512m</extraJvmArgs>
 
                     <compileReport>true</compileReport>
                 </configuration>
@@ -456,5 +456,17 @@
             <version>1.3-CR5</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.2.132</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
+        </dependency>
     </dependencies>
 </project>
