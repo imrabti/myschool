@@ -16,7 +16,7 @@
 
 package com.gsr.myschool.common.client.widget;
 
-import com.gsr.myschool.front.client.resource.Resources;
+import com.gsr.myschool.common.client.resource.SharedResources;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.HasText;
@@ -32,10 +32,10 @@ public class AjaxLoader extends Widget implements HasText {
     };
 
     @Inject
-    public AjaxLoader(final Resources resources) {
+    public AjaxLoader(final SharedResources sharedResources) {
         setElement(DOM.createElement("div"));
         getElement().setInnerText("Loading...");
-        setStyleName(getElement(), resources.generalStyleCss().ajaxLoader());
+        setStyleName(getElement(), sharedResources.generalStyleCss().ajaxLoader());
         setVisible(false);
     }
 

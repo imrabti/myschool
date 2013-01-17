@@ -19,7 +19,7 @@ public class BackOfficeMenuView extends ViewWithUiHandlers<BackOfficeMenuUiHandl
     @UiField
     NavLink reception;
     @UiField
-	NavLink validation;
+    NavLink validation;
 
     private BackOfficeMenuItem currentMenu;
 

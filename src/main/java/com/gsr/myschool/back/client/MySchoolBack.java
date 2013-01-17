@@ -21,7 +21,6 @@ import com.google.gwt.core.client.GWT;
 import com.gwtplatform.mvp.client.ApplicationController;
 
 public class MySchoolBack implements EntryPoint {
-
     private static ApplicationController controller = GWT.create(ApplicationController.class);
 
     @Override
@@ -29,4 +28,3 @@ public class MySchoolBack implements EntryPoint {
         controller.init();
     }
 }
-

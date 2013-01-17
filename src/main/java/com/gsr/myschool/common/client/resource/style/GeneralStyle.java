@@ -14,12 +14,10 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.resource;
+package com.gsr.myschool.common.client.resource.style;
 
-import com.gsr.myschool.back.client.resource.style.AdminStyle;
-import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.CssResource;
 
-public interface AdminResources extends ClientBundle {
-    @Source("com/gsr/myschool/back/client/resource/style/adminStyle.css")
-    AdminStyle adminStyleCss();
+public interface GeneralStyle extends CssResource {
+    String ajaxLoader();
 }

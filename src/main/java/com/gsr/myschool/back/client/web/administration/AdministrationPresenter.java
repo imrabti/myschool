@@ -37,54 +37,54 @@ import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
 public class AdministrationPresenter extends Presenter<AdministrationPresenter.MyView, AdministrationPresenter.MyProxy>
 		implements RequestEvent.RequestEventHandler, AdministrationUiHandlers {
     public interface MyView extends View, HasUiHandlers<AdministrationUiHandlers> {
-		public void showAjaxLoader(int timeout);
+        public void showAjaxLoader(int timeout);
 
-		public void hideAjaxLoader();
+        public void hideAjaxLoader();
     }
 
-	@ProxyStandard
-	@NameToken(NameTokens.administration)
-	public interface MyProxy extends ProxyPlace<AdministrationPresenter> {
-	}
+    @ProxyStandard
+    @NameToken(NameTokens.administration)
+    public interface MyProxy extends ProxyPlace<AdministrationPresenter> {
+    }
 
-	@ContentSlot
-	public static final Type<RevealContentHandler<?>> TYPE_SetMainContent = new GwtEvent.Type<RevealContentHandler<?>>();
-	public static final Object TYPE_SetHeaderContent = new Object();
-	public static final Object TYPE_SetSiderContent = new Object();
+    @ContentSlot
+    public static final Type<RevealContentHandler<?>> TYPE_SetMainContent = new GwtEvent.Type<RevealContentHandler<?>>();
+    public static final Object TYPE_SetHeaderContent = new Object();
+    public static final Object TYPE_SetSiderContent = new Object();
 
-	private static final int LOADING_TIMEOUT = 250;
+    private static final int LOADING_TIMEOUT = 250;
 
-	private final BackOfficeHeaderPresenter headerPresenter;
-	private final BackOfficeMenuPresenter menuPresenter;
+    private final BackOfficeHeaderPresenter headerPresenter;
+    private final BackOfficeMenuPresenter menuPresenter;
 
     @Inject
     public AdministrationPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
-			final BackOfficeHeaderPresenter headerPresenter, final BackOfficeMenuPresenter menuPresenter) {
+            final BackOfficeHeaderPresenter headerPresenter, final BackOfficeMenuPresenter menuPresenter) {
         super(eventBus, view, proxy, RootPresenter.TYPE_SetMainContent);
 
-		this.headerPresenter = headerPresenter;
-		this.menuPresenter = menuPresenter;
+        this.headerPresenter = headerPresenter;
+        this.menuPresenter = menuPresenter;
 
-		getView().setUiHandlers(this);
+        getView().setUiHandlers(this);
     }
 
-	@Override
-	public void onRequestEvent(RequestEvent requestEvent) {
-		if (requestEvent.getState() == RequestEvent.State.SENT) {
-			getView().showAjaxLoader(LOADING_TIMEOUT);
-		} else {
-			getView().hideAjaxLoader();
-		}
-	}
+    @Override
+    public void onRequestEvent(RequestEvent requestEvent) {
+        if (requestEvent.getState() == RequestEvent.State.SENT) {
+            getView().showAjaxLoader(LOADING_TIMEOUT);
+        } else {
+            getView().hideAjaxLoader();
+        }
+    }
 
-	@Override
-	protected void onBind() {
-		addRegisteredHandler(RequestEvent.getType(), this);
-	}
+    @Override
+    protected void onBind() {
+        addRegisteredHandler(RequestEvent.getType(), this);
+    }
 
-	@Override
-	protected void onReveal() {
-		setInSlot(TYPE_SetHeaderContent, headerPresenter);
-		setInSlot(TYPE_SetSiderContent, menuPresenter);
-	}
+    @Override
+    protected void onReveal() {
+        setInSlot(TYPE_SetHeaderContent, headerPresenter);
+        setInSlot(TYPE_SetSiderContent, menuPresenter);
+    }
 }

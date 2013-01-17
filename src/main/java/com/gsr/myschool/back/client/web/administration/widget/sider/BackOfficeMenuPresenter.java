@@ -43,7 +43,7 @@ public class BackOfficeMenuPresenter extends PresenterWidget<BackOfficeMenuPrese
     @Override
     protected void onReveal() {
         PlaceRequest currentPlace =  placeManager.getCurrentPlaceRequest();
-		BackOfficeMenuItem currentMenu = BackOfficeMenuItem.PRE_INSCRIPTION;
+        BackOfficeMenuItem currentMenu = BackOfficeMenuItem.PRE_INSCRIPTION;
 
         if (currentPlace.matchesNameToken(NameTokens.getPreInscriptions())) {
             currentMenu = BackOfficeMenuItem.PRE_INSCRIPTION;

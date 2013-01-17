@@ -19,7 +19,7 @@ package com.gsr.myschool.back.client;
 import com.google.inject.Inject;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.proxy.AdminUserProxy;
-import com.gsr.myschool.back.client.resource.AdminResources;
+import com.gsr.myschool.common.client.resource.SharedResources;
 import com.gsr.myschool.common.client.security.AdminUserProvider;
 import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gsr.myschool.common.client.util.CallbackImpl;
@@ -40,14 +40,14 @@ public class BootstrapperImpl implements Bootstrapper {
     private final CallbackImpl<AdminUserProxy> getCurrentUserCallback;
 
     @Inject
-    public BootstrapperImpl(final PlaceManager placeManager, final AdminResources adminResources,
+    public BootstrapperImpl(final PlaceManager placeManager, final SharedResources resources,
                             final SecurityUtils securityUtils,
                             final AdminUserProvider adminUserProvider) {
         this.placeManager = placeManager;
         this.securityUtils = securityUtils;
         this.adminUserProvider = adminUserProvider;
 
-        adminResources.generalStyleCss().ensureInjected();
+        resources.generalStyleCss().ensureInjected();
 
         getCurrentUserCallback = new CallbackImpl<AdminUserProxy>() {
             @Override
@@ -60,7 +60,7 @@ public class BootstrapperImpl implements Bootstrapper {
     @Override
     public void init() {
         if (securityUtils.isLoggedIn()) {
-			adminUserProvider.load(getCurrentUserCallback);
+            adminUserProvider.load(getCurrentUserCallback);
         } else {
             bounceToLogin();
         }

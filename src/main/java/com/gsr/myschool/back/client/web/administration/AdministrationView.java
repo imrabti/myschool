@@ -22,56 +22,56 @@ import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import com.gsr.myschool.back.client.web.administration.widget.footer.FooterView;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
-import com.gsr.myschool.back.client.web.administration.widget.footer.FooterView;
-import com.gsr.myschool.common.client.widget.BackAjaxLoader;
+import com.gsr.myschool.common.client.widget.AjaxLoader;
 
 public class AdministrationView extends ViewWithUiHandlers<AdministrationUiHandlers> implements AdministrationPresenter.MyView {
     public interface Binder extends UiBinder<Widget, AdministrationView> {
     }
 
-	@UiField
-	SimplePanel headerDisplay;
-	@UiField
-	SimplePanel siderDisplay;
-	@UiField
-	SimpleLayoutPanel mainDisplay;
-	@UiField(provided = true)
-	FooterView footer;
-	@UiField(provided = true)
-	BackAjaxLoader ajaxLoader;
+    @UiField
+    SimplePanel headerDisplay;
+    @UiField
+    SimplePanel siderDisplay;
+    @UiField
+    SimpleLayoutPanel mainDisplay;
+    @UiField(provided = true)
+    FooterView footer;
+    @UiField(provided = true)
+    AjaxLoader ajaxLoader;
 
     @Inject
     public AdministrationView(final Binder uiBinder, final FooterView footer,
-			final BackAjaxLoader ajaxLoader, final UiHandlersStrategy<AdministrationUiHandlers> uiHandlers) {
+            final AjaxLoader ajaxLoader, final UiHandlersStrategy<AdministrationUiHandlers> uiHandlers) {
         super(uiHandlers);
 
-		this.footer = footer;
-		this.ajaxLoader = ajaxLoader;
+        this.footer = footer;
+        this.ajaxLoader = ajaxLoader;
         initWidget(uiBinder.createAndBindUi(this));
     }
 
-	@Override
-	public void setInSlot(Object slot, Widget content) {
-		if (content != null) {
-			if (slot == AdministrationPresenter.TYPE_SetMainContent) {
-				mainDisplay.setWidget(content);
-			} else if (slot == AdministrationPresenter.TYPE_SetHeaderContent) {
-				headerDisplay.setWidget(content);
-			} else if (slot == AdministrationPresenter.TYPE_SetSiderContent) {
-				siderDisplay.setWidget(content);
-			}
-		}
-	}
+    @Override
+    public void setInSlot(Object slot, Widget content) {
+        if (content != null) {
+            if (slot == AdministrationPresenter.TYPE_SetMainContent) {
+                mainDisplay.setWidget(content);
+            } else if (slot == AdministrationPresenter.TYPE_SetHeaderContent) {
+                headerDisplay.setWidget(content);
+            } else if (slot == AdministrationPresenter.TYPE_SetSiderContent) {
+                siderDisplay.setWidget(content);
+            }
+        }
+    }
 
-	@Override
-	public void showAjaxLoader(int timeout) {
-		ajaxLoader.display(timeout);
-	}
+    @Override
+    public void showAjaxLoader(int timeout) {
+        ajaxLoader.display(timeout);
+    }
 
-	@Override
-	public void hideAjaxLoader() {
-		ajaxLoader.hide();
-	}
+    @Override
+    public void hideAjaxLoader() {
+        ajaxLoader.hide();
+    }
 }
