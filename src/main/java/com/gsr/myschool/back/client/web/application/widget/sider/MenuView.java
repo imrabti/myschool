@@ -1,4 +1,4 @@
-package com.gsr.myschool.back.client.web.administration.widget.sider;
+package com.gsr.myschool.back.client.web.application.widget.sider;
 
 import com.github.gwtbootstrap.client.ui.NavLink;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -10,8 +10,8 @@ import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 
-public class BackOfficeMenuView extends ViewWithUiHandlers<BackOfficeMenuUiHandlers> implements BackOfficeMenuPresenter.MyView {
-    public interface Binder extends UiBinder<Widget, BackOfficeMenuView> {
+public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements MenuPresenter.MyView {
+    public interface Binder extends UiBinder<Widget, MenuView> {
     }
 
     @UiField
@@ -21,16 +21,16 @@ public class BackOfficeMenuView extends ViewWithUiHandlers<BackOfficeMenuUiHandl
     @UiField
     NavLink validation;
 
-    private BackOfficeMenuItem currentMenu;
+    private MenuItem currentMenu;
 
     @Inject
-    public BackOfficeMenuView(final Binder uiBinder, final UiHandlersStrategy<BackOfficeMenuUiHandlers> uiHandlersStrategy) {
+    public MenuView(final Binder uiBinder, final UiHandlersStrategy<MenuUiHandlers> uiHandlersStrategy) {
         super(uiHandlersStrategy);
         initWidget(uiBinder.createAndBindUi(this));
     }
 
     @Override
-    public void setSelectedMenu(BackOfficeMenuItem currentMenu) {
+    public void setSelectedMenu(MenuItem currentMenu) {
         this.currentMenu = currentMenu;
         clearActive();
 
@@ -49,30 +49,30 @@ public class BackOfficeMenuView extends ViewWithUiHandlers<BackOfficeMenuUiHandl
 
     @UiHandler("preInscription")
     void onInscriptionClicked(ClickEvent event) {
-        if (currentMenu != BackOfficeMenuItem.PRE_INSCRIPTION) {
+        if (currentMenu != MenuItem.PRE_INSCRIPTION) {
             clearActive();
             preInscription.setActive(true);
-            currentMenu = BackOfficeMenuItem.PRE_INSCRIPTION;
+            currentMenu = MenuItem.PRE_INSCRIPTION;
             getUiHandlers().onMenuChanged(currentMenu);
         }
     }
 
     @UiHandler("reception")
     void onConvocationClicked(ClickEvent event) {
-        if (currentMenu != BackOfficeMenuItem.RECEPTION) {
+        if (currentMenu != MenuItem.RECEPTION) {
             clearActive();
             reception.setActive(true);
-            currentMenu = BackOfficeMenuItem.RECEPTION;
+            currentMenu = MenuItem.RECEPTION;
             getUiHandlers().onMenuChanged(currentMenu);
         }
     }
 
     @UiHandler("validation")
     void onInboxClicked(ClickEvent event) {
-        if (currentMenu != BackOfficeMenuItem.VALIDATION) {
+        if (currentMenu != MenuItem.VALIDATION) {
             clearActive();
             validation.setActive(true);
-            currentMenu = BackOfficeMenuItem.VALIDATION;
+            currentMenu = MenuItem.VALIDATION;
             getUiHandlers().onMenuChanged(currentMenu);
         }
     }

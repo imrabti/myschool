@@ -17,7 +17,7 @@
 package com.gsr.myschool.front.client.web.welcome.register;
 
 import com.gwtplatform.mvp.client.UiHandlers;
-import com.gsr.myschool.front.client.request.proxy.UserProxy;
+import com.gsr.myschool.common.client.proxy.UserProxy;
 
 public interface RegisterUiHandlers extends UiHandlers {
     void register(UserProxy user);

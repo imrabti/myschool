@@ -14,19 +14,9 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.administration.widget.footer;
+package com.gsr.myschool.back.client.web.application;
 
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Widget;
-import com.google.inject.Inject;
+import com.gwtplatform.mvp.client.UiHandlers;
 
-public class FooterView extends Composite {
-    public interface Binder extends UiBinder<Widget, FooterView> {
-    }
-
-    @Inject
-    public FooterView(final Binder uiBinder) {
-        initWidget(uiBinder.createAndBindUi(this));
-    }
+public interface ApplicationUiHandlers extends UiHandlers {
 }

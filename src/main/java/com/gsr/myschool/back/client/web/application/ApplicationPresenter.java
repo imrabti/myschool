@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.administration;
+package com.gsr.myschool.back.client.web.application;
 
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.GwtEvent.Type;
@@ -22,8 +22,8 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.web.RootPresenter;
-import com.gsr.myschool.back.client.web.administration.widget.header.BackOfficeHeaderPresenter;
-import com.gsr.myschool.back.client.web.administration.widget.sider.BackOfficeMenuPresenter;
+import com.gsr.myschool.back.client.web.application.widget.header.HeaderPresenter;
+import com.gsr.myschool.back.client.web.application.widget.sider.MenuPresenter;
 import com.gsr.myschool.common.client.event.RequestEvent;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -34,9 +34,9 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
 
-public class AdministrationPresenter extends Presenter<AdministrationPresenter.MyView, AdministrationPresenter.MyProxy>
-		implements RequestEvent.RequestEventHandler, AdministrationUiHandlers {
-    public interface MyView extends View, HasUiHandlers<AdministrationUiHandlers> {
+public class ApplicationPresenter extends Presenter<ApplicationPresenter.MyView, ApplicationPresenter.MyProxy>
+		implements RequestEvent.RequestEventHandler, ApplicationUiHandlers {
+    public interface MyView extends View, HasUiHandlers<ApplicationUiHandlers> {
         public void showAjaxLoader(int timeout);
 
         public void hideAjaxLoader();
@@ -44,7 +44,7 @@ public class AdministrationPresenter extends Presenter<AdministrationPresenter.M
 
     @ProxyStandard
     @NameToken(NameTokens.administration)
-    public interface MyProxy extends ProxyPlace<AdministrationPresenter> {
+    public interface MyProxy extends ProxyPlace<ApplicationPresenter> {
     }
 
     @ContentSlot
@@ -54,12 +54,12 @@ public class AdministrationPresenter extends Presenter<AdministrationPresenter.M
 
     private static final int LOADING_TIMEOUT = 250;
 
-    private final BackOfficeHeaderPresenter headerPresenter;
-    private final BackOfficeMenuPresenter menuPresenter;
+    private final HeaderPresenter headerPresenter;
+    private final MenuPresenter menuPresenter;
 
     @Inject
-    public AdministrationPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
-            final BackOfficeHeaderPresenter headerPresenter, final BackOfficeMenuPresenter menuPresenter) {
+    public ApplicationPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
+                                final HeaderPresenter headerPresenter, final MenuPresenter menuPresenter) {
         super(eventBus, view, proxy, RootPresenter.TYPE_SetMainContent);
 
         this.headerPresenter = headerPresenter;

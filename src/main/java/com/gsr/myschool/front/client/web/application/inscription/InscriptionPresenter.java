@@ -17,10 +17,10 @@
 package com.gsr.myschool.front.client.web.application.inscription;
 
 import com.gsr.myschool.common.client.request.ReceiverImpl;
-import com.gsr.myschool.common.client.security.CurrentUserProvider;
+import com.gsr.myschool.front.client.request.FrontRequestFactory;
+import com.gsr.myschool.front.client.security.CurrentUserProvider;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
-import com.gsr.myschool.front.client.request.MyRequestFactory;
-import com.gsr.myschool.front.client.request.proxy.InscriptionProxy;
+import com.gsr.myschool.common.client.proxy.InscriptionProxy;
 import com.gsr.myschool.front.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.google.inject.Inject;
@@ -48,11 +48,11 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
     }
 
     private final CurrentUserProvider currentUserProvider;
-    private final MyRequestFactory requestFactory;
+    private final FrontRequestFactory requestFactory;
 
     @Inject
     public InscriptionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
-                                final MyRequestFactory requestFactory,
+                                final FrontRequestFactory requestFactory,
                                 final CurrentUserProvider currentUserProvider) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 

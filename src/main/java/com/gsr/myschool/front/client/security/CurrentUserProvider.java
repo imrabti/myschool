@@ -14,22 +14,22 @@
  * the License.
  */
 
-package com.gsr.myschool.common.client.security;
+package com.gsr.myschool.front.client.security;
 
-import com.gsr.myschool.front.client.request.MyRequestFactory;
+import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
-import com.gsr.myschool.front.client.request.proxy.UserProxy;
+import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.util.CallbackImpl;
 
 import javax.inject.Inject;
 
 public class CurrentUserProvider {
-    private final MyRequestFactory requestFactory;
+    private final FrontRequestFactory requestFactory;
 
     private UserProxy currentUser;
 
     @Inject
-    public CurrentUserProvider(final MyRequestFactory requestFactory) {
+    public CurrentUserProvider(final FrontRequestFactory requestFactory) {
         this.requestFactory = requestFactory;
     }
 

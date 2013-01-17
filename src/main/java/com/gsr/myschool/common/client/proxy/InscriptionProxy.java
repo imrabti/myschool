@@ -1,4 +1,4 @@
-package com.gsr.myschool.front.client.request.proxy;
+package com.gsr.myschool.common.client.proxy;
 
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;

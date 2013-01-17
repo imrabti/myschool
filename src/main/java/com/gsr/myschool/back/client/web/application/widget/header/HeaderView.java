@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.administration.widget.header;
+package com.gsr.myschool.back.client.web.application.widget.header;
 
 import com.github.gwtbootstrap.client.ui.NavText;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -27,8 +27,8 @@ import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
 
-public class BackOfficeHeaderView extends ViewWithUiHandlers<BackOfficeHeaderUiHandlers> implements BackOfficeHeaderPresenter.MyView {
-    public interface Binder extends UiBinder<Widget, BackOfficeHeaderView> {
+public class HeaderView extends ViewWithUiHandlers<HeaderUiHandlers> implements HeaderPresenter.MyView {
+    public interface Binder extends UiBinder<Widget, HeaderView> {
     }
 
     @UiField
@@ -37,8 +37,8 @@ public class BackOfficeHeaderView extends ViewWithUiHandlers<BackOfficeHeaderUiH
     private final MessageBundle messageBundle;
 
     @Inject
-    public BackOfficeHeaderView(final Binder uiBinder, final MessageBundle messageBundle,
-			final UiHandlersStrategy<BackOfficeHeaderUiHandlers> uiHandlersStrategy) {
+    public HeaderView(final Binder uiBinder, final MessageBundle messageBundle,
+                      final UiHandlersStrategy<HeaderUiHandlers> uiHandlersStrategy) {
         super(uiHandlersStrategy);
 
         this.messageBundle = messageBundle;

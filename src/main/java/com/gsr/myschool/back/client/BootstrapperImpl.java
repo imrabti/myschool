@@ -20,8 +20,8 @@ import com.google.inject.Inject;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.proxy.AdminUserProxy;
 import com.gsr.myschool.back.client.resource.AdminResources;
+import com.gsr.myschool.back.client.security.CurrentUserProvider;
 import com.gsr.myschool.common.client.resource.SharedResources;
-import com.gsr.myschool.common.client.security.AdminUserProvider;
 import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gsr.myschool.common.client.util.CallbackImpl;
 import com.gwtplatform.mvp.client.Bootstrapper;
@@ -37,7 +37,7 @@ public class BootstrapperImpl implements Bootstrapper {
 
     private final PlaceManager placeManager;
     private final SecurityUtils securityUtils;
-    private final AdminUserProvider adminUserProvider;
+    private final CurrentUserProvider adminUserProvider;
     private final CallbackImpl<AdminUserProxy> getCurrentUserCallback;
 
     @Inject
@@ -45,7 +45,7 @@ public class BootstrapperImpl implements Bootstrapper {
                             final SharedResources sharedResources,
                             final AdminResources resources,
                             final SecurityUtils securityUtils,
-                            final AdminUserProvider adminUserProvider) {
+                            final CurrentUserProvider adminUserProvider) {
         this.placeManager = placeManager;
         this.securityUtils = securityUtils;
         this.adminUserProvider = adminUserProvider;

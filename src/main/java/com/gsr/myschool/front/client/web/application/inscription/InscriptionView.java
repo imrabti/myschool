@@ -30,7 +30,7 @@ import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.gsr.myschool.front.client.request.proxy.InscriptionProxy;
+import com.gsr.myschool.common.client.proxy.InscriptionProxy;
 import com.gsr.myschool.front.client.web.application.inscription.renderer.InscriptionActionCell;
 import com.gsr.myschool.front.client.web.application.inscription.renderer.InscriptionActionCellFactory;
 

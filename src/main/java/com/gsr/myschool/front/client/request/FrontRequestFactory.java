@@ -14,9 +14,14 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.administration;
+package com.gsr.myschool.front.client.request;
 
-import com.gwtplatform.mvp.client.UiHandlers;
+import com.google.web.bindery.requestfactory.shared.RequestFactory;
 
-public interface AdministrationUiHandlers extends UiHandlers {
+public interface FrontRequestFactory extends RequestFactory {
+    AuthenticationRequest authenticationService();
+
+    RegistrationRequest registrationService();
+
+    InscriptionRequest inscriptionService();
 }

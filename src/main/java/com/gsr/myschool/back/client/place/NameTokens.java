@@ -18,7 +18,7 @@ package com.gsr.myschool.back.client.place;
 
 public class NameTokens {
     public static final String login = "login";
-    public static final String administration = "administration";
+    public static final String administration = "application";
     public static final String preInscriptions = "preInscriptions";
     public static final String reception = "reception";
     public static final String validation = "validation";

@@ -14,12 +14,12 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.administration.widget.header;
+package com.gsr.myschool.back.client.web.application.widget.header;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
-import com.gsr.myschool.common.client.security.AdminUserProvider;
+import com.gsr.myschool.back.client.security.CurrentUserProvider;
 import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
@@ -27,21 +27,21 @@ import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 
-public class BackOfficeHeaderPresenter extends PresenterWidget<BackOfficeHeaderPresenter.MyView>
-		implements BackOfficeHeaderUiHandlers {
-    public interface MyView extends View, HasUiHandlers<BackOfficeHeaderUiHandlers> {
+public class HeaderPresenter extends PresenterWidget<HeaderPresenter.MyView>
+		implements HeaderUiHandlers {
+    public interface MyView extends View, HasUiHandlers<HeaderUiHandlers> {
         void displayUserInfo(String username);
     }
 
     private final PlaceManager placeManager;
     private final SecurityUtils securityUtils;
-    private final AdminUserProvider adminUserProvider;
+    private final CurrentUserProvider adminUserProvider;
 
     @Inject
-    public BackOfficeHeaderPresenter(EventBus eventBus, MyView view,
-			final PlaceManager placeManager,
-			final SecurityUtils securityUtils,
-			final AdminUserProvider adminUserProvider) {
+    public HeaderPresenter(EventBus eventBus, MyView view,
+                           final PlaceManager placeManager,
+                           final SecurityUtils securityUtils,
+                           final CurrentUserProvider adminUserProvider) {
         super(eventBus, view);
 
         this.placeManager = placeManager;

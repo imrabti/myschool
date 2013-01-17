@@ -16,7 +16,7 @@
 
 package com.gsr.myschool.front.client.web.application.inscription;
 
-import com.gsr.myschool.front.client.request.proxy.InscriptionProxy;
+import com.gsr.myschool.common.client.proxy.InscriptionProxy;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface InscriptionUiHandlers extends UiHandlers {

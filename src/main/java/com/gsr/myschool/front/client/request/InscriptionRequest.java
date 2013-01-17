@@ -3,7 +3,7 @@ package com.gsr.myschool.front.client.request;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
-import com.gsr.myschool.front.client.request.proxy.InscriptionProxy;
+import com.gsr.myschool.common.client.proxy.InscriptionProxy;
 import com.gsr.myschool.server.service.impl.InscriptionServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
 

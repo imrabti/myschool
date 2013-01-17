@@ -12,7 +12,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiRenderer;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import com.gsr.myschool.front.client.request.proxy.InscriptionProxy;
+import com.gsr.myschool.common.client.proxy.InscriptionProxy;
 
 public class InscriptionActionCell extends AbstractCell<InscriptionProxy> {
     public interface Renderer extends UiRenderer {
