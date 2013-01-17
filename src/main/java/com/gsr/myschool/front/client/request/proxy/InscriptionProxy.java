@@ -4,7 +4,6 @@ import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;
 import com.gsr.myschool.common.shared.type.InscriptionStatusType;
 import com.gsr.myschool.server.business.Inscription;
-import com.gsr.myschool.server.business.User;
 
 import java.util.Date;
 
@@ -18,9 +17,9 @@ public interface InscriptionProxy extends ValueProxy {
 
     void setStatus(InscriptionStatusType status);
 
-    User getUser();
+    UserProxy getUser();
 
-    void setUser(User user);
+    void setUser(UserProxy user);
 
     Date getCreated();
 

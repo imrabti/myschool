@@ -16,7 +16,11 @@
 
 package com.gsr.myschool.front.client.web.application.inscription;
 
+import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.common.client.security.CurrentUserProvider;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
+import com.gsr.myschool.front.client.request.MyRequestFactory;
+import com.gsr.myschool.front.client.request.proxy.InscriptionProxy;
 import com.gsr.myschool.front.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.google.inject.Inject;
@@ -29,9 +33,12 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
+import java.util.List;
+
 public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView, InscriptionPresenter.MyProxy>
         implements InscriptionUiHandlers {
     public interface MyView extends View, HasUiHandlers<InscriptionUiHandlers> {
+        void setData(List<InscriptionProxy> data);
     }
 
     @ProxyStandard
@@ -40,10 +47,30 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
     public interface MyProxy extends ProxyPlace<InscriptionPresenter> {
     }
 
+    private final CurrentUserProvider currentUserProvider;
+    private final MyRequestFactory requestFactory;
+
     @Inject
-    public InscriptionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy) {
+    public InscriptionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
+                                final MyRequestFactory requestFactory,
+                                final CurrentUserProvider currentUserProvider) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
+        this.requestFactory = requestFactory;
+        this.currentUserProvider = currentUserProvider;
+
         getView().setUiHandlers(this);
+    }
+
+    @Override
+    protected void onReveal() {
+        Long userId = currentUserProvider.get().getId();
+        requestFactory.inscriptionService().findAllInscriptionsByUser(userId)
+                .fire(new ReceiverImpl<List<InscriptionProxy>>() {
+            @Override
+            public void onSuccess(List<InscriptionProxy> result) {
+                getView().setData(result);
+            }
+        });
     }
 }

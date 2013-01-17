@@ -42,6 +42,6 @@ public class InscriptionServiceImpl implements InscriptionService {
         inscription.setStatus(InscriptionStatusType.WAITING);
         inscriptions.add(inscription);
 
-        return null;
+        return inscriptions;
     }
 }
