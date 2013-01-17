@@ -29,4 +29,3 @@ public interface InscriptionProxy extends ValueProxy {
 
     void setUpdated(Date updated);
 }
-

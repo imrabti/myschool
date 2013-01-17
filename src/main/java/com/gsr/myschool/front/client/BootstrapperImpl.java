@@ -23,6 +23,7 @@ import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gsr.myschool.common.client.util.CallbackImpl;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.proxy.UserProxy;
+import com.gsr.myschool.front.client.resource.FrontResources;
 import com.gwtplatform.mvp.client.Bootstrapper;
 import com.gwtplatform.mvp.client.annotations.IsTheBootstrapper;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
@@ -42,13 +43,15 @@ public class BootstrapperImpl implements Bootstrapper {
     @Inject
     public BootstrapperImpl(final PlaceManager placeManager,
                             final SharedResources sharedResources,
+                            final FrontResources frontResources,
                             final SecurityUtils securityUtils,
                             final CurrentUserProvider currentUserProvider) {
         this.placeManager = placeManager;
         this.securityUtils = securityUtils;
         this.currentUserProvider = currentUserProvider;
 
-        sharedResources.generalStyleCss().ensureInjected();
+        frontResources.frontStyleCss().ensureInjected();
+        sharedResources.sharedStyleCss().ensureInjected();
 
         getCurrentUserCallback = new CallbackImpl<UserProxy>() {
             @Override

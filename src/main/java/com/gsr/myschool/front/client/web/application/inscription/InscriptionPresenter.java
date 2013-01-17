@@ -63,6 +63,26 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
     }
 
     @Override
+    public void previewInscription(InscriptionProxy inscription) {
+    }
+
+    @Override
+    public void editInscription(InscriptionProxy inscription) {
+    }
+
+    @Override
+    public void deleteInscription(InscriptionProxy inscription) {
+    }
+
+    @Override
+    public void submitInscription(InscriptionProxy inscription) {
+    }
+
+    @Override
+    public void printInscription(InscriptionProxy inscription) {
+    }
+
+    @Override
     protected void onReveal() {
         Long userId = currentUserProvider.get().getId();
         requestFactory.inscriptionService().findAllInscriptionsByUser(userId)

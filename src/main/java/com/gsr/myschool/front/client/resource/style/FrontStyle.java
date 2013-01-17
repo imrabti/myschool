@@ -14,12 +14,9 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.resource;
+package com.gsr.myschool.front.client.resource.style;
 
-import com.gsr.myschool.front.client.resource.style.ClientStyle;
-import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.CssResource;
 
-public interface ClientResources extends ClientBundle {
-    @Source("com/gsr/myschool/front/client/resource/style/clientStyle.css")
-    ClientStyle clientStyleCss();
+public interface FrontStyle extends CssResource {
 }

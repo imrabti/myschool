@@ -5,7 +5,7 @@
     <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
     <g:LayoutPanel>
-        <g:layer top="0px" height="50px" right="20px" left="0px">
+        <g:layer top="0px" height="55px" right="20px" left="0px">
             <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
                 <h2>
                     <g:InlineLabel text="Mes Inscriptions"/>
@@ -17,9 +17,8 @@
             </g:HTMLPanel>
         </g:layer>
 
-        <g:layer top="50px" bottom="20px" right="20px" left="0px">
+        <g:layer top="55px" bottom="20px" right="20px" left="0px">
             <boot:CellTable ui:field="inscriptionsTable" bordered="true"/>
         </g:layer>
     </g:LayoutPanel>
 </ui:UiBinder>
-

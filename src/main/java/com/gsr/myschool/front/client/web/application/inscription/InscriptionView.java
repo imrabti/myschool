@@ -80,30 +80,35 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         previewAction = new Delegate<InscriptionProxy>() {
             @Override
             public void execute(InscriptionProxy inscription) {
+                getUiHandlers().previewInscription(inscription);
             }
         };
 
         editAction = new Delegate<InscriptionProxy>() {
             @Override
             public void execute(InscriptionProxy inscription) {
+                getUiHandlers().editInscription(inscription);
             }
         };
 
         deleteAction = new Delegate<InscriptionProxy>() {
             @Override
             public void execute(InscriptionProxy inscription) {
+                getUiHandlers().deleteInscription(inscription);
             }
         };
 
         submitAction = new Delegate<InscriptionProxy>() {
             @Override
             public void execute(InscriptionProxy inscription) {
+                getUiHandlers().submitInscription(inscription);
             }
         };
 
         printAction = new Delegate<InscriptionProxy>() {
             @Override
             public void execute(InscriptionProxy inscription) {
+                getUiHandlers().printInscription(inscription);
             }
         };
     }
@@ -117,7 +122,7 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         };
         idColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         inscriptionsTable.addColumn(idColumn, "ID");
-        inscriptionsTable.setColumnWidth(idColumn, 70, Style.Unit.PX);
+        inscriptionsTable.setColumnWidth(idColumn, 20, Style.Unit.PCT);
 
         TextColumn<InscriptionProxy> statusColumn = new TextColumn<InscriptionProxy>() {
             @Override
@@ -127,7 +132,7 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         };
         statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         inscriptionsTable.addColumn(statusColumn, "Status");
-        inscriptionsTable.setColumnWidth(statusColumn, 150, Style.Unit.PX);
+        inscriptionsTable.setColumnWidth(statusColumn, 40, Style.Unit.PCT);
 
         TextColumn<InscriptionProxy> createdColumn = new TextColumn<InscriptionProxy>() {
             @Override
@@ -137,7 +142,7 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         };
         createdColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         inscriptionsTable.addColumn(createdColumn, "Date d'inscription");
-        inscriptionsTable.setColumnWidth(createdColumn, 160, Style.Unit.PX);
+        inscriptionsTable.setColumnWidth(createdColumn, 30, Style.Unit.PCT);
 
         InscriptionActionCell actionsCell = actionCellFactory.create(previewAction, editAction,
                 deleteAction, submitAction, printAction);
@@ -150,6 +155,6 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         };
         actionsColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         inscriptionsTable.addColumn(actionsColumn, "Actions");
-        inscriptionsTable.setColumnWidth(actionsColumn, 70, Style.Unit.PX);
+        inscriptionsTable.setColumnWidth(actionsColumn, 10, Style.Unit.PCT);
     }
 }
