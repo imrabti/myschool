@@ -15,7 +15,7 @@
                 </a>
             </li>
             <li>
-                <a href="javascript:;" ui:field="remove">
+                <a href="javascript:;" ui:field="delete">
                     <i class="icon-remove"/>
                     <span class="">Supprimer</span>
                 </a>

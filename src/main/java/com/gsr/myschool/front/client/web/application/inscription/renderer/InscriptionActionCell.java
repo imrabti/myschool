@@ -60,27 +60,27 @@ public class InscriptionActionCell extends AbstractCell<InscriptionProxy> {
         uiRenderer.render(builder);
     }
 
-    @UiHandler("{preview}")
+    @UiHandler({"preview"})
     void onPreviewClicked(ClickEvent event) {
         preview.execute(selectedObject);
     }
 
-    @UiHandler("{edit}")
+    @UiHandler({"edit"})
     void onEditClicked(ClickEvent event) {
         edit.execute(selectedObject);
     }
 
-    @UiHandler("{delete}")
+    @UiHandler({"delete"})
     void onDeleteClicked(ClickEvent event) {
         delete.execute(selectedObject);
     }
 
-    @UiHandler("{submit}")
+    @UiHandler({"submit"})
     void onSubmitClicked(ClickEvent event) {
         submit.execute(selectedObject);
     }
 
-    @UiHandler("{print}")
+    @UiHandler({"print"})
     void onPrintClicked(ClickEvent event) {
         print.execute(selectedObject);
     }
