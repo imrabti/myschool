@@ -23,7 +23,7 @@ import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gsr.myschool.common.shared.dto.UserCredentials;
 import com.gsr.myschool.front.client.BootstrapperImpl;
 import com.gsr.myschool.front.client.place.NameTokens;
-import com.gsr.myschool.front.client.request.MyRequestFactory;
+import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.web.RootPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -47,14 +47,14 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
     public interface MyProxy extends ProxyPlace<LoginPresenter> {
     }
 
-    private final MyRequestFactory requestFactory;
+    private final FrontRequestFactory requestFactory;
     private final SecurityUtils securityUtils;
     private final BootstrapperImpl bootstrapper;
     private final PlaceManager placeManager;
 
     @Inject
     public LoginPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
-                          final MyRequestFactory requestFactory, final SecurityUtils securityUtils,
+                          final FrontRequestFactory requestFactory, final SecurityUtils securityUtils,
                           final BootstrapperImpl bootstrapper, final PlaceManager placeManager) {
         super(eventBus, view, proxy, RootPresenter.TYPE_SetMainContent);
 

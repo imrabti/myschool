@@ -16,7 +16,11 @@
 
 package com.gsr.myschool.front.client.web.application.inscription;
 
+import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.front.client.request.FrontRequestFactory;
+import com.gsr.myschool.front.client.security.CurrentUserProvider;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
+import com.gsr.myschool.common.client.proxy.InscriptionProxy;
 import com.gsr.myschool.front.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.google.inject.Inject;
@@ -29,9 +33,12 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
+import java.util.List;
+
 public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView, InscriptionPresenter.MyProxy>
         implements InscriptionUiHandlers {
     public interface MyView extends View, HasUiHandlers<InscriptionUiHandlers> {
+        void setData(List<InscriptionProxy> data);
     }
 
     @ProxyStandard
@@ -40,10 +47,50 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
     public interface MyProxy extends ProxyPlace<InscriptionPresenter> {
     }
 
+    private final CurrentUserProvider currentUserProvider;
+    private final FrontRequestFactory requestFactory;
+
     @Inject
-    public InscriptionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy) {
+    public InscriptionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
+                                final FrontRequestFactory requestFactory,
+                                final CurrentUserProvider currentUserProvider) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
+        this.requestFactory = requestFactory;
+        this.currentUserProvider = currentUserProvider;
+
         getView().setUiHandlers(this);
+    }
+
+    @Override
+    public void previewInscription(InscriptionProxy inscription) {
+    }
+
+    @Override
+    public void editInscription(InscriptionProxy inscription) {
+    }
+
+    @Override
+    public void deleteInscription(InscriptionProxy inscription) {
+    }
+
+    @Override
+    public void submitInscription(InscriptionProxy inscription) {
+    }
+
+    @Override
+    public void printInscription(InscriptionProxy inscription) {
+    }
+
+    @Override
+    protected void onReveal() {
+        Long userId = currentUserProvider.get().getId();
+        requestFactory.inscriptionService().findAllInscriptionsByUser(userId)
+                .fire(new ReceiverImpl<List<InscriptionProxy>>() {
+            @Override
+            public void onSuccess(List<InscriptionProxy> result) {
+                getView().setData(result);
+            }
+        });
     }
 }

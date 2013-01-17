@@ -16,17 +16,15 @@
 
 package com.gsr.myschool.back.client.web;
 
-import com.gsr.myschool.back.client.web.administration.AdministrationModule;
+import com.gsr.myschool.back.client.web.application.ApplicationModule;
 import com.gsr.myschool.back.client.web.welcome.WelcomeModule;
-import com.gsr.myschool.common.client.widget.messages.MessageModule;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 public class RootModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
-		install(new AdministrationModule());
+		install(new ApplicationModule());
         install(new WelcomeModule());
-        install(new MessageModule());
 
         bindPresenter(RootPresenter.class, RootPresenter.MyView.class, RootView.class,
                 RootPresenter.MyProxy.class);

@@ -1,6 +1,16 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-    <g:HTMLPanel>
-        This is the convocation view
-    </g:HTMLPanel>
+
+    <ui:with field="resources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+
+    <g:LayoutPanel>
+        <g:layer top="0px" height="50px" right="20px" left="0px">
+            <g:HTMLPanel styleName="{resources.sharedStyleCss.bigTitle}">
+                <h2>
+                    <g:InlineLabel text="Mes Convocations"/>
+                </h2>
+                <div style="clear: both;"/>
+            </g:HTMLPanel>
+        </g:layer>
+    </g:LayoutPanel>
 </ui:UiBinder>
