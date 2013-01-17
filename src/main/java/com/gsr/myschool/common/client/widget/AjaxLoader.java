@@ -35,7 +35,7 @@ public class AjaxLoader extends Widget implements HasText {
     public AjaxLoader(final SharedResources sharedResources) {
         setElement(DOM.createElement("div"));
         getElement().setInnerText("Loading...");
-        setStyleName(getElement(), sharedResources.generalStyleCss().ajaxLoader());
+        setStyleName(getElement(), sharedResources.sharedStyleCss().ajaxLoader());
         setVisible(false);
     }
 

@@ -16,9 +16,11 @@
 
 package com.gsr.myschool.front.client.web.application.inscription;
 
+import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
 import com.google.inject.TypeLiteral;
 import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.front.client.web.application.inscription.renderer.InscriptionActionCellFactory;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 public class InscriptionModule extends AbstractPresenterModule {
@@ -29,5 +31,7 @@ public class InscriptionModule extends AbstractPresenterModule {
 
         bindPresenter(InscriptionPresenter.class, InscriptionPresenter.MyView.class, InscriptionView.class,
                 InscriptionPresenter.MyProxy.class);
+
+        install(new GinFactoryModuleBuilder().build(InscriptionActionCellFactory.class));
     }
 }

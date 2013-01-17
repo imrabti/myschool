@@ -1,6 +1,37 @@
-.bigTitle {
+@external navbar-inner;
+
+body {
+    font-family: "Droid Sans", Helvetica, Arial, sans-serif;
+}
+
+.navbar-inner {
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.ajaxLoader {
+    color: #ffffff;
+    background-color: #545454;
     font-weight: bold;
-    font-size: 19px;
+    position: fixed;
+    width: 100px;
+    left: 50%;
+    margin-left: -49px;
+    top: 0px;
+    text-align: center;
+    font-size: 12px;
+    -moz-border-radius-bottomleft: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    display: block;
+    z-index: 100;
+    padding: 5px;
+}
+
+
+.bigTitle {
     color: #545454;
     padding-bottom: 2px;
     border-bottom: 1px solid #DADADA;
@@ -8,7 +39,12 @@
 }
 
 .bigTitle h2 {
+    font-weight: normal;
     float: left;
+    font-size: 25px;
+    margin: 0px;
+    padding: 0px;
+    font-weight: bold;
 }
 
 .bigTitle div {
