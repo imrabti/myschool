@@ -1,0 +1,29 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:s='urn:import:com.gsr.myschool.back.client.web.administration.widget.footer'
+             xmlns:f='urn:import:com.gsr.myschool.common.client.widget'>
+    <g:SimpleLayoutPanel>
+        <g:DockLayoutPanel unit='PX'>
+            <g:north size="64">
+                <g:HTMLPanel>
+                    <!-- Ajax Loader displayer -->
+                    <f:AjaxLoader ui:field="ajaxLoader"/>
+
+                    <g:SimplePanel ui:field="headerDisplay"/>
+                </g:HTMLPanel>
+            </g:north>
+
+            <g:south size="50">
+                <s:FooterView ui:field="footer"/>
+            </g:south>
+
+            <g:center>
+                <g:SimpleLayoutPanel ui:field="mainDisplay"/>
+            </g:center>
+
+            <g:west size="300">
+                <g:SimplePanel ui:field="siderDisplay"/>
+            </g:west>
+        </g:DockLayoutPanel>
+    </g:SimpleLayoutPanel>
+</ui:UiBinder>

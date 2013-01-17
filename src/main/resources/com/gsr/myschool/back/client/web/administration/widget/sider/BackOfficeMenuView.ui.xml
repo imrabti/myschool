@@ -1,0 +1,23 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+    <ui:style>
+        .menuWrapper {
+            padding: 0px 20px;
+            height: 100%;
+        }
+
+        .menu {
+            min-height: 200px;
+        }
+    </ui:style>
+
+    <g:HTMLPanel styleName="{style.menuWrapper}">
+        <boot:WellNavList addStyleNames="{style.menu}">
+            <boot:NavHeader>Menu</boot:NavHeader>
+            <boot:NavLink ui:field="preInscription" icon="CLOUD">Pré-inscriptions</boot:NavLink>
+            <boot:NavLink ui:field="reception" icon="FOLDER_OPEN">Reception des dossiers</boot:NavLink>
+            <boot:NavLink ui:field="validation" icon="CHECK">Validation des dossiers</boot:NavLink>
+        </boot:WellNavList>
+    </g:HTMLPanel>
+</ui:UiBinder>

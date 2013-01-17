@@ -34,4 +34,14 @@
             </beans:list>
         </beans:constructor-arg>
     </beans:bean>
+
+    <beans:bean id="adminAuthenticationProvider" class="org.springframework.security.authentication.ProviderManager">
+        <beans:constructor-arg>
+            <beans:list>
+                <beans:bean class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+                    <beans:property name="userDetailsService" ref="adminUserDetailsService"/>
+                </beans:bean>
+            </beans:list>
+        </beans:constructor-arg>
+    </beans:bean>
 </beans:beans>

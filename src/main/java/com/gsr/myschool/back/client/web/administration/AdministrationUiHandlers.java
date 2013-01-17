@@ -14,10 +14,9 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.resource.style;
+package com.gsr.myschool.back.client.web.administration;
 
-import com.google.gwt.resources.client.CssResource;
+import com.gwtplatform.mvp.client.UiHandlers;
 
-public interface GeneralStyle extends CssResource {
-    String ajaxLoader();
+public interface AdministrationUiHandlers extends UiHandlers {
 }

@@ -17,16 +17,16 @@
 package com.gsr.myschool.front.client;
 
 import com.google.inject.Inject;
+import com.gsr.myschool.common.client.resource.SharedResources;
+import com.gsr.myschool.common.client.security.CurrentUserProvider;
+import com.gsr.myschool.common.client.security.SecurityUtils;
+import com.gsr.myschool.common.client.util.CallbackImpl;
+import com.gsr.myschool.front.client.place.NameTokens;
+import com.gsr.myschool.front.client.request.proxy.UserProxy;
 import com.gwtplatform.mvp.client.Bootstrapper;
 import com.gwtplatform.mvp.client.annotations.IsTheBootstrapper;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
-import com.gsr.myschool.front.client.place.NameTokens;
-import com.gsr.myschool.front.client.request.proxy.UserProxy;
-import com.gsr.myschool.front.client.resource.Resources;
-import com.gsr.myschool.common.client.security.CurrentUserProvider;
-import com.gsr.myschool.common.client.security.SecurityUtils;
-import com.gsr.myschool.common.client.util.CallbackImpl;
 
 import java.util.logging.Logger;
 
@@ -40,14 +40,15 @@ public class BootstrapperImpl implements Bootstrapper {
     private final CallbackImpl<UserProxy> getCurrentUserCallback;
 
     @Inject
-    public BootstrapperImpl(final PlaceManager placeManager, final Resources resources,
+    public BootstrapperImpl(final PlaceManager placeManager,
+                            final SharedResources sharedResources,
                             final SecurityUtils securityUtils,
                             final CurrentUserProvider currentUserProvider) {
         this.placeManager = placeManager;
         this.securityUtils = securityUtils;
         this.currentUserProvider = currentUserProvider;
 
-        resources.generalStyleCss().ensureInjected();
+        sharedResources.generalStyleCss().ensureInjected();
 
         getCurrentUserCallback = new CallbackImpl<UserProxy>() {
             @Override

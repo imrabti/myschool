@@ -1,0 +1,32 @@
+@external navbar-inner;
+
+body {
+    font-family: "Droid Sans", Helvetica, Arial, sans-serif;
+}
+
+.navbar-inner {
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.ajaxLoader {
+    color: #ffffff;
+    background-color: #545454;
+    font-weight: bold;
+    position: fixed;
+    width: 100px;
+    left: 50%;
+    margin-left: -49px;
+    top: 0px;
+    text-align: center;
+    font-size: 12px;
+    -moz-border-radius-bottomleft: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    display: block;
+    z-index: 100;
+    padding: 5px;
+}
+

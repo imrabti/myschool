@@ -18,8 +18,8 @@ package com.gsr.myschool.front.client.request.proxy;
 
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;
+import com.gsr.myschool.common.shared.type.AuthorityType;
 import com.gsr.myschool.server.business.User;
-import com.gsr.myschool.common.shared.type.Authority;
 
 @ProxyFor(User.class)
 public interface UserProxy extends ValueProxy {
@@ -47,7 +47,7 @@ public interface UserProxy extends ValueProxy {
 
     void setLastName(String lastName);
 
-    Authority getAuthority();
+    AuthorityType getAuthority();
 
-    void setAuthority(Authority authority);
+    void setAuthority(AuthorityType authorityType);
 }

@@ -14,8 +14,12 @@
  * the License.
  */
 
-package com.gsr.myschool.common.shared.type;
+package com.gsr.myschool.back.client.resource;
 
-public enum Authority {
-    ROLE_USER, ROLE_ADMIN;
+import com.gsr.myschool.back.client.resource.style.AdminStyle;
+import com.google.gwt.resources.client.ClientBundle;
+
+public interface AdminResources extends ClientBundle {
+    @Source("com/gsr/myschool/back/client/resource/style/adminStyle.css")
+    AdminStyle adminStyleCss();
 }

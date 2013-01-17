@@ -14,12 +14,19 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.resource;
+package com.gsr.myschool.back.client.web.administration.widget.footer;
 
-import com.gsr.myschool.front.client.resource.style.GeneralStyle;
-import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
 
-public interface Resources extends ClientBundle {
-    @Source("com/gsr/myschool/front/client/resource/style/generalStyle.css")
-    GeneralStyle generalStyleCss();
+public class FooterView extends Composite {
+    public interface Binder extends UiBinder<Widget, FooterView> {
+    }
+
+    @Inject
+    public FooterView(final Binder uiBinder) {
+        initWidget(uiBinder.createAndBindUi(this));
+    }
 }
