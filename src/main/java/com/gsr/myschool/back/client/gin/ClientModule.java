@@ -28,13 +28,10 @@ import com.gsr.myschool.back.client.resource.AdminResources;
 import com.gsr.myschool.back.client.resource.message.ErrorText;
 import com.gsr.myschool.back.client.resource.message.LabelText;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
+import com.gsr.myschool.back.client.security.CurrentUserProvider;
 import com.gsr.myschool.back.client.web.RootModule;
+import com.gsr.myschool.common.client.CommonModule;
 import com.gsr.myschool.common.client.event.EventSourceRequestTransport;
-import com.gsr.myschool.common.client.request.ReceiverImpl;
-import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
-import com.gsr.myschool.common.client.security.AdminUserProvider;
-import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
-import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
 import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gsr.myschool.back.client.place.DefaultPlace;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
@@ -44,6 +41,7 @@ public class ClientModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
         install(new DefaultModule(PlaceManager.class));
+        install(new CommonModule());
         install(new RootModule());
 
         bind(BackRequestFactory.class).toProvider(RequestFactoryProvider.class).in(Singleton.class);
@@ -52,13 +50,7 @@ public class ClientModule extends AbstractPresenterModule {
         bind(AdminResources.class).in(Singleton.class);
         bind(MessageBundle.class).in(Singleton.class);
         bind(SecurityUtils.class).in(Singleton.class);
-        bind(AdminUserProvider.class).in(Singleton.class);
-
-        bind(LoggedInGatekeeper.class).in(Singleton.class);
-        bind(HasRoleGatekeeper.class).in(Singleton.class);
-
-        requestStaticInjection(ReceiverImpl.class);
-        requestStaticInjection(ValidatedReceiverImpl.class);
+        bind(CurrentUserProvider.class).in(Singleton.class);
 
         bind(LabelText.class).in(Singleton.class);
         bind(ErrorText.class).in(Singleton.class);

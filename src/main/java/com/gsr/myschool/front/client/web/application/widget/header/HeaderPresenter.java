@@ -18,7 +18,7 @@ package com.gsr.myschool.front.client.web.application.widget.header;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-import com.gsr.myschool.common.client.security.CurrentUserProvider;
+import com.gsr.myschool.front.client.security.CurrentUserProvider;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gwtplatform.mvp.client.HasUiHandlers;

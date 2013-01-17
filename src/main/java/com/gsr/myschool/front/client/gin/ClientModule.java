@@ -17,16 +17,14 @@
 package com.gsr.myschool.front.client.gin;
 
 import com.gsr.myschool.common.client.CommonModule;
-import com.gsr.myschool.common.client.security.CurrentUserProvider;
+import com.gsr.myschool.front.client.request.FrontRequestFactory;
+import com.gsr.myschool.front.client.security.CurrentUserProvider;
+import com.gsr.myschool.front.client.resource.FrontResources;
 import com.gsr.myschool.front.client.web.RootModule;
 import com.gsr.myschool.common.client.event.EventSourceRequestTransport;
 import com.gsr.myschool.front.client.place.DefaultPlace;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.place.PlaceManager;
-import com.gsr.myschool.front.client.request.MyRequestFactory;
-import com.gsr.myschool.common.client.request.ReceiverImpl;
-import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
-import com.gsr.myschool.front.client.resource.Resources;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.google.gwt.core.client.GWT;
 import com.google.inject.Inject;
@@ -35,8 +33,6 @@ import com.google.inject.Singleton;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 import com.gwtplatform.mvp.client.gin.DefaultModule;
-import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
-import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
 import com.gsr.myschool.common.client.security.SecurityUtils;
 
 public class ClientModule extends AbstractPresenterModule {
@@ -46,31 +42,25 @@ public class ClientModule extends AbstractPresenterModule {
         install(new CommonModule());
         install(new RootModule());
 
-        bind(MyRequestFactory.class).toProvider(RequestFactoryProvider.class).in(Singleton.class);
+        bind(FrontRequestFactory.class).toProvider(RequestFactoryProvider.class).in(Singleton.class);
         bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.login);
 
-        bind(Resources.class).in(Singleton.class);
+        bind(FrontResources.class).in(Singleton.class);
         bind(MessageBundle.class).in(Singleton.class);
         bind(SecurityUtils.class).in(Singleton.class);
         bind(CurrentUserProvider.class).in(Singleton.class);
-
-        bind(LoggedInGatekeeper.class).in(Singleton.class);
-        bind(HasRoleGatekeeper.class).in(Singleton.class);
-
-        requestStaticInjection(ReceiverImpl.class);
-        requestStaticInjection(ValidatedReceiverImpl.class);
     }
 
-    static class RequestFactoryProvider implements Provider<MyRequestFactory> {
-        private final MyRequestFactory requestFactory;
+    static class RequestFactoryProvider implements Provider<FrontRequestFactory> {
+        private final FrontRequestFactory requestFactory;
 
         @Inject
         public RequestFactoryProvider(EventBus eventBus, SecurityUtils securityUtils) {
-            requestFactory = GWT.create(MyRequestFactory.class);
+            requestFactory = GWT.create(FrontRequestFactory.class);
             requestFactory.initialize(eventBus, new EventSourceRequestTransport(eventBus, securityUtils));
         }
 
-        public MyRequestFactory get() {
+        public FrontRequestFactory get() {
             return requestFactory;
         }
     }

@@ -18,12 +18,11 @@ package com.gsr.myschool.back.client.place;
 
 public class NameTokens {
     public static final String login = "login";
-	public static final String administration = "administration";
-	public static final String preInscriptions = "preInscriptions";
-	public static final String reception = "reception";
-	public static final String validation = "validation";
+    public static final String administration = "application";
+    public static final String preInscriptions = "preInscriptions";
+    public static final String reception = "reception";
+    public static final String validation = "validation";
     public static final String settings = "valueList";
-
     public static final String addDefLov = "addDefLov";
     public static final String listDefLov = "listDefLov";
     public static final String addLov = "addLov";
@@ -33,21 +32,21 @@ public class NameTokens {
         return login;
     }
 
-	public static String getAdministration() {
-		return administration;
-	}
+    public static String getAdministration() {
+        return administration;
+    }
 
-	public static String getPreInscriptions() {
-		return preInscriptions;
-	}
+    public static String getPreInscriptions() {
+        return preInscriptions;
+    }
 
-	public static String getReception() {
-		return reception;
-	}
+    public static String getReception() {
+        return reception;
+    }
 
-	public static String getValidation() {
-		return validation;
-	}
+    public static String getValidation() {
+        return validation;
+    }
 
     public static String getSettings() {
         return settings;

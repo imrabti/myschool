@@ -1,6 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <module rename-to='myproject'>
+    <!-- Inherit the core Web Toolkit stuff.                        -->
     <inherits name='com.google.gwt.user.User'/>
+    <inherits name='com.google.web.bindery.requestfactory.RequestFactory'/>
+    <inherits name='com.google.gwt.editor.Editor'/>
+
+    <!-- Other module inherits                                      -->
     <inherits name="com.google.common.base.Base"/>
     <inherits name="com.google.gwt.query.Query"/>
     <inherits name="com.github.gwtbootstrap.Bootstrap"/>
