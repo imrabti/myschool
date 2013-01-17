@@ -16,7 +16,6 @@
 
 package com.gsr.myschool.server.service.impl;
 
-import com.gsr.myschool.common.shared.type.AuthorityType;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.repos.UserRepos;
 import com.gsr.myschool.server.service.RegistrationService;

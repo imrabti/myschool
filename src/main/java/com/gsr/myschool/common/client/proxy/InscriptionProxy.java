@@ -2,7 +2,6 @@ package com.gsr.myschool.common.client.proxy;
 
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;
-import com.gsr.myschool.common.shared.type.InscriptionStatusType;
 import com.gsr.myschool.server.business.Inscription;
 
 import java.util.Date;

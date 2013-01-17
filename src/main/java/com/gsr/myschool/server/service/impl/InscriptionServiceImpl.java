@@ -1,6 +1,5 @@
 package com.gsr.myschool.server.service.impl;
 
-import com.gsr.myschool.common.shared.type.InscriptionStatusType;
 import com.gsr.myschool.server.business.Inscription;
 import com.gsr.myschool.server.service.InscriptionService;
 import org.springframework.stereotype.Service;

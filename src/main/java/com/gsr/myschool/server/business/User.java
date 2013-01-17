@@ -16,8 +16,6 @@
 
 package com.gsr.myschool.server.business;
 
-import com.gsr.myschool.common.shared.type.AuthorityType;
-
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
