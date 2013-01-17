@@ -59,7 +59,7 @@ public class BackOfficeHeaderPresenter extends PresenterWidget<BackOfficeHeaderP
 
     @Override
     public void setting() {
-        // TODO : here display admin settings popup...
+        // TODO : here display admin valueList popup...
     }
 
     @Override

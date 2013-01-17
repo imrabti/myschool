@@ -25,6 +25,8 @@ import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.place.PlaceManager;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.resource.AdminResources;
+import com.gsr.myschool.back.client.resource.message.ErrorText;
+import com.gsr.myschool.back.client.resource.message.LabelText;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.web.RootModule;
 import com.gsr.myschool.common.client.event.EventSourceRequestTransport;
@@ -57,6 +59,9 @@ public class ClientModule extends AbstractPresenterModule {
 
         requestStaticInjection(ReceiverImpl.class);
         requestStaticInjection(ValidatedReceiverImpl.class);
+
+        bind(LabelText.class).in(Singleton.class);
+        bind(ErrorText.class).in(Singleton.class);
     }
 
     static class RequestFactoryProvider implements Provider<BackRequestFactory> {

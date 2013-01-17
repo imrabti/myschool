@@ -20,4 +20,6 @@ import com.google.web.bindery.requestfactory.shared.RequestFactory;
 
 public interface BackRequestFactory extends RequestFactory {
     AuthenticationRequest adminAuthenticationService();
+    DefLovServiceRequest getDefLovServiceRequest();
+    LOVServiceRequest getLovServiceRequest();
 }

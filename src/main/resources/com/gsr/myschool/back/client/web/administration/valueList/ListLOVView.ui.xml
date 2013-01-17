@@ -1,0 +1,15 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:cellview="urn:import:com.google.gwt.user.cellview.client">
+
+    <ui:with type="com.gsr.myschool.back.client.resource.message.LabelText" field="labelText"/>
+    <g:HTMLPanel>
+        <g:Label text="{labelText.labelsDefinition}" width="134px" ui:field="defLovLabel"/>
+        <g:ListBox ui:field="defLov"/>
+        <g:Label text="{labelText.labelsParent}" width="134px" ui:field="parentLabel"/>
+        <g:ListBox ui:field="parent"/>
+        <cellview:CellTable ui:field="LovTable"/>
+        <g:Button ui:field="modify" text="{labelText.buttonsModify}"/>
+        <g:Button ui:field="delete" text="{labelText.buttonsDelete}"/>
+    </g:HTMLPanel>
+</ui:UiBinder>

@@ -17,6 +17,7 @@
 package com.gsr.myschool.back.client.web.administration;
 
 import com.google.inject.TypeLiteral;
+import com.gsr.myschool.back.client.web.administration.valueList.SettingsModule;
 import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.back.client.web.administration.widget.header.BackOfficeHeaderPresenter;
@@ -30,6 +31,8 @@ import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 public class AdministrationModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
+        install(new SettingsModule());
+
         bind(new TypeLiteral<UiHandlersStrategy<AdministrationUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<AdministrationUiHandlers>>() {});
 		bind(new TypeLiteral<UiHandlersStrategy<BackOfficeHeaderUiHandlers>>() {})

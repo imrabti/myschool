@@ -22,6 +22,12 @@ public class NameTokens {
 	public static final String preInscriptions = "preInscriptions";
 	public static final String reception = "reception";
 	public static final String validation = "validation";
+    public static final String settings = "valueList";
+
+    public static final String addDefLov = "addDefLov";
+    public static final String listDefLov = "listDefLov";
+    public static final String addLov = "addLov";
+    public static final String listLov = "listLov";
 
     public static String getLogin() {
         return login;
@@ -42,4 +48,24 @@ public class NameTokens {
 	public static String getValidation() {
 		return validation;
 	}
+
+    public static String getSettings() {
+        return settings;
+    }
+
+    public static String getAddDefLov() {
+        return addDefLov;
+    }
+
+    public static String getListDefLov() {
+        return listDefLov;
+    }
+
+    public static String getAddLov() {
+        return addLov;
+    }
+
+    public static String getListLov() {
+        return listLov;
+    }
 }
