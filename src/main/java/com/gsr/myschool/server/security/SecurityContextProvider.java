@@ -16,8 +16,11 @@
 
 package com.gsr.myschool.server.security;
 
+import com.gsr.myschool.server.business.AdminUser;
 import com.gsr.myschool.server.business.User;
 
 public interface SecurityContextProvider {
     User getCurrentUser();
+
+	AdminUser getCurrentAdmin();
 }

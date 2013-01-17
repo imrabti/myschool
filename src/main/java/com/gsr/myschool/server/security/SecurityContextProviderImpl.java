@@ -16,7 +16,9 @@
 
 package com.gsr.myschool.server.security;
 
+import com.gsr.myschool.server.business.AdminUser;
 import com.gsr.myschool.server.business.User;
+import com.gsr.myschool.server.repos.AdminUserRepos;
 import com.gsr.myschool.server.repos.UserRepos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContext;
@@ -28,6 +30,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class SecurityContextProviderImpl implements SecurityContextProvider {
     @Autowired
     private UserRepos userRepos;
+	@Autowired
+	private AdminUserRepos adminUserRepos;
 
     @Override
     @Transactional(readOnly = true)
@@ -40,4 +44,16 @@ public class SecurityContextProviderImpl implements SecurityContextProvider {
 
         return null;
     }
+
+	@Override
+	@Transactional(readOnly = true)
+	public AdminUser getCurrentAdmin() {
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		if (securityContext != null) {
+			String email = securityContext.getAuthentication().getName();
+			return adminUserRepos.findByEmail(email);
+		}
+
+		return null;
+	}
 }

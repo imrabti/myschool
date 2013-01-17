@@ -26,7 +26,7 @@ import com.gsr.myschool.front.client.place.PlaceManager;
 import com.gsr.myschool.front.client.request.MyRequestFactory;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
-import com.gsr.myschool.front.client.resource.Resources;
+import com.gsr.myschool.front.client.resource.ClientResources;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.google.gwt.core.client.GWT;
 import com.google.inject.Inject;
@@ -49,7 +49,7 @@ public class ClientModule extends AbstractPresenterModule {
         bind(MyRequestFactory.class).toProvider(RequestFactoryProvider.class).in(Singleton.class);
         bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.login);
 
-        bind(Resources.class).in(Singleton.class);
+        bind(ClientResources.class).in(Singleton.class);
         bind(MessageBundle.class).in(Singleton.class);
         bind(SecurityUtils.class).in(Singleton.class);
         bind(CurrentUserProvider.class).in(Singleton.class);

@@ -12,14 +12,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import static java.lang.Thread.sleep;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath*:META-INF/applicationContext.xml",
-        "classpath*:META-INF/applicationContext-activiti.xml","classpath*:/META-INF/applicationContext-security.xml"})
+        "classpath*:META-INF/applicationContext-activiti.xml", "classpath*:/META-INF/applicationContext-security.xml"})
+@ActiveProfiles("test")
 public class RegisterProcessServiceTest {
     @Autowired
     private RuntimeService runtimeService;
@@ -74,17 +76,9 @@ public class RegisterProcessServiceTest {
     }
 
     @After
-    public void terminate(){
-        userRepos.delete(1L);
+    public void terminate() {
+        userRepos.deleteAll();
         emailTemplateRepos.deleteAll();
-    }
-
-    // tests the first scenario witch sends another mail, and finaly deletes the account
-    @Test
-    @Deployment
-    public void testScenario1() throws Exception {
-        registerProcessService.register(user);
-        sleep(23000);
     }
 
     // tests the second scenario in with the user activates his account
@@ -94,6 +88,16 @@ public class RegisterProcessServiceTest {
         String token = "test";
         registerProcessService.register(user, token);
         registerProcessService.activateAccount(token);
-        sleep(10000);
+        Thread.sleep(10000);
+    }
+
+    // tests the first scenario witch sends another mail, and finaly deletes the account
+    @Test
+    @Deployment
+    public void testScenario1() throws Exception {
+        user.setId(2L);
+        userRepos.save(user);
+        registerProcessService.register(user);
+        Thread.sleep(40000);
     }
 }

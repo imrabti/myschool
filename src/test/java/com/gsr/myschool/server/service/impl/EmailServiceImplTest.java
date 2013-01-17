@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -22,6 +23,7 @@ import java.util.Map;
         "classpath*:/META-INF/applicationContext-activiti.xml", "classpath*:/META-INF/applicationContext-security.xml"})
 @TransactionConfiguration(defaultRollback = true)
 @Transactional
+@ActiveProfiles("test")
 public class EmailServiceImplTest {
     @Autowired
     private EmailService emailService;

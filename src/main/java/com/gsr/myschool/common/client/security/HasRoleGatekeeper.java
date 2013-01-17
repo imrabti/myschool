@@ -38,7 +38,7 @@ public class HasRoleGatekeeper implements GatekeeperWithParams {
     @Override
     public boolean canReveal() {
         for (String role : requiredRoles) {
-            if (securityUtils.hasAuthority(role)) {
+            if (securityUtils.isLoggedIn() && securityUtils.hasAuthority(role)) {
                 return true;
             }
         }
