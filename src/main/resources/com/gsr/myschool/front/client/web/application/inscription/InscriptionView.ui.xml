@@ -4,21 +4,25 @@
 
     <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
-    <g:LayoutPanel>
-        <g:layer top="0px" height="55px" right="20px" left="0px">
-            <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
-                <h2>
-                    <g:InlineLabel text="Mes Inscriptions"/>
-                </h2>
-                <div>
-                    <boot:Button text="Nouvelle inscription" icon="PLUS"/>
-                </div>
-                <div style="clear: both;"/>
-            </g:HTMLPanel>
-        </g:layer>
+    <ui:style>
+        .tableWrapper {
+            margin-top: 12px;
+        }
+    </ui:style>
 
-        <g:layer top="55px" bottom="20px" right="20px" left="0px">
+    <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
+        <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
+            <h2>
+                <g:InlineLabel text="Mes Inscriptions"/>
+            </h2>
+            <div>
+                <boot:Button ui:field="add" text="Nouvelle inscription" icon="PLUS"/>
+            </div>
+            <span style="display: block; clear: both;"/>
+        </g:HTMLPanel>
+
+        <div class="{style.tableWrapper}">
             <boot:CellTable ui:field="inscriptionsTable" bordered="true"/>
-        </g:layer>
-    </g:LayoutPanel>
+        </div>
+    </g:HTMLPanel>
 </ui:UiBinder>

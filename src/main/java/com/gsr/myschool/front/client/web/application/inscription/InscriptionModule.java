@@ -31,6 +31,8 @@ public class InscriptionModule extends AbstractPresenterModule {
 
         bindPresenter(InscriptionPresenter.class, InscriptionPresenter.MyView.class, InscriptionView.class,
                 InscriptionPresenter.MyProxy.class);
+        bindPresenter(EditInscriptionPresenter.class, EditInscriptionPresenter.MyView.class, EditInscriptionView.class,
+                EditInscriptionPresenter.MyProxy.class);
 
         install(new GinFactoryModuleBuilder().build(InscriptionActionCellFactory.class));
     }
