@@ -1,5 +1,6 @@
 package com.gsr.myschool.server.service.impl;
 
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Inscription;
 import com.gsr.myschool.server.service.InscriptionService;
 import org.springframework.stereotype.Service;
@@ -20,25 +21,25 @@ public class InscriptionServiceImpl implements InscriptionService {
         Inscription inscription = new Inscription();
         inscription.setCreated(new Date());
         inscription.setId(1l);
-        inscription.setStatus(InscriptionStatusType.CREATED);
+        inscription.setStatus(DossierStatus.CREATED);
         inscriptions.add(inscription);
 
         inscription = new Inscription();
         inscription.setCreated(new Date());
         inscription.setId(2l);
-        inscription.setStatus(InscriptionStatusType.PROCESSED);
+        inscription.setStatus(DossierStatus.SUBMITED);
         inscriptions.add(inscription);
 
         inscription = new Inscription();
         inscription.setCreated(new Date());
         inscription.setId(3l);
-        inscription.setStatus(InscriptionStatusType.WAITING);
+        inscription.setStatus(DossierStatus.RECEIVED);
         inscriptions.add(inscription);
 
         inscription = new Inscription();
         inscription.setCreated(new Date());
         inscription.setId(4l);
-        inscription.setStatus(InscriptionStatusType.WAITING);
+        inscription.setStatus(DossierStatus.INVITED_TO_TEST);
         inscriptions.add(inscription);
 
         return inscriptions;

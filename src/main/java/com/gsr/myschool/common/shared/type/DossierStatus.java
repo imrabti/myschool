@@ -1,9 +1,3 @@
-/***********************************************************************
- * Module:  DossierStatus.java
- * Author:  mbouayad
- * Purpose: Defines the Class DossierStatus
- ***********************************************************************/
-
 package com.gsr.myschool.common.shared.type;
 
 public enum DossierStatus {

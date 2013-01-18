@@ -1,10 +1,6 @@
 package com.gsr.myschool.server.business.core;
 
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -13,7 +9,7 @@ public class SessionExamen implements java.io.Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Date dateSession;
-    @Enumerated
+    @ManyToOne
     private NiveauEtude niveauEtude;
 
     public NiveauEtude getNiveauEtude() {
