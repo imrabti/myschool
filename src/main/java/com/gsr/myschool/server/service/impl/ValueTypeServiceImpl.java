@@ -33,7 +33,7 @@ public class ValueTypeServiceImpl implements ValueTypeService {
     @Override
     public void delete(ValueType toDelete) throws ServiceException {
         if (toDelete != null)
-            if (toDelete.isSystem())
+            if (toDelete.getSystem())
                 throw new ServiceException();
             else
                 valueTypeRepos.delete(toDelete);

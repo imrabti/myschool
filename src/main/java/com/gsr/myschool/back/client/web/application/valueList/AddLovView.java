@@ -20,6 +20,8 @@ import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
  * To change this template use File | Settings | File Templates.
  */
 public class AddLovView extends ViewWithUiHandlers<AddLovUiHandlers> implements AddLovPresenter.MyView {
+    public interface Binder extends UiBinder<Widget, AddLovView> {
+    }
 
     @UiField
     ListBox parent;
@@ -33,6 +35,7 @@ public class AddLovView extends ViewWithUiHandlers<AddLovUiHandlers> implements 
     @Inject
     public AddLovView(final Binder uiBinder, final UiHandlersStrategy<AddLovUiHandlers> uiHandlers) {
         super(uiHandlers);
+
         initWidget(uiBinder.createAndBindUi(this));
     }
 
@@ -62,8 +65,5 @@ public class AddLovView extends ViewWithUiHandlers<AddLovUiHandlers> implements 
     @UiHandler("save")
     void onSaveClicked(ClickEvent event) {
         getUiHandlers().processLov();
-    }
-
-    public interface Binder extends UiBinder<Widget, AddLovView> {
     }
 }

@@ -22,11 +22,11 @@ public class NameTokens {
     public static final String preInscriptions = "preInscriptions";
     public static final String reception = "reception";
     public static final String validation = "validation";
-    public static final String settings = "valueList";
-    public static final String addDefLov = "addDefLov";
-    public static final String listDefLov = "listDefLov";
-    public static final String addLov = "addLov";
-    public static final String listLov = "listLov";
+    public static final String settings = "valuelist";
+    public static final String addDefLov = "addvaluetype";
+    public static final String listDefLov = "valuetype";
+    public static final String addLov = "addvaluelist";
+    public static final String listLov = "valuelist";
 
     public static String getLogin() {
         return login;

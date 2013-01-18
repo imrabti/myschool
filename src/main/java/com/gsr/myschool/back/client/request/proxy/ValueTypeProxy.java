@@ -22,7 +22,7 @@ public interface ValueTypeProxy extends ValueProxy {
 
     void setParent(ValueTypeProxy parent);
 
-    boolean isSystem();
+    Boolean getSystem();
 
-    void setSystem(boolean system);
+    void setSystem(Boolean system);
 }
