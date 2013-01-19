@@ -10,7 +10,7 @@ public class ControlRule implements java.io.Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String activityContolRule;
-    private Integer order;
+    private Integer orderRule;
 
     public NiveauEtude getNiveauEtude() {
         return niveauEtude;
@@ -36,11 +36,11 @@ public class ControlRule implements java.io.Serializable {
         this.activityContolRule = newActivityContolRule;
     }
 
-    public Integer getOrder() {
-        return order;
+    public Integer getOrderRule() {
+        return orderRule;
     }
 
-    public void setOrder(Integer newOrder) {
-        this.order = newOrder;
+    public void setOrderRule(Integer orderRule) {
+        this.orderRule = orderRule;
     }
 }

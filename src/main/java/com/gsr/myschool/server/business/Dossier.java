@@ -14,7 +14,8 @@ public class Dossier implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private Date dateCreation;
+    private Date createDate;
+    private Date submitDate;
     @Enumerated
     private DossierStatus status;
     private String generatedPDFPath;
@@ -26,71 +27,79 @@ public class Dossier implements java.io.Serializable {
         return candidat;
     }
 
-    public void setCandidat(Candidat newCandidat) {
-        this.candidat = newCandidat;
+    public void setCandidat(Candidat candidat) {
+        this.candidat = candidat;
     }
 
     public User getOwner() {
         return owner;
     }
 
-    public void setOwner(User newUser) {
-        this.owner = newUser;
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer newId) {
-        this.id = newId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Date getDateCreation() {
-        return dateCreation;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setDateCreation(Date newDateCreation) {
-        this.dateCreation = newDateCreation;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getSubmitDate() {
+        return submitDate;
+    }
+
+    public void setSubmitDate(Date submitDate) {
+        this.submitDate = submitDate;
     }
 
     public DossierStatus getStatus() {
         return status;
     }
 
-    public void setStatus(DossierStatus newStatus) {
-        this.status = newStatus;
+    public void setStatus(DossierStatus status) {
+        this.status = status;
     }
 
     public String getGeneratedPDFPath() {
         return generatedPDFPath;
     }
 
-    public void setGeneratedPDFPath(String newGeneratedPDFPath) {
-        this.generatedPDFPath = newGeneratedPDFPath;
+    public void setGeneratedPDFPath(String generatedPDFPath) {
+        this.generatedPDFPath = generatedPDFPath;
     }
 
     public String getGeneratedNumDossier() {
         return generatedNumDossier;
     }
 
-    public void setGeneratedNumDossier(String newGeneratedNumDossier) {
-        this.generatedNumDossier = newGeneratedNumDossier;
+    public void setGeneratedNumDossier(String generatedNumDossier) {
+        this.generatedNumDossier = generatedNumDossier;
     }
 
     public String getNote() {
         return note;
     }
 
-    public void setNote(String newNote) {
-        this.note = newNote;
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public Date getRdvEntretien() {
         return rdvEntretien;
     }
 
-    public void setRdvEntretien(Date newRdvEntretien) {
-        this.rdvEntretien = newRdvEntretien;
+    public void setRdvEntretien(Date rdvEntretien) {
+        this.rdvEntretien = rdvEntretien;
     }
 }
