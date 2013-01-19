@@ -1,4 +1,4 @@
-package com.gsr.myschool.server.business;
+package com.gsr.myschool.server.business.lov;
 
 import javax.persistence.*;
 
@@ -8,6 +8,7 @@ public class ValueList {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String value;
+    private String label;
     @ManyToOne
     private ValueList parent;
     @ManyToOne
@@ -29,19 +30,27 @@ public class ValueList {
         this.value = value;
     }
 
-    public ValueType getTypeValue() {
-        return valueType;
-    }
-
-    public void setTypeValue(ValueType typeValue) {
-        this.valueType = typeValue;
-    }
-
     public ValueList getParent() {
         return parent;
     }
 
     public void setParent(ValueList valueList) {
         this.parent = valueList;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public ValueType getValueType() {
+        return valueType;
+    }
+
+    public void setValueType(ValueType valueType) {
+        this.valueType = valueType;
     }
 }

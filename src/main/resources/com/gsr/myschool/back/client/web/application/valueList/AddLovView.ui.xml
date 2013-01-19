@@ -1,0 +1,16 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+    <ui:with type="com.gsr.myschool.back.client.resource.message.MessageBundle" field="labelText"/>
+    <g:HTMLPanel>
+        <g:Label text="{labelText.labelsValue}" width="134px" ui:field="valueLabel"/>
+        <g:TextBox ui:field="value"/>
+        <g:Label text="{labelText.labelsLabel}" width="134px"/>
+        <g:TextBox ui:field="label"/>
+        <g:Label text="{labelText.labelsDefinition}" width="134px" ui:field="defLovLabel"/>
+        <g:ListBox ui:field="defLov"/>
+        <g:Label text="{labelText.labelsParent}" width="134px" ui:field="parentLabel"/>
+        <g:ListBox ui:field="parent"/>
+        <g:Button text="{labelText.buttonsSave}" ui:field="save"/>
+    </g:HTMLPanel>
+</ui:UiBinder>
