@@ -4,20 +4,6 @@
 
     <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
-    <ui:style>
-        .big {
-            height: 200px;;
-        }
-
-        .medium {
-            height: 150px;;
-        }
-
-        .small {
-            height: 100px;
-        }
-    </ui:style>
-
     <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
         <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
             <h2>
@@ -41,8 +27,10 @@
         </boot:TabPanel>
 
         <g:HTMLPanel styleName="{clientResources.sharedStyleCss.buttonContainer}">
-            <boot:Button text="Précedent"/>
-            <boot:Button text="Suivant" styleName="btn btn-primary"/>
+            <boot:Button ui:field="back" text="Précedent" icon="CHEVRON_LEFT"/>
+            <boot:Button ui:field="next"  text="Suivant" icon="CHEVRON_RIGHT"
+                         iconPosition="RIGHT" styleName="btn btn-primary"/>
+            <boot:Button ui:field="finish" text="Terminer" icon="OK" styleName="btn btn-success"/>
         </g:HTMLPanel>
     </g:HTMLPanel>
 </ui:UiBinder>
