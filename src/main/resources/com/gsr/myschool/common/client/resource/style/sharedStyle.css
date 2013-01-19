@@ -66,6 +66,11 @@ body {
     float: right;
 }
 
+.mediumTitle {
+    font-size: 20px;
+    color: #9a9a9a;
+}
+
 .buttonContainer {
     padding: 15px;
     background-color: #f5f5f5;

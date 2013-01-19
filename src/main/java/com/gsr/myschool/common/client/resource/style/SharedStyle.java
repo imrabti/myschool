@@ -9,5 +9,7 @@ public interface SharedStyle extends CssResource {
 
     String bigTitle();
 
+    String mediumTitle();
+
     String buttonContainer();
 }

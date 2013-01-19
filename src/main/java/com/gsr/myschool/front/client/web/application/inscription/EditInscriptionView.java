@@ -124,6 +124,6 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
 
     private void adjustTabNavHeight() {
         $(".nav-tabs").height(0);
-        $(".nav-tabs").height(steps.getOffsetHeight() + 20);
+        $(".nav-tabs").height(steps.getOffsetHeight() - 20);
     }
 }
