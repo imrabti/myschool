@@ -50,8 +50,9 @@ public class BootstrapperImpl implements Bootstrapper {
         this.securityUtils = securityUtils;
         this.adminUserProvider = adminUserProvider;
 
-        sharedResources.sharedStyleCss().ensureInjected();
         resources.adminStyleCss().ensureInjected();
+        sharedResources.sharedStyleCss().ensureInjected();
+        sharedResources.popupStyleCss().ensureInjected();
 
         getCurrentUserCallback = new CallbackImpl<AdminUserProxy>() {
             @Override

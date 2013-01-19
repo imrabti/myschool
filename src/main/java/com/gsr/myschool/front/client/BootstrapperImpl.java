@@ -51,6 +51,7 @@ public class BootstrapperImpl implements Bootstrapper {
         this.currentUserProvider = currentUserProvider;
 
         frontResources.frontStyleCss().ensureInjected();
+        sharedResources.popupStyleCss().ensureInjected();
         sharedResources.sharedStyleCss().ensureInjected();
 
         getCurrentUserCallback = new CallbackImpl<UserProxy>() {
