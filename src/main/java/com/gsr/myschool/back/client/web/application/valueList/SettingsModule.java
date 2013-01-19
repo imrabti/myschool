@@ -6,10 +6,8 @@ import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 public class SettingsModule extends AbstractPresenterModule {
-
     @Override
     protected void configure() {
-
         bind(new TypeLiteral<UiHandlersStrategy<AddDefLovUiHandlers>>() {
         })
                 .to(new TypeLiteral<SetterUiHandlersStrategy<AddDefLovUiHandlers>>() {
@@ -44,6 +42,5 @@ public class SettingsModule extends AbstractPresenterModule {
 
         bindPresenter(ListLOVPresenter.class, ListLOVPresenter.MyView.class, ListLOVView.class,
                 ListLOVPresenter.MyProxy.class);
-
     }
 }

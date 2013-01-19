@@ -24,6 +24,8 @@ import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
  * To change this template use File | Settings | File Templates.
  */
 public class ListLOVView extends ViewWithUiHandlers<ListLOVUiHandlers> implements ListLOVPresenter.MyView {
+    public interface Binder extends UiBinder<Widget, ListLOVView> {
+    }
 
     @UiField
     CellTable LovTable;
@@ -40,6 +42,7 @@ public class ListLOVView extends ViewWithUiHandlers<ListLOVUiHandlers> implement
     @Inject
     public ListLOVView(final Binder uiBinder, final UiHandlersStrategy<ListLOVUiHandlers> uiHandlers) {
         super(uiHandlers);
+
         initWidget(uiBinder.createAndBindUi(this));
     }
 
@@ -65,8 +68,9 @@ public class ListLOVView extends ViewWithUiHandlers<ListLOVUiHandlers> implement
         TextColumn<ValueListProxy> parentColumn = new TextColumn<ValueListProxy>() {
             @Override
             public String getValue(ValueListProxy object) {
-                if (object.getParent() != null)
+                if (object.getParent() != null) {
                     return object.getParent().getValue();
+                }
                 return "";
             }
         };
@@ -93,19 +97,14 @@ public class ListLOVView extends ViewWithUiHandlers<ListLOVUiHandlers> implement
     @UiHandler("defLov")
     void onDefLovChanged(ChangeEvent event) {
         getUiHandlers().getParent();
-
     }
 
     @UiHandler("delete")
-    public void onDeleteClick(ClickEvent event) {
+    void onDeleteClick(ClickEvent event) {
         getUiHandlers().delete();
     }
 
     @UiHandler("modify")
-    public void onModifyClick(ClickEvent event) {
-
-    }
-
-    public interface Binder extends UiBinder<Widget, ListLOVView> {
+    void onModifyClick(ClickEvent event) {
     }
 }

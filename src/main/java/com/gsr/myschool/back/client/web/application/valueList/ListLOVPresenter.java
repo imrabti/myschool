@@ -32,17 +32,31 @@ import java.util.List;
  */
 public class ListLOVPresenter extends Presenter<ListLOVPresenter.MyView, ListLOVPresenter.MyProxy>
         implements ListLOVUiHandlers {
+    public interface MyView extends View, HasUiHandlers<ListLOVUiHandlers> {
+        CellTable<ValueListProxy> getLovTable();
 
+        ListBox getParent();
 
-    public BackRequestFactory requestFactory;
+        ListBox getDefLov();
+
+        void initTable();
+    }
+
+    @NameToken(NameTokens.listLov)
+    @ProxyStandard
+    public interface MyProxy extends ProxyPlace<ListLOVPresenter> {
+    }
+
+    public final BackRequestFactory requestFactory;
 
     @Inject
     public ListLOVPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy
-            , BackRequestFactory requestFactory) {
+            , final BackRequestFactory requestFactory) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
-        this.requestFactory = requestFactory;
-        getView().setUiHandlers(this);
 
+        this.requestFactory = requestFactory;
+
+        getView().setUiHandlers(this);
     }
 
     @Override
@@ -58,7 +72,6 @@ public class ListLOVPresenter extends Presenter<ListLOVPresenter.MyView, ListLOV
     }
 
     public void initWidget() {
-
     }
 
     public void initDatas() {
@@ -71,7 +84,7 @@ public class ListLOVPresenter extends Presenter<ListLOVPresenter.MyView, ListLOV
     }
 
     public void fillTable() {
-        ValueListServiceRequest lsr = requestFactory.getLovServiceRequest();
+        ValueListServiceRequest lsr = requestFactory.valueListServiceRequest();
         lsr.findAll().fire(new Receiver<List<ValueListProxy>>() {
             @Override
             public void onSuccess(List<ValueListProxy> response) {
@@ -85,7 +98,7 @@ public class ListLOVPresenter extends Presenter<ListLOVPresenter.MyView, ListLOV
 
     public void fillDef() {
         getView().getDefLov().clear();
-        ValueTypeServiceRequest dlsr = requestFactory.getDefLovServiceRequest();
+        ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
         dlsr.findAll().fire(new Receiver<List<ValueTypeProxy>>() {
             @Override
             public void onSuccess(List<ValueTypeProxy> response) {
@@ -111,7 +124,7 @@ public class ListLOVPresenter extends Presenter<ListLOVPresenter.MyView, ListLOV
     public void delete() {
         ValueListProxy toDelete = ((SingleSelectionModel<ValueListProxy>) getView().getLovTable().getSelectionModel())
                 .getSelectedObject();
-        ValueListServiceRequest lsr = requestFactory.getLovServiceRequest();
+        ValueListServiceRequest lsr = requestFactory.valueListServiceRequest();
         lsr.delete(toDelete.getId()).fire(new Receiver<Void>() {
             @Override
             public void onSuccess(Void response) {
@@ -128,7 +141,7 @@ public class ListLOVPresenter extends Presenter<ListLOVPresenter.MyView, ListLOV
 
     public void fillParent() {
         getView().getParent().clear();
-        ValueListServiceRequest lsr = requestFactory.getLovServiceRequest();
+        ValueListServiceRequest lsr = requestFactory.valueListServiceRequest();
         lsr.findByValueTypeName(getView().getDefLov().getItemText(getView().getDefLov().getSelectedIndex()))
                 .fire(new Receiver<List<ValueListProxy>>() {
                     @Override
@@ -140,22 +153,4 @@ public class ListLOVPresenter extends Presenter<ListLOVPresenter.MyView, ListLOV
                     }
                 });
     }
-
-    public interface MyView extends View, HasUiHandlers<ListLOVUiHandlers> {
-        public CellTable<ValueListProxy> getLovTable();
-
-        public ListBox getParent();
-
-        public ListBox getDefLov();
-
-        public void initTable();
-    }
-
-    @NameToken(NameTokens.listLov)
-    @ProxyStandard
-    public interface MyProxy extends ProxyPlace<ListLOVPresenter> {
-
-    }
-
-
 }
