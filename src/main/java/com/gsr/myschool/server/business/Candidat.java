@@ -11,8 +11,8 @@ public class Candidat implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String nom;
-    private String prenom;
+    private String firstname;
+    private String lastname;
     private Date birthDate;
     private String birthLocation;
     private String phone;
@@ -25,79 +25,79 @@ public class Candidat implements java.io.Serializable {
         return id;
     }
 
-    public void setId(Integer newId) {
-        this.id = newId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getNom() {
-        return nom;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setNom(String newNom) {
-        this.nom = newNom;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getPrenom() {
-        return prenom;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setPrenom(String newPrenom) {
-        this.prenom = newPrenom;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date newBirthDate) {
-        this.birthDate = newBirthDate;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
     public String getBirthLocation() {
         return birthLocation;
     }
 
-    public void setBirthLocation(String newBirthLocation) {
-        this.birthLocation = newBirthLocation;
+    public void setBirthLocation(String birthLocation) {
+        this.birthLocation = birthLocation;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String newPhone) {
-        this.phone = newPhone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getCin() {
         return cin;
     }
 
-    public void setCin(String newCin) {
-        this.cin = newCin;
+    public void setCin(String cin) {
+        this.cin = cin;
     }
 
     public String getCne() {
         return cne;
     }
 
-    public void setCne(String newCne) {
-        this.cne = newCne;
+    public void setCne(String cne) {
+        this.cne = cne;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String newEmail) {
-        this.email = newEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getGsm() {
         return gsm;
     }
 
-    public void setGsm(String newGsm) {
-        this.gsm = newGsm;
+    public void setGsm(String gsm) {
+        this.gsm = gsm;
     }
 }
