@@ -16,10 +16,16 @@
 
 package com.gsr.myschool.back.client.request;
 
-import com.google.web.bindery.requestfactory.shared.RequestFactory;
+import com.google.web.bindery.requestfactory.shared.Request;
+import com.google.web.bindery.requestfactory.shared.RequestContext;
+import com.google.web.bindery.requestfactory.shared.Service;
+import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.server.service.impl.DossierServiceImpl;
+import com.gsr.myschool.server.util.SpringServiceLocator;
 
-public interface BackRequestFactory extends RequestFactory {
-    AuthenticationRequest adminAuthenticationService();
+import java.util.List;
 
-    DossierRequest dossierService();
+@Service(value = DossierServiceImpl.class, locator = SpringServiceLocator.class)
+public interface DossierRequest extends RequestContext {
+    Request<List<DossierProxy>> findAllDossiersByUser(Long userId);
 }

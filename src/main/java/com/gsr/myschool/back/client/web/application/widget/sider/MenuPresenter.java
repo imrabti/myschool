@@ -37,6 +37,9 @@ public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> impleme
             case VALIDATION:
                 placeManager.revealPlace(new PlaceRequest(NameTokens.getValidation()));
                 break;
+            case GENERAL_SETTINGS:
+                placeManager.revealPlace(new PlaceRequest(NameTokens.getSettings()));
+                break;
         }
     }
 
@@ -51,6 +54,8 @@ public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> impleme
             currentMenu = MenuItem.RECEPTION;
         } else if (currentPlace.matchesNameToken(NameTokens.getValidation())) {
             currentMenu = MenuItem.VALIDATION;
+        } else if (currentPlace.matchesNameToken(NameTokens.getSettings())) {
+            currentMenu = MenuItem.GENERAL_SETTINGS;
         }
 
         getView().setSelectedMenu(currentMenu);

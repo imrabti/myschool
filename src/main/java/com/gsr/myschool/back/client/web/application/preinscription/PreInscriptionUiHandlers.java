@@ -14,12 +14,11 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.request;
+package com.gsr.myschool.back.client.web.application.preinscription;
 
-import com.google.web.bindery.requestfactory.shared.RequestFactory;
+import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gwtplatform.mvp.client.UiHandlers;
 
-public interface BackRequestFactory extends RequestFactory {
-    AuthenticationRequest adminAuthenticationService();
-
-    DossierRequest dossierService();
+public interface PreInscriptionUiHandlers extends UiHandlers {
+    void viewDetails(DossierProxy dossier);
 }
