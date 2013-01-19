@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.front.client.web.welcome.register;
 
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
@@ -65,19 +66,23 @@ public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, Regis
 
     @Override
     public void register(UserProxy user) {
-        currentContext.register(user).fire(new ValidatedReceiverImpl<Void>() {
-            @Override
-            public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                getView().clearErrors();
-                getView().showErrors(violations);
-            }
+        try {
+            currentContext.register(user, Window.Location.getHost()).fire(new ValidatedReceiverImpl<Void>() {
+                @Override
+                public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                    getView().clearErrors();
+                    getView().showErrors(violations);
+                }
 
-            @Override
-            public void onSuccess(Void aVoid) {
-                getView().clearErrors();
-                placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
-            }
-        });
+                @Override
+                public void onSuccess(Void aVoid) {
+                    getView().clearErrors();
+                    placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
+                }
+            });
+        } catch (Exception e) {
+          // TODO : return system error message ?
+        }
     }
 
     protected void onReveal() {

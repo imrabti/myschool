@@ -27,19 +27,19 @@
         <userTask id="activationTask" activiti:assignee="${token}"/>
         <boundaryEvent id="timerDelete" attachedToRef="activationTask" cancelActivity="false">
             <timerEventDefinition>
-                <timeDuration>PT30S</timeDuration>
+                <timeDuration>PT30M</timeDuration>
             </timerEventDefinition>
         </boundaryEvent>
         <boundaryEvent id="timerRelance" attachedToRef="activationTask" cancelActivity="false" >
             <timerEventDefinition>
-                <timeDuration>PT10S</timeDuration>
+                <timeDuration>PT10M</timeDuration>
             </timerEventDefinition>
         </boundaryEvent>
 
         <sequenceFlow sourceRef="activationTask" targetRef="getActivationMail"/>
 
         <serviceTask id="getActivationMail"
-                     activiti:expression="#{registerProcessService.getActivationMail(userId,email)}" activiti:resultVariable="email" />
+                     activiti:expression="#{registerProcessService.getActivationMail(userId,email)}" activiti:resultVariableName="email" />
 
         <sequenceFlow sourceRef="getActivationMail" targetRef="sendRegistrationMail"/>
 
@@ -63,7 +63,7 @@
 
         <sequenceFlow sourceRef="timerRelance" targetRef="getRelanceMail"/>
         <serviceTask id="getRelanceMail"
-                     activiti:expression="#{registerProcessService.getRelanceMail(userId,token,email)}" activiti:resultVariable="email"/>
+                     activiti:expression="#{registerProcessService.getRelanceMail(userId,token,email)}" activiti:resultVariableName="email"/>
 
         <sequenceFlow sourceRef="getRelanceMail" targetRef="sendRelanceTask"/>
 

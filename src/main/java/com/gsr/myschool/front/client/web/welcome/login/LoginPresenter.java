@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.front.client.web.welcome.login;
 
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
@@ -89,6 +90,13 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
 
     @Override
     protected void onReveal() {
+        String token = Window.Location.getParameter("token");
+        if(token != null && !"".equals(token)){
+            try {
+                requestFactory.registrationService().activateAccount(token).fire();
+            } catch (Exception e) {
+            }
+        }
         getView().edit(new UserCredentials());
     }
 }

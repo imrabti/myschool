@@ -48,12 +48,13 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
     }
 
     @Override
-    public void register(User user, String token) throws Exception {
+    public void register(User user, String link) throws Exception {
+        String token = Base64.encode((new Date()).toString());
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("lastname", user.getLastName());
         params.put("firstname", user.getFirstName());
-        params.put("link", "mylink/?token=" + token);
+        params.put("link", link+"?token=" + token);
 
         EmailDTO email = emailService.populateEmail(EmailType.REGISTRATION, user.getEmail(), "todefine@myschool.com", params, "", "");
 
