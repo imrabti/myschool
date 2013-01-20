@@ -1,13 +1,8 @@
 package com.gsr.myschool.server.business;
 
-import com.gsr.myschool.common.shared.type.InscriptionStatusType;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,7 +12,7 @@ public class Inscription implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Enumerated
-    private InscriptionStatusType status;
+    private DossierStatus status;
     @ManyToOne
     private User user;
     private Date created;
@@ -31,11 +26,11 @@ public class Inscription implements Serializable {
         this.id = id;
     }
 
-    public InscriptionStatusType getStatus() {
+    public DossierStatus getStatus() {
         return status;
     }
 
-    public void setStatus(InscriptionStatusType status) {
+    public void setStatus(DossierStatus status) {
         this.status = status;
     }
 

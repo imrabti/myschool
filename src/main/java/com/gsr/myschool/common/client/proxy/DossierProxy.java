@@ -2,7 +2,7 @@ package com.gsr.myschool.common.client.proxy;
 
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;
-import com.gsr.myschool.common.shared.type.DossierStatusType;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
 
 import java.util.Date;
@@ -13,9 +13,9 @@ public interface DossierProxy extends ValueProxy {
 
     void setId(Long id);
 
-    DossierStatusType getStatus();
+    DossierStatus getStatus();
 
-    void setStatus(DossierStatusType status);
+    void setStatus(DossierStatus status);
 
     UserProxy getUser();
 

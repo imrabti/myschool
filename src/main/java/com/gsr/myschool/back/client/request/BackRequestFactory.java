@@ -22,4 +22,8 @@ public interface BackRequestFactory extends RequestFactory {
     AuthenticationRequest adminAuthenticationService();
 
     DossierRequest dossierService();
+
+    ValueTypeServiceRequest valueTypeServiceRequest();
+
+    ValueListServiceRequest valueListServiceRequest();
 }

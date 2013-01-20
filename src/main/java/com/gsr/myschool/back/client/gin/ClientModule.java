@@ -21,6 +21,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.google.web.bindery.event.shared.EventBus;
+import com.gsr.myschool.back.client.place.DefaultPlace;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.place.PlaceManager;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
@@ -31,7 +32,6 @@ import com.gsr.myschool.back.client.web.RootModule;
 import com.gsr.myschool.common.client.CommonModule;
 import com.gsr.myschool.common.client.event.EventSourceRequestTransport;
 import com.gsr.myschool.common.client.security.SecurityUtils;
-import com.gsr.myschool.back.client.place.DefaultPlace;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 import com.gwtplatform.mvp.client.gin.DefaultModule;
 

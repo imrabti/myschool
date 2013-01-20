@@ -1,6 +1,6 @@
 package com.gsr.myschool.server.business;
 
-import com.gsr.myschool.common.shared.type.DossierStatusType;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -17,13 +17,15 @@ public class Dossier implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Enumerated
-    private DossierStatusType status;
+    private DossierStatus status;
     @ManyToOne
     private User user;
-    private String reference;
     private Date submitted;
     private Date created;
     private Date updated;
+    private String generatedNumDossier;
+    private String note;
+    private Date rdvEntretien;
 
     public Long getId() {
         return id;
@@ -41,20 +43,12 @@ public class Dossier implements Serializable {
         this.user = user;
     }
 
-    public DossierStatusType getStatus() {
+    public DossierStatus getStatus() {
         return status;
     }
 
-    public void setStatus(DossierStatusType status) {
+    public void setStatus(DossierStatus status) {
         this.status = status;
-    }
-
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(String reference) {
-        this.reference = reference;
     }
 
     public Date getSubmitted() {
@@ -79,5 +73,29 @@ public class Dossier implements Serializable {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public String getGeneratedNumDossier() {
+        return generatedNumDossier;
+    }
+
+    public void setGeneratedNumDossier(String generatedNumDossier) {
+        this.generatedNumDossier = generatedNumDossier;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public Date getRdvEntretien() {
+        return rdvEntretien;
+    }
+
+    public void setRdvEntretien(Date rdvEntretien) {
+        this.rdvEntretien = rdvEntretien;
     }
 }

@@ -1,6 +1,6 @@
 package com.gsr.myschool.server.service.impl;
 
-import com.gsr.myschool.common.shared.type.DossierStatusType;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.service.DossierService;
 import org.springframework.stereotype.Service;
@@ -19,27 +19,27 @@ public class DossierServiceImpl implements DossierService {
         List<Dossier> Dossiers = new ArrayList<Dossier>();
 
         Dossier dossier = new Dossier();
-        dossier.setReference("001S2013");
+        dossier.setGeneratedNumDossier("001S2013");
         dossier.setCreated(new Date());
         dossier.setSubmitted(new Date());
         dossier.setId(1l);
-        dossier.setStatus(DossierStatusType.WAITING);
+        dossier.setStatus(DossierStatus.STANDBY);
         Dossiers.add(dossier);
 
         dossier = new Dossier();
-        dossier.setReference("002S2013");
+        dossier.setGeneratedNumDossier("002S2013");
         dossier.setSubmitted(new Date());
         dossier.setCreated(new Date());
         dossier.setId(2l);
-        dossier.setStatus(DossierStatusType.RECEIVED);
+        dossier.setStatus(DossierStatus.RECEIVED);
         Dossiers.add(dossier);
 
         dossier = new Dossier();
-        dossier.setReference("003S2013");
+        dossier.setGeneratedNumDossier("003S2013");
         dossier.setSubmitted(new Date());
         dossier.setCreated(new Date());
         dossier.setId(3l);
-        dossier.setStatus(DossierStatusType.ACCEPTED);
+        dossier.setStatus(DossierStatus.ACCEPTED_FOR_STUDY);
         Dossiers.add(dossier);
 
         return Dossiers;

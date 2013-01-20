@@ -59,7 +59,7 @@ public class HeaderPresenter extends PresenterWidget<HeaderPresenter.MyView>
 
     @Override
     public void setting() {
-        // TODO : here display admin settings popup...
+        // TODO : here display admin valueList popup...
     }
 
     @Override
