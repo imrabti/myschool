@@ -18,6 +18,7 @@
             <boot:NavLink ui:field="preInscription" icon="CLOUD">Pré-inscriptions</boot:NavLink>
             <boot:NavLink ui:field="reception" icon="FOLDER_OPEN">Reception des dossiers</boot:NavLink>
             <boot:NavLink ui:field="validation" icon="CHECK">Validation des dossiers</boot:NavLink>
+            <boot:NavLink ui:field="genSettings" icon="TASKS">Paramètres Généraux</boot:NavLink>
         </boot:WellNavList>
     </g:HTMLPanel>
 </ui:UiBinder>

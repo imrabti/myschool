@@ -14,16 +14,9 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.request;
+package com.gsr.myschool.back.client.web.application.validation;
 
-import com.google.web.bindery.requestfactory.shared.RequestFactory;
+import com.gwtplatform.mvp.client.UiHandlers;
 
-public interface BackRequestFactory extends RequestFactory {
-    AuthenticationRequest adminAuthenticationService();
-
-    DossierRequest dossierService();
-
-    ValueTypeServiceRequest valueTypeServiceRequest();
-
-    ValueListServiceRequest valueListServiceRequest();
+public interface ValidationUiHandlers extends UiHandlers {
 }

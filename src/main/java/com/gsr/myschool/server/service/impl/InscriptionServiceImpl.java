@@ -27,19 +27,13 @@ public class InscriptionServiceImpl implements InscriptionService {
         inscription = new Inscription();
         inscription.setCreated(new Date());
         inscription.setId(2l);
-        inscription.setStatus(DossierStatus.SUBMITED);
+        inscription.setStatus(DossierStatus.CREATED);
         inscriptions.add(inscription);
 
         inscription = new Inscription();
         inscription.setCreated(new Date());
         inscription.setId(3l);
-        inscription.setStatus(DossierStatus.RECEIVED);
-        inscriptions.add(inscription);
-
-        inscription = new Inscription();
-        inscription.setCreated(new Date());
-        inscription.setId(4l);
-        inscription.setStatus(DossierStatus.INVITED_TO_TEST);
+        inscription.setStatus(DossierStatus.SUBMITED);
         inscriptions.add(inscription);
 
         return inscriptions;
