@@ -1,0 +1,23 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:s='urn:import:com.gsr.myschool.front.client.web.application.inscription.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+
+    <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+
+    <g:HTMLPanel>
+        <h3 class="{clientResources.sharedStyleCss.mediumTitle}">
+            Informations sur le candidat
+        </h3>
+
+        <boot:Paragraph>
+            Nulla feugiat laoreet sem at rhoncus. Nulla quis nisi nibh, id varius massa.
+            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+            Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+            Quisque ante turpis, tristique sit amet vestibulum a, rutrum at dolor.
+            Nunc tincidunt posuere felis sit amet lobortis. Morbi consectetur arcu dapibus felis dapibus posuere.
+        </boot:Paragraph>
+
+        <s:CandidatEditor ui:field="candidatEditor"/>
+    </g:HTMLPanel>
+</ui:UiBinder>

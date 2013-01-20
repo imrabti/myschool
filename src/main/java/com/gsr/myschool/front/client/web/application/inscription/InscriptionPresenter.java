@@ -31,6 +31,8 @@ import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
+import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
 import java.util.List;
@@ -49,17 +51,25 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
 
     private final CurrentUserProvider currentUserProvider;
     private final FrontRequestFactory requestFactory;
+    private final PlaceManager placeManager;
 
     @Inject
     public InscriptionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                                 final FrontRequestFactory requestFactory,
-                                final CurrentUserProvider currentUserProvider) {
+                                final CurrentUserProvider currentUserProvider,
+                                final PlaceManager placeManager) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
         this.currentUserProvider = currentUserProvider;
+        this.placeManager = placeManager;
 
         getView().setUiHandlers(this);
+    }
+
+    @Override
+    public void addNewInscription() {
+        placeManager.revealPlace(new PlaceRequest(NameTokens.getEditInscription()));
     }
 
     @Override

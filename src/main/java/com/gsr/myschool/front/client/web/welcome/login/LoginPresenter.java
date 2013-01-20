@@ -74,7 +74,7 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
             public void onSuccess(Boolean authenticated) {
                 if (authenticated) {
                     securityUtils.setCredentials(credentials.getUsername(), credentials.getPassword());
-					bootstrapper.init();
+					bootstrapper.onBootstrap();
                 } else {
                     getView().displayLoginError(true);
                 }
