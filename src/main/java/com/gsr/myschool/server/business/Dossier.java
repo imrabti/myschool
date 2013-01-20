@@ -2,65 +2,45 @@ package com.gsr.myschool.server.business;
 
 import com.gsr.myschool.common.shared.type.DossierStatus;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class Dossier implements java.io.Serializable {
-    @ManyToOne
-    private Candidat candidat;
-    @ManyToOne
-    private User owner;
+public class Dossier implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    private Date createDate;
-    private Date submitDate;
+    private Long id;
     @Enumerated
     private DossierStatus status;
-    private String generatedPDFPath;
+    @ManyToOne
+    private User user;
+    private Date submitted;
+    private Date created;
+    private Date updated;
     private String generatedNumDossier;
     private String note;
     private Date rdvEntretien;
 
-    public Candidat getCandidat() {
-        return candidat;
-    }
-
-    public void setCandidat(Candidat candidat) {
-        this.candidat = candidat;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public User getUser() {
+        return user;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public Date getSubmitDate() {
-        return submitDate;
-    }
-
-    public void setSubmitDate(Date submitDate) {
-        this.submitDate = submitDate;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public DossierStatus getStatus() {
@@ -71,12 +51,28 @@ public class Dossier implements java.io.Serializable {
         this.status = status;
     }
 
-    public String getGeneratedPDFPath() {
-        return generatedPDFPath;
+    public Date getSubmitted() {
+        return submitted;
     }
 
-    public void setGeneratedPDFPath(String generatedPDFPath) {
-        this.generatedPDFPath = generatedPDFPath;
+    public void setSubmitted(Date submitted) {
+        this.submitted = submitted;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
     }
 
     public String getGeneratedNumDossier() {

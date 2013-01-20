@@ -20,6 +20,8 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
     NavLink reception;
     @UiField
     NavLink validation;
+    @UiField
+    NavLink genSettings;
 
     private MenuItem currentMenu;
 
@@ -44,11 +46,14 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
             case VALIDATION:
                 validation.setActive(true);
                 break;
+            case GENERAL_SETTINGS:
+                genSettings.setActive(true);
+                break;
         }
     }
 
     @UiHandler("preInscription")
-    void onInscriptionClicked(ClickEvent event) {
+    void onPreInscriptionClicked(ClickEvent event) {
         if (currentMenu != MenuItem.PRE_INSCRIPTION) {
             clearActive();
             preInscription.setActive(true);
@@ -58,7 +63,7 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
     }
 
     @UiHandler("reception")
-    void onConvocationClicked(ClickEvent event) {
+    void onReceptionClicked(ClickEvent event) {
         if (currentMenu != MenuItem.RECEPTION) {
             clearActive();
             reception.setActive(true);
@@ -68,7 +73,7 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
     }
 
     @UiHandler("validation")
-    void onInboxClicked(ClickEvent event) {
+    void onValidationClicked(ClickEvent event) {
         if (currentMenu != MenuItem.VALIDATION) {
             clearActive();
             validation.setActive(true);
@@ -77,9 +82,20 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         }
     }
 
+    @UiHandler("genSettings")
+    void onGenSettingsClicked(ClickEvent event) {
+        if (currentMenu != MenuItem.GENERAL_SETTINGS) {
+            clearActive();
+            genSettings.setActive(true);
+            currentMenu = MenuItem.GENERAL_SETTINGS;
+            getUiHandlers().onMenuChanged(currentMenu);
+        }
+    }
+
     private void clearActive() {
         preInscription.setActive(false);
         reception.setActive(false);
         validation.setActive(false);
+        genSettings.setActive(false);
     }
 }

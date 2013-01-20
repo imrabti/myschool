@@ -22,6 +22,5 @@ public class SettingsPagePresenter extends Presenter<SettingsPagePresenter.MyVie
     @Inject
     public SettingsPagePresenter(final EventBus eventBus, final MyView view, final MyProxy proxy) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
-        System.out.println("construction du presenter valueList");
     }
 }
