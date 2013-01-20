@@ -19,7 +19,7 @@ package com.gsr.myschool.server.service;
 import com.gsr.myschool.server.business.User;
 
 public interface RegistrationService {
-    void activateAccount(String token) throws Exception;
+    Boolean activateAccount(String token);
 
-    void register(User user, String link) throws Exception;
+    Boolean register(User user, String link);
 }

@@ -25,7 +25,7 @@ import com.gsr.myschool.server.util.SpringServiceLocator;
 
 @Service(value = RegistrationServiceImpl.class, locator = SpringServiceLocator.class)
 public interface RegistrationRequest extends RequestContext {
-    Request<Void> activateAccount(String token) throws Exception;
+    Request<Boolean> activateAccount(String token);
 
-    Request<Void> register(UserProxy user, String link) throws Exception;
+    Request<Boolean> register(UserProxy user, String link);
 }

@@ -16,9 +16,13 @@
 
 package com.gsr.myschool.front.client.web.welcome.register;
 
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+import com.gsr.myschool.common.client.widget.messages.CloseDelay;
+import com.gsr.myschool.common.client.widget.messages.Message;
+import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -66,8 +70,7 @@ public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, Regis
 
     @Override
     public void register(UserProxy user) {
-        try {
-            currentContext.register(user, Window.Location.getHost()).fire(new ValidatedReceiverImpl<Void>() {
+            currentContext.register(user, Window.Location.getHost()).fire(new ValidatedReceiverImpl<Boolean>() {
                 @Override
                 public void onValidationError(Set<ConstraintViolation<?>> violations) {
                     getView().clearErrors();
@@ -75,14 +78,11 @@ public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, Regis
                 }
 
                 @Override
-                public void onSuccess(Void aVoid) {
+                public void onSuccess(Boolean aBoolean) {
                     getView().clearErrors();
                     placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
                 }
             });
-        } catch (Exception e) {
-          // TODO : return system error message ?
-        }
     }
 
     protected void onReveal() {

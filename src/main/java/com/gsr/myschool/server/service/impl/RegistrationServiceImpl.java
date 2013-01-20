@@ -18,15 +18,25 @@ public class RegistrationServiceImpl implements RegistrationService {
     private RegisterProcessService registerProcessService;
 
     @Override
-    public void register(User user, String link) throws Exception {
-        user.setAuthority(Authority.ROLE_USER);
-        user.setActive(false);
-        userRepos.save(user);
-        registerProcessService.register(user,link);
+    public Boolean register(User user, String link) {
+        try {
+            user.setAuthority(Authority.ROLE_USER);
+            user.setActive(false);
+            userRepos.save(user);
+            registerProcessService.register(user, link);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
-    public void activateAccount(String token) throws Exception {
-        registerProcessService.activateAccount(token);
+    public Boolean activateAccount(String token) {
+        try {
+            registerProcessService.activateAccount(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

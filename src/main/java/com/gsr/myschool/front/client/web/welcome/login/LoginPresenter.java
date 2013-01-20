@@ -16,11 +16,14 @@
 
 package com.gsr.myschool.front.client.web.welcome.login;
 
-import com.google.gwt.user.client.Window;
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.SecurityUtils;
+import com.gsr.myschool.common.client.widget.messages.CloseDelay;
+import com.gsr.myschool.common.client.widget.messages.Message;
+import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.dto.UserCredentials;
 import com.gsr.myschool.front.client.BootstrapperImpl;
 import com.gsr.myschool.front.client.place.NameTokens;
@@ -35,8 +38,10 @@ import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
+
 public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresenter.MyProxy>
         implements LoginUiHandlers {
+
     public interface MyView extends View, HasUiHandlers<LoginUiHandlers> {
         void edit(UserCredentials credentials);
 
@@ -52,6 +57,7 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
     private final SecurityUtils securityUtils;
     private final BootstrapperImpl bootstrapper;
     private final PlaceManager placeManager;
+    private String activateAccoute;
 
     @Inject
     public LoginPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
@@ -71,16 +77,16 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
     public void login(final UserCredentials credentials) {
         requestFactory.authenticationService().authenticate(credentials.getUsername(), credentials.getPassword())
                 .fire(new ReceiverImpl<Boolean>() {
-            @Override
-            public void onSuccess(Boolean authenticated) {
-                if (authenticated) {
-                    securityUtils.setCredentials(credentials.getUsername(), credentials.getPassword());
-					bootstrapper.init();
-                } else {
-                    getView().displayLoginError(true);
-                }
-            }
-        });
+                    @Override
+                    public void onSuccess(Boolean authenticated) {
+                        if (authenticated) {
+                            securityUtils.setCredentials(credentials.getUsername(), credentials.getPassword());
+                            bootstrapper.init();
+                        } else {
+                            getView().displayLoginError(true);
+                        }
+                    }
+                });
     }
 
     @Override
@@ -90,13 +96,26 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
 
     @Override
     protected void onReveal() {
-        String token = Window.Location.getParameter("token");
-        if(token != null && !"".equals(token)){
-            try {
-                requestFactory.registrationService().activateAccount(token).fire();
-            } catch (Exception e) {
-            }
-        }
         getView().edit(new UserCredentials());
+    }
+
+    @Override
+    public void prepareFromRequest(PlaceRequest placeRequest) {
+        super.prepareFromRequest(placeRequest);
+        String token = placeRequest.getParameter("token", "");
+        if (!"".equals(token)) {
+            requestFactory.registrationService().activateAccount(token).fire(new ReceiverImpl<Boolean>() {
+                @Override
+                public void onSuccess(Boolean aBoolean) {
+                    Message message;
+                    if (aBoolean) {
+                        message = new Message.Builder("Accounte activated").style(AlertType.SUCCESS).closeDelay(CloseDelay.NEVER).build();
+                    } else {
+                        message = new Message.Builder("Error accounte activated ").style(AlertType.ERROR).closeDelay(CloseDelay.NEVER).build();
+                    }
+                    MessageEvent.fire(this, message);
+                }
+            });
+        }
     }
 }
