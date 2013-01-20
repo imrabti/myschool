@@ -50,17 +50,19 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
     @Override
     public void register(User user, String link) throws Exception {
         String token = Base64.encode((new Date()).toString());
+        link = link + "?token=" + token;
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("lastname", user.getLastName());
         params.put("firstname", user.getFirstName());
-        params.put("link", link+"?token=" + token);
+        params.put("link", link);
 
         EmailDTO email = emailService.populateEmail(EmailType.REGISTRATION, user.getEmail(), "todefine@myschool.com", params, "", "");
 
         Map<String, Object> processParams = new HashMap<String, Object>();
         processParams.put("token", token);
         processParams.put("email", email);
+        processParams.put("link", link);
         processParams.put("userId", user.getId());
 
         runtimeService.startProcessInstanceByKey("register", processParams);
@@ -85,12 +87,12 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
     }
 
     @Override
-    public EmailDTO getRelanceMail(Long id, String token, EmailDTO email) throws Exception {
+    public EmailDTO getRelanceMail(Long id, String link, EmailDTO email) throws Exception {
         User user = userRepos.findOne(id);
         Map<String, String> params = new HashMap<String, String>();
         params.put("lastname", user.getLastName());
         params.put("firstname", user.getFirstName());
-        params.put("link", "mylink/?token=" + token);
+        params.put("link", link);
 
         email = emailService.populateEmail(EmailType.RELANCE, email.getTo(), email.getFrom(), params, "", "");
         return email;
