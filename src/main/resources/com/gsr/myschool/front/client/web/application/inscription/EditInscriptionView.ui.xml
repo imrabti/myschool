@@ -1,0 +1,36 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+
+    <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+
+    <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
+        <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
+            <h2>
+                <g:InlineLabel text="Editer une inscription"/>
+            </h2>
+            <span style="display: block; clear: both;"/>
+        </g:HTMLPanel>
+
+        <boot:TabPanel ui:field="steps" tabPosition="left">
+            <boot:Tab heading="Etape 1" active="true">
+                <g:SimplePanel ui:field="step1"/>
+            </boot:Tab>
+
+            <boot:Tab heading="Etape 2">
+                <g:SimplePanel ui:field="step2"/>
+            </boot:Tab>
+
+            <boot:Tab heading="Etape 3">
+                <g:SimplePanel ui:field="step3"/>
+            </boot:Tab>
+        </boot:TabPanel>
+
+        <g:HTMLPanel styleName="{clientResources.sharedStyleCss.buttonContainer}">
+            <boot:Button ui:field="back" text="Précedent" icon="CHEVRON_LEFT"/>
+            <boot:Button ui:field="next"  text="Suivant" icon="CHEVRON_RIGHT"
+                         iconPosition="RIGHT" styleName="btn btn-primary"/>
+            <boot:Button ui:field="finish" text="Terminer" icon="OK" styleName="btn btn-success"/>
+        </g:HTMLPanel>
+    </g:HTMLPanel>
+</ui:UiBinder>

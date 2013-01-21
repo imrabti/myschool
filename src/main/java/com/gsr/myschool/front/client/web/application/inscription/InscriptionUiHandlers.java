@@ -20,6 +20,8 @@ import com.gsr.myschool.common.client.proxy.InscriptionProxy;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface InscriptionUiHandlers extends UiHandlers {
+    void addNewInscription();
+
     void previewInscription(InscriptionProxy inscription);
 
     void editInscription(InscriptionProxy inscription);

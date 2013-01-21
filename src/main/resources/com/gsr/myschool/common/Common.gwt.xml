@@ -8,6 +8,7 @@
     <!-- Other module inherits                                      -->
     <inherits name="com.google.common.base.Base"/>
     <inherits name="com.google.gwt.query.Query"/>
+    <inherits name="com.github.gwtbootstrap.datepicker.Datepicker"/>
     <inherits name="com.github.gwtbootstrap.Bootstrap"/>
     <inherits name="com.gwtplatform.mvp.Mvp"/>
 

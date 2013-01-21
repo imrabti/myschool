@@ -19,8 +19,10 @@ package com.gsr.myschool.front.client.web.application.inscription;
 import com.github.gwtbootstrap.client.ui.CellTable;
 import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -74,6 +76,11 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
     public void setData(List<InscriptionProxy> data) {
         dataProvider.getList().clear();
         dataProvider.getList().addAll(data);
+    }
+
+    @UiHandler("add")
+    void onAddClicked(ClickEvent event) {
+        getUiHandlers().addNewInscription();
     }
 
     private void initActions() {
@@ -132,7 +139,7 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         };
         statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         inscriptionsTable.addColumn(statusColumn, "Status");
-        inscriptionsTable.setColumnWidth(statusColumn, 40, Style.Unit.PCT);
+        inscriptionsTable.setColumnWidth(statusColumn, 35, Style.Unit.PCT);
 
         TextColumn<InscriptionProxy> createdColumn = new TextColumn<InscriptionProxy>() {
             @Override
@@ -155,6 +162,6 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         };
         actionsColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         inscriptionsTable.addColumn(actionsColumn, "Actions");
-        inscriptionsTable.setColumnWidth(actionsColumn, 10, Style.Unit.PCT);
+        inscriptionsTable.setColumnWidth(actionsColumn, 15, Style.Unit.PCT);
     }
 }

@@ -12,16 +12,11 @@
             http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
             http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd">
 
-    <context:annotation-config/>
-
     <!-- property place holder for external properties -->
     <p:property-placeholder location="classpath*:/META-INF/*.properties"/>
 
     <!-- Bean annotated scan -->
     <context:component-scan base-package="com.gsr.myschool.server.*"/>
-
-    <!-- EntityManager integration with DBCP datasource -->
-
 
     <!-- EntityManager Transaction manager -->
     <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
@@ -82,6 +77,7 @@
         </bean>
     </beans>
 
+    <!-- TEST Datasource configuration -->
     <beans profile="test">
         <jdbc:embedded-database id="dataSource" type="H2" />
         <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -103,5 +99,4 @@
             </property>
         </bean>
     </beans>
-
 </beans>

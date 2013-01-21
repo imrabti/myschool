@@ -3,14 +3,12 @@
 
     <ui:with field="resources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
-    <g:LayoutPanel>
-        <g:layer top="0px" height="50px" right="20px" left="0px">
-            <g:HTMLPanel styleName="{resources.sharedStyleCss.bigTitle}">
-                <h2>
-                    <g:InlineLabel text="Mes Convocations"/>
-                </h2>
-                <div style="clear: both;"/>
-            </g:HTMLPanel>
-        </g:layer>
-    </g:LayoutPanel>
+    <g:HTMLPanel styleName="{resources.sharedStyleCss.mainContentWrapper}">
+        <g:HTMLPanel styleName="{resources.sharedStyleCss.bigTitle}">
+            <h2>
+                <g:InlineLabel text="Mes Convocations"/>
+            </h2>
+            <span style="display: block; clear: both;"/>
+        </g:HTMLPanel>
+    </g:HTMLPanel>
 </ui:UiBinder>
