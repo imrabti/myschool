@@ -61,7 +61,8 @@ public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, Regis
 
     @Inject
     public RegisterPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
-                             final FrontRequestFactory requestFactory, final MessageBundle messageBundle, final PlaceManager placeManager) {
+                             final FrontRequestFactory requestFactory, final MessageBundle messageBundle,
+                             final PlaceManager placeManager) {
         super(eventBus, view, proxy, RootPresenter.TYPE_SetMainContent);
 
         this.messageBundle = messageBundle;

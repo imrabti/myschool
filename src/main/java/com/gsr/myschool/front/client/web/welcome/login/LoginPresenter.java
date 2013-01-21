@@ -39,10 +39,8 @@ import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
-
 public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresenter.MyProxy>
         implements LoginUiHandlers {
-
     public interface MyView extends View, HasUiHandlers<LoginUiHandlers> {
         void edit(UserCredentials credentials);
 
@@ -63,7 +61,8 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
     @Inject
     public LoginPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                           final FrontRequestFactory requestFactory, final SecurityUtils securityUtils,
-                          final BootstrapperImpl bootstrapper, final PlaceManager placeManager, final MessageBundle messageBundle) {
+                          final BootstrapperImpl bootstrapper, final PlaceManager placeManager,
+                          final MessageBundle messageBundle) {
         super(eventBus, view, proxy, RootPresenter.TYPE_SetMainContent);
 
         this.messageBundle = messageBundle;
@@ -109,12 +108,12 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
             requestFactory.registrationService().activateAccount(token).fire(new ReceiverImpl<Boolean>() {
                 @Override
                 public void onSuccess(Boolean aBoolean) {
-                    Message message;
-                    if (aBoolean) {
-                        message = new Message.Builder(messageBundle.activateAccountSucces()).style(AlertType.SUCCESS).closeDelay(CloseDelay.NEVER).build();
-                    } else {
-                        message = new Message.Builder(messageBundle.activateAccountSucces()).style(AlertType.ERROR).closeDelay(CloseDelay.NEVER).build();
-                    }
+                    String messageString = aBoolean ? messageBundle.activateAccountSucces() : messageBundle.activateAccountFaillure();
+                    AlertType alertType = aBoolean ? AlertType.SUCCESS : AlertType.ERROR;
+                    Message message = new Message.Builder(messageString)
+                            .style(alertType)
+                            .closeDelay(CloseDelay.NEVER)
+                            .build();
                     MessageEvent.fire(this, message);
                 }
             });
