@@ -20,11 +20,17 @@ import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+import com.gsr.myschool.common.client.mvp.ValidatedView;
+import com.gsr.myschool.common.client.proxy.UserProxy;
+import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
 import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
+import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
+import com.gsr.myschool.front.client.request.RegistrationRequest;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
+import com.gsr.myschool.front.client.web.RootPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.annotations.NameToken;
@@ -32,12 +38,6 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
-import com.gsr.myschool.common.client.mvp.ValidatedView;
-import com.gsr.myschool.front.client.place.NameTokens;
-import com.gsr.myschool.front.client.request.RegistrationRequest;
-import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
-import com.gsr.myschool.common.client.proxy.UserProxy;
-import com.gsr.myschool.front.client.web.RootPresenter;
 
 import javax.validation.ConstraintViolation;
 import java.util.Set;
@@ -61,7 +61,7 @@ public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, Regis
 
     @Inject
     public RegisterPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
-                             final FrontRequestFactory requestFactory,final MessageBundle messageBundle, final PlaceManager placeManager) {
+                             final FrontRequestFactory requestFactory, final MessageBundle messageBundle, final PlaceManager placeManager) {
         super(eventBus, view, proxy, RootPresenter.TYPE_SetMainContent);
 
         this.messageBundle = messageBundle;
@@ -73,21 +73,21 @@ public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, Regis
 
     @Override
     public void register(UserProxy user) {
-            currentContext.register(user, Window.Location.getHost()).fire(new ValidatedReceiverImpl<Boolean>() {
-                @Override
-                public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                    getView().clearErrors();
-                    getView().showErrors(violations);
-                }
+        currentContext.register(user, Window.Location.getHost()).fire(new ValidatedReceiverImpl<Boolean>() {
+            @Override
+            public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                getView().clearErrors();
+                getView().showErrors(violations);
+            }
 
-                @Override
-                public void onSuccess(Boolean aBoolean) {
-                    getView().clearErrors();
-                    Message message = new Message.Builder(messageBundle.registerSucces()).style(AlertType.SUCCESS).closeDelay(CloseDelay.NEVER).build();
-                    MessageEvent.fire(this,message);
-                    placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
-                }
-            });
+            @Override
+            public void onSuccess(Boolean aBoolean) {
+                getView().clearErrors();
+                Message message = new Message.Builder(messageBundle.registerSucces()).style(AlertType.SUCCESS).closeDelay(CloseDelay.NEVER).build();
+                MessageEvent.fire(this, message);
+                placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
+            }
+        });
     }
 
     protected void onReveal() {
