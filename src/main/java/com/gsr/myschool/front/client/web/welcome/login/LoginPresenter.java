@@ -28,6 +28,7 @@ import com.gsr.myschool.common.shared.dto.UserCredentials;
 import com.gsr.myschool.front.client.BootstrapperImpl;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
+import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.front.client.web.RootPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -57,14 +58,15 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
     private final SecurityUtils securityUtils;
     private final BootstrapperImpl bootstrapper;
     private final PlaceManager placeManager;
-    private String activateAccoute;
+    private final MessageBundle messageBundle;
 
     @Inject
     public LoginPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                           final FrontRequestFactory requestFactory, final SecurityUtils securityUtils,
-                          final BootstrapperImpl bootstrapper, final PlaceManager placeManager) {
+                          final BootstrapperImpl bootstrapper, final PlaceManager placeManager, final MessageBundle messageBundle) {
         super(eventBus, view, proxy, RootPresenter.TYPE_SetMainContent);
 
+        this.messageBundle = messageBundle;
         this.requestFactory = requestFactory;
         this.securityUtils = securityUtils;
         this.bootstrapper = bootstrapper;
@@ -109,9 +111,9 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
                 public void onSuccess(Boolean aBoolean) {
                     Message message;
                     if (aBoolean) {
-                        message = new Message.Builder("Accounte activated").style(AlertType.SUCCESS).closeDelay(CloseDelay.NEVER).build();
+                        message = new Message.Builder(messageBundle.activateAccountSucces()).style(AlertType.SUCCESS).closeDelay(CloseDelay.NEVER).build();
                     } else {
-                        message = new Message.Builder("Error accounte activated ").style(AlertType.ERROR).closeDelay(CloseDelay.NEVER).build();
+                        message = new Message.Builder(messageBundle.activateAccountSucces()).style(AlertType.ERROR).closeDelay(CloseDelay.NEVER).build();
                     }
                     MessageEvent.fire(this, message);
                 }

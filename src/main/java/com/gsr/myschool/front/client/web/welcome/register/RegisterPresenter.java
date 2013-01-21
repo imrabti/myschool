@@ -24,6 +24,7 @@ import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
+import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.annotations.NameToken;
@@ -54,14 +55,16 @@ public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, Regis
 
     private final FrontRequestFactory requestFactory;
     private final PlaceManager placeManager;
+    private final MessageBundle messageBundle;
 
     private RegistrationRequest currentContext;
 
     @Inject
     public RegisterPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
-                             final FrontRequestFactory requestFactory, final PlaceManager placeManager) {
+                             final FrontRequestFactory requestFactory,final MessageBundle messageBundle, final PlaceManager placeManager) {
         super(eventBus, view, proxy, RootPresenter.TYPE_SetMainContent);
 
+        this.messageBundle = messageBundle;
         this.requestFactory = requestFactory;
         this.placeManager = placeManager;
 
@@ -80,6 +83,8 @@ public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, Regis
                 @Override
                 public void onSuccess(Boolean aBoolean) {
                     getView().clearErrors();
+                    Message message = new Message.Builder(messageBundle.registerSucces()).style(AlertType.SUCCESS).closeDelay(CloseDelay.NEVER).build();
+                    MessageEvent.fire(this,message);
                     placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
                 }
             });
