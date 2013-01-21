@@ -84,7 +84,10 @@ public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, Regis
             @Override
             public void onSuccess(Boolean aBoolean) {
                 getView().clearErrors();
-                Message message = new Message.Builder(messageBundle.registerSucces()).style(AlertType.SUCCESS).closeDelay(CloseDelay.NEVER).build();
+                Message message = new Message.Builder(messageBundle.registerSucces())
+                        .style(AlertType.SUCCESS)
+                        .closeDelay(CloseDelay.NEVER)
+                        .build();
                 MessageEvent.fire(this, message);
                 placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
             }
