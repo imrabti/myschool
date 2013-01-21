@@ -22,6 +22,9 @@ import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.front.client.web.application.convocation.ConvocationModule;
 import com.gsr.myschool.front.client.web.application.inbox.InboxModule;
 import com.gsr.myschool.front.client.web.application.inscription.InscriptionModule;
+import com.gsr.myschool.front.client.web.application.popup.AccountSettingsPresenter;
+import com.gsr.myschool.front.client.web.application.popup.AccountSettingsUiHandlers;
+import com.gsr.myschool.front.client.web.application.popup.AccountSettingsView;
 import com.gsr.myschool.front.client.web.application.widget.header.HeaderPresenter;
 import com.gsr.myschool.front.client.web.application.widget.header.HeaderUiHandlers;
 import com.gsr.myschool.front.client.web.application.widget.header.HeaderView;
@@ -41,6 +44,8 @@ public class ApplicationModule extends AbstractPresenterModule {
                 .to(new TypeLiteral<SetterUiHandlersStrategy<HeaderUiHandlers>>() {});
         bind(new TypeLiteral<UiHandlersStrategy<MenuUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<MenuUiHandlers>>() {});
+        bind(new TypeLiteral<UiHandlersStrategy<AccountSettingsUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<AccountSettingsUiHandlers>>() {});
 
         bindPresenter(ApplicationPresenter.class, ApplicationPresenter.MyView.class, ApplicationView.class,
                 ApplicationPresenter.MyProxy.class);
@@ -49,5 +54,7 @@ public class ApplicationModule extends AbstractPresenterModule {
                 HeaderView.class);
         bindSingletonPresenterWidget(MenuPresenter.class, MenuPresenter.MyView.class,
                 MenuView.class);
+        bindSingletonPresenterWidget(AccountSettingsPresenter.class, AccountSettingsPresenter.MyView.class,
+                AccountSettingsView.class);
     }
 }
