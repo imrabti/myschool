@@ -6,22 +6,15 @@ import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.repos.EmailTemplateRepos;
 import com.gsr.myschool.server.repos.UserRepos;
 import org.activiti.engine.RuntimeService;
-import org.activiti.engine.test.Deployment;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath*:META-INF/applicationContext.xml",
         "classpath*:META-INF/applicationContext-activiti.xml", "classpath*:/META-INF/applicationContext-security.xml"})
-@ActiveProfiles("test")
 public class RegisterProcessServiceTest {
     @Autowired
     private RuntimeService runtimeService;
@@ -36,7 +29,7 @@ public class RegisterProcessServiceTest {
     private String fname = "mohamed";
     private String lname = "kecha";
 
-    @Before
+    @Test
     public void init() {
         // populate the email templates
         EmailTemplate email = new EmailTemplate();
@@ -75,29 +68,29 @@ public class RegisterProcessServiceTest {
         userRepos.save(user);
     }
 
-    @After
-    public void terminate() {
-        userRepos.deleteAll();
-        emailTemplateRepos.deleteAll();
-    }
+//    @After
+//    public void terminate() {
+//        userRepos.deleteAll();
+//        emailTemplateRepos.deleteAll();
+//    }
 
     // tests the second scenario in with the user activates his account
-    @Test
-    @Deployment
-    public void testScenarion2() throws Exception {
-        String token = "test";
-        registerProcessService.register(user, token);
-        registerProcessService.activateAccount(token);
-        Thread.sleep(10000);
-    }
+//    @Test
+//    @Deployment
+//    public void testScenarion2() throws Exception {
+//        String token = "test";
+//        registerProcessService.register(user, token);
+//        registerProcessService.activateAccount(token);
+//        Thread.sleep(10000);
+//    }
 
     // tests the first scenario witch sends another mail, and finaly deletes the account
-    @Test
-    @Deployment
-    public void testScenario1() throws Exception {
-        user.setId(2L);
-        userRepos.save(user);
-        registerProcessService.register(user);
-        Thread.sleep(40000);
-    }
+//    @Test
+//    @Deployment
+//    public void testScenario1() throws Exception {
+//        user.setId(2L);
+//        userRepos.save(user);
+//        registerProcessService.register(user);
+//        Thread.sleep(40000);
+//    }
 }

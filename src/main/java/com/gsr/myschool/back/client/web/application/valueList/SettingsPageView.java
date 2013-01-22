@@ -11,10 +11,6 @@ public class SettingsPageView extends ViewImpl implements SettingsPagePresenter.
 
     @Inject
     public SettingsPageView(final Binder uiBinder) {
-        System.out.println("construction de la view valueList");
         initWidget(uiBinder.createAndBindUi(this));
     }
-
-    /*public SettingsPageView()
-    {}*/
 }

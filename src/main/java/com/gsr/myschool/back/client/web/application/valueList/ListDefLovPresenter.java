@@ -12,8 +12,7 @@ import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.ValueTypeServiceRequest;
 import com.gsr.myschool.back.client.request.proxy.ValueTypeProxy;
-import com.gsr.myschool.back.client.resource.message.ErrorText;
-import com.gsr.myschool.back.client.resource.message.LabelText;
+import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -26,18 +25,30 @@ import java.util.List;
 
 public class ListDefLovPresenter extends Presenter<ListDefLovPresenter.MyView, ListDefLovPresenter.MyProxy>
         implements ListDefLovUiHandlers {
+    public interface MyView extends View, HasUiHandlers<ListDefLovUiHandlers> {
+        CellTable<ValueTypeProxy> getDefLovTable();
 
-    public BackRequestFactory requestFactory;
-    public LabelText labels;
-    public ErrorText errors;
+        void buildTable();
+
+        Button getDelete();
+
+        Button getModify();
+    }
+
+    @ProxyStandard
+    @NameToken(NameTokens.listDefLov)
+    public interface MyProxy extends ProxyPlace<ListDefLovPresenter> {
+    }
+
+    public final BackRequestFactory requestFactory;
+    public final MessageBundle messageBundle;
 
     @Inject
     public ListDefLovPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy
-            , BackRequestFactory requestFactory, LabelText labels, ErrorText errors) {
+            , final BackRequestFactory requestFactory, final MessageBundle messageBundle) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
         this.requestFactory = requestFactory;
-        this.labels = labels;
-        this.errors = errors;
+        this.messageBundle = messageBundle;
         getView().setUiHandlers(this);
     }
 
@@ -62,12 +73,10 @@ public class ListDefLovPresenter extends Presenter<ListDefLovPresenter.MyView, L
     }
 
     public void initWidget() {
-        //getView().getDelete().setEnabled(false);
-        //getView().getModify().setEnabled(false);
     }
 
     public void fillTable() {
-        ValueTypeServiceRequest dlsr = requestFactory.getDefLovServiceRequest();
+        ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
         dlsr.findAll().fire(new Receiver<List<ValueTypeProxy>>() {
             @Override
             public void onSuccess(List<ValueTypeProxy> response) {
@@ -79,10 +88,11 @@ public class ListDefLovPresenter extends Presenter<ListDefLovPresenter.MyView, L
 
     @Override
     public void selectionChanged() {
-        if (((SingleSelectionModel<?>) getView().getDefLovTable().getSelectionModel()).getSelectedObject() != null)
+        if (((SingleSelectionModel<?>) getView().getDefLovTable().getSelectionModel()).getSelectedObject() != null) {
             return;
-        else
+        } else {
             return;
+        }
     }
 
     @Override
@@ -97,7 +107,7 @@ public class ListDefLovPresenter extends Presenter<ListDefLovPresenter.MyView, L
         if (toRemove == null) {
             Window.alert("Veuillez sélectionner un élement à supprimer");
         } else {
-            ValueTypeServiceRequest dlsr = requestFactory.getDefLovServiceRequest();
+            ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
             dlsr.delete(toRemove).fire(new Receiver<Void>() {
                 @Override
                 public void onSuccess(Void response) {
@@ -112,21 +122,4 @@ public class ListDefLovPresenter extends Presenter<ListDefLovPresenter.MyView, L
             });
         }
     }
-
-    public interface MyView extends View, HasUiHandlers<ListDefLovUiHandlers> {
-        public CellTable<ValueTypeProxy> getDefLovTable();
-
-        public void buildTable();
-
-        public Button getDelete();
-
-        public Button getModify();
-    }
-
-    @ProxyStandard
-    @NameToken(NameTokens.listDefLov)
-    public interface MyProxy extends ProxyPlace<ListDefLovPresenter> {
-
-    }
-
 }

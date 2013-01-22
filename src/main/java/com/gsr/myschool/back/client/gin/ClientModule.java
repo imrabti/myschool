@@ -21,19 +21,17 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.google.web.bindery.event.shared.EventBus;
+import com.gsr.myschool.back.client.place.DefaultPlace;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.place.PlaceManager;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.resource.AdminResources;
-import com.gsr.myschool.back.client.resource.message.ErrorText;
-import com.gsr.myschool.back.client.resource.message.LabelText;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.security.CurrentUserProvider;
 import com.gsr.myschool.back.client.web.RootModule;
 import com.gsr.myschool.common.client.CommonModule;
 import com.gsr.myschool.common.client.event.EventSourceRequestTransport;
 import com.gsr.myschool.common.client.security.SecurityUtils;
-import com.gsr.myschool.back.client.place.DefaultPlace;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 import com.gwtplatform.mvp.client.gin.DefaultModule;
 
@@ -51,9 +49,6 @@ public class ClientModule extends AbstractPresenterModule {
         bind(MessageBundle.class).in(Singleton.class);
         bind(SecurityUtils.class).in(Singleton.class);
         bind(CurrentUserProvider.class).in(Singleton.class);
-
-        bind(LabelText.class).in(Singleton.class);
-        bind(ErrorText.class).in(Singleton.class);
     }
 
     static class RequestFactoryProvider implements Provider<BackRequestFactory> {

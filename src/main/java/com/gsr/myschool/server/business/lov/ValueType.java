@@ -13,7 +13,7 @@ public class ValueType implements Serializable {
     private ValueList regex;
     @ManyToOne
     private ValueType parent;
-    private boolean system;
+    private Boolean system;
 
     public Long getId() {
         return id;
@@ -47,11 +47,11 @@ public class ValueType implements Serializable {
         this.parent = parent;
     }
 
-    public boolean isSystem() {
+    public Boolean getSystem() {
         return system;
     }
 
-    public void setSystem(boolean system) {
+    public void setSystem(Boolean system) {
         this.system = system;
     }
 }

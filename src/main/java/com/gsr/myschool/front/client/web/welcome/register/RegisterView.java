@@ -33,8 +33,8 @@ import com.gsr.myschool.common.client.mvp.ValidatedViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.UserProxy;
-import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.common.client.util.EditorView;
+import com.gsr.myschool.front.client.resource.message.MessageBundle;
 
 import static com.google.gwt.query.client.GQuery.$;
 

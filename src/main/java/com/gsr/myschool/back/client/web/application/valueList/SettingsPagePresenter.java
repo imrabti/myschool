@@ -11,17 +11,17 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.Proxy;
 
 public class SettingsPagePresenter extends Presenter<SettingsPagePresenter.MyView, SettingsPagePresenter.MyProxy> {
-    @Inject
-    public SettingsPagePresenter(final EventBus eventBus, final MyView view, final MyProxy proxy) {
-        super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
-        System.out.println("construction du presenter valueList");
-    }
-
     public interface MyView extends View {
     }
 
     @ProxyStandard
     @NameToken(value = NameTokens.settings)
     public interface MyProxy extends Proxy<SettingsPagePresenter> {
+    }
+
+    @Inject
+    public SettingsPagePresenter(final EventBus eventBus, final MyView view, final MyProxy proxy) {
+        super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
+        System.out.println("construction du presenter valueList");
     }
 }

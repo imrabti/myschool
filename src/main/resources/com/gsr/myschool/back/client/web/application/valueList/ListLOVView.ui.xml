@@ -2,7 +2,7 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:cellview="urn:import:com.google.gwt.user.cellview.client">
 
-    <ui:with type="com.gsr.myschool.back.client.resource.message.LabelText" field="labelText"/>
+    <ui:with type="com.gsr.myschool.back.client.resource.message.MessageBundle" field="labelText"/>
     <g:HTMLPanel>
         <g:Label text="{labelText.labelsDefinition}" width="134px" ui:field="defLovLabel"/>
         <g:ListBox ui:field="defLov"/>
