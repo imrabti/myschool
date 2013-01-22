@@ -21,6 +21,12 @@ import com.google.inject.TypeLiteral;
 import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.front.client.web.application.inscription.renderer.InscriptionActionCellFactory;
+import com.gsr.myschool.front.client.web.application.inscription.widget.CandidatPresenter;
+import com.gsr.myschool.front.client.web.application.inscription.widget.CandidatView;
+import com.gsr.myschool.front.client.web.application.inscription.widget.NiveauScolairePresenter;
+import com.gsr.myschool.front.client.web.application.inscription.widget.NiveauScolaireView;
+import com.gsr.myschool.front.client.web.application.inscription.widget.ParentPresenter;
+import com.gsr.myschool.front.client.web.application.inscription.widget.ParentView;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 public class InscriptionModule extends AbstractPresenterModule {
@@ -28,9 +34,20 @@ public class InscriptionModule extends AbstractPresenterModule {
     protected void configure() {
         bind(new TypeLiteral<UiHandlersStrategy<InscriptionUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<InscriptionUiHandlers>>() {});
+        bind(new TypeLiteral<UiHandlersStrategy<EditInscriptionUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<EditInscriptionUiHandlers>>() {});
 
         bindPresenter(InscriptionPresenter.class, InscriptionPresenter.MyView.class, InscriptionView.class,
                 InscriptionPresenter.MyProxy.class);
+        bindPresenter(EditInscriptionPresenter.class, EditInscriptionPresenter.MyView.class, EditInscriptionView.class,
+                EditInscriptionPresenter.MyProxy.class);
+
+        bindSingletonPresenterWidget(ParentPresenter.class, ParentPresenter.MyView.class,
+                ParentView.class);
+        bindSingletonPresenterWidget(NiveauScolairePresenter.class, NiveauScolairePresenter.MyView.class,
+                NiveauScolaireView.class);
+        bindSingletonPresenterWidget(CandidatPresenter.class, CandidatPresenter.MyView.class,
+                CandidatView.class);
 
         install(new GinFactoryModuleBuilder().build(InscriptionActionCellFactory.class));
     }

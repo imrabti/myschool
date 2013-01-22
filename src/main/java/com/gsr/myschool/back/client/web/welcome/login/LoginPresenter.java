@@ -81,7 +81,7 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
 							authorities.add("ROLE_ADMIN");
 							securityUtils.setAuthorities(authorities);
 
-							bootstrapper.init();
+							bootstrapper.onBootstrap();
 						} else {
 							getView().displayLoginError(true);
 						}

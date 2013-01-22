@@ -21,6 +21,7 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.front.client.security.CurrentUserProvider;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.common.client.security.SecurityUtils;
+import com.gsr.myschool.front.client.web.application.popup.AccountSettingsPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;
@@ -35,17 +36,20 @@ public class HeaderPresenter extends PresenterWidget<HeaderPresenter.MyView> imp
     private final PlaceManager placeManager;
     private final SecurityUtils securityUtils;
     private final CurrentUserProvider currentUserProvider;
+    private final AccountSettingsPresenter accountSettingsPresenter;
 
     @Inject
-    public HeaderPresenter(EventBus eventBus, MyView view,
+    public HeaderPresenter(final EventBus eventBus, final MyView view,
                            final PlaceManager placeManager,
                            final SecurityUtils securityUtils,
-                           final CurrentUserProvider currentUserProvider) {
+                           final CurrentUserProvider currentUserProvider,
+                           final AccountSettingsPresenter accountSettingsPresenter) {
         super(eventBus, view);
 
         this.placeManager = placeManager;
         this.securityUtils = securityUtils;
         this.currentUserProvider = currentUserProvider;
+        this.accountSettingsPresenter = accountSettingsPresenter;
 
         getView().setUiHandlers(this);
     }
@@ -58,7 +62,7 @@ public class HeaderPresenter extends PresenterWidget<HeaderPresenter.MyView> imp
 
     @Override
     public void setting() {
-        // TODO : here display valueList popup...
+        addToPopupSlot(accountSettingsPresenter);
     }
 
     @Override

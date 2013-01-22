@@ -25,13 +25,13 @@ import com.gsr.myschool.common.client.resource.SharedResources;
 import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gsr.myschool.common.client.util.CallbackImpl;
 import com.gwtplatform.mvp.client.Bootstrapper;
-import com.gwtplatform.mvp.client.annotations.IsTheBootstrapper;
+import com.gwtplatform.mvp.client.annotations.Bootstrap;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 
 import java.util.logging.Logger;
 
-@IsTheBootstrapper
+@Bootstrap
 public class BootstrapperImpl implements Bootstrapper {
     private final static Logger logger = Logger.getLogger(BootstrapperImpl.class.getName());
 
@@ -50,8 +50,9 @@ public class BootstrapperImpl implements Bootstrapper {
         this.securityUtils = securityUtils;
         this.adminUserProvider = adminUserProvider;
 
-        sharedResources.sharedStyleCss().ensureInjected();
         resources.adminStyleCss().ensureInjected();
+        sharedResources.sharedStyleCss().ensureInjected();
+        sharedResources.popupStyleCss().ensureInjected();
 
         getCurrentUserCallback = new CallbackImpl<AdminUserProxy>() {
             @Override
@@ -62,7 +63,7 @@ public class BootstrapperImpl implements Bootstrapper {
     }
 
     @Override
-    public void init() {
+    public void onBootstrap() {
         if (securityUtils.isLoggedIn()) {
             adminUserProvider.load(getCurrentUserCallback);
         } else {

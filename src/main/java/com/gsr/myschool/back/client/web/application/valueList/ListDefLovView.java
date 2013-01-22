@@ -13,8 +13,8 @@ import com.google.inject.Inject;
 import com.gsr.myschool.back.client.request.proxy.ValueTypeProxy;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
-public class ListDefLovView extends ViewWithUiHandlers<ListDefLovUiHandlers> implements ListDefLovPresenter.MyView {
 
+public class ListDefLovView extends ViewWithUiHandlers<ListDefLovUiHandlers> implements ListDefLovPresenter.MyView {
     public interface Binder extends UiBinder<Widget, ListDefLovView> {
     }
 
@@ -30,10 +30,10 @@ public class ListDefLovView extends ViewWithUiHandlers<ListDefLovUiHandlers> imp
     public SingleSelectionModel<ValueTypeProxy> defLovSelectionModel;
 
     @Inject
-    public ListDefLovView(final Binder uiBinder, final UiHandlersStrategy<ListDefLovUiHandlers> uiHandlers){
+    public ListDefLovView(final Binder uiBinder, final UiHandlersStrategy<ListDefLovUiHandlers> uiHandlers) {
         super(uiHandlers);
-        initWidget(uiBinder.createAndBindUi(this));
 
+        initWidget(uiBinder.createAndBindUi(this));
     }
 
     @Override
@@ -43,9 +43,9 @@ public class ListDefLovView extends ViewWithUiHandlers<ListDefLovUiHandlers> imp
 
     @Override
     public void buildTable() {
-        TextColumn<ValueTypeProxy> nameColumn = new TextColumn<ValueTypeProxy>(){
+        TextColumn<ValueTypeProxy> nameColumn = new TextColumn<ValueTypeProxy>() {
             @Override
-            public String getValue(ValueTypeProxy defLovProxy){
+            public String getValue(ValueTypeProxy defLovProxy) {
                 return defLovProxy.getName();
             }
         };
@@ -53,8 +53,9 @@ public class ListDefLovView extends ViewWithUiHandlers<ListDefLovUiHandlers> imp
         TextColumn<ValueTypeProxy> regexColumn = new TextColumn<ValueTypeProxy>() {
             @Override
             public String getValue(ValueTypeProxy defLovProxy) {
-                if(defLovProxy.getRegex() == null)
+                if (defLovProxy.getRegex() == null) {
                     return "";
+                }
                 return defLovProxy.getRegex().getLabel();
             }
         };
@@ -62,10 +63,11 @@ public class ListDefLovView extends ViewWithUiHandlers<ListDefLovUiHandlers> imp
         TextColumn<ValueTypeProxy> parentColumn = new TextColumn<ValueTypeProxy>() {
             @Override
             public String getValue(ValueTypeProxy defLovProxy) {
-                if(defLovProxy.getParent() != null)
+                if (defLovProxy.getParent() != null) {
                     return defLovProxy.getParent().getName();
-                else
+                } else {
                     return "";
+                }
             }
         };
 
@@ -87,12 +89,12 @@ public class ListDefLovView extends ViewWithUiHandlers<ListDefLovUiHandlers> imp
     }
 
     @UiHandler("modify")
-    public void onModifyClick(ClickEvent event){
+    void onModifyClick(ClickEvent event) {
         getUiHandlers().modify();
     }
 
     @UiHandler("delete")
-    public void OnDeleteClick(ClickEvent event){
+    void OnDeleteClick(ClickEvent event) {
         getUiHandlers().delete();
     }
 }

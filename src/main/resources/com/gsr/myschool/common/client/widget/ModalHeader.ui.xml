@@ -1,0 +1,7 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <g:HTMLPanel styleName="modal-header">
+        <g:Anchor ui:field="close" styleName="close" text="×"/>
+        <h3 ui:field="modalTitle"/>
+    </g:HTMLPanel>
+</ui:UiBinder>

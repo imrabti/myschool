@@ -1,7 +1,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 
-    <ui:with type="com.gsr.myschool.back.client.resource.message.LabelText" field="labelText"/>
+    <ui:with type="com.gsr.myschool.back.client.resource.message.MessageBundle" field="labelText"/>
     <g:HTMLPanel>
         <g:Label text="{labelText.labelsValue}" width="134px" ui:field="valueLabel"/>
         <g:TextBox ui:field="value"/>

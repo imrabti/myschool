@@ -27,14 +27,34 @@ import java.util.Set;
 
 public class AddDefLovPresenter extends Presenter<AddDefLovPresenter.MyView, AddDefLovPresenter.MyProxy>
         implements AddDefLovUiHandlers {
+    @ProxyStandard
+    @NameToken(NameTokens.addDefLov)
+    public interface MyProxy extends ProxyPlace<AddDefLovPresenter> {
+    }
 
-    private BackRequestFactory requestFactory;
+    public interface MyView extends View, HasUiHandlers<AddDefLovUiHandlers> {
+        void fillParentList(List<ValueTypeProxy> parents);
+
+        void fillRegexList(List<ValueListProxy> regex);
+
+        TextBox getName();
+
+        ValueListBox<ValueListProxy> getRegex();
+
+        ValueListBox<ValueTypeProxy> getParent();
+
+        CheckBox getSystemDefLov();
+    }
+
+    private final BackRequestFactory requestFactory;
 
     @Inject
     public AddDefLovPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
-                              BackRequestFactory requestFactory) {
+                              final BackRequestFactory requestFactory) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
+
         this.requestFactory = requestFactory;
+
         getView().setUiHandlers(this);
     }
 
@@ -47,7 +67,6 @@ public class AddDefLovPresenter extends Presenter<AddDefLovPresenter.MyView, Add
     @Override
     protected void onBind() {
         buildWidget();
-        super.onBind();
     }
 
     public void buildWidget() {
@@ -59,7 +78,7 @@ public class AddDefLovPresenter extends Presenter<AddDefLovPresenter.MyView, Add
     }
 
     public void getAllDefLov() {
-        ValueTypeServiceRequest dlsr = requestFactory.getDefLovServiceRequest();
+        ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
 
         dlsr.findAll().fire(new Receiver<List<ValueTypeProxy>>() {
             @Override
@@ -67,11 +86,10 @@ public class AddDefLovPresenter extends Presenter<AddDefLovPresenter.MyView, Add
                 getView().fillParentList(response);
             }
         });
-
     }
 
     public void getRegexes() {
-        ValueListServiceRequest lsr = requestFactory.getLovServiceRequest();
+        ValueListServiceRequest lsr = requestFactory.valueListServiceRequest();
         lsr.findByValueTypeName("Regex").fire(new Receiver<List<ValueListProxy>>() {
             @Override
             public void onSuccess(List<ValueListProxy> response) {
@@ -82,7 +100,7 @@ public class AddDefLovPresenter extends Presenter<AddDefLovPresenter.MyView, Add
 
     @Override
     public void processDefLov() {
-        ValueTypeServiceRequest dlsr = requestFactory.getDefLovServiceRequest();
+        ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
         ValueTypeProxy toAdd = dlsr.create(ValueTypeProxy.class);
         toAdd.setName(getView().getName().getText());
         toAdd.setRegex(getView().getRegex().getValue());
@@ -91,8 +109,9 @@ public class AddDefLovPresenter extends Presenter<AddDefLovPresenter.MyView, Add
         ValueTypeProxy parent = dlsr.create(ValueTypeProxy.class);
         if (getView().getParent().getValue() != null) {
             parent.setId(new Long(getView().getParent().getValue().getId()));
-        } else
+        } else {
             parent = null;
+        }
         toAdd.setParent(parent);
         toAdd.setSystem(getView().getSystemDefLov().getValue());
         dlsr.add(toAdd)
@@ -108,32 +127,6 @@ public class AddDefLovPresenter extends Presenter<AddDefLovPresenter.MyView, Add
                             Window.alert(violation.getMessage() + " " + violation.getInvalidValue());
                         }
                     }
-
-                    /*@Override
-                    public void onFailure(ServerFailure error){
-                        System.out.println(error.getMessage());
-                    } */
-
-
                 });
-    }
-
-    public interface MyView extends View, HasUiHandlers<AddDefLovUiHandlers> {
-        public void fillParentList(List<ValueTypeProxy> parents);
-
-        public void fillRegexList(List<ValueListProxy> regex);
-
-        public TextBox getName();
-
-        public ValueListBox<ValueListProxy> getRegex();
-
-        public ValueListBox<ValueTypeProxy> getParent();
-
-        public CheckBox getSystemDefLov();
-    }
-
-    @ProxyStandard
-    @NameToken(NameTokens.addDefLov)
-    public interface MyProxy extends ProxyPlace<AddDefLovPresenter> {
     }
 }

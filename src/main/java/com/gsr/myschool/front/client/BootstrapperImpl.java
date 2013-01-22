@@ -25,13 +25,13 @@ import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.front.client.resource.FrontResources;
 import com.gwtplatform.mvp.client.Bootstrapper;
-import com.gwtplatform.mvp.client.annotations.IsTheBootstrapper;
+import com.gwtplatform.mvp.client.annotations.Bootstrap;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 
 import java.util.logging.Logger;
 
-@IsTheBootstrapper
+@Bootstrap
 public class BootstrapperImpl implements Bootstrapper {
     private final static Logger logger = Logger.getLogger(BootstrapperImpl.class.getName());
 
@@ -51,6 +51,7 @@ public class BootstrapperImpl implements Bootstrapper {
         this.currentUserProvider = currentUserProvider;
 
         frontResources.frontStyleCss().ensureInjected();
+        sharedResources.popupStyleCss().ensureInjected();
         sharedResources.sharedStyleCss().ensureInjected();
 
         getCurrentUserCallback = new CallbackImpl<UserProxy>() {
@@ -62,7 +63,7 @@ public class BootstrapperImpl implements Bootstrapper {
     }
 
     @Override
-    public void init() {
+    public void onBootstrap() {
         if (securityUtils.isLoggedIn()) {
             currentUserProvider.load(getCurrentUserCallback);
         } else {
