@@ -17,6 +17,7 @@
 package com.gsr.myschool.front.client.web.welcome.login;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
+import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
@@ -82,7 +83,7 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
                     public void onSuccess(Boolean authenticated) {
                         if (authenticated) {
                             securityUtils.setCredentials(credentials.getUsername(), credentials.getPassword());
-                            bootstrapper.init();
+                            bootstrapper.onBootstrap();
                         } else {
                             getView().displayLoginError(true);
                         }
@@ -91,20 +92,10 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
     }
 
     @Override
-    public void register() {
-        placeManager.revealPlace(new PlaceRequest(NameTokens.getRegister()));
-    }
-
-    @Override
-    protected void onReveal() {
-        getView().edit(new UserCredentials());
-    }
-
-    @Override
     public void prepareFromRequest(PlaceRequest placeRequest) {
         super.prepareFromRequest(placeRequest);
         String token = placeRequest.getParameter("token", "");
-        if (!"".equals(token)) {
+        if (!Strings.isNullOrEmpty(token)) {
             requestFactory.registrationService().activateAccount(token).fire(new ReceiverImpl<Boolean>() {
                 @Override
                 public void onSuccess(Boolean aBoolean) {
@@ -118,5 +109,15 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
                 }
             });
         }
+    }
+
+    @Override
+    public void register() {
+        placeManager.revealPlace(new PlaceRequest(NameTokens.getRegister()));
+    }
+
+    @Override
+    protected void onReveal() {
+        getView().edit(new UserCredentials());
     }
 }
