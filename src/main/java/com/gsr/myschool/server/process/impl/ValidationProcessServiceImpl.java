@@ -33,6 +33,23 @@ import java.util.Map;
 
 @Service
 public class ValidationProcessServiceImpl implements ValidationProcessService {
+    public enum ValidationTask {
+        RECEPTION("receptionTask"),
+        VALIDATION("validationTask"),
+        ANALYSE("analyseTask"),
+        CHANGER_STATE("changeStateTask"),
+        AFFECTATION("affectationTask");
+        private String value;
+
+        private ValidationTask(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return this.value;
+        }
+    }
+
     @Autowired
     private RuntimeService runtimeService;
     @Autowired
@@ -118,22 +135,5 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     @Override
     public List<Dossier> getAllAnalysedDossiers() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    public enum ValidationTask {
-        RECEPTION("receptionTask"),
-        VALIDATION("validationTask"),
-        ANALYSE("analyseTask"),
-        CHANGER_STATE("changeStateTask"),
-        AFFECTATION("affectationTask");
-        private String value;
-
-        private ValidationTask(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return this.value;
-        }
     }
 }

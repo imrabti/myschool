@@ -39,7 +39,8 @@
         <sequenceFlow sourceRef="activationTask" targetRef="getActivationMail"/>
 
         <serviceTask id="getActivationMail"
-                     activiti:expression="#{registerProcessService.getActivationMail(userId,email)}" activiti:resultVariable="email" />
+                     activiti:expression="#{registerProcessService.getActivationMail(userId,email)}"
+                     activiti:resultVariable="email" />
 
         <sequenceFlow sourceRef="getActivationMail" targetRef="sendRegistrationMail"/>
 
@@ -63,7 +64,8 @@
 
         <sequenceFlow sourceRef="timerRelance" targetRef="getRelanceMail"/>
         <serviceTask id="getRelanceMail"
-                     activiti:expression="#{registerProcessService.getRelanceMail(userId,link,email)}" activiti:resultVariable="email"/>
+                     activiti:expression="#{registerProcessService.getRelanceMail(userId,link,email)}"
+                     activiti:resultVariable="email"/>
 
         <sequenceFlow sourceRef="getRelanceMail" targetRef="sendRelanceTask"/>
 
