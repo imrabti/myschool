@@ -16,10 +16,14 @@
 
 package com.gsr.myschool.front.client.web.welcome.login;
 
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.SecurityUtils;
+import com.gsr.myschool.common.client.widget.messages.CloseDelay;
+import com.gsr.myschool.common.client.widget.messages.Message;
+import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.dto.UserCredentials;
 import com.gsr.myschool.front.client.BootstrapperImpl;
 import com.gsr.myschool.front.client.place.NameTokens;
@@ -80,6 +84,26 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
                 }
             }
         });
+    }
+
+    @Override
+    public void prepareFromRequest(PlaceRequest placeRequest) {
+        super.prepareFromRequest(placeRequest);
+        String token = placeRequest.getParameter("token", "");
+        if (!"".equals(token)) {
+            requestFactory.registrationService().activateAccount(token).fire(new ReceiverImpl<Boolean>() {
+                @Override
+                public void onSuccess(Boolean aBoolean) {
+                    Message message;
+                    if (aBoolean) {
+                        message = new Message.Builder("Accounte activated").style(AlertType.SUCCESS).closeDelay(CloseDelay.NEVER).build();
+                    } else {
+                        message = new Message.Builder("Error accounte activated ").style(AlertType.ERROR).closeDelay(CloseDelay.NEVER).build();
+                    }
+                    MessageEvent.fire(this, message);
+                }
+            });
+        }
     }
 
     @Override

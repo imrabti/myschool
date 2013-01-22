@@ -14,5 +14,5 @@ public interface RegisterProcessService {
 
     void activateAccount(String token) throws Exception;
 
-    void register(User user, String token) throws Exception;
+    void register(User user, String link) throws Exception;
 }
