@@ -18,11 +18,12 @@ public class RegistrationServiceImpl implements RegistrationService {
     private RegisterProcessService registerProcessService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean register(User user, String link) {
         try {
             user.setAuthority(Authority.ROLE_USER);
             user.setActive(false);
-            userRepos.save(user);
+            user = userRepos.save(user);
             registerProcessService.register(user, link);
             return true;
         } catch (Exception e) {
