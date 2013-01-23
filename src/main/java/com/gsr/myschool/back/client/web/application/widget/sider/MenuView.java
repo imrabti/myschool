@@ -20,6 +20,8 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
     NavLink reception;
     @UiField
     NavLink validation;
+    @UiField
+    NavLink valueList;
 
     private MenuItem currentMenu;
 
@@ -43,6 +45,9 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
                 break;
             case VALIDATION:
                 validation.setActive(true);
+                break;
+            case VALUE_LIST:
+                valueList.setActive(true);
                 break;
         }
     }
@@ -77,9 +82,20 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         }
     }
 
+    @UiHandler("valueList")
+    void onValueListClicked(ClickEvent event) {
+        if (currentMenu != MenuItem.VALUE_LIST) {
+            clearActive();
+            valueList.setActive(true);
+            currentMenu = MenuItem.VALUE_LIST;
+            getUiHandlers().onMenuChanged(currentMenu);
+        }
+    }
+
     private void clearActive() {
         preInscription.setActive(false);
         reception.setActive(false);
         validation.setActive(false);
+        valueList.setActive(false);
     }
 }

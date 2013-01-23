@@ -14,16 +14,19 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.request;
+package com.gsr.myschool.back.client.web.application.valueList.ui;
 
-import com.google.web.bindery.requestfactory.shared.RequestFactory;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
 
-public interface BackRequestFactory extends RequestFactory {
-    AuthenticationRequest adminAuthenticationService();
+public class ValueTypeEditor extends Composite {
+    public interface Binder extends UiBinder<Widget, ValueTypeEditor> {
+    }
 
-    ValueTypeServiceRequest valueTypeServiceRequest();
-
-    ValueListServiceRequest valueListServiceRequest();
-
-    DossierServiceRequest dossierService();
+    @Inject
+    public ValueTypeEditor(final Binder uiBinder) {
+        initWidget(uiBinder.createAndBindUi(this));
+    }
 }

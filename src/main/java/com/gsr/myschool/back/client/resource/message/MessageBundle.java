@@ -31,6 +31,8 @@ public interface MessageBundle extends Messages {
 
     String cannotDeleteDefLovException();
 
+    String deleteValueListSuccess();
+
     @Key("labels.name")
     String labelsName();
 

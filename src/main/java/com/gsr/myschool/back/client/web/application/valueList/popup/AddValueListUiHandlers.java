@@ -14,16 +14,12 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.request;
+package com.gsr.myschool.back.client.web.application.valueList.popup;
 
-import com.google.web.bindery.requestfactory.shared.RequestFactory;
+import com.gwtplatform.mvp.client.UiHandlers;
 
-public interface BackRequestFactory extends RequestFactory {
-    AuthenticationRequest adminAuthenticationService();
+public interface AddValueListUiHandlers extends UiHandlers {
+    void getParent();
 
-    ValueTypeServiceRequest valueTypeServiceRequest();
-
-    ValueListServiceRequest valueListServiceRequest();
-
-    DossierServiceRequest dossierService();
+    void processLov();
 }

@@ -14,16 +14,17 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.request;
+package com.gsr.myschool.back.client.web.application.valueList.renderer;
 
-import com.google.web.bindery.requestfactory.shared.RequestFactory;
+import com.google.gwt.text.shared.AbstractRenderer;
+import com.gsr.myschool.back.client.request.proxy.ValueTypeProxy;
 
-public interface BackRequestFactory extends RequestFactory {
-    AuthenticationRequest adminAuthenticationService();
-
-    ValueTypeServiceRequest valueTypeServiceRequest();
-
-    ValueListServiceRequest valueListServiceRequest();
-
-    DossierServiceRequest dossierService();
+public class ValueTypeRenderer extends AbstractRenderer<ValueTypeProxy> {
+    @Override
+    public String render(ValueTypeProxy valueTypeProxy) {
+        if (valueTypeProxy == null) {
+            return "Aucun";
+        }
+        return valueTypeProxy.getName();
+    }
 }
