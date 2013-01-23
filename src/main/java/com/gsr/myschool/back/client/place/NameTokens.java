@@ -27,6 +27,7 @@ public class NameTokens {
     public static final String listDefLov = "valuetype";
     public static final String addLov = "addvaluelist";
     public static final String listLov = "listvaluelist";
+    public static final String settings = "settings";
 
     public static String getLogin() {
         return login;
@@ -66,5 +67,9 @@ public class NameTokens {
 
     public static String getListLov() {
         return listLov;
+    }
+
+    public static String getSettings(){
+        return settings;
     }
 }

@@ -51,6 +51,8 @@ public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> impleme
             currentMenu = MenuItem.RECEPTION;
         } else if (currentPlace.matchesNameToken(NameTokens.getValidation())) {
             currentMenu = MenuItem.VALIDATION;
+        }  else if (currentPlace.matchesNameToken(NameTokens.getValueList())) {
+            currentMenu = MenuItem.VALUE_LIST;
         }
 
         getView().setSelectedMenu(currentMenu);

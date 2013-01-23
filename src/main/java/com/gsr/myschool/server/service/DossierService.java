@@ -14,16 +14,12 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.request;
+package com.gsr.myschool.server.service;
 
-import com.google.web.bindery.requestfactory.shared.RequestFactory;
+import com.gsr.myschool.server.business.Dossier;
 
-public interface BackRequestFactory extends RequestFactory {
-    AuthenticationRequest adminAuthenticationService();
+import java.util.List;
 
-    ValueTypeServiceRequest valueTypeServiceRequest();
-
-    ValueListServiceRequest valueListServiceRequest();
-
-    DossierServiceRequest dossierService();
+public interface DossierService {
+    List<Dossier> findAllDossiersByUser(Long userId);
 }
