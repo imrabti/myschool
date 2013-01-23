@@ -18,6 +18,7 @@ package com.gsr.myschool.common.client.mvp;
 
 import com.github.gwtbootstrap.client.ui.ControlGroup;
 import com.github.gwtbootstrap.client.ui.constants.ControlGroupType;
+import com.google.common.base.Strings;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.query.client.Function;
 import com.google.gwt.user.client.Event;
@@ -40,10 +41,18 @@ public abstract class ValidatedPopupViewImpl extends PopupViewImpl implements Va
     @Override
     public void showErrors(Set<ConstraintViolation<?>> violations) {
         for (ConstraintViolation violation : violations) {
-            String fieldId = "#" + violation.getPropertyPath();
-            $(fieldId).attr("message", violation.getMessage());
+            String path = violation.getPropertyPath().toString();
+            String message = violation.getMessage();
+
+            if (Strings.isNullOrEmpty(violation.getPropertyPath().toString())) {
+                path = message.split("#")[0];
+                message = message.split("#")[1];
+            }
+
+            String fieldId = "#" + path;
+            $(fieldId).attr("message", message);
             $(fieldId).addClass("errorField");
-            ControlGroup wrapper = $(fieldId).parent().widget();
+            ControlGroup wrapper = $(fieldId).parent().parent().widget();
             wrapper.setType(ControlGroupType.ERROR);
 
             $(fieldId).focus(new Function() {
@@ -71,7 +80,7 @@ public abstract class ValidatedPopupViewImpl extends PopupViewImpl implements Va
                 $(fieldId).unbind(Event.ONFOCUS);
                 $(fieldId).unbind(Event.ONBLUR);
                 $(fieldId).removeClass("errorField");
-                ControlGroup wrapper = $(fieldId).parent().widget();
+                ControlGroup wrapper = $(fieldId).parent().parent().widget();
                 wrapper.setType(ControlGroupType.NONE);
             }
         });
