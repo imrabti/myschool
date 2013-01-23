@@ -27,5 +27,5 @@ import java.util.List;
 
 @Service(value = DossierServiceImpl.class, locator = SpringServiceLocator.class)
 public interface DossierServiceRequest extends RequestContext {
-    Request<List<DossierProxy>>  findAllDossiersByUser(Long id);
+    Request<List<DossierProxy>> findAllDossiersByUser(Long id);
 }

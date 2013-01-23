@@ -13,8 +13,6 @@
         <g:Button ui:field="modify" text="{labelText.buttonsModify}"/>
         <g:Button ui:field="delete" text="{labelText.buttonsDelete}"/>
 
-        <hr />
-
         <g:SimplePanel ui:field="valueTypeDisplay"/>
     </g:HTMLPanel>
 

@@ -66,7 +66,8 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
 
     @Override
     protected void onReveal() {
-        Long userId = Long.valueOf(1); // currentUserProvider.get().getId();
+        //TODO : // currentUserProvider.get().getId();
+        Long userId = Long.valueOf(1);
         requestFactory.dossierService().findAllDossiersByUser(userId)
                 .fire(new ReceiverImpl<List<DossierProxy>>() {
                     @Override

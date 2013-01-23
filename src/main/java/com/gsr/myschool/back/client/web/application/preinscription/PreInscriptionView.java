@@ -36,7 +36,8 @@ import com.gsr.myschool.common.client.proxy.DossierProxy;
 
 import java.util.List;
 
-public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandlers> implements PreInscriptionPresenter.MyView {
+public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandlers>
+        implements PreInscriptionPresenter.MyView {
     public interface Binder extends UiBinder<Widget, PreInscriptionView> {
     }
 

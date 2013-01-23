@@ -14,16 +14,16 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.application.valueList;
+package com.gsr.myschool.back.client.web.application.valueList.widget;
 
 import com.gwtplatform.mvp.client.UiHandlers;
 
-public interface ValueListUiHandlers extends UiHandlers {
-    void addValueList();
+public interface ValueTypeUiHandlers extends UiHandlers {
+    public void selectionChanged();
 
-    void getParent();
+    public void modify();
 
-    void delete();
+    public void delete();
 
-    void modify();
+    void addValueType();
 }
