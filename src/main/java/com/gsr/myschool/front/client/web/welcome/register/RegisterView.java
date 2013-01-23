@@ -71,9 +71,10 @@ public class RegisterView extends ValidatedViewWithUiHandlers<RegisterUiHandlers
 
         $(email).id("email");
         $(username).id("username");
-        $(password).id("password");
         $(firstName).id("firstName");
         $(lastName).id("lastName");
+        $(password).id("password");
+        $(passwordConfirmation).id("passwordConfirmation");
     }
 
     @Override

@@ -22,8 +22,7 @@ import java.util.Date;
         @Unique(entity = User.class, property = "email", params = "email"),
         @Unique(entity = User.class, property = "username", params = "username")
 })
-@FieldMatch(first = "password", second = "passwordConfirmation",
-        params = {"passwordConfirmation", "Confirmation mot de passe" })
+@FieldMatch(first = "password", second = "passwordConfirmation", params = {"passwordConfirmation", "Mot de passe" })
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
