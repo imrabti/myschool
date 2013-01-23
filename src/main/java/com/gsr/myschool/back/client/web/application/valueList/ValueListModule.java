@@ -27,8 +27,8 @@ public class ValueListModule extends AbstractPresenterModule {
                 .to(new TypeLiteral<SetterUiHandlersStrategy<AddLovUiHandlers>>() {
                 });
 
-        bind(new TypeLiteral<UiHandlersStrategy<ValueListUiHandler>>(){
-        }).to(new TypeLiteral<SetterUiHandlersStrategy<ValueListUiHandler>>(){});
+        bind(new TypeLiteral<UiHandlersStrategy<ValueListUiHandlers>>(){
+        }).to(new TypeLiteral<SetterUiHandlersStrategy<ValueListUiHandlers>>(){});
 
         bindPresenter(ValueListPresenter.class, ValueListPresenter.MyView.class, ValueListView.class,
                 ValueListPresenter.MyProxy.class);

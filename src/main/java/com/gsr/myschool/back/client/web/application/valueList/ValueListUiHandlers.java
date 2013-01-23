@@ -18,7 +18,7 @@ package com.gsr.myschool.back.client.web.application.valueList;
 
 import com.gwtplatform.mvp.client.UiHandlers;
 
-public interface ValueListUiHandler extends UiHandlers {
+public interface ValueListUiHandlers extends UiHandlers {
     void addValueList();
 
     void getParent();

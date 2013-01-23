@@ -1,7 +1,6 @@
 package com.gsr.myschool.back.client.web.application.valueList;
 
 import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
@@ -26,8 +25,8 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
 import java.util.List;
 
-public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, ValueListPresenter.MyProxy> implements ValueListUiHandler {
-    public interface MyView extends View,HasUiHandlers<ValueListUiHandler> {
+public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, ValueListPresenter.MyProxy> implements ValueListUiHandlers {
+    public interface MyView extends View,HasUiHandlers<ValueListUiHandlers> {
         CellTable<ValueListProxy> getLovTable();
 
         ListBox getParent();

@@ -15,11 +15,10 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 import com.gsr.myschool.back.client.request.proxy.ValueListProxy;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
-import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 
-public class ValueListView extends ViewWithUiHandlers<ValueListUiHandler> implements ValueListPresenter.MyView {
+public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> implements ValueListPresenter.MyView {
     public interface Binder extends UiBinder<Widget, ValueListView> {
     }
 
@@ -41,7 +40,7 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandler> implem
 
     @Inject
     public ValueListView(final Binder uiBinder, final MessageBundle messageBundle,
-                         final UiHandlersStrategy<ValueListUiHandler> uiHandlers) {
+                         final UiHandlersStrategy<ValueListUiHandlers> uiHandlers) {
         super(uiHandlers);
 
         this.messageBundle = messageBundle;
