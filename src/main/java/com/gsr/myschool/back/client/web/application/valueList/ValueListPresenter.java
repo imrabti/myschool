@@ -31,6 +31,7 @@ import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.back.client.web.application.valueList.popup.AddValueListPresenter;
 import com.gsr.myschool.back.client.web.application.valueList.widget.ValueTypePresenter;
+import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
 import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
@@ -41,7 +42,9 @@ import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
+import javax.validation.ConstraintViolation;
 import java.util.List;
+import java.util.Set;
 
 public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, ValueListPresenter.MyProxy>
         implements ValueListUiHandlers {
@@ -106,7 +109,7 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
     public void delete() {
         ValueListProxy toDelete = ((SingleSelectionModel<ValueListProxy>) getView().getLovTable().getSelectionModel())
                 .getSelectedObject();
-        backRequestFactory.valueListServiceRequest().delete(toDelete.getId()).fire(new Receiver<Void>() {
+        backRequestFactory.valueListServiceRequest().delete(toDelete.getId()).fire(new ValidatedReceiverImpl<Void>() {
             @Override
             public void onSuccess(Void response) {
                 Message message = new Message.Builder(messageBundle.deleteValueListSuccess())
@@ -114,6 +117,11 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
                         .closeDelay(CloseDelay.DEFAULT)
                         .build();
                 MessageEvent.fire(this,message);
+            }
+
+            @Override
+            public void onValidationError(Set<ConstraintViolation<?>> violations) {
+
             }
         });
     }

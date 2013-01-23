@@ -19,7 +19,6 @@ package com.gsr.myschool.common.client.widget.messages.event;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HasHandlers;
-import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.gsr.myschool.common.client.widget.messages.Message;
 
 public class MessageEvent extends GwtEvent<MessageEvent.MessageHandler> {
@@ -35,7 +34,7 @@ public class MessageEvent extends GwtEvent<MessageEvent.MessageHandler> {
         return TYPE;
     }
 
-    public static void fire(Receiver<Void> source, Message message) {
+    public static void fire(HasHandlers source, Message message) {
         source.fireEvent(new MessageEvent(message));
     }
 
