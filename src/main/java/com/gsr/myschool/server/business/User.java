@@ -1,6 +1,11 @@
 package com.gsr.myschool.server.business;
 
 import com.gsr.myschool.common.shared.type.Authority;
+import com.gsr.myschool.server.validator.Email;
+import com.gsr.myschool.server.validator.Name;
+import com.gsr.myschool.server.validator.NotBlank;
+import com.gsr.myschool.server.validator.Password;
+import com.gsr.myschool.server.validator.Unique;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -11,14 +16,27 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
+@Unique.List({
+        @Unique(entity = User.class, property = "email", params = "email"),
+        @Unique(entity = User.class, property = "username", params = "username")
+})
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotBlank
     private String username;
+    @Email
+    @NotBlank
     private String email;
+    @Password
+    @NotBlank
     private String password;
+    @Name
+    @NotBlank
     private String firstName;
+    @Name
+    @NotBlank
     private String lastName;
     @Enumerated
     private Authority authority;

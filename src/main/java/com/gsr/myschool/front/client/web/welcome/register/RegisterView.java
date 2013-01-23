@@ -51,37 +51,39 @@ public class RegisterView extends ValidatedViewWithUiHandlers<RegisterUiHandlers
     @UiField
     TextBox username;
     @UiField
+    TextBox firstName;
+    @UiField
+    TextBox lastName;
+    @UiField
     PasswordTextBox password;
     @UiField
     @Ignore
-    Label registrationError;
+    PasswordTextBox passwordConfirmation;
 
-    private final MessageBundle messageBundle;
     private final Driver driver;
 
     @Inject
     public RegisterView(final Binder uiBinder, final Driver driver,
-                        final MessageBundle messageBundle,
                         final UiHandlersStrategy<RegisterUiHandlers> uiHandlersStrategy,
                         final ValidationErrorPopup validationErrorPopup) {
         super(uiHandlersStrategy, validationErrorPopup);
 
-        this.messageBundle = messageBundle;
         this.driver = driver;
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
 
         $(email).id("email");
-        $(email).id("username");
-        $(email).id("password");
+        $(username).id("username");
+        $(password).id("password");
+        $(firstName).id("firstName");
+        $(lastName).id("lastName");
     }
 
     @Override
     public void edit(UserProxy user) {
         email.setFocus(true);
         driver.edit(user);
-        registrationError.setVisible(false);
     }
 
     @Override
@@ -108,14 +110,6 @@ public class RegisterView extends ValidatedViewWithUiHandlers<RegisterUiHandlers
 
     private void processRegisterAction() {
         UserProxy user = get();
-
-        if (!Strings.isNullOrEmpty(user.getEmail()) && !Strings.isNullOrEmpty(user.getUsername()) &&
-                !Strings.isNullOrEmpty(user.getPassword())) {
-            getUiHandlers().register(user);
-            registrationError.setVisible(false);
-        } else {
-            registrationError.setVisible(true);
-            registrationError.setText(messageBundle.registerInfoMissing());
-        }
+        getUiHandlers().register(user);
     }
 }
