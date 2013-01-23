@@ -113,7 +113,6 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
 
     @UiHandler("delete")
     void onDeleteClick(ClickEvent event) {
-        getUiHandlers().delete();
     }
 
     @UiHandler("modify")
