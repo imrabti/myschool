@@ -86,7 +86,7 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
     void onValueListClicked(ClickEvent event) {
         if (currentMenu != MenuItem.VALUE_LIST) {
             clearActive();
-            validation.setActive(true);
+            valueList.setActive(true);
             currentMenu = MenuItem.VALUE_LIST;
             getUiHandlers().onMenuChanged(currentMenu);
         }
@@ -96,5 +96,6 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         preInscription.setActive(false);
         reception.setActive(false);
         validation.setActive(false);
+        valueList.setActive(false);
     }
 }

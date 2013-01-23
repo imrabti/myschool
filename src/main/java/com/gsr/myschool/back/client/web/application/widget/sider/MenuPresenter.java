@@ -37,6 +37,9 @@ public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> impleme
             case VALIDATION:
                 placeManager.revealPlace(new PlaceRequest(NameTokens.getValidation()));
                 break;
+            case VALUE_LIST:
+                placeManager.revealPlace(new PlaceRequest(NameTokens.getValueList()));
+                break;
         }
     }
 
