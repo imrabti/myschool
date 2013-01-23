@@ -18,7 +18,6 @@ public class RegistrationServiceImpl implements RegistrationService {
     private RegisterProcessService registerProcessService;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public Boolean register(User user, String link) {
         try {
             user.setAuthority(Authority.ROLE_USER);
@@ -27,6 +26,7 @@ public class RegistrationServiceImpl implements RegistrationService {
             registerProcessService.register(user, link);
             return true;
         } catch (Exception e) {
+            userRepos.delete(user);
             return false;
         }
     }
