@@ -17,7 +17,7 @@
 package com.gsr.myschool.back.client.web.application;
 
 import com.google.inject.TypeLiteral;
-import com.gsr.myschool.back.client.web.application.valueList.SettingsModule;
+import com.gsr.myschool.back.client.web.application.valueList.ValueListModule;
 import com.gsr.myschool.back.client.web.application.widget.header.HeaderPresenter;
 import com.gsr.myschool.back.client.web.application.widget.header.HeaderUiHandlers;
 import com.gsr.myschool.back.client.web.application.widget.header.HeaderView;
@@ -31,7 +31,7 @@ import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 public class ApplicationModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
-        install(new SettingsModule());
+        install(new ValueListModule());
 
         bind(new TypeLiteral<UiHandlersStrategy<ApplicationUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<ApplicationUiHandlers>>() {});

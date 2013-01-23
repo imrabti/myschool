@@ -14,6 +14,9 @@ import com.gsr.myschool.back.client.request.ValueTypeServiceRequest;
 import com.gsr.myschool.back.client.request.proxy.ValueListProxy;
 import com.gsr.myschool.back.client.request.proxy.ValueTypeProxy;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
+import com.gsr.myschool.back.client.web.application.valueList.popup.AddLovPresenter;
+import com.gsr.myschool.back.client.web.application.valueList.popup.AddValueTypePresenter;
+import com.gsr.myschool.back.client.web.application.valueList.widget.ListDefLovPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -23,16 +26,8 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * SuperUser: houssam
- * Date: 31/12/12
- * Time: 18:07
- * To change this template use File | Settings | File Templates.
- */
-public class ListLOVPresenter extends Presenter<ListLOVPresenter.MyView, ListLOVPresenter.MyProxy>
-        implements ListLOVUiHandlers {
-    public interface MyView extends View, HasUiHandlers<ListLOVUiHandlers> {
+public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, ValueListPresenter.MyProxy> implements ValueListUiHandler {
+    public interface MyView extends View,HasUiHandlers<ValueListUiHandler> {
         CellTable<ValueListProxy> getLovTable();
 
         ListBox getParent();
@@ -42,72 +37,39 @@ public class ListLOVPresenter extends Presenter<ListLOVPresenter.MyView, ListLOV
         void initTable();
     }
 
-    @NameToken(NameTokens.listLov)
     @ProxyStandard
-    public interface MyProxy extends ProxyPlace<ListLOVPresenter> {
+    @NameToken(value = NameTokens.valueList)
+    public interface MyProxy extends ProxyPlace<ValueListPresenter> {
     }
 
-    public final BackRequestFactory requestFactory;
+    public static final Object TYPE_SetValueTypeContent = new Object();
+
+    private final AddLovPresenter addLovPresenter;
+    private final ListDefLovPresenter listDefLovPresenter;
+    public final BackRequestFactory backRequestFactory;
 
     @Inject
-    public ListLOVPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy
-            , final BackRequestFactory requestFactory) {
+    public ValueListPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,final AddValueTypePresenter addValueTypePresenter,final AddLovPresenter addLovPresenter,final ListDefLovPresenter listDefLovPresenter,final BackRequestFactory backRequestFactory) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
-        this.requestFactory = requestFactory;
+        this.addLovPresenter = addLovPresenter;
+        this.listDefLovPresenter = listDefLovPresenter;
+        this.backRequestFactory = backRequestFactory;
 
         getView().setUiHandlers(this);
     }
 
     @Override
-    protected void onBind() {
-        buildWidget();
-    }
+    protected void onReveal() {
+        super.onReveal();
 
-    @Override
-    protected void revealInParent() {
-        super.revealInParent();
-        initWidget();
-        initDatas();
-    }
-
-    public void initWidget() {
-    }
-
-    public void initDatas() {
-        fillDef();
+        setInSlot(TYPE_SetValueTypeContent,listDefLovPresenter);
         fillTable();
     }
 
-    public void buildWidget() {
-        getView().initTable();
-    }
-
-    public void fillTable() {
-        ValueListServiceRequest lsr = requestFactory.valueListServiceRequest();
-        lsr.findAll().fire(new Receiver<List<ValueListProxy>>() {
-            @Override
-            public void onSuccess(List<ValueListProxy> response) {
-                getView().getLovTable().setRowCount(response.size());
-                getView().getLovTable().setVisibleRange(0, response.size());
-                getView().getLovTable().setRowData(0, response);
-                getView().getLovTable().setPageSize(response.size());
-            }
-        });
-    }
-
-    public void fillDef() {
-        getView().getDefLov().clear();
-        ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
-        dlsr.findAll().fire(new Receiver<List<ValueTypeProxy>>() {
-            @Override
-            public void onSuccess(List<ValueTypeProxy> response) {
-                for (ValueTypeProxy defLovProxy : response) {
-                    getView().getDefLov().addItem(defLovProxy.getName(), defLovProxy.getId().toString());
-                }
-                fillParent();
-            }
-        });
+    @Override
+    public void addValueList() {
+        addToPopupSlot(addLovPresenter);
     }
 
     @Override
@@ -124,12 +86,10 @@ public class ListLOVPresenter extends Presenter<ListLOVPresenter.MyView, ListLOV
     public void delete() {
         ValueListProxy toDelete = ((SingleSelectionModel<ValueListProxy>) getView().getLovTable().getSelectionModel())
                 .getSelectedObject();
-        ValueListServiceRequest lsr = requestFactory.valueListServiceRequest();
+        ValueListServiceRequest lsr = backRequestFactory.valueListServiceRequest();
         lsr.delete(toDelete.getId()).fire(new Receiver<Void>() {
             @Override
             public void onSuccess(Void response) {
-                Window.alert("Deleted");
-                initDatas();
             }
         });
     }
@@ -139,9 +99,38 @@ public class ListLOVPresenter extends Presenter<ListLOVPresenter.MyView, ListLOV
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    public void fillTable() {
+        ValueListServiceRequest lsr = backRequestFactory.valueListServiceRequest();
+        lsr.findAll().fire(new Receiver<List<ValueListProxy>>() {
+            @Override
+            public void onSuccess(List<ValueListProxy> response) {
+                getView().getLovTable().setRowCount(response.size());
+                getView().getLovTable().setVisibleRange(0, response.size());
+                getView().getLovTable().setRowData(0, response);
+                getView().getLovTable().setPageSize(response.size());
+            }
+        });
+
+        getView().initTable();
+    }
+
+    public void fillDef() {
+        getView().getDefLov().clear();
+        ValueTypeServiceRequest dlsr = backRequestFactory.valueTypeServiceRequest();
+        dlsr.findAll().fire(new Receiver<List<ValueTypeProxy>>() {
+            @Override
+            public void onSuccess(List<ValueTypeProxy> response) {
+                for (ValueTypeProxy defLovProxy : response) {
+                    getView().getDefLov().addItem(defLovProxy.getName(), defLovProxy.getId().toString());
+                }
+                fillParent();
+            }
+        });
+    }
+
     public void fillParent() {
         getView().getParent().clear();
-        ValueListServiceRequest lsr = requestFactory.valueListServiceRequest();
+        ValueListServiceRequest lsr = backRequestFactory.valueListServiceRequest();
         lsr.findByValueTypeName(getView().getDefLov().getItemText(getView().getDefLov().getSelectedIndex()))
                 .fire(new Receiver<List<ValueListProxy>>() {
                     @Override

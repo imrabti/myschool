@@ -1,4 +1,4 @@
-package com.gsr.myschool.back.client.web.application.valueList;
+package com.gsr.myschool.back.client.web.application.valueList.popup;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.CheckBox;
@@ -7,32 +7,22 @@ import com.google.gwt.user.client.ui.ValueListBox;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.requestfactory.shared.Receiver;
-import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.ValueListServiceRequest;
 import com.gsr.myschool.back.client.request.ValueTypeServiceRequest;
 import com.gsr.myschool.back.client.request.proxy.ValueListProxy;
 import com.gsr.myschool.back.client.request.proxy.ValueTypeProxy;
-import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
+import com.gsr.myschool.common.client.mvp.ValidatedPopupView;
 import com.gwtplatform.mvp.client.HasUiHandlers;
-import com.gwtplatform.mvp.client.Presenter;
-import com.gwtplatform.mvp.client.View;
-import com.gwtplatform.mvp.client.annotations.NameToken;
-import com.gwtplatform.mvp.client.annotations.ProxyStandard;
-import com.gwtplatform.mvp.client.proxy.ProxyPlace;
+import com.gwtplatform.mvp.client.PresenterWidget;
 
 import javax.validation.ConstraintViolation;
 import java.util.List;
 import java.util.Set;
 
-public class AddDefLovPresenter extends Presenter<AddDefLovPresenter.MyView, AddDefLovPresenter.MyProxy>
-        implements AddDefLovUiHandlers {
-    @ProxyStandard
-    @NameToken(NameTokens.addDefLov)
-    public interface MyProxy extends ProxyPlace<AddDefLovPresenter> {
-    }
-
-    public interface MyView extends View, HasUiHandlers<AddDefLovUiHandlers> {
+public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter.MyView>
+        implements AddValueTypeUiHandlers {
+    public interface MyView extends ValidatedPopupView, HasUiHandlers<AddValueTypeUiHandlers> {
         void fillParentList(List<ValueTypeProxy> parents);
 
         void fillRegexList(List<ValueListProxy> regex);
@@ -49,27 +39,13 @@ public class AddDefLovPresenter extends Presenter<AddDefLovPresenter.MyView, Add
     private final BackRequestFactory requestFactory;
 
     @Inject
-    public AddDefLovPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
-                              final BackRequestFactory requestFactory) {
-        super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
+    public AddValueTypePresenter(final EventBus eventBus, final MyView view,
+                                 final BackRequestFactory requestFactory) {
+        super(eventBus, view);
 
         this.requestFactory = requestFactory;
 
         getView().setUiHandlers(this);
-    }
-
-    @Override
-    protected void revealInParent() {
-        initDatas();
-        super.revealInParent();
-    }
-
-    @Override
-    protected void onBind() {
-        buildWidget();
-    }
-
-    public void buildWidget() {
     }
 
     public void initDatas() {

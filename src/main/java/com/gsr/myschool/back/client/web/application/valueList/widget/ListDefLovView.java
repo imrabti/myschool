@@ -1,4 +1,4 @@
-package com.gsr.myschool.back.client.web.application.valueList;
+package com.gsr.myschool.back.client.web.application.valueList.widget;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -96,5 +96,10 @@ public class ListDefLovView extends ViewWithUiHandlers<ListDefLovUiHandlers> imp
     @UiHandler("delete")
     void OnDeleteClick(ClickEvent event) {
         getUiHandlers().delete();
+    }
+
+    @UiHandler("addValueType")
+    void onAddValueTypeClicked(ClickEvent event) {
+        getUiHandlers().addValueType();
     }
 }

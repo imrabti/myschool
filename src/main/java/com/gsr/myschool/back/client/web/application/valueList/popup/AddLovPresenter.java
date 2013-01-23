@@ -1,4 +1,4 @@
-package com.gsr.myschool.back.client.web.application.valueList;
+package com.gsr.myschool.back.client.web.application.valueList.popup;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ListBox;
@@ -13,8 +13,10 @@ import com.gsr.myschool.back.client.request.ValueTypeServiceRequest;
 import com.gsr.myschool.back.client.request.proxy.ValueListProxy;
 import com.gsr.myschool.back.client.request.proxy.ValueTypeProxy;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
+import com.gsr.myschool.common.client.mvp.ValidatedPopupView;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
+import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
@@ -23,9 +25,9 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
 import java.util.List;
 
-public class AddLovPresenter extends Presenter<AddLovPresenter.MyView, AddLovPresenter.MyProxy>
+public class AddLovPresenter extends PresenterWidget<AddLovPresenter.MyView>
         implements AddLovUiHandlers {
-    public interface MyView extends View, HasUiHandlers<AddLovUiHandlers> {
+    public interface MyView extends ValidatedPopupView, HasUiHandlers<AddLovUiHandlers> {
         ListBox getParent();
 
         ListBox getDefLov();
@@ -35,39 +37,18 @@ public class AddLovPresenter extends Presenter<AddLovPresenter.MyView, AddLovPre
         TextBox getLabel();
     }
 
-    @ProxyStandard
-    @NameToken(NameTokens.addLov)
-    public interface MyProxy extends ProxyPlace<AddLovPresenter> {
-    }
-
     public final BackRequestFactory requestFactory;
-    public final PlaceManager placeManager;
     public List<ValueTypeProxy> defLovs;
     public List<ValueListProxy> parents;
 
     @Inject
-    public AddLovPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy
-            , final BackRequestFactory requestFactory, final PlaceManager placeManager) {
-        super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
+    public AddLovPresenter(final EventBus eventBus, final MyView view,
+                           final BackRequestFactory requestFactory) {
+        super(eventBus, view);
 
         this.requestFactory = requestFactory;
-        this.placeManager = placeManager;
 
         getView().setUiHandlers(this);
-    }
-
-    @Override
-    public void onBind() {
-        initWidget();
-    }
-
-    @Override
-    protected void revealInParent() {
-        super.revealInParent();
-        initDatas();
-    }
-
-    void initWidget() {
     }
 
     public void initDatas() {

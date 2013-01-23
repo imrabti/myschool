@@ -9,22 +9,18 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 import com.gsr.myschool.back.client.request.proxy.ValueListProxy;
+import com.gsr.myschool.back.client.resource.message.MessageBundle;
+import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 
-/**
- * Created with IntelliJ IDEA.
- * SuperUser: houssam
- * Date: 31/12/12
- * Time: 18:07
- * To change this template use File | Settings | File Templates.
- */
-public class ListLOVView extends ViewWithUiHandlers<ListLOVUiHandlers> implements ListLOVPresenter.MyView {
-    public interface Binder extends UiBinder<Widget, ListLOVView> {
+public class ValueListView extends ViewWithUiHandlers<ValueListUiHandler> implements ValueListPresenter.MyView {
+    public interface Binder extends UiBinder<Widget, ValueListView> {
     }
 
     @UiField
@@ -38,22 +34,28 @@ public class ListLOVView extends ViewWithUiHandlers<ListLOVUiHandlers> implement
     @UiField
     Button modify;
     SingleSelectionModel<ValueListProxy> lovSelectionModel;
+    @UiField
+    SimplePanel valueTypeDisplay;
+
+    private final MessageBundle messageBundle;
 
     @Inject
-    public ListLOVView(final Binder uiBinder, final UiHandlersStrategy<ListLOVUiHandlers> uiHandlers) {
+    public ValueListView(final Binder uiBinder, final MessageBundle messageBundle,
+                         final UiHandlersStrategy<ValueListUiHandler> uiHandlers) {
         super(uiHandlers);
+
+        this.messageBundle = messageBundle;
 
         initWidget(uiBinder.createAndBindUi(this));
     }
 
     @Override
-    public CellTable<ValueListProxy> getLovTable() {
-        return LovTable;
-    }
-
-    @Override
-    public ListBox getParent() {
-        return parent;
+    public void setInSlot(Object slot, Widget content){
+        if (content != null) {
+            if (slot == ValueListPresenter.TYPE_SetValueTypeContent) {
+                valueTypeDisplay.setWidget(content);
+            }
+        }
     }
 
     @Override
@@ -89,11 +91,6 @@ public class ListLOVView extends ViewWithUiHandlers<ListLOVUiHandlers> implement
         LovTable.setSelectionModel(this.lovSelectionModel);
     }
 
-    @Override
-    public ListBox getDefLov() {
-        return defLov;
-    }
-
     @UiHandler("defLov")
     void onDefLovChanged(ChangeEvent event) {
         getUiHandlers().getParent();
@@ -106,5 +103,25 @@ public class ListLOVView extends ViewWithUiHandlers<ListLOVUiHandlers> implement
 
     @UiHandler("modify")
     void onModifyClick(ClickEvent event) {
+    }
+
+    @UiHandler("addValueList")
+    void onAddValueListClicked(ClickEvent event) {
+        getUiHandlers().addValueList();
+    }
+
+    @Override
+    public CellTable<ValueListProxy> getLovTable() {
+        return LovTable;
+    }
+
+    @Override
+    public ListBox getParent() {
+        return parent;
+    }
+
+    @Override
+    public ListBox getDefLov() {
+        return defLov;
     }
 }

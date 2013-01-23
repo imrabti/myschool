@@ -1,4 +1,4 @@
-package com.gsr.myschool.back.client.web.application.valueList;
+package com.gsr.myschool.back.client.web.application.valueList.widget;
 
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.Window;
@@ -14,8 +14,10 @@ import com.gsr.myschool.back.client.request.ValueTypeServiceRequest;
 import com.gsr.myschool.back.client.request.proxy.ValueTypeProxy;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
+import com.gsr.myschool.back.client.web.application.valueList.popup.AddValueTypePresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
+import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
@@ -23,7 +25,7 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
 import java.util.List;
 
-public class ListDefLovPresenter extends Presenter<ListDefLovPresenter.MyView, ListDefLovPresenter.MyProxy>
+public class ListDefLovPresenter extends PresenterWidget<ListDefLovPresenter.MyView>
         implements ListDefLovUiHandlers {
     public interface MyView extends View, HasUiHandlers<ListDefLovUiHandlers> {
         CellTable<ValueTypeProxy> getDefLovTable();
@@ -35,44 +37,27 @@ public class ListDefLovPresenter extends Presenter<ListDefLovPresenter.MyView, L
         Button getModify();
     }
 
-    @ProxyStandard
-    @NameToken(NameTokens.listDefLov)
-    public interface MyProxy extends ProxyPlace<ListDefLovPresenter> {
-    }
-
     public final BackRequestFactory requestFactory;
     public final MessageBundle messageBundle;
+    private final AddValueTypePresenter addValueTypePresenter;
 
     @Inject
-    public ListDefLovPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy
-            , final BackRequestFactory requestFactory, final MessageBundle messageBundle) {
-        super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
+    public ListDefLovPresenter(final EventBus eventBus, final MyView view
+            , final BackRequestFactory requestFactory, final MessageBundle messageBundle,final AddValueTypePresenter addValueTypePresenter) {
+        super(eventBus, view);
+
         this.requestFactory = requestFactory;
         this.messageBundle = messageBundle;
+        this.addValueTypePresenter = addValueTypePresenter;
+
         getView().setUiHandlers(this);
     }
 
     @Override
-    public void onBind() {
-        buildWidget();
-    }
+    protected void onReveal() {
+        super.onReveal();
 
-    @Override
-    protected void revealInParent() {
-        super.revealInParent();
-        initWidget();
-        initDatas();
-    }
-
-    public void buildWidget() {
-        getView().buildTable();
-    }
-
-    public void initDatas() {
         fillTable();
-    }
-
-    public void initWidget() {
     }
 
     public void fillTable() {
@@ -84,6 +69,8 @@ public class ListDefLovPresenter extends Presenter<ListDefLovPresenter.MyView, L
                 getView().getDefLovTable().setRowData(0, response);
             }
         });
+
+        getView().buildTable();
     }
 
     @Override
@@ -121,5 +108,10 @@ public class ListDefLovPresenter extends Presenter<ListDefLovPresenter.MyView, L
                 }
             });
         }
+    }
+
+    @Override
+    public void addValueType() {
+        addToPopupSlot(addValueTypePresenter);
     }
 }

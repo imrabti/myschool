@@ -5,6 +5,8 @@
     <ui:with type="com.gsr.myschool.back.client.resource.message.MessageBundle" field="labelText"/>
     <g:HTMLPanel>
         <cellview:CellTable ui:field="defLovTable"/>
+
+        <g:Button ui:field="addValueType">Add value type</g:Button>
         <g:Button ui:field="modify" text="{labelText.buttonsModify}"/>
         <g:Button ui:field="delete" text="{labelText.buttonsDelete}"/>
     </g:HTMLPanel>
