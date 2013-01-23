@@ -2,6 +2,7 @@ package com.gsr.myschool.server.business;
 
 import com.gsr.myschool.common.shared.type.Authority;
 import com.gsr.myschool.server.validator.Email;
+import com.gsr.myschool.server.validator.FieldMatch;
 import com.gsr.myschool.server.validator.Name;
 import com.gsr.myschool.server.validator.NotBlank;
 import com.gsr.myschool.server.validator.Password;
@@ -12,6 +13,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -20,6 +22,8 @@ import java.util.Date;
         @Unique(entity = User.class, property = "email", params = "email"),
         @Unique(entity = User.class, property = "username", params = "username")
 })
+@FieldMatch(first = "password", second = "passwordConfirmation",
+        params = {"passwordConfirmation", "Confirmation mot de passe" })
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,6 +36,8 @@ public class User implements Serializable {
     @Password
     @NotBlank
     private String password;
+    @Transient
+    private String passwordConfirmation;
     @Name
     @NotBlank
     private String firstName;
@@ -74,6 +80,14 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPasswordConfirmation() {
+        return passwordConfirmation;
+    }
+
+    public void setPasswordConfirmation(String passwordConfirmation) {
+        this.passwordConfirmation = passwordConfirmation;
     }
 
     public String getFirstName() {

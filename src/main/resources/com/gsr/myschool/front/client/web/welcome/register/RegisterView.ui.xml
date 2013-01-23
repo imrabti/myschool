@@ -8,42 +8,42 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Email</boot:ControlLabel>
                 <boot:Controls>
-                    <g:TextBox ui:field="email"/>
+                    <boot:TextBox ui:field="email"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
                 <boot:ControlLabel>Login</boot:ControlLabel>
                 <boot:Controls>
-                    <g:TextBox ui:field="username"/>
+                    <boot:TextBox ui:field="username"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
                 <boot:ControlLabel>Nom</boot:ControlLabel>
                 <boot:Controls>
-                    <g:TextBox ui:field="firstName"/>
+                    <boot:TextBox ui:field="firstName"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
                 <boot:ControlLabel>Prénom</boot:ControlLabel>
                 <boot:Controls>
-                    <g:TextBox ui:field="lastName"/>
+                    <boot:TextBox ui:field="lastName"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Password</boot:ControlLabel>
+                <boot:ControlLabel>Mot de passe</boot:ControlLabel>
                 <boot:Controls>
-                    <g:PasswordTextBox ui:field="password"/>
+                    <boot:PasswordTextBox ui:field="password"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
                 <boot:ControlLabel>Confirmation mot de passe</boot:ControlLabel>
                 <boot:Controls>
-                    <g:PasswordTextBox ui:field="passwordConfirmation"/>
+                    <boot:PasswordTextBox ui:field="passwordConfirmation"/>
                 </boot:Controls>
             </boot:ControlGroup>
 

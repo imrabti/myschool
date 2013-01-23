@@ -41,6 +41,10 @@ public interface UserProxy extends ValueProxy {
 
     void setPassword(String password);
 
+    String getPasswordConfirmation();
+
+    void setPasswordConfirmation(String passwordConfirmation);
+
     String getFirstName();
 
     void setFirstName(String firstName);
