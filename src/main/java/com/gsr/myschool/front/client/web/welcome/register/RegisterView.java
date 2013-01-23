@@ -16,7 +16,8 @@
 
 package com.gsr.myschool.front.client.web.welcome.register;
 
-import com.google.common.base.Strings;
+import com.github.gwtbootstrap.client.ui.PasswordTextBox;
+import com.github.gwtbootstrap.client.ui.TextBox;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -24,9 +25,6 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.PasswordTextBox;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ValidatedViewWithUiHandlers;
@@ -34,7 +32,6 @@ import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.util.EditorView;
-import com.gsr.myschool.front.client.resource.message.MessageBundle;
 
 import static com.google.gwt.query.client.GQuery.$;
 
@@ -51,37 +48,39 @@ public class RegisterView extends ValidatedViewWithUiHandlers<RegisterUiHandlers
     @UiField
     TextBox username;
     @UiField
+    TextBox firstName;
+    @UiField
+    TextBox lastName;
+    @UiField
     PasswordTextBox password;
     @UiField
-    @Ignore
-    Label registrationError;
+    PasswordTextBox passwordConfirmation;
 
-    private final MessageBundle messageBundle;
     private final Driver driver;
 
     @Inject
     public RegisterView(final Binder uiBinder, final Driver driver,
-                        final MessageBundle messageBundle,
                         final UiHandlersStrategy<RegisterUiHandlers> uiHandlersStrategy,
                         final ValidationErrorPopup validationErrorPopup) {
         super(uiHandlersStrategy, validationErrorPopup);
 
-        this.messageBundle = messageBundle;
         this.driver = driver;
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
 
         $(email).id("email");
-        $(email).id("username");
-        $(email).id("password");
+        $(username).id("username");
+        $(firstName).id("firstName");
+        $(lastName).id("lastName");
+        $(password).id("password");
+        $(passwordConfirmation).id("passwordConfirmation");
     }
 
     @Override
     public void edit(UserProxy user) {
         email.setFocus(true);
         driver.edit(user);
-        registrationError.setVisible(false);
     }
 
     @Override
@@ -108,14 +107,6 @@ public class RegisterView extends ValidatedViewWithUiHandlers<RegisterUiHandlers
 
     private void processRegisterAction() {
         UserProxy user = get();
-
-        if (!Strings.isNullOrEmpty(user.getEmail()) && !Strings.isNullOrEmpty(user.getUsername()) &&
-                !Strings.isNullOrEmpty(user.getPassword())) {
-            getUiHandlers().register(user);
-            registrationError.setVisible(false);
-        } else {
-            registrationError.setVisible(true);
-            registrationError.setText(messageBundle.registerInfoMissing());
-        }
+        getUiHandlers().register(user);
     }
 }

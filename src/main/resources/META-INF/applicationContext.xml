@@ -42,6 +42,15 @@
         </property>
     </bean>
 
+    <!-- Loading message properties from class path -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>com.gsr.myschool.common.i18n.ValidationMessages</value>
+            </list>
+        </property>
+    </bean>
+
     <!-- DEV Datasource configuration -->
     <beans profile="default">
         <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
