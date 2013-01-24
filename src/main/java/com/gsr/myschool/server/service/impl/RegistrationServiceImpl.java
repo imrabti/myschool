@@ -22,10 +22,11 @@ public class RegistrationServiceImpl implements RegistrationService {
         try {
             user.setAuthority(Authority.ROLE_USER);
             user.setActive(false);
-            userRepos.save(user);
+            user = userRepos.save(user);
             registerProcessService.register(user, link);
             return true;
         } catch (Exception e) {
+            userRepos.delete(user);
             return false;
         }
     }

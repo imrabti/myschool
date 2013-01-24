@@ -25,7 +25,7 @@
         <property name="jobExecutorActivate" value="true"/>
         <property name="beans">
             <map>
-                <entry key="registerProcessService" value-ref="registerProcessServiceImpl" />
+                <entry key="registerProcessNestedService" value-ref="registerProcessNestedServiceImpl" />
             </map>
         </property>
     </bean>
