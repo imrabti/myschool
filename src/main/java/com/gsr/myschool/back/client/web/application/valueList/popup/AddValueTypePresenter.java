@@ -42,14 +42,6 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
         void fillParentList(List<ValueTypeProxy> parents);
 
         void fillRegexList(List<ValueListProxy> regex);
-
-        TextBox getName();
-
-        ValueListBox<ValueListProxy> getRegex();
-
-        ValueListBox<ValueTypeProxy> getParent();
-
-        CheckBox getSystemDefLov();
     }
 
     private final BackRequestFactory requestFactory;
@@ -94,31 +86,30 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
     public void processDefLov() {
         ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
         ValueTypeProxy toAdd = dlsr.create(ValueTypeProxy.class);
-        toAdd.setName(getView().getName().getText());
-        toAdd.setRegex(getView().getRegex().getValue());
-        toAdd.setParent(getView().getParent().getValue());
-        toAdd.setSystem(getView().getSystemDefLov().getValue());
-        ValueTypeProxy parent = dlsr.create(ValueTypeProxy.class);
-        if (getView().getParent().getValue() != null) {
-            parent.setId(new Long(getView().getParent().getValue().getId()));
-        } else {
-            parent = null;
-        }
-        toAdd.setParent(parent);
-        toAdd.setSystem(getView().getSystemDefLov().getValue());
-        dlsr.add(toAdd)
-                .fire(new Receiver<Void>() {
-                    @Override
-                    public void onSuccess(Void response) {
-                        Window.alert("added");
-                    }
-
-                    @Override
-                    public void onConstraintViolation(Set<ConstraintViolation<?>> violations) {
-                        for (ConstraintViolation violation : violations) {
-                            Window.alert(violation.getMessage() + " " + violation.getInvalidValue());
-                        }
-                    }
-                });
+//        toAdd.setName(getView().getName().getText());
+//        toAdd.setRegex(getView().getRegex().getValue());
+//        toAdd.setParent(getView().getParent().getValue());
+//        toAdd.setSystem(getView().getSystemDefLov().getValue());
+//        ValueTypeProxy parent = dlsr.create(ValueTypeProxy.class);
+//        if (getView().getParent().getValue() != null) {
+//            parent.setId(new Long(getView().getParent().getValue().getId()));
+//        } else {
+//            parent = null;
+//        }
+//        toAdd.setParent(parent);
+//        toAdd.setSystem(getView().getSystemDefLov().getValue());
+//        dlsr.add(toAdd)
+//                .fire(new Receiver<Void>() {
+//                    @Override
+//                    public void onSuccess(Void response) {
+//                    }
+//
+//                    @Override
+//                    public void onConstraintViolation(Set<ConstraintViolation<?>> violations) {
+//                        for (ConstraintViolation violation : violations) {
+//                            Window.alert(violation.getMessage() + " " + violation.getInvalidValue());
+//                        }
+//                    }
+//                });
     }
 }

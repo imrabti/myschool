@@ -1,0 +1,40 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+    <ui:style>
+        .smallMargin {
+            margin-left: 120px;
+        }
+    </ui:style>
+    <g:HTMLPanel>
+        <boot:Form type="HORIZONTAL">
+            <boot:ControlGroup>
+                <boot:ControlLabel width="150px">Valeur</boot:ControlLabel>
+                <boot:Controls styleName="{style.smallMargin}">
+                    <boot:TextBox ui:field="name" width="230px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel width="150px">Regexp</boot:ControlLabel>
+                <boot:Controls styleName="{style.smallMargin}">
+                    <boot:TextBox ui:field="regex" width="230px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel width="150px">Parent</boot:ControlLabel>
+                <boot:Controls styleName="{style.smallMargin}">
+                    <boot:ListBox ui:field="parentValue" width="230px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel width="150px">Valeur system</boot:ControlLabel>
+                <boot:Controls styleName="{style.smallMargin}">
+                    <boot:CheckBox ui:field="systemDefLov" width="230px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+        </boot:Form>
+    </g:HTMLPanel>
+</ui:UiBinder>

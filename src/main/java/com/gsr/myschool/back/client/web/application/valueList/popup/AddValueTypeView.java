@@ -28,6 +28,7 @@ import com.gsr.myschool.back.client.request.proxy.ValueListProxy;
 import com.gsr.myschool.back.client.request.proxy.ValueTypeProxy;
 import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueTypeRenderer;
 import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueListRenderer;
+import com.gsr.myschool.back.client.web.application.valueList.ui.ValueTypeEditor;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
@@ -43,27 +44,19 @@ public class AddValueTypeView extends ValidatedPopupViewImplWithUiHandlers<AddVa
 
     @UiField(provided = true)
     ModalHeader modalHeader;
-    @UiField
-    TextBox name;
     @UiField(provided = true)
-    ValueListBox<ValueListProxy> regex;
-    @UiField(provided = true)
-    ValueListBox<ValueTypeProxy> parent;
-    @UiField
-    CheckBox systemDefLov;
-    @UiField
-    Button save;
+    ValueTypeEditor valueTypeEditor;
 
     @Inject
     public AddValueTypeView(final EventBus eventBus, final Binder uiBinder,
                             final UiHandlersStrategy<AddValueTypeUiHandlers> uiHandlers,
                             final ValidationErrorPopup errorPopup,
-                            final ModalHeader modalHeader) {
+                            final ModalHeader modalHeader,
+                            final ValueTypeEditor valueTypeEditor) {
         super(eventBus, errorPopup, uiHandlers);
 
         this.modalHeader = modalHeader;
-        this.parent = new ValueListBox<ValueTypeProxy>(new ValueTypeRenderer());
-        this.regex = new ValueListBox<ValueListProxy>(new ValueListRenderer());
+        this.valueTypeEditor = valueTypeEditor;
 
         initWidget(uiBinder.createAndBindUi(this));
 
@@ -75,45 +68,21 @@ public class AddValueTypeView extends ValidatedPopupViewImplWithUiHandlers<AddVa
         });
     }
 
-    @UiHandler("cancel")
-    void onCancelClicked(ClickEvent event) {
-        hide();
-    }
-
     @Override
     public void fillParentList(List<ValueTypeProxy> defLovProxies) {
-        parent.setValue(null);
-        parent.setAcceptableValues(defLovProxies);
     }
 
     @Override
     public void fillRegexList(List<ValueListProxy> regexes) {
-        regex.setValue(null);
-        regex.setAcceptableValues(regexes);
-    }
-
-    @Override
-    public TextBox getName() {
-        return name;
-    }
-
-    @Override
-    public ValueListBox<ValueListProxy> getRegex() {
-        return regex;
-    }
-
-    @Override
-    public ValueListBox<ValueTypeProxy> getParent() {
-        return parent;
-    }
-
-    @Override
-    public CheckBox getSystemDefLov() {
-        return systemDefLov;
     }
 
     @UiHandler("save")
     void onSaveClick(ClickEvent event) {
         getUiHandlers().processDefLov();
+    }
+
+    @UiHandler("cancel")
+    void onCancelClicked(ClickEvent event) {
+        hide();
     }
 }

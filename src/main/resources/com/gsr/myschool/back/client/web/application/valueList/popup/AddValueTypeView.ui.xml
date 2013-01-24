@@ -1,24 +1,32 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:s='urn:import:com.gsr.myschool.common.client.widget'
-             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'
+             xmlns:p='urn:import:com.gsr.myschool.back.client.web.application.valueList.ui'
+             xmlns:h="urn:import:com.google.gwt.user.client.ui">
     <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
     <ui:with type="com.gsr.myschool.back.client.resource.message.MessageBundle" field="labelText"/>
+
+    <ui:style>
+        .contentWrapper {
+            padding: 10px;
+            padding-right: 20px;
+            padding-top: 20px;
+        }
+    </ui:style>
+
     <g:PopupPanel modal="true" autoHideEnabled="false" styleName="{resource.popupStyleCss.gwtPopupPanel}"
                   glassEnabled="true">
         <g:FlowPanel>
             <s:ModalHeader ui:field="modalHeader" text="Ajouter un type de valeur"/>
-
-            <g:Label text="{labelText.labelsName}" width="134px" ui:field="nameLabel"/>
-            <g:TextBox ui:field="name"/>
-            <g:Label text="{labelText.labelsRegex}" width="134px" ui:field="regexLabel"/>
-            <g:ValueListBox ui:field="regex"/>
-            <g:Label text="{labelText.labelsParent}" width="134px" ui:field="parentLabel"/>
-            <g:ValueListBox ui:field="parent"/>
-            <g:Label text="{labelText.labelsSystemDefLov}" ui:field="systemDefLovLabel"/>
-            <g:CheckBox ui:field="systemDefLov"/>
-            <g:Button text="{labelText.buttonsSave}" ui:field="save"/>
-            <boot:Button ui:field="cancel" text="Annuler"/>
+            <h:HTMLPanel styleName="{style.contentWrapper}">
+            <p:ValueTypeEditor ui:field="valueTypeEditor" />
+            </h:HTMLPanel>
+            <g:HTMLPanel styleName="{resource.sharedStyleCss.buttonContainerPopup}">
+                <boot:Button ui:field="cancel" text="Annuler"/>
+                <boot:Button ui:field="save"  text="Enregistrer" icon="SAVE"
+                             styleName="btn btn-primary"/>
+            </g:HTMLPanel>
         </g:FlowPanel>
     </g:PopupPanel>
 </ui:UiBinder>

@@ -36,13 +36,6 @@ import java.util.List;
 public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter.MyView>
         implements AddValueListUiHandlers {
     public interface MyView extends ValidatedPopupView, HasUiHandlers<AddValueListUiHandlers> {
-        ListBox getParent();
-
-        ListBox getDefLov();
-
-        TextBox getValue();
-
-        TextBox getLabel();
     }
 
     public final BackRequestFactory requestFactory;
@@ -64,39 +57,39 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
     }
 
     public void fillDef() {
-        final int selectedDef = getView().getDefLov().getSelectedIndex();
-        getView().getDefLov().clear();
-        ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
-        dlsr.findAll().fire(new Receiver<List<ValueTypeProxy>>() {
-            @Override
-            public void onSuccess(List<ValueTypeProxy> response) {
-                for (ValueTypeProxy defLovProxy : response) {
-                    getView().getDefLov().addItem(defLovProxy.getName(), defLovProxy.getId().toString());
-                    defLovs.add(defLovProxy);
-                }
-                if (selectedDef < response.size() && selectedDef >= 0) {
-                    getView().getDefLov().setSelectedIndex(selectedDef);
-                }
-                fillParent();
-            }
-        });
+//        final int selectedDef = getView().getDefLov().getSelectedIndex();
+//        getView().getDefLov().clear();
+//        ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
+//        dlsr.findAll().fire(new Receiver<List<ValueTypeProxy>>() {
+//            @Override
+//            public void onSuccess(List<ValueTypeProxy> response) {
+//                for (ValueTypeProxy defLovProxy : response) {
+//                    getView().getDefLov().addItem(defLovProxy.getName(), defLovProxy.getId().toString());
+//                    defLovs.add(defLovProxy);
+//                }
+//                if (selectedDef < response.size() && selectedDef >= 0) {
+//                    getView().getDefLov().setSelectedIndex(selectedDef);
+//                }
+//                fillParent();
+//            }
+//        });
     }
 
     public void fillParent() {
-        getView().getParent().clear();
-        ValueListServiceRequest lsr = requestFactory.valueListServiceRequest();
-        lsr.findByValueTypeParentName(getView().getDefLov().getItemText(getView().getDefLov().getSelectedIndex()))
-                .fire(new Receiver<List<ValueListProxy>>() {
-                    @Override
-                    public void onSuccess(List<ValueListProxy> response) {
-                        getView().getParent().addItem("Aucun", "0");
-                        parents.clear();
-                        for (ValueListProxy lovProxy : response) {
-                            getView().getParent().addItem(lovProxy.getValue(), lovProxy.getId().toString());
-                            parents.add(lovProxy);
-                        }
-                    }
-                });
+//        getView().getParent().clear();
+//        ValueListServiceRequest lsr = requestFactory.valueListServiceRequest();
+//        lsr.findByValueTypeParentName(getView().getDefLov().getItemText(getView().getDefLov().getSelectedIndex()))
+//                .fire(new Receiver<List<ValueListProxy>>() {
+//                    @Override
+//                    public void onSuccess(List<ValueListProxy> response) {
+//                        getView().getParent().addItem("Aucun", "0");
+//                        parents.clear();
+//                        for (ValueListProxy lovProxy : response) {
+//                            getView().getParent().addItem(lovProxy.getValue(), lovProxy.getId().toString());
+//                            parents.add(lovProxy);
+//                        }
+//                    }
+//                });
     }
 
     @Override
@@ -106,27 +99,27 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
 
     @Override
     public void processLov() {
-        ValueListServiceRequest lsr = requestFactory.valueListServiceRequest();
-        ValueListProxy lp = lsr.create(ValueListProxy.class);
-        lp.setValueType(defLovs.get(getView().getDefLov().getSelectedIndex()));
-        getView().getParent().getSelectedIndex();
-        lp.getValueType().getId();
-        if ("".equals(getView().getLabel().getText())) {
-            lp.setLabel(getView().getValue().getText());
-        } else {
-            lp.setLabel(getView().getLabel().getText());
-        }
-        if (getView().getParent().getSelectedIndex() != 0) {
-            lp.setParent(parents.get(getView().getParent().getSelectedIndex() - 1));
-            lp.getParent().getId();
-        }
-        lp.setValue(getView().getValue().getText());
-        lp.getValue();
-        lsr.add(lp).fire(new Receiver<Void>() {
-            @Override
-            public void onSuccess(Void response) {
-                Window.alert("added");
-            }
-        });
+//        ValueListServiceRequest lsr = requestFactory.valueListServiceRequest();
+//        ValueListProxy lp = lsr.create(ValueListProxy.class);
+//        lp.setValueType(defLovs.get(getView().getDefLov().getSelectedIndex()));
+//        getView().getParent().getSelectedIndex();
+//        lp.getValueType().getId();
+//        if ("".equals(getView().getLabel().getText())) {
+//            lp.setLabel(getView().getValue().getText());
+//        } else {
+//            lp.setLabel(getView().getLabel().getText());
+//        }
+//        if (getView().getParent().getSelectedIndex() != 0) {
+//            lp.setParent(parents.get(getView().getParent().getSelectedIndex() - 1));
+//            lp.getParent().getId();
+//        }
+//        lp.setValue(getView().getValue().getText());
+//        lp.getValue();
+//        lsr.add(lp).fire(new Receiver<Void>() {
+//            @Override
+//            public void onSuccess(Void response) {
+//                Window.alert("added");
+//            }
+//        });
     }
 }
