@@ -14,26 +14,14 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.resource.message;
+package com.gsr.myschool.server.process;
 
-import com.google.gwt.i18n.client.Messages;
+import com.gsr.myschool.common.shared.dto.EmailDTO;
 
-public interface MessageBundle extends Messages {
-    String wrongLoginOrPassword();
+public interface RegisterProcessNestedService {
+    void deleteAccount(Long id);
 
-    String loginPasswordRequired();
+    EmailDTO getActivationMail(Long id, EmailDTO email) throws Exception;
 
-    String registerInfoMissing();
-
-    String welcomeMessage(String username);
-
-    String myEntitySaveSucess();
-
-    String registerSuccess();
-
-    String registerFailure();
-
-    String activateAccountFailure();
-
-    String activateAccountSuccess();
+    EmailDTO getRelanceMail(Long id, String token, EmailDTO email) throws Exception;
 }
