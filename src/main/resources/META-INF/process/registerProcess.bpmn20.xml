@@ -39,7 +39,7 @@
         <sequenceFlow sourceRef="activationTask" targetRef="getActivationMail"/>
 
         <serviceTask id="getActivationMail"
-                     activiti:expression="#{registerProcessService.getActivationMail(userId,email)}"
+                     activiti:expression="#{registerProcessNestedService.getActivationMail(userId,email)}"
                      activiti:resultVariable="email" />
 
         <sequenceFlow sourceRef="getActivationMail" targetRef="sendRegistrationMail"/>
@@ -64,7 +64,7 @@
 
         <sequenceFlow sourceRef="timerRelance" targetRef="getRelanceMail"/>
         <serviceTask id="getRelanceMail"
-                     activiti:expression="#{registerProcessService.getRelanceMail(userId,link,email)}"
+                     activiti:expression="#{registerProcessNestedService.getRelanceMail(userId,link,email)}"
                      activiti:resultVariable="email"/>
 
         <sequenceFlow sourceRef="getRelanceMail" targetRef="sendRelanceTask"/>
@@ -87,7 +87,7 @@
         <intermediateThrowEvent id="relanceEnd"/>
 
         <sequenceFlow sourceRef="timerDelete" targetRef="deleteTask"/>
-        <serviceTask id="deleteTask" activiti:expression="#{registerProcessService.deleteAccount(userId)}"/>
+        <serviceTask id="deleteTask" activiti:expression="#{registerProcessNestedService.deleteAccount(userId)}"/>
         <sequenceFlow sourceRef="deleteTask" targetRef="deleteEnd"/>
         <endEvent id="deleteEnd"/>
 
