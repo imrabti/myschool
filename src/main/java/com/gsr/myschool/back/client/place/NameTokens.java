@@ -22,11 +22,9 @@ public class NameTokens {
     public static final String preInscriptions = "preInscriptions";
     public static final String reception = "reception";
     public static final String validation = "validation";
+    public static final String userPortal = "userPortal";
+    public static final String userGsr = "userGsr";
     public static final String valueList = "valuelist";
-    public static final String addDefLov = "addvaluetype";
-    public static final String listDefLov = "valuetype";
-    public static final String addLov = "addvaluelist";
-    public static final String listLov = "listvaluelist";
     public static final String settings = "settings";
 
     public static String getLogin() {
@@ -53,23 +51,15 @@ public class NameTokens {
         return valueList;
     }
 
-    public static String getAddDefLov() {
-        return addDefLov;
-    }
-
-    public static String getListDefLov() {
-        return listDefLov;
-    }
-
-    public static String getAddLov() {
-        return addLov;
-    }
-
-    public static String getListLov() {
-        return listLov;
-    }
-
     public static String getSettings(){
         return settings;
+    }
+
+    public static String getUserPortal() {
+        return userPortal;
+    }
+
+    public static String getUserGsr() {
+        return userGsr;
     }
 }
