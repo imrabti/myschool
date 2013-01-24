@@ -16,6 +16,8 @@ import com.gsr.myschool.common.shared.type.ParentType;
 
 import java.util.Arrays;
 
+import static com.google.gwt.query.client.GQuery.$;
+
 public class ParentEditor extends Composite implements EditorView<InfoParentProxy> {
     public interface Binder extends UiBinder<Widget, ParentEditor> {
     }
@@ -56,10 +58,22 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
+
+        $(nom).id("nom");
+        $(prenom).id("prenom");
+        $(parentType).id("parentType");
+        $(fonction).id("fonction");
+        $(institution).id("institution");
+        $(email).id("email");
+        $(telDom).id("telDom");
+        $(telGsm).id("telGsm");
+        $(telBureau).id("telBureau");
+        $(address).id("address");
     }
 
     @Override
     public void edit(InfoParentProxy infoParent) {
+        nom.setFocus(true);
         driver.edit(infoParent);
     }
 

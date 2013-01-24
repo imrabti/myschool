@@ -64,5 +64,4 @@ public interface CandidatProxy extends ValueProxy {
     String getGsm();
 
     void setGsm(String gsm);
-    
 }
