@@ -12,8 +12,6 @@ import javax.persistence.*;
 
 @Entity
 public class InfoParent implements java.io.Serializable {
-    @ManyToOne
-    private Dossier dossier;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -28,14 +26,6 @@ public class InfoParent implements java.io.Serializable {
     @Enumerated
     private ParentType parentType;
     private String institution;
-
-    public Dossier getDossier() {
-        return dossier;
-    }
-
-    public void setDossier(Dossier dossier) {
-        this.dossier = dossier;
-    }
 
     public Integer getId() {
         return id;

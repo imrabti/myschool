@@ -7,13 +7,15 @@ import java.util.Date;
 
 @Entity
 public class Dossier implements java.io.Serializable {
-    @ManyToOne
-    private Candidat candidat;
-    @ManyToOne
-    private User owner;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @ManyToOne
+    private Candidat candidat;
+    @ManyToOne
+    private InfoParent infoParent;
+    @ManyToOne
+    private User owner;
     private Date createDate;
     private Date submitDate;
     @Enumerated
@@ -23,6 +25,14 @@ public class Dossier implements java.io.Serializable {
     private String note;
     private Date rdvEntretien;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Candidat getCandidat() {
         return candidat;
     }
@@ -31,20 +41,20 @@ public class Dossier implements java.io.Serializable {
         this.candidat = candidat;
     }
 
+    public InfoParent getInfoParent() {
+        return infoParent;
+    }
+
+    public void setInfoParent(InfoParent infoParent) {
+        this.infoParent = infoParent;
+    }
+
     public User getOwner() {
         return owner;
     }
 
     public void setOwner(User owner) {
         this.owner = owner;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Date getCreateDate() {

@@ -27,6 +27,10 @@ import java.util.Date;
 
 @ProxyFor(Dossier.class)
 public interface DossierProxy extends ValueProxy {
+    Integer getId();
+
+    void setId(Integer id);
+
     CandidatProxy getCandidat() ;
 
     void setCandidat(CandidatProxy candidat) ;
@@ -34,10 +38,6 @@ public interface DossierProxy extends ValueProxy {
     UserProxy getOwner() ;
 
     void setOwner(UserProxy owner);
-
-    Integer getId();
-
-    void setId(Integer id);
 
     Date getCreateDate();
 

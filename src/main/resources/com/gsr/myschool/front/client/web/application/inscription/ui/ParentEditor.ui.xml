@@ -20,14 +20,21 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Lien de parenté</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:ListBox ui:field="lienParente" width="250px"/>
+                    <boot:ValueListBox ui:field="parentType" width="250px"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
                 <boot:ControlLabel>Fonction</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:ListBox ui:field="fonction" width="250px"/>
+                    <boot:TextBox ui:field="fonction" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Institution</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:TextBox ui:field="institution" width="250px"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
@@ -41,10 +48,28 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Téléphone</boot:ControlLabel>
+                <boot:ControlLabel>Maison</boot:ControlLabel>
                 <boot:Controls>
                     <boot:InputAddOn prependIcon="PHONE">
-                        <boot:TextBox ui:field="phone" width="230px"/>
+                        <boot:TextBox ui:field="telDom" width="230px"/>
+                    </boot:InputAddOn>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Mobile GSM</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:InputAddOn prependIcon="PHONE">
+                        <boot:TextBox ui:field="telGsm" width="230px"/>
+                    </boot:InputAddOn>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Travail</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:InputAddOn prependIcon="PHONE">
+                        <boot:TextBox ui:field="telBureau" width="230px"/>
                     </boot:InputAddOn>
                 </boot:Controls>
             </boot:ControlGroup>
