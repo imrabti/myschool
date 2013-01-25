@@ -1,16 +1,20 @@
-package com.gsr.myschool.front.client.web.application.ui;
+package com.gsr.myschool.common.client.ui.user;
 
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
-public class UserAccountEditor extends Composite {
-    public interface Binder extends UiBinder<Widget, UserAccountEditor> {
+public class AdminUserAccountEditor extends Composite {
+    public interface Binder extends UiBinder<Widget, AdminUserAccountEditor> {
     }
 
+
+
     @Inject
-    public UserAccountEditor(final Binder uiBinder) {
+    public AdminUserAccountEditor(final Binder uiBinder) {
         initWidget(uiBinder.createAndBindUi(this));
     }
+
+
 }

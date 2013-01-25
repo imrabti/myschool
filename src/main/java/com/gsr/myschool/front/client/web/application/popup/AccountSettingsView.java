@@ -12,8 +12,8 @@ import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.widget.ModalHeader;
-import com.gsr.myschool.front.client.web.application.ui.PasswordEditor;
-import com.gsr.myschool.front.client.web.application.ui.UserAccountEditor;
+import com.gsr.myschool.common.client.ui.user.PasswordEditor;
+import com.gsr.myschool.common.client.ui.user.UserAccountEditor;
 
 public class AccountSettingsView extends ValidatedPopupViewImplWithUiHandlers<AccountSettingsUiHandlers>
         implements AccountSettingsPresenter.MyView {

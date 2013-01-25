@@ -1,16 +1,16 @@
-package com.gsr.myschool.front.client.web.application.ui;
+package com.gsr.myschool.common.client.ui.dossier;
 
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
-public class PasswordEditor extends Composite {
-    public interface Binder extends UiBinder<Widget, PasswordEditor> {
+public class CandidatEditor extends Composite {
+    public interface Binder extends UiBinder<Widget, CandidatEditor> {
     }
 
     @Inject
-    public PasswordEditor(final Binder uiBinder) {
+    public CandidatEditor(final Binder uiBinder) {
         initWidget(uiBinder.createAndBindUi(this));
     }
 }

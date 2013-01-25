@@ -9,7 +9,6 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.gsr.myschool.common.client.mvp.ViewImpl;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 
@@ -18,23 +17,6 @@ import static com.google.gwt.query.client.GQuery.$;
 public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHandlers>
         implements EditInscriptionPresenter.MyView {
     public interface Binder extends UiBinder<Widget, EditInscriptionView> {
-    }
-
-    public enum WizardStep {
-        STEP_1, STEP_2, STEP_3;
-
-        public static WizardStep value(Integer order) {
-            switch (order) {
-                case 0:
-                    return STEP_1;
-                case 1:
-                    return STEP_2;
-                case 2:
-                    return STEP_3;
-                default:
-                    return STEP_1;
-            }
-        }
     }
 
     @UiField

@@ -27,8 +27,6 @@ public interface MessageBundle extends Messages {
 
     String welcomeMessage(String username);
 
-    String myEntitySaveSucess();
-
     String registerSuccess();
 
     String registerFailure();

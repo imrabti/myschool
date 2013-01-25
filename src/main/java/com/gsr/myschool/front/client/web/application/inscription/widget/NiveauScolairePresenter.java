@@ -2,7 +2,7 @@ package com.gsr.myschool.front.client.web.application.inscription.widget;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-import com.gsr.myschool.front.client.web.application.inscription.EditInscriptionView.WizardStep;
+import com.gsr.myschool.front.client.web.application.inscription.WizardStep;
 import com.gsr.myschool.front.client.web.application.inscription.event.ChangeStepEvent;
 import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;

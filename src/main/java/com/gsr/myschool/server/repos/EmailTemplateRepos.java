@@ -5,5 +5,5 @@ import com.gsr.myschool.server.business.EmailTemplate;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EmailTemplateRepos extends JpaRepository<EmailTemplate, Long> {
-    public EmailTemplate findByCode(EmailType code);
+    EmailTemplate findByCode(EmailType code);
 }
