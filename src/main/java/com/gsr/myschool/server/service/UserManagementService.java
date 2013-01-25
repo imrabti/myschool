@@ -14,24 +14,21 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.resource.message;
+package com.gsr.myschool.server.service;
 
-import com.google.gwt.i18n.client.Messages;
+import com.gsr.myschool.server.business.AdminUser;
+import com.gsr.myschool.server.business.User;
 
-public interface MessageBundle extends Messages {
-    String wrongLoginOrPassword();
+import java.util.List;
 
-    String loginPasswordRequired();
+public interface UserManagementService {
+    List<AdminUser> findAllAdminUser();
 
-    String registerInfoMissing();
+    List<User> findAllPortalUser();
 
-    String welcomeMessage(String username);
+    Boolean updateUserAccount(User user);
 
-    String registerSuccess();
+    Boolean updateAdminAccount(AdminUser admin);
 
-    String registerFailure();
-
-    String activateAccountFailure();
-
-    String activateAccountSuccess();
+    Boolean createAdminAccount(AdminUser newAdmin);
 }

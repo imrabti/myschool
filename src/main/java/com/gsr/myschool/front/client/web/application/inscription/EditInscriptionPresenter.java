@@ -7,7 +7,6 @@ import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.front.client.web.application.inscription.EditInscriptionPresenter.MyProxy;
 import com.gsr.myschool.front.client.web.application.inscription.EditInscriptionPresenter.MyView;
-import com.gsr.myschool.front.client.web.application.inscription.EditInscriptionView.WizardStep;
 import com.gsr.myschool.front.client.web.application.inscription.event.ChangeStepEvent;
 import com.gsr.myschool.front.client.web.application.inscription.event.DisplayStepEvent;
 import com.gsr.myschool.front.client.web.application.inscription.widget.CandidatPresenter;

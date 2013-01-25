@@ -14,24 +14,12 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.resource.message;
+package com.gsr.myschool.common.client.resource.message;
 
 import com.google.gwt.i18n.client.Messages;
 
-public interface MessageBundle extends Messages {
-    String wrongLoginOrPassword();
+public interface SharedMessageBundle extends Messages {
+    String operationSuccess();
 
-    String loginPasswordRequired();
-
-    String registerInfoMissing();
-
-    String welcomeMessage(String username);
-
-    String registerSuccess();
-
-    String registerFailure();
-
-    String activateAccountFailure();
-
-    String activateAccountSuccess();
+    String operationFailure();
 }

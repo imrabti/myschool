@@ -64,4 +64,8 @@ public interface UserProxy extends ValueProxy {
     Date getUpdated();
 
     void setUpdated(Date updated);
+
+    Boolean getActive();
+
+    void setActive(Boolean active);
 }

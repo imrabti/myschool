@@ -14,24 +14,11 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.resource.message;
+package com.gsr.myschool.back.client.web.application.user;
 
-import com.google.gwt.i18n.client.Messages;
+import com.gsr.myschool.common.client.proxy.UserProxy;
+import com.gwtplatform.mvp.client.UiHandlers;
 
-public interface MessageBundle extends Messages {
-    String wrongLoginOrPassword();
-
-    String loginPasswordRequired();
-
-    String registerInfoMissing();
-
-    String welcomeMessage(String username);
-
-    String registerSuccess();
-
-    String registerFailure();
-
-    String activateAccountFailure();
-
-    String activateAccountSuccess();
+public interface UserAccountUiHandlers extends UiHandlers {
+	void accountDetails(UserProxy userProxy);
 }

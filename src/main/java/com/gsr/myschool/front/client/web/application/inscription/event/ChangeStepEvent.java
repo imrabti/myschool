@@ -3,7 +3,7 @@ package com.gsr.myschool.front.client.web.application.inscription.event;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HasHandlers;
-import com.gsr.myschool.front.client.web.application.inscription.EditInscriptionView.WizardStep;
+import com.gsr.myschool.front.client.web.application.inscription.WizardStep;
 
 public class ChangeStepEvent extends GwtEvent<ChangeStepEvent.ChangeStepHandler> {
     public static Type<ChangeStepHandler> TYPE = new Type<ChangeStepHandler>();
