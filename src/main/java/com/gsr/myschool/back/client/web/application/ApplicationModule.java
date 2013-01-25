@@ -20,6 +20,7 @@ import com.google.inject.TypeLiteral;
 import com.gsr.myschool.back.client.web.application.preinscription.PreInscriptionModule;
 import com.gsr.myschool.back.client.web.application.reception.ReceptionModule;
 import com.gsr.myschool.back.client.web.application.settings.SettingsModule;
+import com.gsr.myschool.back.client.web.application.user.UserManagementModule;
 import com.gsr.myschool.back.client.web.application.validation.ValidationModule;
 import com.gsr.myschool.back.client.web.application.valueList.ValueListModule;
 import com.gsr.myschool.back.client.web.application.widget.header.HeaderPresenter;
@@ -37,6 +38,7 @@ public class ApplicationModule extends AbstractPresenterModule {
     protected void configure() {
         install(new ValueListModule());
         install(new ValidationModule());
+        install(new UserManagementModule());
         install(new SettingsModule());
         install(new ReceptionModule());
         install(new PreInscriptionModule());

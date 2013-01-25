@@ -22,6 +22,7 @@ import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.security.CurrentUserProvider;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
+import com.gsr.myschool.back.client.web.application.preinscription.popup.PreInscriptionDetailsPresenter;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -47,21 +48,25 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
 
     private final CurrentUserProvider currentUserProvider;
     private final BackRequestFactory requestFactory;
+    private final PreInscriptionDetailsPresenter detailsPresenter;
 
     @Inject
     public PreInscriptionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
             final BackRequestFactory requestFactory,
-            final CurrentUserProvider currentUserProvider) {
+            final CurrentUserProvider currentUserProvider, final PreInscriptionDetailsPresenter detailsPresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
         this.currentUserProvider = currentUserProvider;
+        this.detailsPresenter = detailsPresenter;
 
         getView().setUiHandlers(this);
     }
 
     @Override
     public void viewDetails(DossierProxy dossier) {
+        detailsPresenter.editDrivers(dossier);
+        addToPopupSlot(detailsPresenter);
     }
 
     @Override

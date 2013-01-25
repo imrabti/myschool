@@ -16,12 +16,14 @@
 
 package com.gsr.myschool.common.client.widget.messages;
 
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-import com.gwtplatform.mvp.client.PresenterWidget;
-import com.gwtplatform.mvp.client.View;
+import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.messages.event.CloseMessageEvent;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
+import com.gwtplatform.mvp.client.PresenterWidget;
+import com.gwtplatform.mvp.client.View;
 
 public class MessagePresenter extends PresenterWidget<MessagePresenter.MyView> implements MessageEvent.MessageHandler,
         CloseMessageEvent.MessageCloseHandler {
@@ -33,9 +35,22 @@ public class MessagePresenter extends PresenterWidget<MessagePresenter.MyView> i
         void clear();
     }
 
+    private final SharedMessageBundle messageBundle;
+
     @Inject
-    public MessagePresenter(final EventBus eventBus, final MyView view) {
+    public MessagePresenter(final EventBus eventBus, final MyView view, final SharedMessageBundle messageBundle) {
         super(eventBus, view);
+        this.messageBundle = messageBundle;
+    }
+
+    public void alertCrudOperationResponse(Boolean actionStatus) {
+        String messageString = actionStatus ? messageBundle.operationSuccess() : messageBundle.operationFailure();
+        AlertType alertType = actionStatus ? AlertType.SUCCESS : AlertType.ERROR;
+        Message message = new Message.Builder(messageString)
+                .style(alertType)
+                .closeDelay(CloseDelay.NEVER)
+                .build();
+        MessageEvent.fire(this, message);
     }
 
     @Override

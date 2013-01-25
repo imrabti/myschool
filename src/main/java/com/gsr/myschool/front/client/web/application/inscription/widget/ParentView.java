@@ -5,7 +5,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ViewImpl;
-import com.gsr.myschool.front.client.web.application.inscription.ui.ParentEditor;
+import com.gsr.myschool.common.client.ui.dossier.ParentEditor;
 
 public class ParentView extends ViewImpl implements ParentPresenter.MyView  {
     public interface Binder extends UiBinder<Widget, ParentView> {

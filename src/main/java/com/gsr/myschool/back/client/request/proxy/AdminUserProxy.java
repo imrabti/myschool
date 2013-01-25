@@ -21,6 +21,8 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 import com.gsr.myschool.common.shared.type.Authority;
 import com.gsr.myschool.server.business.AdminUser;
 
+import java.util.Date;
+
 @ProxyFor(AdminUser.class)
 public interface AdminUserProxy extends ValueProxy {
     Long getId();
@@ -50,4 +52,12 @@ public interface AdminUserProxy extends ValueProxy {
     Authority getAuthority();
 
     void setAuthority(Authority authority);
+
+	Boolean getActive();
+
+	void setActive(Boolean active);
+
+	Date getCreated();
+
+	void setCreated(Date created);
 }
