@@ -16,11 +16,11 @@
 
 package com.gsr.myschool.back.client.web.application.user;
 
-import com.gsr.myschool.back.client.request.proxy.AdminUserProxy;
+import com.gsr.myschool.common.client.proxy.AdminUserProxy;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface AdminUserAccountUiHandlers extends UiHandlers {
-	void accountDetails(AdminUserProxy adminUser);
+	void addAccount();
 
-	void addAccount(AdminUserProxy newAdminUser);
+    void accountDetails(AdminUserProxy adminUser);
 }

@@ -43,7 +43,6 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
 
     private final DateTimeFormat dateFormat;
     private final ListDataProvider<UserProxy> dataProvider;
-    //private final PreInscriptionActionCellFactory actionCellFactory;
 
     private Delegate<UserProxy> viewDetailsAction;
 
@@ -51,8 +50,6 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
     public UserAccountView(final Binder uiBinder,
 			final UiHandlersStrategy<UserAccountUiHandlers> uiHandlers) {
         super(uiHandlers);
-
-        // this.actionCellFactory = actionCellFactory;
 
         initWidget(uiBinder.createAndBindUi(this));
         initActions();
@@ -89,15 +86,15 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
         userPortalTable.addColumn(refColumn, "Nom");
         userPortalTable.setColumnWidth(refColumn, 20, Style.Unit.PCT);
 
-        TextColumn<UserProxy> statusColumn = new TextColumn<UserProxy>() {
+        TextColumn<UserProxy> emailColumn = new TextColumn<UserProxy>() {
             @Override
             public String getValue(UserProxy object) {
-                return object.getActive().toString();
+                return object.getEmail();
             }
         };
-        statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        userPortalTable.addColumn(statusColumn, "Status");
-        userPortalTable.setColumnWidth(statusColumn, 40, Style.Unit.PCT);
+        emailColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        userPortalTable.addColumn(emailColumn, "Email");
+        userPortalTable.setColumnWidth(emailColumn, 40, Style.Unit.PCT);
 
         TextColumn<UserProxy> submittedColumn = new TextColumn<UserProxy>() {
             @Override
@@ -108,17 +105,5 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
         submittedColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         userPortalTable.addColumn(submittedColumn, "Date de création");
         userPortalTable.setColumnWidth(submittedColumn, 30, Style.Unit.PCT);
-
-        /*PreInscriptionActionCell actionsCell = actionCellFactory.create(viewDetailsAction);
-        Column<UserProxy, UserProxy> actionsColumn = new
-                Column<UserProxy, UserProxy>(actionsCell) {
-            @Override
-            public UserProxy getValue(UserProxy object) {
-                return object;
-            }
-        };
-        actionsColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-        userPortalTable.addColumn(actionsColumn, "Détails");
-        userPortalTable.setColumnWidth(actionsColumn, 10, Style.Unit.PCT);*/
     }
 }

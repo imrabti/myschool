@@ -17,7 +17,8 @@
 package com.gsr.myschool.back.client.security;
 
 import com.google.inject.Inject;
-import com.gsr.myschool.back.client.request.proxy.AdminUserProxy;
+import com.gsr.myschool.common.client.proxy.AdminUserProxy;
+import com.gsr.myschool.common.client.proxy.AdminUserProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.util.CallbackImpl;
 import com.gsr.myschool.back.client.request.BackRequestFactory;

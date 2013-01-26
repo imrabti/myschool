@@ -12,7 +12,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiRenderer;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import com.gsr.myschool.back.client.request.proxy.AdminUserProxy;
+import com.gsr.myschool.common.client.proxy.AdminUserProxy;
 
 public class AdminUserActionCell extends AbstractCell<AdminUserProxy> {
     public interface Renderer extends UiRenderer {
@@ -23,17 +23,20 @@ public class AdminUserActionCell extends AbstractCell<AdminUserProxy> {
 
     private final Renderer uiRenderer;
 
-    private Delegate<AdminUserProxy> editAccount;;
+    private Delegate<AdminUserProxy> editAccount;
+    private Delegate<AdminUserProxy> editStatus;
 
     private AdminUserProxy selectedObject;
 
     @Inject
     public AdminUserActionCell(final Renderer uiRenderer,
-            @Assisted("editAccount") Delegate<AdminUserProxy> editAccount) {
+            @Assisted("editAccount") Delegate<AdminUserProxy> editAccount,
+            @Assisted("editStatus") Delegate<AdminUserProxy> editStatus) {
         super(BrowserEvents.CLICK);
 
         this.uiRenderer = uiRenderer;
         this.editAccount = editAccount;
+        this.editStatus = editStatus;
     }
 
     @Override
@@ -51,5 +54,10 @@ public class AdminUserActionCell extends AbstractCell<AdminUserProxy> {
     @UiHandler({"editAccount"})
     void onPreviewClicked(ClickEvent event) {
         editAccount.execute(selectedObject);
+    }
+
+    @UiHandler({"editStatus"})
+    void onChangeStatus(ClickEvent event) {
+        editStatus.execute(selectedObject);
     }
 }
