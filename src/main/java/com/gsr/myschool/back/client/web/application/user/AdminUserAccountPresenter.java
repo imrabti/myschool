@@ -20,10 +20,11 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
-import com.gsr.myschool.back.client.request.proxy.AdminUserProxy;
 import com.gsr.myschool.back.client.security.CurrentUserProvider;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.back.client.web.application.user.popup.AdminUserAccountEditPresenter;
+import com.gsr.myschool.back.client.web.application.user.popup.AdminUserAccountEditUiHandlers;
+import com.gsr.myschool.common.client.proxy.AdminUserProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.widget.messages.MessagePresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -36,7 +37,7 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import java.util.List;
 
 public class AdminUserAccountPresenter extends Presenter<AdminUserAccountPresenter.MyView, AdminUserAccountPresenter.MyProxy>
-        implements AdminUserAccountUiHandlers {
+        implements AdminUserAccountUiHandlers, AdminUserAccountEditUiHandlers {
     public interface MyView extends View, HasUiHandlers<AdminUserAccountUiHandlers> {
         void setData(List<AdminUserProxy> data);
     }
@@ -64,27 +65,33 @@ public class AdminUserAccountPresenter extends Presenter<AdminUserAccountPresent
         this.adminEditPresenter = adminEditPresenter;
 
         getView().setUiHandlers(this);
+        adminEditPresenter.getView().setUiHandlers(this);
     }
 
     @Override
     public void accountDetails(AdminUserProxy adminUser) {
-        // detailsPresenter.editDrivers(adminUser);
+        adminEditPresenter.editAccount(adminUser, messagePresenter, requestFactory.userService());
+        addToPopupSlot(adminEditPresenter);
+
+    }
+
+    @Override
+    public void addAccount() {
+        adminEditPresenter.addAccount(requestFactory, messagePresenter);
         addToPopupSlot(adminEditPresenter);
     }
 
     @Override
-    public void addAccount(AdminUserProxy newAdminUser) {
-        requestFactory.userService().createAdminAccount(newAdminUser)
-                .fire(new ReceiverImpl<Boolean>() {
-                    @Override
-                    public void onSuccess(Boolean result) {
-                        messagePresenter.alertCrudOperationResponse(result);
-                    }
-                });
+    public void reloadUsers() {
+        loadUsers();
     }
 
     @Override
     protected void onReveal() {
+        loadUsers();
+    }
+
+    private void loadUsers() {
         requestFactory.userService().findAllAdminUser()
                 .fire(new ReceiverImpl<List<AdminUserProxy>>() {
                     @Override

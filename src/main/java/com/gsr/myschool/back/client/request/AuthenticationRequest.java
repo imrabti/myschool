@@ -19,7 +19,7 @@ package com.gsr.myschool.back.client.request;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
-import com.gsr.myschool.back.client.request.proxy.AdminUserProxy;
+import com.gsr.myschool.common.client.proxy.AdminUserProxy;
 import com.gsr.myschool.server.security.AdminAuthenticationServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
 

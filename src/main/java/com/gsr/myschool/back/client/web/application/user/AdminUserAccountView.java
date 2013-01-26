@@ -19,20 +19,22 @@ package com.gsr.myschool.back.client.web.application.user;
 import com.github.gwtbootstrap.client.ui.CellTable;
 import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
-import com.gsr.myschool.back.client.request.proxy.AdminUserProxy;
 import com.gsr.myschool.back.client.web.application.user.renderer.AdminUserActionCell;
 import com.gsr.myschool.back.client.web.application.user.renderer.AdminUserActionCellFactory;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.common.client.proxy.AdminUserProxy;
 
 import java.util.List;
 
@@ -49,6 +51,7 @@ public class AdminUserAccountView extends ViewWithUiHandlers<AdminUserAccountUiH
     private final AdminUserActionCellFactory actionCellFactoryAdmin;
 
     private Delegate<AdminUserProxy> editAccount;
+    private Delegate<AdminUserProxy> editStatus;
 
     @Inject
     public AdminUserAccountView(final Binder uiBinder,
@@ -73,8 +76,19 @@ public class AdminUserAccountView extends ViewWithUiHandlers<AdminUserAccountUiH
         dataProvider.getList().addAll(data);
     }
 
+    @UiHandler("add")
+    void onAddClicked(ClickEvent event) {
+        getUiHandlers().addAccount();
+    }
+
     private void initActions() {
         editAccount = new Delegate<AdminUserProxy>() {
+            @Override
+            public void execute(AdminUserProxy dossier) {
+                getUiHandlers().accountDetails(dossier);
+            }
+        };
+        editStatus = new Delegate<AdminUserProxy>() {
             @Override
             public void execute(AdminUserProxy dossier) {
                 getUiHandlers().accountDetails(dossier);
@@ -123,7 +137,7 @@ public class AdminUserAccountView extends ViewWithUiHandlers<AdminUserAccountUiH
         userGsrTable.addColumn(submittedColumn, "Date de Création");
         userGsrTable.setColumnWidth(submittedColumn, 30, Style.Unit.PCT);
 
-        AdminUserActionCell actionsCellAdmin = actionCellFactoryAdmin.create(editAccount);
+        AdminUserActionCell actionsCellAdmin = actionCellFactoryAdmin.create(editAccount, editStatus);
         Column<AdminUserProxy, AdminUserProxy> actionsColumn = new
                 Column<AdminUserProxy, AdminUserProxy>(actionsCellAdmin) {
             @Override

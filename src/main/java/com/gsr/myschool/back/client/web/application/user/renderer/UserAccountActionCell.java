@@ -12,42 +12,42 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiRenderer;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import com.gsr.myschool.common.client.proxy.AdminUserProxy;
+import com.gsr.myschool.common.client.proxy.UserProxy;
 
-public class AdminUserActionCell extends AbstractCell<AdminUserProxy> {
+public class UserAccountActionCell extends AbstractCell<UserProxy> {
     public interface Renderer extends UiRenderer {
         void render(SafeHtmlBuilder sb);
 
-        void onBrowserEvent(AdminUserActionCell o, NativeEvent e, Element p);
+        void onBrowserEvent(UserAccountActionCell o, NativeEvent e, Element p);
     }
 
     private final Renderer uiRenderer;
 
-    private Delegate<AdminUserProxy> editAccount;
-    private Delegate<AdminUserProxy> editStatus;
+    private Delegate<UserProxy> editAccount;
+    private Delegate<UserProxy> viewInscriptions;
 
-    private AdminUserProxy selectedObject;
+    private UserProxy selectedObject;
 
     @Inject
-    public AdminUserActionCell(final Renderer uiRenderer,
-            @Assisted("editAccount") Delegate<AdminUserProxy> editAccount,
-            @Assisted("editStatus") Delegate<AdminUserProxy> editStatus) {
+    public UserAccountActionCell(final Renderer uiRenderer,
+            @Assisted("editAccount") Delegate<UserProxy> editAccount,
+            @Assisted("viewInscriptions") Delegate<UserProxy> viewInscriptions) {
         super(BrowserEvents.CLICK);
 
         this.uiRenderer = uiRenderer;
         this.editAccount = editAccount;
-        this.editStatus = editStatus;
+        this.viewInscriptions = viewInscriptions;
     }
 
     @Override
-    public void onBrowserEvent(Context context, Element parent, AdminUserProxy value, NativeEvent event,
-                               ValueUpdater<AdminUserProxy> valueUpdater) {
+    public void onBrowserEvent(Context context, Element parent, UserProxy value, NativeEvent event,
+                               ValueUpdater<UserProxy> valueUpdater) {
         selectedObject = value;
         uiRenderer.onBrowserEvent(this, event, parent);
     }
 
     @Override
-    public void render(Context context, AdminUserProxy value, SafeHtmlBuilder builder) {
+    public void render(Context context, UserProxy value, SafeHtmlBuilder builder) {
         uiRenderer.render(builder);
     }
 
@@ -56,8 +56,8 @@ public class AdminUserActionCell extends AbstractCell<AdminUserProxy> {
         editAccount.execute(selectedObject);
     }
 
-    @UiHandler({"editStatus"})
+    @UiHandler({"viewInscriptions"})
     void onChangeStatus(ClickEvent event) {
-        editStatus.execute(selectedObject);
+        viewInscriptions.execute(selectedObject);
     }
 }
