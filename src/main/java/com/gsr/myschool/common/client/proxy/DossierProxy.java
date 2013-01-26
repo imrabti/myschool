@@ -27,9 +27,9 @@ import java.util.Date;
 
 @ProxyFor(Dossier.class)
 public interface DossierProxy extends ValueProxy {
-    Integer getId();
+    Long getId();
 
-    void setId(Integer id);
+    void setId(Long id);
 
     CandidatProxy getCandidat() ;
 

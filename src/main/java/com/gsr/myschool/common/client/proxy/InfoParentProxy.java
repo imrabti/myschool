@@ -7,9 +7,9 @@ import com.gsr.myschool.server.business.InfoParent;
 
 @ProxyFor(InfoParent.class)
 public interface InfoParentProxy extends ValueProxy {
-    Integer getId();
+    Long getId();
 
-    void setId(Integer id);
+    void setId(Long id);
 
     String getNom();
 

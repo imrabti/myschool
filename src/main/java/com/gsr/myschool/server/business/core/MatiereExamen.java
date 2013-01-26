@@ -10,15 +10,15 @@ import javax.persistence.Id;
 public class MatiereExamen implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     @Column(unique = true)
     private String nom;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer newId) {
+    public void setId(Long newId) {
         this.id = newId;
     }
 

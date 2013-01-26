@@ -11,16 +11,16 @@ import java.io.Serializable;
 public class Filiere implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     @Column(unique = true)
     private String nom;
     private String description;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer newId) {
+    public void setId(Long newId) {
         this.id = newId;
     }
 

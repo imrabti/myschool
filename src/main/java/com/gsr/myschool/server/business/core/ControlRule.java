@@ -4,13 +4,21 @@ import javax.persistence.*;
 
 @Entity
 public class ControlRule implements java.io.Serializable {
-    @ManyToOne
-    private NiveauEtude niveauEtude;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
+    @ManyToOne
+    private NiveauEtude niveauEtude;
     private String activityContolRule;
     private Integer orderRule;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long newId) {
+        this.id = newId;
+    }
 
     public NiveauEtude getNiveauEtude() {
         return niveauEtude;
@@ -18,14 +26,6 @@ public class ControlRule implements java.io.Serializable {
 
     public void setNiveauEtude(NiveauEtude newNiveauEtude) {
         this.niveauEtude = newNiveauEtude;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer newId) {
-        this.id = newId;
     }
 
     public String getActivityContolRule() {

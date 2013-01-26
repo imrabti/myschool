@@ -19,5 +19,5 @@ package com.gsr.myschool.server.repos;
 import com.gsr.myschool.server.business.Dossier;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface DossierRepos extends JpaRepository<Dossier, Integer> {
+public interface DossierRepos extends JpaRepository<Dossier, Long> {
 }

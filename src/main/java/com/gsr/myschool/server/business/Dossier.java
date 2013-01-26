@@ -1,6 +1,8 @@
 package com.gsr.myschool.server.business;
 
 import com.gsr.myschool.common.shared.type.DossierStatus;
+import com.gsr.myschool.server.business.core.Filiere;
+import com.gsr.myschool.server.business.core.NiveauEtude;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,11 +11,15 @@ import java.util.Date;
 public class Dossier implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     @ManyToOne
     private Candidat candidat;
     @ManyToOne
     private InfoParent infoParent;
+    @ManyToOne
+    private Filiere filiere;
+    @ManyToOne
+    private NiveauEtude niveauEtude;
     @ManyToOne
     private User owner;
     private Date createDate;
@@ -25,11 +31,11 @@ public class Dossier implements java.io.Serializable {
     private String note;
     private Date rdvEntretien;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -47,6 +53,22 @@ public class Dossier implements java.io.Serializable {
 
     public void setInfoParent(InfoParent infoParent) {
         this.infoParent = infoParent;
+    }
+
+    public Filiere getFiliere() {
+        return filiere;
+    }
+
+    public void setFiliere(Filiere filiere) {
+        this.filiere = filiere;
+    }
+
+    public NiveauEtude getNiveauEtude() {
+        return niveauEtude;
+    }
+
+    public void setNiveauEtude(NiveauEtude niveauEtude) {
+        this.niveauEtude = niveauEtude;
     }
 
     public User getOwner() {

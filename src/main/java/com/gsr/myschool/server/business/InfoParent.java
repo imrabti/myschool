@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class InfoParent implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     private String nom;
     private String prenom;
     private String telGsm;
@@ -27,11 +27,11 @@ public class InfoParent implements java.io.Serializable {
     private ParentType parentType;
     private String institution;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

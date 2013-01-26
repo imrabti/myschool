@@ -6,11 +6,11 @@ import javax.persistence.*;
 
 @Entity
 public class Fraterie implements java.io.Serializable {
-    @ManyToOne
-    private Candidat candidat;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
+    @ManyToOne
+    private Candidat candidat;
     private String nom;
     private String prenom;
     private String numDossierGSR;
@@ -18,20 +18,20 @@ public class Fraterie implements java.io.Serializable {
     private TypeFraterie typeFraterie;
     private Boolean valide;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Candidat getCandidat() {
         return candidat;
     }
 
     public void setCandidat(Candidat candidat) {
         this.candidat = candidat;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getNom() {
