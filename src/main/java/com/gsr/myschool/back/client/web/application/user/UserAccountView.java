@@ -22,11 +22,14 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
+import com.gsr.myschool.back.client.web.application.user.renderer.UserAccountActionCell;
+import com.gsr.myschool.back.client.web.application.user.renderer.UserAccountActionCellFactory;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.UserProxy;
@@ -43,13 +46,18 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
 
     private final DateTimeFormat dateFormat;
     private final ListDataProvider<UserProxy> dataProvider;
+    private final UserAccountActionCellFactory actionCellFactory;
 
-    private Delegate<UserProxy> viewDetailsAction;
+    private Delegate<UserProxy> editAccount;
+    private Delegate<UserProxy> viewInscriptions;
 
     @Inject
     public UserAccountView(final Binder uiBinder,
-			final UiHandlersStrategy<UserAccountUiHandlers> uiHandlers) {
+            final UiHandlersStrategy<UserAccountUiHandlers> uiHandlers,
+            final UserAccountActionCellFactory actionCellFactory) {
         super(uiHandlers);
+
+        this.actionCellFactory = actionCellFactory;
 
         initWidget(uiBinder.createAndBindUi(this));
         initActions();
@@ -67,10 +75,16 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
     }
 
     private void initActions() {
-        viewDetailsAction = new Delegate<UserProxy>() {
+        editAccount = new Delegate<UserProxy>() {
             @Override
-            public void execute(UserProxy dossier) {
-                getUiHandlers().accountDetails(dossier);
+            public void execute(UserProxy userProxy) {
+                getUiHandlers().accountDetails(userProxy);
+            }
+        };
+        viewInscriptions = new Delegate<UserProxy>() {
+            @Override
+            public void execute(UserProxy userProxy) {
+                getUiHandlers().listInscriptions(userProxy.getId());
             }
         };
     }
@@ -105,5 +119,17 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
         submittedColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         userPortalTable.addColumn(submittedColumn, "Date de création");
         userPortalTable.setColumnWidth(submittedColumn, 30, Style.Unit.PCT);
+
+        UserAccountActionCell actionsCell = actionCellFactory.create(viewInscriptions, editAccount);
+        Column<UserProxy, UserProxy> actionsColumn = new
+                Column<UserProxy, UserProxy>(actionsCell) {
+                    @Override
+                    public UserProxy getValue(UserProxy object) {
+                        return object;
+                    }
+                };
+        actionsColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+        userPortalTable.addColumn(actionsColumn, "Actions");
+        userPortalTable.setColumnWidth(actionsColumn, 10, Style.Unit.PCT);
     }
 }

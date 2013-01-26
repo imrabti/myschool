@@ -80,6 +80,7 @@ public class UserManagementServiceImpl implements UserManagementService {
             adminUser.setActive(true);
             adminUser.setAuthority(Authority.ROLE_ADMIN);
             adminUser.setUsername(adminUser.getLastName());
+            adminUser.setPassword(adminUser.getUsername());
         }
     }
 }

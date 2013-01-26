@@ -65,6 +65,7 @@ public class AdminUserAccountPresenter extends Presenter<AdminUserAccountPresent
         this.adminEditPresenter = adminEditPresenter;
 
         getView().setUiHandlers(this);
+        adminEditPresenter.getView().setUiHandlers(this);
     }
 
     @Override
