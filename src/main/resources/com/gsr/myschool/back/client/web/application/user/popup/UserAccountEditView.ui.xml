@@ -21,12 +21,12 @@
     <g:PopupPanel modal="true" autoHideEnabled="false" styleName="{resource.popupStyleCss.gwtPopupPanel}"
                   glassEnabled="true">
         <g:FlowPanel>
-            <s:ModalHeader ui:field="modalHeader" text="Compte GSR"/>
+            <s:ModalHeader ui:field="modalHeader" text="Compte Portail"/>
 
             <boot:TabPanel ui:field="steps" tabPosition="left">
                 <boot:Tab heading="Informations générales" active="true">
                     <g:HTMLPanel styleName="{style.contentWrapper}">
-                        <p:AdminUserAccountEditor ui:field="adminEditor"/>
+                        <p:UserAccountEditor ui:field="userEditor"/>
                     </g:HTMLPanel>
                 </boot:Tab>
                 <boot:Tab heading="Mot de passe">

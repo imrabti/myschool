@@ -26,9 +26,7 @@ public interface UserManagementService {
 
     List<User> findAllPortalUser();
 
-    Boolean updateUserAccount(User user);
+    Boolean saveUserAccount(User user);
 
-    Boolean updateAdminAccount(AdminUser admin);
-
-    Boolean createAdminAccount(AdminUser newAdmin);
+    Boolean saveAdminAccount(AdminUser newAdmin);
 }

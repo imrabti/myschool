@@ -12,32 +12,32 @@ import com.gsr.myschool.back.client.request.UserServiceRequest;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
-import com.gsr.myschool.common.client.proxy.AdminUserProxy;
-import com.gsr.myschool.common.client.ui.user.AdminUserAccountEditor;
+import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.ui.user.PasswordEditor;
+import com.gsr.myschool.common.client.ui.user.UserAccountEditor;
 import com.gsr.myschool.common.client.widget.ModalHeader;
 
-public class AdminUserAccountEditView extends ValidatedPopupViewImplWithUiHandlers<AdminUserAccountEditUiHandlers>
-        implements AdminUserAccountEditPresenter.MyView {
-    public interface Binder extends UiBinder<PopupPanel, AdminUserAccountEditView> {
+public class UserAccountEditView extends ValidatedPopupViewImplWithUiHandlers<UserAccountEditUiHandlers>
+        implements UserAccountEditPresenter.MyView {
+    public interface Binder extends UiBinder<PopupPanel, UserAccountEditView> {
     }
 
     @UiField(provided = true)
     ModalHeader modalHeader;
     @UiField(provided = true)
-    AdminUserAccountEditor adminEditor;
+    UserAccountEditor userEditor;
     @UiField(provided = true)
     PasswordEditor passwordEditor;
 
     @Inject
-    public AdminUserAccountEditView(final EventBus eventBus, final Binder uiBinder,
-            final UiHandlersStrategy<AdminUserAccountEditUiHandlers> uiHandlers,
+    public UserAccountEditView(final EventBus eventBus, final Binder uiBinder,
+            final UiHandlersStrategy<UserAccountEditUiHandlers> uiHandlers,
             final ValidationErrorPopup errorPopup, final ModalHeader modalHeader,
-            final AdminUserAccountEditor adminEditor, final PasswordEditor passwordEditor) {
+            final UserAccountEditor userEditor, final PasswordEditor passwordEditor) {
         super(eventBus, errorPopup, uiHandlers);
 
         this.modalHeader = modalHeader;
-        this.adminEditor = adminEditor;
+        this.userEditor = userEditor;
         this.passwordEditor = passwordEditor;
 
         initWidget(uiBinder.createAndBindUi(this));
@@ -51,8 +51,8 @@ public class AdminUserAccountEditView extends ValidatedPopupViewImplWithUiHandle
     }
 
     @Override
-    public void edit(AdminUserProxy userProxy, UserServiceRequest userService) {
-        adminEditor.edit(userProxy, userService);
+    public void edit(UserProxy userProxy, UserServiceRequest userService) {
+        userEditor.edit(userProxy, userService);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class AdminUserAccountEditView extends ValidatedPopupViewImplWithUiHandle
 
     @UiHandler("save")
     void onSaveClicked(ClickEvent event) {
-        adminEditor.onSaveClicked();
+        userEditor.onSaveClicked();
         hide();
     }
 }

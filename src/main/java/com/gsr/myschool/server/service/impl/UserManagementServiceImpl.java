@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.server.service.impl;
 
+import com.gsr.myschool.common.shared.type.Authority;
 import com.gsr.myschool.server.business.AdminUser;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.repos.AdminUserRepos;
@@ -54,25 +55,32 @@ public class UserManagementServiceImpl implements UserManagementService {
     }
 
     @Override
-    public Boolean updateUserAccount(User user) {
-        User userToUpdate = userRepos.findOne(user.getId());
-        return true;
-    }
-
-    @Override
-    public Boolean updateAdminAccount(AdminUser admin) {
-        AdminUser adminToUpdate = adminUserRepos.findOne(admin.getId());
-        return true;
-    }
-
-    @Override
-    public Boolean createAdminAccount(AdminUser newAdmin) {
+    public Boolean saveUserAccount(User user) {
         try {
-            adminUserRepos.save(newAdmin);
+            userRepos.save(user);
             return true;
         } catch (Exception e) {
             return false;
         }
+    }
 
+    @Override
+    public Boolean saveAdminAccount(AdminUser adminUser) {
+        try {
+            createNew(adminUser);
+            adminUserRepos.save(adminUser);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private void createNew(AdminUser adminUser) {
+        if (adminUser.getActive() == null) {
+            adminUser.setActive(true);
+            adminUser.setAuthority(Authority.ROLE_ADMIN);
+            adminUser.setUsername(adminUser.getLastName());
+            adminUser.setPassword(adminUser.getUsername());
+        }
     }
 }

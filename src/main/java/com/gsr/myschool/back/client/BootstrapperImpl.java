@@ -18,9 +18,10 @@ package com.gsr.myschool.back.client;
 
 import com.google.inject.Inject;
 import com.gsr.myschool.back.client.place.NameTokens;
-import com.gsr.myschool.back.client.request.proxy.AdminUserProxy;
+import com.gsr.myschool.common.client.proxy.AdminUserProxy;
 import com.gsr.myschool.back.client.resource.AdminResources;
 import com.gsr.myschool.back.client.security.CurrentUserProvider;
+import com.gsr.myschool.common.client.proxy.AdminUserProxy;
 import com.gsr.myschool.common.client.resource.SharedResources;
 import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gsr.myschool.common.client.util.CallbackImpl;

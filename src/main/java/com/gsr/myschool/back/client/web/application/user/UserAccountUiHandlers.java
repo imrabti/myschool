@@ -21,4 +21,6 @@ import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface UserAccountUiHandlers extends UiHandlers {
 	void accountDetails(UserProxy userProxy);
+
+    void listInscriptions(Long userId);
 }

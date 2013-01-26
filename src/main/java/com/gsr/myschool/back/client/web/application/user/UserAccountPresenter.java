@@ -22,9 +22,14 @@ import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.security.CurrentUserProvider;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
-import com.gsr.myschool.back.client.web.application.preinscription.popup.PreInscriptionDetailsPresenter;
+import com.gsr.myschool.back.client.web.application.user.popup.UserAccountEditPresenter;
+import com.gsr.myschool.back.client.web.application.user.popup.UserAccountEditUiHandlers;
+import com.gsr.myschool.back.client.web.application.user.popup.UserInscriptionListPresenter;
+import com.gsr.myschool.back.client.web.application.user.popup.UserInscriptionListUiHandlers;
+import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.common.client.widget.messages.MessagePresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -35,7 +40,7 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import java.util.List;
 
 public class UserAccountPresenter extends Presenter<UserAccountPresenter.MyView, UserAccountPresenter.MyProxy>
-        implements UserAccountUiHandlers {
+        implements UserAccountUiHandlers, UserAccountEditUiHandlers, UserInscriptionListUiHandlers {
     public interface MyView extends View, HasUiHandlers<UserAccountUiHandlers> {
         void setData(List<UserProxy> data);
     }
@@ -48,34 +53,67 @@ public class UserAccountPresenter extends Presenter<UserAccountPresenter.MyView,
 
     private final CurrentUserProvider currentUserProvider;
     private final BackRequestFactory requestFactory;
-    private final PreInscriptionDetailsPresenter detailsPresenter;
+    private final MessagePresenter messagePresenter;
+    private final UserAccountEditPresenter userAccountEditPresenter;
+    private final UserInscriptionListPresenter inscriptionListPresenter;
 
     @Inject
     public UserAccountPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
-			final BackRequestFactory requestFactory,
-			final CurrentUserProvider currentUserProvider, final PreInscriptionDetailsPresenter detailsPresenter) {
+            final BackRequestFactory requestFactory,
+            final CurrentUserProvider currentUserProvider, final MessagePresenter messagePresenter,
+            final UserAccountEditPresenter userAccountEditPresenter,
+            final UserInscriptionListPresenter inscriptionListPresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
         this.currentUserProvider = currentUserProvider;
-        this.detailsPresenter = detailsPresenter;
+        this.messagePresenter = messagePresenter;
+        this.userAccountEditPresenter = userAccountEditPresenter;
+        this.inscriptionListPresenter = inscriptionListPresenter;
 
         getView().setUiHandlers(this);
+        userAccountEditPresenter.getView().setUiHandlers(this);
+        inscriptionListPresenter.getView().setUiHandlers(this);
+    }
+
+    @Override
+    public void reloadUsers() {
+        loadUsers();
     }
 
     @Override
     public void accountDetails(UserProxy user) {
-        // detailsPresenter.editDrivers(user);
-        addToPopupSlot(detailsPresenter);
+        userAccountEditPresenter.editAccount(user, messagePresenter, requestFactory.userService());
+        addToPopupSlot(userAccountEditPresenter);
+    }
+
+    @Override
+    public void listInscriptions(Long userId) {
+        loadInscriptions(userId);
+        addToPopupSlot(inscriptionListPresenter);
     }
 
     @Override
     protected void onReveal() {
+        loadUsers();
+    }
+
+    private void loadUsers() {
         requestFactory.userService().findAllPortalUser()
                 .fire(new ReceiverImpl<List<UserProxy>>() {
                     @Override
                     public void onSuccess(List<UserProxy> result) {
                         getView().setData(result);
+                    }
+                });
+    }
+
+    private void loadInscriptions(Long userId) {
+        requestFactory.dossierService().findAllDossiersByUser(userId)
+                .fire(new ReceiverImpl<List<DossierProxy>>() {
+                    @Override
+                    public void onSuccess(List<DossierProxy> result) {
+                        inscriptionListPresenter.getView().setData(result);
                     }
                 });
     }
