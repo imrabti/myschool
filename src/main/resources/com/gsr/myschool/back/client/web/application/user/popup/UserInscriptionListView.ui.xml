@@ -8,7 +8,7 @@
     <g:PopupPanel modal="true" autoHideEnabled="false" styleName="{resource.popupStyleCss.gwtPopupPanel}"
                   glassEnabled="true">
         <g:FlowPanel>
-            <s:ModalHeader ui:field="modalHeader" text="Compte Portail"/>
+            <s:ModalHeader ui:field="modalHeader" text="Dossiers Créés"/>
             <g:HTMLPanel >
                 <boot:CellTable ui:field="userInscriptionsTable" bordered="true"/>
             </g:HTMLPanel>

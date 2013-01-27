@@ -19,6 +19,7 @@ package com.gsr.myschool.common.client.proxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;
 import com.gsr.myschool.common.shared.type.Authority;
+import com.gsr.myschool.common.shared.type.UserStatus;
 import com.gsr.myschool.server.business.User;
 
 import java.util.Date;
@@ -65,7 +66,7 @@ public interface UserProxy extends ValueProxy {
 
     void setUpdated(Date updated);
 
-    Boolean getActive();
+    UserStatus getStatus();
 
-    void setActive(Boolean active);
+    void setStatus(UserStatus status);
 }

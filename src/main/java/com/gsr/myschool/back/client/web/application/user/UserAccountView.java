@@ -93,7 +93,7 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
         TextColumn<UserProxy> refColumn = new TextColumn<UserProxy>() {
             @Override
             public String getValue(UserProxy object) {
-                return object.getUsername();
+                return object.getFirstName() + " " + object.getLastName();
             }
         };
         refColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
