@@ -99,7 +99,7 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
             requestFactory.registrationService().activateAccount(token).fire(new ReceiverImpl<Boolean>() {
                 @Override
                 public void onSuccess(Boolean aBoolean) {
-                    String messageString = aBoolean ? messageBundle.activateAccountSucces() : messageBundle.activateAccountFaillure();
+                    String messageString = aBoolean ? messageBundle.activateAccountSuccess() : messageBundle.activateAccountFailure();
                     AlertType alertType = aBoolean ? AlertType.SUCCESS : AlertType.ERROR;
                     Message message = new Message.Builder(messageString)
                             .style(alertType)

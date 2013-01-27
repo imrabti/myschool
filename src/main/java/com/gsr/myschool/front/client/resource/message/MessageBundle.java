@@ -27,11 +27,11 @@ public interface MessageBundle extends Messages {
 
     String welcomeMessage(String firstName, String lastName);
 
-    String myEntitySaveSucess();
+    String registerSuccess();
 
-    String registerSucces();
+    String registerFailure();
 
-    String activateAccountFaillure();
+    String activateAccountFailure();
 
-    String activateAccountSucces();
+    String activateAccountSuccess();
 }

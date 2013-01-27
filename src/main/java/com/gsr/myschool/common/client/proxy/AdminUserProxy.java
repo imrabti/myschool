@@ -14,12 +14,14 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.request.proxy;
+package com.gsr.myschool.common.client.proxy;
 
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;
 import com.gsr.myschool.common.shared.type.Authority;
 import com.gsr.myschool.server.business.AdminUser;
+
+import java.util.Date;
 
 @ProxyFor(AdminUser.class)
 public interface AdminUserProxy extends ValueProxy {
@@ -50,4 +52,12 @@ public interface AdminUserProxy extends ValueProxy {
     Authority getAuthority();
 
     void setAuthority(Authority authority);
+
+	Boolean getActive();
+
+	void setActive(Boolean active);
+
+	Date getCreated();
+
+	void setCreated(Date created);
 }

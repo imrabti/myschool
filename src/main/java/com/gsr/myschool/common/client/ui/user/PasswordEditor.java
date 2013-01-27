@@ -1,4 +1,4 @@
-package com.gsr.myschool.front.client.web.application.ui;
+package com.gsr.myschool.common.client.ui.user;
 
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;

@@ -1,4 +1,4 @@
-package com.gsr.myschool.front.client.web.application.inscription.ui;
+package com.gsr.myschool.common.client.ui.dossier;
 
 import com.github.gwtbootstrap.client.ui.TextArea;
 import com.github.gwtbootstrap.client.ui.TextBox;

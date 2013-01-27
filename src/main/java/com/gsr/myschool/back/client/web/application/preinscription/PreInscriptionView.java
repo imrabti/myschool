@@ -86,7 +86,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         TextColumn<DossierProxy> refColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
-                return object.getNote();
+                return object.getGeneratedNumDossier();
             }
         };
         refColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);

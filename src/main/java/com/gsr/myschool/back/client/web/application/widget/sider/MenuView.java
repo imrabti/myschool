@@ -21,6 +21,10 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
     @UiField
     NavLink validation;
     @UiField
+    NavLink userPortal;
+    @UiField
+    NavLink userGsr;
+    @UiField
     NavLink valueList;
 
     private MenuItem currentMenu;
@@ -45,6 +49,12 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
                 break;
             case VALIDATION:
                 validation.setActive(true);
+                break;
+            case USERS_PORTAL:
+                userPortal.setActive(true);
+                break;
+            case USERS_GSR:
+                userGsr.setActive(true);
                 break;
             case VALUE_LIST:
                 valueList.setActive(true);
@@ -82,6 +92,26 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         }
     }
 
+    @UiHandler("userPortal")
+    void onUserPortalClicked(ClickEvent event) {
+        if (currentMenu != MenuItem.USERS_PORTAL) {
+            clearActive();
+            userPortal.setActive(true);
+            currentMenu = MenuItem.USERS_PORTAL;
+            getUiHandlers().onMenuChanged(currentMenu);
+        }
+    }
+
+    @UiHandler("userGsr")
+    void onUserGsrClicked(ClickEvent event) {
+        if (currentMenu != MenuItem.USERS_GSR) {
+            clearActive();
+            userGsr.setActive(true);
+            currentMenu = MenuItem.USERS_GSR;
+            getUiHandlers().onMenuChanged(currentMenu);
+        }
+    }
+
     @UiHandler("valueList")
     void onValueListClicked(ClickEvent event) {
         if (currentMenu != MenuItem.VALUE_LIST) {
@@ -97,5 +127,7 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         reception.setActive(false);
         validation.setActive(false);
         valueList.setActive(false);
+        userGsr.setActive(false);
+        userPortal.setActive(false);
     }
 }

@@ -1,0 +1,19 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'>
+    <div class="btn-group">
+        <a href="javascript:;" class="btn" ui:field="editAccount">
+            <i class="icon-edit"/>
+            <span class="">Editer</span>
+        </a>
+        <a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu pull-right">
+            <li>
+                <a href="javascript:;" ui:field="editStatus">
+                    <i class="icon-edit"/>
+                    <span class="">Changer Statut</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</ui:UiBinder>

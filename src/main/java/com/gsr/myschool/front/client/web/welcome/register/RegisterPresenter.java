@@ -84,8 +84,10 @@ public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, Regis
             @Override
             public void onSuccess(Boolean aBoolean) {
                 getView().clearErrors();
-                Message message = new Message.Builder(messageBundle.registerSucces())
-                        .style(AlertType.SUCCESS)
+                String messageString = aBoolean ? messageBundle.registerSuccess() : messageBundle.registerFailure();
+                AlertType alertType = aBoolean ? AlertType.SUCCESS : AlertType.ERROR;
+                Message message = new Message.Builder(messageString)
+                        .style(alertType)
                         .closeDelay(CloseDelay.NEVER)
                         .build();
                 MessageEvent.fire(this, message);

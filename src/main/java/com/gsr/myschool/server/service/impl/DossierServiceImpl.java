@@ -17,6 +17,7 @@
 package com.gsr.myschool.server.service.impl;
 
 import com.gsr.myschool.common.shared.type.DossierStatus;
+import com.gsr.myschool.server.business.Candidat;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.service.DossierService;
 import org.springframework.stereotype.Service;
@@ -34,27 +35,38 @@ public class DossierServiceImpl implements DossierService {
     public List<Dossier> findAllDossiersByUser(Long userId) {
         List<Dossier> Dossiers = new ArrayList<Dossier>();
 
+        Candidat c = new Candidat();
+        c.setBirthDate(new Date());
+        c.setFirstname("alex");
+        c.setLastname("kid");
+
         Dossier dossier = new Dossier();
+        dossier.setGeneratedNumDossier("001S2013");
         dossier.setNote("001S2013");
         dossier.setCreateDate(new Date());
         dossier.setSubmitDate(new Date());
-        dossier.setId(1l);
+        dossier.setId(1);
+        dossier.setCandidat(c);
         dossier.setStatus(DossierStatus.INVITED_TO_TEST);
         Dossiers.add(dossier);
 
         dossier = new Dossier();
+        dossier.setGeneratedNumDossier("002S2013");
         dossier.setNote("002S2013");
         dossier.setCreateDate(new Date());
         dossier.setSubmitDate(new Date());
-        dossier.setId(2l);
+        dossier.setId(2);
+        dossier.setCandidat(c);
         dossier.setStatus(DossierStatus.RECEIVED);
         Dossiers.add(dossier);
 
         dossier = new Dossier();
+        dossier.setGeneratedNumDossier("002S2sds3");
         dossier.setNote("002S2sds3");
         dossier.setCreateDate(new Date());
         dossier.setSubmitDate(new Date());
-        dossier.setId(3l);
+        dossier.setId(3);
+        dossier.setCandidat(c);
         dossier.setStatus(DossierStatus.ACCEPTED_FOR_TEST);
         Dossiers.add(dossier);
 
