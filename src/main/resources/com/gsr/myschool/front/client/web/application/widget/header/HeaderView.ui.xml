@@ -2,7 +2,7 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
     <g:HTMLPanel>
-        <boot:Navbar>
+        <boot:Navbar inverse="true">
             <boot:Brand>mySchool</boot:Brand>
             <boot:Nav alignment="RIGHT">
                 <boot:NavPills>

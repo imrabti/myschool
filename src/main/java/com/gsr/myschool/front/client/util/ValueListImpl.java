@@ -59,10 +59,10 @@ public class ValueListImpl implements ValueList {
             public void onSuccess(List<NiveauEtudeProxy> result) {
                 niveauEtudeMap = new HashMap<String, List<NiveauEtudeProxy>>();
                 for (NiveauEtudeProxy niveauEtude : result) {
-                    if (!niveauEtudeMap.containsKey(niveauEtude.getNom())) {
-                        niveauEtudeMap.put(niveauEtude.getNom(), new ArrayList<NiveauEtudeProxy>());
+                    if (!niveauEtudeMap.containsKey(niveauEtude.getFiliere().getNom())) {
+                        niveauEtudeMap.put(niveauEtude.getFiliere().getNom(), new ArrayList<NiveauEtudeProxy>());
                     }
-                    niveauEtudeMap.get(niveauEtude.getNom()).add(niveauEtude);
+                    niveauEtudeMap.get(niveauEtude.getFiliere().getNom()).add(niveauEtude);
                 }
             }
         });

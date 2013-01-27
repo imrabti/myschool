@@ -19,51 +19,61 @@ package com.gsr.myschool.common.client.proxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;
 import com.gsr.myschool.common.shared.type.DossierStatus;
-import com.gsr.myschool.server.business.Candidat;
 import com.gsr.myschool.server.business.Dossier;
-import com.gsr.myschool.server.business.User;
 
 import java.util.Date;
 
 @ProxyFor(Dossier.class)
 public interface DossierProxy extends ValueProxy {
-    Long getId();
+    public Long getId();
 
-    void setId(Long id);
+    public void setId(Long id);
 
-    CandidatProxy getCandidat() ;
+    public CandidatProxy getCandidat();
 
-    void setCandidat(CandidatProxy candidat) ;
+    public void setCandidat(CandidatProxy candidat);
 
-    UserProxy getOwner() ;
+    public InfoParentProxy getInfoParent();
 
-    void setOwner(UserProxy owner);
+    public void setInfoParent(InfoParentProxy infoParent);
 
-    Date getCreateDate();
+    public FiliereProxy getFiliere();
 
-    void setCreateDate(Date createDate) ;
+    public void setFiliere(FiliereProxy filiere);
 
-    Date getSubmitDate() ;
+    public NiveauEtudeProxy getNiveauEtude();
 
-    void setSubmitDate(Date submitDate) ;
+    public void setNiveauEtude(NiveauEtudeProxy niveauEtude);
 
-    DossierStatus getStatus() ;
+    public UserProxy getOwner();
 
-    void setStatus(DossierStatus status) ;
+    public void setOwner(UserProxy owner);
 
-    String getGeneratedPDFPath() ;
+    public Date getCreateDate();
 
-    void setGeneratedPDFPath(String generatedPDFPath) ;
+    public void setCreateDate(Date createDate);
 
-    String getGeneratedNumDossier() ;
+    public Date getSubmitDate();
 
-    void setGeneratedNumDossier(String generatedNumDossier) ;
+    public void setSubmitDate(Date submitDate);
 
-    String getNote() ;
+    public DossierStatus getStatus();
 
-    void setNote(String note) ;
+    public void setStatus(DossierStatus status);
 
-    Date getRdvEntretien() ;
+    public String getGeneratedPDFPath();
 
-    void setRdvEntretien(Date rdvEntretien) ;
+    public void setGeneratedPDFPath(String generatedPDFPath);
+
+    public String getGeneratedNumDossier();
+
+    public void setGeneratedNumDossier(String generatedNumDossier);
+
+    public String getNote();
+
+    public void setNote(String note);
+
+    public Date getRdvEntretien();
+
+    public void setRdvEntretien(Date rdvEntretien);
 }
