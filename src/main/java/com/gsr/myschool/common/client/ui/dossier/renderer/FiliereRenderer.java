@@ -1,4 +1,4 @@
-package com.gsr.myschool.front.client.web.application.inscription.renderer;
+package com.gsr.myschool.common.client.ui.dossier.renderer;
 
 import com.google.gwt.text.shared.AbstractRenderer;
 import com.gsr.myschool.common.client.proxy.FiliereProxy;

@@ -20,7 +20,7 @@ import com.gsr.myschool.common.client.CommonModule;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.security.CurrentUserProvider;
 import com.gsr.myschool.front.client.resource.FrontResources;
-import com.gsr.myschool.front.client.util.ValueList;
+import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.front.client.util.ValueListImpl;
 import com.gsr.myschool.front.client.web.RootModule;
 import com.gsr.myschool.common.client.event.EventSourceRequestTransport;

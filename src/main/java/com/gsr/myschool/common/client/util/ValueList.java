@@ -1,4 +1,4 @@
-package com.gsr.myschool.front.client.util;
+package com.gsr.myschool.common.client.util;
 
 import com.gsr.myschool.common.client.proxy.FiliereProxy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;

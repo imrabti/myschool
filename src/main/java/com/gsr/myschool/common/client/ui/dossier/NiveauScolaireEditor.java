@@ -13,9 +13,9 @@ import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.FiliereProxy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.util.EditorView;
-import com.gsr.myschool.front.client.util.ValueList;
-import com.gsr.myschool.front.client.web.application.inscription.renderer.FiliereRenderer;
-import com.gsr.myschool.front.client.web.application.inscription.renderer.NiveauEtudeRenderer;
+import com.gsr.myschool.common.client.util.ValueList;
+import com.gsr.myschool.common.client.ui.dossier.renderer.FiliereRenderer;
+import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
 
 import java.util.ArrayList;
 
