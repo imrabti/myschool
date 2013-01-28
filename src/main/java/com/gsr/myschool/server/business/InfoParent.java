@@ -1,9 +1,3 @@
-/***********************************************************************
- * Module:  InfoParent.java
- * Author:  mbouayad
- * Purpose: Defines the Class InfoParent
- ***********************************************************************/
-
 package com.gsr.myschool.server.business;
 
 import com.gsr.myschool.common.shared.type.ParentType;

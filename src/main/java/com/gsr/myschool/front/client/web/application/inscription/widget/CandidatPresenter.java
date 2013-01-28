@@ -2,6 +2,7 @@ package com.gsr.myschool.front.client.web.application.inscription.widget;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.web.application.inscription.WizardStep;
 import com.gsr.myschool.front.client.web.application.inscription.event.ChangeStepEvent;
 import com.gsr.myschool.front.client.web.application.inscription.event.DisplayStepEvent;
@@ -13,9 +14,14 @@ public class CandidatPresenter extends PresenterWidget<CandidatPresenter.MyView>
     public interface MyView extends View {
     }
 
+    private final FrontRequestFactory requestFactory;
+
     @Inject
-    public CandidatPresenter(final EventBus eventBus, final MyView view) {
+    public CandidatPresenter(final EventBus eventBus, final MyView view,
+                             final FrontRequestFactory requestFactory) {
         super(eventBus, view);
+
+        this.requestFactory = requestFactory;
     }
 
     @Override

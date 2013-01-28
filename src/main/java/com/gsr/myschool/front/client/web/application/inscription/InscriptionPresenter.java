@@ -16,11 +16,10 @@
 
 package com.gsr.myschool.front.client.web.application.inscription;
 
+import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
-import com.gsr.myschool.front.client.security.CurrentUserProvider;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
-import com.gsr.myschool.common.client.proxy.InscriptionProxy;
 import com.gsr.myschool.front.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.google.inject.Inject;
@@ -40,7 +39,7 @@ import java.util.List;
 public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView, InscriptionPresenter.MyProxy>
         implements InscriptionUiHandlers {
     public interface MyView extends View, HasUiHandlers<InscriptionUiHandlers> {
-        void setData(List<InscriptionProxy> data);
+        void setData(List<DossierProxy> data);
     }
 
     @ProxyStandard
@@ -49,19 +48,16 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
     public interface MyProxy extends ProxyPlace<InscriptionPresenter> {
     }
 
-    private final CurrentUserProvider currentUserProvider;
     private final FrontRequestFactory requestFactory;
     private final PlaceManager placeManager;
 
     @Inject
     public InscriptionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                                 final FrontRequestFactory requestFactory,
-                                final CurrentUserProvider currentUserProvider,
                                 final PlaceManager placeManager) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
-        this.currentUserProvider = currentUserProvider;
         this.placeManager = placeManager;
 
         getView().setUiHandlers(this);
@@ -69,36 +65,41 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
 
     @Override
     public void addNewInscription() {
-        placeManager.revealPlace(new PlaceRequest(NameTokens.getEditInscription()));
+        requestFactory.inscriptionService().createNewInscription().fire(new ReceiverImpl<DossierProxy>() {
+            @Override
+            public void onSuccess(DossierProxy newDossier) {
+                PlaceRequest placeRequest = new PlaceRequest(NameTokens.getEditInscription());
+                placeRequest.with("id", newDossier.getId().toString());
+                placeManager.revealPlace(placeRequest);
+            }
+        });
     }
 
     @Override
-    public void previewInscription(InscriptionProxy inscription) {
+    public void previewInscription(DossierProxy inscription) {
     }
 
     @Override
-    public void editInscription(InscriptionProxy inscription) {
+    public void editInscription(DossierProxy inscription) {
     }
 
     @Override
-    public void deleteInscription(InscriptionProxy inscription) {
+    public void deleteInscription(DossierProxy inscription) {
     }
 
     @Override
-    public void submitInscription(InscriptionProxy inscription) {
+    public void submitInscription(DossierProxy inscription) {
     }
 
     @Override
-    public void printInscription(InscriptionProxy inscription) {
+    public void printInscription(DossierProxy inscription) {
     }
 
     @Override
     protected void onReveal() {
-        Long userId = currentUserProvider.get().getId();
-        requestFactory.inscriptionService().findAllInscriptionsByUser(userId)
-                .fire(new ReceiverImpl<List<InscriptionProxy>>() {
+        requestFactory.inscriptionService().findAllDossiers().fire(new ReceiverImpl<List<DossierProxy>>() {
             @Override
-            public void onSuccess(List<InscriptionProxy> result) {
+            public void onSuccess(List<DossierProxy> result) {
                 getView().setData(result);
             }
         });

@@ -18,6 +18,7 @@ import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
+import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
 public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
@@ -52,6 +53,11 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
         this.niveauScolairePresenter = niveauScolairePresenter;
 
         getView().setUiHandlers(this);
+    }
+
+    @Override
+    public void prepareFromRequest(PlaceRequest placeRequest) {
+
     }
 
     @Override
