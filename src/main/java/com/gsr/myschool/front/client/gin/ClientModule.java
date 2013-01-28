@@ -17,6 +17,7 @@
 package com.gsr.myschool.front.client.gin;
 
 import com.gsr.myschool.common.client.CommonModule;
+import com.gsr.myschool.common.client.request.RequestUrl;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.security.CurrentUserProvider;
 import com.gsr.myschool.front.client.resource.FrontResources;
@@ -44,6 +45,7 @@ public class ClientModule extends AbstractPresenterModule {
 
         bind(FrontRequestFactory.class).toProvider(RequestFactoryProvider.class).in(Singleton.class);
         bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.login);
+        bindConstant().annotatedWith(RequestUrl.class).to(NameTokens.requestUrl);
 
         bind(FrontResources.class).in(Singleton.class);
         bind(MessageBundle.class).in(Singleton.class);
@@ -55,9 +57,9 @@ public class ClientModule extends AbstractPresenterModule {
         private final FrontRequestFactory requestFactory;
 
         @Inject
-        public RequestFactoryProvider(EventBus eventBus, SecurityUtils securityUtils) {
+        public RequestFactoryProvider(EventBus eventBus, SecurityUtils securityUtils, @RequestUrl String requestUrl) {
             requestFactory = GWT.create(FrontRequestFactory.class);
-            requestFactory.initialize(eventBus, new EventSourceRequestTransport(eventBus, securityUtils));
+            requestFactory.initialize(eventBus, new EventSourceRequestTransport(eventBus, securityUtils, requestUrl));
         }
 
         public FrontRequestFactory get() {

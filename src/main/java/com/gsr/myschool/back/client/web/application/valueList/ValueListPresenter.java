@@ -19,7 +19,6 @@ package com.gsr.myschool.back.client.web.application.valueList;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
@@ -31,6 +30,7 @@ import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.back.client.web.application.valueList.popup.AddValueListPresenter;
 import com.gsr.myschool.back.client.web.application.valueList.widget.ValueTypePresenter;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
 import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
@@ -39,6 +39,7 @@ import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
 import java.util.List;
@@ -57,6 +58,7 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
 
     @ProxyStandard
     @NameToken(value = NameTokens.valueList)
+    @UseGatekeeper(LoggedInGatekeeper.class)
     public interface MyProxy extends ProxyPlace<ValueListPresenter> {
     }
 

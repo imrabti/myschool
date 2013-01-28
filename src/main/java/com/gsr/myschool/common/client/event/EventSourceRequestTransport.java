@@ -26,8 +26,8 @@ public class EventSourceRequestTransport implements RequestTransport {
     private final EventBus eventBus;
     private final RequestTransport wrapped;
 
-    public EventSourceRequestTransport(EventBus eventBus, SecurityUtils securityUtils) {
-        this(eventBus, new SecureRequestTransport(securityUtils));
+    public EventSourceRequestTransport(EventBus eventBus, SecurityUtils securityUtils, String requestUrl) {
+        this(eventBus, new SecureRequestTransport(securityUtils, requestUrl));
     }
 
     public EventSourceRequestTransport(EventBus eventBus, RequestTransport wrapped) {

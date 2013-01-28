@@ -84,6 +84,9 @@ public class User implements Serializable {
     }
 
     public String getPasswordConfirmation() {
+        if (passwordConfirmation == null) {
+            setPasswordConfirmation(getPassword());
+        }
         return passwordConfirmation;
     }
 
