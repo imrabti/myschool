@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
-import com.gsr.myschool.back.client.request.proxy.ValueTypeProxy;
+import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 
@@ -62,7 +62,7 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers> imple
         TextColumn<ValueTypeProxy> nameColumn = new TextColumn<ValueTypeProxy>() {
             @Override
             public String getValue(ValueTypeProxy defLovProxy) {
-                return defLovProxy.getName();
+                return defLovProxy.getCode().name();
             }
         };
 
@@ -80,7 +80,7 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers> imple
             @Override
             public String getValue(ValueTypeProxy defLovProxy) {
                 if (defLovProxy.getParent() != null) {
-                    return defLovProxy.getParent().getName();
+                    return defLovProxy.getParent().getCode().name();
                 } else {
                     return "";
                 }

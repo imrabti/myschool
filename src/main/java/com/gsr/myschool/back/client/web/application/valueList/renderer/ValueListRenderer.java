@@ -17,7 +17,7 @@
 package com.gsr.myschool.back.client.web.application.valueList.renderer;
 
 import com.google.gwt.text.shared.AbstractRenderer;
-import com.gsr.myschool.back.client.request.proxy.ValueListProxy;
+import com.gsr.myschool.common.client.proxy.ValueListProxy;
 
 public class ValueListRenderer extends AbstractRenderer<ValueListProxy> {
     @Override

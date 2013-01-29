@@ -1,21 +1,11 @@
 package com.gsr.myschool.server.service;
 
-import com.gsr.myschool.server.business.lov.ValueList;
-import com.gsr.myschool.server.business.lov.ValueType;
-import com.gsr.myschool.server.exception.ServiceException;
+import com.gsr.myschool.server.business.valuelist.ValueType;
 
 import java.util.List;
 
 public interface ValueTypeService {
-    void add(ValueType toPersist);
-
-    ValueType findByName(String name);
+    void updateValueType(ValueType valueType);
 
     List<ValueType> findAll();
-
-    void delete(ValueType toDelete) throws ServiceException;
-
-    List<ValueType> getChildren(Long id);
-
-    List<ValueList> getValues(Long id);
 }
