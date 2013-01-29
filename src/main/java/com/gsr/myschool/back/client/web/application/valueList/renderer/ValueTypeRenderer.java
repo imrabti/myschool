@@ -17,7 +17,7 @@
 package com.gsr.myschool.back.client.web.application.valueList.renderer;
 
 import com.google.gwt.text.shared.AbstractRenderer;
-import com.gsr.myschool.back.client.request.proxy.ValueTypeProxy;
+import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 
 public class ValueTypeRenderer extends AbstractRenderer<ValueTypeProxy> {
     @Override
@@ -25,6 +25,6 @@ public class ValueTypeRenderer extends AbstractRenderer<ValueTypeProxy> {
         if (valueTypeProxy == null) {
             return "Aucun";
         }
-        return valueTypeProxy.getName();
+        return valueTypeProxy.getCode().name();
     }
 }

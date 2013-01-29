@@ -16,7 +16,7 @@
 
 package com.gsr.myschool.back.client.web.application.valueList;
 
-import com.gsr.myschool.back.client.request.proxy.ValueListProxy;
+import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface ValueListUiHandlers extends UiHandlers {

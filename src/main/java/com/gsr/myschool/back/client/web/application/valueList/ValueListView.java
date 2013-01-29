@@ -29,7 +29,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
-import com.gsr.myschool.back.client.request.proxy.ValueListProxy;
+import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
@@ -95,7 +95,7 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
         TextColumn<ValueListProxy> defLovColumn = new TextColumn<ValueListProxy>() {
             @Override
             public String getValue(ValueListProxy object) {
-                return object.getValueType().getName();
+                return object.getValueType().getCode().name();
             }
         };
 
