@@ -69,30 +69,33 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
             @Override
             public void onSuccess(DossierProxy newDossier) {
                 PlaceRequest placeRequest = new PlaceRequest(NameTokens.getEditInscription());
-                placeRequest.with("id", newDossier.getId().toString());
+                placeRequest = placeRequest.with("id", newDossier.getId().toString());
                 placeManager.revealPlace(placeRequest);
             }
         });
     }
 
     @Override
-    public void previewInscription(DossierProxy inscription) {
+    public void previewInscription(DossierProxy dossier) {
     }
 
     @Override
-    public void editInscription(DossierProxy inscription) {
+    public void editInscription(DossierProxy dossier) {
+        PlaceRequest placeRequest = new PlaceRequest(NameTokens.getEditInscription());
+        placeRequest = placeRequest.with("id", dossier.getId().toString());
+        placeManager.revealPlace(placeRequest);
     }
 
     @Override
-    public void deleteInscription(DossierProxy inscription) {
+    public void deleteInscription(DossierProxy dossier) {
     }
 
     @Override
-    public void submitInscription(DossierProxy inscription) {
+    public void submitInscription(DossierProxy dossier) {
     }
 
     @Override
-    public void printInscription(DossierProxy inscription) {
+    public void printInscription(DossierProxy dossier) {
     }
 
     @Override

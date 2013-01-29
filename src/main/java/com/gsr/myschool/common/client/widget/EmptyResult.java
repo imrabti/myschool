@@ -6,12 +6,9 @@ import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import static com.google.gwt.query.client.GQuery.$;
 
 public class EmptyResult extends Alert {
-    public EmptyResult(String message) {
-        super(message, AlertType.WARNING, false);
+    public EmptyResult(String message, AlertType type) {
+        super(message, type, false);
 
-        $(this).css("width", "300px");
-        $(this).css("margin-left", "auto");
-        $(this).css("margin-right", "auto");
-        $(this).css("margin-top", "10px");
+        $(this).css("margin-top", "20px");
     }
 }

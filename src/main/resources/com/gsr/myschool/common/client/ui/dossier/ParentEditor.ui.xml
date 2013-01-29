@@ -42,7 +42,7 @@
                 <boot:ControlLabel>Adresse email</boot:ControlLabel>
                 <boot:Controls>
                     <boot:InputAddOn prependText="@">
-                        <boot:TextBox ui:field="email" width="230px"/>
+                        <boot:TextBox ui:field="email" width="228px"/>
                     </boot:InputAddOn>
                 </boot:Controls>
             </boot:ControlGroup>
@@ -51,7 +51,7 @@
                 <boot:ControlLabel>Maison</boot:ControlLabel>
                 <boot:Controls>
                     <boot:InputAddOn prependIcon="PHONE">
-                        <boot:TextBox ui:field="telDom" width="230px"/>
+                        <boot:TextBox ui:field="telDom" width="228px"/>
                     </boot:InputAddOn>
                 </boot:Controls>
             </boot:ControlGroup>
@@ -60,7 +60,7 @@
                 <boot:ControlLabel>Mobile GSM</boot:ControlLabel>
                 <boot:Controls>
                     <boot:InputAddOn prependIcon="PHONE">
-                        <boot:TextBox ui:field="telGsm" width="230px"/>
+                        <boot:TextBox ui:field="telGsm" width="228px"/>
                     </boot:InputAddOn>
                 </boot:Controls>
             </boot:ControlGroup>
@@ -69,7 +69,7 @@
                 <boot:ControlLabel>Travail</boot:ControlLabel>
                 <boot:Controls>
                     <boot:InputAddOn prependIcon="PHONE">
-                        <boot:TextBox ui:field="telBureau" width="230px"/>
+                        <boot:TextBox ui:field="telBureau" width="228px"/>
                     </boot:InputAddOn>
                 </boot:Controls>
             </boot:ControlGroup>

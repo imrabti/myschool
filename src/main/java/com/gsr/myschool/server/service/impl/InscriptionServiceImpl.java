@@ -61,4 +61,46 @@ public class InscriptionServiceImpl implements InscriptionService {
 
         return dossier;
     }
+
+    @Override
+    public Dossier updateDossier(Dossier dossier) {
+        Dossier currentDossier = dossierRepos.findOne(dossier.getId());
+        currentDossier.setFiliere(dossier.getFiliere());
+        currentDossier.setNiveauEtude(dossier.getNiveauEtude());
+        dossierRepos.save(currentDossier);
+        return currentDossier;
+    }
+
+    @Override
+    public InfoParent updateParent(InfoParent infoParent) {
+        InfoParent currentInfoParent = infoParentRepos.findOne(infoParent.getId());
+        currentInfoParent.setNom(infoParent.getNom());
+        currentInfoParent.setPrenom(infoParent.getPrenom());
+        currentInfoParent.setTelGsm(infoParent.getTelGsm());
+        currentInfoParent.setTelDom(infoParent.getTelDom());
+        currentInfoParent.setTelBureau(infoParent.getTelBureau());
+        currentInfoParent.setEmail(infoParent.getEmail());
+        currentInfoParent.setAddress(infoParent.getAddress());
+        currentInfoParent.setFonction(infoParent.getFonction());
+        currentInfoParent.setParentType(infoParent.getParentType());
+        currentInfoParent.setInstitution(infoParent.getInstitution());
+        infoParentRepos.save(currentInfoParent);
+        return currentInfoParent;
+    }
+
+    @Override
+    public Candidat updateCandidat(Candidat candidat) {
+        Candidat currentCandidat = candidatRepos.findOne(candidat.getId());
+        currentCandidat.setFirstname(candidat.getFirstname());
+        currentCandidat.setLastname(candidat.getLastname());
+        currentCandidat.setBirthDate(candidat.getBirthDate());
+        currentCandidat.setBirthLocation(candidat.getBirthLocation());
+        currentCandidat.setPhone(candidat.getPhone());
+        currentCandidat.setCin(candidat.getCin());
+        currentCandidat.setCne(candidat.getCne());
+        currentCandidat.setEmail(candidat.getEmail());
+        currentCandidat.setGsm(candidat.getGsm());
+        candidatRepos.save(currentCandidat);
+        return currentCandidat;
+    }
 }

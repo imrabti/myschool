@@ -16,5 +16,5 @@ public class NotBlankValidator implements ConstraintValidator<NotBlank, Object> 
             return value != null;
         }
     }
-
 }
+

@@ -1,6 +1,10 @@
 package com.gsr.myschool.server.business;
 
 import com.gsr.myschool.common.shared.type.ParentType;
+import com.gsr.myschool.server.validator.Email;
+import com.gsr.myschool.server.validator.Name;
+import com.gsr.myschool.server.validator.NotBlank;
+import com.gsr.myschool.server.validator.Phone;
 
 import javax.persistence.*;
 
@@ -9,11 +13,21 @@ public class InfoParent implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Name
+    @NotBlank
     private String nom;
+    @Name
+    @NotBlank
     private String prenom;
+    @Phone
     private String telGsm;
+    @Phone
+    @NotBlank
     private String telDom;
+    @Phone
     private String telBureau;
+    @Email
+    @NotBlank
     private String email;
     private String address;
     private String fonction;
