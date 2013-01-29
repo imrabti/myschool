@@ -77,29 +77,31 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
 
     @Override
     public void login(final UserCredentials credentials) {
-        requestFactory.authenticationService().authenticate(credentials.getUsername(), credentials.getPassword())
-                .fire(new ReceiverImpl<Boolean>() {
-                    @Override
-                    public void onSuccess(Boolean authenticated) {
-                        if (authenticated) {
-                            securityUtils.setCredentials(credentials.getUsername(), credentials.getPassword());
-                            bootstrapper.onBootstrap();
-                        } else {
-                            getView().displayLoginError(true);
-                        }
-                    }
-                });
+        String username = credentials.getUsername();
+        String password = credentials.getPassword();
+
+        requestFactory.authenticationService().authenticate(username, password).fire(new ReceiverImpl<Boolean>() {
+            @Override
+            public void onSuccess(Boolean authenticated) {
+                if (authenticated) {
+                    securityUtils.setCredentials(credentials.getUsername(), credentials.getPassword());
+                    bootstrapper.onBootstrap();
+                } else {
+                    getView().displayLoginError(true);
+                }
+            }
+        });
     }
 
     @Override
     public void prepareFromRequest(PlaceRequest placeRequest) {
-        super.prepareFromRequest(placeRequest);
-        String token = placeRequest.getParameter("token", "");
+        String token = placeRequest.getParameter("token", null);
         if (!Strings.isNullOrEmpty(token)) {
             requestFactory.registrationService().activateAccount(token).fire(new ReceiverImpl<Boolean>() {
                 @Override
                 public void onSuccess(Boolean aBoolean) {
-                    String messageString = aBoolean ? messageBundle.activateAccountSuccess() : messageBundle.activateAccountFailure();
+                    String messageString = aBoolean ? messageBundle.activateAccountSuccess()
+                            : messageBundle.activateAccountFailure();
                     AlertType alertType = aBoolean ? AlertType.SUCCESS : AlertType.ERROR;
                     Message message = new Message.Builder(messageString)
                             .style(alertType)

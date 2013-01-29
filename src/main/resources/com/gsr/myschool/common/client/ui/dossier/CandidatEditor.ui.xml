@@ -7,14 +7,14 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Nom</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:TextBox ui:field="nom" width="250px"/>
+                    <boot:TextBox ui:field="firstname" width="250px"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
                 <boot:ControlLabel>Prénom</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:TextBox ui:field="prenom" width="250px"/>
+                    <boot:TextBox ui:field="lastname" width="250px"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
@@ -28,14 +28,16 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Lieu de naissance</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:TextBox ui:field="birthPlace" width="250px"/>
+                    <boot:TextBox ui:field="birthLocation" width="250px"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Nationnalité</boot:ControlLabel>
+                <boot:ControlLabel>Adresse email</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:TextBox ui:field="nationnalite" width="250px"/>
+                    <boot:InputAddOn prependText="@">
+                        <boot:TextBox ui:field="email" width="230px"/>
+                    </boot:InputAddOn>
                 </boot:Controls>
             </boot:ControlGroup>
 
@@ -59,20 +61,6 @@
                 <boot:ControlLabel>CNE</boot:ControlLabel>
                 <boot:Controls>
                     <boot:TextBox ui:field="cne" width="250px"/>
-                </boot:Controls>
-            </boot:ControlGroup>
-
-            <boot:ControlGroup>
-                <boot:ControlLabel>Série du baccalauréat</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:ListBox ui:field="serieBack" width="250px"/>
-                </boot:Controls>
-            </boot:ControlGroup>
-
-            <boot:ControlGroup>
-                <boot:ControlLabel>Année du baccalauréat</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:ListBox ui:field="anneeBack" width="250px"/>
                 </boot:Controls>
             </boot:ControlGroup>
         </boot:Form>

@@ -18,17 +18,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Unique.List({
-        @Unique(entity = User.class, property = "email", params = "email"),
-        @Unique(entity = User.class, property = "username", params = "username")
-})
+@Unique(entity = User.class, property = "email", params = "email")
 @FieldMatch(first = "password", second = "passwordConfirmation", params = {"passwordConfirmation", "Mot de passe" })
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NotBlank
-    private String username;
     @Email
     @NotBlank
     private String email;
@@ -55,14 +50,6 @@ public class User implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getEmail() {

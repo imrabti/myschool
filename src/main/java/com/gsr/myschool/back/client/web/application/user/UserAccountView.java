@@ -90,16 +90,6 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
     }
 
     private void initDataGrid() {
-        TextColumn<UserProxy> refColumn = new TextColumn<UserProxy>() {
-            @Override
-            public String getValue(UserProxy object) {
-                return object.getUsername();
-            }
-        };
-        refColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-        userPortalTable.addColumn(refColumn, "Nom");
-        userPortalTable.setColumnWidth(refColumn, 20, Style.Unit.PCT);
-
         TextColumn<UserProxy> emailColumn = new TextColumn<UserProxy>() {
             @Override
             public String getValue(UserProxy object) {

@@ -4,13 +4,21 @@ import javax.persistence.*;
 
 @Entity
 public class PieceJustifDuNE implements java.io.Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     @ManyToOne
     private PieceJustif pieceJustif;
     @ManyToOne
     private NiveauEtude niveauEtude;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long newId) {
+        this.id = newId;
+    }
 
     public PieceJustif getPieceJustif() {
         return pieceJustif;
@@ -26,13 +34,5 @@ public class PieceJustifDuNE implements java.io.Serializable {
 
     public void setNiveauEtude(NiveauEtude newNiveauEtude) {
         this.niveauEtude = newNiveauEtude;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer newId) {
-        this.id = newId;
     }
 }

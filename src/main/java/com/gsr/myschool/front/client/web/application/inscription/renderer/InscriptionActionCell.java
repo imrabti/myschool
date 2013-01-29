@@ -12,9 +12,9 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiRenderer;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import com.gsr.myschool.common.client.proxy.InscriptionProxy;
+import com.gsr.myschool.common.client.proxy.DossierProxy;
 
-public class InscriptionActionCell extends AbstractCell<InscriptionProxy> {
+public class InscriptionActionCell extends AbstractCell<DossierProxy> {
     public interface Renderer extends UiRenderer {
         void render(SafeHtmlBuilder sb);
 
@@ -23,21 +23,21 @@ public class InscriptionActionCell extends AbstractCell<InscriptionProxy> {
 
     private final Renderer uiRenderer;
 
-    private Delegate<InscriptionProxy> preview;
-    private Delegate<InscriptionProxy> edit;
-    private Delegate<InscriptionProxy> delete;
-    private Delegate<InscriptionProxy> submit;
-    private Delegate<InscriptionProxy> print;
+    private Delegate<DossierProxy> preview;
+    private Delegate<DossierProxy> edit;
+    private Delegate<DossierProxy> delete;
+    private Delegate<DossierProxy> submit;
+    private Delegate<DossierProxy> print;
 
-    private InscriptionProxy selectedObject;
+    private DossierProxy selectedObject;
 
     @Inject
     public InscriptionActionCell(final Renderer uiRenderer,
-                                 @Assisted("preview") Delegate<InscriptionProxy> preview,
-                                 @Assisted("edit") Delegate<InscriptionProxy> edit,
-                                 @Assisted("delete") Delegate<InscriptionProxy> delete,
-                                 @Assisted("submit") Delegate<InscriptionProxy> submit,
-                                 @Assisted("print") Delegate<InscriptionProxy> print) {
+                                 @Assisted("preview") Delegate<DossierProxy> preview,
+                                 @Assisted("edit") Delegate<DossierProxy> edit,
+                                 @Assisted("delete") Delegate<DossierProxy> delete,
+                                 @Assisted("submit") Delegate<DossierProxy> submit,
+                                 @Assisted("print") Delegate<DossierProxy> print) {
         super(BrowserEvents.CLICK);
 
         this.uiRenderer = uiRenderer;
@@ -49,14 +49,14 @@ public class InscriptionActionCell extends AbstractCell<InscriptionProxy> {
     }
 
     @Override
-    public void onBrowserEvent(Context context, Element parent, InscriptionProxy value, NativeEvent event,
-                               ValueUpdater<InscriptionProxy> valueUpdater) {
+    public void onBrowserEvent(Context context, Element parent, DossierProxy value, NativeEvent event,
+                               ValueUpdater<DossierProxy> valueUpdater) {
         selectedObject = value;
         uiRenderer.onBrowserEvent(this, event, parent);
     }
 
     @Override
-    public void render(Context context, InscriptionProxy value, SafeHtmlBuilder builder) {
+    public void render(Context context, DossierProxy value, SafeHtmlBuilder builder) {
         uiRenderer.render(builder);
     }
 

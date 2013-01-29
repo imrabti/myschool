@@ -28,10 +28,12 @@ import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.resource.AdminResources;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.security.CurrentUserProvider;
+import com.gsr.myschool.back.client.util.ValueListImpl;
 import com.gsr.myschool.back.client.web.RootModule;
 import com.gsr.myschool.common.client.CommonModule;
 import com.gsr.myschool.common.client.event.EventSourceRequestTransport;
 import com.gsr.myschool.common.client.security.SecurityUtils;
+import com.gsr.myschool.common.client.util.ValueList;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 import com.gwtplatform.mvp.client.gin.DefaultModule;
 
@@ -43,6 +45,7 @@ public class ClientModule extends AbstractPresenterModule {
         install(new RootModule());
 
         bind(BackRequestFactory.class).toProvider(RequestFactoryProvider.class).in(Singleton.class);
+        bind(ValueList.class).to(ValueListImpl.class).in(Singleton.class);
         bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.login);
 
         bind(AdminResources.class).in(Singleton.class);

@@ -4,6 +4,12 @@
 
     <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
+    <ui:style>
+        .noBackground {
+            background: none;
+        }
+    </ui:style>
+
     <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
         <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
             <h2>
@@ -26,7 +32,8 @@
             </boot:Tab>
         </boot:TabPanel>
 
-        <g:HTMLPanel styleName="{clientResources.sharedStyleCss.buttonContainer}">
+        <g:HTMLPanel styleName="{clientResources.sharedStyleCss.buttonContainer}"
+                     addStyleNames="{style.noBackground}">
             <boot:Button ui:field="back" text="Précedent" icon="CHEVRON_LEFT"/>
             <boot:Button ui:field="next"  text="Suivant" icon="CHEVRON_RIGHT"
                          iconPosition="RIGHT" styleName="btn btn-primary"/>
