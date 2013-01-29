@@ -17,8 +17,13 @@
 package com.gsr.myschool.back.client.web.application.preinscription;
 
 import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gwtplatform.mvp.client.UiHandlers;
+
+import java.util.Date;
 
 public interface PreInscriptionUiHandlers extends UiHandlers {
     void viewDetails(DossierProxy dossier);
+
+	void searchWithFilter(String numDossier, DossierStatus dossierStatus, Date dateCreation);
 }

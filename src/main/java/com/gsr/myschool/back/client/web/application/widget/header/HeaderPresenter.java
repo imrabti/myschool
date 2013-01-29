@@ -64,6 +64,6 @@ public class HeaderPresenter extends PresenterWidget<HeaderPresenter.MyView>
 
     @Override
     protected void onReveal() {
-        // getView().displayUserInfo(adminUserProvider.get().getUsername());
+        getView().displayUserInfo(adminUserProvider.get().getUsername());
     }
 }

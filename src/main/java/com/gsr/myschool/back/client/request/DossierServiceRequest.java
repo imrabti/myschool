@@ -20,12 +20,17 @@ import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.service.impl.DossierServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
 
+import java.util.Date;
 import java.util.List;
 
 @Service(value = DossierServiceImpl.class, locator = SpringServiceLocator.class)
 public interface DossierServiceRequest extends RequestContext {
     Request<List<DossierProxy>> findAllDossiersByUser(Long id);
+
+	Request<List<DossierProxy>> findAllDossiersByCriteria(String numDossier, DossierStatus dossierStatus,
+			Date dateCreation);
 }

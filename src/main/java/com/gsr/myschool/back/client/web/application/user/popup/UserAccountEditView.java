@@ -26,8 +26,6 @@ public class UserAccountEditView extends ValidatedPopupViewImplWithUiHandlers<Us
     ModalHeader modalHeader;
     @UiField(provided = true)
     UserAccountEditor userEditor;
-    @UiField(provided = true)
-    PasswordEditor passwordEditor;
 
     @Inject
     public UserAccountEditView(final EventBus eventBus, final Binder uiBinder,
@@ -38,7 +36,6 @@ public class UserAccountEditView extends ValidatedPopupViewImplWithUiHandlers<Us
 
         this.modalHeader = modalHeader;
         this.userEditor = userEditor;
-        this.passwordEditor = passwordEditor;
 
         initWidget(uiBinder.createAndBindUi(this));
 

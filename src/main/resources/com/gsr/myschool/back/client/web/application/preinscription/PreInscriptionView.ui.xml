@@ -22,7 +22,7 @@
                 <boot:ValueListBox ui:field="statusFilter" width="250px"/>
                 <boot:ControlLabel>Date Création</boot:ControlLabel>
                 <datepicker:DateBox autoClose="true" format="dd/mm/yyyy" ui:field="creationDateFilter" />
-
+                <boot:Button text="Rechercher" icon="SEARCH" ui:field="searchBtn" />
             </boot:Form>
         </g:layer>
 

@@ -16,15 +16,18 @@
 
 package com.gsr.myschool.back.client.web.application.preinscription;
 
+import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.TextBox;
 import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.github.gwtbootstrap.datepicker.client.ui.DateBox;
 import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -53,6 +56,8 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
     TextBox numDossierFilter;
     @UiField
     DateBox creationDateFilter;
+	@UiField
+	Button searchBtn;
     @UiField
     CellTable<DossierProxy> preInscriptionsTable;
 
@@ -87,6 +92,12 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         dataProvider.getList().clear();
         dataProvider.getList().addAll(data);
     }
+
+	@UiHandler("searchBtn")
+	void onSearch(ClickEvent event) {
+		getUiHandlers().searchWithFilter(numDossierFilter.getValue(), statusFilter.getValue(),
+				creationDateFilter.getValue());
+	}
 
     private void initActions() {
         viewDetailsAction = new Delegate<DossierProxy>() {
