@@ -71,6 +71,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
             public void onSuccess(DossierProxy result) {
                 currentDossier = result;
                 parentPresenter.editData(currentDossier.getInfoParent());
+                candidatPresenter.editData(currentDossier.getCandidat());
             }
         });
     }

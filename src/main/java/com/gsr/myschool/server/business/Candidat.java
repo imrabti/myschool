@@ -1,5 +1,10 @@
 package com.gsr.myschool.server.business;
 
+import com.gsr.myschool.server.validator.Email;
+import com.gsr.myschool.server.validator.Name;
+import com.gsr.myschool.server.validator.NotBlank;
+import com.gsr.myschool.server.validator.Phone;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,14 +16,23 @@ public class Candidat implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Name
+    @NotBlank
     private String firstname;
+    @Name
+    @NotBlank
     private String lastname;
+    @NotBlank
     private Date birthDate;
+    @NotBlank
     private String birthLocation;
+    @Phone
     private String phone;
     private String cin;
     private String cne;
+    @Email
     private String email;
+    @Phone
     private String gsm;
 
     public Long getId() {
