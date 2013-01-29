@@ -17,8 +17,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath*:META-INF/applicationContext.xml",
-        "classpath*:META-INF/applicationContext-activiti.xml", "classpath*:/META-INF/applicationContext-security.xml"})
+@ContextConfiguration(locations = {
+        "classpath*:META-INF/applicationContext.xml",
+        "classpath*:META-INF/applicationContext-activiti.xml",
+        "classpath*:/META-INF/applicationContext-security.xml"
+})
 @ActiveProfiles("test")
 public class ValidationProcessTest {
     Dossier dossier = new Dossier();
@@ -34,7 +37,7 @@ public class ValidationProcessTest {
 
     @Before
     public void startProcess() throws Exception {
-        dossier.setId(1);
+        dossier.setId(1l);
         user.setId(1L);
         user.setEmail("kecha.mohamed@gmail.com");
         userRepos.save(user);

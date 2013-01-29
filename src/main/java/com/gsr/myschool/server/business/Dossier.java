@@ -1,19 +1,27 @@
 package com.gsr.myschool.server.business;
 
 import com.gsr.myschool.common.shared.type.DossierStatus;
+import com.gsr.myschool.server.business.core.Filiere;
+import com.gsr.myschool.server.business.core.NiveauEtude;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 public class Dossier implements java.io.Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     @ManyToOne
     private Candidat candidat;
     @ManyToOne
+    private InfoParent infoParent;
+    @ManyToOne
+    private Filiere filiere;
+    @ManyToOne
+    private NiveauEtude niveauEtude;
+    @ManyToOne
     private User owner;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
     private Date createDate;
     private Date submitDate;
     @Enumerated
@@ -23,6 +31,14 @@ public class Dossier implements java.io.Serializable {
     private String note;
     private Date rdvEntretien;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Candidat getCandidat() {
         return candidat;
     }
@@ -31,20 +47,36 @@ public class Dossier implements java.io.Serializable {
         this.candidat = candidat;
     }
 
+    public InfoParent getInfoParent() {
+        return infoParent;
+    }
+
+    public void setInfoParent(InfoParent infoParent) {
+        this.infoParent = infoParent;
+    }
+
+    public Filiere getFiliere() {
+        return filiere;
+    }
+
+    public void setFiliere(Filiere filiere) {
+        this.filiere = filiere;
+    }
+
+    public NiveauEtude getNiveauEtude() {
+        return niveauEtude;
+    }
+
+    public void setNiveauEtude(NiveauEtude niveauEtude) {
+        this.niveauEtude = niveauEtude;
+    }
+
     public User getOwner() {
         return owner;
     }
 
     public void setOwner(User owner) {
         this.owner = owner;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Date getCreateDate() {

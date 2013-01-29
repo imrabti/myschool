@@ -47,8 +47,8 @@ public class HeaderView extends ViewWithUiHandlers<HeaderUiHandlers> implements 
     }
 
     @Override
-    public void displayUserInfo(String username) {
-        welcomeMessage.setText(messageBundle.welcomeMessage(username));
+    public void displayUserInfo(String firstName, String lastName) {
+        welcomeMessage.setText(messageBundle.welcomeMessage(firstName, lastName));
     }
 
     @UiHandler("logout")

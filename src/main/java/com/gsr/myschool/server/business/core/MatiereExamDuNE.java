@@ -4,13 +4,21 @@ import javax.persistence.*;
 
 @Entity
 public class MatiereExamDuNE implements java.io.Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     @ManyToOne
     private NiveauEtude niveauEtude;
     @ManyToOne
     private MatiereExamen matiereExamen;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long newId) {
+        this.id = newId;
+    }
 
     public NiveauEtude getNiveauEtude() {
         return niveauEtude;
@@ -26,13 +34,5 @@ public class MatiereExamDuNE implements java.io.Serializable {
 
     public void setMatiereExamen(MatiereExamen newMatiereExamen) {
         this.matiereExamen = newMatiereExamen;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer newId) {
-        this.id = newId;
     }
 }

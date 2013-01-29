@@ -5,15 +5,23 @@ import java.util.Date;
 
 @Entity
 public class DossierSession implements java.io.Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     @ManyToOne
     private AdminUser assignedBy;
     @ManyToOne
     private Dossier dossier;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
     private Date dateAffectation;
     private String generatedConvocationPDFPath;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long newId) {
+        this.id = newId;
+    }
 
     public AdminUser getAssignedBy() {
         return assignedBy;
@@ -29,14 +37,6 @@ public class DossierSession implements java.io.Serializable {
 
     public void setDossier(Dossier newDossier) {
         this.dossier = newDossier;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer newId) {
-        this.id = newId;
     }
 
     public Date getDateAffectation() {

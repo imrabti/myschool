@@ -45,7 +45,7 @@ public class DossierServiceImpl implements DossierService {
         dossier.setNote("001S2013");
         dossier.setCreateDate(new Date());
         dossier.setSubmitDate(new Date());
-        dossier.setId(1);
+        dossier.setId(1l);
         dossier.setCandidat(c);
         dossier.setStatus(DossierStatus.INVITED_TO_TEST);
         Dossiers.add(dossier);
@@ -55,7 +55,7 @@ public class DossierServiceImpl implements DossierService {
         dossier.setNote("002S2013");
         dossier.setCreateDate(new Date());
         dossier.setSubmitDate(new Date());
-        dossier.setId(2);
+        dossier.setId(2l);
         dossier.setCandidat(c);
         dossier.setStatus(DossierStatus.RECEIVED);
         Dossiers.add(dossier);
@@ -65,7 +65,7 @@ public class DossierServiceImpl implements DossierService {
         dossier.setNote("002S2sds3");
         dossier.setCreateDate(new Date());
         dossier.setSubmitDate(new Date());
-        dossier.setId(3);
+        dossier.setId(3l);
         dossier.setCandidat(c);
         dossier.setStatus(DossierStatus.ACCEPTED_FOR_TEST);
         Dossiers.add(dossier);
