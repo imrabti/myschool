@@ -26,7 +26,7 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.ValueTypeServiceRequest;
-import com.gsr.myschool.back.client.request.proxy.ValueTypeProxy;
+import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.web.application.valueList.popup.AddValueTypePresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -105,7 +105,7 @@ public class ValueTypePresenter extends PresenterWidget<ValueTypePresenter.MyVie
             Window.alert("Veuillez sélectionner un élement à supprimer");
         } else {
             ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
-            dlsr.delete(toRemove).fire(new Receiver<Void>() {
+            /*dlsr.delete(toRemove).fire(new Receiver<Void>() {
                 @Override
                 public void onSuccess(Void response) {
                     Window.alert("L'élement a été supprimé");
@@ -116,7 +116,7 @@ public class ValueTypePresenter extends PresenterWidget<ValueTypePresenter.MyVie
                 public void onFailure(ServerFailure error) {
                     Window.alert(error.getMessage());
                 }
-            });
+            });*/
         }
     }
 
