@@ -1,4 +1,4 @@
-package com.gsr.myschool.server.business.lov;
+package com.gsr.myschool.server.business.valuelist;
 
 import javax.persistence.*;
 
