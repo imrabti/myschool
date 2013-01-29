@@ -25,5 +25,5 @@ import java.util.Date;
 public interface PreInscriptionUiHandlers extends UiHandlers {
     void viewDetails(DossierProxy dossier);
 
-	void searchWithFilter(String numDossier, DossierStatus dossierStatus, Date dateCreation);
+    void searchWithFilter(String numDossier, DossierStatus dossierStatus, Date dateCreation);
 }

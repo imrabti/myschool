@@ -75,10 +75,10 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
         addToPopupSlot(detailsPresenter);
     }
 
-	@Override
-	public void searchWithFilter(String numDossier, DossierStatus dossierStatus, Date dateCreation) {
-		// TODO : Call the searching method here
-	}
+    @Override
+    public void searchWithFilter(String numDossier, DossierStatus dossierStatus, Date dateCreation) {
+        // TODO : Call the searching method here
+    }
 
 	@Override
     protected void onReveal() {

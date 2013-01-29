@@ -77,8 +77,8 @@ public class DossierServiceImpl implements DossierService {
         return dossiers;
     }
 
-	public List<Dossier> findAllDossiersByCriteria(String numDossier, DossierStatus dossierStatus, Date dateCreation) {
-		List<Dossier> dossiers = new ArrayList<Dossier>();
-		return dossiers;
-	}
+    public List<Dossier> findAllDossiersByCriteria(String numDossier, DossierStatus dossierStatus, Date dateCreation) {
+        List<Dossier> dossiers = new ArrayList<Dossier>();
+        return dossiers;
+    }
 }

@@ -31,6 +31,6 @@ import java.util.List;
 public interface DossierServiceRequest extends RequestContext {
     Request<List<DossierProxy>> findAllDossiersByUser(Long id);
 
-	Request<List<DossierProxy>> findAllDossiersByCriteria(String numDossier, DossierStatus dossierStatus,
-			Date dateCreation);
+    Request<List<DossierProxy>> findAllDossiersByCriteria(String numDossier, DossierStatus dossierStatus,
+            Date dateCreation);
 }

@@ -56,8 +56,8 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
     TextBox numDossierFilter;
     @UiField
     DateBox creationDateFilter;
-	@UiField
-	Button searchBtn;
+    @UiField
+    Button searchBtn;
     @UiField
     CellTable<DossierProxy> preInscriptionsTable;
 
@@ -93,11 +93,11 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         dataProvider.getList().addAll(data);
     }
 
-	@UiHandler("searchBtn")
-	void onSearch(ClickEvent event) {
-		getUiHandlers().searchWithFilter(numDossierFilter.getValue(), statusFilter.getValue(),
-				creationDateFilter.getValue());
-	}
+    @UiHandler("searchBtn")
+    void onSearch(ClickEvent event) {
+        getUiHandlers().searchWithFilter(numDossierFilter.getValue(), statusFilter.getValue(),
+                creationDateFilter.getValue());
+    }
 
     private void initActions() {
         viewDetailsAction = new Delegate<DossierProxy>() {

@@ -25,5 +25,5 @@ import java.util.List;
 public interface DossierService {
     List<Dossier> findAllDossiersByUser(Long userId);
 
-	List<Dossier> findAllDossiersByCriteria(String numDossier, DossierStatus dossierStatus, Date dateCreation);
+    List<Dossier> findAllDossiersByCriteria(String numDossier, DossierStatus dossierStatus, Date dateCreation);
 }
