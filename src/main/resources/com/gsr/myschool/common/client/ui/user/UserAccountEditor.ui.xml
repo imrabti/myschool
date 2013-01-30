@@ -1,0 +1,36 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+    <ui:style>
+        .smallMargin {
+            margin-left: 120px;
+        }
+    </ui:style>
+
+    <g:HTMLPanel>
+        <boot:Form type="HORIZONTAL">
+            <boot:ControlGroup>
+                <boot:ControlLabel width="100px">Nom</boot:ControlLabel>
+                <boot:Controls styleName="{style.smallMargin}">
+                    <boot:TextBox ui:field="lastName" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel width="100px">Prénom</boot:ControlLabel>
+                <boot:Controls styleName="{style.smallMargin}">
+                    <boot:TextBox ui:field="firstName" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel width="100px">Adresse email</boot:ControlLabel>
+                <boot:Controls styleName="{style.smallMargin}">
+                    <boot:InputAddOn prependText="@">
+                        <boot:TextBox ui:field="email" width="230px"/>
+                    </boot:InputAddOn>
+                </boot:Controls>
+            </boot:ControlGroup>
+        </boot:Form>
+    </g:HTMLPanel>
+</ui:UiBinder>

@@ -5,15 +5,19 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-       xmlns:p="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
-            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:cloud="http://schema.cloudfoundry.org/spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
             http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
-            http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd">
+            http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+            http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.2.xsd
+            http://schema.cloudfoundry.org/spring http://schema.cloudfoundry.org/spring/cloudfoundry-spring-0.8.xsd">
 
     <!-- property place holder for external properties -->
-    <p:property-placeholder location="classpath*:/META-INF/*.properties"/>
+    <context:property-placeholder location="classpath*:/META-INF/*.properties"/>
 
     <!-- Bean annotated scan -->
     <context:component-scan base-package="com.gsr.myschool.server.*"/>
@@ -51,6 +55,18 @@
         </property>
     </bean>
 
+    <!-- Caching configuration -->
+    <cache:annotation-driven cache-manager="cacheManager" mode="aspectj"/>
+    <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+        <property name="caches">
+            <set>
+                <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="filiere"/>
+                <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="niveauEtude"/>
+                <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="valueList"/>
+            </set>
+        </property>
+    </bean>
+
     <!-- DEV Datasource configuration -->
     <beans profile="default">
         <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
@@ -81,6 +97,7 @@
                     <prop key="hibernate.hbm2ddl.auto">update</prop>
                     <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
                     <prop key="hibernate.connection.charSet">UTF-8</prop>
+                    <prop key="javax.persistence.validation.mode">NONE</prop>
                 </props>
             </property>
         </bean>
@@ -104,7 +121,20 @@
                     <prop key="hibernate.hbm2ddl.auto">update</prop>
                     <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
                     <prop key="hibernate.connection.charSet">UTF-8</prop>
+                    <prop key="javax.persistence.validation.mode">NONE</prop>
                 </props>
+            </property>
+        </bean>
+    </beans>
+
+    <!-- CLOUD Datasource configuration -->
+    <beans profile="cloud">
+        <cloud:data-source id="dataSource"/>
+
+        <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+            <property name="dataSource" ref="dataSource"/>
+            <property name="jpaVendorAdapter">
+                <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
             </property>
         </bean>
     </beans>

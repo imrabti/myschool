@@ -1,8 +1,23 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:s='urn:import:com.gsr.myschool.front.client.web.application.inscription.ui'>
+             xmlns:s='urn:import:com.gsr.myschool.common.client.ui.dossier'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+
+    <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+
     <g:HTMLPanel>
-        <h2>Here the Niveau scolaire step...</h2>
+        <h3 class="{clientResources.sharedStyleCss.mediumTitle}">
+            Filière et Niveau Scolaire
+        </h3>
+
+        <boot:Paragraph>
+            Morbi diam nulla, tempus sed fermentum ut, lobortis at ante. Aenean sit amet sapien quis nisl
+            cursus mattis et dapibus eros. Proin eleifend nibh sed dolor rutrum at vestibulum sapien semper.
+            Nam sed ante lacus. Duis nisl nibh, tincidunt a feugiat eget, dictum in nisl. Ut pellentesque nisl
+            a elit consectetur ac tempus purus hendrerit. Cras sollicitudin facilisis mi, vitae
+            sollicitudin lectus sodales at. Sed ac nunc est. Pellentesque molestie, nibh vitae commodo euismod.
+        </boot:Paragraph>
+
         <s:NiveauScolaireEditor ui:field="niveauScolaireEditor"/>
     </g:HTMLPanel>
 </ui:UiBinder>

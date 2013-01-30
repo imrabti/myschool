@@ -1,23 +1,16 @@
 package com.gsr.myschool.server.service;
 
-import com.gsr.myschool.server.business.lov.ValueList;
+import com.gsr.myschool.common.shared.type.ValueTypeCode;
+import com.gsr.myschool.server.business.valuelist.ValueList;
 
 import java.util.List;
 
 public interface ValueListService {
-    void add(ValueList valueList);
+    void addValueList(ValueList valueList);
 
-    ValueList find(Long id);
-
-    void add(String value, Long parentId, Long defLovId);
+    void deleteValueList(Long id);
 
     List<ValueList> findAll();
 
-    List<ValueList> findByValueTypeName(String defLovName);
-
-    ValueList findByValueAndValueTypeName(String value, String valueTypeName);
-
-    public List<ValueList> findByValueTypeParentName(String valueTypeParentName);
-
-    void delete(Long id);
+    List<ValueList> findByValueTypeCode(ValueTypeCode valueTypeCode);
 }

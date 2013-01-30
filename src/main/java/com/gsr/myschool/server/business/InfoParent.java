@@ -1,27 +1,33 @@
-/***********************************************************************
- * Module:  InfoParent.java
- * Author:  mbouayad
- * Purpose: Defines the Class InfoParent
- ***********************************************************************/
-
 package com.gsr.myschool.server.business;
 
 import com.gsr.myschool.common.shared.type.ParentType;
+import com.gsr.myschool.server.validator.Email;
+import com.gsr.myschool.server.validator.Name;
+import com.gsr.myschool.server.validator.NotBlank;
+import com.gsr.myschool.server.validator.Phone;
 
 import javax.persistence.*;
 
 @Entity
 public class InfoParent implements java.io.Serializable {
-    @ManyToOne
-    private Dossier dossier;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
+    @Name
+    @NotBlank
     private String nom;
+    @Name
+    @NotBlank
     private String prenom;
+    @Phone
     private String telGsm;
+    @Phone
+    @NotBlank
     private String telDom;
+    @Phone
     private String telBureau;
+    @Email
+    @NotBlank
     private String email;
     private String address;
     private String fonction;
@@ -29,19 +35,11 @@ public class InfoParent implements java.io.Serializable {
     private ParentType parentType;
     private String institution;
 
-    public Dossier getDossier() {
-        return dossier;
-    }
-
-    public void setDossier(Dossier dossier) {
-        this.dossier = dossier;
-    }
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

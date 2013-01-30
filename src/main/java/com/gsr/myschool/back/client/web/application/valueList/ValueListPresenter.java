@@ -19,18 +19,18 @@ package com.gsr.myschool.back.client.web.application.valueList;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
-import com.gsr.myschool.back.client.request.proxy.ValueListProxy;
-import com.gsr.myschool.back.client.request.proxy.ValueTypeProxy;
+import com.gsr.myschool.common.client.proxy.ValueListProxy;
+import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.back.client.web.application.valueList.popup.AddValueListPresenter;
 import com.gsr.myschool.back.client.web.application.valueList.widget.ValueTypePresenter;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
 import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
@@ -39,6 +39,7 @@ import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
 import java.util.List;
@@ -57,6 +58,7 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
 
     @ProxyStandard
     @NameToken(value = NameTokens.valueList)
+    @UseGatekeeper(LoggedInGatekeeper.class)
     public interface MyProxy extends ProxyPlace<ValueListPresenter> {
     }
 
@@ -104,7 +106,7 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
 
     @Override
     public void delete(ValueListProxy valueListProxy) {
-        backRequestFactory.valueListServiceRequest().delete(valueListProxy.getId()).fire(new ReceiverImpl<Void>() {
+        /*backRequestFactory.valueListServiceRequest().delete(valueListProxy.getId()).fire(new ReceiverImpl<Void>() {
             @Override
             public void onSuccess(Void response) {
                 Message message = new Message.Builder(messageBundle.deleteValueListSuccess())
@@ -113,7 +115,7 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
                         .build();
                 MessageEvent.fire(this, message);
             }
-        });
+        });*/
     }
 
     @Override
@@ -137,7 +139,7 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
 
     public void fillDef() {
         getView().getDefLov().clear();
-        backRequestFactory.valueTypeServiceRequest().findAll().fire(new ReceiverImpl<List<ValueTypeProxy>>() {
+        /*backRequestFactory.valueTypeServiceRequest().findAll().fire(new ReceiverImpl<List<ValueTypeProxy>>() {
             @Override
             public void onSuccess(List<ValueTypeProxy> response) {
                 for (ValueTypeProxy defLovProxy : response) {
@@ -145,12 +147,12 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
                 }
                 fillParent();
             }
-        });
+        });*/
     }
 
     public void fillParent() {
         getView().getParent().clear();
-        backRequestFactory.valueListServiceRequest()
+        /*backRequestFactory.valueListServiceRequest()
                 .findByValueTypeName(getView().getDefLov().getItemText(getView().getDefLov().getSelectedIndex()))
                 .fire(new ReceiverImpl<List<ValueListProxy>>() {
                     @Override
@@ -160,6 +162,6 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
                             getView().getParent().addItem(lovProxy.getValue(), lovProxy.getId().toString());
                         }
                     }
-                });
+                });*/
     }
 }

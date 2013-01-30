@@ -46,8 +46,6 @@ public class RegisterView extends ValidatedViewWithUiHandlers<RegisterUiHandlers
     @UiField
     TextBox email;
     @UiField
-    TextBox username;
-    @UiField
     TextBox firstName;
     @UiField
     TextBox lastName;
@@ -70,7 +68,6 @@ public class RegisterView extends ValidatedViewWithUiHandlers<RegisterUiHandlers
         driver.initialize(this);
 
         $(email).id("email");
-        $(username).id("username");
         $(firstName).id("firstName");
         $(lastName).id("lastName");
         $(password).id("password");

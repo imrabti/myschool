@@ -1,0 +1,85 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+    <g:HTMLPanel>
+        <boot:Form type="HORIZONTAL">
+            <boot:ControlGroup>
+                <boot:ControlLabel>Nom</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:TextBox ui:field="nom" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Prénom</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:TextBox ui:field="prenom" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Lien de parenté</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:ValueListBox ui:field="parentType" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Fonction</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:TextBox ui:field="fonction" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Institution</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:TextBox ui:field="institution" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Adresse email</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:InputAddOn prependText="@">
+                        <boot:TextBox ui:field="email" width="228px"/>
+                    </boot:InputAddOn>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Maison</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:InputAddOn prependIcon="PHONE">
+                        <boot:TextBox ui:field="telDom" width="228px"/>
+                    </boot:InputAddOn>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Mobile GSM</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:InputAddOn prependIcon="PHONE">
+                        <boot:TextBox ui:field="telGsm" width="228px"/>
+                    </boot:InputAddOn>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Travail</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:InputAddOn prependIcon="PHONE">
+                        <boot:TextBox ui:field="telBureau" width="228px"/>
+                    </boot:InputAddOn>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Adresse</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:TextArea ui:field="address" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+        </boot:Form>
+    </g:HTMLPanel>
+</ui:UiBinder>

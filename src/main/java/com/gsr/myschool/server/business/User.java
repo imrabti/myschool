@@ -1,6 +1,7 @@
 package com.gsr.myschool.server.business;
 
 import com.gsr.myschool.common.shared.type.Authority;
+import com.gsr.myschool.common.shared.type.UserStatus;
 import com.gsr.myschool.server.validator.Email;
 import com.gsr.myschool.server.validator.FieldMatch;
 import com.gsr.myschool.server.validator.Name;
@@ -18,17 +19,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Unique.List({
-        @Unique(entity = User.class, property = "email", params = "email"),
-        @Unique(entity = User.class, property = "username", params = "username")
-})
+@Unique(entity = User.class, property = "email", params = "email")
 @FieldMatch(first = "password", second = "passwordConfirmation", params = {"passwordConfirmation", "Mot de passe" })
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NotBlank
-    private String username;
     @Email
     @NotBlank
     private String email;
@@ -45,7 +41,8 @@ public class User implements Serializable {
     private String lastName;
     @Enumerated
     private Authority authority;
-    private Boolean active;
+    @Enumerated
+    private UserStatus status;
     private Date created;
     private Date updated;
 
@@ -55,14 +52,6 @@ public class User implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getEmail() {
@@ -82,6 +71,9 @@ public class User implements Serializable {
     }
 
     public String getPasswordConfirmation() {
+        if (passwordConfirmation == null) {
+            setPasswordConfirmation(getPassword());
+        }
         return passwordConfirmation;
     }
 
@@ -113,12 +105,12 @@ public class User implements Serializable {
         this.authority = authority;
     }
 
-    public Boolean getActive() {
-        return active;
+    public UserStatus getStatus() {
+        return status;
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
+    public void setStatus(UserStatus status) {
+        this.status = status;
     }
 
     public Date getCreated() {

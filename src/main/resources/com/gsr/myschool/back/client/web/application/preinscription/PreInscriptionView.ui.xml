@@ -1,6 +1,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'
+             xmlns:datepicker="urn:import:com.github.gwtbootstrap.datepicker.client.ui">
 
     <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
@@ -13,7 +14,19 @@
             </g:HTMLPanel>
         </g:layer>
 
-        <g:layer top="55px" bottom="20px" right="20px" left="0px">
+        <g:layer top="90px" bottom="20px" right="20px" left="0px">
+            <boot:Form  type="INLINE">
+                <boot:ControlLabel>N° Dossier</boot:ControlLabel>
+                <boot:TextBox ui:field="numDossierFilter" />
+                <boot:ControlLabel>Statut</boot:ControlLabel>
+                <boot:ValueListBox ui:field="statusFilter" width="250px"/>
+                <boot:ControlLabel>Date Création</boot:ControlLabel>
+                <datepicker:DateBox autoClose="true" format="dd/mm/yyyy" ui:field="creationDateFilter" />
+                <boot:Button text="Rechercher" icon="SEARCH" ui:field="searchBtn" />
+            </boot:Form>
+        </g:layer>
+
+        <g:layer top="150px" bottom="20px" right="20px" left="0px">
             <boot:CellTable ui:field="preInscriptionsTable" bordered="true"/>
         </g:layer>
     </g:LayoutPanel>

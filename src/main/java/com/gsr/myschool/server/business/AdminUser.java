@@ -1,6 +1,7 @@
 package com.gsr.myschool.server.business;
 
 import com.gsr.myschool.common.shared.type.Authority;
+import com.gsr.myschool.common.shared.type.UserStatus;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -24,7 +25,8 @@ public class AdminUser implements Serializable {
     private String lastName;
     @Enumerated
     private Authority authority;
-    private Boolean active;
+    @Enumerated
+    private UserStatus status;
     private Date created;
     private Date updated;
 
@@ -84,12 +86,12 @@ public class AdminUser implements Serializable {
         this.authority = authority;
     }
 
-    public Boolean getActive() {
-        return active;
+    public UserStatus getStatus() {
+        return status;
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
+    public void setStatus(UserStatus status) {
+        this.status = status;
     }
 
     public Date getCreated() {

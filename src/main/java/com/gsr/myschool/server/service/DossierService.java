@@ -16,10 +16,14 @@
 
 package com.gsr.myschool.server.service;
 
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
 
+import java.util.Date;
 import java.util.List;
 
 public interface DossierService {
     List<Dossier> findAllDossiersByUser(Long userId);
+
+    List<Dossier> findAllDossiersByCriteria(String numDossier, DossierStatus dossierStatus, Date dateCreation);
 }

@@ -18,12 +18,13 @@ package com.gsr.myschool.back.client;
 
 import com.google.inject.Inject;
 import com.gsr.myschool.back.client.place.NameTokens;
-import com.gsr.myschool.back.client.request.proxy.AdminUserProxy;
 import com.gsr.myschool.back.client.resource.AdminResources;
 import com.gsr.myschool.back.client.security.CurrentUserProvider;
+import com.gsr.myschool.common.client.proxy.AdminUserProxy;
 import com.gsr.myschool.common.client.resource.SharedResources;
 import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gsr.myschool.common.client.util.CallbackImpl;
+import com.gsr.myschool.common.client.util.ValueList;
 import com.gwtplatform.mvp.client.Bootstrapper;
 import com.gwtplatform.mvp.client.annotations.Bootstrap;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
@@ -45,7 +46,8 @@ public class BootstrapperImpl implements Bootstrapper {
                             final SharedResources sharedResources,
                             final AdminResources resources,
                             final SecurityUtils securityUtils,
-                            final CurrentUserProvider adminUserProvider) {
+                            final CurrentUserProvider adminUserProvider,
+                            final ValueList valueList) {
         this.placeManager = placeManager;
         this.securityUtils = securityUtils;
         this.adminUserProvider = adminUserProvider;
@@ -53,6 +55,10 @@ public class BootstrapperImpl implements Bootstrapper {
         resources.adminStyleCss().ensureInjected();
         sharedResources.sharedStyleCss().ensureInjected();
         sharedResources.popupStyleCss().ensureInjected();
+
+        valueList.initFiliereList();
+        valueList.initNiveauEtudeMap();
+        valueList.initValueListMap();
 
         getCurrentUserCallback = new CallbackImpl<AdminUserProxy>() {
             @Override
@@ -81,13 +87,12 @@ public class BootstrapperImpl implements Bootstrapper {
     }
 
     private void bounceToHome() {
-        PlaceRequest place = new PlaceRequest(NameTokens.getAdministration());
+        PlaceRequest place = new PlaceRequest(NameTokens.getPreInscriptions());
         placeManager.revealPlace(place);
     }
 
     private void bounceToLogin() {
-		// TODO: change this place to login when the stateless security will be fixed
-        PlaceRequest place = new PlaceRequest(NameTokens.getAdministration());
+        PlaceRequest place = new PlaceRequest(NameTokens.getLogin());
         placeManager.revealPlace(place);
     }
 }

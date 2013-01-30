@@ -10,13 +10,21 @@ import javax.persistence.*;
 
 @Entity
 public class NiveauEtude implements java.io.Serializable {
-    @ManyToOne
-    private Filiere filiere;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
+    @ManyToOne
+    private Filiere filiere;
     private Integer annee;
     private String nom;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long newId) {
+        this.id = newId;
+    }
 
     public Filiere getFiliere() {
         return filiere;
@@ -24,14 +32,6 @@ public class NiveauEtude implements java.io.Serializable {
 
     public void setFiliere(Filiere newFiliere) {
         this.filiere = newFiliere;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer newId) {
-        this.id = newId;
     }
 
     public Integer getAnnee() {

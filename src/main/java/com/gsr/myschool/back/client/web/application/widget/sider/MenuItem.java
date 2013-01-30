@@ -4,6 +4,8 @@ public enum MenuItem {
     PRE_INSCRIPTION("PRE-INSCRIPTIONS"),
     RECEPTION("RECEPTION"),
     VALIDATION("VALIDATION"),
+    USERS_GSR("USERS_GSR"),
+    USERS_PORTAL("USERS_PORTAL"),
     VALUE_LIST("VALUE_LIST");
 
     private String label;

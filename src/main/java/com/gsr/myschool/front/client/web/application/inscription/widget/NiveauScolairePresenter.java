@@ -2,7 +2,8 @@ package com.gsr.myschool.front.client.web.application.inscription.widget;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-import com.gsr.myschool.front.client.web.application.inscription.EditInscriptionView.WizardStep;
+import com.gsr.myschool.front.client.request.FrontRequestFactory;
+import com.gsr.myschool.front.client.web.application.inscription.WizardStep;
 import com.gsr.myschool.front.client.web.application.inscription.event.ChangeStepEvent;
 import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;
@@ -12,9 +13,14 @@ public class NiveauScolairePresenter extends PresenterWidget<NiveauScolairePrese
     public interface MyView extends View {
     }
 
+    private final FrontRequestFactory requestFactory;
+
     @Inject
-    public NiveauScolairePresenter(final EventBus eventBus, final MyView view) {
+    public NiveauScolairePresenter(final EventBus eventBus, final MyView view,
+                                   final FrontRequestFactory requestFactory) {
         super(eventBus, view);
+
+        this.requestFactory = requestFactory;
     }
 
     @Override

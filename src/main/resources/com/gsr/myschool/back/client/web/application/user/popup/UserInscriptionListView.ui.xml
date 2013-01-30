@@ -1,0 +1,17 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:s='urn:import:com.gsr.myschool.common.client.widget'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+
+    <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+
+    <g:PopupPanel modal="true" autoHideEnabled="false" styleName="{resource.popupStyleCss.gwtPopupPanel}"
+                  glassEnabled="true">
+        <g:FlowPanel>
+            <s:ModalHeader ui:field="modalHeader" text="Dossiers Créés"/>
+            <g:HTMLPanel >
+                <boot:CellTable ui:field="userInscriptionsTable" bordered="true"/>
+            </g:HTMLPanel>
+        </g:FlowPanel>
+    </g:PopupPanel>
+</ui:UiBinder>

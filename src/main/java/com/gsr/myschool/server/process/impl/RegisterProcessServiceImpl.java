@@ -19,6 +19,7 @@ package com.gsr.myschool.server.process.impl;
 import com.gsr.myschool.common.client.util.Base64;
 import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.common.shared.type.EmailType;
+import com.gsr.myschool.common.shared.type.UserStatus;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.process.RegisterProcessService;
 import com.gsr.myschool.server.repos.UserRepos;
@@ -92,37 +93,9 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
 
         Long userId = (Long) runtimeService.getVariable(task.getExecutionId(), "userId");
         User user = userRepos.findOne(userId);
-        user.setActive(true);
+        user.setStatus(UserStatus.ACTIVE);
         userRepos.save(user);
 
         taskService.complete(task.getId());
-    }
-
-    @Override
-    public void deleteAccount(Long id) {
-        userRepos.delete(id);
-    }
-
-    @Override
-    public EmailDTO getRelanceMail(Long id, String link, EmailDTO email) throws Exception {
-        User user = userRepos.findOne(id);
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("lastname", user.getLastName());
-        params.put("firstname", user.getFirstName());
-        params.put("link", link);
-
-        email = emailService.populateEmail(EmailType.RELANCE, email.getTo(), email.getFrom(), params, "", "");
-        return email;
-    }
-
-    @Override
-    public EmailDTO getActivationMail(Long id, EmailDTO email) throws Exception {
-        User user = userRepos.findOne(id);
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("lastname", user.getLastName());
-        params.put("firstname", user.getFirstName());
-
-        email = emailService.populateEmail(EmailType.ACTIVATION, email.getTo(), email.getFrom(), params, "", "");
-        return email;
     }
 }

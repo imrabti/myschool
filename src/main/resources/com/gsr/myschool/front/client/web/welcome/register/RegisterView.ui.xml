@@ -13,13 +13,6 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Login</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:TextBox ui:field="username"/>
-                </boot:Controls>
-            </boot:ControlGroup>
-
-            <boot:ControlGroup>
                 <boot:ControlLabel>Nom</boot:ControlLabel>
                 <boot:Controls>
                     <boot:TextBox ui:field="firstName"/>

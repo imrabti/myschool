@@ -10,13 +10,24 @@
 
     <!-- Spring Security URL Interceptor -->
     <http create-session="stateless" entry-point-ref="digestEntryPoint"
-          authentication-manager-ref="authenticationProvider">
+          authentication-manager-ref="authenticationProvider" pattern="/gwtRequest">
         <custom-filter ref="digestFilter" after="BASIC_AUTH_FILTER" />
+        <http-basic/>
+    </http>
+
+    <http create-session="stateless" entry-point-ref="digestEntryPoint"
+          authentication-manager-ref="adminAuthenticationProvider" pattern="/gwtAdminRequest">
+        <custom-filter ref="adminDigestFilter" after="BASIC_AUTH_FILTER" />
         <http-basic/>
     </http>
 
     <beans:bean id="digestFilter" class="org.springframework.security.web.authentication.www.DigestAuthenticationFilter">
         <beans:property name="userDetailsService" ref="userDetailsService" />
+        <beans:property name="authenticationEntryPoint" ref="digestEntryPoint" />
+    </beans:bean>
+
+    <beans:bean id="adminDigestFilter" class="org.springframework.security.web.authentication.www.DigestAuthenticationFilter">
+        <beans:property name="userDetailsService" ref="adminUserDetailsService" />
         <beans:property name="authenticationEntryPoint" ref="digestEntryPoint" />
     </beans:bean>
 

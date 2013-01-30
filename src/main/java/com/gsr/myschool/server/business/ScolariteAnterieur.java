@@ -6,16 +6,24 @@ import javax.persistence.*;
 
 @Entity
 public class ScolariteAnterieur implements java.io.Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     @ManyToOne
     private Candidat candidat;
     @ManyToOne
     private EtablissementScolaire etablissement;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
     @Enumerated
     private TypeNiveauEtude typeNiveauEtude;
     private String classe;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long newId) {
+        this.id = newId;
+    }
 
     public Candidat getCandidat() {
         return candidat;
@@ -31,14 +39,6 @@ public class ScolariteAnterieur implements java.io.Serializable {
 
     public void setEtablissement(EtablissementScolaire newEtablissementScolaire) {
         this.etablissement = newEtablissementScolaire;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer newId) {
-        this.id = newId;
     }
 
     public TypeNiveauEtude getTypeNiveauEtude() {

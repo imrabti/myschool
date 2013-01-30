@@ -1,6 +1,7 @@
 package com.gsr.myschool.server.process;
 
 import com.gsr.myschool.common.shared.type.EmailType;
+import com.gsr.myschool.common.shared.type.UserStatus;
 import com.gsr.myschool.server.business.EmailTemplate;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.repos.EmailTemplateRepos;
@@ -13,8 +14,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath*:META-INF/applicationContext.xml",
-        "classpath*:META-INF/applicationContext-activiti.xml", "classpath*:/META-INF/applicationContext-security.xml"})
+@ContextConfiguration(locations = {"" +
+        "classpath*:META-INF/applicationContext.xml",
+        "classpath*:META-INF/applicationContext-activiti.xml",
+        "classpath*:/META-INF/applicationContext-security.xml"
+})
 public class RegisterProcessServiceTest {
     @Autowired
     private RuntimeService runtimeService;
@@ -60,7 +64,7 @@ public class RegisterProcessServiceTest {
         emailTemplateRepos.save(email);
 
         // after normal registration the user would be in database
-        user.setActive(false);
+        user.setStatus(UserStatus.INACTIVE);
         user.setEmail(mail);
         user.setId(1L);
         user.setFirstName(fname);

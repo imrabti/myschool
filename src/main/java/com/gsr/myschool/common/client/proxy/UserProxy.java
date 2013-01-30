@@ -19,6 +19,7 @@ package com.gsr.myschool.common.client.proxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;
 import com.gsr.myschool.common.shared.type.Authority;
+import com.gsr.myschool.common.shared.type.UserStatus;
 import com.gsr.myschool.server.business.User;
 
 import java.util.Date;
@@ -28,10 +29,6 @@ public interface UserProxy extends ValueProxy {
     Long getId();
 
     void setId(Long id);
-
-    String getUsername();
-
-    void setUsername(String username);
 
     String getEmail();
 
@@ -64,4 +61,8 @@ public interface UserProxy extends ValueProxy {
     Date getUpdated();
 
     void setUpdated(Date updated);
+
+    UserStatus getStatus();
+
+    void setStatus(UserStatus status);
 }
