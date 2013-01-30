@@ -6,10 +6,10 @@ public enum DossierStatus {
     RECEIVED("Reçu"),
     REJECTED("Rejeté"),
     ACCEPTED_FOR_STUDY("Accepté pour étude"),
-    STANDBY("Créé"),
+    STANDBY("En attente"),
     ACCEPTED_FOR_TEST("Accepté pour test"),
-    INVITED_TO_TEST("Convoqué"),
-    NOT_ACCEPTED_FOR_TEST("Refusé");
+    INVITED_TO_TEST("Convoqué pour test"),
+    NOT_ACCEPTED_FOR_TEST("Non séléctionné");
 
     private String label;
 

@@ -26,8 +26,8 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.ValueListServiceRequest;
 import com.gsr.myschool.back.client.request.ValueTypeServiceRequest;
-import com.gsr.myschool.back.client.request.proxy.ValueListProxy;
-import com.gsr.myschool.back.client.request.proxy.ValueTypeProxy;
+import com.gsr.myschool.common.client.proxy.ValueListProxy;
+import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupView;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
@@ -82,19 +82,19 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
 
     public void getRegexes() {
         ValueListServiceRequest lsr = requestFactory.valueListServiceRequest();
-        lsr.findByValueTypeName("Regex").fire(new Receiver<List<ValueListProxy>>() {
+        /*lsr.findByValueTypeName("Regex").fire(new Receiver<List<ValueListProxy>>() {
             @Override
             public void onSuccess(List<ValueListProxy> response) {
                 getView().fillRegexList(response);
             }
-        });
+        });*/
     }
 
     @Override
     public void processDefLov() {
         ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
         ValueTypeProxy toAdd = dlsr.create(ValueTypeProxy.class);
-        toAdd.setName(getView().getName().getText());
+        //toAdd.setName(getView().getName().getText());
         toAdd.setRegex(getView().getRegex().getValue());
         toAdd.setParent(getView().getParent().getValue());
         toAdd.setSystem(getView().getSystemDefLov().getValue());
@@ -106,7 +106,7 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
         }
         toAdd.setParent(parent);
         toAdd.setSystem(getView().getSystemDefLov().getValue());
-        dlsr.add(toAdd)
+        /*dlsr.add(toAdd)
                 .fire(new Receiver<Void>() {
                     @Override
                     public void onSuccess(Void response) {
@@ -119,6 +119,6 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
                             Window.alert(violation.getMessage() + " " + violation.getInvalidValue());
                         }
                     }
-                });
+                });*/
     }
 }

@@ -1,4 +1,6 @@
-package com.gsr.myschool.server.business.lov;
+package com.gsr.myschool.server.business.valuelist;
+
+import com.gsr.myschool.common.shared.type.ValueTypeCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,7 +10,8 @@ public class ValueType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String name;
+    @Enumerated
+    private ValueTypeCode code;
     @ManyToOne
     private ValueList regex;
     @ManyToOne
@@ -23,12 +26,12 @@ public class ValueType implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public ValueTypeCode getCode() {
+        return code;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCode(ValueTypeCode code) {
+        this.code = code;
     }
 
     public ValueList getRegex() {

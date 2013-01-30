@@ -5,14 +5,22 @@ import java.util.Date;
 
 @Entity
 public class NoteMatiere implements java.io.Serializable {
-    @ManyToOne
-    private Dossier dossier;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
+    @ManyToOne
+    private Dossier dossier;
     private String matiere;
     private String note;
     private Date dateSaisie;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long newId) {
+        this.id = newId;
+    }
 
     public Dossier getDossier() {
         return dossier;
@@ -20,14 +28,6 @@ public class NoteMatiere implements java.io.Serializable {
 
     public void setDossier(Dossier newDossier) {
         this.dossier = newDossier;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer newId) {
-        this.id = newId;
     }
 
     public String getMatiere() {

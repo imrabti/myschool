@@ -2,8 +2,11 @@ package com.gsr.myschool.front.client.web.application.inscription;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
 import com.gsr.myschool.front.client.place.NameTokens;
+import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.front.client.web.application.inscription.EditInscriptionPresenter.MyProxy;
 import com.gsr.myschool.front.client.web.application.inscription.EditInscriptionPresenter.MyView;
@@ -18,6 +21,7 @@ import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
+import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
 public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
@@ -36,22 +40,40 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
     public static final Object TYPE_Step_2_Content = new Object();
     public static final Object TYPE_Step_3_Content = new Object();
 
+    private final FrontRequestFactory requestFactory;
     private final ParentPresenter parentPresenter;
     private final CandidatPresenter candidatPresenter;
     private final NiveauScolairePresenter niveauScolairePresenter;
 
+    private DossierProxy currentDossier;
+
     @Inject
     public EditInscriptionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
+                                    final FrontRequestFactory requestFactory,
                                     final ParentPresenter parentPresenter,
                                     final CandidatPresenter candidatPresenter,
                                     final NiveauScolairePresenter niveauScolairePresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
+        this.requestFactory = requestFactory;
         this.parentPresenter = parentPresenter;
         this.candidatPresenter = candidatPresenter;
         this.niveauScolairePresenter = niveauScolairePresenter;
 
         getView().setUiHandlers(this);
+    }
+
+    @Override
+    public void prepareFromRequest(PlaceRequest placeRequest) {
+        Long dossierId = Long .parseLong(placeRequest.getParameter("id", null));
+        requestFactory.inscriptionService().findDossierById(dossierId).fire(new ReceiverImpl<DossierProxy>() {
+            @Override
+            public void onSuccess(DossierProxy result) {
+                currentDossier = result;
+                parentPresenter.editData(currentDossier.getInfoParent());
+                candidatPresenter.editData(currentDossier.getCandidat());
+            }
+        });
     }
 
     @Override

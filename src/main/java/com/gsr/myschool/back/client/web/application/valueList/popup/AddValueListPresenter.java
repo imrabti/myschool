@@ -25,8 +25,8 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.ValueListServiceRequest;
 import com.gsr.myschool.back.client.request.ValueTypeServiceRequest;
-import com.gsr.myschool.back.client.request.proxy.ValueListProxy;
-import com.gsr.myschool.back.client.request.proxy.ValueTypeProxy;
+import com.gsr.myschool.common.client.proxy.ValueListProxy;
+import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupView;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
@@ -71,7 +71,7 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
             @Override
             public void onSuccess(List<ValueTypeProxy> response) {
                 for (ValueTypeProxy defLovProxy : response) {
-                    getView().getDefLov().addItem(defLovProxy.getName(), defLovProxy.getId().toString());
+                    //getView().getDefLov().addItem(defLovProxy.getName(), defLovProxy.getId().toString());
                     defLovs.add(defLovProxy);
                 }
                 if (selectedDef < response.size() && selectedDef >= 0) {
@@ -85,7 +85,7 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
     public void fillParent() {
         getView().getParent().clear();
         ValueListServiceRequest lsr = requestFactory.valueListServiceRequest();
-        lsr.findByValueTypeParentName(getView().getDefLov().getItemText(getView().getDefLov().getSelectedIndex()))
+        /*lsr.findByValueTypeParentName(getView().getDefLov().getItemText(getView().getDefLov().getSelectedIndex()))
                 .fire(new Receiver<List<ValueListProxy>>() {
                     @Override
                     public void onSuccess(List<ValueListProxy> response) {
@@ -96,7 +96,7 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
                             parents.add(lovProxy);
                         }
                     }
-                });
+                });*/
     }
 
     @Override
@@ -122,11 +122,11 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
         }
         lp.setValue(getView().getValue().getText());
         lp.getValue();
-        lsr.add(lp).fire(new Receiver<Void>() {
+        /*lsr.add(lp).fire(new Receiver<Void>() {
             @Override
             public void onSuccess(Void response) {
                 Window.alert("added");
             }
-        });
+        });*/
     }
 }

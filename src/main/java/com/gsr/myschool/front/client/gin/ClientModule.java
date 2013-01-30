@@ -21,6 +21,8 @@ import com.gsr.myschool.common.client.request.RequestUrl;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.security.CurrentUserProvider;
 import com.gsr.myschool.front.client.resource.FrontResources;
+import com.gsr.myschool.common.client.util.ValueList;
+import com.gsr.myschool.front.client.util.ValueListImpl;
 import com.gsr.myschool.front.client.web.RootModule;
 import com.gsr.myschool.common.client.event.EventSourceRequestTransport;
 import com.gsr.myschool.front.client.place.DefaultPlace;
@@ -44,6 +46,7 @@ public class ClientModule extends AbstractPresenterModule {
         install(new RootModule());
 
         bind(FrontRequestFactory.class).toProvider(RequestFactoryProvider.class).in(Singleton.class);
+        bind(ValueList.class).to(ValueListImpl.class).in(Singleton.class);
         bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.login);
         bindConstant().annotatedWith(RequestUrl.class).to(NameTokens.requestUrl);
 

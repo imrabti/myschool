@@ -25,9 +25,9 @@ import java.util.Date;
 
 @ProxyFor(Candidat.class)
 public interface CandidatProxy extends ValueProxy {
-    Integer getId();
+    Long getId();
 
-    void setId(Integer id);
+    void setId(Long id);
 
     String getFirstname();
 
@@ -64,5 +64,4 @@ public interface CandidatProxy extends ValueProxy {
     String getGsm();
 
     void setGsm(String gsm);
-    
 }

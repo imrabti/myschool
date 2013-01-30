@@ -30,10 +30,6 @@ public interface UserProxy extends ValueProxy {
 
     void setId(Long id);
 
-    String getUsername();
-
-    void setUsername(String username);
-
     String getEmail();
 
     void setEmail(String email);

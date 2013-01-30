@@ -52,8 +52,15 @@ public abstract class ValidatedPopupViewImpl extends PopupViewImpl implements Va
             String fieldId = "#" + path;
             $(fieldId).attr("message", message);
             $(fieldId).addClass("errorField");
-            ControlGroup wrapper = $(fieldId).parent().parent().widget();
-            wrapper.setType(ControlGroupType.ERROR);
+
+            ControlGroup wrapper;
+            if ($(fieldId).parent().hasClass("input-prepend")) {
+                wrapper = $(fieldId).parent().parent().parent().widget();
+                wrapper.setType(ControlGroupType.ERROR);
+            } else {
+                wrapper = $(fieldId).parent().parent().widget();
+                wrapper.setType(ControlGroupType.ERROR);
+            }
 
             $(fieldId).focus(new Function() {
                 @Override
@@ -80,8 +87,15 @@ public abstract class ValidatedPopupViewImpl extends PopupViewImpl implements Va
                 $(fieldId).unbind(Event.ONFOCUS);
                 $(fieldId).unbind(Event.ONBLUR);
                 $(fieldId).removeClass("errorField");
-                ControlGroup wrapper = $(fieldId).parent().parent().widget();
-                wrapper.setType(ControlGroupType.NONE);
+
+                ControlGroup wrapper;
+                if ($(fieldId).parent().hasClass("input-prepend")) {
+                    wrapper = $(fieldId).parent().parent().parent().widget();
+                    wrapper.setType(ControlGroupType.NONE);
+                } else {
+                    wrapper = $(fieldId).parent().parent().widget();
+                    wrapper.setType(ControlGroupType.NONE);
+                }
             }
         });
     }

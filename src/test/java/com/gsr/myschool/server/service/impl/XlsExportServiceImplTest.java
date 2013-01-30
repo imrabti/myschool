@@ -14,8 +14,11 @@ import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath*:META-INF/applicationContext.xml",
-        "classpath*:/META-INF/applicationContext-security.xml","classpath*:/META-INF/applicationContext-activiti.xml"})
+@ContextConfiguration(locations = {
+        "classpath*:META-INF/applicationContext.xml",
+        "classpath*:/META-INF/applicationContext-security.xml",
+        "classpath*:/META-INF/applicationContext-activiti.xml"
+})
 @ActiveProfiles("test")
 public class XlsExportServiceImplTest {
     @Autowired

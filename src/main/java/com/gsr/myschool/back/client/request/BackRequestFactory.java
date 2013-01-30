@@ -28,4 +28,6 @@ public interface BackRequestFactory extends RequestFactory {
     DossierServiceRequest dossierService();
 
     UserServiceRequest userService();
+
+    CachedListValueRequest cachedListValueService();
 }

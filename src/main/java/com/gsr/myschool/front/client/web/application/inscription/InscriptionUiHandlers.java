@@ -16,19 +16,19 @@
 
 package com.gsr.myschool.front.client.web.application.inscription;
 
-import com.gsr.myschool.common.client.proxy.InscriptionProxy;
+import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface InscriptionUiHandlers extends UiHandlers {
     void addNewInscription();
 
-    void previewInscription(InscriptionProxy inscription);
+    void previewInscription(DossierProxy inscription);
 
-    void editInscription(InscriptionProxy inscription);
+    void editInscription(DossierProxy inscription);
 
-    void deleteInscription(InscriptionProxy inscription);
+    void deleteInscription(DossierProxy inscription);
 
-    void submitInscription(InscriptionProxy inscription);
+    void submitInscription(DossierProxy inscription);
 
-    void printInscription(InscriptionProxy inscription);
+    void printInscription(DossierProxy inscription);
 }

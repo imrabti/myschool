@@ -1,8 +1,9 @@
-package com.gsr.myschool.back.client.request.proxy;
+package com.gsr.myschool.common.client.proxy;
 
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;
-import com.gsr.myschool.server.business.lov.ValueType;
+import com.gsr.myschool.common.shared.type.ValueTypeCode;
+import com.gsr.myschool.server.business.valuelist.ValueType;
 
 @ProxyFor(ValueType.class)
 public interface ValueTypeProxy extends ValueProxy {
@@ -10,9 +11,9 @@ public interface ValueTypeProxy extends ValueProxy {
 
     void setId(Long id);
 
-    String getName();
+    ValueTypeCode getCode();
 
-    void setName(String name);
+    void setCode(ValueTypeCode code);
 
     ValueListProxy getRegex();
 

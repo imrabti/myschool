@@ -7,16 +7,24 @@ import java.util.Date;
 
 @Entity
 public class InboxMessage implements java.io.Serializable {
-    @ManyToOne
-    private User parentUser;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
+    @ManyToOne
+    private User parentUser;
     private String subject;
     private String content;
     private Date msgDate;
     @Enumerated
     private InboxMessageStatus msgStatus;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long newId) {
+        this.id = newId;
+    }
 
     public User getParentUser() {
         return parentUser;
@@ -24,14 +32,6 @@ public class InboxMessage implements java.io.Serializable {
 
     public void setParentUser(User newUser) {
         this.parentUser = newUser;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int newId) {
-        this.id = newId;
     }
 
     public String getSubject() {

@@ -19,5 +19,8 @@ package com.gsr.myschool.server.repos;
 import com.gsr.myschool.server.business.Dossier;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface DossierRepos extends JpaRepository<Dossier, Integer> {
+import java.util.List;
+
+public interface DossierRepos extends JpaRepository<Dossier, Long> {
+    List<Dossier> findByOwnerId(Long userId);
 }

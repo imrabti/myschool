@@ -17,6 +17,8 @@
 package com.gsr.myschool.front.client.web.application.inscription;
 
 import com.github.gwtbootstrap.client.ui.CellTable;
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
+import com.google.common.base.Strings;
 import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -32,7 +34,9 @@ import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.gsr.myschool.common.client.proxy.InscriptionProxy;
+import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
+import com.gsr.myschool.common.client.widget.EmptyResult;
 import com.gsr.myschool.front.client.web.application.inscription.renderer.InscriptionActionCell;
 import com.gsr.myschool.front.client.web.application.inscription.renderer.InscriptionActionCellFactory;
 
@@ -43,22 +47,23 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
     }
 
     @UiField
-    CellTable<InscriptionProxy> inscriptionsTable;
+    CellTable<DossierProxy> inscriptionsTable;
 
     private final DateTimeFormat dateFormat;
-    private final ListDataProvider<InscriptionProxy> dataProvider;
+    private final ListDataProvider<DossierProxy> dataProvider;
     private final InscriptionActionCellFactory actionCellFactory;
 
-    private Delegate<InscriptionProxy> previewAction;
-    private Delegate<InscriptionProxy> editAction;
-    private Delegate<InscriptionProxy> deleteAction;
-    private Delegate<InscriptionProxy> submitAction;
-    private Delegate<InscriptionProxy> printAction;
+    private Delegate<DossierProxy> previewAction;
+    private Delegate<DossierProxy> editAction;
+    private Delegate<DossierProxy> deleteAction;
+    private Delegate<DossierProxy> submitAction;
+    private Delegate<DossierProxy> printAction;
 
     @Inject
     public InscriptionView(final Binder uiBinder,
                            final UiHandlersStrategy<InscriptionUiHandlers> uiHandlers,
-                           final InscriptionActionCellFactory actionCellFactory) {
+                           final InscriptionActionCellFactory actionCellFactory,
+                           final SharedMessageBundle sharedMessageBundle) {
         super(uiHandlers);
 
         this.actionCellFactory = actionCellFactory;
@@ -67,13 +72,14 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         initActions();
         initDataGrid();
 
-        dataProvider = new ListDataProvider<InscriptionProxy>();
+        dataProvider = new ListDataProvider<DossierProxy>();
         dataProvider.addDataDisplay(inscriptionsTable);
         dateFormat = DateTimeFormat.getFormat("LLL d yyyy");
+        inscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
     }
 
     @Override
-    public void setData(List<InscriptionProxy> data) {
+    public void setData(List<DossierProxy> data) {
         dataProvider.getList().clear();
         dataProvider.getList().addAll(data);
     }
@@ -84,46 +90,46 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
     }
 
     private void initActions() {
-        previewAction = new Delegate<InscriptionProxy>() {
+        previewAction = new Delegate<DossierProxy>() {
             @Override
-            public void execute(InscriptionProxy inscription) {
+            public void execute(DossierProxy inscription) {
                 getUiHandlers().previewInscription(inscription);
             }
         };
 
-        editAction = new Delegate<InscriptionProxy>() {
+        editAction = new Delegate<DossierProxy>() {
             @Override
-            public void execute(InscriptionProxy inscription) {
+            public void execute(DossierProxy inscription) {
                 getUiHandlers().editInscription(inscription);
             }
         };
 
-        deleteAction = new Delegate<InscriptionProxy>() {
+        deleteAction = new Delegate<DossierProxy>() {
             @Override
-            public void execute(InscriptionProxy inscription) {
+            public void execute(DossierProxy inscription) {
                 getUiHandlers().deleteInscription(inscription);
             }
         };
 
-        submitAction = new Delegate<InscriptionProxy>() {
+        submitAction = new Delegate<DossierProxy>() {
             @Override
-            public void execute(InscriptionProxy inscription) {
+            public void execute(DossierProxy inscription) {
                 getUiHandlers().submitInscription(inscription);
             }
         };
 
-        printAction = new Delegate<InscriptionProxy>() {
+        printAction = new Delegate<DossierProxy>() {
             @Override
-            public void execute(InscriptionProxy inscription) {
+            public void execute(DossierProxy inscription) {
                 getUiHandlers().printInscription(inscription);
             }
         };
     }
 
     private void initDataGrid() {
-        TextColumn<InscriptionProxy> idColumn = new TextColumn<InscriptionProxy>() {
+        TextColumn<DossierProxy> idColumn = new TextColumn<DossierProxy>() {
             @Override
-            public String getValue(InscriptionProxy object) {
+            public String getValue(DossierProxy object) {
                 return object.getId().toString();
             }
         };
@@ -131,32 +137,52 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         inscriptionsTable.addColumn(idColumn, "ID");
         inscriptionsTable.setColumnWidth(idColumn, 20, Style.Unit.PCT);
 
-        TextColumn<InscriptionProxy> statusColumn = new TextColumn<InscriptionProxy>() {
+        TextColumn<DossierProxy> statusColumn = new TextColumn<DossierProxy>() {
             @Override
-            public String getValue(InscriptionProxy object) {
-                return object.getStatus().name();
+            public String getValue(DossierProxy object) {
+                return object.getStatus().toString();
             }
         };
         statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         inscriptionsTable.addColumn(statusColumn, "Status");
-        inscriptionsTable.setColumnWidth(statusColumn, 35, Style.Unit.PCT);
+        inscriptionsTable.setColumnWidth(statusColumn, 25, Style.Unit.PCT);
 
-        TextColumn<InscriptionProxy> createdColumn = new TextColumn<InscriptionProxy>() {
+        TextColumn<DossierProxy> candidatColumn = new TextColumn<DossierProxy>() {
             @Override
-            public String getValue(InscriptionProxy object) {
-                return dateFormat.format(object.getCreated());
+            public String getValue(DossierProxy dossierProxy) {
+                String firstName = dossierProxy.getCandidat().getFirstname();
+                String lastName = dossierProxy.getCandidat().getLastname();
+
+                if (Strings.isNullOrEmpty(firstName) && Strings.isNullOrEmpty(lastName)) {
+                    return "";
+                } else {
+                    return firstName + " " + lastName;
+                }
+            }
+        };
+        candidatColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        inscriptionsTable.addColumn(candidatColumn, "Candidat");
+        inscriptionsTable.setColumnWidth(candidatColumn, 35, Style.Unit.PCT);
+
+        TextColumn<DossierProxy> createdColumn = new TextColumn<DossierProxy>() {
+            @Override
+            public String getValue(DossierProxy object) {
+                if (object.getCreateDate() == null) {
+                    return "";
+                } else {
+                    return dateFormat.format(object.getCreateDate());
+                }
             }
         };
         createdColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         inscriptionsTable.addColumn(createdColumn, "Date d'inscription");
-        inscriptionsTable.setColumnWidth(createdColumn, 30, Style.Unit.PCT);
+        inscriptionsTable.setColumnWidth(createdColumn, 25, Style.Unit.PCT);
 
         InscriptionActionCell actionsCell = actionCellFactory.create(previewAction, editAction,
                 deleteAction, submitAction, printAction);
-        Column<InscriptionProxy, InscriptionProxy> actionsColumn = new
-                Column<InscriptionProxy, InscriptionProxy>(actionsCell) {
+        Column<DossierProxy, DossierProxy> actionsColumn = new Column<DossierProxy, DossierProxy>(actionsCell) {
             @Override
-            public InscriptionProxy getValue(InscriptionProxy object) {
+            public DossierProxy getValue(DossierProxy object) {
                 return object;
             }
         };
