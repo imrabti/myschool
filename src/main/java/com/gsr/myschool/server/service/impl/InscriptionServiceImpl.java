@@ -63,6 +63,14 @@ public class InscriptionServiceImpl implements InscriptionService {
     }
 
     @Override
+    public void deleteInscription(Long dossierId) {
+        Dossier currentDossier = dossierRepos.findOne(dossierId);
+        dossierRepos.delete(currentDossier);
+        infoParentRepos.delete(currentDossier.getInfoParent());
+        candidatRepos.delete(currentDossier.getCandidat());
+    }
+
+    @Override
     public Dossier updateDossier(Dossier dossier) {
         Dossier currentDossier = dossierRepos.findOne(dossier.getId());
         currentDossier.setFiliere(dossier.getFiliere());

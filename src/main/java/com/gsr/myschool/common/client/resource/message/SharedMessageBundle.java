@@ -24,4 +24,6 @@ public interface SharedMessageBundle extends Messages {
     String operationFailure();
 
     String noResultFound();
+
+    String emptyValueList();
 }
