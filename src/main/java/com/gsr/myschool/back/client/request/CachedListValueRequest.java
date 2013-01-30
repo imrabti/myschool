@@ -5,6 +5,7 @@ import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
 import com.gsr.myschool.common.client.proxy.FiliereProxy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
+import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.server.service.impl.CachedListValueServiceServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
 
@@ -15,4 +16,6 @@ public interface CachedListValueRequest extends RequestContext {
     Request<List<FiliereProxy>> findAllFiliere();
 
     Request<List<NiveauEtudeProxy>> findAllNiveauEtude();
+
+    Request<List<ValueListProxy>> findAllValueList();
 }
