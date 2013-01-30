@@ -29,6 +29,7 @@ import com.gsr.myschool.back.client.request.ValueTypeServiceRequest;
 import com.gsr.myschool.back.client.request.proxy.ValueListProxy;
 import com.gsr.myschool.back.client.request.proxy.ValueTypeProxy;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupView;
+import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 
@@ -42,9 +43,14 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
         void fillParentList(List<ValueTypeProxy> parents);
 
         void fillRegexList(List<ValueListProxy> regex);
+
+        void editType(ValueTypeProxy valueTypeProxy);
+
+        void flushType();
     }
 
     private final BackRequestFactory requestFactory;
+    private ValueTypeProxy currentValueType;
 
     @Inject
     public AddValueTypePresenter(final EventBus eventBus, final MyView view,
@@ -83,33 +89,29 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
     }
 
     @Override
-    public void processDefLov() {
-        ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
-        ValueTypeProxy toAdd = dlsr.create(ValueTypeProxy.class);
-//        toAdd.setName(getView().getName().getText());
-//        toAdd.setRegex(getView().getRegex().getValue());
-//        toAdd.setParent(getView().getParent().getValue());
-//        toAdd.setSystem(getView().getSystemDefLov().getValue());
-//        ValueTypeProxy parent = dlsr.create(ValueTypeProxy.class);
-//        if (getView().getParent().getValue() != null) {
-//            parent.setId(new Long(getView().getParent().getValue().getId()));
-//        } else {
-//            parent = null;
-//        }
-//        toAdd.setParent(parent);
-//        toAdd.setSystem(getView().getSystemDefLov().getValue());
-//        dlsr.add(toAdd)
-//                .fire(new Receiver<Void>() {
-//                    @Override
-//                    public void onSuccess(Void response) {
-//                    }
-//
-//                    @Override
-//                    public void onConstraintViolation(Set<ConstraintViolation<?>> violations) {
-//                        for (ConstraintViolation violation : violations) {
-//                            Window.alert(violation.getMessage() + " " + violation.getInvalidValue());
-//                        }
-//                    }
-//                });
+    protected void onReveal() {
+        super.onReveal();
+        getView().editType(currentValueType);
+    }
+
+    @Override
+    public void saveValueType() {
+        getView().flushType();
+
+        requestFactory.valueTypeServiceRequest().add(currentValueType).fire(new ValidatedReceiverImpl<Void>(){
+
+
+            @Override
+            public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                getView().clearErrors();
+                getView().showErrors(violations);
+            }
+
+            @Override
+            public void onSuccess(Void aVoid) {
+                getView().clearErrors();
+                getView().editType(currentValueType);
+            }
+        });
     }
 }

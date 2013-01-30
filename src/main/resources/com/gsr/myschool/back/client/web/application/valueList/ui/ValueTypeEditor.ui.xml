@@ -25,14 +25,14 @@
             <boot:ControlGroup>
                 <boot:ControlLabel width="150px">Parent</boot:ControlLabel>
                 <boot:Controls styleName="{style.smallMargin}">
-                    <boot:ListBox ui:field="parentValue" width="230px"/>
+                    <boot:ValueListBox ui:field="parent" width="230px"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
                 <boot:ControlLabel width="150px">Valeur system</boot:ControlLabel>
                 <boot:Controls styleName="{style.smallMargin}">
-                    <boot:CheckBox ui:field="systemDefLov" width="230px"/>
+                    <boot:CheckBox ui:field="system" width="230px"/>
                 </boot:Controls>
             </boot:ControlGroup>
         </boot:Form>

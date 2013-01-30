@@ -16,17 +16,61 @@
 
 package com.gsr.myschool.back.client.web.application.valueList.ui;
 
+import com.github.gwtbootstrap.client.ui.CheckBox;
+import com.github.gwtbootstrap.client.ui.TextBox;
+import com.github.gwtbootstrap.client.ui.ValueListBox;
+import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import com.gsr.myschool.back.client.request.proxy.ValueTypeProxy;
+import com.gsr.myschool.common.client.util.EditorView;
 
-public class ValueTypeEditor extends Composite {
+public class ValueTypeEditor extends Composite implements EditorView<ValueTypeProxy> {
+
+
+
     public interface Binder extends UiBinder<Widget, ValueTypeEditor> {
     }
+    public interface Driver extends SimpleBeanEditorDriver<ValueTypeProxy, ValueTypeEditor> {
+    }
+
+    @UiField
+    TextBox name;
+    @UiField
+    TextBox regex;
+    @UiField(provided = true)
+    ValueListBox<ValueTypeProxy> parent;
+    @UiField
+    CheckBox system;
+
+    private final Driver driver;
 
     @Inject
-    public ValueTypeEditor(final Binder uiBinder) {
+    public ValueTypeEditor(final Binder uiBinder,final Driver driver) {
+        this.driver = driver;
+
+        parent = new ValueListBox<ValueTypeProxy>(null);
+
         initWidget(uiBinder.createAndBindUi(this));
+        driver.initialize(this);
     }
+
+    @Override
+    public void edit(ValueTypeProxy valueType) {
+        driver.edit(valueType);
+    }
+
+    @Override
+    public ValueTypeProxy get() {
+        ValueTypeProxy valueTypeProxy = driver.flush();
+        if (driver.hasErrors()) {
+            return null;
+        } else {
+            return valueTypeProxy;
+        }
+    }
+
 }

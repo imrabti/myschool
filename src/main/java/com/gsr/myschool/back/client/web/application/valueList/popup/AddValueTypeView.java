@@ -76,9 +76,19 @@ public class AddValueTypeView extends ValidatedPopupViewImplWithUiHandlers<AddVa
     public void fillRegexList(List<ValueListProxy> regexes) {
     }
 
+    @Override
+    public void flushType(){
+        valueTypeEditor.get();
+    }
+
+    @Override
+    public void editType(ValueTypeProxy valueType){
+        valueTypeEditor.edit(valueType);
+    }
+
     @UiHandler("save")
     void onSaveClick(ClickEvent event) {
-        getUiHandlers().processDefLov();
+        getUiHandlers().saveValueType();
     }
 
     @UiHandler("cancel")
