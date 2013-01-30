@@ -9,9 +9,11 @@ import java.util.List;
 public interface InscriptionService {
     List<Dossier> findAllDossiers();
 
-    Dossier findDossierById(Long id);
+    Dossier findDossierById(Long dossierId);
 
     Dossier createNewInscription();
+
+    void deleteInscription(Long dossierId);
 
     Dossier updateDossier(Dossier dossier);
 

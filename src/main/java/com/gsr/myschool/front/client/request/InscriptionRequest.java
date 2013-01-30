@@ -15,9 +15,11 @@ import java.util.List;
 public interface InscriptionRequest extends RequestContext {
     Request<List<DossierProxy>> findAllDossiers();
 
-    Request<DossierProxy> findDossierById(Long id);
+    Request<DossierProxy> findDossierById(Long dossierId);
 
     Request<DossierProxy> createNewInscription();
+
+    Request<Void> deleteInscription(Long dossierId);
 
     Request<DossierProxy> updateDossier(DossierProxy dossier);
 

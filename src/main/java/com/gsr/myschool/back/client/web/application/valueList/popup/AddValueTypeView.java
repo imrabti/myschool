@@ -26,8 +26,8 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
-import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueTypeRenderer;
-import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueListRenderer;
+import com.gsr.myschool.common.client.widget.renderer.ValueTypeRenderer;
+import com.gsr.myschool.common.client.widget.renderer.ValueListRenderer;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
@@ -58,12 +58,14 @@ public class AddValueTypeView extends ValidatedPopupViewImplWithUiHandlers<AddVa
     public AddValueTypeView(final EventBus eventBus, final Binder uiBinder,
                             final UiHandlersStrategy<AddValueTypeUiHandlers> uiHandlers,
                             final ValidationErrorPopup errorPopup,
-                            final ModalHeader modalHeader) {
+                            final ModalHeader modalHeader,
+                            final ValueTypeRenderer valueTypeRenderer,
+                            final ValueListRenderer valueListRenderer) {
         super(eventBus, errorPopup, uiHandlers);
 
         this.modalHeader = modalHeader;
-        this.parent = new ValueListBox<ValueTypeProxy>(new ValueTypeRenderer());
-        this.regex = new ValueListBox<ValueListProxy>(new ValueListRenderer());
+        this.parent = new ValueListBox<ValueTypeProxy>(valueTypeRenderer);
+        this.regex = new ValueListBox<ValueListProxy>(valueListRenderer);
 
         initWidget(uiBinder.createAndBindUi(this));
 
