@@ -19,6 +19,7 @@ package com.gsr.myschool.common.client.proxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;
 import com.gsr.myschool.common.shared.type.Authority;
+import com.gsr.myschool.common.shared.type.UserStatus;
 import com.gsr.myschool.server.business.AdminUser;
 
 import java.util.Date;
@@ -53,9 +54,9 @@ public interface AdminUserProxy extends ValueProxy {
 
     void setAuthority(Authority authority);
 
-	Boolean getActive();
+    UserStatus getStatus();
 
-	void setActive(Boolean active);
+    void setStatus(UserStatus status);
 
 	Date getCreated();
 

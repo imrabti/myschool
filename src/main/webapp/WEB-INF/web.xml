@@ -31,6 +31,12 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+    <servlet>
+        <servlet-name>adminRequestFactoryServlet</servlet-name>
+        <servlet-class>com.gsr.myschool.server.util.SpringRequestServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -44,6 +50,11 @@
     <servlet-mapping>
         <servlet-name>requestFactoryServlet</servlet-name>
         <url-pattern>/gwtRequest</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>adminRequestFactoryServlet</servlet-name>
+        <url-pattern>/gwtAdminRequest</url-pattern>
     </servlet-mapping>
 
     <!-- SpringMVC Servlet -->

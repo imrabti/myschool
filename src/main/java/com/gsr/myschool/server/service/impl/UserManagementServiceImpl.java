@@ -17,6 +17,7 @@
 package com.gsr.myschool.server.service.impl;
 
 import com.gsr.myschool.common.shared.type.Authority;
+import com.gsr.myschool.common.shared.type.UserStatus;
 import com.gsr.myschool.server.business.AdminUser;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.repos.AdminUserRepos;
@@ -76,8 +77,8 @@ public class UserManagementServiceImpl implements UserManagementService {
     }
 
     private void createNew(AdminUser adminUser) {
-        if (adminUser.getActive() == null) {
-            adminUser.setActive(true);
+        if (adminUser.getStatus() == null) {
+            adminUser.setStatus(UserStatus.ACTIVE);
             adminUser.setAuthority(Authority.ROLE_ADMIN);
             adminUser.setUsername(adminUser.getLastName());
             adminUser.setPassword(adminUser.getUsername());

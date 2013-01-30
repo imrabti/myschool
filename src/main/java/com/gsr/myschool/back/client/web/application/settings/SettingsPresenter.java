@@ -20,11 +20,13 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
+import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
 public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, SettingsPresenter.MyProxy>
@@ -34,7 +36,7 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
 
     @ProxyStandard
     @NameToken(NameTokens.settings)
-    //@UseGatekeeper(LoggedInGatekeeper.class)
+    @UseGatekeeper(LoggedInGatekeeper.class)
     public interface MyProxy extends ProxyPlace<SettingsPresenter> {
     }
 

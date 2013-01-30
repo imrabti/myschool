@@ -1,6 +1,7 @@
 package com.gsr.myschool.server.process;
 
 import com.gsr.myschool.common.shared.type.EmailType;
+import com.gsr.myschool.common.shared.type.UserStatus;
 import com.gsr.myschool.server.business.EmailTemplate;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.repos.EmailTemplateRepos;
@@ -63,7 +64,7 @@ public class RegisterProcessServiceTest {
         emailTemplateRepos.save(email);
 
         // after normal registration the user would be in database
-        user.setActive(false);
+        user.setStatus(UserStatus.INACTIVE);
         user.setEmail(mail);
         user.setId(1L);
         user.setFirstName(fname);

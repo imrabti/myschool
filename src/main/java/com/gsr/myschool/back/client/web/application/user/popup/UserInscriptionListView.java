@@ -71,17 +71,17 @@ public class UserInscriptionListView extends ValidatedPopupViewImplWithUiHandler
         };
         refColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         userInscriptionsTable.addColumn(refColumn, "N° Dossier");
-        userInscriptionsTable.setColumnWidth(refColumn, 20, Style.Unit.PCT);
+        userInscriptionsTable.setColumnWidth(refColumn, 10, Style.Unit.PCT);
 
         TextColumn<DossierProxy> cNameColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
-                return object.getCandidat().getFirstname();
+                return object.getCandidat().getFirstname() + " " + object.getCandidat().getLastname();
             }
         };
         refColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         userInscriptionsTable.addColumn(cNameColumn, "Nom Candidat");
-        userInscriptionsTable.setColumnWidth(cNameColumn, 20, Style.Unit.PCT);
+        userInscriptionsTable.setColumnWidth(cNameColumn, 10, Style.Unit.PCT);
 
         TextColumn<DossierProxy> cBirthColumn = new TextColumn<DossierProxy>() {
             @Override
@@ -90,27 +90,27 @@ public class UserInscriptionListView extends ValidatedPopupViewImplWithUiHandler
             }
         };
         cBirthColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        userInscriptionsTable.addColumn(cBirthColumn, "Naissance Candidat");
-        userInscriptionsTable.setColumnWidth(cBirthColumn, 30, Style.Unit.PCT);
+        userInscriptionsTable.addColumn(cBirthColumn, "Date Naissance Candidat");
+        userInscriptionsTable.setColumnWidth(cBirthColumn, 10, Style.Unit.PCT);
 
         TextColumn<DossierProxy> statusColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
-                return object.getStatus().name();
+                return object.getStatus().toString();
             }
         };
         statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        userInscriptionsTable.addColumn(statusColumn, "Status");
-        userInscriptionsTable.setColumnWidth(statusColumn, 30, Style.Unit.PCT);
+        userInscriptionsTable.addColumn(statusColumn, "Statut");
+        userInscriptionsTable.setColumnWidth(statusColumn, 10, Style.Unit.PCT);
 
-        TextColumn<DossierProxy> submittedColumn = new TextColumn<DossierProxy>() {
+        TextColumn<DossierProxy> createdColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
                 return dateFormat.format(object.getCreateDate());
             }
         };
-        submittedColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        userInscriptionsTable.addColumn(submittedColumn, "Date de soumission");
-        userInscriptionsTable.setColumnWidth(submittedColumn, 30, Style.Unit.PCT);
+        createdColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        userInscriptionsTable.addColumn(createdColumn, "Date de création");
+        userInscriptionsTable.setColumnWidth(createdColumn, 10, Style.Unit.PCT);
     }
 }
