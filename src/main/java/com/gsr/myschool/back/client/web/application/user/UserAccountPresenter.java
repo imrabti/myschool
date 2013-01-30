@@ -29,12 +29,14 @@ import com.gsr.myschool.back.client.web.application.user.popup.UserInscriptionLi
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
 import com.gsr.myschool.common.client.widget.messages.MessagePresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
 import java.util.List;
@@ -47,7 +49,7 @@ public class UserAccountPresenter extends Presenter<UserAccountPresenter.MyView,
 
     @ProxyStandard
     @NameToken(NameTokens.userPortal)
-    //@UseGatekeeper(LoggedInGatekeeper.class)
+    @UseGatekeeper(LoggedInGatekeeper.class)
     public interface MyProxy extends ProxyPlace<UserAccountPresenter> {
     }
 

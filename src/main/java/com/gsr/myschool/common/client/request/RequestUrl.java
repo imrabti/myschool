@@ -14,16 +14,19 @@
  * the License.
  */
 
-package com.gsr.myschool.server.service;
+package com.gsr.myschool.common.client.request;
 
-import com.gsr.myschool.common.shared.type.DossierStatus;
-import com.gsr.myschool.server.business.Dossier;
+import com.google.inject.BindingAnnotation;
 
-import java.util.Date;
-import java.util.List;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
-public interface DossierService {
-    List<Dossier> findAllDossiersByUser(Long userId);
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-    List<Dossier> findAllDossiersByCriteria(String numDossier, DossierStatus dossierStatus, Date dateCreation);
+@BindingAnnotation
+@Target({FIELD, PARAMETER})
+@Retention(RUNTIME)
+public @interface RequestUrl {
 }

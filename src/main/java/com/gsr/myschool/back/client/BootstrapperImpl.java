@@ -18,7 +18,6 @@ package com.gsr.myschool.back.client;
 
 import com.google.inject.Inject;
 import com.gsr.myschool.back.client.place.NameTokens;
-import com.gsr.myschool.common.client.proxy.AdminUserProxy;
 import com.gsr.myschool.back.client.resource.AdminResources;
 import com.gsr.myschool.back.client.security.CurrentUserProvider;
 import com.gsr.myschool.common.client.proxy.AdminUserProxy;
@@ -82,13 +81,12 @@ public class BootstrapperImpl implements Bootstrapper {
     }
 
     private void bounceToHome() {
-        PlaceRequest place = new PlaceRequest(NameTokens.getAdministration());
+        PlaceRequest place = new PlaceRequest(NameTokens.getPreInscriptions());
         placeManager.revealPlace(place);
     }
 
     private void bounceToLogin() {
-		// TODO: change this place to login when the stateless security will be fixed
-        PlaceRequest place = new PlaceRequest(NameTokens.getAdministration());
+        PlaceRequest place = new PlaceRequest(NameTokens.getLogin());
         placeManager.revealPlace(place);
     }
 }

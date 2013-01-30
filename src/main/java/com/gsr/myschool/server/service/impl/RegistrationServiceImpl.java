@@ -1,6 +1,7 @@
 package com.gsr.myschool.server.service.impl;
 
 import com.gsr.myschool.common.shared.type.Authority;
+import com.gsr.myschool.common.shared.type.UserStatus;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.process.RegisterProcessService;
 import com.gsr.myschool.server.repos.UserRepos;
@@ -21,7 +22,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     public Boolean register(User user, String link) {
         try {
             user.setAuthority(Authority.ROLE_USER);
-            user.setActive(false);
+            user.setStatus(UserStatus.INACTIVE);;
             user = userRepos.save(user);
             registerProcessService.register(user, link);
             return true;

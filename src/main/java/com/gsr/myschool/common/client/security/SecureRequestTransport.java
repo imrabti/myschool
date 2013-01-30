@@ -28,8 +28,9 @@ import static com.google.gwt.user.client.rpc.RpcRequestBuilder.STRONG_NAME_HEADE
 public class SecureRequestTransport extends DefaultRequestTransport {
     private final SecurityUtils securityUtils;
 
-    public SecureRequestTransport(final SecurityUtils securityUtils) {
+    public SecureRequestTransport(final SecurityUtils securityUtils, String requestUrl) {
         this.securityUtils = securityUtils;
+        setRequestUrl(requestUrl);
     }
 
     @Override

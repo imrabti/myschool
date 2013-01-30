@@ -32,6 +32,7 @@ import com.gsr.myschool.back.client.util.ValueListImpl;
 import com.gsr.myschool.back.client.web.RootModule;
 import com.gsr.myschool.common.client.CommonModule;
 import com.gsr.myschool.common.client.event.EventSourceRequestTransport;
+import com.gsr.myschool.common.client.request.RequestUrl;
 import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gsr.myschool.common.client.util.ValueList;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
@@ -47,6 +48,7 @@ public class ClientModule extends AbstractPresenterModule {
         bind(BackRequestFactory.class).toProvider(RequestFactoryProvider.class).in(Singleton.class);
         bind(ValueList.class).to(ValueListImpl.class).in(Singleton.class);
         bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.login);
+        bindConstant().annotatedWith(RequestUrl.class).to(NameTokens.requestUrl);
 
         bind(AdminResources.class).in(Singleton.class);
         bind(MessageBundle.class).in(Singleton.class);
@@ -58,9 +60,9 @@ public class ClientModule extends AbstractPresenterModule {
         private final BackRequestFactory requestFactory;
 
         @Inject
-        public RequestFactoryProvider(EventBus eventBus, SecurityUtils securityUtils) {
+        public RequestFactoryProvider(EventBus eventBus, SecurityUtils securityUtils, @RequestUrl String requestUrl) {
             requestFactory = GWT.create(BackRequestFactory.class);
-            requestFactory.initialize(eventBus, new EventSourceRequestTransport(eventBus, securityUtils));
+            requestFactory.initialize(eventBus, new EventSourceRequestTransport(eventBus, securityUtils, requestUrl));
         }
 
         public BackRequestFactory get() {

@@ -120,7 +120,7 @@ public class AdminUserAccountView extends ViewWithUiHandlers<AdminUserAccountUiH
         TextColumn<AdminUserProxy> statusColumn = new TextColumn<AdminUserProxy>() {
             @Override
             public String getValue(AdminUserProxy object) {
-                return object.getActive().toString();
+                return object.getStatus().toString();
             }
         };
         statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);

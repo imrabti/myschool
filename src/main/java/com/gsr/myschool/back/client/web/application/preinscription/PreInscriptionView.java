@@ -16,12 +16,18 @@
 
 package com.gsr.myschool.back.client.web.application.preinscription;
 
+import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.CellTable;
+import com.github.gwtbootstrap.client.ui.TextBox;
+import com.github.gwtbootstrap.client.ui.ValueListBox;
+import com.github.gwtbootstrap.datepicker.client.ui.DateBox;
 import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -33,7 +39,10 @@ import com.gsr.myschool.back.client.web.application.preinscription.renderer.PreI
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandlers>
@@ -41,6 +50,14 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
     public interface Binder extends UiBinder<Widget, PreInscriptionView> {
     }
 
+    @UiField(provided = true)
+    ValueListBox<DossierStatus> statusFilter;
+    @UiField
+    TextBox numDossierFilter;
+    @UiField
+    DateBox creationDateFilter;
+    @UiField
+    Button searchBtn;
     @UiField
     CellTable<DossierProxy> preInscriptionsTable;
 
@@ -56,6 +73,9 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
             final PreInscriptionActionCellFactory actionCellFactory) {
         super(uiHandlers);
 
+        this.statusFilter = new ValueListBox<DossierStatus>(new EnumRenderer<DossierStatus>());
+        statusFilter.setValue(DossierStatus.CREATED);
+        statusFilter.setAcceptableValues(Arrays.asList(DossierStatus.values()));
         this.actionCellFactory = actionCellFactory;
 
         initWidget(uiBinder.createAndBindUi(this));
@@ -71,6 +91,12 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
     public void setData(List<DossierProxy> data) {
         dataProvider.getList().clear();
         dataProvider.getList().addAll(data);
+    }
+
+    @UiHandler("searchBtn")
+    void onSearch(ClickEvent event) {
+        getUiHandlers().searchWithFilter(numDossierFilter.getValue(), statusFilter.getValue(),
+                creationDateFilter.getValue());
     }
 
     private void initActions() {
@@ -96,22 +122,22 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         TextColumn<DossierProxy> statusColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
-                return object.getStatus().name();
+                return object.getStatus().toString();
             }
         };
         statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        preInscriptionsTable.addColumn(statusColumn, "Status");
+        preInscriptionsTable.addColumn(statusColumn, "Statut");
         preInscriptionsTable.setColumnWidth(statusColumn, 40, Style.Unit.PCT);
 
-        TextColumn<DossierProxy> submittedColumn = new TextColumn<DossierProxy>() {
+        TextColumn<DossierProxy> createdColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
                 return dateFormat.format(object.getCreateDate());
             }
         };
-        submittedColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        preInscriptionsTable.addColumn(submittedColumn, "Date de soumission");
-        preInscriptionsTable.setColumnWidth(submittedColumn, 30, Style.Unit.PCT);
+        createdColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        preInscriptionsTable.addColumn(createdColumn, "Date de création");
+        preInscriptionsTable.setColumnWidth(createdColumn, 30, Style.Unit.PCT);
 
         PreInscriptionActionCell actionsCell = actionCellFactory.create(viewDetailsAction);
         Column<DossierProxy, DossierProxy> actionsColumn = new

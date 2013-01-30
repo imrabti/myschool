@@ -25,13 +25,18 @@ import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.back.client.web.application.preinscription.popup.PreInscriptionDetailsPresenter;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
+import com.gwtplatform.mvp.client.annotations.GatekeeperParams;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
+import java.util.Date;
 import java.util.List;
 
 public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.MyView, PreInscriptionPresenter.MyProxy>
@@ -42,7 +47,8 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
 
     @ProxyStandard
     @NameToken(NameTokens.preInscriptions)
-    //@UseGatekeeper(LoggedInGatekeeper.class)
+    @UseGatekeeper(HasRoleGatekeeper.class)
+    @GatekeeperParams("ROLE_ADMIN")
     public interface MyProxy extends ProxyPlace<PreInscriptionPresenter> {
     }
 
@@ -70,6 +76,11 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
     }
 
     @Override
+    public void searchWithFilter(String numDossier, DossierStatus dossierStatus, Date dateCreation) {
+        // TODO : Call the searching method here
+    }
+
+	@Override
     protected void onReveal() {
         //TODO : // currentUserProvider.get().getId();
         Long userId = Long.valueOf(1);
