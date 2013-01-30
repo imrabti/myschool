@@ -56,8 +56,9 @@ public class BootstrapperImpl implements Bootstrapper {
         sharedResources.popupStyleCss().ensureInjected();
         sharedResources.sharedStyleCss().ensureInjected();
 
-        valueList.initFiliereList();;
+        valueList.initFiliereList();
         valueList.initNiveauEtudeMap();
+        valueList.initValueListMap();
 
         getCurrentUserCallback = new CallbackImpl<UserProxy>() {
             @Override
