@@ -29,7 +29,10 @@ import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
+
+import java.util.Arrays;
 
 public class ValueTypeEditor extends Composite implements EditorView<ValueTypeProxy> {
 
@@ -56,8 +59,9 @@ public class ValueTypeEditor extends Composite implements EditorView<ValueTypePr
         this.driver = driver;
 
         this.code = new ValueListBox<ValueTypeCode>(new EnumRenderer<ValueTypeCode>());
-        parent = new ValueListBox<ValueTypeProxy>(null);
-        regex = new ValueListBox<ValueListProxy>(null);
+        code.setAcceptableValues(Arrays.asList(ValueTypeCode.values()));
+        this.parent = new ValueListBox<ValueTypeProxy>(null);
+        this.regex = new ValueListBox<ValueListProxy>(null);
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);

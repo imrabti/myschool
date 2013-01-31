@@ -1,19 +1,25 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:cellview='urn:import:com.google.gwt.user.cellview.client'>
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
     <ui:with type="com.gsr.myschool.back.client.resource.message.MessageBundle" field="labelText"/>
     <g:HTMLPanel>
-        <g:Label text="Welcome to settings"/>
-        <g:Button ui:field="addValueList">Ajouter une valeur</g:Button>
-        <g:Label text="{labelText.labelsDefinition}" width="134px" ui:field="defLovLabel"/>
-        <g:ListBox ui:field="defLov"/>
-        <g:Label text="{labelText.labelsParent}" width="134px" ui:field="parentLabel"/>
-        <g:ListBox ui:field="parent"/>
-        <cellview:CellTable ui:field="LovTable"/>
-        <g:Button ui:field="modify" text="{labelText.buttonsModify}"/>
-        <g:Button ui:field="delete" text="{labelText.buttonsDelete}"/>
+        <boot:Row>
+            <boot:Column size="7">
+                <g:Button ui:field="addValueList">Ajouter une valeur</g:Button>
+                <g:Label text="{labelText.labelsDefinition}" width="134px" ui:field="defLovLabel"/>
+                <g:ListBox ui:field="defLov"/>
+                <g:Label text="{labelText.labelsParent}" width="134px" ui:field="parentLabel"/>
+                <g:ListBox ui:field="parent"/>
+                <boot:CellTable ui:field="valueListTable"/>
+                <g:Button ui:field="modify" text="{labelText.buttonsModify}"/>
+                <g:Button ui:field="delete" text="{labelText.buttonsDelete}"/>
+            </boot:Column>
 
-        <g:SimplePanel ui:field="valueTypeDisplay"/>
+            <boot:Column size="4">
+                <g:SimplePanel ui:field="valueTypeDisplay"/>
+            </boot:Column>
+        </boot:Row>
+
     </g:HTMLPanel>
 
 </ui:UiBinder>

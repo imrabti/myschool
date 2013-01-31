@@ -69,14 +69,6 @@ public class AddValueTypeView extends ValidatedPopupViewImplWithUiHandlers<AddVa
     }
 
     @Override
-    public void fillParentList(List<ValueTypeProxy> defLovProxies) {
-    }
-
-    @Override
-    public void fillRegexList(List<ValueListProxy> regexes) {
-    }
-
-    @Override
     public void flushType(){
         valueTypeEditor.get();
     }

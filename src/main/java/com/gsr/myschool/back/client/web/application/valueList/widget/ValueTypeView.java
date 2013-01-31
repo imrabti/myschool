@@ -16,6 +16,10 @@
 
 package com.gsr.myschool.back.client.web.application.valueList.widget;
 
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
+import com.google.common.base.Strings;
+import com.google.gwt.cell.client.ActionCell;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -23,19 +27,26 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
-import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
+import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
+import com.gsr.myschool.common.client.widget.EmptyResult;
+
+import java.util.List;
 
 public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers> implements ValueTypePresenter.MyView {
     public interface Binder extends UiBinder<Widget, ValueTypeView> {
     }
 
-    @UiField
-    CellTable<ValueTypeProxy> defLovTable;
+    @UiField()
+    CellTable<ValueTypeProxy> valueTypeTable;
 
     @UiField
     Button delete;
@@ -43,66 +54,67 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers> imple
     @UiField
     Button modify;
 
-    public SingleSelectionModel<ValueTypeProxy> defLovSelectionModel;
+    private final SingleSelectionModel<ValueTypeProxy> valueTypeSelectionModel;
+    private final ListDataProvider<ValueTypeProxy> dataProvider;
 
     @Inject
-    public ValueTypeView(final Binder uiBinder, final UiHandlersStrategy<ValueTypeUiHandlers> uiHandlers) {
+    public ValueTypeView(final Binder uiBinder, final UiHandlersStrategy<ValueTypeUiHandlers> uiHandlers,
+                         final SharedMessageBundle sharedMessageBundle) {
         super(uiHandlers);
 
         initWidget(uiBinder.createAndBindUi(this));
+        initDataGrid();
+
+        this.dataProvider = new ListDataProvider<ValueTypeProxy>();
+        dataProvider.addDataDisplay(valueTypeTable);
+        this.valueTypeSelectionModel = new SingleSelectionModel<ValueTypeProxy>();
+        valueTypeTable.setSelectionModel(valueTypeSelectionModel);
+        valueTypeTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
     }
 
     @Override
-    public CellTable<ValueTypeProxy> getDefLovTable() {
-        return defLovTable;
+    public CellTable<ValueTypeProxy> getValueTypeTable() {
+        return valueTypeTable;
     }
 
     @Override
-    public void buildTable() {
-        TextColumn<ValueTypeProxy> nameColumn = new TextColumn<ValueTypeProxy>() {
+    public void setData(List<ValueTypeProxy> data) {
+        dataProvider.getList().clear();
+        dataProvider.getList().addAll(data);
+    }
+
+    @Override
+    public void initDataGrid() {
+        TextColumn<ValueTypeProxy> codeColumn = new TextColumn<ValueTypeProxy>() {
             @Override
-            public String getValue(ValueTypeProxy defLovProxy) {
-                return defLovProxy.getCode().name();
+            public String getValue(ValueTypeProxy valueType) {
+                return valueType.getCode().toString();
             }
         };
+        codeColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        valueTypeTable.addColumn(codeColumn, "Code");
+        valueTypeTable.setColumnWidth(codeColumn, 35, Style.Unit.PCT);
 
-        TextColumn<ValueTypeProxy> regexColumn = new TextColumn<ValueTypeProxy>() {
-            @Override
-            public String getValue(ValueTypeProxy defLovProxy) {
-                if (defLovProxy.getRegex() == null) {
-                    return "";
-                }
-                return defLovProxy.getRegex().getLabel();
-            }
-        };
+//        TextColumn<ValueTypeProxy> nameColumn = new TextColumn<ValueTypeProxy>() {
+//            @Override
+//            public String getValue(ValueTypeProxy valueType) {
+//                return valueType.getRegex().toString();
+//            }
+//        };
+//        nameColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+//        valueTypeTable.addColumn(nameColumn, "Expréssion réguliaire");
+//        valueTypeTable.setColumnWidth(nameColumn, 35, Style.Unit.PCT);
 
-        TextColumn<ValueTypeProxy> parentColumn = new TextColumn<ValueTypeProxy>() {
-            @Override
-            public String getValue(ValueTypeProxy defLovProxy) {
-                if (defLovProxy.getParent() != null) {
-                    return defLovProxy.getParent().getCode().name();
-                } else {
-                    return "";
-                }
-            }
-        };
-
-        getDefLovTable().addColumn(nameColumn, "Nom");
-        getDefLovTable().addColumn(regexColumn, "Regex");
-        getDefLovTable().addColumn(parentColumn, "Parent");
-        this.defLovSelectionModel = new SingleSelectionModel<ValueTypeProxy>();
-        defLovTable.setSelectionModel(defLovSelectionModel);
     }
 
-    @Override
-    public Button getDelete() {
-        return delete;
-    }
-
-    @Override
-    public Button getModify() {
-        return modify;
-    }
+//    private void initActions() {
+//        modify = new ActionCell.Delegate<ValueTypeProxy>() {
+//            @Override
+//            public void execute(ValueTypeProxy valueType) {
+//                getUiHandlers().editValueType(valueType);
+//            }
+//        };
+//    }
 
     @UiHandler("modify")
     void onModifyClick(ClickEvent event) {

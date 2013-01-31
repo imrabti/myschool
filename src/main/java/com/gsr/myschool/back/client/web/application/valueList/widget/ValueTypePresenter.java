@@ -17,18 +17,15 @@
 package com.gsr.myschool.back.client.web.application.valueList.widget;
 
 import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.requestfactory.shared.Receiver;
-import com.google.web.bindery.requestfactory.shared.ServerFailure;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.ValueTypeServiceRequest;
-import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.web.application.valueList.popup.AddValueTypePresenter;
+import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;
@@ -38,13 +35,11 @@ import java.util.List;
 public class ValueTypePresenter extends PresenterWidget<ValueTypePresenter.MyView>
         implements ValueTypeUiHandlers {
     public interface MyView extends View, HasUiHandlers<ValueTypeUiHandlers> {
-        CellTable<ValueTypeProxy> getDefLovTable();
+        CellTable<ValueTypeProxy> getValueTypeTable();
 
-        void buildTable();
+        void initDataGrid();
 
-        Button getDelete();
-
-        Button getModify();
+        void setData(List<ValueTypeProxy> data);
     }
 
     private final BackRequestFactory requestFactory;
@@ -71,25 +66,21 @@ public class ValueTypePresenter extends PresenterWidget<ValueTypePresenter.MyVie
     }
 
     public void fillTable() {
-        ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
-        dlsr.findAll().fire(new Receiver<List<ValueTypeProxy>>() {
+        requestFactory.valueTypeServiceRequest().findAll().fire(new Receiver<List<ValueTypeProxy>>() {
             @Override
             public void onSuccess(List<ValueTypeProxy> response) {
-                getView().getDefLovTable().setRowCount(response.size());
-                getView().getDefLovTable().setRowData(0, response);
+                getView().setData(response);
             }
         });
-
-        getView().buildTable();
     }
 
     @Override
     public void selectionChanged() {
-        if (((SingleSelectionModel<?>) getView().getDefLovTable().getSelectionModel()).getSelectedObject() != null) {
-            return;
-        } else {
-            return;
-        }
+//        if (((SingleSelectionModel<?>) getView().getDefLovTable().getSelectionModel()).getSelectedObject() != null) {
+//            return;
+//        } else {
+//            return;
+//        }
     }
 
     @Override
@@ -99,10 +90,10 @@ public class ValueTypePresenter extends PresenterWidget<ValueTypePresenter.MyVie
 
     @Override
     public void delete() {
-        ValueTypeProxy toRemove = ((SingleSelectionModel<ValueTypeProxy>) getView().getDefLovTable().getSelectionModel())
+        ValueTypeProxy toRemove = ((SingleSelectionModel<ValueTypeProxy>) getView().getValueTypeTable().getSelectionModel())
                 .getSelectedObject();
         if (toRemove == null) {
-            Window.alert("Veuillez sélectionner un élement à supprimer");
+
         } else {
             ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
             /*dlsr.delete(toRemove).fire(new Receiver<Void>() {

@@ -16,6 +16,8 @@
 
 package com.gsr.myschool.back.client.web.application.valueList;
 
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -23,23 +25,26 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
+import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
+import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
+import com.gsr.myschool.common.client.widget.EmptyResult;
+
+import java.util.List;
 
 public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> implements ValueListPresenter.MyView {
     public interface Binder extends UiBinder<Widget, ValueListView> {
     }
 
     @UiField
-    CellTable LovTable;
+    CellTable valueListTable;
     @UiField
     ListBox parent;
     @UiField
@@ -53,15 +58,38 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
     SimplePanel valueTypeDisplay;
 
     private final MessageBundle messageBundle;
+    private final SingleSelectionModel<ValueListProxy> valueListSelectionModel;
+    private final ListDataProvider<ValueListProxy> dataProvider;
 
     @Inject
     public ValueListView(final Binder uiBinder, final MessageBundle messageBundle,
-                         final UiHandlersStrategy<ValueListUiHandlers> uiHandlers) {
+                         final UiHandlersStrategy<ValueListUiHandlers> uiHandlers,
+                         final SharedMessageBundle sharedMessageBundle) {
         super(uiHandlers);
 
         this.messageBundle = messageBundle;
 
         initWidget(uiBinder.createAndBindUi(this));
+        initDataGrid();
+
+        this.dataProvider = new ListDataProvider<ValueListProxy>();
+        dataProvider.addDataDisplay(valueListTable);
+        this.valueListSelectionModel = new SingleSelectionModel<ValueListProxy>();
+        valueListTable.setSelectionModel(valueListSelectionModel);
+        valueListTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
+    }
+
+    private void initDataGrid() {
+        TextColumn<ValueListProxy> valueColumn = new TextColumn<ValueListProxy>() {
+            @Override
+            public String getValue(ValueListProxy valueList) {
+                return valueList.getValue();
+            }
+        };
+        valueColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        valueListTable.addColumn(valueColumn, "Valeur");
+        valueListTable.setColumnWidth(valueColumn, 35, Style.Unit.PCT);
+
     }
 
     @Override
@@ -74,36 +102,9 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
     }
 
     @Override
-    public void initTable() {
-        TextColumn<ValueListProxy> valueColumn = new TextColumn<ValueListProxy>() {
-            @Override
-            public String getValue(ValueListProxy object) {
-                return object.getValue();
-            }
-        };
-
-        TextColumn<ValueListProxy> parentColumn = new TextColumn<ValueListProxy>() {
-            @Override
-            public String getValue(ValueListProxy object) {
-                if (object.getParent() != null) {
-                    return object.getParent().getValue();
-                }
-                return "";
-            }
-        };
-
-        TextColumn<ValueListProxy> defLovColumn = new TextColumn<ValueListProxy>() {
-            @Override
-            public String getValue(ValueListProxy object) {
-                return object.getValueType().getCode().name();
-            }
-        };
-
-        getLovTable().addColumn(valueColumn, "Value");
-        getLovTable().addColumn(parentColumn, "Parent");
-        getLovTable().addColumn(defLovColumn, "Définition");
-        this.lovSelectionModel = new SingleSelectionModel<ValueListProxy>();
-        LovTable.setSelectionModel(this.lovSelectionModel);
+    public void setData(List<ValueListProxy> response) {
+        dataProvider.getList().clear();
+        dataProvider.getList().addAll(response);
     }
 
     @UiHandler("defLov")
@@ -125,8 +126,8 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
     }
 
     @Override
-    public CellTable<ValueListProxy> getLovTable() {
-        return LovTable;
+    public CellTable<ValueListProxy> getValueListTable() {
+        return valueListTable;
     }
 
     @Override

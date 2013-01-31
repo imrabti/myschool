@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.back.client.web.application.valueList.widget;
 
+import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface ValueTypeUiHandlers extends UiHandlers {

@@ -37,10 +37,6 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
         implements AddValueTypeUiHandlers {
 
     public interface MyView extends ValidatedPopupView, HasUiHandlers<AddValueTypeUiHandlers> {
-        void fillParentList(List<ValueTypeProxy> parents);
-
-        void fillRegexList(List<ValueListProxy> regex);
-
         void editType(ValueTypeProxy valueTypeProxy);
 
         void flushType();
@@ -66,27 +62,6 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
         getView().editType(currentValueType);
     }
 
-    public void getAllDefLov() {
-//        ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
-//
-//        dlsr.findAll().fire(new Receiver<List<ValueTypeProxy>>() {
-//            @Override
-//            public void onSuccess(List<ValueTypeProxy> response) {
-//                getView().fillParentList(response);
-//            }
-//        });
-    }
-
-    public void getRegexes() {
-        ValueListServiceRequest lsr = requestFactory.valueListServiceRequest();
-        /*lsr.findByValueTypeName("Regex").fire(new Receiver<List<ValueListProxy>>() {
-            @Override
-            public void onSuccess(List<ValueListProxy> response) {
-                getView().fillRegexList(response);
-            }
-        });*/
-    }
-
     @Override
     protected void onReveal() {
         super.onReveal();
@@ -97,7 +72,6 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
         getView().flushType();
 
         currentContext.updateValueType(currentValueType).fire(new ValidatedReceiverImpl<Void>(){
-
             @Override
             public void onValidationError(Set<ConstraintViolation<?>> violations) {
                 getView().clearErrors();
@@ -108,6 +82,7 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
             public void onSuccess(Void aVoid) {
                 getView().clearErrors();
                 getView().editType(currentValueType);
+                getView().hide();
             }
         });
     }

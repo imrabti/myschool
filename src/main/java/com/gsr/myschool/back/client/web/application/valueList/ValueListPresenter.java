@@ -21,6 +21,7 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
@@ -47,13 +48,13 @@ import java.util.List;
 public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, ValueListPresenter.MyProxy>
         implements ValueListUiHandlers {
     public interface MyView extends View, HasUiHandlers<ValueListUiHandlers> {
-        CellTable<ValueListProxy> getLovTable();
+        CellTable<ValueListProxy> getValueListTable();
 
         ListBox getParent();
 
         ListBox getDefLov();
 
-        void initTable();
+        void setData(List<ValueListProxy> response);
     }
 
     @ProxyStandard
@@ -66,7 +67,7 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
 
     private final AddValueListPresenter addValueListPresenter;
     private final ValueTypePresenter valueTypePresenter;
-    private final BackRequestFactory backRequestFactory;
+    private final BackRequestFactory requestFactory;
     private final MessageBundle messageBundle;
 
     @Inject
@@ -75,12 +76,12 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
                               final MessageBundle messageBundle,
                               final AddValueListPresenter addValueListPresenter,
                               final ValueTypePresenter valueTypePresenter,
-                              final BackRequestFactory backRequestFactory) {
+                              final BackRequestFactory requestFactory) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.addValueListPresenter = addValueListPresenter;
         this.valueTypePresenter = valueTypePresenter;
-        this.backRequestFactory = backRequestFactory;
+        this.requestFactory = requestFactory;
         this.messageBundle = messageBundle;
 
         getView().setUiHandlers(this);
@@ -125,17 +126,12 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
     }
 
     public void fillTable() {
-        backRequestFactory.valueListServiceRequest().findAll().fire(new ReceiverImpl<List<ValueListProxy>>() {
+        requestFactory.valueListServiceRequest().findAll().fire(new Receiver<List<ValueListProxy>>() {
             @Override
             public void onSuccess(List<ValueListProxy> response) {
-                getView().getLovTable().setRowCount(response.size());
-                getView().getLovTable().setVisibleRange(0, response.size());
-                getView().getLovTable().setRowData(0, response);
-                getView().getLovTable().setPageSize(response.size());
+                getView().setData(response);
             }
         });
-
-        getView().initTable();
     }
 
     public void fillDef() {
