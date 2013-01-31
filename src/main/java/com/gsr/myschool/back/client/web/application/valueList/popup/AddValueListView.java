@@ -31,9 +31,20 @@ import com.gsr.myschool.back.client.web.application.valueList.ui.ValueListEditor
 import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.widget.ModalHeader;
 
 public class AddValueListView extends ValidatedPopupViewImplWithUiHandlers<AddValueListUiHandlers> implements AddValueListPresenter.MyView {
+    @Override
+    public void editValue(ValueListProxy valueList) {
+        valueListEditor.edit(valueList);
+    }
+
+    @Override
+    public void flushValue() {
+        valueListEditor.get();
+    }
+
     public interface Binder extends UiBinder<PopupPanel, AddValueListView> {
     }
 
@@ -76,6 +87,6 @@ public class AddValueListView extends ValidatedPopupViewImplWithUiHandlers<AddVa
 
     @UiHandler("save")
     void onSaveClicked(ClickEvent event) {
-        getUiHandlers().processLov();
+        getUiHandlers().saveValueList();
     }
 }

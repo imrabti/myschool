@@ -47,8 +47,8 @@ public class ValueTypePresenter extends PresenterWidget<ValueTypePresenter.MyVie
         Button getModify();
     }
 
-    public final BackRequestFactory requestFactory;
-    public final MessageBundle messageBundle;
+    private final BackRequestFactory requestFactory;
+    private final MessageBundle messageBundle;
     private final AddValueTypePresenter addValueTypePresenter;
 
     @Inject
@@ -122,6 +122,7 @@ public class ValueTypePresenter extends PresenterWidget<ValueTypePresenter.MyVie
 
     @Override
     public void addValueType() {
+        addValueTypePresenter.initDatas();
         addToPopupSlot(addValueTypePresenter);
     }
 }

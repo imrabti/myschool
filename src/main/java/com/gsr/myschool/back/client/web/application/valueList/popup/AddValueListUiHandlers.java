@@ -21,5 +21,5 @@ import com.gwtplatform.mvp.client.UiHandlers;
 public interface AddValueListUiHandlers extends UiHandlers {
     void getParent();
 
-    void processLov();
+    void saveValueList();
 }

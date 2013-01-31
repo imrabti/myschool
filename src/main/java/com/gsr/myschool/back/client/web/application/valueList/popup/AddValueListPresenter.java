@@ -28,19 +28,27 @@ import com.gsr.myschool.back.client.request.ValueTypeServiceRequest;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupView;
+import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 
+import javax.validation.ConstraintViolation;
 import java.util.List;
+import java.util.Set;
 
 public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter.MyView>
         implements AddValueListUiHandlers {
     public interface MyView extends ValidatedPopupView, HasUiHandlers<AddValueListUiHandlers> {
+        void editValue(ValueListProxy valueList);
+
+        void flushValue();
     }
 
     public final BackRequestFactory requestFactory;
     public List<ValueTypeProxy> defLovs;
     public List<ValueListProxy> parents;
+    private ValueListProxy currentValueList;
+    private ValueListServiceRequest currentContext;
 
     @Inject
     public AddValueListPresenter(final EventBus eventBus, final MyView view,
@@ -53,7 +61,9 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
     }
 
     public void initDatas() {
-        fillDef();
+        currentContext = requestFactory.valueListServiceRequest();
+        currentValueList = currentContext.create(ValueListProxy.class);
+        getView().editValue(currentValueList);
     }
 
     public void fillDef() {
@@ -98,28 +108,23 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
     }
 
     @Override
-    public void processLov() {
-//        ValueListServiceRequest lsr = requestFactory.valueListServiceRequest();
-//        ValueListProxy lp = lsr.create(ValueListProxy.class);
-//        lp.setValueType(defLovs.get(getView().getDefLov().getSelectedIndex()));
-//        getView().getParent().getSelectedIndex();
-//        lp.getValueType().getId();
-//        if ("".equals(getView().getLabel().getText())) {
-//            lp.setLabel(getView().getValue().getText());
-//        } else {
-//            lp.setLabel(getView().getLabel().getText());
-//        }
-//        if (getView().getParent().getSelectedIndex() != 0) {
-//            lp.setParent(parents.get(getView().getParent().getSelectedIndex() - 1));
-//            lp.getParent().getId();
-//        }
-//        lp.setValue(getView().getValue().getText());
-//        lp.getValue();
-//        lsr.add(lp).fire(new Receiver<Void>() {
-//            @Override
-//            public void onSuccess(Void response) {
-//                Window.alert("added");
-//            }
-//        });
+    public void saveValueList() {
+        getView().flushValue();
+
+        currentContext.addValueList(currentValueList).fire(new ValidatedReceiverImpl<Void>(){
+
+            @Override
+            public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                getView().clearErrors();
+                getView().showErrors(violations);
+            }
+
+            @Override
+            public void onSuccess(Void aVoid) {
+                getView().clearErrors();
+                getView().editValue(currentValueList);
+                getView().hide();
+            }
+        });
     }
 }

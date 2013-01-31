@@ -96,6 +96,7 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
 
     @Override
     public void addValueList() {
+        addValueListPresenter.initDatas();
         addToPopupSlot(addValueListPresenter);
     }
 

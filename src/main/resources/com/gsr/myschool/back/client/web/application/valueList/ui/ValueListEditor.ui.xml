@@ -26,14 +26,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel width="150px">Parent</boot:ControlLabel>
                 <boot:Controls styleName="{style.smallMargin}">
-                    <boot:ListBox ui:field="parentValue" width="230px"/>
-                </boot:Controls>
-            </boot:ControlGroup>
-
-            <boot:ControlGroup>
-                <boot:ControlLabel width="150px">Parent</boot:ControlLabel>
-                <boot:Controls styleName="{style.smallMargin}">
-                    <boot:ListBox ui:field="valueType" width="230px"/>
+                    <boot:ValueListBox ui:field="parent" width="230px"/>
                 </boot:Controls>
             </boot:ControlGroup>
         </boot:Form>

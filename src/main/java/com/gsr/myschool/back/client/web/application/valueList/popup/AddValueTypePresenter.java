@@ -16,10 +16,6 @@
 
 package com.gsr.myschool.back.client.web.application.valueList.popup;
 
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.CheckBox;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.ValueListBox;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.requestfactory.shared.Receiver;
@@ -39,6 +35,7 @@ import java.util.Set;
 
 public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter.MyView>
         implements AddValueTypeUiHandlers {
+
     public interface MyView extends ValidatedPopupView, HasUiHandlers<AddValueTypeUiHandlers> {
         void fillParentList(List<ValueTypeProxy> parents);
 
@@ -51,6 +48,7 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
 
     private final BackRequestFactory requestFactory;
     private ValueTypeProxy currentValueType;
+    private ValueTypeServiceRequest currentContext;
 
     @Inject
     public AddValueTypePresenter(final EventBus eventBus, final MyView view,
@@ -63,19 +61,20 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
     }
 
     public void initDatas() {
-        getAllDefLov();
-        getRegexes();
+        currentContext = requestFactory.valueTypeServiceRequest();
+        currentValueType = currentContext.create(ValueTypeProxy.class);
+        getView().editType(currentValueType);
     }
 
     public void getAllDefLov() {
-        ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
-
-        dlsr.findAll().fire(new Receiver<List<ValueTypeProxy>>() {
-            @Override
-            public void onSuccess(List<ValueTypeProxy> response) {
-                getView().fillParentList(response);
-            }
-        });
+//        ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
+//
+//        dlsr.findAll().fire(new Receiver<List<ValueTypeProxy>>() {
+//            @Override
+//            public void onSuccess(List<ValueTypeProxy> response) {
+//                getView().fillParentList(response);
+//            }
+//        });
     }
 
     public void getRegexes() {
@@ -91,15 +90,13 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
     @Override
     protected void onReveal() {
         super.onReveal();
-        getView().editType(currentValueType);
     }
 
     @Override
     public void saveValueType() {
         getView().flushType();
 
-        requestFactory.valueTypeServiceRequest().add(currentValueType).fire(new ValidatedReceiverImpl<Void>(){
-
+        currentContext.updateValueType(currentValueType).fire(new ValidatedReceiverImpl<Void>(){
 
             @Override
             public void onValidationError(Set<ConstraintViolation<?>> violations) {

@@ -11,14 +11,14 @@
             <boot:ControlGroup>
                 <boot:ControlLabel width="150px">Valeur</boot:ControlLabel>
                 <boot:Controls styleName="{style.smallMargin}">
-                    <boot:TextBox ui:field="name" width="230px"/>
+                    <boot:ValueListBox ui:field="code" width="230px"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
                 <boot:ControlLabel width="150px">Regexp</boot:ControlLabel>
                 <boot:Controls styleName="{style.smallMargin}">
-                    <boot:TextBox ui:field="regex" width="230px"/>
+                    <boot:ValueListBox ui:field="regex" width="230px"/>
                 </boot:Controls>
             </boot:ControlGroup>
 

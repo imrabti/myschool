@@ -25,8 +25,11 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.gsr.myschool.back.client.request.proxy.ValueTypeProxy;
+import com.gsr.myschool.common.client.proxy.ValueListProxy;
+import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.common.client.util.EditorView;
+import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
+import com.gsr.myschool.common.shared.type.ValueTypeCode;
 
 public class ValueTypeEditor extends Composite implements EditorView<ValueTypeProxy> {
 
@@ -37,10 +40,10 @@ public class ValueTypeEditor extends Composite implements EditorView<ValueTypePr
     public interface Driver extends SimpleBeanEditorDriver<ValueTypeProxy, ValueTypeEditor> {
     }
 
-    @UiField
-    TextBox name;
-    @UiField
-    TextBox regex;
+    @UiField(provided = true)
+    ValueListBox<ValueTypeCode> code;
+    @UiField(provided = true)
+    ValueListBox<ValueListProxy> regex;
     @UiField(provided = true)
     ValueListBox<ValueTypeProxy> parent;
     @UiField
@@ -52,7 +55,9 @@ public class ValueTypeEditor extends Composite implements EditorView<ValueTypePr
     public ValueTypeEditor(final Binder uiBinder,final Driver driver) {
         this.driver = driver;
 
+        this.code = new ValueListBox<ValueTypeCode>(new EnumRenderer<ValueTypeCode>());
         parent = new ValueListBox<ValueTypeProxy>(null);
+        regex = new ValueListBox<ValueListProxy>(null);
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
