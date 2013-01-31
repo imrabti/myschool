@@ -27,4 +27,6 @@ public interface ValueTypeUiHandlers extends UiHandlers {
     public void delete();
 
     void addValueType();
+
+    void valueTypeChanged(ValueTypeProxy valueTypeProxy);
 }

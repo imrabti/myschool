@@ -18,12 +18,14 @@ package com.gsr.myschool.back.client.web.application.valueList;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
+import com.gsr.myschool.back.client.web.application.valueList.event.ValueTypeChangedEvent;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
@@ -46,7 +48,7 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import java.util.List;
 
 public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, ValueListPresenter.MyProxy>
-        implements ValueListUiHandlers {
+        implements ValueListUiHandlers, ValueTypeChangedEvent.ValueTypeChangedHandler{
     public interface MyView extends View, HasUiHandlers<ValueListUiHandlers> {
         CellTable<ValueListProxy> getValueListTable();
 
@@ -85,6 +87,13 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
         this.messageBundle = messageBundle;
 
         getView().setUiHandlers(this);
+    }
+
+    @Override
+    protected void onBind(){
+        super.onBind();
+
+        addRegisteredHandler(ValueTypeChangedEvent.TYPE, this);
     }
 
     @Override
@@ -160,5 +169,10 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
                         }
                     }
                 });*/
+    }
+
+    @Override
+    public void onValueTypeChanged(ValueTypeChangedEvent event) {
+        Window.alert(event.getValueType().getCode().toString());
     }
 }

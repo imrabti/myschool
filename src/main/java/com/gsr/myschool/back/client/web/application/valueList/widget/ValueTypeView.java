@@ -16,25 +16,24 @@
 
 package com.gsr.myschool.back.client.web.application.valueList.widget;
 
+import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
-import com.google.common.base.Strings;
-import com.google.gwt.cell.client.ActionCell;
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
-import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
@@ -45,7 +44,7 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers> imple
     public interface Binder extends UiBinder<Widget, ValueTypeView> {
     }
 
-    @UiField()
+    @UiField
     CellTable<ValueTypeProxy> valueTypeTable;
 
     @UiField
@@ -68,6 +67,14 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers> imple
         this.dataProvider = new ListDataProvider<ValueTypeProxy>();
         dataProvider.addDataDisplay(valueTypeTable);
         this.valueTypeSelectionModel = new SingleSelectionModel<ValueTypeProxy>();
+        valueTypeSelectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+            @Override
+            public void onSelectionChange(SelectionChangeEvent event) {
+                // valueTypeTable.getRowElement().addClassName("selected");
+                // TODO : fire Event
+                getUiHandlers().valueTypeChanged(valueTypeSelectionModel.getSelectedObject());
+            }
+        });
         valueTypeTable.setSelectionModel(valueTypeSelectionModel);
         valueTypeTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
     }
@@ -122,7 +129,7 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers> imple
     }
 
     @UiHandler("delete")
-    void OnDeleteClick(ClickEvent event) {
+    void onDeleteClick(ClickEvent event) {
         getUiHandlers().delete();
     }
 
