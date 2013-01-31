@@ -1,5 +1,6 @@
 package com.gsr.myschool.server.business;
 
+import com.gsr.myschool.server.business.valuelist.ValueList;
 import com.gsr.myschool.server.validator.Email;
 import com.gsr.myschool.server.validator.Name;
 import com.gsr.myschool.server.validator.NotBlank;
@@ -9,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @Entity
@@ -34,6 +36,12 @@ public class Candidat implements java.io.Serializable {
     private String email;
     @Phone
     private String gsm;
+    @ManyToOne
+    public ValueList bacYear;
+    @ManyToOne
+    public ValueList bacSerie;
+    @ManyToOne
+    public ValueList nationality;
 
     public Long getId() {
         return id;
@@ -113,5 +121,29 @@ public class Candidat implements java.io.Serializable {
 
     public void setGsm(String gsm) {
         this.gsm = gsm;
+    }
+
+    public ValueList getBacYear() {
+        return bacYear;
+    }
+
+    public void setBacYear(ValueList bacYear) {
+        this.bacYear = bacYear;
+    }
+
+    public ValueList getBacSerie() {
+        return bacSerie;
+    }
+
+    public void setBacSerie(ValueList bacSerie) {
+        this.bacSerie = bacSerie;
+    }
+
+    public ValueList getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(ValueList nationality) {
+        this.nationality = nationality;
     }
 }

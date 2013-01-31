@@ -63,6 +63,27 @@
                     <boot:TextBox ui:field="cne" width="250px"/>
                 </boot:Controls>
             </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Nationnalité</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:ValueListBox ui:field="nationality" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Série du baccalauréat</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:ValueListBox ui:field="bacSerie" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Année du baccalauréat</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:ValueListBox ui:field="bacYear" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
         </boot:Form>
     </g:HTMLPanel>
 </ui:UiBinder>
