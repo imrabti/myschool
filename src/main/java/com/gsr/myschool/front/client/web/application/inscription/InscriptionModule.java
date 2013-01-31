@@ -27,6 +27,9 @@ import com.gsr.myschool.front.client.web.application.inscription.widget.NiveauSc
 import com.gsr.myschool.front.client.web.application.inscription.widget.NiveauScolaireView;
 import com.gsr.myschool.front.client.web.application.inscription.widget.ParentPresenter;
 import com.gsr.myschool.front.client.web.application.inscription.widget.ParentView;
+import com.gsr.myschool.front.client.web.application.inscription.widget.ScolariteAnterieurPresenter;
+import com.gsr.myschool.front.client.web.application.inscription.widget.ScolariteAnterieurUiHandlers;
+import com.gsr.myschool.front.client.web.application.inscription.widget.ScolariteAnterieurView;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 public class InscriptionModule extends AbstractPresenterModule {
@@ -36,6 +39,8 @@ public class InscriptionModule extends AbstractPresenterModule {
                 .to(new TypeLiteral<SetterUiHandlersStrategy<InscriptionUiHandlers>>() {});
         bind(new TypeLiteral<UiHandlersStrategy<EditInscriptionUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<EditInscriptionUiHandlers>>() {});
+        bind(new TypeLiteral<UiHandlersStrategy<ScolariteAnterieurUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<ScolariteAnterieurUiHandlers>>() {});
 
         bindPresenter(InscriptionPresenter.class, InscriptionPresenter.MyView.class, InscriptionView.class,
                 InscriptionPresenter.MyProxy.class);
@@ -48,6 +53,8 @@ public class InscriptionModule extends AbstractPresenterModule {
                 NiveauScolaireView.class);
         bindSingletonPresenterWidget(CandidatPresenter.class, CandidatPresenter.MyView.class,
                 CandidatView.class);
+        bindSingletonPresenterWidget(ScolariteAnterieurPresenter.class, ScolariteAnterieurPresenter.MyView.class,
+                ScolariteAnterieurView.class);
 
         install(new GinFactoryModuleBuilder().build(InscriptionActionCellFactory.class));
     }

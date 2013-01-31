@@ -1,0 +1,20 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+
+    <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+
+    <g:HTMLPanel>
+        <h3 class="{clientResources.sharedStyleCss.mediumTitle}">
+            Scolarité antérieur
+        </h3>
+
+        <boot:Paragraph>
+            Curabitur vel lorem sed odio lacinia malesuada consequat a elit. Duis id diam ipsum, nec congue erat.
+            Donec dui augue, mattis non mollis at, ultricies accumsan dui. Duis viverra lacus ac lorem rhoncus vel
+            pulvinar purus ultrices. Pellentesque non ligula urna, eu auctor metus. In placerat tortor non
+            elit congue euismod. Fusce feugiat diam id neque lobortis bibendum. Vivamus sit amet est a
+            ipsum sollicitudin imperdiet non facilisis enim.
+        </boot:Paragraph>
+    </g:HTMLPanel>
+</ui:UiBinder>

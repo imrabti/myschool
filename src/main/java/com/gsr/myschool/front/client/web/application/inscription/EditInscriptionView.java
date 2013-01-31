@@ -28,6 +28,8 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
     @UiField
     SimplePanel step3;
     @UiField
+    SimplePanel step4;
+    @UiField
     Button back;
     @UiField
     Button next;
@@ -61,6 +63,8 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
                 step2.setWidget(content);
             } else if (slot == EditInscriptionPresenter.TYPE_Step_3_Content) {
                 step3.setWidget(content);
+            } else if (slot == EditInscriptionPresenter.TYPE_Step_4_Content) {
+                step4.setWidget(content);
             }
         }
     }
@@ -78,6 +82,11 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
                 next.setVisible(true);
                 break;
             case STEP_3:
+                finish.setVisible(false);
+                back.setVisible(true);
+                next.setVisible(true);
+                break;
+            case STEP_4:
                 back.setVisible(true);
                 next.setVisible(false);
                 finish.setVisible(true);
