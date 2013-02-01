@@ -5,8 +5,10 @@ import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.cell.client.ActionCell;
 import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -16,6 +18,7 @@ import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ValidatedViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.common.client.proxy.ScolariteAnterieurDTOProxy;
 import com.gsr.myschool.common.client.proxy.ScolariteAnterieurProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.ui.dossier.ScolariteAnterieurEditor;
@@ -56,6 +59,11 @@ public class ScolariteAnterieurView extends ValidatedViewWithUiHandlers<Scolarit
     public void setData(List<ScolariteAnterieurProxy> data) {
         dataProvider.getList().clear();
         dataProvider.getList().addAll(data);
+    }
+
+    @Override
+    public void editScolariteAnterieur(ScolariteAnterieurDTOProxy scolariteAnterieur) {
+        scolariteAnterieurEditor.edit(scolariteAnterieur);
     }
 
     private void initDataGrid() {
@@ -103,7 +111,7 @@ public class ScolariteAnterieurView extends ValidatedViewWithUiHandlers<Scolarit
                 new Delegate<ScolariteAnterieurProxy>(){
             @Override
             public void execute(ScolariteAnterieurProxy object) {
-                // TODO : UiHandler to remove the object in here...
+                getUiHandlers().deleteScolariteAnterieur(object);
             }
         });
         Column<ScolariteAnterieurProxy, ScolariteAnterieurProxy> actionColumn = new
@@ -116,5 +124,10 @@ public class ScolariteAnterieurView extends ValidatedViewWithUiHandlers<Scolarit
         etablissementColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         etablissementTable.addColumn(actionColumn, "Action");
         etablissementTable.setColumnWidth(actionColumn, 15, Style.Unit.PCT);
+    }
+
+    @UiHandler("addEtablissement")
+    void onAddEtablissement(ClickEvent event) {
+        getUiHandlers().addScolariteAnterieur(scolariteAnterieurEditor.get());
     }
 }
