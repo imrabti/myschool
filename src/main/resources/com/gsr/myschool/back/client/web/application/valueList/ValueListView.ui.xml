@@ -1,21 +1,21 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
-    <ui:with type="com.gsr.myschool.back.client.resource.message.MessageBundle" field="labelText"/>
+
+    <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+
     <g:HTMLPanel>
+
         <boot:Row>
             <boot:Column size="7">
-                <g:Button ui:field="addValueList">Ajouter une valeur</g:Button>
-                <g:Label text="{labelText.labelsDefinition}" width="134px" ui:field="defLovLabel"/>
-                <g:ListBox ui:field="defLov"/>
-                <g:Label text="{labelText.labelsParent}" width="134px" ui:field="parentLabel"/>
-                <g:ListBox ui:field="parent"/>
+                <boot:Row>
+                    <boot:PageHeader text="Liste de valeurs"/>
+                    <boot:Button ui:field="addValueList">Ajouter une valeur</boot:Button>
+                </boot:Row>
                 <boot:CellTable ui:field="valueListTable"/>
-                <g:Button ui:field="modify" text="{labelText.buttonsModify}"/>
-                <g:Button ui:field="delete" text="{labelText.buttonsDelete}"/>
             </boot:Column>
 
-            <boot:Column size="4">
+            <boot:Column size="3">
                 <g:SimplePanel ui:field="valueTypeDisplay"/>
             </boot:Column>
         </boot:Row>

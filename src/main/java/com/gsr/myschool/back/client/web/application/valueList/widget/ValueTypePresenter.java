@@ -36,8 +36,6 @@ import java.util.List;
 public class ValueTypePresenter extends PresenterWidget<ValueTypePresenter.MyView>
         implements ValueTypeUiHandlers {
     public interface MyView extends View, HasUiHandlers<ValueTypeUiHandlers> {
-        CellTable<ValueTypeProxy> getValueTypeTable();
-
         void initDataGrid();
 
         void setData(List<ValueTypeProxy> data);
@@ -48,8 +46,10 @@ public class ValueTypePresenter extends PresenterWidget<ValueTypePresenter.MyVie
     private final AddValueTypePresenter addValueTypePresenter;
 
     @Inject
-    public ValueTypePresenter(final EventBus eventBus, final MyView view
-            , final BackRequestFactory requestFactory, final MessageBundle messageBundle, final AddValueTypePresenter addValueTypePresenter) {
+    public ValueTypePresenter(final EventBus eventBus, final MyView view,
+                              final BackRequestFactory requestFactory,
+                              final MessageBundle messageBundle,
+                              final AddValueTypePresenter addValueTypePresenter) {
         super(eventBus, view);
 
         this.requestFactory = requestFactory;
@@ -76,43 +76,6 @@ public class ValueTypePresenter extends PresenterWidget<ValueTypePresenter.MyVie
     }
 
     @Override
-    public void selectionChanged() {
-//        if (((SingleSelectionModel<?>) getView().getDefLovTable().getSelectionModel()).getSelectedObject() != null) {
-//            return;
-//        } else {
-//            return;
-//        }
-    }
-
-    @Override
-    public void modify() {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public void delete() {
-        ValueTypeProxy toRemove = ((SingleSelectionModel<ValueTypeProxy>) getView().getValueTypeTable().getSelectionModel())
-                .getSelectedObject();
-        if (toRemove == null) {
-
-        } else {
-            ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
-            /*dlsr.delete(toRemove).fire(new Receiver<Void>() {
-                @Override
-                public void onSuccess(Void response) {
-                    Window.alert("L'élement a été supprimé");
-                    fillTable();
-                }
-
-                @Override
-                public void onFailure(ServerFailure error) {
-                    Window.alert(error.getMessage());
-                }
-            });*/
-        }
-    }
-
-    @Override
     public void addValueType() {
         addValueTypePresenter.initDatas();
         addToPopupSlot(addValueTypePresenter);
@@ -121,5 +84,15 @@ public class ValueTypePresenter extends PresenterWidget<ValueTypePresenter.MyVie
     @Override
     public void valueTypeChanged(ValueTypeProxy valueTypeProxy) {
         fireEvent(new ValueTypeChangedEvent(valueTypeProxy));
+    }
+
+    @Override
+    public void editValueType(ValueTypeProxy valueType) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void deleteValueType(ValueTypeProxy valueType) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 }

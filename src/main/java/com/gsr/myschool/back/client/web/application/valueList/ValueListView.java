@@ -17,6 +17,7 @@
 package com.gsr.myschool.back.client.web.application.valueList;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
+import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -24,11 +25,17 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
+import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueListActionCell;
+import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueListActionCellFactory;
+import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueTypeActionCell;
+import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueTypeActionCellFactory;
+import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
@@ -46,16 +53,12 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
     @UiField
     CellTable valueListTable;
     @UiField
-    ListBox parent;
-    @UiField
-    ListBox defLov;
-    @UiField
-    Button delete;
-    @UiField
-    Button modify;
-    SingleSelectionModel<ValueListProxy> lovSelectionModel;
-    @UiField
     SimplePanel valueTypeDisplay;
+
+    private final ValueListActionCellFactory actionCellFactory;
+
+    private Delegate<ValueListProxy> deleteAction;
+    private Delegate<ValueListProxy> modifyAction;
 
     private final MessageBundle messageBundle;
     private final SingleSelectionModel<ValueListProxy> valueListSelectionModel;
@@ -64,12 +67,14 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
     @Inject
     public ValueListView(final Binder uiBinder, final MessageBundle messageBundle,
                          final UiHandlersStrategy<ValueListUiHandlers> uiHandlers,
-                         final SharedMessageBundle sharedMessageBundle) {
+                         final SharedMessageBundle sharedMessageBundle, ValueListActionCellFactory actionCellFactory) {
         super(uiHandlers);
 
         this.messageBundle = messageBundle;
+        this.actionCellFactory = actionCellFactory;
 
         initWidget(uiBinder.createAndBindUi(this));
+        initActions();
         initDataGrid();
 
         this.dataProvider = new ListDataProvider<ValueListProxy>();
@@ -77,6 +82,21 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
         this.valueListSelectionModel = new SingleSelectionModel<ValueListProxy>();
         valueListTable.setSelectionModel(valueListSelectionModel);
         valueListTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
+    }
+
+    private void initActions() {
+        modifyAction = new Delegate<ValueListProxy>() {
+            @Override
+            public void execute(ValueListProxy valueList) {
+                getUiHandlers().modify(valueList);
+            }
+        };
+        deleteAction = new Delegate<ValueListProxy>() {
+            @Override
+            public void execute(ValueListProxy valueList) {
+                getUiHandlers().delete(valueList);
+            }
+        };
     }
 
     private void initDataGrid() {
@@ -90,6 +110,17 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
         valueListTable.addColumn(valueColumn, "Valeur");
         valueListTable.setColumnWidth(valueColumn, 35, Style.Unit.PCT);
 
+        ValueListActionCell actionsCell = actionCellFactory.create(deleteAction, modifyAction);
+        Column<ValueListProxy, ValueListProxy> actionsColumn = new
+                Column<ValueListProxy, ValueListProxy>(actionsCell) {
+                    @Override
+                    public ValueListProxy getValue(ValueListProxy object) {
+                        return object;
+                    }
+                };
+        actionsColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        valueListTable.addColumn(actionsColumn, "Actions");
+        valueListTable.setColumnWidth(actionsColumn, 35, Style.Unit.PCT);
     }
 
     @Override
@@ -107,36 +138,8 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
         dataProvider.getList().addAll(response);
     }
 
-    @UiHandler("defLov")
-    void onDefLovChanged(ChangeEvent event) {
-        getUiHandlers().getParent();
-    }
-
-    @UiHandler("delete")
-    void onDeleteClick(ClickEvent event) {
-    }
-
-    @UiHandler("modify")
-    void onModifyClick(ClickEvent event) {
-    }
-
     @UiHandler("addValueList")
     void onAddValueListClicked(ClickEvent event) {
         getUiHandlers().addValueList();
-    }
-
-    @Override
-    public CellTable<ValueListProxy> getValueListTable() {
-        return valueListTable;
-    }
-
-    @Override
-    public ListBox getParent() {
-        return parent;
-    }
-
-    @Override
-    public ListBox getDefLov() {
-        return defLov;
     }
 }

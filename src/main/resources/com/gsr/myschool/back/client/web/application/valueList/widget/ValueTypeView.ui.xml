@@ -2,12 +2,11 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
 
-    <ui:with type="com.gsr.myschool.back.client.resource.message.MessageBundle" field="labelText"/>
-    <g:HTMLPanel>
-        <boot:CellTable ui:field="valueTypeTable" />
+    <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
-        <g:Button ui:field="addValueType">Add value type</g:Button>
-        <g:Button ui:field="modify" text="{labelText.buttonsModify}"/>
-        <g:Button ui:field="delete" text="{labelText.buttonsDelete}"/>
+    <g:HTMLPanel>
+                    <boot:PageHeader text="Types" />
+                    <boot:Button ui:field="addValueType" icon="PLUS">Add value type</boot:Button>
+        <boot:CellTable ui:field="valueTypeTable" />
     </g:HTMLPanel>
 </ui:UiBinder>

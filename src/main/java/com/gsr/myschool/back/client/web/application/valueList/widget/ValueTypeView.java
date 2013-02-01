@@ -18,12 +18,14 @@ package com.gsr.myschool.back.client.web.application.valueList.widget;
 
 import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
+import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -32,8 +34,13 @@ import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
+import com.gsr.myschool.back.client.web.application.preinscription.renderer.PreInscriptionActionCell;
+import com.gsr.myschool.back.client.web.application.preinscription.renderer.PreInscriptionActionCellFactory;
+import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueTypeActionCell;
+import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueTypeActionCellFactory;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
@@ -47,21 +54,23 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers> imple
     @UiField
     CellTable<ValueTypeProxy> valueTypeTable;
 
-    @UiField
-    Button delete;
+    private final ValueTypeActionCellFactory actionCellFactory;
 
-    @UiField
-    Button modify;
+    private Delegate<ValueTypeProxy> deleteAction;
+    private Delegate<ValueTypeProxy> modifyAction;
 
     private final SingleSelectionModel<ValueTypeProxy> valueTypeSelectionModel;
     private final ListDataProvider<ValueTypeProxy> dataProvider;
 
     @Inject
     public ValueTypeView(final Binder uiBinder, final UiHandlersStrategy<ValueTypeUiHandlers> uiHandlers,
-                         final SharedMessageBundle sharedMessageBundle) {
+                         final SharedMessageBundle sharedMessageBundle, ValueTypeActionCellFactory actionCellFactory) {
         super(uiHandlers);
 
+        this.actionCellFactory = actionCellFactory;
+
         initWidget(uiBinder.createAndBindUi(this));
+        initActions();
         initDataGrid();
 
         this.dataProvider = new ListDataProvider<ValueTypeProxy>();
@@ -70,18 +79,12 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers> imple
         valueTypeSelectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
             @Override
             public void onSelectionChange(SelectionChangeEvent event) {
-                // valueTypeTable.getRowElement().addClassName("selected");
-                // TODO : fire Event
+                // TODO : valueTypeTable.getRowElement().addClassName("selected");
                 getUiHandlers().valueTypeChanged(valueTypeSelectionModel.getSelectedObject());
             }
         });
         valueTypeTable.setSelectionModel(valueTypeSelectionModel);
         valueTypeTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
-    }
-
-    @Override
-    public CellTable<ValueTypeProxy> getValueTypeTable() {
-        return valueTypeTable;
     }
 
     @Override
@@ -102,6 +105,18 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers> imple
         valueTypeTable.addColumn(codeColumn, "Code");
         valueTypeTable.setColumnWidth(codeColumn, 35, Style.Unit.PCT);
 
+        ValueTypeActionCell actionsCell = actionCellFactory.create(deleteAction,modifyAction);
+        Column<ValueTypeProxy, ValueTypeProxy> actionsColumn = new
+                Column<ValueTypeProxy, ValueTypeProxy>(actionsCell) {
+                    @Override
+                    public ValueTypeProxy getValue(ValueTypeProxy object) {
+                        return object;
+                    }
+                };
+        actionsColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        valueTypeTable.addColumn(actionsColumn, "Actions");
+        valueTypeTable.setColumnWidth(actionsColumn, 35, Style.Unit.PCT);
+
 //        TextColumn<ValueTypeProxy> nameColumn = new TextColumn<ValueTypeProxy>() {
 //            @Override
 //            public String getValue(ValueTypeProxy valueType) {
@@ -114,23 +129,20 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers> imple
 
     }
 
-//    private void initActions() {
-//        modify = new ActionCell.Delegate<ValueTypeProxy>() {
-//            @Override
-//            public void execute(ValueTypeProxy valueType) {
-//                getUiHandlers().editValueType(valueType);
-//            }
-//        };
-//    }
+    private void initActions() {
+        modifyAction = new Delegate<ValueTypeProxy>() {
+            @Override
+            public void execute(ValueTypeProxy valueType) {
+                getUiHandlers().editValueType(valueType);
+            }
+        };
 
-    @UiHandler("modify")
-    void onModifyClick(ClickEvent event) {
-        getUiHandlers().modify();
-    }
-
-    @UiHandler("delete")
-    void onDeleteClick(ClickEvent event) {
-        getUiHandlers().delete();
+        deleteAction = new Delegate<ValueTypeProxy>() {
+            @Override
+            public void execute(ValueTypeProxy valueType) {
+                getUiHandlers().deleteValueType(valueType);
+            }
+        };
     }
 
     @UiHandler("addValueType")

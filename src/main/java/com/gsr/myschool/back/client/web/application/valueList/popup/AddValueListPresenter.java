@@ -66,6 +66,12 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
         getView().editValue(currentValueList);
     }
 
+    public void editDatas(ValueListProxy valuelist) {
+        currentContext = requestFactory.valueListServiceRequest();
+        currentValueList = currentContext.edit(valuelist);
+        getView().editValue(currentValueList);
+    }
+
     public void fillDef() {
 //        final int selectedDef = getView().getDefLov().getSelectedIndex();
 //        getView().getDefLov().clear();

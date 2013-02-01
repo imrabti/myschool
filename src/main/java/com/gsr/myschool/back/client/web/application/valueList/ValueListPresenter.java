@@ -50,12 +50,6 @@ import java.util.List;
 public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, ValueListPresenter.MyProxy>
         implements ValueListUiHandlers, ValueTypeChangedEvent.ValueTypeChangedHandler{
     public interface MyView extends View, HasUiHandlers<ValueListUiHandlers> {
-        CellTable<ValueListProxy> getValueListTable();
-
-        ListBox getParent();
-
-        ListBox getDefLov();
-
         void setData(List<ValueListProxy> response);
     }
 
@@ -111,13 +105,8 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
     }
 
     @Override
-    public void getParent() {
-        fillParent();
-    }
-
-    @Override
     public void delete(ValueListProxy valueListProxy) {
-        /*backRequestFactory.valueListServiceRequest().delete(valueListProxy.getId()).fire(new ReceiverImpl<Void>() {
+        /*requestFactory.valueListServiceRequest().delete(valueListProxy.getId()).fire(new ReceiverImpl<Void>() {
             @Override
             public void onSuccess(Void response) {
                 Message message = new Message.Builder(messageBundle.deleteValueListSuccess())
@@ -130,8 +119,9 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
     }
 
     @Override
-    public void modify(ValueListProxy valueListProxy) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void modify(ValueListProxy valueList) {
+        addValueListPresenter.editDatas(valueList);
+        addToPopupSlot(addValueListPresenter);
     }
 
     public void fillTable() {
@@ -144,7 +134,7 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
     }
 
     public void fillDef() {
-        getView().getDefLov().clear();
+//        getView().getDefLov().clear();
         /*backRequestFactory.valueTypeServiceRequest().findAll().fire(new ReceiverImpl<List<ValueTypeProxy>>() {
             @Override
             public void onSuccess(List<ValueTypeProxy> response) {
@@ -157,7 +147,7 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
     }
 
     public void fillParent() {
-        getView().getParent().clear();
+//        getView().getParent().clear();
         /*backRequestFactory.valueListServiceRequest()
                 .findByValueTypeName(getView().getDefLov().getItemText(getView().getDefLov().getSelectedIndex()))
                 .fire(new ReceiverImpl<List<ValueListProxy>>() {
@@ -173,6 +163,11 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
 
     @Override
     public void onValueTypeChanged(ValueTypeChangedEvent event) {
-        Window.alert(event.getValueType().getCode().toString());
+        requestFactory.valueListServiceRequest().findByValueTypeCode(event.getValueType().getCode()).fire(new Receiver<List<ValueListProxy>>() {
+            @Override
+            public void onSuccess(List<ValueListProxy> response) {
+                getView().setData(response);
+            }
+        });
     }
 }
