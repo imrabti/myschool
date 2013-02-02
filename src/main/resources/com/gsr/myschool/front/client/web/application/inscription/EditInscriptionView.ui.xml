@@ -30,6 +30,10 @@
             <boot:Tab heading="Etape 3">
                 <g:SimplePanel ui:field="step3"/>
             </boot:Tab>
+
+            <boot:Tab heading="Etape 4">
+                <g:SimplePanel ui:field="step4"/>
+            </boot:Tab>
         </boot:TabPanel>
 
         <g:HTMLPanel styleName="{clientResources.sharedStyleCss.buttonContainer}"

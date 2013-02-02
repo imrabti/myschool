@@ -57,6 +57,7 @@ public class BootstrapperImpl implements Bootstrapper {
         sharedResources.popupStyleCss().ensureInjected();
 
         valueList.initFiliereList();
+        valueList.initEtablissementScolaireList();
         valueList.initNiveauEtudeMap();
         valueList.initValueListMap();
 

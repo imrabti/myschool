@@ -101,7 +101,7 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
             requestFactory.inscriptionService().deleteInscription(dossier.getId()).fire(new ReceiverImpl<Void>() {
                 @Override
                 public void onSuccess(Void response) {
-                    Message message = new Message.Builder(messageBundle.deleteInscriptionSucces())
+                    Message message = new Message.Builder(messageBundle.deleteInscriptionSuccess())
                             .style(AlertType.SUCCESS)
                             .closeDelay(CloseDelay.DEFAULT)
                             .build();

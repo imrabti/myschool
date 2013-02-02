@@ -25,7 +25,7 @@ public class NiveauScolairePresenter extends PresenterWidget<NiveauScolairePrese
 
     @Override
     public void onChangeStep(ChangeStepEvent event) {
-        if (event.getCurrentStep() == WizardStep.STEP_3) {
+        if (event.getCurrentStep() == WizardStep.STEP_4) {
             // TODO : Save niveau scolaire info and forward to list inscriptions.
         }
     }
