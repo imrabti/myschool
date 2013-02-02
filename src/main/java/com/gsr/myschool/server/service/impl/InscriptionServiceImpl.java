@@ -14,6 +14,7 @@ import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.repos.EtablissementScolaireRepos;
 import com.gsr.myschool.server.repos.InfoParentRepos;
 import com.gsr.myschool.server.repos.ScolariteAnterieurRepos;
+import com.gsr.myschool.server.repos.ValueListRepos;
 import com.gsr.myschool.server.security.SecurityContextProvider;
 import com.gsr.myschool.server.service.InscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,8 @@ public class InscriptionServiceImpl implements InscriptionService {
     private EtablissementScolaireRepos etablissementScolaireRepos;
     @Autowired
     private ScolariteAnterieurRepos scolariteAnterieurRepos;
+    @Autowired
+    private ValueListRepos valueListRepos;
 
     @Override
     @Transactional(readOnly = true)
@@ -118,6 +121,9 @@ public class InscriptionServiceImpl implements InscriptionService {
         currentCandidat.setCne(candidat.getCne());
         currentCandidat.setEmail(candidat.getEmail());
         currentCandidat.setGsm(candidat.getGsm());
+        currentCandidat.setNationality(valueListRepos.findOne(candidat.getNationality().getId()));
+        currentCandidat.setBacSerie(valueListRepos.findOne(candidat.getBacSerie().getId()));
+        currentCandidat.setBacYear(valueListRepos.findOne(candidat.getBacYear().getId()));
         candidatRepos.save(currentCandidat);
         return currentCandidat;
     }
