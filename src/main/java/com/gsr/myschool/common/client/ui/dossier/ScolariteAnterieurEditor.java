@@ -32,6 +32,8 @@ public class ScolariteAnterieurEditor extends Composite implements EditorView<Sc
     public interface Driver extends SimpleBeanEditorDriver<ScolariteAnterieurDTOProxy, ScolariteAnterieurEditor> {
     }
 
+    private static final String AUTRES = "- Autes -";
+
     @UiField(provided = true)
     ValueListBox<EtablissementScolaireProxy> etablissement;
     @UiField
@@ -88,6 +90,11 @@ public class ScolariteAnterieurEditor extends Composite implements EditorView<Sc
 
     @UiHandler("etablissement")
     void onEtablissementChanged(ValueChangeEvent<EtablissementScolaireProxy> event) {
-        newEtablissementScolaire.setEnabled(etablissement.getValue() == null);
+        if (etablissement.getValue().getNom().equals(AUTRES)) {
+            newEtablissementScolaire.setEnabled(true);
+        } else {
+            newEtablissementScolaire.setEnabled(false);
+            newEtablissementScolaire.setText("");
+        }
     }
 }

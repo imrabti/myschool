@@ -63,6 +63,9 @@ public class ScolariteAnterieurPresenter extends PresenterWidget<ScolariteAnteri
     @Override
     public void addScolariteAnterieur(ScolariteAnterieurDTOProxy scolariteAnterieur) {
         Long dossierId = currentDossier.getId();
+        scolariteAnterieur.setEtablissement(currentContext.edit(scolariteAnterieur.getEtablissement()));
+        scolariteAnterieur.setAnneeScolaire(currentContext.edit(scolariteAnterieur.getAnneeScolaire()));
+
         currentContext.createNewScolariteAnterieur(scolariteAnterieur, dossierId).fire(
                 new ValidatedReceiverImpl<Void>() {
             @Override
@@ -77,6 +80,7 @@ public class ScolariteAnterieurPresenter extends PresenterWidget<ScolariteAnteri
                 currentScolarite = currentContext.create(ScolariteAnterieurDTOProxy.class);
                 getView().editScolariteAnterieur(currentScolarite);
                 getView().clearErrors();
+                loadScolariteAnterieur();
             }
         });
     }
@@ -84,8 +88,8 @@ public class ScolariteAnterieurPresenter extends PresenterWidget<ScolariteAnteri
     @Override
     public void deleteScolariteAnterieur(ScolariteAnterieurProxy scolariteAnterieur) {
         if (Window.confirm(messageBundle.deleteScolariteAnterieurConf())) {
-            Long dossierId = currentDossier.getId();
-            requestFactory.inscriptionService().deleteScolariteAnterieur(dossierId).fire(new ReceiverImpl<Void>() {
+            Long scolariteId = scolariteAnterieur.getId();
+            requestFactory.inscriptionService().deleteScolariteAnterieur(scolariteId).fire(new ReceiverImpl<Void>() {
                 @Override
                 public void onSuccess(Void response) {
                     Message message = new Message.Builder(messageBundle.deleteScolariteAnterieurSuccess())
