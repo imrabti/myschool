@@ -42,4 +42,8 @@ public interface MessageBundle extends Messages {
     String deleteScolariteAnterieurConf();
 
     String deleteScolariteAnterieurSuccess();
+
+    String deleteFraterieConf();
+
+    String deleteFraterieSuccess();
 }
