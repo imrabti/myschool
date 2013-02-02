@@ -8,10 +8,8 @@
 
         <boot:Row>
             <boot:Column size="7">
-                <boot:Row>
                     <boot:PageHeader text="Liste de valeurs"/>
                     <boot:Button ui:field="addValueList">Ajouter une valeur</boot:Button>
-                </boot:Row>
                 <boot:CellTable ui:field="valueListTable"/>
             </boot:Column>
 

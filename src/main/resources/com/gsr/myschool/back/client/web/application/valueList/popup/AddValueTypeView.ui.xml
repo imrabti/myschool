@@ -2,15 +2,15 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:s='urn:import:com.gsr.myschool.common.client.widget'
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'
-             xmlns:p='urn:import:com.gsr.myschool.back.client.web.application.valueList.ui'
-             xmlns:h="urn:import:com.google.gwt.user.client.ui">
+             xmlns:p='urn:import:com.gsr.myschool.back.client.web.application.valueList.ui'>
+
     <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
     <ui:with type="com.gsr.myschool.back.client.resource.message.MessageBundle" field="labelText"/>
 
     <ui:style>
         .contentWrapper {
             padding: 10px;
-            padding-right: 20px;
+            padding-right: 30px;
             padding-top: 20px;
         }
     </ui:style>
@@ -19,9 +19,9 @@
                   glassEnabled="true">
         <g:FlowPanel>
             <s:ModalHeader ui:field="modalHeader" text="Ajouter un type de valeur"/>
-            <h:HTMLPanel styleName="{style.contentWrapper}">
+            <g:HTMLPanel styleName="{style.contentWrapper}">
             <p:ValueTypeEditor ui:field="valueTypeEditor" />
-            </h:HTMLPanel>
+            </g:HTMLPanel>
             <g:HTMLPanel styleName="{resource.sharedStyleCss.buttonContainerPopup}">
                 <boot:Button ui:field="cancel" text="Annuler"/>
                 <boot:Button ui:field="save"  text="Enregistrer" icon="SAVE"

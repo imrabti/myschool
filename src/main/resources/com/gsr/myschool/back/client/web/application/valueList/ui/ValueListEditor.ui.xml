@@ -1,32 +1,27 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
-    <ui:style>
-        .smallMargin {
-            margin-left: 160px;
-        }
-    </ui:style>
 
     <g:HTMLPanel>
         <boot:Form type="HORIZONTAL">
             <boot:ControlGroup>
                 <boot:ControlLabel>Valeur</boot:ControlLabel>
-                <boot:Controls styleName="{style.smallMargin}">
+                <boot:Controls>
                     <boot:TextBox ui:field="value"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel width="150px">Label</boot:ControlLabel>
-                <boot:Controls styleName="{style.smallMargin}">
-                    <boot:TextBox ui:field="label" width="230px"/>
+                <boot:ControlLabel>Label</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:TextBox ui:field="label"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel width="150px">Parent</boot:ControlLabel>
-                <boot:Controls styleName="{style.smallMargin}">
-                    <boot:ValueListBox ui:field="parent" width="230px"/>
+                <boot:ControlLabel>Parent</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:ValueListBox ui:field="parent"/>
                 </boot:Controls>
             </boot:ControlGroup>
         </boot:Form>

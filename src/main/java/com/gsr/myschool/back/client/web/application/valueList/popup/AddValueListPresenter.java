@@ -16,24 +16,23 @@
 
 package com.gsr.myschool.back.client.web.application.valueList.popup;
 
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.TextBox;
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.ValueListServiceRequest;
-import com.gsr.myschool.back.client.request.ValueTypeServiceRequest;
+import com.gsr.myschool.back.client.resource.message.MessageBundle;
+import com.gsr.myschool.common.client.mvp.ValidatedPopupView;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
-import com.gsr.myschool.common.client.mvp.ValidatedPopupView;
 import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
+import com.gsr.myschool.common.client.widget.messages.CloseDelay;
+import com.gsr.myschool.common.client.widget.messages.Message;
+import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 
 import javax.validation.ConstraintViolation;
-import java.util.List;
 import java.util.Set;
 
 public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter.MyView>
@@ -44,25 +43,27 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
         void flushValue();
     }
 
-    public final BackRequestFactory requestFactory;
-    public List<ValueTypeProxy> defLovs;
-    public List<ValueListProxy> parents;
+    private final BackRequestFactory requestFactory;
+    private final MessageBundle messageBundle;
     private ValueListProxy currentValueList;
     private ValueListServiceRequest currentContext;
 
     @Inject
     public AddValueListPresenter(final EventBus eventBus, final MyView view,
-                                 final BackRequestFactory requestFactory) {
+                                 final BackRequestFactory requestFactory,
+                                 final MessageBundle messageBundle) {
         super(eventBus, view);
 
         this.requestFactory = requestFactory;
+        this.messageBundle = messageBundle;
 
         getView().setUiHandlers(this);
     }
 
-    public void initDatas() {
+    public void initDatas(ValueTypeProxy valueType) {
         currentContext = requestFactory.valueListServiceRequest();
         currentValueList = currentContext.create(ValueListProxy.class);
+        currentValueList.setValueType(valueType);
         getView().editValue(currentValueList);
     }
 
@@ -72,52 +73,11 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
         getView().editValue(currentValueList);
     }
 
-    public void fillDef() {
-//        final int selectedDef = getView().getDefLov().getSelectedIndex();
-//        getView().getDefLov().clear();
-//        ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
-//        dlsr.findAll().fire(new Receiver<List<ValueTypeProxy>>() {
-//            @Override
-//            public void onSuccess(List<ValueTypeProxy> response) {
-//                for (ValueTypeProxy defLovProxy : response) {
-//                    getView().getDefLov().addItem(defLovProxy.getName(), defLovProxy.getId().toString());
-//                    defLovs.add(defLovProxy);
-//                }
-//                if (selectedDef < response.size() && selectedDef >= 0) {
-//                    getView().getDefLov().setSelectedIndex(selectedDef);
-//                }
-//                fillParent();
-//            }
-//        });
-    }
-
-    public void fillParent() {
-//        getView().getParent().clear();
-//        ValueListServiceRequest lsr = requestFactory.valueListServiceRequest();
-//        lsr.findByValueTypeParentName(getView().getDefLov().getItemText(getView().getDefLov().getSelectedIndex()))
-//                .fire(new Receiver<List<ValueListProxy>>() {
-//                    @Override
-//                    public void onSuccess(List<ValueListProxy> response) {
-//                        getView().getParent().addItem("Aucun", "0");
-//                        parents.clear();
-//                        for (ValueListProxy lovProxy : response) {
-//                            getView().getParent().addItem(lovProxy.getValue(), lovProxy.getId().toString());
-//                            parents.add(lovProxy);
-//                        }
-//                    }
-//                });
-    }
-
-    @Override
-    public void getParent() {
-        fillParent();
-    }
-
     @Override
     public void saveValueList() {
         getView().flushValue();
 
-        currentContext.addValueList(currentValueList).fire(new ValidatedReceiverImpl<Void>(){
+        currentContext.addValueList(currentValueList).fire(new ValidatedReceiverImpl<Void>() {
 
             @Override
             public void onValidationError(Set<ConstraintViolation<?>> violations) {
@@ -129,6 +89,11 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
             public void onSuccess(Void aVoid) {
                 getView().clearErrors();
                 getView().editValue(currentValueList);
+                Message message = new Message.Builder(messageBundle.deleteValueListSuccess())
+                        .style(AlertType.SUCCESS)
+                        .closeDelay(CloseDelay.DEFAULT)
+                        .build();
+                MessageEvent.fire(this, message);
                 getView().hide();
             }
         });

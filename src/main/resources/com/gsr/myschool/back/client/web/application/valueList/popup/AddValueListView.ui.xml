@@ -5,14 +5,20 @@
              xmlns:p='urn:import:com.gsr.myschool.back.client.web.application.valueList.ui'>
     <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
     <ui:with type="com.gsr.myschool.back.client.resource.message.MessageBundle" field="labelText"/>
-
+    <ui:style>
+        .contentWrapper {
+            padding: 10px;
+            padding-right: 30px;
+            padding-top: 20px;
+        }
+    </ui:style>
     <g:PopupPanel modal="true" autoHideEnabled="false" styleName="{resource.popupStyleCss.gwtPopupPanel}"
                   glassEnabled="true">
         <g:FlowPanel>
             <s:ModalHeader ui:field="modalHeader" text="Ajouter une valeur"/>
-
+            <g:HTMLPanel styleName="{style.contentWrapper}">
             <p:ValueListEditor ui:field="valueListEditor" />
-
+        </g:HTMLPanel>
             <g:HTMLPanel styleName="{resource.sharedStyleCss.buttonContainerPopup}">
             <boot:Button ui:field="cancel" text="Annuler"/>
             <boot:Button ui:field="save"  text="Enregistrer" icon="SAVE"

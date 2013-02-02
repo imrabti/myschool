@@ -19,7 +19,6 @@ package com.gsr.myschool.back.client.web.application.valueList.widget;
 import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.cell.client.ActionCell.Delegate;
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -27,20 +26,16 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
-import com.gsr.myschool.back.client.web.application.preinscription.renderer.PreInscriptionActionCell;
-import com.gsr.myschool.back.client.web.application.preinscription.renderer.PreInscriptionActionCellFactory;
 import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueTypeActionCell;
 import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueTypeActionCellFactory;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
-import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
@@ -64,7 +59,8 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers> imple
 
     @Inject
     public ValueTypeView(final Binder uiBinder, final UiHandlersStrategy<ValueTypeUiHandlers> uiHandlers,
-                         final SharedMessageBundle sharedMessageBundle, ValueTypeActionCellFactory actionCellFactory) {
+                         final SharedMessageBundle sharedMessageBundle,
+                         final ValueTypeActionCellFactory actionCellFactory) {
         super(uiHandlers);
 
         this.actionCellFactory = actionCellFactory;
@@ -105,7 +101,7 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers> imple
         valueTypeTable.addColumn(codeColumn, "Code");
         valueTypeTable.setColumnWidth(codeColumn, 35, Style.Unit.PCT);
 
-        ValueTypeActionCell actionsCell = actionCellFactory.create(deleteAction,modifyAction);
+        ValueTypeActionCell actionsCell = actionCellFactory.create(deleteAction, modifyAction);
         Column<ValueTypeProxy, ValueTypeProxy> actionsColumn = new
                 Column<ValueTypeProxy, ValueTypeProxy>(actionsCell) {
                     @Override
@@ -116,17 +112,6 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers> imple
         actionsColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         valueTypeTable.addColumn(actionsColumn, "Actions");
         valueTypeTable.setColumnWidth(actionsColumn, 35, Style.Unit.PCT);
-
-//        TextColumn<ValueTypeProxy> nameColumn = new TextColumn<ValueTypeProxy>() {
-//            @Override
-//            public String getValue(ValueTypeProxy valueType) {
-//                return valueType.getRegex().toString();
-//            }
-//        };
-//        nameColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-//        valueTypeTable.addColumn(nameColumn, "Expréssion réguliaire");
-//        valueTypeTable.setColumnWidth(nameColumn, 35, Style.Unit.PCT);
-
     }
 
     private void initActions() {

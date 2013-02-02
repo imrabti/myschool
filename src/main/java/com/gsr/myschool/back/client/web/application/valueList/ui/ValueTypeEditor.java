@@ -17,7 +17,6 @@
 package com.gsr.myschool.back.client.web.application.valueList.ui;
 
 import com.github.gwtbootstrap.client.ui.CheckBox;
-import com.github.gwtbootstrap.client.ui.TextBox;
 import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -25,21 +24,23 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import com.gsr.myschool.back.client.request.BackRequestFactory;
+import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueListRenderer;
+import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueTypeRenderer;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
+import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
-import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class ValueTypeEditor extends Composite implements EditorView<ValueTypeProxy> {
-
-
-
     public interface Binder extends UiBinder<Widget, ValueTypeEditor> {
     }
+
     public interface Driver extends SimpleBeanEditorDriver<ValueTypeProxy, ValueTypeEditor> {
     }
 
@@ -53,18 +54,40 @@ public class ValueTypeEditor extends Composite implements EditorView<ValueTypePr
     CheckBox system;
 
     private final Driver driver;
+    private final BackRequestFactory requestFactory;
 
     @Inject
-    public ValueTypeEditor(final Binder uiBinder,final Driver driver) {
+    public ValueTypeEditor(final Binder uiBinder, final Driver driver, final BackRequestFactory requestFactory) {
         this.driver = driver;
-
+        this.requestFactory = requestFactory;
         this.code = new ValueListBox<ValueTypeCode>(new EnumRenderer<ValueTypeCode>());
-        code.setAcceptableValues(Arrays.asList(ValueTypeCode.values()));
-        this.parent = new ValueListBox<ValueTypeProxy>(null);
-        this.regex = new ValueListBox<ValueListProxy>(null);
+        this.parent = new ValueListBox<ValueTypeProxy>(new ValueTypeRenderer());
+        this.regex = new ValueListBox<ValueListProxy>(new ValueListRenderer());
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
+
+        code.setAcceptableValues(Arrays.asList(ValueTypeCode.values()));
+        getParents();
+        getRegexp();
+    }
+
+    private void getParents() {
+        requestFactory.valueTypeServiceRequest().findAll().fire(new ReceiverImpl<List<ValueTypeProxy>>() {
+            @Override
+            public void onSuccess(List<ValueTypeProxy> valueTypeProxies) {
+                parent.setAcceptableValues(valueTypeProxies);
+            }
+        });
+    }
+
+    private void getRegexp() {
+        requestFactory.valueListServiceRequest().findByValueTypeCode(ValueTypeCode.REGEXP).fire(new ReceiverImpl<List<ValueListProxy>>() {
+            @Override
+            public void onSuccess(List<ValueListProxy> valueTypeProxies) {
+                regex.setAcceptableValues(valueTypeProxies);
+            }
+        });
     }
 
     @Override
@@ -81,5 +104,4 @@ public class ValueTypeEditor extends Composite implements EditorView<ValueTypePr
             return valueTypeProxy;
         }
     }
-
 }

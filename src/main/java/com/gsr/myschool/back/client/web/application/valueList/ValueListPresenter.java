@@ -17,21 +17,18 @@
 package com.gsr.myschool.back.client.web.application.valueList;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
-import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
-import com.gsr.myschool.back.client.web.application.valueList.event.ValueTypeChangedEvent;
-import com.gsr.myschool.common.client.proxy.ValueListProxy;
-import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
+import com.gsr.myschool.back.client.web.application.valueList.event.ValueTypeChangedEvent;
 import com.gsr.myschool.back.client.web.application.valueList.popup.AddValueListPresenter;
 import com.gsr.myschool.back.client.web.application.valueList.widget.ValueTypePresenter;
+import com.gsr.myschool.common.client.proxy.ValueListProxy;
+import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
 import com.gsr.myschool.common.client.widget.messages.CloseDelay;
@@ -48,7 +45,7 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import java.util.List;
 
 public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, ValueListPresenter.MyProxy>
-        implements ValueListUiHandlers, ValueTypeChangedEvent.ValueTypeChangedHandler{
+        implements ValueListUiHandlers, ValueTypeChangedEvent.ValueTypeChangedHandler {
     public interface MyView extends View, HasUiHandlers<ValueListUiHandlers> {
         void setData(List<ValueListProxy> response);
     }
@@ -65,6 +62,8 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
     private final ValueTypePresenter valueTypePresenter;
     private final BackRequestFactory requestFactory;
     private final MessageBundle messageBundle;
+
+    private ValueTypeProxy currentValueType;
 
     @Inject
     public ValueListPresenter(final EventBus eventBus, final MyView view,
@@ -84,7 +83,7 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
     }
 
     @Override
-    protected void onBind(){
+    protected void onBind() {
         super.onBind();
 
         addRegisteredHandler(ValueTypeChangedEvent.TYPE, this);
@@ -100,13 +99,13 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
 
     @Override
     public void addValueList() {
-        addValueListPresenter.initDatas();
+        addValueListPresenter.initDatas(currentValueType);
         addToPopupSlot(addValueListPresenter);
     }
 
     @Override
     public void delete(ValueListProxy valueListProxy) {
-        /*requestFactory.valueListServiceRequest().delete(valueListProxy.getId()).fire(new ReceiverImpl<Void>() {
+        requestFactory.valueListServiceRequest().deleteValueList(valueListProxy.getId()).fire(new ReceiverImpl<Void>() {
             @Override
             public void onSuccess(Void response) {
                 Message message = new Message.Builder(messageBundle.deleteValueListSuccess())
@@ -115,7 +114,8 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
                         .build();
                 MessageEvent.fire(this, message);
             }
-        });*/
+        });
+        fillTable();
     }
 
     @Override
@@ -124,50 +124,19 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
         addToPopupSlot(addValueListPresenter);
     }
 
-    public void fillTable() {
-        requestFactory.valueListServiceRequest().findAll().fire(new Receiver<List<ValueListProxy>>() {
-            @Override
-            public void onSuccess(List<ValueListProxy> response) {
-                getView().setData(response);
-            }
-        });
-    }
-
-    public void fillDef() {
-//        getView().getDefLov().clear();
-        /*backRequestFactory.valueTypeServiceRequest().findAll().fire(new ReceiverImpl<List<ValueTypeProxy>>() {
-            @Override
-            public void onSuccess(List<ValueTypeProxy> response) {
-                for (ValueTypeProxy defLovProxy : response) {
-                    getView().getDefLov().addItem(defLovProxy.getName(), defLovProxy.getId().toString());
-                }
-                fillParent();
-            }
-        });*/
-    }
-
-    public void fillParent() {
-//        getView().getParent().clear();
-        /*backRequestFactory.valueListServiceRequest()
-                .findByValueTypeName(getView().getDefLov().getItemText(getView().getDefLov().getSelectedIndex()))
-                .fire(new ReceiverImpl<List<ValueListProxy>>() {
-                    @Override
-                    public void onSuccess(List<ValueListProxy> response) {
-                        getView().getParent().addItem("Aucun", "0");
-                        for (ValueListProxy lovProxy : response) {
-                            getView().getParent().addItem(lovProxy.getValue(), lovProxy.getId().toString());
-                        }
-                    }
-                });*/
-    }
-
     @Override
     public void onValueTypeChanged(ValueTypeChangedEvent event) {
-        requestFactory.valueListServiceRequest().findByValueTypeCode(event.getValueType().getCode()).fire(new Receiver<List<ValueListProxy>>() {
-            @Override
-            public void onSuccess(List<ValueListProxy> response) {
-                getView().setData(response);
-            }
-        });
+        currentValueType = event.getValueType();
+        fillTable();
+    }
+
+    public void fillTable() {
+        if (currentValueType != null)
+            requestFactory.valueListServiceRequest().findByValueTypeCode(currentValueType.getCode()).fire(new Receiver<List<ValueListProxy>>() {
+                @Override
+                public void onSuccess(List<ValueListProxy> response) {
+                    getView().setData(response);
+                }
+            });
     }
 }

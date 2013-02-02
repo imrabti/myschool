@@ -24,17 +24,52 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import com.gsr.myschool.back.client.request.BackRequestFactory;
+import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueListRenderer;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
-import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
+import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.util.EditorView;
 
-public class ValueListEditor extends Composite implements EditorView<ValueListProxy>{
+import java.util.List;
+
+public class ValueListEditor extends Composite implements EditorView<ValueListProxy> {
+    public interface Binder extends UiBinder<Widget, ValueListEditor> {
+    }
+
+    public interface Driver extends SimpleBeanEditorDriver<ValueListProxy, ValueListEditor> {
+    }
+
     @UiField(provided = true)
     ValueListBox<ValueListProxy> parent;
     @UiField
     TextBox value;
     @UiField
     TextBox label;
+
+    private final Driver driver;
+    private final BackRequestFactory requestFactory;
+
+    @Inject
+    public ValueListEditor(final Binder uiBinder, final Driver driver,
+                           final BackRequestFactory requestFactory) {
+        this.driver = driver;
+        this.requestFactory = requestFactory;
+        this.parent = new ValueListBox<ValueListProxy>(new ValueListRenderer());
+
+        initWidget(uiBinder.createAndBindUi(this));
+        driver.initialize(this);
+
+        getParents();
+    }
+
+    private void getParents() {
+        requestFactory.valueListServiceRequest().findAll().fire(new ReceiverImpl<List<ValueListProxy>>() {
+            @Override
+            public void onSuccess(List<ValueListProxy> valueTypeProxies) {
+                parent.setAcceptableValues(valueTypeProxies);
+            }
+        });
+    }
 
     @Override
     public void edit(ValueListProxy valueList) {
@@ -48,20 +83,6 @@ public class ValueListEditor extends Composite implements EditorView<ValueListPr
             return null;
         } else {
             return valueTypeProxy;
-        }}
-
-    public interface Binder extends UiBinder<Widget, ValueListEditor> {
-    }
-    public interface Driver extends SimpleBeanEditorDriver<ValueListProxy, ValueListEditor> {
-    }
-    private final Driver driver;
-    @Inject
-    public ValueListEditor(final Binder uiBinder,final Driver driver) {
-        this.driver=driver;
-
-        this.parent = new ValueListBox<ValueListProxy>(null);
-
-        initWidget(uiBinder.createAndBindUi(this));
-        driver.initialize(this);
+        }
     }
 }

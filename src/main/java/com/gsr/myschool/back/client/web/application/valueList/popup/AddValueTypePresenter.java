@@ -35,7 +35,6 @@ import java.util.Set;
 
 public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter.MyView>
         implements AddValueTypeUiHandlers {
-
     public interface MyView extends ValidatedPopupView, HasUiHandlers<AddValueTypeUiHandlers> {
         void editType(ValueTypeProxy valueTypeProxy);
 
@@ -62,9 +61,10 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
         getView().editType(currentValueType);
     }
 
-    @Override
-    protected void onReveal() {
-        super.onReveal();
+    public void editDatas(ValueTypeProxy valueType) {
+        currentContext = requestFactory.valueTypeServiceRequest();
+        currentValueType = currentContext.edit(valueType);
+        getView().editType(currentValueType);
     }
 
     @Override

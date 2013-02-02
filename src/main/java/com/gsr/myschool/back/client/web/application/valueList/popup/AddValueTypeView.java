@@ -21,21 +21,15 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-import com.gsr.myschool.common.client.proxy.ValueListProxy;
-import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
-import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueTypeRenderer;
-import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueListRenderer;
 import com.gsr.myschool.back.client.web.application.valueList.ui.ValueTypeEditor;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.common.client.widget.ModalHeader;
-
-import java.util.List;
-
 
 public class AddValueTypeView extends ValidatedPopupViewImplWithUiHandlers<AddValueTypeUiHandlers>
         implements AddValueTypePresenter.MyView {
@@ -69,12 +63,12 @@ public class AddValueTypeView extends ValidatedPopupViewImplWithUiHandlers<AddVa
     }
 
     @Override
-    public void flushType(){
+    public void flushType() {
         valueTypeEditor.get();
     }
 
     @Override
-    public void editType(ValueTypeProxy valueType){
+    public void editType(ValueTypeProxy valueType) {
         valueTypeEditor.edit(valueType);
     }
 

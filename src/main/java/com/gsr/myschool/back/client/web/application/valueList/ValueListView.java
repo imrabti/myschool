@@ -19,7 +19,6 @@ package com.gsr.myschool.back.client.web.application.valueList;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -27,20 +26,18 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
+import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueListActionCell;
 import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueListActionCellFactory;
-import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueTypeActionCell;
-import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueTypeActionCellFactory;
-import com.gsr.myschool.common.client.proxy.DossierProxy;
-import com.gsr.myschool.common.client.proxy.ValueListProxy;
-import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
-import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
+import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
 
@@ -55,14 +52,13 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
     @UiField
     SimplePanel valueTypeDisplay;
 
-    private final ValueListActionCellFactory actionCellFactory;
-
     private Delegate<ValueListProxy> deleteAction;
     private Delegate<ValueListProxy> modifyAction;
 
     private final MessageBundle messageBundle;
     private final SingleSelectionModel<ValueListProxy> valueListSelectionModel;
     private final ListDataProvider<ValueListProxy> dataProvider;
+    private final ValueListActionCellFactory actionCellFactory;
 
     @Inject
     public ValueListView(final Binder uiBinder, final MessageBundle messageBundle,
@@ -100,6 +96,16 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
     }
 
     private void initDataGrid() {
+        TextColumn<ValueListProxy> labelColumn = new TextColumn<ValueListProxy>() {
+            @Override
+            public String getValue(ValueListProxy valueList) {
+                return valueList.getLabel();
+            }
+        };
+        labelColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        valueListTable.addColumn(labelColumn, "Label");
+        valueListTable.setColumnWidth(labelColumn, 35, Style.Unit.PCT);
+
         TextColumn<ValueListProxy> valueColumn = new TextColumn<ValueListProxy>() {
             @Override
             public String getValue(ValueListProxy valueList) {
@@ -118,13 +124,13 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
                         return object;
                     }
                 };
-        actionsColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        actionsColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
         valueListTable.addColumn(actionsColumn, "Actions");
         valueListTable.setColumnWidth(actionsColumn, 35, Style.Unit.PCT);
     }
 
     @Override
-    public void setInSlot(Object slot, Widget content){
+    public void setInSlot(Object slot, Widget content) {
         if (content != null) {
             if (slot == ValueListPresenter.TYPE_SetValueTypeContent) {
                 valueTypeDisplay.setWidget(content);

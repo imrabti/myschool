@@ -18,7 +18,6 @@ package com.gsr.myschool.back.client.web.application.valueList;
 
 import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
 import com.google.inject.TypeLiteral;
-import com.gsr.myschool.back.client.web.application.preinscription.renderer.PreInscriptionActionCellFactory;
 import com.gsr.myschool.back.client.web.application.valueList.popup.*;
 import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueListActionCellFactory;
 import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueTypeActionCellFactory;

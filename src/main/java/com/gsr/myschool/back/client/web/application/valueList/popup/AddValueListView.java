@@ -16,15 +16,12 @@
 
 package com.gsr.myschool.back.client.web.application.valueList.popup;
 
-import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.web.application.valueList.ui.ValueListEditor;
@@ -34,7 +31,8 @@ import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.widget.ModalHeader;
 
-public class AddValueListView extends ValidatedPopupViewImplWithUiHandlers<AddValueListUiHandlers> implements AddValueListPresenter.MyView {
+public class AddValueListView extends ValidatedPopupViewImplWithUiHandlers<AddValueListUiHandlers>
+        implements AddValueListPresenter.MyView {
     @Override
     public void editValue(ValueListProxy valueList) {
         valueListEditor.edit(valueList);
@@ -78,12 +76,6 @@ public class AddValueListView extends ValidatedPopupViewImplWithUiHandlers<AddVa
     void onCancelClicked(ClickEvent event) {
         hide();
     }
-
-
-//    @UiHandler("defLov")
-//    void onDefLovChanged(ChangeEvent event) {
-//        getUiHandlers().getParent();
-//    }
 
     @UiHandler("save")
     void onSaveClicked(ClickEvent event) {
