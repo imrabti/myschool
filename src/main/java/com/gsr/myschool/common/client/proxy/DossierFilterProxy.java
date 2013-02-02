@@ -14,17 +14,26 @@
  * the License.
  */
 
-package com.gsr.myschool.server.service;
+package com.gsr.myschool.common.client.proxy;
 
-import com.gsr.myschool.server.business.Dossier;
-import com.gsr.myschool.server.dto.DataPage;
+import com.google.web.bindery.requestfactory.shared.ProxyFor;
+import com.google.web.bindery.requestfactory.shared.ValueProxy;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.dto.DossierFilter;
-import com.gsr.myschool.server.dto.PagedDossiers;
 
-import java.util.List;
+import java.util.Date;
 
-public interface DossierService {
-    List<Dossier> findAllDossiersByUser(Long userId);
+@ProxyFor(DossierFilter.class)
+public interface DossierFilterProxy extends ValueProxy {
+    String getNumDossier();
 
-    PagedDossiers findAllDossiersByCriteria(DossierFilter filter, DataPage dataPage);
+    void setNumDossier(String numDossier);
+
+    DossierStatus getStatus();
+
+    void setStatus(DossierStatus status);
+
+    Date getDateCreation();
+
+    void setDateCreation(Date dateCreation);
 }
