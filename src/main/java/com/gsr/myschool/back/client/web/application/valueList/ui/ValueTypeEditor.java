@@ -72,6 +72,21 @@ public class ValueTypeEditor extends Composite implements EditorView<ValueTypePr
         getRegexp();
     }
 
+    @Override
+    public void edit(ValueTypeProxy valueType) {
+        driver.edit(valueType);
+    }
+
+    @Override
+    public ValueTypeProxy get() {
+        ValueTypeProxy valueTypeProxy = driver.flush();
+        if (driver.hasErrors()) {
+            return null;
+        } else {
+            return valueTypeProxy;
+        }
+    }
+
     private void getParents() {
         requestFactory.valueTypeServiceRequest().findAll().fire(new ReceiverImpl<List<ValueTypeProxy>>() {
             @Override
@@ -88,20 +103,5 @@ public class ValueTypeEditor extends Composite implements EditorView<ValueTypePr
                 regex.setAcceptableValues(valueTypeProxies);
             }
         });
-    }
-
-    @Override
-    public void edit(ValueTypeProxy valueType) {
-        driver.edit(valueType);
-    }
-
-    @Override
-    public ValueTypeProxy get() {
-        ValueTypeProxy valueTypeProxy = driver.flush();
-        if (driver.hasErrors()) {
-            return null;
-        } else {
-            return valueTypeProxy;
-        }
     }
 }

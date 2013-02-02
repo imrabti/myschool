@@ -62,15 +62,6 @@ public class ValueListEditor extends Composite implements EditorView<ValueListPr
         getParents();
     }
 
-    private void getParents() {
-        requestFactory.valueListServiceRequest().findAll().fire(new ReceiverImpl<List<ValueListProxy>>() {
-            @Override
-            public void onSuccess(List<ValueListProxy> valueTypeProxies) {
-                parent.setAcceptableValues(valueTypeProxies);
-            }
-        });
-    }
-
     @Override
     public void edit(ValueListProxy valueList) {
         driver.edit(valueList);
@@ -84,5 +75,14 @@ public class ValueListEditor extends Composite implements EditorView<ValueListPr
         } else {
             return valueTypeProxy;
         }
+    }
+
+    private void getParents() {
+        requestFactory.valueListServiceRequest().findAll().fire(new ReceiverImpl<List<ValueListProxy>>() {
+            @Override
+            public void onSuccess(List<ValueListProxy> valueTypeProxies) {
+                parent.setAcceptableValues(valueTypeProxies);
+            }
+        });
     }
 }

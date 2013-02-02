@@ -77,6 +77,7 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
     public void saveValueList() {
         getView().flushValue();
 
+        currentValueList.setValueType(currentContext.edit(currentValueList.getValueType()));
         currentContext.addValueList(currentValueList).fire(new ValidatedReceiverImpl<Void>() {
 
             @Override
@@ -89,7 +90,7 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
             public void onSuccess(Void aVoid) {
                 getView().clearErrors();
                 getView().editValue(currentValueList);
-                Message message = new Message.Builder(messageBundle.deleteValueListSuccess())
+                Message message = new Message.Builder(messageBundle.addValueListSuccess())
                         .style(AlertType.SUCCESS)
                         .closeDelay(CloseDelay.DEFAULT)
                         .build();

@@ -63,7 +63,8 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
     @Inject
     public ValueListView(final Binder uiBinder, final MessageBundle messageBundle,
                          final UiHandlersStrategy<ValueListUiHandlers> uiHandlers,
-                         final SharedMessageBundle sharedMessageBundle, ValueListActionCellFactory actionCellFactory) {
+                         final SharedMessageBundle sharedMessageBundle,
+                         ValueListActionCellFactory actionCellFactory) {
         super(uiHandlers);
 
         this.messageBundle = messageBundle;
@@ -77,7 +78,29 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
         dataProvider.addDataDisplay(valueListTable);
         this.valueListSelectionModel = new SingleSelectionModel<ValueListProxy>();
         valueListTable.setSelectionModel(valueListSelectionModel);
-        valueListTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
+        valueListTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(),
+                AlertType.INFO));
+    }
+
+    @Override
+    public void setInSlot(Object slot, Widget content) {
+        if (content != null) {
+            if (slot == ValueListPresenter.TYPE_SetValueTypeContent) {
+                valueTypeDisplay.setWidget(content);
+            }
+        }
+    }
+
+    @Override
+    public void setData(List<ValueListProxy> response) {
+        dataProvider.getList().clear();
+        dataProvider.getList().addAll(response);
+    }
+
+
+    @UiHandler("addValueList")
+    void onAddValueListClicked(ClickEvent event) {
+        getUiHandlers().addValueList();
     }
 
     private void initActions() {
@@ -127,25 +150,5 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
         actionsColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
         valueListTable.addColumn(actionsColumn, "Actions");
         valueListTable.setColumnWidth(actionsColumn, 35, Style.Unit.PCT);
-    }
-
-    @Override
-    public void setInSlot(Object slot, Widget content) {
-        if (content != null) {
-            if (slot == ValueListPresenter.TYPE_SetValueTypeContent) {
-                valueTypeDisplay.setWidget(content);
-            }
-        }
-    }
-
-    @Override
-    public void setData(List<ValueListProxy> response) {
-        dataProvider.getList().clear();
-        dataProvider.getList().addAll(response);
-    }
-
-    @UiHandler("addValueList")
-    void onAddValueListClicked(ClickEvent event) {
-        getUiHandlers().addValueList();
     }
 }

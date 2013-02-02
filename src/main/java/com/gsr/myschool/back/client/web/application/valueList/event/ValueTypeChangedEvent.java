@@ -21,11 +21,11 @@ import com.google.gwt.event.shared.GwtEvent;
 import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 
 public class ValueTypeChangedEvent extends GwtEvent<ValueTypeChangedEvent.ValueTypeChangedHandler> {
-    public static Type<ValueTypeChangedHandler> TYPE = new Type<ValueTypeChangedHandler>();
-
     public interface ValueTypeChangedHandler extends EventHandler {
         void onValueTypeChanged(ValueTypeChangedEvent event);
     }
+
+    public static Type<ValueTypeChangedHandler> TYPE = new Type<ValueTypeChangedHandler>();
 
     private ValueTypeProxy valueType;
 

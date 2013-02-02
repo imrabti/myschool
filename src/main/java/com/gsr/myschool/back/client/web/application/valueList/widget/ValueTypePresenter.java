@@ -61,13 +61,6 @@ public class ValueTypePresenter extends PresenterWidget<ValueTypePresenter.MyVie
         getView().setUiHandlers(this);
     }
 
-    @Override
-    protected void onReveal() {
-        super.onReveal();
-
-        fillTable();
-    }
-
     public void fillTable() {
         requestFactory.valueTypeServiceRequest().findAll().fire(new Receiver<List<ValueTypeProxy>>() {
             @Override
@@ -106,6 +99,13 @@ public class ValueTypePresenter extends PresenterWidget<ValueTypePresenter.MyVie
                 MessageEvent.fire(this, message);
             }
         });
+        fillTable();
+    }
+
+    @Override
+    protected void onReveal() {
+        super.onReveal();
+
         fillTable();
     }
 }

@@ -83,21 +83,6 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
     }
 
     @Override
-    protected void onBind() {
-        super.onBind();
-
-        addRegisteredHandler(ValueTypeChangedEvent.TYPE, this);
-    }
-
-    @Override
-    protected void onReveal() {
-        super.onReveal();
-
-        setInSlot(TYPE_SetValueTypeContent, valueTypePresenter);
-        fillTable();
-    }
-
-    @Override
     public void addValueList() {
         addValueListPresenter.initDatas(currentValueType);
         addToPopupSlot(addValueListPresenter);
@@ -130,7 +115,22 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
         fillTable();
     }
 
-    public void fillTable() {
+    @Override
+    protected void onBind() {
+        super.onBind();
+
+        addRegisteredHandler(ValueTypeChangedEvent.TYPE, this);
+    }
+
+    @Override
+    protected void onReveal() {
+        super.onReveal();
+
+        setInSlot(TYPE_SetValueTypeContent, valueTypePresenter);
+        fillTable();
+    }
+
+    private void fillTable() {
         if (currentValueType != null)
             requestFactory.valueListServiceRequest().findByValueTypeCode(currentValueType.getCode()).fire(new Receiver<List<ValueListProxy>>() {
                 @Override

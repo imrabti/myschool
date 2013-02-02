@@ -33,16 +33,6 @@ import com.gsr.myschool.common.client.widget.ModalHeader;
 
 public class AddValueListView extends ValidatedPopupViewImplWithUiHandlers<AddValueListUiHandlers>
         implements AddValueListPresenter.MyView {
-    @Override
-    public void editValue(ValueListProxy valueList) {
-        valueListEditor.edit(valueList);
-    }
-
-    @Override
-    public void flushValue() {
-        valueListEditor.get();
-    }
-
     public interface Binder extends UiBinder<PopupPanel, AddValueListView> {
     }
 
@@ -70,6 +60,16 @@ public class AddValueListView extends ValidatedPopupViewImplWithUiHandlers<AddVa
                 hide();
             }
         });
+    }
+
+    @Override
+    public void editValue(ValueListProxy valueList) {
+        valueListEditor.edit(valueList);
+    }
+
+    @Override
+    public void flushValue() {
+        valueListEditor.get();
     }
 
     @UiHandler("cancel")

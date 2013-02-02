@@ -49,13 +49,12 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers> imple
     @UiField
     CellTable<ValueTypeProxy> valueTypeTable;
 
-    private final ValueTypeActionCellFactory actionCellFactory;
-
     private Delegate<ValueTypeProxy> deleteAction;
     private Delegate<ValueTypeProxy> modifyAction;
 
     private final SingleSelectionModel<ValueTypeProxy> valueTypeSelectionModel;
     private final ListDataProvider<ValueTypeProxy> dataProvider;
+    private final ValueTypeActionCellFactory actionCellFactory;
 
     @Inject
     public ValueTypeView(final Binder uiBinder, final UiHandlersStrategy<ValueTypeUiHandlers> uiHandlers,
@@ -114,6 +113,11 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers> imple
         valueTypeTable.setColumnWidth(actionsColumn, 35, Style.Unit.PCT);
     }
 
+    @UiHandler("addValueType")
+    void onAddValueTypeClicked(ClickEvent event) {
+        getUiHandlers().addValueType();
+    }
+
     private void initActions() {
         modifyAction = new Delegate<ValueTypeProxy>() {
             @Override
@@ -128,10 +132,5 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers> imple
                 getUiHandlers().deleteValueType(valueType);
             }
         };
-    }
-
-    @UiHandler("addValueType")
-    void onAddValueTypeClicked(ClickEvent event) {
-        getUiHandlers().addValueType();
     }
 }
