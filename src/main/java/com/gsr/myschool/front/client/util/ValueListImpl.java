@@ -3,6 +3,7 @@ package com.gsr.myschool.front.client.util;
 import com.google.common.base.Objects;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
+import com.gsr.myschool.common.client.proxy.EtablissementScolaireProxy;
 import com.gsr.myschool.common.client.proxy.FiliereProxy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
@@ -19,6 +20,7 @@ public class ValueListImpl implements ValueList {
     private final FrontRequestFactory requestFactory;
 
     private List<FiliereProxy> filiereList;
+    private List<EtablissementScolaireProxy> etablissementScolaireList;
     private Map<String, List<NiveauEtudeProxy>> niveauEtudeMap;
     private Map<ValueTypeCode, List<ValueListProxy>> valueListMap;
 
@@ -26,6 +28,7 @@ public class ValueListImpl implements ValueList {
     public ValueListImpl(final FrontRequestFactory requestFactory) {
         this.requestFactory = requestFactory;
         this.filiereList = new ArrayList<FiliereProxy>();
+        this.etablissementScolaireList = new ArrayList<EtablissementScolaireProxy>();
         this.niveauEtudeMap = new HashMap<String, List<NiveauEtudeProxy>>();
         this.valueListMap = new HashMap<ValueTypeCode, List<ValueListProxy>>();
     }
@@ -37,6 +40,15 @@ public class ValueListImpl implements ValueList {
         }
 
         return filiereList;
+    }
+
+    @Override
+    public List<EtablissementScolaireProxy> getEtablissementScolaireList() {
+        if (etablissementScolaireList == null) {
+            initEtablissementScolaireList();
+        }
+
+        return etablissementScolaireList;
     }
 
     @Override
@@ -65,6 +77,17 @@ public class ValueListImpl implements ValueList {
                 filiereList = result;
             }
         });
+    }
+
+    @Override
+    public void initEtablissementScolaireList() {
+        requestFactory.cachedListValueService().findAllEtablissementScolaire()
+                .fire(new Receiver<List<EtablissementScolaireProxy>>() {
+                    @Override
+                    public void onSuccess(List<EtablissementScolaireProxy> result) {
+                        etablissementScolaireList = result;
+                    }
+                });
     }
 
     @Override

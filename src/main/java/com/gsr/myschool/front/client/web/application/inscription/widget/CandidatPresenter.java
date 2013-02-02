@@ -41,6 +41,10 @@ public class CandidatPresenter extends PresenterWidget<CandidatPresenter.MyView>
         if (event.getCurrentStep() == WizardStep.STEP_2) {
             getView().flushCandidat();
 
+            currentCandidat.setBacSerie(currentContext.edit(currentCandidat.getBacSerie()));
+            currentCandidat.setBacYear(currentContext.edit(currentCandidat.getBacYear()));
+            currentCandidat.setNationality(currentContext.edit(currentCandidat.getNationality()));
+
             currentContext.updateCandidat(currentCandidat).fire(new ValidatedReceiverImpl<CandidatProxy>() {
                 @Override
                 public void onValidationError(Set<ConstraintViolation<?>> violations) {

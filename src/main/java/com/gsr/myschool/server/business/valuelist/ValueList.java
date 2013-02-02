@@ -1,9 +1,10 @@
 package com.gsr.myschool.server.business.valuelist;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class ValueList {
+public class ValueList implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
