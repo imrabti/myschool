@@ -1,6 +1,7 @@
 package com.gsr.myschool.server.business;
 
 import com.gsr.myschool.common.shared.type.TypeNiveauEtude;
+import com.gsr.myschool.server.business.valuelist.ValueList;
 
 import javax.persistence.*;
 
@@ -16,6 +17,8 @@ public class ScolariteAnterieur implements java.io.Serializable {
     @Enumerated
     private TypeNiveauEtude typeNiveauEtude;
     private String classe;
+    @ManyToOne
+    private ValueList anneeScolaire;
 
     public Long getId() {
         return id;
@@ -55,5 +58,13 @@ public class ScolariteAnterieur implements java.io.Serializable {
 
     public void setClasse(String newClasse) {
         this.classe = newClasse;
+    }
+
+    public ValueList getAnneeScolaire() {
+        return anneeScolaire;
+    }
+
+    public void setAnneeScolaire(ValueList anneeScolaire) {
+        this.anneeScolaire = anneeScolaire;
     }
 }

@@ -15,6 +15,7 @@ import com.gsr.myschool.front.client.web.application.inscription.event.DisplaySt
 import com.gsr.myschool.front.client.web.application.inscription.widget.CandidatPresenter;
 import com.gsr.myschool.front.client.web.application.inscription.widget.NiveauScolairePresenter;
 import com.gsr.myschool.front.client.web.application.inscription.widget.ParentPresenter;
+import com.gsr.myschool.front.client.web.application.inscription.widget.ScolariteAnterieurPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -39,10 +40,12 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
     public static final Object TYPE_Step_1_Content = new Object();
     public static final Object TYPE_Step_2_Content = new Object();
     public static final Object TYPE_Step_3_Content = new Object();
+    public static final Object TYPE_Step_4_Content = new Object();
 
     private final FrontRequestFactory requestFactory;
     private final ParentPresenter parentPresenter;
     private final CandidatPresenter candidatPresenter;
+    private final ScolariteAnterieurPresenter scolariteAnterieurPresenter;
     private final NiveauScolairePresenter niveauScolairePresenter;
 
     private DossierProxy currentDossier;
@@ -52,12 +55,14 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
                                     final FrontRequestFactory requestFactory,
                                     final ParentPresenter parentPresenter,
                                     final CandidatPresenter candidatPresenter,
+                                    final ScolariteAnterieurPresenter scolariteAnterieurPresenter,
                                     final NiveauScolairePresenter niveauScolairePresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
         this.parentPresenter = parentPresenter;
         this.candidatPresenter = candidatPresenter;
+        this.scolariteAnterieurPresenter = scolariteAnterieurPresenter;
         this.niveauScolairePresenter = niveauScolairePresenter;
 
         getView().setUiHandlers(this);
@@ -72,6 +77,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
                 currentDossier = result;
                 parentPresenter.editData(currentDossier.getInfoParent());
                 candidatPresenter.editData(currentDossier.getCandidat());
+                scolariteAnterieurPresenter.editData(currentDossier);
             }
         });
     }
@@ -97,6 +103,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
 
         setInSlot(TYPE_Step_1_Content, parentPresenter);
         setInSlot(TYPE_Step_2_Content, candidatPresenter);
-        setInSlot(TYPE_Step_3_Content, niveauScolairePresenter);
+        setInSlot(TYPE_Step_3_Content, scolariteAnterieurPresenter);
+        setInSlot(TYPE_Step_4_Content, niveauScolairePresenter);
     }
 }
