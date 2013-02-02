@@ -4,6 +4,7 @@ import com.gsr.myschool.common.shared.type.TypeNiveauEtude;
 import com.gsr.myschool.server.business.Candidat;
 import com.gsr.myschool.server.business.EtablissementScolaire;
 import com.gsr.myschool.server.business.valuelist.ValueList;
+import com.gsr.myschool.server.validator.NotBlank;
 
 import java.io.Serializable;
 
@@ -11,8 +12,11 @@ public class ScolariteAnterieurDTO implements Serializable {
     private Candidat candidat;
     private EtablissementScolaire etablissement;
     private String newEtablissementScolaire;
+    @NotBlank
     private TypeNiveauEtude typeNiveauEtude;
+    @NotBlank
     private String classe;
+    @NotBlank
     private ValueList anneeScolaire;
 
     public Candidat getCandidat() {
