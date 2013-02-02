@@ -73,6 +73,7 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
     public void goToStep(WizardStep step) {
         switch (step) {
             case STEP_1:
+                next.setVisible(true);
                 back.setVisible(false);
                 finish.setVisible(false);
                 break;
