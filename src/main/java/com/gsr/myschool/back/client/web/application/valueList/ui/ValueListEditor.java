@@ -25,10 +25,10 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
-import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueListRenderer;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.util.EditorView;
+import com.gsr.myschool.common.client.widget.renderer.ValueListRenderer;
 
 import java.util.List;
 
@@ -51,10 +51,11 @@ public class ValueListEditor extends Composite implements EditorView<ValueListPr
 
     @Inject
     public ValueListEditor(final Binder uiBinder, final Driver driver,
-                           final BackRequestFactory requestFactory) {
+                           final BackRequestFactory requestFactory,
+                           final ValueListRenderer valueListRenderer) {
         this.driver = driver;
         this.requestFactory = requestFactory;
-        this.parent = new ValueListBox<ValueListProxy>(new ValueListRenderer());
+        this.parent = new ValueListBox<ValueListProxy>(valueListRenderer);
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
