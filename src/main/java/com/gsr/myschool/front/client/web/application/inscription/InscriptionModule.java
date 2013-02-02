@@ -23,6 +23,9 @@ import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.front.client.web.application.inscription.renderer.InscriptionActionCellFactory;
 import com.gsr.myschool.front.client.web.application.inscription.widget.CandidatPresenter;
 import com.gsr.myschool.front.client.web.application.inscription.widget.CandidatView;
+import com.gsr.myschool.front.client.web.application.inscription.widget.FrateriePresenter;
+import com.gsr.myschool.front.client.web.application.inscription.widget.FraterieUiHandlers;
+import com.gsr.myschool.front.client.web.application.inscription.widget.FraterieView;
 import com.gsr.myschool.front.client.web.application.inscription.widget.NiveauScolairePresenter;
 import com.gsr.myschool.front.client.web.application.inscription.widget.NiveauScolaireView;
 import com.gsr.myschool.front.client.web.application.inscription.widget.ParentPresenter;
@@ -41,6 +44,8 @@ public class InscriptionModule extends AbstractPresenterModule {
                 .to(new TypeLiteral<SetterUiHandlersStrategy<EditInscriptionUiHandlers>>() {});
         bind(new TypeLiteral<UiHandlersStrategy<ScolariteAnterieurUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<ScolariteAnterieurUiHandlers>>() {});
+        bind(new TypeLiteral<UiHandlersStrategy<FraterieUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<FraterieUiHandlers>>() {});
 
         bindPresenter(InscriptionPresenter.class, InscriptionPresenter.MyView.class, InscriptionView.class,
                 InscriptionPresenter.MyProxy.class);
@@ -55,6 +60,8 @@ public class InscriptionModule extends AbstractPresenterModule {
                 CandidatView.class);
         bindSingletonPresenterWidget(ScolariteAnterieurPresenter.class, ScolariteAnterieurPresenter.MyView.class,
                 ScolariteAnterieurView.class);
+        bindSingletonPresenterWidget(FrateriePresenter.class, FrateriePresenter.MyView.class,
+                FraterieView.class);
 
         install(new GinFactoryModuleBuilder().build(InscriptionActionCellFactory.class));
     }

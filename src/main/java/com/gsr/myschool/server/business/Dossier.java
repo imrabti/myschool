@@ -3,6 +3,7 @@ package com.gsr.myschool.server.business;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.core.Filiere;
 import com.gsr.myschool.server.business.core.NiveauEtude;
+import com.gsr.myschool.server.business.valuelist.ValueList;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -30,6 +31,8 @@ public class Dossier implements java.io.Serializable {
     private String generatedNumDossier;
     private String note;
     private Date rdvEntretien;
+    @ManyToOne
+    private ValueList anneeScolaire;
 
     public Long getId() {
         return id;
@@ -133,5 +136,13 @@ public class Dossier implements java.io.Serializable {
 
     public void setRdvEntretien(Date rdvEntretien) {
         this.rdvEntretien = rdvEntretien;
+    }
+
+    public ValueList getAnneeScolaire() {
+        return anneeScolaire;
+    }
+
+    public void setAnneeScolaire(ValueList anneeScolaire) {
+        this.anneeScolaire = anneeScolaire;
     }
 }
