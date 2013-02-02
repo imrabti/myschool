@@ -34,4 +34,12 @@ public interface MessageBundle extends Messages {
     String activateAccountFailure();
 
     String activateAccountSuccess();
+
+    String deleteInscriptionConf();
+
+    String deleteInscriptionSuccess();
+
+    String deleteScolariteAnterieurConf();
+
+    String deleteScolariteAnterieurSuccess();
 }

@@ -6,6 +6,8 @@ import com.google.web.bindery.requestfactory.shared.Service;
 import com.gsr.myschool.common.client.proxy.CandidatProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.InfoParentProxy;
+import com.gsr.myschool.common.client.proxy.ScolariteAnterieurDTOProxy;
+import com.gsr.myschool.common.client.proxy.ScolariteAnterieurProxy;
 import com.gsr.myschool.server.service.impl.InscriptionServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
 
@@ -15,13 +17,21 @@ import java.util.List;
 public interface InscriptionRequest extends RequestContext {
     Request<List<DossierProxy>> findAllDossiers();
 
-    Request<DossierProxy> findDossierById(Long id);
+    Request<DossierProxy> findDossierById(Long dossierId);
 
     Request<DossierProxy> createNewInscription();
+
+    Request<Void> deleteInscription(Long dossierId);
 
     Request<DossierProxy> updateDossier(DossierProxy dossier);
 
     Request<InfoParentProxy> updateParent(InfoParentProxy infoParent);
 
     Request<CandidatProxy> updateCandidat(CandidatProxy candidat);
+
+    Request<List<ScolariteAnterieurProxy>> findScolariteAnterieursByDossierId(Long dossierId);
+
+    Request<Void> createNewScolariteAnterieur(ScolariteAnterieurDTOProxy scolariteAnterieur, Long dossierId);
+
+    Request<Void> deleteScolariteAnterieur(Long scolariteAnterieurId);
 }

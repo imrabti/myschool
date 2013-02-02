@@ -16,10 +16,16 @@
 
 package com.gsr.myschool.front.client.web.application.inscription;
 
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
+import com.google.gwt.user.client.Window;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.common.client.widget.messages.CloseDelay;
+import com.gsr.myschool.common.client.widget.messages.Message;
+import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
+import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.front.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.google.inject.Inject;
@@ -50,15 +56,18 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
 
     private final FrontRequestFactory requestFactory;
     private final PlaceManager placeManager;
+    private final MessageBundle messageBundle;
 
     @Inject
     public InscriptionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                                 final FrontRequestFactory requestFactory,
-                                final PlaceManager placeManager) {
+                                final PlaceManager placeManager,
+                                final MessageBundle messageBundle) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
         this.placeManager = placeManager;
+        this.messageBundle = messageBundle;
 
         getView().setUiHandlers(this);
     }
@@ -88,6 +97,19 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
 
     @Override
     public void deleteInscription(DossierProxy dossier) {
+        if (Window.confirm(messageBundle.deleteInscriptionConf())) {
+            requestFactory.inscriptionService().deleteInscription(dossier.getId()).fire(new ReceiverImpl<Void>() {
+                @Override
+                public void onSuccess(Void response) {
+                    Message message = new Message.Builder(messageBundle.deleteInscriptionSuccess())
+                            .style(AlertType.SUCCESS)
+                            .closeDelay(CloseDelay.DEFAULT)
+                            .build();
+                    MessageEvent.fire(this, message);
+                    loadAllInscriptions();
+                }
+            });
+        }
     }
 
     @Override
@@ -100,6 +122,10 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
 
     @Override
     protected void onReveal() {
+        loadAllInscriptions();
+    }
+
+    private void loadAllInscriptions() {
         requestFactory.inscriptionService().findAllDossiers().fire(new ReceiverImpl<List<DossierProxy>>() {
             @Override
             public void onSuccess(List<DossierProxy> result) {

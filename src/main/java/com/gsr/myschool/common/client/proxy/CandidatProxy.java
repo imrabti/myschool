@@ -19,7 +19,6 @@ package com.gsr.myschool.common.client.proxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;
 import com.gsr.myschool.server.business.Candidat;
-import com.gsr.myschool.server.business.Dossier;
 
 import java.util.Date;
 
@@ -64,4 +63,16 @@ public interface CandidatProxy extends ValueProxy {
     String getGsm();
 
     void setGsm(String gsm);
+
+    ValueListProxy getBacYear();
+
+    void setBacYear(ValueListProxy bacYear);
+
+    ValueListProxy getBacSerie();
+
+    void setBacSerie(ValueListProxy bacSerie);
+
+    ValueListProxy getNationality();
+
+    void setNationality(ValueListProxy nationality);
 }

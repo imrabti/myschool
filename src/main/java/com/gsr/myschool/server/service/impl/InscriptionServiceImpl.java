@@ -1,13 +1,20 @@
 package com.gsr.myschool.server.service.impl;
 
+import com.google.common.base.Strings;
+import com.gsr.myschool.common.shared.dto.ScolariteAnterieurDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Candidat;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.business.EtablissementScolaire;
 import com.gsr.myschool.server.business.InfoParent;
+import com.gsr.myschool.server.business.ScolariteAnterieur;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.repos.CandidatRepos;
 import com.gsr.myschool.server.repos.DossierRepos;
+import com.gsr.myschool.server.repos.EtablissementScolaireRepos;
 import com.gsr.myschool.server.repos.InfoParentRepos;
+import com.gsr.myschool.server.repos.ScolariteAnterieurRepos;
+import com.gsr.myschool.server.repos.ValueListRepos;
 import com.gsr.myschool.server.security.SecurityContextProvider;
 import com.gsr.myschool.server.service.InscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +35,12 @@ public class InscriptionServiceImpl implements InscriptionService {
     private InfoParentRepos infoParentRepos;
     @Autowired
     private CandidatRepos candidatRepos;
+    @Autowired
+    private EtablissementScolaireRepos etablissementScolaireRepos;
+    @Autowired
+    private ScolariteAnterieurRepos scolariteAnterieurRepos;
+    @Autowired
+    private ValueListRepos valueListRepos;
 
     @Override
     @Transactional(readOnly = true)
@@ -60,6 +73,14 @@ public class InscriptionServiceImpl implements InscriptionService {
         dossierRepos.save(dossier);
 
         return dossier;
+    }
+
+    @Override
+    public void deleteInscription(Long dossierId) {
+        Dossier currentDossier = dossierRepos.findOne(dossierId);
+        dossierRepos.delete(currentDossier);
+        infoParentRepos.delete(currentDossier.getInfoParent());
+        candidatRepos.delete(currentDossier.getCandidat());
     }
 
     @Override
@@ -100,7 +121,45 @@ public class InscriptionServiceImpl implements InscriptionService {
         currentCandidat.setCne(candidat.getCne());
         currentCandidat.setEmail(candidat.getEmail());
         currentCandidat.setGsm(candidat.getGsm());
+        currentCandidat.setNationality(valueListRepos.findOne(candidat.getNationality().getId()));
+        currentCandidat.setBacSerie(valueListRepos.findOne(candidat.getBacSerie().getId()));
+        currentCandidat.setBacYear(valueListRepos.findOne(candidat.getBacYear().getId()));
         candidatRepos.save(currentCandidat);
         return currentCandidat;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ScolariteAnterieur> findScolariteAnterieursByDossierId(Long dossierId) {
+        Dossier dossier = dossierRepos.findOne(dossierId);
+        return scolariteAnterieurRepos.findByCandidatId(dossier.getCandidat().getId());
+    }
+
+    @Override
+    public void createNewScolariteAnterieur(ScolariteAnterieurDTO scolariteAnterieur, Long dossierId) {
+        EtablissementScolaire etablissementScolaire;
+
+        if (!Strings.isNullOrEmpty(scolariteAnterieur.getNewEtablissementScolaire())) {
+            etablissementScolaire = new EtablissementScolaire();
+            etablissementScolaire.setNom(scolariteAnterieur.getNewEtablissementScolaire());
+            etablissementScolaire.setReference(false);
+            etablissementScolaireRepos.save(etablissementScolaire);
+        } else {
+            etablissementScolaire = scolariteAnterieur.getEtablissement();
+        }
+
+        ScolariteAnterieur newScolariteAnterieur = new ScolariteAnterieur();
+        newScolariteAnterieur.setClasse(scolariteAnterieur.getClasse());
+        newScolariteAnterieur.setTypeNiveauEtude(scolariteAnterieur.getTypeNiveauEtude());
+        newScolariteAnterieur.setAnneeScolaire(scolariteAnterieur.getAnneeScolaire());
+        newScolariteAnterieur.setEtablissement(etablissementScolaire);
+        newScolariteAnterieur.setCandidat(dossierRepos.findOne(dossierId).getCandidat());
+        scolariteAnterieurRepos.save(newScolariteAnterieur);
+    }
+
+    @Override
+    public void deleteScolariteAnterieur(Long scolariteAnterieurId) {
+        ScolariteAnterieur scolariteAnterieur = scolariteAnterieurRepos.findOne(scolariteAnterieurId);
+        scolariteAnterieurRepos.delete(scolariteAnterieur);
     }
 }

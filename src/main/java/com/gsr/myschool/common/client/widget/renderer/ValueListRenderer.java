@@ -14,17 +14,26 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.application.valueList.renderer;
+package com.gsr.myschool.common.client.widget.renderer;
 
 import com.google.gwt.text.shared.AbstractRenderer;
-import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
+import com.google.inject.Inject;
+import com.gsr.myschool.common.client.proxy.ValueListProxy;
+import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 
-public class ValueTypeRenderer extends AbstractRenderer<ValueTypeProxy> {
+public class ValueListRenderer extends AbstractRenderer<ValueListProxy> {
+    private final SharedMessageBundle messageBundle;
+
+    @Inject
+    public ValueListRenderer(final SharedMessageBundle messageBundle) {
+        this.messageBundle = messageBundle;
+    }
+
     @Override
-    public String render(ValueTypeProxy valueTypeProxy) {
-        if (valueTypeProxy == null) {
-            return "Aucun";
+    public String render(ValueListProxy valueListProxy) {
+        if (valueListProxy == null) {
+            return messageBundle.emptyValueList();
         }
-        return valueTypeProxy.getCode().name();
+        return valueListProxy.getLabel();
     }
 }
