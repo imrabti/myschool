@@ -51,6 +51,8 @@ public class InscriptionModule extends AbstractPresenterModule {
                 InscriptionPresenter.MyProxy.class);
         bindPresenter(EditInscriptionPresenter.class, EditInscriptionPresenter.MyView.class, EditInscriptionView.class,
                 EditInscriptionPresenter.MyProxy.class);
+        bindPresenter(InscriptionDetailPresenter.class, InscriptionDetailPresenter.MyView.class,
+                InscriptionDetailView.class, InscriptionDetailPresenter.MyProxy.class);
 
         bindSingletonPresenterWidget(ParentPresenter.class, ParentPresenter.MyView.class,
                 ParentView.class);

@@ -22,6 +22,7 @@ public class NameTokens {
     public static final String login = "login";
     public static final String register = "register";
     public static final String inscription = "inscription";
+    public static final String inscriptiondetail = "inscriptiondetail";
     public static final String editinscription = "editinscription";
     public static final String convocation = "convocation";
     public static final String inbox = "inbox";
@@ -38,6 +39,10 @@ public class NameTokens {
         return inscription;
     }
 
+    public static String getInscriptionDetail() {
+        return inscriptiondetail;
+    }
+
     public static String getEditInscription() {
         return editinscription;
     }
@@ -48,9 +53,5 @@ public class NameTokens {
 
     public static String getInbox() {
         return inbox;
-    }
-
-    public static String getRequestUrl() {
-        return requestUrl;
     }
 }

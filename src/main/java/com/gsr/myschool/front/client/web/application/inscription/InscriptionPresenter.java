@@ -86,6 +86,9 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
 
     @Override
     public void previewInscription(DossierProxy dossier) {
+        PlaceRequest placeRequest = new PlaceRequest(NameTokens.getInscriptionDetail());
+        placeRequest = placeRequest.with("id", dossier.getId().toString());
+        placeManager.revealPlace(placeRequest);
     }
 
     @Override
