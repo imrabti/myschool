@@ -121,6 +121,8 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
 
     @UiHandler("finish")
     void onFinishClicked(ClickEvent event) {
+        WizardStep nextStep = WizardStep.value(currentStep.ordinal() + 1);
+        getUiHandlers().changeStep(currentStep, nextStep);
     }
 
     private void adjustTabNavHeight() {

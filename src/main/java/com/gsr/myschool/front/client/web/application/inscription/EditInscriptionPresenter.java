@@ -84,6 +84,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
                 candidatPresenter.editData(currentDossier.getCandidat());
                 frateriePresenter.editData(currentDossier);
                 scolariteAnterieurPresenter.editData(currentDossier);
+                niveauScolairePresenter.editData(currentDossier);
             }
         });
     }
