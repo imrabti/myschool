@@ -1,14 +1,53 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
 
     <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+
+    <ui:style>
+        .accordionWrapper {
+            margin-top: 12px;
+        }
+    </ui:style>
 
     <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
         <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
             <h2>
-                <g:InlineLabel text="Mes Inscriptions"/>
+                <g:InlineLabel ui:field="dossierTitle"/>
             </h2>
             <span style="display: block; clear: both;"/>
         </g:HTMLPanel>
+
+        <boot:Accordion styleName="{style.accordionWrapper}">
+            <boot:AccordionGroup heading="Dossier" defaultOpen="true">
+                <g:HTMLPanel>
+                    This Dossier
+                </g:HTMLPanel>
+            </boot:AccordionGroup>
+
+            <boot:AccordionGroup heading="Responsable" defaultOpen="true">
+                <g:HTMLPanel>
+                    This Dossier
+                </g:HTMLPanel>
+            </boot:AccordionGroup>
+
+            <boot:AccordionGroup heading="Candidat" defaultOpen="true">
+                <g:HTMLPanel>
+                    This Dossier
+                </g:HTMLPanel>
+            </boot:AccordionGroup>
+
+            <boot:AccordionGroup heading="Fraterie" defaultOpen="true">
+                <g:HTMLPanel>
+                    This Dossier
+                </g:HTMLPanel>
+            </boot:AccordionGroup>
+
+            <boot:AccordionGroup heading="Scolarité antérieur" defaultOpen="true">
+                <g:HTMLPanel>
+                    This Dossier
+                </g:HTMLPanel>
+            </boot:AccordionGroup>
+        </boot:Accordion>
     </g:HTMLPanel>
 </ui:UiBinder>
