@@ -54,4 +54,8 @@ public interface MessageBundle extends Messages {
     String inscriptionSubmitConf();
 
     String inscriptionSubmitSuccess();
+
+    String accountUpdatedSuccess();
+
+    String passwordUpdatedSuccess();
 }
