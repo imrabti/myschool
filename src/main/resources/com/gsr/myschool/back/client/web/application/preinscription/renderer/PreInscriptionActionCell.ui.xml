@@ -1,8 +1,8 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'>
     <div class="btn-group">
         <a href="javascript:;" class="btn" ui:field="viewDetails">
-            <i class="icon-search"/>
-            <span class="">Consulter</span>
+            <i class="icon-plus"/>
+            <span class="">consulter</span>
         </a>
     </div>
 </ui:UiBinder>

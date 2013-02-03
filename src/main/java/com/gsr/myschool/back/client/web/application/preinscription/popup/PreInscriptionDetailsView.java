@@ -11,6 +11,8 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.common.client.proxy.CandidatProxy;
+import com.gsr.myschool.common.client.proxy.InfoParentProxy;
 import com.gsr.myschool.common.client.ui.dossier.CandidatEditor;
 import com.gsr.myschool.common.client.ui.dossier.NiveauScolaireEditor;
 import com.gsr.myschool.common.client.ui.dossier.ParentEditor;
@@ -51,6 +53,16 @@ public class PreInscriptionDetailsView extends ValidatedPopupViewImplWithUiHandl
                 hide();
             }
         });
+    }
+
+    @Override
+    public void editParent(InfoParentProxy infoParent) {
+        parentEditor.edit(infoParent);
+    }
+
+    @Override
+    public void editCandidat(CandidatProxy candidat) {
+        candidatEditor.edit(candidat);
     }
 
     @UiHandler("cancel")

@@ -34,4 +34,8 @@ public interface DossierServiceRequest extends RequestContext {
 
     Request<PagedDossiersProxy> findAllDossiersByCriteria(DossierFilterProxy dossierFilterProxy,
             DataPageProxy dataPageProxy);
+
+    Request<List<DossierProxy>>  findAllDossiersInStatusByCriteria(DossierFilterProxy dossierFilterProxy);
+
+    Request<Boolean> receive(DossierProxy dossier);
 }

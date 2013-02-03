@@ -86,7 +86,7 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
 
     @Override
     public void viewDetails(DossierProxy dossier) {
-        detailsPresenter.editDrivers(dossier);
+        detailsPresenter.editInscriptionData(dossier);
         addToPopupSlot(detailsPresenter);
     }
 
