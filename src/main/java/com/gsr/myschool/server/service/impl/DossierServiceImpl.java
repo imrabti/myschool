@@ -16,17 +16,21 @@
 
 package com.gsr.myschool.server.service.impl;
 
-import com.gsr.myschool.common.shared.type.DossierStatus;
-import com.gsr.myschool.server.business.Candidat;
+import com.google.common.base.Strings;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.dto.DataPage;
+import com.gsr.myschool.server.dto.DossierFilter;
+import com.gsr.myschool.server.dto.PagedDossiers;
 import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.service.DossierService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -38,47 +42,26 @@ public class DossierServiceImpl implements DossierService {
     @Transactional(readOnly = true)
     public List<Dossier> findAllDossiersByUser(Long userId) {
         List<Dossier> dossiers = new ArrayList<Dossier>();
-
-        Candidat c = new Candidat();
-        c.setBirthDate(new Date());
-        c.setFirstname("alex");
-        c.setLastname("kid");
-
-        Dossier dossier = new Dossier();
-        dossier.setGeneratedNumDossier("001S2013");
-        dossier.setNote("001S2013");
-        dossier.setCreateDate(new Date());
-        dossier.setSubmitDate(new Date());
-        dossier.setId(1l);
-        dossier.setCandidat(c);
-        dossier.setStatus(DossierStatus.INVITED_TO_TEST);
-		dossiers.add(dossier);
-
-        dossier = new Dossier();
-        dossier.setGeneratedNumDossier("002S2013");
-        dossier.setNote("002S2013");
-        dossier.setCreateDate(new Date());
-        dossier.setSubmitDate(new Date());
-        dossier.setId(2l);
-        dossier.setCandidat(c);
-        dossier.setStatus(DossierStatus.RECEIVED);
-		dossiers.add(dossier);
-
-        dossier = new Dossier();
-        dossier.setGeneratedNumDossier("002S2sds3");
-        dossier.setNote("002S2sds3");
-        dossier.setCreateDate(new Date());
-        dossier.setSubmitDate(new Date());
-        dossier.setId(3l);
-        dossier.setCandidat(c);
-        dossier.setStatus(DossierStatus.ACCEPTED_FOR_TEST);
-		dossiers.add(dossier);
-
+        dossiers.addAll(dossierRepos.findByOwnerId(userId));
         return dossiers;
     }
 
-    public List<Dossier> findAllDossiersByCriteria(String numDossier, DossierStatus dossierStatus, Date dateCreation) {
-        List<Dossier> dossiers = new ArrayList<Dossier>();
-        return dossiers;
+    @Override
+    @Transactional(readOnly = true)
+    public PagedDossiers findAllDossiersByCriteria(DossierFilter filter, DataPage dataPageRequest) {
+        PageRequest page = new PageRequest(dataPageRequest.getPageNumber(), dataPageRequest.getLength(),
+                new Sort(Sort.Direction.DESC, "createDate"));
+        if (filter.getNumDossier().equals("%")) {
+            Page<Dossier> dossiers = dossierRepos.findByNumDossierLike(filter.getNumDossier(), page);
+            return new PagedDossiers(dossiers.getContent(), (int) dossiers.getTotalElements());
+        } else {
+            if (Strings.isNullOrEmpty(filter.getNumDossier())) {
+                filter.setNumDossier("%");
+            }
+            Page<Dossier> dossiers = dossierRepos.findByNumDossierLikeAndStatusAndDateCreation(
+                    filter.getNumDossier(),
+                    filter.getStatus(), filter.getDateCreation(), page);
+            return new PagedDossiers(dossiers.getContent(), (int) dossiers.getTotalElements());
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.gsr.myschool.back.client.util;
 
+import com.google.common.base.Objects;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
@@ -56,7 +57,7 @@ public class ValueListImpl implements ValueList {
             initNiveauEtudeMap();
         }
 
-        return niveauEtudeMap.get(filiere);
+        return Objects.firstNonNull(niveauEtudeMap.get(filiere), new ArrayList<NiveauEtudeProxy>());
     }
 
     @Override
@@ -65,7 +66,7 @@ public class ValueListImpl implements ValueList {
             initValueListMap();
         }
 
-        return valueListMap.get(valueTypeCode);
+        return Objects.firstNonNull(valueListMap.get(valueTypeCode), new ArrayList<ValueListProxy>());
     }
 
     @Override
