@@ -29,6 +29,10 @@ public interface DossierFilterProxy extends ValueProxy {
 
     void setNumDossier(String numDossier);
 
+    String getNomCandidat();
+
+    void setNomCandidat(String nomCandidat);
+
     DossierStatus getStatus();
 
     void setStatus(DossierStatus status);

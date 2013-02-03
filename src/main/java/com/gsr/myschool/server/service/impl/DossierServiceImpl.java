@@ -21,8 +21,10 @@ import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.dto.DataPage;
 import com.gsr.myschool.server.dto.DossierFilter;
 import com.gsr.myschool.server.dto.PagedDossiers;
+import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.service.DossierService;
+import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,18 +33,50 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class DossierServiceImpl implements DossierService {
 	@Autowired
 	DossierRepos dossierRepos;
+    @Autowired
+    private ValidationProcessService validationProcessService;
 
     @Override
     @Transactional(readOnly = true)
     public List<Dossier> findAllDossiersByUser(Long userId) {
         List<Dossier> dossiers = new ArrayList<Dossier>();
         dossiers.addAll(dossierRepos.findByOwnerId(userId));
+        return dossiers;
+    }
+
+    @Override
+    public Boolean receive(Dossier dossier) {
+        Map<Dossier, Task> dossiersAndTasks = new HashMap<Dossier, Task>();
+        dossiersAndTasks.putAll(validationProcessService.getAllNonReceivedDossiers());
+        for (Dossier dossierFromProcess: dossiersAndTasks.keySet()) {
+            if (dossier.getId() == dossierFromProcess.getId()) {
+                validationProcessService.receiveDossier(dossiersAndTasks.get(dossierFromProcess.getId()));
+                break;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Dossier> findAllDossiersInStatusByCriteria(DossierFilter filter) {
+        List<Dossier> dossiers = new ArrayList<Dossier>();
+        if (Strings.isNullOrEmpty(filter.getNumDossier())) {
+            filter.setNumDossier("%");
+        }
+        if (Strings.isNullOrEmpty(filter.getNomCandidat())) {
+            filter.setNumDossier("%");
+        }
+        dossiers.addAll(dossierRepos.findDossierByGeneratedNumDossierLikeAndStatusEqualsAndCandidatNomLike(
+                filter.getNumDossier(), filter.getStatus(), filter.getNomCandidat()));
         return dossiers;
     }
 

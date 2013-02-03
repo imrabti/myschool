@@ -27,4 +27,8 @@ public interface DossierService {
     List<Dossier> findAllDossiersByUser(Long userId);
 
     PagedDossiers findAllDossiersByCriteria(DossierFilter filter, DataPage dataPage);
+
+    List<Dossier> findAllDossiersInStatusByCriteria(DossierFilter filter);
+
+    Boolean receive(Dossier dossier);
 }
