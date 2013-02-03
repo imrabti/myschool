@@ -17,31 +17,37 @@
 package com.gsr.myschool.front.client.web.application.inbox.renderer;
 
 import com.google.gwt.cell.client.AbstractCell;
-import com.google.gwt.cell.client.Cell;
 import com.google.gwt.dom.client.BrowserEvents;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiRenderer;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.InboxProxy;
+import com.gsr.myschool.common.shared.type.InboxMessageStatus;
+import com.gsr.myschool.front.client.resource.FrontResources;
 
 public class InboxCell extends AbstractCell<InboxProxy> {
     public interface Renderer extends UiRenderer {
-        void render(SafeHtmlBuilder sb);
+        void render(SafeHtmlBuilder sb, String subject, String content, String date, String status);
     }
 
     private final Renderer uiRenderer;
+    private final FrontResources resources;
 
     @Inject
-    public InboxCell(final Renderer uiRenderer) {
+    public InboxCell(final Renderer uiRenderer, final FrontResources resources) {
         super(BrowserEvents.CLICK);
 
         this.uiRenderer = uiRenderer;
+        this.resources = resources;
     }
 
     @Override
-    public void render(Context context, InboxProxy inboxProxy, SafeHtmlBuilder safeHtmlBuilder) {
-        uiRenderer.render(safeHtmlBuilder);
+    public void render(Context context, InboxProxy value, SafeHtmlBuilder safeHtmlBuilder) {
+        String msgStyle = value.getMsgStatus() == InboxMessageStatus.READ ?
+                resources.frontStyleCss().msgRead() : resources.frontStyleCss().msgUnread();
+
+        uiRenderer.render(safeHtmlBuilder, value.getSubject(),
+                value.getContent(), value.getMsgDate().toString(),
+                msgStyle);
     }
 }

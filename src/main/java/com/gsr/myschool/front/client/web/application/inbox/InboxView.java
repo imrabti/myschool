@@ -17,8 +17,10 @@
 package com.gsr.myschool.front.client.web.application.inbox;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
@@ -30,6 +32,7 @@ import com.gsr.myschool.common.client.proxy.InboxProxy;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
+import com.gsr.myschool.common.shared.type.InboxMessageStatus;
 import com.gsr.myschool.front.client.web.application.inbox.renderer.InboxCell;
 
 import java.util.ArrayList;
@@ -68,6 +71,20 @@ public class InboxView extends ViewWithUiHandlers<InboxUiHandlers> implements In
     public void setData(List<InboxProxy> response) {
         dataProvider.getList().clear();
         dataProvider.getList().addAll(response);
-        //dataProvider.getList().addAll(new ArrayList<InboxProxy>());
+    }
+
+    @UiHandler("delete")
+    void delete(ClickEvent event){
+        getUiHandlers().delete(new ArrayList<InboxProxy>(multipleSelectionModel.getSelectedSet()));
+    }
+
+    @UiHandler("read")
+    void read(ClickEvent event){
+        getUiHandlers().update(new ArrayList<InboxProxy>(multipleSelectionModel.getSelectedSet()), InboxMessageStatus.READ);
+    }
+
+    @UiHandler("unread")
+    void unread(ClickEvent event){
+        getUiHandlers().update(new ArrayList<InboxProxy>(multipleSelectionModel.getSelectedSet()), InboxMessageStatus.UNREAD);
     }
 }

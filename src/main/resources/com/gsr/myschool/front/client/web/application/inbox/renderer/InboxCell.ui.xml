@@ -1,8 +1,38 @@
-<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-             xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'
-             xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
-    <g:HTMLPanel>
-        test
-    </g:HTMLPanel>
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'>
+    <ui:with field='subject' type='java.lang.String'/>
+    <ui:with field='content' type='java.lang.String'/>
+    <ui:with field='date' type='java.lang.String'/>
+    <ui:with field='status' type="java.lang.String"/>
+    <ui:style>
+        .inbox_header {
+        }
+
+        .inbox_subject {
+            float: left;
+            width: 80%;
+        }
+
+        .inbox_content {
+            color: gray;
+        }
+
+        .inbox_date {
+            width: 20%;
+            float: right;
+        }
+    </ui:style>
+
+    <div class='{status}'>
+        <div class="{style.inbox_header}">
+            <div class="{style.inbox_subject}">
+                <ui:text from="{subject}"/>
+            </div>
+            <div class='{style.inbox_date}'>
+                <ui:text from="{date}"/>
+            </div>
+        </div>
+        <div class="{style.inbox_content}">
+            <ui:text from="{content}"/>
+        </div>
+    </div>
 </ui:UiBinder>
