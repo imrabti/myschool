@@ -9,7 +9,8 @@ public class InboxModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
         bind(new TypeLiteral<UiHandlersStrategy<InboxUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<InboxUiHandlers>>() {});
+                .to(new TypeLiteral<SetterUiHandlersStrategy<InboxUiHandlers>>() {
+                });
 
         bindPresenter(InboxPresenter.class, InboxPresenter.MyView.class, InboxView.class,
                 InboxPresenter.MyProxy.class);

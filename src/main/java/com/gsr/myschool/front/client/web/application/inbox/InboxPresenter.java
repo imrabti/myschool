@@ -18,6 +18,7 @@ package com.gsr.myschool.front.client.web.application.inbox;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+import com.gsr.myschool.common.client.proxy.InboxProxy;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.web.application.ApplicationPresenter;
@@ -29,9 +30,12 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
+import java.util.List;
+
 public class InboxPresenter extends Presenter<InboxPresenter.MyView, InboxPresenter.MyProxy>
         implements InboxUiHandlers {
     public interface MyView extends View, HasUiHandlers<InboxUiHandlers> {
+        public void setData(List<InboxProxy> response);
     }
 
     @ProxyStandard

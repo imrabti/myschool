@@ -16,21 +16,58 @@
 
 package com.gsr.myschool.front.client.web.application.inbox;
 
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.common.client.proxy.InboxProxy;
+import com.gsr.myschool.common.client.proxy.ValueListProxy;
+import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
+import com.gsr.myschool.common.client.widget.EmptyResult;
+import com.gsr.myschool.front.client.web.application.inbox.renderer.InboxCell;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class InboxView extends ViewWithUiHandlers<InboxUiHandlers> implements InboxPresenter.MyView {
     public interface Binder extends UiBinder<Widget, InboxView> {
     }
 
+    @UiField(provided = true)
+    CellList inboxTable;
+
+    private final ListDataProvider<InboxProxy> dataProvider;
+    private final MultiSelectionModel<InboxProxy> multipleSelectionModel;
+
     @Inject
     public InboxView(final Binder uiBinder,
-                     final UiHandlersStrategy<InboxUiHandlers> uiHandlers) {
+                     final UiHandlersStrategy<InboxUiHandlers> uiHandlers,
+                     final SharedMessageBundle sharedMessageBundle,
+                     final InboxCell inboxCell) {
         super(uiHandlers);
 
+        this.dataProvider = new ListDataProvider<InboxProxy>();
+        this.multipleSelectionModel = new MultiSelectionModel<InboxProxy>();
+
         initWidget(uiBinder.createAndBindUi(this));
+
+        inboxTable = new CellList<InboxProxy>(inboxCell);
+        dataProvider.addDataDisplay(inboxTable);
+        inboxTable.setSelectionModel(multipleSelectionModel);
+        inboxTable.setEmptyListWidget(new EmptyResult(sharedMessageBundle.noResultFound(),
+                AlertType.INFO));
+    }
+
+    @Override
+    public void setData(List<InboxProxy> response) {
+        dataProvider.getList().clear();
+        dataProvider.getList().addAll(response);
+        //dataProvider.getList().addAll(new ArrayList<InboxProxy>());
     }
 }
