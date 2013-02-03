@@ -84,6 +84,11 @@ public class AdminUserAccountPresenter extends Presenter<AdminUserAccountPresent
     }
 
     @Override
+    public void updateAccountStatus(AdminUserProxy adminUser) {
+        adminEditPresenter.updateAccountStatus(adminUser, messagePresenter, requestFactory.userService());
+    }
+
+    @Override
     public void reloadUsers() {
         loadUsers();
     }

@@ -29,11 +29,6 @@
                         <p:AdminUserAccountEditor ui:field="adminEditor"/>
                     </g:HTMLPanel>
                 </boot:Tab>
-                <boot:Tab heading="Mot de passe">
-                    <g:HTMLPanel styleName="{style.contentWrapper}">
-                        <p:PasswordEditor ui:field="passwordEditor"/>
-                    </g:HTMLPanel>
-                </boot:Tab>
             </boot:TabPanel>
 
             <g:HTMLPanel styleName="{resource.sharedStyleCss.buttonContainerPopup}">

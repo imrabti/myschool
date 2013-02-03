@@ -22,5 +22,7 @@ import com.gwtplatform.mvp.client.UiHandlers;
 public interface AdminUserAccountUiHandlers extends UiHandlers {
 	void addAccount();
 
+    void updateAccountStatus(AdminUserProxy adminUser);
+
     void accountDetails(AdminUserProxy adminUser);
 }
