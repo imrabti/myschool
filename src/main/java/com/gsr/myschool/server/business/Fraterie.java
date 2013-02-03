@@ -1,6 +1,8 @@
 package com.gsr.myschool.server.business;
 
 import com.gsr.myschool.common.shared.type.TypeFraterie;
+import com.gsr.myschool.server.validator.Name;
+import com.gsr.myschool.server.validator.NotBlank;
 
 import javax.persistence.*;
 
@@ -11,8 +13,13 @@ public class Fraterie implements java.io.Serializable {
     private Long id;
     @ManyToOne
     private Candidat candidat;
+    @Name
+    @NotBlank
     private String nom;
+    @Name
+    @NotBlank
     private String prenom;
+    @NotBlank
     private String numDossierGSR;
     @Enumerated
     private TypeFraterie typeFraterie;

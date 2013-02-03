@@ -30,6 +30,8 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
     @UiField
     SimplePanel step4;
     @UiField
+    SimplePanel step5;
+    @UiField
     Button back;
     @UiField
     Button next;
@@ -65,6 +67,8 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
                 step3.setWidget(content);
             } else if (slot == EditInscriptionPresenter.TYPE_Step_4_Content) {
                 step4.setWidget(content);
+            } else if (slot == EditInscriptionPresenter.TYPE_Step_5_Content) {
+                step5.setWidget(content);
             }
         }
     }
@@ -88,6 +92,11 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
                 next.setVisible(true);
                 break;
             case STEP_4:
+                finish.setVisible(false);
+                back.setVisible(true);
+                next.setVisible(true);
+                break;
+            case STEP_5:
                 back.setVisible(true);
                 next.setVisible(false);
                 finish.setVisible(true);
@@ -112,6 +121,8 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
 
     @UiHandler("finish")
     void onFinishClicked(ClickEvent event) {
+        WizardStep nextStep = WizardStep.value(currentStep.ordinal() + 1);
+        getUiHandlers().changeStep(currentStep, nextStep);
     }
 
     private void adjustTabNavHeight() {
