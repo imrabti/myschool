@@ -13,8 +13,10 @@ import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.repos.CandidatRepos;
 import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.repos.EtablissementScolaireRepos;
+import com.gsr.myschool.server.repos.FiliereRepos;
 import com.gsr.myschool.server.repos.FraterieRepos;
 import com.gsr.myschool.server.repos.InfoParentRepos;
+import com.gsr.myschool.server.repos.NiveauEtudeRepos;
 import com.gsr.myschool.server.repos.ScolariteAnterieurRepos;
 import com.gsr.myschool.server.repos.ValueListRepos;
 import com.gsr.myschool.server.security.SecurityContextProvider;
@@ -46,6 +48,10 @@ public class InscriptionServiceImpl implements InscriptionService {
     private ValueListRepos valueListRepos;
     @Autowired
     private FraterieRepos fraterieRepos;
+    @Autowired
+    private FiliereRepos filiereRepos;
+    @Autowired
+    private NiveauEtudeRepos niveauEtudeRepos;
 
     @Override
     @Transactional(readOnly = true)
@@ -91,8 +97,8 @@ public class InscriptionServiceImpl implements InscriptionService {
     @Override
     public Dossier updateDossier(Dossier dossier) {
         Dossier currentDossier = dossierRepos.findOne(dossier.getId());
-        currentDossier.setFiliere(dossier.getFiliere());
-        currentDossier.setNiveauEtude(dossier.getNiveauEtude());
+        currentDossier.setFiliere(filiereRepos.findOne(dossier.getFiliere().getId()));
+        currentDossier.setNiveauEtude(niveauEtudeRepos.findOne(dossier.getNiveauEtude().getId()));
         dossierRepos.save(currentDossier);
         return currentDossier;
     }

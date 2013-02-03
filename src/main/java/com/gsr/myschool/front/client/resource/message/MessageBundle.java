@@ -46,4 +46,6 @@ public interface MessageBundle extends Messages {
     String deleteFraterieConf();
 
     String deleteFraterieSuccess();
+
+    String newInscriptionSuccess();
 }
