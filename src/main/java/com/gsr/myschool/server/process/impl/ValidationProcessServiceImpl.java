@@ -61,7 +61,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     public void startProcess(Dossier dossier) {
         // treatment on Dossier
         dossier.setSubmitDate(new Date());
-        dossier.setStatus(DossierStatus.SUBMITED);
+        dossier.setStatus(DossierStatus.SUBMITTED);
         dossierRepos.save(dossier);
 
         // Initialise process variables
