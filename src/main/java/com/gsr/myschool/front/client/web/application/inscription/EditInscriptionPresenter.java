@@ -29,6 +29,8 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
         implements EditInscriptionUiHandlers, DisplayStepEvent.DisplayStepHandler {
     public interface MyView extends View, HasUiHandlers<EditInscriptionUiHandlers> {
+        void adjustTabNavHeight();
+
         void goToStep(WizardStep step);
     }
 
@@ -106,6 +108,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
 
     @Override
     protected void onReveal() {
+        getView().adjustTabNavHeight();
         getView().goToStep(WizardStep.STEP_1);
 
         setInSlot(TYPE_Step_1_Content, parentPresenter);
