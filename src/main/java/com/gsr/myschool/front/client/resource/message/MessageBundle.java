@@ -50,4 +50,8 @@ public interface MessageBundle extends Messages {
     String newInscriptionSuccess();
 
     String inscriptionDetailTitle(String numDossier);
+
+    String inscriptionSubmitConf();
+
+    String inscriptionSubmitSuccess();
 }

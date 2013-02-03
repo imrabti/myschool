@@ -20,33 +20,23 @@
 
         <boot:Accordion styleName="{style.accordionWrapper}">
             <boot:AccordionGroup heading="Dossier" defaultOpen="true">
-                <g:HTMLPanel>
-                    This Dossier
-                </g:HTMLPanel>
+                <g:HTMLPanel ui:field="dossierPanel"/>
             </boot:AccordionGroup>
 
             <boot:AccordionGroup heading="Responsable" defaultOpen="true">
-                <g:HTMLPanel>
-                    This Dossier
-                </g:HTMLPanel>
+                <g:HTMLPanel ui:field="responsablePanel"/>
             </boot:AccordionGroup>
 
             <boot:AccordionGroup heading="Candidat" defaultOpen="true">
-                <g:HTMLPanel>
-                    This Dossier
-                </g:HTMLPanel>
+                <g:HTMLPanel ui:field="candidatPanel"/>
             </boot:AccordionGroup>
 
             <boot:AccordionGroup heading="Fraterie" defaultOpen="true">
-                <g:HTMLPanel>
-                    This Dossier
-                </g:HTMLPanel>
+                <boot:CellTable ui:field="fraterieTable" bordered="true"/>
             </boot:AccordionGroup>
 
             <boot:AccordionGroup heading="Scolarité antérieur" defaultOpen="true">
-                <g:HTMLPanel>
-                    This Dossier
-                </g:HTMLPanel>
+                <boot:CellTable ui:field="etablissementTable" bordered="true"/>
             </boot:AccordionGroup>
         </boot:Accordion>
     </g:HTMLPanel>
