@@ -84,14 +84,14 @@ public class AdminUserAccountView extends ViewWithUiHandlers<AdminUserAccountUiH
     private void initActions() {
         editAccount = new Delegate<AdminUserProxy>() {
             @Override
-            public void execute(AdminUserProxy dossier) {
-                getUiHandlers().accountDetails(dossier);
+            public void execute(AdminUserProxy user) {
+                getUiHandlers().accountDetails(user);
             }
         };
         editStatus = new Delegate<AdminUserProxy>() {
             @Override
-            public void execute(AdminUserProxy dossier) {
-                getUiHandlers().accountDetails(dossier);
+            public void execute(AdminUserProxy user) {
+                getUiHandlers().updateAccountStatus(user);
             }
         };
     }
@@ -117,6 +117,16 @@ public class AdminUserAccountView extends ViewWithUiHandlers<AdminUserAccountUiH
         userGsrTable.addColumn(lNameColumn, "Nom");
         userGsrTable.setColumnWidth(lNameColumn, 20, Style.Unit.PCT);
 
+        TextColumn<AdminUserProxy> roleColumn = new TextColumn<AdminUserProxy>() {
+            @Override
+            public String getValue(AdminUserProxy object) {
+                return object.getAuthority().toString();
+            }
+        };
+        roleColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        userGsrTable.addColumn(roleColumn, "Rôle");
+        userGsrTable.setColumnWidth(roleColumn, 20, Style.Unit.PCT);
+
         TextColumn<AdminUserProxy> statusColumn = new TextColumn<AdminUserProxy>() {
             @Override
             public String getValue(AdminUserProxy object) {
@@ -125,7 +135,7 @@ public class AdminUserAccountView extends ViewWithUiHandlers<AdminUserAccountUiH
         };
         statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         userGsrTable.addColumn(statusColumn, "Status");
-        userGsrTable.setColumnWidth(statusColumn, 40, Style.Unit.PCT);
+        userGsrTable.setColumnWidth(statusColumn, 20, Style.Unit.PCT);
 
         TextColumn<AdminUserProxy> submittedColumn = new TextColumn<AdminUserProxy>() {
             @Override

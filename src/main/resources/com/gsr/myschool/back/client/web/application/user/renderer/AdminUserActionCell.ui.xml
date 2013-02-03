@@ -10,8 +10,7 @@
         <ul class="dropdown-menu pull-right">
             <li>
                 <a href="javascript:;" ui:field="editStatus">
-                    <i class="icon-edit"/>
-                    <span class="">Changer Statut</span>
+                    <span class="">Activer/Desactiver</span>
                 </a>
             </li>
         </ul>
