@@ -8,9 +8,12 @@ import com.gsr.myschool.common.client.mvp.ValidatedPopupView;
 import com.gsr.myschool.common.client.proxy.CandidatProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.InfoParentProxy;
-import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
+import com.gsr.myschool.common.client.proxy.ScolariteAnterieurProxy;
+import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
+
+import java.util.List;
 
 public class PreInscriptionDetailsPresenter extends PresenterWidget<PreInscriptionDetailsPresenter.MyView>
         implements PreInscriptionDetailsUiHandlers {
@@ -18,13 +21,16 @@ public class PreInscriptionDetailsPresenter extends PresenterWidget<PreInscripti
         void editParent(InfoParentProxy currentInfoParent);
 
         void editCandidat(CandidatProxy currentCandidat);
+
+        void setScolariteData(List<ScolariteAnterieurProxy> data);
+
+        void editScolarite(DossierProxy dossierProxy);
     }
 
     private final BackRequestFactory requestFactory;
     private DossierServiceRequest currentContext;
     private InfoParentProxy currentInfoParent;
     private CandidatProxy currentCandidat;
-    private NiveauEtudeProxy currentNiveau;
 
     @Inject
     public PreInscriptionDetailsPresenter(final EventBus eventBus, final MyView view,
@@ -39,10 +45,21 @@ public class PreInscriptionDetailsPresenter extends PresenterWidget<PreInscripti
         currentContext = requestFactory.dossierService();
         currentInfoParent = currentContext.edit(dossier.getInfoParent());
         currentCandidat = currentContext.edit(dossier.getCandidat());
-        // currentNiveau = currentContext.edit(dossier.getNiveauEtude());
+        loadScolariteAnterieur(dossier);
 
         getView().editCandidat(currentCandidat);
         getView().editParent(currentInfoParent);
-        // TODO: load niveau scolaire et scolarite anterieure
+        getView().editScolarite(dossier);
+    }
+
+    private void loadScolariteAnterieur(DossierProxy currentDossier) {
+        Long dossierId = currentDossier.getId();
+        requestFactory.dossierService().findScolariteAnterieursByDossierId(dossierId).fire(
+                new ReceiverImpl<List<ScolariteAnterieurProxy>>() {
+                    @Override
+                    public void onSuccess(List<ScolariteAnterieurProxy> result) {
+                        getView().setScolariteData(result);
+                    }
+                });
     }
 }

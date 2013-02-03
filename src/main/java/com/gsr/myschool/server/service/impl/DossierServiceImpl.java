@@ -18,11 +18,13 @@ package com.gsr.myschool.server.service.impl;
 
 import com.google.common.base.Strings;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.business.ScolariteAnterieur;
 import com.gsr.myschool.server.dto.DataPage;
 import com.gsr.myschool.server.dto.DossierFilter;
 import com.gsr.myschool.server.dto.PagedDossiers;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.DossierRepos;
+import com.gsr.myschool.server.repos.ScolariteAnterieurRepos;
 import com.gsr.myschool.server.service.DossierService;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,8 @@ import java.util.Map;
 public class DossierServiceImpl implements DossierService {
 	@Autowired
 	DossierRepos dossierRepos;
+    @Autowired
+    ScolariteAnterieurRepos scolariteAnterieurRepos;
     @Autowired
     private ValidationProcessService validationProcessService;
 
@@ -96,6 +100,17 @@ public class DossierServiceImpl implements DossierService {
                     filter.getNumDossier(),
                     filter.getStatus(), filter.getDateCreation(), page);
             return new PagedDossiers(dossiers.getContent(), (int) dossiers.getTotalElements());
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ScolariteAnterieur> findScolariteAnterieursByDossierId(Long dossierId) {
+        Dossier dossier = dossierRepos.findOne(dossierId);
+        if (dossier != null) {
+            return scolariteAnterieurRepos.findByCandidatId(dossier.getCandidat().getId());
+        } else {
+            return new ArrayList<ScolariteAnterieur>();
         }
     }
 }

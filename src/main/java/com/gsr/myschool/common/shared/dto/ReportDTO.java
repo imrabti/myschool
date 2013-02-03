@@ -1,5 +1,6 @@
 package com.gsr.myschool.common.shared.dto;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class ReportDTO {
@@ -7,7 +8,12 @@ public class ReportDTO {
 
      private Map<String, Object> reportParameters;
 
-     public String getReportName() {
+    public ReportDTO(String reportName) {
+        this.reportName = reportName;
+        this.reportParameters = new HashMap<String, Object>();
+    }
+
+    public String getReportName() {
           return reportName;
      }
 
