@@ -28,6 +28,7 @@ import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.security.CurrentUserProvider;
 import com.gsr.myschool.front.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.front.client.web.application.inbox.event.InboxStatusChangedEvent;
+import com.gsr.myschool.front.client.web.application.inbox.popup.InboxDetailsPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -48,6 +49,7 @@ public class InboxPresenter extends Presenter<InboxPresenter.MyView, InboxPresen
 
     private final FrontRequestFactory requestFactory;
     private final CurrentUserProvider currentUserProvider;
+    private final InboxDetailsPresenter inboxDetailsPresenter;
 
     @ProxyStandard
     @NameToken(NameTokens.inbox)
@@ -58,11 +60,13 @@ public class InboxPresenter extends Presenter<InboxPresenter.MyView, InboxPresen
     @Inject
     public InboxPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                           final FrontRequestFactory requestFactory,
-                          final CurrentUserProvider currentUserProvider) {
+                          final CurrentUserProvider currentUserProvider,
+                          final InboxDetailsPresenter inboxDetailsPresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
         this.currentUserProvider = currentUserProvider;
+        this.inboxDetailsPresenter = inboxDetailsPresenter;
 
         getView().setUiHandlers(this);
     }
@@ -73,6 +77,7 @@ public class InboxPresenter extends Presenter<InboxPresenter.MyView, InboxPresen
             @Override
             public void onValidationError(Set<ConstraintViolation<?>> violations) {
             }
+
             @Override
             public void onSuccess(Void aVoid) {
                 fillCellList();
@@ -93,6 +98,11 @@ public class InboxPresenter extends Presenter<InboxPresenter.MyView, InboxPresen
                 fireEvent(new InboxStatusChangedEvent());
             }
         });
+    }
+
+    public void showDetails(InboxProxy value) {
+        inboxDetailsPresenter.setCurrentMessage(value);
+        addToPopupSlot(inboxDetailsPresenter);
     }
 
     @Override

@@ -14,18 +14,9 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.web.application.inbox;
+package com.gsr.myschool.front.client.web.application.inbox.popup;
 
-import com.gsr.myschool.common.client.proxy.InboxProxy;
-import com.gsr.myschool.common.shared.type.InboxMessageStatus;
 import com.gwtplatform.mvp.client.UiHandlers;
 
-import java.util.List;
-
-public interface InboxUiHandlers extends UiHandlers {
-    void delete(List<InboxProxy> toDelete);
-
-    void update(List<InboxProxy> toUpdate, InboxMessageStatus status);
-
-    void showDetails(InboxProxy value);
+public interface InboxDetailsUiHandlers extends UiHandlers {
 }

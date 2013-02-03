@@ -17,10 +17,16 @@
 package com.gsr.myschool.front.client.web.application.inbox.renderer;
 
 import com.google.gwt.cell.client.AbstractCell;
+import com.google.gwt.cell.client.ActionCell.Delegate;
+import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.dom.client.BrowserEvents;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiRenderer;
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 import com.gsr.myschool.common.client.proxy.InboxProxy;
 import com.gsr.myschool.common.shared.type.InboxMessageStatus;
 import com.gsr.myschool.front.client.resource.FrontResources;
@@ -32,13 +38,20 @@ public class InboxCell extends AbstractCell<InboxProxy> {
 
     private final Renderer uiRenderer;
     private final FrontResources resources;
+    private Delegate<InboxProxy> showDetails;
+
+    private final DateTimeFormat dateFormat;
 
     @Inject
-    public InboxCell(final Renderer uiRenderer, final FrontResources resources) {
-        super(BrowserEvents.CLICK);
+    public InboxCell(final Renderer uiRenderer, final FrontResources resources,
+                     @Assisted Delegate<InboxProxy> showDetails) {
+        super(BrowserEvents.CLICK, BrowserEvents.DBLCLICK);
 
         this.uiRenderer = uiRenderer;
         this.resources = resources;
+        this.showDetails = showDetails;
+
+        dateFormat = DateTimeFormat.getFormat("LLL d yyyy");
     }
 
     @Override
@@ -47,7 +60,19 @@ public class InboxCell extends AbstractCell<InboxProxy> {
                 resources.frontStyleCss().msgRead() : resources.frontStyleCss().msgUnread();
 
         uiRenderer.render(safeHtmlBuilder, value.getSubject(),
-                value.getContent(), value.getMsgDate().toString(),
+                value.getContent(), dateFormat.format(value.getMsgDate()),
                 msgStyle);
+    }
+
+    @Override
+    public void onBrowserEvent(Context context, Element parent, InboxProxy value,
+                               NativeEvent event, ValueUpdater<InboxProxy> valueUpdater) {
+        super.onBrowserEvent(context, parent, value, event, valueUpdater);
+        if (value == null) {
+            return;
+        }
+        if (BrowserEvents.DBLCLICK.equals(event.getType())) {
+            showDetails.execute(value);
+        }
     }
 }
