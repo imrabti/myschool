@@ -54,10 +54,10 @@ public class InboxView extends ViewWithUiHandlers<InboxUiHandlers> implements In
 
         this.dataProvider = new ListDataProvider<InboxProxy>();
         this.multipleSelectionModel = new MultiSelectionModel<InboxProxy>();
+        this.inboxTable = new CellList<InboxProxy>(inboxCell);
 
         initWidget(uiBinder.createAndBindUi(this));
 
-        inboxTable = new CellList<InboxProxy>(inboxCell);
         dataProvider.addDataDisplay(inboxTable);
         inboxTable.setSelectionModel(multipleSelectionModel);
         inboxTable.setEmptyListWidget(new EmptyResult(sharedMessageBundle.noResultFound(),

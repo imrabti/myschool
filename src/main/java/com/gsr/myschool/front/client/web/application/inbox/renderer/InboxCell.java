@@ -29,8 +29,6 @@ import com.gsr.myschool.common.client.proxy.InboxProxy;
 public class InboxCell extends AbstractCell<InboxProxy> {
     public interface Renderer extends UiRenderer {
         void render(SafeHtmlBuilder sb);
-
-        void onBrowserEvent(InboxCell o, NativeEvent e, Element p);
     }
 
     private final Renderer uiRenderer;

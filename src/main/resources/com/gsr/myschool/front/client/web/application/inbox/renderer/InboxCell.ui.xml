@@ -2,5 +2,7 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'
              xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
-
+    <g:HTMLPanel>
+        test
+    </g:HTMLPanel>
 </ui:UiBinder>
