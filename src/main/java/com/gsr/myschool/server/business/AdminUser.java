@@ -2,6 +2,9 @@ package com.gsr.myschool.server.business;
 
 import com.gsr.myschool.common.shared.type.Authority;
 import com.gsr.myschool.common.shared.type.UserStatus;
+import com.gsr.myschool.server.validator.Email;
+import com.gsr.myschool.server.validator.Name;
+import com.gsr.myschool.server.validator.NotBlank;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -19,13 +22,21 @@ public class AdminUser implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String username;
+    @Email
+    @NotBlank
     private String email;
     private String password;
+    @Name
+    @NotBlank
     private String firstName;
+    @Name
+    @NotBlank
     private String lastName;
     @Enumerated
+    @NotBlank
     private Authority authority;
     @Enumerated
+    @NotBlank
     private UserStatus status;
     private Date created;
     private Date updated;

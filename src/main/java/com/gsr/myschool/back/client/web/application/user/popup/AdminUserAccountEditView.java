@@ -14,7 +14,6 @@ import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.AdminUserProxy;
 import com.gsr.myschool.common.client.ui.user.AdminUserAccountEditor;
-import com.gsr.myschool.common.client.ui.user.PasswordEditor;
 import com.gsr.myschool.common.client.widget.ModalHeader;
 
 public class AdminUserAccountEditView extends ValidatedPopupViewImplWithUiHandlers<AdminUserAccountEditUiHandlers>
@@ -26,19 +25,16 @@ public class AdminUserAccountEditView extends ValidatedPopupViewImplWithUiHandle
     ModalHeader modalHeader;
     @UiField(provided = true)
     AdminUserAccountEditor adminEditor;
-    @UiField(provided = true)
-    PasswordEditor passwordEditor;
 
     @Inject
     public AdminUserAccountEditView(final EventBus eventBus, final Binder uiBinder,
             final UiHandlersStrategy<AdminUserAccountEditUiHandlers> uiHandlers,
             final ValidationErrorPopup errorPopup, final ModalHeader modalHeader,
-            final AdminUserAccountEditor adminEditor, final PasswordEditor passwordEditor) {
+            final AdminUserAccountEditor adminEditor) {
         super(eventBus, errorPopup, uiHandlers);
 
         this.modalHeader = modalHeader;
         this.adminEditor = adminEditor;
-        this.passwordEditor = passwordEditor;
 
         initWidget(uiBinder.createAndBindUi(this));
 
@@ -56,6 +52,11 @@ public class AdminUserAccountEditView extends ValidatedPopupViewImplWithUiHandle
     }
 
     @Override
+    public void updateAccountStatus(AdminUserProxy userProxy, UserServiceRequest userService) {
+        adminEditor.changeUserStatus(userProxy, userService);
+    }
+
+    @Override
     public void refreshUserList() {
         getUiHandlers().reloadUsers();
     }
@@ -67,7 +68,6 @@ public class AdminUserAccountEditView extends ValidatedPopupViewImplWithUiHandle
 
     @UiHandler("save")
     void onSaveClicked(ClickEvent event) {
-        adminEditor.onSaveClicked();
-        hide();
+        adminEditor.saveAccount();
     }
 }
