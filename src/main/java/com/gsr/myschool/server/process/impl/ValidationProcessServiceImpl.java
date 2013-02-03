@@ -75,11 +75,11 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     }
 
     @Override
-    public Map<Task, Dossier> getAllNonReceivedDossiers() {
+    public Map<Dossier, Task> getAllNonReceivedDossiers() {
         List<Task> taskList = taskService.createTaskQuery().taskDefinitionKey(ValidationTask.RECEPTION.getValue()).list();
-        Map<Task, Dossier> dossierMap = new HashMap<Task, Dossier>();
+        Map<Dossier, Task> dossierMap = new HashMap<Dossier, Task>();
         for (Task task : taskList) {
-            dossierMap.put(task, (Dossier) runtimeService.getVariable(task.getExecutionId(), "dossier"));
+            dossierMap.put((Dossier) runtimeService.getVariable(task.getExecutionId(), "dossier"), task);
         }
         return dossierMap;
     }

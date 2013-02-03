@@ -1,36 +1,161 @@
-/**
- * Copyright 2012 Nuvola Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
-
 package com.gsr.myschool.back.client.web.application.reception;
 
+import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.CellTable;
+import com.github.gwtbootstrap.client.ui.TextBox;
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
+import com.google.gwt.cell.client.ActionCell;
+import com.google.gwt.cell.client.ActionCell.Delegate;
+import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
+import com.gsr.myschool.back.client.web.application.reception.renderer.ReceptionActionCell;
+import com.gsr.myschool.back.client.web.application.reception.renderer.ReceptionActionCellFactory;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
+import com.gsr.myschool.common.client.widget.EmptyResult;
+
+import java.util.List;
 
 public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers> implements ReceptionPresenter.MyView {
     public interface Binder extends UiBinder<Widget, ReceptionView> {
     }
 
+    @UiField
+    TextBox numDossierFilter;
+    @UiField
+    TextBox candidatFilter;
+    @UiField
+    Button searchBtn;
+    @UiField
+    CellTable<DossierProxy> inscriptionsTable;
+
+    private final DateTimeFormat dateFormat;
+    private final ListDataProvider<DossierProxy> dataProvider;
+    private final ReceptionActionCellFactory actionCellFactory;
+
+    private Delegate<DossierProxy> receiveAction;
+
     @Inject
-    public ReceptionView(final Binder uiBinder,
-            final UiHandlersStrategy<ReceptionUiHandlers> uiHandlers) {
+    public ReceptionView(final Binder uiBinder, final SharedMessageBundle sharedMessageBundle,
+            final UiHandlersStrategy<ReceptionUiHandlers> uiHandlers,
+            final ReceptionActionCellFactory actionCellFactory) {
         super(uiHandlers);
 
+        this.actionCellFactory = actionCellFactory;
+
         initWidget(uiBinder.createAndBindUi(this));
+
+        initActions();
+        initDataGrid();
+        dataProvider = new ListDataProvider<DossierProxy>();
+        dataProvider.addDataDisplay(inscriptionsTable);
+        dateFormat = DateTimeFormat.getFormat("LLL d yyyy");
+        inscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
+    }
+
+    @Override
+    public void setData(List<DossierProxy> data) {
+        dataProvider.getList().clear();
+        dataProvider.getList().addAll(data);
+    }
+
+    @UiHandler("searchBtn")
+    void onSearch(ClickEvent event) {
+        getUiHandlers().searchWithFilter(numDossierFilter.getValue(), candidatFilter.getValue());
+    }
+
+    private void initActions() {
+        receiveAction = new ActionCell.Delegate<DossierProxy>() {
+            @Override
+            public void execute(DossierProxy dossier) {
+                getUiHandlers().receive(dossier);
+            }
+        };
+    }
+
+    private void initDataGrid() {
+        TextColumn<DossierProxy> refColumn = new TextColumn<DossierProxy>() {
+            @Override
+            public String getValue(DossierProxy object) {
+                return object.getGeneratedNumDossier();
+            }
+        };
+        refColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+        inscriptionsTable.addColumn(refColumn, "N° Dossier");
+        inscriptionsTable.setColumnWidth(refColumn, 10, Style.Unit.PCT);
+
+        TextColumn<DossierProxy> cNameColumn = new TextColumn<DossierProxy>() {
+            @Override
+            public String getValue(DossierProxy object) {
+                return object.getCandidat().getFirstname() + " " + object.getCandidat().getLastname();
+            }
+        };
+        refColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+        inscriptionsTable.addColumn(cNameColumn, "Nom Candidat");
+        inscriptionsTable.setColumnWidth(cNameColumn, 15, Style.Unit.PCT);
+
+        TextColumn<DossierProxy> cBirthColumn = new TextColumn<DossierProxy>() {
+            @Override
+            public String getValue(DossierProxy object) {
+                return dateFormat.format(object.getCandidat().getBirthDate());
+            }
+        };
+        cBirthColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        inscriptionsTable.addColumn(cBirthColumn, "Date Naissance");
+        inscriptionsTable.setColumnWidth(cBirthColumn, 15, Style.Unit.PCT);
+
+        TextColumn<DossierProxy> cFiliereColumn = new TextColumn<DossierProxy>() {
+            @Override
+            public String getValue(DossierProxy object) {
+                return object.getFiliere().getNom();
+            }
+        };
+        cFiliereColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        inscriptionsTable.addColumn(cFiliereColumn, "Filiere");
+        inscriptionsTable.setColumnWidth(cFiliereColumn, 15, Style.Unit.PCT);
+
+        TextColumn<DossierProxy> cLevelColumn = new TextColumn<DossierProxy>() {
+            @Override
+            public String getValue(DossierProxy object) {
+                return object.getNiveauEtude().getNom();
+            }
+        };
+        cLevelColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        inscriptionsTable.addColumn(cLevelColumn, "Niveau");
+        inscriptionsTable.setColumnWidth(cLevelColumn, 15, Style.Unit.PCT);
+
+        TextColumn<DossierProxy> createdColumn = new TextColumn<DossierProxy>() {
+            @Override
+            public String getValue(DossierProxy object) {
+                return dateFormat.format(object.getCreateDate());
+            }
+        };
+        createdColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        inscriptionsTable.addColumn(createdColumn, "Date du dossier");
+        inscriptionsTable.setColumnWidth(createdColumn, 20, Style.Unit.PCT);
+
+        ReceptionActionCell actionsCell = actionCellFactory.create(receiveAction);
+        Column<DossierProxy, DossierProxy> actionsColumn = new
+                Column<DossierProxy, DossierProxy>(actionsCell) {
+                    @Override
+                    public DossierProxy getValue(DossierProxy object) {
+                        return object;
+                    }
+                };
+        actionsColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+        inscriptionsTable.addColumn(actionsColumn, "Action");
+        inscriptionsTable.setColumnWidth(actionsColumn, 10, Style.Unit.PCT);
     }
 }

@@ -51,7 +51,7 @@ public class ValidationProcessTest {
 
         Map x = validationProcessService.getAllNonReceivedDossiers();
 
-        for (Object task : x.keySet()) {
+        for (Object task : x.values()) {
             System.out.println(((Task) task).getId());
             System.out.println(x.get(task));
         }

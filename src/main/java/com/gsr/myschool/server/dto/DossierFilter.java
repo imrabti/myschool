@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class DossierFilter {
     private String numDossier;
+    private String nomCandidat;
     private DossierStatus status;
     private Date dateCreation;
 
@@ -32,6 +33,14 @@ public class DossierFilter {
 
     public void setStatus(DossierStatus status) {
         this.status = status;
+    }
+
+    public String getNomCandidat() {
+        return nomCandidat;
+    }
+
+    public void setNomCandidat(String nomCandidat) {
+        this.nomCandidat = nomCandidat;
     }
 
     public Date getDateCreation() {

@@ -1,4 +1,4 @@
-package com.gsr.myschool.back.client.web.application.preinscription.renderer;
+package com.gsr.myschool.back.client.web.application.reception.renderer;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.ActionCell.Delegate;
@@ -14,26 +14,26 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 
-public class PreInscriptionActionCell extends AbstractCell<DossierProxy> {
+public class ReceptionActionCell extends AbstractCell<DossierProxy> {
     public interface Renderer extends UiRenderer {
         void render(SafeHtmlBuilder sb);
 
-        void onBrowserEvent(PreInscriptionActionCell o, NativeEvent e, Element p);
+        void onBrowserEvent(ReceptionActionCell o, NativeEvent e, Element p);
     }
 
     private final Renderer uiRenderer;
 
-    private Delegate<DossierProxy> viewDetails;
+    private Delegate<DossierProxy> receive;
 
     private DossierProxy selectedObject;
 
     @Inject
-    public PreInscriptionActionCell(final Renderer uiRenderer,
-            @Assisted("viewDetails") Delegate<DossierProxy> viewDetails) {
+    public ReceptionActionCell(final Renderer uiRenderer,
+            @Assisted("receive") Delegate<DossierProxy> receive) {
         super(BrowserEvents.CLICK);
 
         this.uiRenderer = uiRenderer;
-        this.viewDetails = viewDetails;
+        this.receive = receive;
     }
 
     @Override
@@ -48,8 +48,8 @@ public class PreInscriptionActionCell extends AbstractCell<DossierProxy> {
         uiRenderer.render(builder);
     }
 
-    @UiHandler({"viewDetails"})
+    @UiHandler({"receive"})
     void onPreviewClicked(ClickEvent event) {
-        viewDetails.execute(selectedObject);
+        receive.execute(selectedObject);
     }
 }

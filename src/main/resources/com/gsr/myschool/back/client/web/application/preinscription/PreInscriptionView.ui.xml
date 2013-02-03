@@ -27,11 +27,12 @@
             </boot:Form>
         </g:layer>
 
-        <g:layer top="170px" bottom="20px" right="20px" left="0px">
-            <boot:CellTable ui:field="preInscriptionsTable" bordered="true"/>
-        </g:layer>
         <g:layer top="130px" bottom="20px" right="20px" left="0px">
             <cell:SimplePager ui:field='pager'/>
+        </g:layer>
+
+        <g:layer top="170px" bottom="20px" right="20px" left="0px">
+            <boot:CellTable ui:field="preInscriptionsTable" bordered="true"/>
         </g:layer>
     </g:LayoutPanel>
 </ui:UiBinder>
