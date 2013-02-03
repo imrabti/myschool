@@ -37,6 +37,8 @@ import com.gsr.myschool.common.shared.type.ValueTypeCode;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.google.gwt.query.client.GQuery.$;
+
 public class ValueTypeEditor extends Composite implements EditorView<ValueTypeProxy> {
     public interface Binder extends UiBinder<Widget, ValueTypeEditor> {
     }
@@ -71,8 +73,11 @@ public class ValueTypeEditor extends Composite implements EditorView<ValueTypePr
         driver.initialize(this);
 
         code.setAcceptableValues(Arrays.asList(ValueTypeCode.values()));
+        code.setValue(ValueTypeCode.REGEXP);
         getParents();
         getRegexp();
+
+        $(code).id("code");
     }
 
     @Override
@@ -86,6 +91,8 @@ public class ValueTypeEditor extends Composite implements EditorView<ValueTypePr
         if (driver.hasErrors()) {
             return null;
         } else {
+            valueTypeProxy.setParent(parent.getValue());
+            valueTypeProxy.setRegex(regex.getValue());
             return valueTypeProxy;
         }
     }

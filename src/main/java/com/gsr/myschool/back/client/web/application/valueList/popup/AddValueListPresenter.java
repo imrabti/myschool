@@ -22,7 +22,9 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.ValueListServiceRequest;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
+import com.gsr.myschool.back.client.web.application.valueList.event.ValueListChangedEvent;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupView;
+import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
@@ -78,6 +80,8 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
         getView().flushValue();
 
         currentValueList.setValueType(currentContext.edit(currentValueList.getValueType()));
+        currentValueList.setParent(currentValueList.getParent() != null ?
+                currentContext.edit(currentValueList.getParent()) : null);
         currentContext.addValueList(currentValueList).fire(new ValidatedReceiverImpl<Void>() {
 
             @Override
@@ -95,8 +99,16 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
                         .closeDelay(CloseDelay.DEFAULT)
                         .build();
                 MessageEvent.fire(this, message);
+                fireEvent(new ValueListChangedEvent(currentValueList));
                 getView().hide();
             }
         });
+    }
+
+    @Override
+    protected void onReveal(){
+        super.onReveal();
+
+        getView().clearErrors();
     }
 }

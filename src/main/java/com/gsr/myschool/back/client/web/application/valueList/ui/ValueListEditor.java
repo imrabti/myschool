@@ -32,6 +32,8 @@ import com.gsr.myschool.common.client.widget.renderer.ValueListRenderer;
 
 import java.util.List;
 
+import static com.google.gwt.query.client.GQuery.$;
+
 public class ValueListEditor extends Composite implements EditorView<ValueListProxy> {
     public interface Binder extends UiBinder<Widget, ValueListEditor> {
     }
@@ -61,6 +63,9 @@ public class ValueListEditor extends Composite implements EditorView<ValueListPr
         driver.initialize(this);
 
         getParents();
+
+        $(value).id("value");
+        $(label).id("label");
     }
 
     @Override
@@ -74,6 +79,7 @@ public class ValueListEditor extends Composite implements EditorView<ValueListPr
         if (driver.hasErrors()) {
             return null;
         } else {
+            valueTypeProxy.setParent(parent.getValue());
             return valueTypeProxy;
         }
     }

@@ -24,6 +24,7 @@ import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
+import com.gsr.myschool.back.client.web.application.valueList.event.ValueListChangedEvent;
 import com.gsr.myschool.back.client.web.application.valueList.event.ValueTypeChangedEvent;
 import com.gsr.myschool.back.client.web.application.valueList.popup.AddValueListPresenter;
 import com.gsr.myschool.back.client.web.application.valueList.widget.ValueTypePresenter;
@@ -42,12 +43,15 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, ValueListPresenter.MyProxy>
-        implements ValueListUiHandlers, ValueTypeChangedEvent.ValueTypeChangedHandler {
+        implements ValueListUiHandlers, ValueTypeChangedEvent.ValueTypeChangedHandler, ValueListChangedEvent.ValueListChangedHandler {
     public interface MyView extends View, HasUiHandlers<ValueListUiHandlers> {
         void setData(List<ValueListProxy> response);
+
+        void setAddButtonVisible(Boolean bool);
     }
 
     @ProxyStandard
@@ -112,6 +116,19 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
     @Override
     public void onValueTypeChanged(ValueTypeChangedEvent event) {
         currentValueType = event.getValueType();
+        if (currentValueType != null) {
+            getView().setAddButtonVisible(true);
+            fillTable();
+        } else {
+            getView().setAddButtonVisible(false);
+            getView().setData(new ArrayList<ValueListProxy>());
+        }
+    }
+
+    @Override
+    public void onValueListChanged(ValueListChangedEvent event) {
+        currentValueType = event.getValueList().getValueType();
+
         fillTable();
     }
 
@@ -120,6 +137,7 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
         super.onBind();
 
         addRegisteredHandler(ValueTypeChangedEvent.TYPE, this);
+        addRegisteredHandler(ValueListChangedEvent.TYPE, this);
     }
 
     @Override

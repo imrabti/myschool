@@ -36,7 +36,7 @@ import com.gwtplatform.mvp.client.View;
 import java.util.List;
 
 public class ValueTypePresenter extends PresenterWidget<ValueTypePresenter.MyView>
-        implements ValueTypeUiHandlers {
+        implements ValueTypeUiHandlers, ValueTypeChangedEvent.ValueTypeChangedHandler  {
     public interface MyView extends View, HasUiHandlers<ValueTypeUiHandlers> {
         void initDataGrid();
 
@@ -99,7 +99,19 @@ public class ValueTypePresenter extends PresenterWidget<ValueTypePresenter.MyVie
                 MessageEvent.fire(this, message);
             }
         });
+        fireEvent(new ValueTypeChangedEvent());
+    }
+
+    @Override
+    public void onValueTypeChanged(ValueTypeChangedEvent event) {
         fillTable();
+    }
+
+    @Override
+    protected void onBind(){
+        super.onBind();
+
+        addRegisteredHandler(ValueTypeChangedEvent.TYPE, this);
     }
 
     @Override

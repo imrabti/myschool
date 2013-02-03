@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.back.client.web.application.valueList;
 
+import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.dom.client.Style;
@@ -51,6 +52,8 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
     CellTable valueListTable;
     @UiField
     SimplePanel valueTypeDisplay;
+    @UiField
+    Button addValueList;
 
     private Delegate<ValueListProxy> deleteAction;
     private Delegate<ValueListProxy> modifyAction;
@@ -74,6 +77,7 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
         initActions();
         initDataGrid();
 
+        this.addValueList.setVisible(false);
         this.dataProvider = new ListDataProvider<ValueListProxy>();
         dataProvider.addDataDisplay(valueListTable);
         this.valueListSelectionModel = new SingleSelectionModel<ValueListProxy>();
@@ -97,6 +101,10 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
         dataProvider.getList().addAll(response);
     }
 
+    @Override
+    public void setAddButtonVisible(Boolean bool){
+        addValueList.setVisible(bool);
+    }
 
     @UiHandler("addValueList")
     void onAddValueListClicked(ClickEvent event) {

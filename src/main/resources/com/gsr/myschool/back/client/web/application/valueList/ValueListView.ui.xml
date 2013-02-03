@@ -3,21 +3,33 @@
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
 
     <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+    <ui:style>
+        .container {
+            padding-right: 300px;
+        }
 
+        .left {
+            width: 100%;
+            float: left;
+        }
+
+        .right {
+            width: 300px;
+            float: right;
+            margin-right: -300px;
+        }
+    </ui:style>
     <g:HTMLPanel>
-
-        <boot:Row>
-            <boot:Column size="7">
-                    <boot:PageHeader text="Liste de valeurs"/>
-                    <boot:Button ui:field="addValueList">Ajouter une valeur</boot:Button>
-                <boot:CellTable ui:field="valueListTable"/>
-            </boot:Column>
-
-            <boot:Column size="3">
+        <div class="{style.container}">
+            <div class="{style.right}">
                 <g:SimplePanel ui:field="valueTypeDisplay"/>
-            </boot:Column>
-        </boot:Row>
-
+            </div>
+            <div class="{style.left}">
+                <boot:PageHeader text="Liste de valeurs"/>
+                <boot:Button ui:field="addValueList">Ajouter une valeur</boot:Button>
+                <boot:CellTable ui:field="valueListTable"/>
+            </div>
+        </div>
     </g:HTMLPanel>
 
 </ui:UiBinder>

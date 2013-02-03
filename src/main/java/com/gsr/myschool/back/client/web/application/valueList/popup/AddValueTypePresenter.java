@@ -16,21 +16,23 @@
 
 package com.gsr.myschool.back.client.web.application.valueList.popup;
 
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
-import com.gsr.myschool.back.client.request.ValueListServiceRequest;
 import com.gsr.myschool.back.client.request.ValueTypeServiceRequest;
-import com.gsr.myschool.common.client.proxy.ValueListProxy;
-import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
+import com.gsr.myschool.back.client.resource.message.MessageBundle;
+import com.gsr.myschool.back.client.web.application.valueList.event.ValueTypeChangedEvent;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupView;
+import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
+import com.gsr.myschool.common.client.widget.messages.CloseDelay;
+import com.gsr.myschool.common.client.widget.messages.Message;
+import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 
 import javax.validation.ConstraintViolation;
-import java.util.List;
 import java.util.Set;
 
 public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter.MyView>
@@ -42,15 +44,18 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
     }
 
     private final BackRequestFactory requestFactory;
+    private final MessageBundle messageBundle;
     private ValueTypeProxy currentValueType;
     private ValueTypeServiceRequest currentContext;
 
     @Inject
     public AddValueTypePresenter(final EventBus eventBus, final MyView view,
-                                 final BackRequestFactory requestFactory) {
+                                 final BackRequestFactory requestFactory,
+                                 final MessageBundle messageBundle) {
         super(eventBus, view);
 
         this.requestFactory = requestFactory;
+        this.messageBundle = messageBundle;
 
         getView().setUiHandlers(this);
     }
@@ -71,7 +76,11 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
     public void saveValueType() {
         getView().flushType();
 
-        currentContext.updateValueType(currentValueType).fire(new ValidatedReceiverImpl<Void>(){
+        currentValueType.setParent(currentValueType.getParent() != null ?
+                currentContext.edit(currentValueType.getParent()) : null);
+        currentValueType.setRegex(currentValueType.getRegex() != null ?
+                currentContext.edit(currentValueType.getRegex()) : null);
+        currentContext.updateValueType(currentValueType).fire(new ValidatedReceiverImpl<Void>() {
             @Override
             public void onValidationError(Set<ConstraintViolation<?>> violations) {
                 getView().clearErrors();
@@ -82,8 +91,21 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
             public void onSuccess(Void aVoid) {
                 getView().clearErrors();
                 getView().editType(currentValueType);
+                Message message = new Message.Builder(messageBundle.addValueTypeSuccess())
+                        .style(AlertType.SUCCESS)
+                        .closeDelay(CloseDelay.DEFAULT)
+                        .build();
+                MessageEvent.fire(this, message);
+                fireEvent(new ValueTypeChangedEvent(currentValueType));
                 getView().hide();
             }
         });
+    }
+
+    @Override
+    protected void onReveal(){
+        super.onReveal();
+
+        getView().clearErrors();
     }
 }

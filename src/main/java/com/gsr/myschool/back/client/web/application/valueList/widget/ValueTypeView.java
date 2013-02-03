@@ -42,7 +42,8 @@ import com.gsr.myschool.common.client.widget.EmptyResult;
 
 import java.util.List;
 
-public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers> implements ValueTypePresenter.MyView {
+public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers>
+        implements ValueTypePresenter.MyView {
     public interface Binder extends UiBinder<Widget, ValueTypeView> {
     }
 

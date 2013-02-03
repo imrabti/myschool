@@ -37,7 +37,10 @@ public class ValueListServiceImpl implements ValueListService {
 
     @Override
     public void addValueList(ValueList valueList) {
-        valueList.setValueType(valueTypeRepos.findOne(valueList.getValueType().getId()));
+        valueList.setParent(valueList.getParent() != null ?
+                valueListRepos.findOne(valueList.getParent().getId()) : null);
+        valueList.setValueType(valueList.getValueType() != null ?
+                valueTypeRepos.findOne(valueList.getValueType().getId()) : null);
         valueListRepos.save(valueList);
     }
 

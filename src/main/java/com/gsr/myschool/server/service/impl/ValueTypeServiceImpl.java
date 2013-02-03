@@ -37,19 +37,11 @@ public class ValueTypeServiceImpl implements ValueTypeService {
 
     @Override
     public void updateValueType(ValueType valueType) {
-        ValueType current = null;
-        if (valueType.getId() != null) {
-            current = valueTypeRepos.findOne(valueType.getId());
-            current.setParent(valueType.getParent());
-            current.setRegex(valueType.getRegex());
-            current.setSystem(valueType.getSystem());
-        } else {
-            valueType.setParent(valueType.getParent() != null ?
-                    valueTypeRepos.findOne(valueType.getParent().getId()) : null);
-            valueType.setRegex(valueType.getRegex() != null ?
-                    valueListRepos.findOne(valueType.getRegex().getId()) : null);
-        }
-        valueTypeRepos.save(valueType.getId() != null ? current : valueType);
+        valueType.setParent(valueType.getParent() != null ?
+                valueTypeRepos.findOne(valueType.getParent().getId()) : null);
+        valueType.setRegex(valueType.getRegex() != null ?
+                valueListRepos.findOne(valueType.getRegex().getId()) : null);
+        valueTypeRepos.save(valueType);
     }
 
     @Override
@@ -60,9 +52,9 @@ public class ValueTypeServiceImpl implements ValueTypeService {
 
     @Override
     public void deleteValueType(Long id) {
-        List<ValueList> toRemove = valueListRepos.findByValueTypeCode(
-                valueTypeRepos.findOne(id).getCode());
+        ValueType valueType = valueTypeRepos.findOne(id);
+        List<ValueList> toRemove = valueListRepos.findByValueTypeCode(valueType.getCode());
         valueListRepos.delete(toRemove);
-        valueTypeRepos.delete(id);
+        valueTypeRepos.delete(valueType);
     }
 }

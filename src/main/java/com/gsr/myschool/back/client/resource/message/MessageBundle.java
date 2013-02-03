@@ -88,4 +88,6 @@ public interface MessageBundle extends Messages {
     String labelsLabel();
 
     String deleteValueTypeSuccess();
+
+    String addValueTypeSuccess();
 }
