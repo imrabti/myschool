@@ -10,6 +10,7 @@ import com.gsr.myschool.server.business.Fraterie;
 import com.gsr.myschool.server.business.InfoParent;
 import com.gsr.myschool.server.business.ScolariteAnterieur;
 import com.gsr.myschool.server.business.User;
+import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.CandidatRepos;
 import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.repos.EtablissementScolaireRepos;
@@ -52,6 +53,8 @@ public class InscriptionServiceImpl implements InscriptionService {
     private FiliereRepos filiereRepos;
     @Autowired
     private NiveauEtudeRepos niveauEtudeRepos;
+    @Autowired
+    private ValidationProcessService validationProcessService;
 
     @Override
     @Transactional(readOnly = true)
@@ -201,5 +204,12 @@ public class InscriptionServiceImpl implements InscriptionService {
     public void deleteFraterie(Long fraterieId) {
         Fraterie fraterie = fraterieRepos.findOne(fraterieId);
         fraterieRepos.delete(fraterie);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public void submitInscription(Long dossierId) {
+        Dossier dossier = dossierRepos.findOne(dossierId);
+        validationProcessService.startProcess(dossier);
     }
 }

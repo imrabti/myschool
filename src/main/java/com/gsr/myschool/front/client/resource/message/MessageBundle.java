@@ -48,4 +48,10 @@ public interface MessageBundle extends Messages {
     String deleteFraterieSuccess();
 
     String newInscriptionSuccess();
+
+    String inscriptionDetailTitle(String numDossier);
+
+    String inscriptionSubmitConf();
+
+    String inscriptionSubmitSuccess();
 }

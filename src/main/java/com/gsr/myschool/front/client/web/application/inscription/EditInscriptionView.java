@@ -52,6 +52,12 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
             @Override
             public void onShow(TabPanel.ShownEvent shownEvent) {
                 adjustTabNavHeight();
+                WizardStep targetStep = WizardStep.value(steps.getSelectedTab());
+                if (targetStep.ordinal() < currentStep.ordinal()) {
+                    goToStep(targetStep);
+                } else {
+                    getUiHandlers().changeStep(currentStep, targetStep);
+                }
             }
         });
     }
@@ -71,6 +77,12 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
                 step5.setWidget(content);
             }
         }
+    }
+
+    @Override
+    public void adjustTabNavHeight() {
+        $(".nav-tabs").height(0);
+        $(".nav-tabs").height(steps.getOffsetHeight() - 20);
     }
 
     @Override
@@ -123,10 +135,5 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
     void onFinishClicked(ClickEvent event) {
         WizardStep nextStep = WizardStep.value(currentStep.ordinal() + 1);
         getUiHandlers().changeStep(currentStep, nextStep);
-    }
-
-    private void adjustTabNavHeight() {
-        $(".nav-tabs").height(0);
-        $(".nav-tabs").height(steps.getOffsetHeight() - 20);
     }
 }

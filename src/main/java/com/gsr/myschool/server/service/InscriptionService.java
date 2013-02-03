@@ -35,4 +35,6 @@ public interface InscriptionService {
     void createNewFraterie(Fraterie fraterie, Long dossierId);
 
     void deleteFraterie(Long fraterieId);
+
+    void submitInscription(Long dossierId);
 }
