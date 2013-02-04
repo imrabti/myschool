@@ -44,7 +44,6 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordService {
     @Autowired
     private TaskService taskService;
 
-
     @Override
     public void startProcessWithValidEmail(String email, String link) throws Exception {
         String token = Base64.encode(Long.toString((new Date()).getTime()));
@@ -53,7 +52,8 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordService {
         params.put("email", email);
         params.put("link", link+ ";token=" +token);
 
-        EmailDTO emailDTO = emailService.populateEmail(EmailType.FORGOTTEN_PASSWORD, email, "todefine@myschool.com", params, "", "");
+        EmailDTO emailDTO = emailService.populateEmail(EmailType.FORGOTTEN_PASSWORD,
+                email, "todefine@myschool.com", params, "", "");
 
         Map<String, Object> processParams = new HashMap<String, Object>();
         processParams.put("token", token);
