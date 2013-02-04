@@ -6,13 +6,18 @@ import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Candidat;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.EtablissementScolaire;
+import com.gsr.myschool.server.business.Fraterie;
 import com.gsr.myschool.server.business.InfoParent;
 import com.gsr.myschool.server.business.ScolariteAnterieur;
 import com.gsr.myschool.server.business.User;
+import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.CandidatRepos;
 import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.repos.EtablissementScolaireRepos;
+import com.gsr.myschool.server.repos.FiliereRepos;
+import com.gsr.myschool.server.repos.FraterieRepos;
 import com.gsr.myschool.server.repos.InfoParentRepos;
+import com.gsr.myschool.server.repos.NiveauEtudeRepos;
 import com.gsr.myschool.server.repos.ScolariteAnterieurRepos;
 import com.gsr.myschool.server.repos.ValueListRepos;
 import com.gsr.myschool.server.security.SecurityContextProvider;
@@ -21,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,6 +47,14 @@ public class InscriptionServiceImpl implements InscriptionService {
     private ScolariteAnterieurRepos scolariteAnterieurRepos;
     @Autowired
     private ValueListRepos valueListRepos;
+    @Autowired
+    private FraterieRepos fraterieRepos;
+    @Autowired
+    private FiliereRepos filiereRepos;
+    @Autowired
+    private NiveauEtudeRepos niveauEtudeRepos;
+    @Autowired
+    private ValidationProcessService validationProcessService;
 
     @Override
     @Transactional(readOnly = true)
@@ -86,8 +100,8 @@ public class InscriptionServiceImpl implements InscriptionService {
     @Override
     public Dossier updateDossier(Dossier dossier) {
         Dossier currentDossier = dossierRepos.findOne(dossier.getId());
-        currentDossier.setFiliere(dossier.getFiliere());
-        currentDossier.setNiveauEtude(dossier.getNiveauEtude());
+        currentDossier.setFiliere(filiereRepos.findOne(dossier.getFiliere().getId()));
+        currentDossier.setNiveauEtude(niveauEtudeRepos.findOne(dossier.getNiveauEtude().getId()));
         dossierRepos.save(currentDossier);
         return currentDossier;
     }
@@ -132,7 +146,11 @@ public class InscriptionServiceImpl implements InscriptionService {
     @Transactional(readOnly = true)
     public List<ScolariteAnterieur> findScolariteAnterieursByDossierId(Long dossierId) {
         Dossier dossier = dossierRepos.findOne(dossierId);
-        return scolariteAnterieurRepos.findByCandidatId(dossier.getCandidat().getId());
+        if (dossier != null) {
+            return scolariteAnterieurRepos.findByCandidatId(dossier.getCandidat().getId());
+        } else {
+            return new ArrayList<ScolariteAnterieur>();
+        }
     }
 
     @Override
@@ -161,5 +179,37 @@ public class InscriptionServiceImpl implements InscriptionService {
     public void deleteScolariteAnterieur(Long scolariteAnterieurId) {
         ScolariteAnterieur scolariteAnterieur = scolariteAnterieurRepos.findOne(scolariteAnterieurId);
         scolariteAnterieurRepos.delete(scolariteAnterieur);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Fraterie> findFraterieByDossierId(Long dossierId) {
+        Dossier dossier = dossierRepos.findOne(dossierId);
+        if (dossier != null) {
+            return fraterieRepos.findByCandidatId(dossier.getCandidat().getId());
+        } else {
+            return new ArrayList<Fraterie>();
+        }
+    }
+
+    @Override
+    public void createNewFraterie(Fraterie fraterie, Long dossierId) {
+        Dossier dossier = dossierRepos.findOne(dossierId);
+        fraterie.setCandidat(dossier.getCandidat());
+        fraterie.setValide(false);
+        fraterieRepos.save(fraterie);
+    }
+
+    @Override
+    public void deleteFraterie(Long fraterieId) {
+        Fraterie fraterie = fraterieRepos.findOne(fraterieId);
+        fraterieRepos.delete(fraterie);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public void submitInscription(Long dossierId) {
+        Dossier dossier = dossierRepos.findOne(dossierId);
+        validationProcessService.startProcess(dossier);
     }
 }

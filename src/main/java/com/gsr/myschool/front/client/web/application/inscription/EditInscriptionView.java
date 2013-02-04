@@ -30,6 +30,8 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
     @UiField
     SimplePanel step4;
     @UiField
+    SimplePanel step5;
+    @UiField
     Button back;
     @UiField
     Button next;
@@ -50,6 +52,12 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
             @Override
             public void onShow(TabPanel.ShownEvent shownEvent) {
                 adjustTabNavHeight();
+                WizardStep targetStep = WizardStep.value(steps.getSelectedTab());
+                if (targetStep.ordinal() < currentStep.ordinal()) {
+                    goToStep(targetStep);
+                } else {
+                    getUiHandlers().changeStep(currentStep, targetStep);
+                }
             }
         });
     }
@@ -65,8 +73,16 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
                 step3.setWidget(content);
             } else if (slot == EditInscriptionPresenter.TYPE_Step_4_Content) {
                 step4.setWidget(content);
+            } else if (slot == EditInscriptionPresenter.TYPE_Step_5_Content) {
+                step5.setWidget(content);
             }
         }
+    }
+
+    @Override
+    public void adjustTabNavHeight() {
+        $(".nav-tabs").height(0);
+        $(".nav-tabs").height(steps.getOffsetHeight() - 20);
     }
 
     @Override
@@ -88,6 +104,11 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
                 next.setVisible(true);
                 break;
             case STEP_4:
+                finish.setVisible(false);
+                back.setVisible(true);
+                next.setVisible(true);
+                break;
+            case STEP_5:
                 back.setVisible(true);
                 next.setVisible(false);
                 finish.setVisible(true);
@@ -112,10 +133,7 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
 
     @UiHandler("finish")
     void onFinishClicked(ClickEvent event) {
-    }
-
-    private void adjustTabNavHeight() {
-        $(".nav-tabs").height(0);
-        $(".nav-tabs").height(steps.getOffsetHeight() - 20);
+        WizardStep nextStep = WizardStep.value(currentStep.ordinal() + 1);
+        getUiHandlers().changeStep(currentStep, nextStep);
     }
 }

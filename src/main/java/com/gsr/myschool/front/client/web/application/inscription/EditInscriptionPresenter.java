@@ -13,6 +13,7 @@ import com.gsr.myschool.front.client.web.application.inscription.EditInscription
 import com.gsr.myschool.front.client.web.application.inscription.event.ChangeStepEvent;
 import com.gsr.myschool.front.client.web.application.inscription.event.DisplayStepEvent;
 import com.gsr.myschool.front.client.web.application.inscription.widget.CandidatPresenter;
+import com.gsr.myschool.front.client.web.application.inscription.widget.FrateriePresenter;
 import com.gsr.myschool.front.client.web.application.inscription.widget.NiveauScolairePresenter;
 import com.gsr.myschool.front.client.web.application.inscription.widget.ParentPresenter;
 import com.gsr.myschool.front.client.web.application.inscription.widget.ScolariteAnterieurPresenter;
@@ -28,6 +29,8 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
         implements EditInscriptionUiHandlers, DisplayStepEvent.DisplayStepHandler {
     public interface MyView extends View, HasUiHandlers<EditInscriptionUiHandlers> {
+        void adjustTabNavHeight();
+
         void goToStep(WizardStep step);
     }
 
@@ -41,10 +44,12 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
     public static final Object TYPE_Step_2_Content = new Object();
     public static final Object TYPE_Step_3_Content = new Object();
     public static final Object TYPE_Step_4_Content = new Object();
+    public static final Object TYPE_Step_5_Content = new Object();
 
     private final FrontRequestFactory requestFactory;
     private final ParentPresenter parentPresenter;
     private final CandidatPresenter candidatPresenter;
+    private final FrateriePresenter frateriePresenter;
     private final ScolariteAnterieurPresenter scolariteAnterieurPresenter;
     private final NiveauScolairePresenter niveauScolairePresenter;
 
@@ -55,6 +60,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
                                     final FrontRequestFactory requestFactory,
                                     final ParentPresenter parentPresenter,
                                     final CandidatPresenter candidatPresenter,
+                                    final FrateriePresenter frateriePresenter,
                                     final ScolariteAnterieurPresenter scolariteAnterieurPresenter,
                                     final NiveauScolairePresenter niveauScolairePresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
@@ -62,6 +68,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
         this.requestFactory = requestFactory;
         this.parentPresenter = parentPresenter;
         this.candidatPresenter = candidatPresenter;
+        this.frateriePresenter = frateriePresenter;
         this.scolariteAnterieurPresenter = scolariteAnterieurPresenter;
         this.niveauScolairePresenter = niveauScolairePresenter;
 
@@ -77,7 +84,9 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
                 currentDossier = result;
                 parentPresenter.editData(currentDossier.getInfoParent());
                 candidatPresenter.editData(currentDossier.getCandidat());
+                frateriePresenter.editData(currentDossier);
                 scolariteAnterieurPresenter.editData(currentDossier);
+                niveauScolairePresenter.editData(currentDossier);
             }
         });
     }
@@ -99,11 +108,13 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
 
     @Override
     protected void onReveal() {
+        getView().adjustTabNavHeight();
         getView().goToStep(WizardStep.STEP_1);
 
         setInSlot(TYPE_Step_1_Content, parentPresenter);
         setInSlot(TYPE_Step_2_Content, candidatPresenter);
-        setInSlot(TYPE_Step_3_Content, scolariteAnterieurPresenter);
-        setInSlot(TYPE_Step_4_Content, niveauScolairePresenter);
+        setInSlot(TYPE_Step_3_Content, frateriePresenter);
+        setInSlot(TYPE_Step_4_Content, scolariteAnterieurPresenter);
+        setInSlot(TYPE_Step_5_Content, niveauScolairePresenter);
     }
 }

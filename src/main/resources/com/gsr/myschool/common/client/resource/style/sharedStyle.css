@@ -1,4 +1,4 @@
-@external navbar-inner, nav-tabs, nav;
+@external navbar-inner, nav-tabs, nav, accordion-group, accordion-toggle, accordion-inner;
 
 body {
     font-family: "Droid Sans", Helvetica, Arial, sans-serif;
@@ -97,4 +97,22 @@ body {
 .buttonContainerPopup a {
     min-width: 94px;
     margin-left: 10px;
+}
+
+.accordion-group {
+    margin-bottom: 10px;
+    border: none;
+}
+
+.accordion-toggle {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.accordion-toggle:hover {
+    text-decoration: none;
+}
+
+.accordion-inner {
+    border-top: none;
 }

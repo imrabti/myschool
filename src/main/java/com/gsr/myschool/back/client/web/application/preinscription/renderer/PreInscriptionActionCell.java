@@ -23,7 +23,7 @@ public class PreInscriptionActionCell extends AbstractCell<DossierProxy> {
 
     private final Renderer uiRenderer;
 
-    private Delegate<DossierProxy> viewDetails;;
+    private Delegate<DossierProxy> viewDetails;
 
     private DossierProxy selectedObject;
 

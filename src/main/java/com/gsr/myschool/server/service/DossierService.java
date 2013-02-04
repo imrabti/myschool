@@ -16,14 +16,19 @@
 
 package com.gsr.myschool.server.service;
 
-import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.dto.DataPage;
+import com.gsr.myschool.server.dto.DossierFilter;
+import com.gsr.myschool.server.dto.PagedDossiers;
 
-import java.util.Date;
 import java.util.List;
 
 public interface DossierService {
     List<Dossier> findAllDossiersByUser(Long userId);
 
-    List<Dossier> findAllDossiersByCriteria(String numDossier, DossierStatus dossierStatus, Date dateCreation);
+    PagedDossiers findAllDossiersByCriteria(DossierFilter filter, DataPage dataPage);
+
+    List<Dossier> findAllDossiersInStatusByCriteria(DossierFilter filter);
+
+    Boolean receive(Dossier dossier);
 }

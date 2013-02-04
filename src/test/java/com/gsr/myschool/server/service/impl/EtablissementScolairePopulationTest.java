@@ -47,11 +47,5 @@ public class EtablissementScolairePopulationTest {
         etablissementScolaire.setAdresse("23 Bd 2 MarsCasablanca");
         etablissementScolaire.setReference(true);
         etablissementScolaireRepos.save(etablissementScolaire);
-
-        etablissementScolaire = new EtablissementScolaire();
-        etablissementScolaire.setNom("- Autes -");
-        etablissementScolaire.setAdresse("");
-        etablissementScolaire.setReference(true);
-        etablissementScolaireRepos.save(etablissementScolaire);
     }
 }

@@ -36,7 +36,7 @@ public interface ValidationProcessService {
      *
      * @return
      */
-    Map<Task, Dossier> getAllNonReceivedDossiers();
+    Map<Dossier, Task> getAllNonReceivedDossiers();
 
     /**
      * Finish the Task

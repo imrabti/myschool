@@ -32,7 +32,7 @@ public class ScolariteAnterieurEditor extends Composite implements EditorView<Sc
     public interface Driver extends SimpleBeanEditorDriver<ScolariteAnterieurDTOProxy, ScolariteAnterieurEditor> {
     }
 
-    private static final String AUTRES = "- Autes -";
+    private static final String AUTRES = "- Autres -";
 
     @UiField(provided = true)
     ValueListBox<EtablissementScolaireProxy> etablissement;

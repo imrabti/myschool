@@ -37,7 +37,11 @@ public class CachedListValueServiceServiceImpl implements CachedListValueService
     @Override
     @Cacheable("etablissementScolaire")
     public List<EtablissementScolaire> findAllEtablissementScolaire() {
-        return etablissementScolaireRepos.findAll();
+        List<EtablissementScolaire> result = etablissementScolaireRepos.findAll();
+        EtablissementScolaire autres = new EtablissementScolaire();
+        autres.setNom("- Autres -");
+        result.add(autres);
+        return result;
     }
 
     @Override

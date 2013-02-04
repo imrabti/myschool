@@ -1,0 +1,36 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:s='urn:import:com.gsr.myschool.common.client.ui.dossier'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+
+    <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+
+    <ui:style>
+        .tableWrapper {
+            margin-top: 12px;
+        }
+    </ui:style>
+
+    <g:HTMLPanel>
+        <h3 class="{clientResources.sharedStyleCss.mediumTitle}">
+            Frères et Soeurs
+        </h3>
+
+        <boot:Paragraph>
+            Sed volutpat condimentum pharetra. Phasellus arcu magna, viverra eget dapibus ac, aliquam volutpat lacus.
+            Vivamus libero quam, lobortis id egestas at, fermentum in arcu. Suspendisse eu libero tellus.
+            Nam semper enim nec felis vulputate sagittis. Aliquam erat volutpat. Vestibulum convallis diam vel
+            justo porta et luctus justo sodales. Etiam in nisi at neque auctor sodales.
+            Quisque id odio enim, in sagittis justo.
+        </boot:Paragraph>
+
+        <boot:Well>
+            <s:FraterieEditor ui:field="fraterieEditor"/>
+            <boot:Button text="Ajouter" icon="PLUS" ui:field="addFraterie"/>
+        </boot:Well>
+
+        <div class="{style.tableWrapper}">
+            <boot:CellTable ui:field="fraterieTable" bordered="true"/>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>
