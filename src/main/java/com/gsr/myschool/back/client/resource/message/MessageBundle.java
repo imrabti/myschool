@@ -31,6 +31,8 @@ public interface MessageBundle extends Messages {
 
     String deleteValueListSuccess();
 
+    String addValueListSuccess();
+
     @Key("labels.name")
     String labelsName();
 
@@ -84,4 +86,8 @@ public interface MessageBundle extends Messages {
 
     @Key("labels.label")
     String labelsLabel();
+
+    String deleteValueTypeSuccess();
+
+    String addValueTypeSuccess();
 }

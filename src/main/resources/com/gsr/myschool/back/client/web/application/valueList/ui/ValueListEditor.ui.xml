@@ -1,0 +1,29 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+
+    <g:HTMLPanel>
+        <boot:Form type="HORIZONTAL">
+            <boot:ControlGroup>
+                <boot:ControlLabel>Valeur</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:TextBox ui:field="value"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Label</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:TextBox ui:field="label"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Parent</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:ValueListBox ui:field="parent"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+        </boot:Form>
+    </g:HTMLPanel>
+</ui:UiBinder>

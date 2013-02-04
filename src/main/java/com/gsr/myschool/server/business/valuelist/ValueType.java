@@ -11,6 +11,7 @@ public class ValueType implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Enumerated
+    @Column(unique = true)
     private ValueTypeCode code;
     @ManyToOne
     private ValueList regex;
