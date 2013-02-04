@@ -14,15 +14,13 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.application.valueList;
+package com.gsr.myschool.back.client.web.application.valueList.renderer;
 
-import com.gsr.myschool.common.client.proxy.ValueListProxy;
-import com.gwtplatform.mvp.client.UiHandlers;
+import com.google.gwt.cell.client.ActionCell.Delegate;
+import com.google.inject.assistedinject.Assisted;
+import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 
-public interface ValueListUiHandlers extends UiHandlers {
-    void addValueList();
-
-    void delete(ValueListProxy valueListProxy);
-
-    void modify(ValueListProxy valueListProxy);
+public interface ValueTypeActionCellFactory {
+    ValueTypeActionCell create(@Assisted("delete") Delegate<ValueTypeProxy> delete,
+                               @Assisted("modify") Delegate<ValueTypeProxy> modify);
 }
