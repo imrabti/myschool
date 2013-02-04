@@ -98,7 +98,7 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
         DossierFilterProxy filter = currentContext.create(DossierFilterProxy.class);
         filter.setNumDossier(numDossierFilter);
         filter.setNomCandidat(candidatFilter);
-        filter.setStatus(DossierStatus.SUBMITED);
+        filter.setStatus(DossierStatus.SUBMITTED);
 
         currentContext.findAllDossiersInStatusByCriteria(filter).fire(new ReceiverImpl<List<DossierProxy>>() {
             @Override
