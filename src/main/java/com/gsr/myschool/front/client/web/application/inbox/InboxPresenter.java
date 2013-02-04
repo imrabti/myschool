@@ -42,7 +42,7 @@ import java.util.List;
 import java.util.Set;
 
 public class InboxPresenter extends Presenter<InboxPresenter.MyView, InboxPresenter.MyProxy>
-        implements InboxUiHandlers {
+        implements InboxUiHandlers, InboxStatusChangedEvent.InboxStatusChangedHandler {
     public interface MyView extends View, HasUiHandlers<InboxUiHandlers> {
         public void setData(List<InboxProxy> response);
     }
@@ -87,6 +87,19 @@ public class InboxPresenter extends Presenter<InboxPresenter.MyView, InboxPresen
     }
 
     @Override
+    public void onInboxStatusChanged(InboxStatusChangedEvent event) {
+        if (event.getInboxMessage() != null) {
+            InboxProxy inboxMessage = event.getInboxMessage();
+            requestFactory.inboxService().updateInboxMessage(inboxMessage).fire(new ReceiverImpl<Void>() {
+                @Override
+                public void onSuccess(Void response) {
+                    fillCellList();
+                }
+            });
+        }
+    }
+
+    @Override
     public void update(List<InboxProxy> toUpdate, InboxMessageStatus status) {
         requestFactory.inboxService().updateInboxMessages(toUpdate, status).fire(new ValidatedReceiverImpl<Void>() {
             @Override
@@ -103,6 +116,13 @@ public class InboxPresenter extends Presenter<InboxPresenter.MyView, InboxPresen
     public void showDetails(InboxProxy value) {
         inboxDetailsPresenter.setCurrentMessage(value);
         addToPopupSlot(inboxDetailsPresenter);
+    }
+
+    @Override
+    protected void onBind(){
+        super.onBind();
+
+        addRegisteredHandler(InboxStatusChangedEvent.TYPE, this);
     }
 
     @Override

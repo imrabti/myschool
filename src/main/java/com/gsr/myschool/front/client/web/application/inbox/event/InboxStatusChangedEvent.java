@@ -18,6 +18,7 @@ package com.gsr.myschool.front.client.web.application.inbox.event;
 
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
+import com.gsr.myschool.common.client.proxy.InboxProxy;
 
 public class InboxStatusChangedEvent extends GwtEvent<InboxStatusChangedEvent.InboxStatusChangedHandler> {
     public interface InboxStatusChangedHandler extends EventHandler {
@@ -25,6 +26,18 @@ public class InboxStatusChangedEvent extends GwtEvent<InboxStatusChangedEvent.In
     }
 
     public static Type<InboxStatusChangedHandler> TYPE = new Type<InboxStatusChangedHandler>();
+    private InboxProxy inboxMessage;
+
+    public InboxStatusChangedEvent(){
+    }
+
+    public InboxStatusChangedEvent(InboxProxy value){
+        this.inboxMessage = value;
+    }
+
+    public InboxProxy getInboxMessage(){
+        return inboxMessage;
+    }
 
     @Override
     public Type<InboxStatusChangedHandler> getAssociatedType() {

@@ -5,20 +5,26 @@
     <ui:with field='status' type="java.lang.String"/>
     <ui:style>
         .inbox_header {
+            padding-top: 10px;
+            padding: 5px;
         }
 
         .inbox_subject {
+            font-size: 110%;
             float: left;
             width: 80%;
         }
 
         .inbox_content {
+            font-size: 90%;
             color: gray;
+            padding: 5px;
         }
 
         .inbox_date {
             width: 20%;
             float: right;
+            font-size: 90%;
         }
     </ui:style>
 
@@ -30,6 +36,7 @@
             <div class='{style.inbox_date}'>
                 <ui:text from="{date}"/>
             </div>
+            <span style="display: block; clear: both;"></span>
         </div>
         <div class="{style.inbox_content}">
             <ui:text from="{content}"/>

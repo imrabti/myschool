@@ -20,12 +20,16 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupView;
 import com.gsr.myschool.common.client.proxy.InboxProxy;
+import com.gsr.myschool.common.shared.type.InboxMessageStatus;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
+import com.gsr.myschool.front.client.web.application.inbox.event.InboxStatusChangedEvent;
+import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 
-public class InboxDetailsPresenter extends PresenterWidget<InboxDetailsPresenter.MyView> {
-    public interface MyView extends ValidatedPopupView {
+public class InboxDetailsPresenter extends PresenterWidget<InboxDetailsPresenter.MyView>
+        implements InboxDetailsUiHandlers {
+    public interface MyView extends ValidatedPopupView, HasUiHandlers<InboxDetailsUiHandlers> {
         void setDatas(InboxProxy value);
     }
 
@@ -36,10 +40,17 @@ public class InboxDetailsPresenter extends PresenterWidget<InboxDetailsPresenter
                                  final FrontRequestFactory requestFactory,
                                  final MessageBundle messageBundle) {
         super(eventBus, view);
+
+        getView().setUiHandlers(this);
     }
 
     public void setCurrentMessage(InboxProxy value){
         this.currentMessage = value;
         getView().setDatas(value);
+    }
+
+    @Override
+    public void readComplete(){
+        fireEvent(new InboxStatusChangedEvent(currentMessage));
     }
 }

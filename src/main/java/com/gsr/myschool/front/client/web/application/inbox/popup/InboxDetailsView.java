@@ -16,8 +16,6 @@
 
 package com.gsr.myschool.front.client.web.application.inbox.popup;
 
-import com.github.gwtbootstrap.client.ui.Label;
-import com.github.gwtbootstrap.client.ui.TextBox;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -25,15 +23,17 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImpl;
+import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
+import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.InboxProxy;
 import com.gsr.myschool.common.client.widget.ModalHeader;
 
-public class InboxDetailsView extends ValidatedPopupViewImpl
+public class InboxDetailsView extends ValidatedPopupViewImplWithUiHandlers<InboxDetailsUiHandlers>
         implements InboxDetailsPresenter.MyView {
     public interface Binder extends UiBinder<PopupPanel, InboxDetailsView> {
     }
@@ -43,17 +43,18 @@ public class InboxDetailsView extends ValidatedPopupViewImpl
     @UiField
     HTML content;
     @UiField
-    TextBox subject;
+    Label subject;
     @UiField
-    TextBox date;
+    Label date;
 
     private final DateTimeFormat dateFormat;
 
     @Inject
     protected InboxDetailsView(EventBus eventBus, final Binder uiBinder,
                                final ValidationErrorPopup errorPopup,
-                               final ModalHeader modalHeader) {
-        super(eventBus, errorPopup);
+                               final ModalHeader modalHeader,
+                               final UiHandlersStrategy<InboxDetailsUiHandlers> uiHandlers) {
+        super(eventBus, errorPopup, uiHandlers);
 
         this.modalHeader = modalHeader;
 
@@ -62,6 +63,7 @@ public class InboxDetailsView extends ValidatedPopupViewImpl
         modalHeader.addCloseHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
+                getUiHandlers().readComplete();
                 hide();
             }
         });
@@ -71,6 +73,7 @@ public class InboxDetailsView extends ValidatedPopupViewImpl
 
     @UiHandler("cancel")
     void onCancelClicked(ClickEvent event) {
+        getUiHandlers().readComplete();
         hide();
     }
 

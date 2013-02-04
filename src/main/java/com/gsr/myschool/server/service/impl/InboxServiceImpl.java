@@ -45,6 +45,7 @@ public class InboxServiceImpl implements InboxService {
 
     @Override
     public void updateInboxMessage(InboxMessage message) {
+        message.setMsgStatus(InboxMessageStatus.READ);
         inboxMessageRepos.save(message);
     }
 

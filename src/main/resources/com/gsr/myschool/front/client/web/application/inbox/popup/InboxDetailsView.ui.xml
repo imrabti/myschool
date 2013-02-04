@@ -5,9 +5,31 @@
     <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
     <ui:style>
         .contentWrapper {
-            padding: 10px;
-            padding-right: 30px;
-            padding-top: 20px;
+            padding: 20px;
+            width: 600px;
+        }
+
+        .content {
+            border-top: 1px solid #f5f5f5;
+            margin: 10px;
+            padding: 5px;
+        }
+
+        .message {
+            margin: 10px;
+            padding: 5px;
+        }
+
+        .subject {
+            font-size: 110%;
+            font-weight: bold;
+            width: 80%;
+            float: left;
+        }
+
+        .date {
+            width: 20%;
+            float: right;
         }
     </ui:style>
     <g:PopupPanel modal="true" autoHideEnabled="false" styleName="{resource.popupStyleCss.gwtPopupPanel}"
@@ -15,9 +37,18 @@
         <g:FlowPanel>
             <s:ModalHeader ui:field="modalHeader" text="Email"/>
             <g:HTMLPanel styleName="{style.contentWrapper}">
-                <boot:TextBox ui:field="subject" />
-                <boot:TextBox ui:field="date" />
-                <g:HTML ui:field="content" />
+                <div class="{style.message}">
+                    <div class="{style.subject}">
+                        <g:Label ui:field="subject"/>
+                    </div>
+                    <div class="{style.date}">
+                        <g:Label ui:field="date"/>
+                    </div>
+                    <span style="display: block; clear: both;"></span>
+                </div>
+                <div class="{style.content}">
+                    <g:HTML ui:field="content"/>
+                </div>
             </g:HTMLPanel>
             <g:HTMLPanel styleName="{resource.sharedStyleCss.buttonContainerPopup}">
                 <boot:Button ui:field="cancel" text="Retour"/>

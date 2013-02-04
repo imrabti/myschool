@@ -19,4 +19,5 @@ package com.gsr.myschool.front.client.web.application.inbox.popup;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface InboxDetailsUiHandlers extends UiHandlers {
+    void readComplete();
 }
