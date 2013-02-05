@@ -26,6 +26,7 @@
         <property name="beans">
             <map>
                 <entry key="registerProcessNestedService" value-ref="registerProcessNestedServiceImpl" />
+                <entry key="validationProcessNestedService" value-ref="validationProcessNestedServiceImpl" />
             </map>
         </property>
     </bean>
