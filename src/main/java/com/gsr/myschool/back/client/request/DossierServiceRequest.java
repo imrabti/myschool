@@ -23,6 +23,7 @@ import com.gsr.myschool.common.client.proxy.DataPageProxy;
 import com.gsr.myschool.common.client.proxy.DossierFilterProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.PagedDossiersProxy;
+import com.gsr.myschool.common.client.proxy.ScolariteAnterieurProxy;
 import com.gsr.myschool.server.service.impl.DossierServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
 
@@ -38,4 +39,6 @@ public interface DossierServiceRequest extends RequestContext {
     Request<List<DossierProxy>>  findAllDossiersInStatusByCriteria(DossierFilterProxy dossierFilterProxy);
 
     Request<Boolean> receive(DossierProxy dossier);
+
+    Request<List<ScolariteAnterieurProxy>> findScolariteAnterieursByDossierId(Long dossierId);
 }

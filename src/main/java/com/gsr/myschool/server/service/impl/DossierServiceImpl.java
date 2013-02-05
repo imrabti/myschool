@@ -17,12 +17,15 @@
 package com.gsr.myschool.server.service.impl;
 
 import com.google.common.base.Strings;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.business.ScolariteAnterieur;
 import com.gsr.myschool.server.dto.DataPage;
 import com.gsr.myschool.server.dto.DossierFilter;
 import com.gsr.myschool.server.dto.PagedDossiers;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.DossierRepos;
+import com.gsr.myschool.server.repos.ScolariteAnterieurRepos;
 import com.gsr.myschool.server.service.DossierService;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +45,8 @@ public class DossierServiceImpl implements DossierService {
 	@Autowired
 	DossierRepos dossierRepos;
     @Autowired
+    ScolariteAnterieurRepos scolariteAnterieurRepos;
+    @Autowired
     private ValidationProcessService validationProcessService;
 
     @Override
@@ -59,10 +64,10 @@ public class DossierServiceImpl implements DossierService {
         for (Dossier dossierFromProcess: dossiersAndTasks.keySet()) {
             if (dossier.getId() == dossierFromProcess.getId()) {
                 validationProcessService.receiveDossier(dossiersAndTasks.get(dossierFromProcess.getId()));
-                break;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -76,7 +81,7 @@ public class DossierServiceImpl implements DossierService {
             filter.setNumDossier("%");
         }
         dossiers.addAll(dossierRepos.findDossierByGeneratedNumDossierLikeAndStatusEqualsAndCandidatNomLike(
-                filter.getNumDossier(), filter.getStatus(), filter.getNomCandidat()));
+                "%" + filter.getNumDossier() + "%", filter.getStatus(), "%" + filter.getNomCandidat() + "%"));
         return dossiers;
     }
 
@@ -85,17 +90,33 @@ public class DossierServiceImpl implements DossierService {
     public PagedDossiers findAllDossiersByCriteria(DossierFilter filter, DataPage dataPageRequest) {
         PageRequest page = new PageRequest(dataPageRequest.getPageNumber(), dataPageRequest.getLength(),
                 new Sort(Sort.Direction.DESC, "createDate"));
-        if (filter.getNumDossier().equals("%")) {
-            Page<Dossier> dossiers = dossierRepos.findByNumDossierLike(filter.getNumDossier(), page);
-            return new PagedDossiers(dossiers.getContent(), (int) dossiers.getTotalElements());
+        Page<Dossier> dossiers;
+        if (Strings.isNullOrEmpty(filter.getNumDossier())) {
+            filter.setNumDossier("%");
+        }
+        if (filter.getDateCreation() == null && filter.getStatus() == DossierStatus.All) {
+            dossiers = dossierRepos.findByNumDossierLike("%" + filter.getNumDossier() +"%", page);
+        } else if (filter.getDateCreation() == null && filter.getStatus() != DossierStatus.All) {
+            dossiers = dossierRepos.findByNumDossierLikeAndStatus("%" + filter.getNumDossier() +"%", filter.getStatus(),
+                    page);
+        } else if (filter.getDateCreation() != null && filter.getStatus() == DossierStatus.All) {
+            dossiers = dossierRepos.findByNumDossierLikeAndDateCreation("%" + filter.getNumDossier() +"%",
+                    filter.getDateCreation(), page);
         } else {
-            if (Strings.isNullOrEmpty(filter.getNumDossier())) {
-                filter.setNumDossier("%");
-            }
-            Page<Dossier> dossiers = dossierRepos.findByNumDossierLikeAndStatusAndDateCreation(
-                    filter.getNumDossier(),
-                    filter.getStatus(), filter.getDateCreation(), page);
-            return new PagedDossiers(dossiers.getContent(), (int) dossiers.getTotalElements());
+            dossiers = dossierRepos.findByNumDossierLikeAndStatusAndDateCreation(
+                    "%" + filter.getNumDossier() +"%", filter.getStatus(), filter.getDateCreation(), page);
+        }
+        return new PagedDossiers(dossiers.getContent(), (int) dossiers.getTotalElements());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ScolariteAnterieur> findScolariteAnterieursByDossierId(Long dossierId) {
+        Dossier dossier = dossierRepos.findOne(dossierId);
+        if (dossier != null) {
+            return scolariteAnterieurRepos.findByCandidatId(dossier.getCandidat().getId());
+        } else {
+            return new ArrayList<ScolariteAnterieur>();
         }
     }
 }

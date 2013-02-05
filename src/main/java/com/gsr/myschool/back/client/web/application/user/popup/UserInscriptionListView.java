@@ -1,6 +1,7 @@
 package com.gsr.myschool.back.client.web.application.user.popup;
 
 import com.github.gwtbootstrap.client.ui.CellTable;
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -17,6 +18,8 @@ import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
+import com.gsr.myschool.common.client.widget.EmptyResult;
 import com.gsr.myschool.common.client.widget.ModalHeader;
 
 import java.util.List;
@@ -37,6 +40,7 @@ public class UserInscriptionListView extends ValidatedPopupViewImplWithUiHandler
     @Inject
     public UserInscriptionListView(final EventBus eventBus, final Binder uiBinder,
             final UiHandlersStrategy<UserInscriptionListUiHandlers> uiHandlers,
+            final SharedMessageBundle sharedMessageBundle,
             final ValidationErrorPopup errorPopup, final ModalHeader modalHeader) {
         super(eventBus, errorPopup, uiHandlers);
 
@@ -47,6 +51,8 @@ public class UserInscriptionListView extends ValidatedPopupViewImplWithUiHandler
         dataProvider = new ListDataProvider<DossierProxy>();
         dataProvider.addDataDisplay(userInscriptionsTable);
         dateFormat = DateTimeFormat.getFormat("LLL d yyyy");
+
+        userInscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
 
         modalHeader.addCloseHandler(new ClickHandler() {
             @Override

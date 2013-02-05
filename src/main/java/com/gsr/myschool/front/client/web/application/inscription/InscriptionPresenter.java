@@ -18,18 +18,19 @@ package com.gsr.myschool.front.client.web.application.inscription;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.user.client.Window;
+import com.google.inject.Inject;
+import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.common.client.request.ReportRequestBuilder;
+import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
 import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
+import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
-import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.front.client.web.application.ApplicationPresenter;
-import com.gsr.myschool.front.client.place.NameTokens;
-import com.google.inject.Inject;
-import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -135,12 +136,20 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
 
     @Override
     public void printInscription(DossierProxy dossier) {
+        printDossier(dossier);
     }
 
     @Override
     protected void onReveal() {
         loadAllInscriptions();
     }
+
+    private void printDossier(DossierProxy dossier) {
+        ReportRequestBuilder requestBuilder = new ReportRequestBuilder();
+        requestBuilder.buildData(dossier.getId().toString());
+        requestBuilder.sendRequest();
+    }
+
 
     private void loadAllInscriptions() {
         requestFactory.inscriptionService().findAllDossiers().fire(new ReceiverImpl<List<DossierProxy>>() {

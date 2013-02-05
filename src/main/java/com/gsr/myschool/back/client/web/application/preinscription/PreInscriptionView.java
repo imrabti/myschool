@@ -85,7 +85,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         super(uiHandlers);
 
         this.statusFilter = new ValueListBox<DossierStatus>(new EnumRenderer<DossierStatus>());
-        statusFilter.setValue(DossierStatus.CREATED);
+        statusFilter.setValue(DossierStatus.All);
         statusFilter.setAcceptableValues(Arrays.asList(DossierStatus.values()));
         this.actionCellFactory = actionCellFactory;
         pager = new SimplePager(SimplePager.TextLocation.CENTER, false, 0, true);

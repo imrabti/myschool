@@ -110,6 +110,7 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
         getView().initDataProvider();
         paginationStart = 0;
         numDossierFilter = "%";
+        statusFilter = DossierStatus.All;
         loadDossiers(GlobalParameters.defaultPageNumber, GlobalParameters.defaultPageLength);
     }
 

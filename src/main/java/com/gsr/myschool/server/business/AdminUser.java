@@ -5,6 +5,7 @@ import com.gsr.myschool.common.shared.type.UserStatus;
 import com.gsr.myschool.server.validator.Email;
 import com.gsr.myschool.server.validator.Name;
 import com.gsr.myschool.server.validator.NotBlank;
+import com.gsr.myschool.server.validator.Unique;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -17,6 +18,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
+@Unique(entity = AdminUser.class, property = "email", params = "email")
 public class AdminUser implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -145,4 +145,12 @@ public class Dossier implements java.io.Serializable {
     public void setAnneeScolaire(ValueList anneeScolaire) {
         this.anneeScolaire = anneeScolaire;
     }
+
+    public String getReportsAttributes() {
+        return "Dossier{" +
+                "generatedPDFPath='" + generatedPDFPath + '\'' +
+                ", generatedNumDossier='" + generatedNumDossier + '\'' +
+                ", note='" + note + '\'' +
+                '}';
+    }
 }

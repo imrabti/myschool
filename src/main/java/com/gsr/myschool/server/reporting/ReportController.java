@@ -1,6 +1,8 @@
 package com.gsr.myschool.server.reporting;
 
 import com.gsr.myschool.common.shared.dto.ReportDTO;
+import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.repos.DossierRepos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -17,11 +19,15 @@ import java.io.BufferedOutputStream;
 public class ReportController {
      @Autowired
      ReportService reportService;
+    @Autowired
+    private DossierRepos dossierRepos;
 
-     @RequestMapping(method = RequestMethod.POST, produces = "application/pdf")
+     @RequestMapping(method = RequestMethod.GET, produces = "application/pdf")
      @ResponseStatus(HttpStatus.OK)
-     public void generateReport(@RequestParam ReportDTO reportDTO, HttpServletResponse response) {
-          try {
+     public void generateReport(@RequestParam String id, HttpServletResponse response) {
+         Dossier dossier = dossierRepos.findOne(Long.valueOf(id));
+         ReportDTO reportDTO = buildReportDto(dossier);
+         try {
                response.addHeader("Content-Disposition", "inline; filename="+reportDTO.getReportName()+".pdf");
 
                BufferedOutputStream outputStream = new BufferedOutputStream(response.getOutputStream());
@@ -34,5 +40,14 @@ public class ReportController {
                throw new RuntimeException(e);
           }
      }
+
+    private ReportDTO buildReportDto(Dossier dossier) {
+        ReportDTO printableDossier = new ReportDTO("report2");
+        printableDossier.getReportParameters().put("infoParent", dossier.getInfoParent());
+        printableDossier.getReportParameters().put("candidat", dossier.getCandidat());
+        printableDossier.getReportParameters().put("niveauEtude", dossier.getNiveauEtude());
+        printableDossier.getReportParameters().put("filiere", dossier.getFiliere());
+        return printableDossier;
+    }
 }
 
