@@ -1,68 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/bpmn">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+             typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath"
+             targetNamespace="http://www.activiti.org/bpmn">
     <process id="validation" name="Validation process" isExecutable="true">
-
         <startEvent id="startevent1" name="Start"/>
-
         <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="manualTask"/>
-
         <sequenceFlow id="flow2" sourceRef="manualTask" targetRef="inclusivegateway3"/>
-
         <userTask id="receptionTask" name="Reception du dossier physique"/>
-
         <sequenceFlow id="flow3" sourceRef="inclusivegateway3" targetRef="receptionTask"/>
-
         <userTask id="validationTask" name="validation des pièces du dossier"/>
-
-        <sequenceFlow id="flow4" sourceRef="receptionTask" targetRef="validationTask"/>
-
         <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"/>
-
         <sequenceFlow id="flow5" sourceRef="validationTask" targetRef="exclusivegateway2"/>
-
         <sequenceFlow id="flowIncomplet" name="${!dossierComplet}" sourceRef="exclusivegateway2"
                       targetRef="DossierIncompletMail">
-            <conditionExpression xsi:type="tFormalExpression" activiti:expression="${!dossierComplet}"/>
+            <conditionExpression xsi:type="tFormalExpression">${!dossierComplet}</conditionExpression>
         </sequenceFlow>
-
         <sequenceFlow id="flow7" sourceRef="DossierIncompletMail" targetRef="inclusivegateway3"/>
-
         <userTask id="analyseTask" name="Analyse du dossier physique"/>
-
-        <sequenceFlow id="flowComplet" name="${dossierComplet}" sourceRef="exclusivegateway2" targetRef="analyseTask">
-            <conditionExpression xsi:type="tFormalExpression" activiti:expression="${dossierComplet}"/>
+        <sequenceFlow id="flowComplet" name="${dossierComplet}" sourceRef="exclusivegateway2"
+                      targetRef="analyseTask">
+            <conditionExpression xsi:type="tFormalExpression">${dossierComplet}</conditionExpression>
         </sequenceFlow>
-
         <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"/>
-
         <sequenceFlow id="flow9" sourceRef="analyseTask" targetRef="exclusivegateway3"/>
-
         <userTask id="changeStateTask" name="Changer etat du dossier en accepte"/>
-
-        <sequenceFlow id="flowRefuse" name="${!accepte}" sourceRef="exclusivegateway3" targetRef="changeStateTask">
-            <conditionExpression xsi:type="tFormalExpression" activiti:expression="${!accepte}"/>
+        <sequenceFlow id="flowRefuse" name="${!accepte}" sourceRef="exclusivegateway3"
+                      targetRef="changeStateTask">
+            <conditionExpression xsi:type="tFormalExpression">${!accepte}</conditionExpression>
         </sequenceFlow>
-
         <userTask id="affectationTask" name="Affectation a une serie de test ou entretien"/>
-
         <endEvent id="endevent1" name="End"/>
-
         <sequenceFlow id="flow14" sourceRef="affectationTask" targetRef="endevent1"/>
-
         <inclusiveGateway id="inclusivegateway3" name="Exclusive Gateway"/>
-
         <sequenceFlow id="flow15" sourceRef="changeStateTask" targetRef="inclusivegateway11"/>
-
         <inclusiveGateway id="inclusivegateway11" name="Exclusive Gateway"/>
-
-        <sequenceFlow id="flowAccepte" name="${accepte}" sourceRef="exclusivegateway3" targetRef="inclusivegateway11">
-            <conditionExpression xsi:type="tFormalExpression" activiti:expression="${accepte}"/>
+        <sequenceFlow id="flowAccepte" name="${accepte}" sourceRef="exclusivegateway3"
+                      targetRef="inclusivegateway11">
+            <conditionExpression xsi:type="tFormalExpression">${accepte}</conditionExpression>
         </sequenceFlow>
-
         <sequenceFlow id="flow17" sourceRef="inclusivegateway11" targetRef="affectationTask"/>
-
         <task id="manualTask" name="Envoi du dossier physique"/>
-
         <serviceTask id="DossierIncompletMail" name="Envoi du mail en attente de completion du dossier"
                      activiti:type="mail">
             <extensionElements>
@@ -78,139 +58,184 @@
                 </activiti:field>
             </extensionElements>
         </serviceTask>
-
         <boundaryEvent id="boundarytimer1" name="Timer" attachedToRef="receptionTask" cancelActivity="true">
             <timerEventDefinition>
-                <timeDuration>PT10M</timeDuration>
+                <timeDuration>P30D</timeDuration>
             </timerEventDefinition>
         </boundaryEvent>
-
         <endEvent id="endevent2" name="End"/>
-
         <sequenceFlow id="flow18" sourceRef="boundarytimer1" targetRef="endevent2"/>
+        <parallelGateway id="parallelgateway1" name="Parallel Gateway"/>
+        <sequenceFlow id="flow4" sourceRef="receptionTask" targetRef="parallelgateway1"/>
+        <sequenceFlow id="flow20" sourceRef="parallelgateway1" targetRef="getEmailReceivedTask"/>
+        <sequenceFlow id="flow21" sourceRef="getEmailReceivedTask" targetRef="DossierRecuEmail"/>
+        <intermediateThrowEvent id="noneintermediatethrowevent1" name="NoneThrowEvent"/>
+        <sequenceFlow id="flow22" sourceRef="DossierRecuEmail" targetRef="noneintermediatethrowevent1"/>
+        <serviceTask id="getEmailReceivedTask" name="Get Received Email"
+                     activiti:expression="#{validationProcessNestedService.getReceivedDossierMail(dossier)}"
+                     activiti:resultVariable="email"/>
+        <serviceTask id="DossierRecuEmail" name="Envoie Email Dossier reçus" activiti:type="mail">
+            <extensionElements>
+                <activiti:field name="from" expression="${email.from}"/>
+                <activiti:field name="to" expression="${email.to}"/>
+                <activiti:field name="subject" expression="${email.subject}"/>
+                <activiti:field name="html">
+                    <activiti:expression>
+                        <![CDATA[
+                            ${email.message}
+                        ]]>
+                    </activiti:expression>
+                </activiti:field>
+            </extensionElements>
+        </serviceTask>
+        <sequenceFlow id="flow23" sourceRef="parallelgateway1" targetRef="validationTask"/>
     </process>
 
     <!-- Start of designer definitions -->
-    <bpmndi:BPMNDiagram id="BPMNDiagram_validationProcess">
-        <bpmndi:BPMNPlane bpmnElement="validation" id="BPMNPlane_validationProcess">
+    <bpmndi:BPMNDiagram id="BPMNDiagram_validation">
+        <bpmndi:BPMNPlane bpmnElement="validation" id="BPMNPlane_validation">
             <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-                <omgdc:Bounds height="35.0" width="35.0" x="40.0" y="60.0"></omgdc:Bounds>
+                <omgdc:Bounds height="35.0" width="35.0" x="0.0" y="60.0"/>
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape bpmnElement="receptionTask" id="BPMNShape_receptionTask">
-                <omgdc:Bounds height="55.0" width="105.0" x="365.0" y="50.0"></omgdc:Bounds>
+                <omgdc:Bounds height="55.0" width="105.0" x="325.0" y="50.0"/>
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape bpmnElement="boundarytimer1" id="BPMNShape_boundarytimer1">
-                <omgdc:Bounds height="30.0" width="30.0" x="413.0" y="31.0"></omgdc:Bounds>
+                <omgdc:Bounds height="30.0" width="30.0" x="373.0" y="31.0"/>
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape bpmnElement="validationTask" id="BPMNShape_validationTask">
-                <omgdc:Bounds height="55.0" width="105.0" x="525.0" y="50.0"></omgdc:Bounds>
+                <omgdc:Bounds height="55.0" width="105.0" x="615.0" y="50.0"/>
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
-                <omgdc:Bounds height="40.0" width="40.0" x="666.0" y="57.0"></omgdc:Bounds>
+                <omgdc:Bounds height="40.0" width="40.0" x="756.0" y="57.0"/>
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape bpmnElement="analyseTask" id="BPMNShape_analyseTask">
-                <omgdc:Bounds height="55.0" width="105.0" x="810.0" y="50.0"></omgdc:Bounds>
+                <omgdc:Bounds height="55.0" width="105.0" x="900.0" y="50.0"/>
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
-                <omgdc:Bounds height="40.0" width="40.0" x="930.0" y="57.0"></omgdc:Bounds>
+                <omgdc:Bounds height="40.0" width="40.0" x="1020.0" y="57.0"/>
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape bpmnElement="changeStateTask" id="BPMNShape_changeStateTask">
-                <omgdc:Bounds height="55.0" width="105.0" x="1050.0" y="50.0"></omgdc:Bounds>
+                <omgdc:Bounds height="55.0" width="105.0" x="1140.0" y="50.0"/>
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape bpmnElement="affectationTask" id="BPMNShape_affectationTask">
-                <omgdc:Bounds height="65.0" width="105.0" x="1050.0" y="260.0"></omgdc:Bounds>
+                <omgdc:Bounds height="65.0" width="105.0" x="1140.0" y="260.0"/>
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-                <omgdc:Bounds height="35.0" width="35.0" x="1085.0" y="370.0"></omgdc:Bounds>
+                <omgdc:Bounds height="35.0" width="35.0" x="1175.0" y="370.0"/>
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape bpmnElement="inclusivegateway3" id="BPMNShape_inclusivegateway3">
-                <omgdc:Bounds height="40.0" width="40.0" x="280.0" y="57.0"></omgdc:Bounds>
+                <omgdc:Bounds height="40.0" width="40.0" x="240.0" y="57.0"/>
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape bpmnElement="inclusivegateway11" id="BPMNShape_inclusivegateway11">
-                <omgdc:Bounds height="40.0" width="40.0" x="1082.0" y="170.0"></omgdc:Bounds>
+                <omgdc:Bounds height="40.0" width="40.0" x="1172.0" y="170.0"/>
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape bpmnElement="manualTask" id="BPMNShape_manualTask">
-                <omgdc:Bounds height="55.0" width="105.0" x="120.0" y="50.0"></omgdc:Bounds>
+                <omgdc:Bounds height="55.0" width="105.0" x="80.0" y="50.0"/>
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape bpmnElement="DossierIncompletMail" id="BPMNShape_DossierIncompletMail">
-                <omgdc:Bounds height="71.0" width="127.0" x="623.0" y="177.0"></omgdc:Bounds>
+                <omgdc:Bounds height="71.0" width="127.0" x="713.0" y="177.0"/>
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
-                <omgdc:Bounds height="35.0" width="35.0" x="410.0" y="-40.0"></omgdc:Bounds>
+                <omgdc:Bounds height="35.0" width="35.0" x="370.0" y="-40.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="parallelgateway1" id="BPMNShape_parallelgateway1">
+                <omgdc:Bounds height="40.0" width="40.0" x="490.0" y="57.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="noneintermediatethrowevent1" id="BPMNShape_noneintermediatethrowevent1">
+                <omgdc:Bounds height="35.0" width="35.0" x="768.0" y="-20.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="getEmailReceivedTask" id="BPMNShape_getEmailReceivedTask">
+                <omgdc:Bounds height="55.0" width="105.0" x="458.0" y="-30.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="DossierRecuEmail" id="BPMNShape_DossierRecuEmail">
+                <omgdc:Bounds height="55.0" width="105.0" x="630.0" y="-30.0"/>
             </bpmndi:BPMNShape>
             <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
-                <omgdi:waypoint x="75.0" y="77.0"></omgdi:waypoint>
-                <omgdi:waypoint x="120.0" y="77.0"></omgdi:waypoint>
+                <omgdi:waypoint x="35.0" y="77.0"/>
+                <omgdi:waypoint x="80.0" y="77.0"/>
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
-                <omgdi:waypoint x="225.0" y="77.0"></omgdi:waypoint>
-                <omgdi:waypoint x="280.0" y="77.0"></omgdi:waypoint>
+                <omgdi:waypoint x="185.0" y="77.0"/>
+                <omgdi:waypoint x="240.0" y="77.0"/>
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
-                <omgdi:waypoint x="320.0" y="77.0"></omgdi:waypoint>
-                <omgdi:waypoint x="365.0" y="77.0"></omgdi:waypoint>
-            </bpmndi:BPMNEdge>
-            <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
-                <omgdi:waypoint x="470.0" y="77.0"></omgdi:waypoint>
-                <omgdi:waypoint x="525.0" y="77.0"></omgdi:waypoint>
+                <omgdi:waypoint x="280.0" y="77.0"/>
+                <omgdi:waypoint x="325.0" y="77.0"/>
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-                <omgdi:waypoint x="630.0" y="77.0"></omgdi:waypoint>
-                <omgdi:waypoint x="666.0" y="77.0"></omgdi:waypoint>
+                <omgdi:waypoint x="720.0" y="77.0"/>
+                <omgdi:waypoint x="756.0" y="77.0"/>
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge bpmnElement="flowIncomplet" id="BPMNEdge_flowIncomplet">
-                <omgdi:waypoint x="686.0" y="97.0"></omgdi:waypoint>
-                <omgdi:waypoint x="686.0" y="177.0"></omgdi:waypoint>
+                <omgdi:waypoint x="776.0" y="97.0"/>
+                <omgdi:waypoint x="776.0" y="177.0"/>
                 <bpmndi:BPMNLabel>
-                    <omgdc:Bounds height="14.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+                    <omgdc:Bounds height="13.0" width="100.0" x="10.0" y="0.0"/>
                 </bpmndi:BPMNLabel>
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
-                <omgdi:waypoint x="623.0" y="212.0"></omgdi:waypoint>
-                <omgdi:waypoint x="300.0" y="212.0"></omgdi:waypoint>
-                <omgdi:waypoint x="300.0" y="97.0"></omgdi:waypoint>
+                <omgdi:waypoint x="713.0" y="212.0"/>
+                <omgdi:waypoint x="260.0" y="212.0"/>
+                <omgdi:waypoint x="260.0" y="97.0"/>
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge bpmnElement="flowComplet" id="BPMNEdge_flowComplet">
-                <omgdi:waypoint x="706.0" y="77.0"></omgdi:waypoint>
-                <omgdi:waypoint x="810.0" y="77.0"></omgdi:waypoint>
+                <omgdi:waypoint x="796.0" y="77.0"/>
+                <omgdi:waypoint x="900.0" y="77.0"/>
                 <bpmndi:BPMNLabel>
-                    <omgdc:Bounds height="14.0" width="100.0" x="-46.0" y="0.0"></omgdc:Bounds>
+                    <omgdc:Bounds height="13.0" width="100.0" x="-46.0" y="0.0"/>
                 </bpmndi:BPMNLabel>
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
-                <omgdi:waypoint x="915.0" y="77.0"></omgdi:waypoint>
-                <omgdi:waypoint x="930.0" y="77.0"></omgdi:waypoint>
+                <omgdi:waypoint x="1005.0" y="77.0"/>
+                <omgdi:waypoint x="1020.0" y="77.0"/>
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge bpmnElement="flowRefuse" id="BPMNEdge_flowRefuse">
-                <omgdi:waypoint x="970.0" y="77.0"></omgdi:waypoint>
-                <omgdi:waypoint x="1050.0" y="77.0"></omgdi:waypoint>
+                <omgdi:waypoint x="1060.0" y="77.0"/>
+                <omgdi:waypoint x="1140.0" y="77.0"/>
                 <bpmndi:BPMNLabel>
-                    <omgdc:Bounds height="14.0" width="100.0" x="-22.0" y="0.0"></omgdc:Bounds>
+                    <omgdc:Bounds height="13.0" width="100.0" x="-22.0" y="0.0"/>
                 </bpmndi:BPMNLabel>
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
-                <omgdi:waypoint x="1102.0" y="325.0"></omgdi:waypoint>
-                <omgdi:waypoint x="1102.0" y="370.0"></omgdi:waypoint>
+                <omgdi:waypoint x="1192.0" y="325.0"/>
+                <omgdi:waypoint x="1192.0" y="370.0"/>
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
-                <omgdi:waypoint x="1102.0" y="105.0"></omgdi:waypoint>
-                <omgdi:waypoint x="1102.0" y="170.0"></omgdi:waypoint>
+                <omgdi:waypoint x="1192.0" y="105.0"/>
+                <omgdi:waypoint x="1192.0" y="170.0"/>
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge bpmnElement="flowAccepte" id="BPMNEdge_flowAccepte">
-                <omgdi:waypoint x="950.0" y="97.0"></omgdi:waypoint>
-                <omgdi:waypoint x="950.0" y="190.0"></omgdi:waypoint>
-                <omgdi:waypoint x="1082.0" y="190.0"></omgdi:waypoint>
+                <omgdi:waypoint x="1040.0" y="97.0"/>
+                <omgdi:waypoint x="1040.0" y="190.0"/>
+                <omgdi:waypoint x="1172.0" y="190.0"/>
                 <bpmndi:BPMNLabel>
-                    <omgdc:Bounds height="14.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+                    <omgdc:Bounds height="13.0" width="100.0" x="10.0" y="0.0"/>
                 </bpmndi:BPMNLabel>
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
-                <omgdi:waypoint x="1102.0" y="210.0"></omgdi:waypoint>
-                <omgdi:waypoint x="1102.0" y="260.0"></omgdi:waypoint>
+                <omgdi:waypoint x="1192.0" y="210.0"/>
+                <omgdi:waypoint x="1192.0" y="260.0"/>
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
-                <omgdi:waypoint x="428.0" y="31.0"></omgdi:waypoint>
-                <omgdi:waypoint x="427.0" y="-5.0"></omgdi:waypoint>
+                <omgdi:waypoint x="388.0" y="31.0"/>
+                <omgdi:waypoint x="387.0" y="-5.0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+                <omgdi:waypoint x="510.0" y="57.0"/>
+                <omgdi:waypoint x="510.0" y="25.0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+                <omgdi:waypoint x="563.0" y="-3.0"/>
+                <omgdi:waypoint x="630.0" y="-3.0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+                <omgdi:waypoint x="735.0" y="-3.0"/>
+                <omgdi:waypoint x="768.0" y="-3.0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+                <omgdi:waypoint x="530.0" y="77.0"/>
+                <omgdi:waypoint x="615.0" y="77.0"/>
             </bpmndi:BPMNEdge>
         </bpmndi:BPMNPlane>
     </bpmndi:BPMNDiagram>
