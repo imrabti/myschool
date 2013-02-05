@@ -64,10 +64,10 @@ public class DossierServiceImpl implements DossierService {
         for (Dossier dossierFromProcess: dossiersAndTasks.keySet()) {
             if (dossier.getId() == dossierFromProcess.getId()) {
                 validationProcessService.receiveDossier(dossiersAndTasks.get(dossierFromProcess.getId()));
-                break;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -81,7 +81,7 @@ public class DossierServiceImpl implements DossierService {
             filter.setNumDossier("%");
         }
         dossiers.addAll(dossierRepos.findDossierByGeneratedNumDossierLikeAndStatusEqualsAndCandidatNomLike(
-                filter.getNumDossier(), filter.getStatus(), filter.getNomCandidat()));
+                "%" + filter.getNumDossier() + "%", filter.getStatus(), "%" + filter.getNomCandidat() + "%"));
         return dossiers;
     }
 
@@ -95,15 +95,16 @@ public class DossierServiceImpl implements DossierService {
             filter.setNumDossier("%");
         }
         if (filter.getDateCreation() == null && filter.getStatus() == DossierStatus.All) {
-            dossiers = dossierRepos.findByNumDossierLike(filter.getNumDossier(), page);
+            dossiers = dossierRepos.findByNumDossierLike("%" + filter.getNumDossier() +"%", page);
         } else if (filter.getDateCreation() == null && filter.getStatus() != DossierStatus.All) {
-            dossiers = dossierRepos.findByNumDossierLikeAndStatus(filter.getNumDossier(), filter.getStatus(), page);
-        } else if (filter.getDateCreation() != null && filter.getStatus() == DossierStatus.All) {
-            dossiers = dossierRepos.findByNumDossierLikeAndDateCreation(filter.getNumDossier(), filter.getDateCreation(),
+            dossiers = dossierRepos.findByNumDossierLikeAndStatus("%" + filter.getNumDossier() +"%", filter.getStatus(),
                     page);
+        } else if (filter.getDateCreation() != null && filter.getStatus() == DossierStatus.All) {
+            dossiers = dossierRepos.findByNumDossierLikeAndDateCreation("%" + filter.getNumDossier() +"%",
+                    filter.getDateCreation(), page);
         } else {
             dossiers = dossierRepos.findByNumDossierLikeAndStatusAndDateCreation(
-                    filter.getNumDossier(), filter.getStatus(), filter.getDateCreation(), page);
+                    "%" + filter.getNumDossier() +"%", filter.getStatus(), filter.getDateCreation(), page);
         }
         return new PagedDossiers(dossiers.getContent(), (int) dossiers.getTotalElements());
     }
