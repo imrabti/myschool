@@ -17,7 +17,7 @@
             <boot:Form  type="INLINE">
                 <boot:ControlLabel>N° Dossier</boot:ControlLabel>
                 <boot:TextBox ui:field="numDossierFilter" />
-                <boot:ControlLabel>Nom Candidat</boot:ControlLabel>
+                <boot:ControlLabel>Nom ou Prénom du candidat</boot:ControlLabel>
                 <boot:TextBox ui:field="candidatFilter" />
                 <boot:Button text="Rechercher" icon="SEARCH" ui:field="searchBtn" />
             </boot:Form>

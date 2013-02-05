@@ -146,4 +146,18 @@ public class Candidat implements java.io.Serializable {
     public void setNationality(ValueList nationality) {
         this.nationality = nationality;
     }
+
+    public String getReportsAttributes() {
+        return "Candidat{" +
+                "firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", birthDate=" + birthDate +
+                ", birthLocation='" + birthLocation + '\'' +
+                ", phone='" + phone + '\'' +
+                ", cin='" + cin + '\'' +
+                ", cne='" + cne + '\'' +
+                ", email='" + email + '\'' +
+                ", gsm='" + gsm + '\'' +
+                '}';
+    }
 }

@@ -39,4 +39,11 @@ public class Filiere implements Serializable {
     public void setDescription(String newDescription) {
         this.description = newDescription;
     }
+
+    public String getReportsAttributes() {
+        return "Filiere{" +
+                "nom='" + nom + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
