@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.server.security;
 
+import com.gsr.myschool.common.shared.type.UserStatus;
 import com.gsr.myschool.server.business.AdminUser;
 import com.gsr.myschool.server.repos.AdminUserRepos;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class StatelessAdminDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         AdminUser user =  adminUserRepos.findByEmail(email);
-        if (user == null) {
+        if (user == null || user.getStatus() == UserStatus.INACTIVE) {
             throw new UsernameNotFoundException("Bad credentials");
         } else {
             List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();

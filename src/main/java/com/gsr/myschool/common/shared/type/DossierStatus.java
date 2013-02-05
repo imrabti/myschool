@@ -1,6 +1,7 @@
 package com.gsr.myschool.common.shared.type;
 
 public enum DossierStatus {
+    All("Tous"),
     CREATED("Créé"),
     SUBMITED("Soumis"),
     RECEIVED("Reçu"),

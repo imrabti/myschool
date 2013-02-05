@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ReportDTO {
-     private String reportName;
+    private String reportName;
 
-     private Map<String, Object> reportParameters;
+    private Map<String, Object> reportParameters;
 
     public ReportDTO(String reportName) {
         this.reportName = reportName;
@@ -14,18 +14,18 @@ public class ReportDTO {
     }
 
     public String getReportName() {
-          return reportName;
-     }
+        return reportName;
+    }
 
-     public void setReportName(String reportName) {
-          this.reportName = reportName;
-     }
+    public void setReportName(String reportName) {
+        this.reportName = reportName;
+    }
 
-     public Map<String, Object> getReportParameters() {
-          return reportParameters;
-     }
+    public Map<String, Object> getReportParameters() {
+        return reportParameters;
+    }
 
-     public void setReportParameters(Map<String, Object> reportParameters) {
-          this.reportParameters = reportParameters;
-     }
+    public void setReportParameters(Map<String, Object> reportParameters) {
+        this.reportParameters = reportParameters;
+    }
 }

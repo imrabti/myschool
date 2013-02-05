@@ -54,4 +54,11 @@ public class ValueList implements Serializable {
     public void setValueType(ValueType valueType) {
         this.valueType = valueType;
     }
+
+    public String getReportsAttributes() {
+        return "ValueList{" +
+                "value='" + value + '\'' +
+                ", label='" + label + '\'' +
+                '}';
+    }
 }

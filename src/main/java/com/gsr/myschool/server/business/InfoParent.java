@@ -122,4 +122,19 @@ public class InfoParent implements java.io.Serializable {
     public void setInstitution(String institution) {
         this.institution = institution;
     }
+
+    public String getReportsAttributes() {
+        return "InfoParent{" +
+                "nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", telGsm='" + telGsm + '\'' +
+                ", telDom='" + telDom + '\'' +
+                ", telBureau='" + telBureau + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", fonction='" + fonction + '\'' +
+                ", parentType=" + parentType +
+                ", institution='" + institution + '\'' +
+                '}';
+    }
 }
