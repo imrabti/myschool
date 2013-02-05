@@ -10,6 +10,8 @@ import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.PasswordDTOProxy;
 import com.gsr.myschool.common.client.util.EditorView;
 
+import static com.google.gwt.query.client.GQuery.$;
+
 public class PasswordEditor extends Composite implements EditorView<PasswordDTOProxy> {
     public interface Binder extends UiBinder<Widget, PasswordEditor> {
     }
@@ -32,6 +34,10 @@ public class PasswordEditor extends Composite implements EditorView<PasswordDTOP
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
+
+        $(oldPassword).id("oldPassword");
+        $(password).id("password");
+        $(passwordConfirmation).id("passwordConfirmation");
     }
 
     @Override
