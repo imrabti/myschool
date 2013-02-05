@@ -14,18 +14,24 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.web.application.inbox;
+package com.gsr.myschool.server.service;
 
-import com.gsr.myschool.common.client.proxy.InboxProxy;
 import com.gsr.myschool.common.shared.type.InboxMessageStatus;
-import com.gwtplatform.mvp.client.UiHandlers;
+import com.gsr.myschool.server.business.InboxMessage;
 
 import java.util.List;
+import java.util.Set;
 
-public interface InboxUiHandlers extends UiHandlers {
-    void delete(List<InboxProxy> toDelete);
+public interface InboxService {
+    void updateInboxMessages(List<InboxMessage> messages);
 
-    void update(List<InboxProxy> toUpdate, InboxMessageStatus status);
+    void updateInboxMessages(List<InboxMessage> messages, InboxMessageStatus status);
 
-    void showDetails(InboxProxy value);
+    void updateInboxMessage(InboxMessage message);
+
+    void deleteInboxMessages(List<InboxMessage> messages);
+
+    List<InboxMessage> findAllInboxMessage(Long userId);
+
+    Integer countAllUnreadInboxMessages(Long userId);
 }

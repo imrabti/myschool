@@ -67,7 +67,7 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
     public ValueListView(final Binder uiBinder, final MessageBundle messageBundle,
                          final UiHandlersStrategy<ValueListUiHandlers> uiHandlers,
                          final SharedMessageBundle sharedMessageBundle,
-                         ValueListActionCellFactory actionCellFactory) {
+                         final ValueListActionCellFactory actionCellFactory) {
         super(uiHandlers);
 
         this.messageBundle = messageBundle;

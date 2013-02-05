@@ -18,9 +18,17 @@ package com.gsr.myschool.front.client.web.application.inbox;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+import com.gsr.myschool.common.client.proxy.InboxProxy;
+import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
+import com.gsr.myschool.common.shared.type.InboxMessageStatus;
 import com.gsr.myschool.front.client.place.NameTokens;
+import com.gsr.myschool.front.client.request.FrontRequestFactory;
+import com.gsr.myschool.front.client.security.CurrentUserProvider;
 import com.gsr.myschool.front.client.web.application.ApplicationPresenter;
+import com.gsr.myschool.front.client.web.application.inbox.event.InboxStatusChangedEvent;
+import com.gsr.myschool.front.client.web.application.inbox.popup.InboxDetailsPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -29,10 +37,19 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
+import javax.validation.ConstraintViolation;
+import java.util.List;
+import java.util.Set;
+
 public class InboxPresenter extends Presenter<InboxPresenter.MyView, InboxPresenter.MyProxy>
-        implements InboxUiHandlers {
+        implements InboxUiHandlers, InboxStatusChangedEvent.InboxStatusChangedHandler {
     public interface MyView extends View, HasUiHandlers<InboxUiHandlers> {
+        public void setData(List<InboxProxy> response);
     }
+
+    private final FrontRequestFactory requestFactory;
+    private final CurrentUserProvider currentUserProvider;
+    private final InboxDetailsPresenter inboxDetailsPresenter;
 
     @ProxyStandard
     @NameToken(NameTokens.inbox)
@@ -41,9 +58,78 @@ public class InboxPresenter extends Presenter<InboxPresenter.MyView, InboxPresen
     }
 
     @Inject
-    public InboxPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy) {
+    public InboxPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
+                          final FrontRequestFactory requestFactory,
+                          final CurrentUserProvider currentUserProvider,
+                          final InboxDetailsPresenter inboxDetailsPresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
+        this.requestFactory = requestFactory;
+        this.currentUserProvider = currentUserProvider;
+        this.inboxDetailsPresenter = inboxDetailsPresenter;
+
         getView().setUiHandlers(this);
+    }
+
+    @Override
+    public void delete(List<InboxProxy> toDelete) {
+        requestFactory.inboxService().deleteInboxMessages(toDelete).fire(new ReceiverImpl<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                fillCellList();
+                InboxStatusChangedEvent.fire(this);
+            }
+        });
+    }
+
+    @Override
+    public void onInboxStatusChanged(InboxStatusChangedEvent event) {
+        if (event.getInboxMessage() != null) {
+            InboxProxy inboxMessage = event.getInboxMessage();
+            requestFactory.inboxService().updateInboxMessage(inboxMessage).fire(new ReceiverImpl<Void>() {
+                @Override
+                public void onSuccess(Void response) {
+                    fillCellList();
+                }
+            });
+        }
+    }
+
+    @Override
+    public void update(List<InboxProxy> toUpdate, InboxMessageStatus status) {
+        requestFactory.inboxService().updateInboxMessages(toUpdate, status).fire(new ReceiverImpl<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                fillCellList();
+                InboxStatusChangedEvent.fire(this);
+            }
+        });
+    }
+
+    public void showDetails(InboxProxy value) {
+        inboxDetailsPresenter.setCurrentMessage(value);
+        addToPopupSlot(inboxDetailsPresenter);
+    }
+
+    @Override
+    protected void onBind(){
+        super.onBind();
+
+        addRegisteredHandler(InboxStatusChangedEvent.TYPE, this);
+    }
+
+    @Override
+    protected void onReveal(){
+        fillCellList();
+    }
+
+    private void fillCellList(){
+        requestFactory.inboxService().findAllInboxMessage(currentUserProvider.get().getId())
+                .fire(new ReceiverImpl<List<InboxProxy>>() {
+            @Override
+            public void onSuccess(List<InboxProxy> inboxProxies) {
+                getView().setData(inboxProxies);
+            }
+        });
     }
 }
