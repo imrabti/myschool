@@ -14,20 +14,13 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.place;
+package com.gsr.myschool.back.client.web.application.valueList.renderer;
 
-import com.google.inject.BindingAnnotation;
+import com.google.gwt.cell.client.ActionCell.Delegate;
+import com.google.inject.assistedinject.Assisted;
+import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-@BindingAnnotation
-@Target({FIELD, PARAMETER, METHOD})
-@Retention(RUNTIME)
-public @interface DefaultPlace {
+public interface ValueTypeActionCellFactory {
+    ValueTypeActionCell create(@Assisted("delete") Delegate<ValueTypeProxy> delete,
+                               @Assisted("modify") Delegate<ValueTypeProxy> modify);
 }

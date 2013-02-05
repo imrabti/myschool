@@ -14,20 +14,10 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.place;
+package com.gsr.myschool.front.client.web.application.inbox.popup;
 
-import com.google.inject.BindingAnnotation;
+import com.gwtplatform.mvp.client.UiHandlers;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-@BindingAnnotation
-@Target({FIELD, PARAMETER, METHOD})
-@Retention(RUNTIME)
-public @interface DefaultPlace {
+public interface InboxDetailsUiHandlers extends UiHandlers {
+    void readComplete();
 }

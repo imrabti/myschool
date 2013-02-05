@@ -41,4 +41,6 @@ public interface InscriptionRequest extends RequestContext {
     Request<Void> createNewFraterie(FraterieProxy fraterie, Long dossierId);
 
     Request<Void> deleteFraterie(Long fraterieId);
+
+    Request<Void> submitInscription(Long dossierId);
 }

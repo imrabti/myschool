@@ -1,6 +1,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'
+             xmlns:cell='urn:import:com.google.gwt.user.cellview.client'>
 
     <ui:with field="resources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
@@ -11,12 +12,14 @@
             </h2>
             <div>
                 <boot:ButtonGroup>
-                    <boot:Button text="Supprimer"/>
-                    <boot:Button text="Comme Lus"/>
-                    <boot:Button text="Comme Non Lus"/>
+                    <boot:Button text="Supprimer" ui:field="delete"/>
+                    <boot:Button text="Comme Lus" ui:field="read"/>
+                    <boot:Button text="Comme Non Lus" ui:field="unread"/>
                 </boot:ButtonGroup>
             </div>
             <span style="display: block; clear: both;"/>
+
         </g:HTMLPanel>
+        <cell:CellList ui:field="inboxTable" width="100%"/>
     </g:HTMLPanel>
 </ui:UiBinder>

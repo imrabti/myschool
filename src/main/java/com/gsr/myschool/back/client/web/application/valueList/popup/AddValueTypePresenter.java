@@ -16,109 +16,96 @@
 
 package com.gsr.myschool.back.client.web.application.valueList.popup;
 
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.CheckBox;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.ValueListBox;
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
-import com.gsr.myschool.back.client.request.ValueListServiceRequest;
 import com.gsr.myschool.back.client.request.ValueTypeServiceRequest;
-import com.gsr.myschool.common.client.proxy.ValueListProxy;
-import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
+import com.gsr.myschool.back.client.resource.message.MessageBundle;
+import com.gsr.myschool.back.client.web.application.valueList.event.ValueTypeChangedEvent;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupView;
+import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
+import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
+import com.gsr.myschool.common.client.widget.messages.CloseDelay;
+import com.gsr.myschool.common.client.widget.messages.Message;
+import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 
 import javax.validation.ConstraintViolation;
-import java.util.List;
 import java.util.Set;
 
 public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter.MyView>
         implements AddValueTypeUiHandlers {
     public interface MyView extends ValidatedPopupView, HasUiHandlers<AddValueTypeUiHandlers> {
-        void fillParentList(List<ValueTypeProxy> parents);
+        void editType(ValueTypeProxy valueTypeProxy);
 
-        void fillRegexList(List<ValueListProxy> regex);
-
-        TextBox getName();
-
-        ValueListBox<ValueListProxy> getRegex();
-
-        ValueListBox<ValueTypeProxy> getParent();
-
-        CheckBox getSystemDefLov();
+        void flushType();
     }
 
     private final BackRequestFactory requestFactory;
+    private final MessageBundle messageBundle;
+    private ValueTypeProxy currentValueType;
+    private ValueTypeServiceRequest currentContext;
 
     @Inject
     public AddValueTypePresenter(final EventBus eventBus, final MyView view,
-                                 final BackRequestFactory requestFactory) {
+                                 final BackRequestFactory requestFactory,
+                                 final MessageBundle messageBundle) {
         super(eventBus, view);
 
         this.requestFactory = requestFactory;
+        this.messageBundle = messageBundle;
 
         getView().setUiHandlers(this);
     }
 
     public void initDatas() {
-        getAllDefLov();
-        getRegexes();
+        currentContext = requestFactory.valueTypeServiceRequest();
+        currentValueType = currentContext.create(ValueTypeProxy.class);
+        getView().editType(currentValueType);
     }
 
-    public void getAllDefLov() {
-        ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
+    public void editDatas(ValueTypeProxy valueType) {
+        currentContext = requestFactory.valueTypeServiceRequest();
+        currentValueType = currentContext.edit(valueType);
+        getView().editType(currentValueType);
+    }
 
-        dlsr.findAll().fire(new Receiver<List<ValueTypeProxy>>() {
+    @Override
+    public void saveValueType() {
+        getView().flushType();
+
+        currentValueType.setParent(currentValueType.getParent() != null ?
+                currentContext.edit(currentValueType.getParent()) : null);
+        currentValueType.setRegex(currentValueType.getRegex() != null ?
+                currentContext.edit(currentValueType.getRegex()) : null);
+        currentContext.updateValueType(currentValueType).fire(new ValidatedReceiverImpl<Void>() {
             @Override
-            public void onSuccess(List<ValueTypeProxy> response) {
-                getView().fillParentList(response);
+            public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                getView().clearErrors();
+                getView().showErrors(violations);
+            }
+
+            @Override
+            public void onSuccess(Void aVoid) {
+                getView().clearErrors();
+                getView().editType(currentValueType);
+                Message message = new Message.Builder(messageBundle.addValueTypeSuccess())
+                        .style(AlertType.SUCCESS)
+                        .closeDelay(CloseDelay.DEFAULT)
+                        .build();
+                MessageEvent.fire(this, message);
+                fireEvent(new ValueTypeChangedEvent(currentValueType));
+                getView().hide();
             }
         });
     }
 
-    public void getRegexes() {
-        ValueListServiceRequest lsr = requestFactory.valueListServiceRequest();
-        /*lsr.findByValueTypeName("Regex").fire(new Receiver<List<ValueListProxy>>() {
-            @Override
-            public void onSuccess(List<ValueListProxy> response) {
-                getView().fillRegexList(response);
-            }
-        });*/
-    }
-
     @Override
-    public void processDefLov() {
-        ValueTypeServiceRequest dlsr = requestFactory.valueTypeServiceRequest();
-        ValueTypeProxy toAdd = dlsr.create(ValueTypeProxy.class);
-        //toAdd.setName(getView().getName().getText());
-        toAdd.setRegex(getView().getRegex().getValue());
-        toAdd.setParent(getView().getParent().getValue());
-        toAdd.setSystem(getView().getSystemDefLov().getValue());
-        ValueTypeProxy parent = dlsr.create(ValueTypeProxy.class);
-        if (getView().getParent().getValue() != null) {
-            parent.setId(new Long(getView().getParent().getValue().getId()));
-        } else {
-            parent = null;
-        }
-        toAdd.setParent(parent);
-        toAdd.setSystem(getView().getSystemDefLov().getValue());
-        /*dlsr.add(toAdd)
-                .fire(new Receiver<Void>() {
-                    @Override
-                    public void onSuccess(Void response) {
-                        Window.alert("added");
-                    }
+    protected void onReveal(){
+        super.onReveal();
 
-                    @Override
-                    public void onConstraintViolation(Set<ConstraintViolation<?>> violations) {
-                        for (ConstraintViolation violation : violations) {
-                            Window.alert(violation.getMessage() + " " + violation.getInvalidValue());
-                        }
-                    }
-                });*/
+        getView().clearErrors();
     }
 }

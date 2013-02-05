@@ -22,8 +22,6 @@ import com.gwtplatform.mvp.client.UiHandlers;
 public interface ValueListUiHandlers extends UiHandlers {
     void addValueList();
 
-    void getParent();
-
     void delete(ValueListProxy valueListProxy);
 
     void modify(ValueListProxy valueListProxy);

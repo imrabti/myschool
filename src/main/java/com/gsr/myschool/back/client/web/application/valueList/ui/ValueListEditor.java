@@ -16,17 +16,80 @@
 
 package com.gsr.myschool.back.client.web.application.valueList.ui;
 
+import com.github.gwtbootstrap.client.ui.TextBox;
+import com.github.gwtbootstrap.client.ui.ValueListBox;
+import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import com.gsr.myschool.back.client.request.BackRequestFactory;
+import com.gsr.myschool.common.client.proxy.ValueListProxy;
+import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.common.client.util.EditorView;
+import com.gsr.myschool.common.client.widget.renderer.ValueListRenderer;
 
-public class ValueListEditor extends Composite {
+import java.util.List;
+
+import static com.google.gwt.query.client.GQuery.$;
+
+public class ValueListEditor extends Composite implements EditorView<ValueListProxy> {
     public interface Binder extends UiBinder<Widget, ValueListEditor> {
     }
 
+    public interface Driver extends SimpleBeanEditorDriver<ValueListProxy, ValueListEditor> {
+    }
+
+    @UiField(provided = true)
+    ValueListBox<ValueListProxy> parent;
+    @UiField
+    TextBox value;
+    @UiField
+    TextBox label;
+
+    private final Driver driver;
+    private final BackRequestFactory requestFactory;
+
     @Inject
-    public ValueListEditor(final Binder uiBinder) {
+    public ValueListEditor(final Binder uiBinder, final Driver driver,
+                           final BackRequestFactory requestFactory,
+                           final ValueListRenderer valueListRenderer) {
+        this.driver = driver;
+        this.requestFactory = requestFactory;
+        this.parent = new ValueListBox<ValueListProxy>(valueListRenderer);
+
         initWidget(uiBinder.createAndBindUi(this));
+        driver.initialize(this);
+
+        getParents();
+
+        $(value).id("value");
+        $(label).id("label");
+    }
+
+    @Override
+    public void edit(ValueListProxy valueList) {
+        driver.edit(valueList);
+    }
+
+    @Override
+    public ValueListProxy get() {
+        ValueListProxy valueTypeProxy = driver.flush();
+        if (driver.hasErrors()) {
+            return null;
+        } else {
+            valueTypeProxy.setParent(parent.getValue());
+            return valueTypeProxy;
+        }
+    }
+
+    private void getParents() {
+        requestFactory.valueListServiceRequest().findAll().fire(new ReceiverImpl<List<ValueListProxy>>() {
+            @Override
+            public void onSuccess(List<ValueListProxy> valueTypeProxies) {
+                parent.setAcceptableValues(valueTypeProxies);
+            }
+        });
     }
 }

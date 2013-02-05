@@ -14,4 +14,6 @@ public interface ValueTypeServiceRequest extends RequestContext {
     Request<Void> updateValueType(ValueTypeProxy valueType);
 
     Request<List<ValueTypeProxy>> findAll();
+
+    Request<Void> deleteValueType(Long id);
 }

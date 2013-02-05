@@ -3,7 +3,7 @@ package com.gsr.myschool.common.shared.type;
 public enum DossierStatus {
     All("Tous"),
     CREATED("Créé"),
-    SUBMITED("Soumis"),
+    SUBMITTED("Soumis"),
     RECEIVED("Reçu"),
     REJECTED("Rejeté"),
     ACCEPTED_FOR_STUDY("Accepté pour étude"),

@@ -87,6 +87,9 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
 
     @Override
     public void previewInscription(DossierProxy dossier) {
+        PlaceRequest placeRequest = new PlaceRequest(NameTokens.getInscriptionDetail());
+        placeRequest = placeRequest.with("id", dossier.getId().toString());
+        placeManager.revealPlace(placeRequest);
     }
 
     @Override
@@ -115,6 +118,20 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
 
     @Override
     public void submitInscription(DossierProxy dossier) {
+        if (Window.confirm(messageBundle.inscriptionSubmitConf())) {
+            Long dossierId = dossier.getId();
+            requestFactory.inscriptionService().submitInscription(dossierId).fire(new ReceiverImpl<Void>() {
+                @Override
+                public void onSuccess(Void response) {
+                    Message message = new Message.Builder(messageBundle.inscriptionSubmitSuccess())
+                            .style(AlertType.SUCCESS)
+                            .closeDelay(CloseDelay.DEFAULT)
+                            .build();
+                    MessageEvent.fire(this, message);
+                    loadAllInscriptions();
+                }
+            });
+        }
     }
 
     @Override
