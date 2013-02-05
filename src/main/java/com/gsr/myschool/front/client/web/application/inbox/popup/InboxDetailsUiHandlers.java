@@ -14,18 +14,10 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.request;
+package com.gsr.myschool.front.client.web.application.inbox.popup;
 
-import com.google.web.bindery.requestfactory.shared.RequestFactory;
+import com.gwtplatform.mvp.client.UiHandlers;
 
-public interface FrontRequestFactory extends RequestFactory {
-    AuthenticationRequest authenticationService();
-
-    RegistrationRequest registrationService();
-
-    InscriptionRequest inscriptionService();
-
-    CachedListValueRequest cachedListValueService();
-
-    InboxRequest inboxService();
+public interface InboxDetailsUiHandlers extends UiHandlers {
+    void readComplete();
 }

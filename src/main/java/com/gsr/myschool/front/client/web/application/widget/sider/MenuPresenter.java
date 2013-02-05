@@ -2,25 +2,38 @@ package com.gsr.myschool.front.client.web.application.widget.sider;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.front.client.place.NameTokens;
+import com.gsr.myschool.front.client.request.FrontRequestFactory;
+import com.gsr.myschool.front.client.security.CurrentUserProvider;
+import com.gsr.myschool.front.client.web.application.inbox.event.InboxStatusChangedEvent;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 
-public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> implements MenuUiHandlers {
+public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> implements MenuUiHandlers,
+        InboxStatusChangedEvent.InboxStatusChangedHandler {
     public interface MyView extends View, HasUiHandlers<MenuUiHandlers> {
         void setSelectedMenu(MenuItem currentMenu);
+
+        void updateMessageCount(Integer count);
     }
 
     private final PlaceManager placeManager;
+    private final FrontRequestFactory requestFactory;
+    private final CurrentUserProvider currentUserProvider;
 
     @Inject
-    public MenuPresenter(EventBus eventBus, MyView view, final PlaceManager placeManager) {
+    public MenuPresenter(EventBus eventBus, MyView view, final PlaceManager placeManager,
+                         final FrontRequestFactory requestFactory,
+                         final CurrentUserProvider currentUserProvider) {
         super(eventBus, view);
 
         this.placeManager = placeManager;
+        this.requestFactory = requestFactory;
+        this.currentUserProvider = currentUserProvider;
 
         getView().setUiHandlers(this);
     }
@@ -41,6 +54,19 @@ public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> impleme
     }
 
     @Override
+    public void onInboxStatusChanged(InboxStatusChangedEvent event) {
+        getMessagesCount();
+    }
+
+    @Override
+    protected void onBind(){
+        super.onBind();
+
+        addRegisteredHandler(InboxStatusChangedEvent.TYPE, this);
+    }
+
+
+    @Override
     protected void onReveal() {
         PlaceRequest currentPlace =  placeManager.getCurrentPlaceRequest();
         MenuItem currentMenu = MenuItem.INSCRIPTION;
@@ -54,5 +80,17 @@ public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> impleme
         }
 
         getView().setSelectedMenu(currentMenu);
+
+        getMessagesCount();
+    }
+
+    private void getMessagesCount(){
+        requestFactory.inboxService().countAllUnreadInboxMessages(currentUserProvider.get().getId())
+                .fire(new ReceiverImpl<Integer>() {
+            @Override
+            public void onSuccess(Integer integer) {
+                getView().updateMessageCount(integer);
+            }
+        });
     }
 }
