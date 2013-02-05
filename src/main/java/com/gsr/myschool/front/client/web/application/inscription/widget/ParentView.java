@@ -14,25 +14,25 @@ public class ParentView extends ValidatedViewImpl implements ParentPresenter.MyV
     }
 
     @UiField(provided = true)
-    ParentEditor parentEditor;
+    ParentEditor pereEditor;
 
     @Inject
     public ParentView(final Binder uiBinder, final ValidationErrorPopup validationErrorPopup,
                       final ParentEditor parentEditor) {
         super(validationErrorPopup);
 
-        this.parentEditor = parentEditor;
+        this.pereEditor = parentEditor;
 
         initWidget(uiBinder.createAndBindUi(this));
     }
 
     @Override
     public void editParent(InfoParentProxy infoParent) {
-        parentEditor.edit(infoParent);
+        pereEditor.edit(infoParent);
     }
 
     @Override
     public void flushParent() {
-        parentEditor.get();
+        pereEditor.get();
     }
 }
