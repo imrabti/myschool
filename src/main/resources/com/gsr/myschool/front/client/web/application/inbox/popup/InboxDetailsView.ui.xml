@@ -32,6 +32,7 @@
             float: right;
         }
     </ui:style>
+
     <g:PopupPanel modal="true" autoHideEnabled="false" styleName="{resource.popupStyleCss.gwtPopupPanel}"
                   glassEnabled="true">
         <g:FlowPanel>

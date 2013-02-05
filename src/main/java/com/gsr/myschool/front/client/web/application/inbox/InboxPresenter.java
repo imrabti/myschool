@@ -73,15 +73,11 @@ public class InboxPresenter extends Presenter<InboxPresenter.MyView, InboxPresen
 
     @Override
     public void delete(List<InboxProxy> toDelete) {
-        requestFactory.inboxService().deleteInboxMessages(toDelete).fire(new ValidatedReceiverImpl<Void>() {
-            @Override
-            public void onValidationError(Set<ConstraintViolation<?>> violations) {
-            }
-
+        requestFactory.inboxService().deleteInboxMessages(toDelete).fire(new ReceiverImpl<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 fillCellList();
-                fireEvent(new InboxStatusChangedEvent());
+                InboxStatusChangedEvent.fire(this);
             }
         });
     }
@@ -101,14 +97,11 @@ public class InboxPresenter extends Presenter<InboxPresenter.MyView, InboxPresen
 
     @Override
     public void update(List<InboxProxy> toUpdate, InboxMessageStatus status) {
-        requestFactory.inboxService().updateInboxMessages(toUpdate, status).fire(new ValidatedReceiverImpl<Void>() {
-            @Override
-            public void onValidationError(Set<ConstraintViolation<?>> violations) {
-            }
+        requestFactory.inboxService().updateInboxMessages(toUpdate, status).fire(new ReceiverImpl<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 fillCellList();
-                fireEvent(new InboxStatusChangedEvent());
+                InboxStatusChangedEvent.fire(this);
             }
         });
     }
@@ -131,7 +124,8 @@ public class InboxPresenter extends Presenter<InboxPresenter.MyView, InboxPresen
     }
 
     private void fillCellList(){
-        requestFactory.inboxService().findAllInboxMessage(currentUserProvider.get().getId()).fire(new ReceiverImpl<List<InboxProxy>>() {
+        requestFactory.inboxService().findAllInboxMessage(currentUserProvider.get().getId())
+                .fire(new ReceiverImpl<List<InboxProxy>>() {
             @Override
             public void onSuccess(List<InboxProxy> inboxProxies) {
                 getView().setData(inboxProxies);

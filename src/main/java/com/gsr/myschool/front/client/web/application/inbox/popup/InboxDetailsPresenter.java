@@ -51,6 +51,6 @@ public class InboxDetailsPresenter extends PresenterWidget<InboxDetailsPresenter
 
     @Override
     public void readComplete(){
-        fireEvent(new InboxStatusChangedEvent(currentMessage));
+        InboxStatusChangedEvent.fire(this, currentMessage);
     }
 }

@@ -18,7 +18,9 @@ package com.gsr.myschool.front.client.web.application.inbox.event;
 
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.event.shared.HasHandlers;
 import com.gsr.myschool.common.client.proxy.InboxProxy;
+import com.gsr.myschool.front.client.web.application.inscription.WizardStep;
 
 public class InboxStatusChangedEvent extends GwtEvent<InboxStatusChangedEvent.InboxStatusChangedHandler> {
     public interface InboxStatusChangedHandler extends EventHandler {
@@ -37,6 +39,14 @@ public class InboxStatusChangedEvent extends GwtEvent<InboxStatusChangedEvent.In
 
     public InboxProxy getInboxMessage(){
         return inboxMessage;
+    }
+
+    public static void fire(HasHandlers source, InboxProxy value) {
+        source.fireEvent(new InboxStatusChangedEvent(value));
+    }
+
+    public static void fire(HasHandlers source) {
+        source.fireEvent(new InboxStatusChangedEvent());
     }
 
     @Override

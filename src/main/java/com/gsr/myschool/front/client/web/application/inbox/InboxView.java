@@ -85,12 +85,14 @@ public class InboxView extends ViewWithUiHandlers<InboxUiHandlers> implements In
 
     @UiHandler("read")
     void read(ClickEvent event){
-        getUiHandlers().update(new ArrayList<InboxProxy>(multipleSelectionModel.getSelectedSet()), InboxMessageStatus.READ);
+        getUiHandlers().update(new ArrayList<InboxProxy>(multipleSelectionModel.getSelectedSet()),
+                InboxMessageStatus.READ);
     }
 
     @UiHandler("unread")
     void unread(ClickEvent event){
-        getUiHandlers().update(new ArrayList<InboxProxy>(multipleSelectionModel.getSelectedSet()), InboxMessageStatus.UNREAD);
+        getUiHandlers().update(new ArrayList<InboxProxy>(multipleSelectionModel.getSelectedSet()),
+                InboxMessageStatus.UNREAD);
     }
 
     private ActionCell.Delegate<InboxProxy> setupShowDetails(){

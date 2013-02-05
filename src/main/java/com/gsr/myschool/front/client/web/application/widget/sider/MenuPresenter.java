@@ -85,7 +85,8 @@ public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> impleme
     }
 
     private void getMessagesCount(){
-        requestFactory.inboxService().countAllUnreadInboxMessages(currentUserProvider.get().getId()).fire(new ReceiverImpl<Integer>() {
+        requestFactory.inboxService().countAllUnreadInboxMessages(currentUserProvider.get().getId())
+                .fire(new ReceiverImpl<Integer>() {
             @Override
             public void onSuccess(Integer integer) {
                 getView().updateMessageCount(integer);
