@@ -68,7 +68,7 @@ public class InboxDetailsView extends ValidatedPopupViewImplWithUiHandlers<Inbox
             }
         });
 
-        dateFormat = DateTimeFormat.getFormat("LLL d yyyy");
+        dateFormat = DateTimeFormat.getFormat("dd/MM/yyyy 'à' hh:mm");
     }
 
     @UiHandler("cancel")

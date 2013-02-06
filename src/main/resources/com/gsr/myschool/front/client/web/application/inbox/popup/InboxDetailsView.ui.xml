@@ -30,20 +30,21 @@
         .date {
             width: 20%;
             float: right;
+            font-size: 80%;
         }
     </ui:style>
 
     <g:PopupPanel modal="true" autoHideEnabled="false" styleName="{resource.popupStyleCss.gwtPopupPanel}"
                   glassEnabled="true">
         <g:FlowPanel>
-            <s:ModalHeader ui:field="modalHeader" text="Email"/>
+            <s:ModalHeader ui:field="modalHeader" text="Message"/>
             <g:HTMLPanel styleName="{style.contentWrapper}">
                 <div class="{style.message}">
                     <div class="{style.subject}">
                         <g:Label ui:field="subject"/>
                     </div>
                     <div class="{style.date}">
-                        <g:Label ui:field="date"/>
+                        <g:Label text="Reçu le " /><g:Label ui:field="date"/>
                     </div>
                     <span style="display: block; clear: both;"></span>
                 </div>
