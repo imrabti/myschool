@@ -16,11 +16,11 @@
 
 package com.gsr.myschool.front.client.web.application.widget.header;
 
-import com.github.gwtbootstrap.client.ui.NavText;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
@@ -32,7 +32,7 @@ public class HeaderView extends ViewWithUiHandlers<HeaderUiHandlers> implements 
     }
 
     @UiField
-    NavText welcomeMessage;
+    Label welcomeMessage;
 
     private final MessageBundle messageBundle;
 

@@ -4,7 +4,7 @@
              xmlns:f='urn:import:com.gsr.myschool.common.client.widget'>
     <g:SimpleLayoutPanel>
         <g:DockLayoutPanel unit='PX'>
-            <g:north size="64">
+            <g:north size="80">
                 <g:HTMLPanel>
                     <!-- Ajax Loader displayer -->
                     <f:AjaxLoader ui:field="ajaxLoader"/>
