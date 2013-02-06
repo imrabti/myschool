@@ -20,4 +20,8 @@ public interface DossierFilterDTOProxy extends ValueProxy {
     public Date getCreated();
 
     public void setCreated(Date created);
+
+    public String getFirstnameOrlastname();
+
+    public void setFirstnameOrlastname(String firstnameOrlastname);
 }
