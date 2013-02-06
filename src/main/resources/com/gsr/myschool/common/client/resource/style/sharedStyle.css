@@ -1,23 +1,7 @@
-@external navbar-inner, nav-tabs, nav, accordion-group, accordion-toggle, accordion-inner;
+@external accordion-group, accordion-toggle, accordion-inner;
 
 body {
     font-family: "Droid Sans", Helvetica, Arial, sans-serif;
-}
-
-.navbar-inner {
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
-}
-
-.nav-tabs {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    min-height: 200px;
-}
-
-.nav {
-    margin-bottom: 0px;
 }
 
 .ajaxLoader {

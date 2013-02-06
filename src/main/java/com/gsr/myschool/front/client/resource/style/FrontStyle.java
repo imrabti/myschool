@@ -22,4 +22,18 @@ public interface FrontStyle extends CssResource {
     String msgRead();
 
     String msgUnread();
+
+    String loginBoxWrapper();
+
+    String loginContent();
+
+    String headerWrapper();
+
+    String logo();
+
+    String tabsMenu();
+
+    String selected();
+
+    String loginError();
 }

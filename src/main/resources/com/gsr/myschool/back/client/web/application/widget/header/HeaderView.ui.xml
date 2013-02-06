@@ -1,18 +1,117 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-             xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
-    <g:HTMLPanel>
-        <boot:Navbar>
-            <boot:Brand>mySchool-administration</boot:Brand>
-            <boot:Nav alignment="RIGHT">
-                <boot:NavPills>
-                    <boot:NavText ui:field="welcomeMessage" text="Welcome, user"/>
-                    <boot:Divider styleName="divider-vertical"/>
-                    <boot:NavLink ui:field="setting" icon="COG">Paramètres</boot:NavLink>
-                    <boot:Divider styleName="divider-vertical"/>
-                    <boot:NavLink ui:field="logout" icon="SIGNOUT">Logout</boot:NavLink>
-                </boot:NavPills>
-            </boot:Nav>
-        </boot:Navbar>
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+    <ui:with field="resources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+
+    <ui:style>
+        .header {
+            border-bottom: 1px solid #DADADA;
+            margin-bottom: 8px;
+            padding-bottom: 5px;
+            background-color: #eaf2ff;
+        }
+
+        #innerHeader img {
+            display: block;
+            float: left;
+            margin-right: 10px;
+            margin-left: 20px;
+            margin-top: 5px;
+        }
+
+        #innerHeader h1 {
+            margin-top: 15px;
+            float: left;
+            color: #545454;
+            font-size: 20px;
+        }
+
+        #innerHeader ul {
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+            margin-left: 15px;
+        }
+
+        #innerHeader ul li {
+            margin: 0px;
+            padding: 0px;
+            display: inline;
+            min-width: 25px;
+            border-left: dotted 1px #fff;
+            padding-left: 5px;
+            padding-right: 3px;
+        }
+
+        #innerHeader ul li a {
+            color: #FFF;
+            text-decoration: none;
+        }
+
+        #innerHeader ul li a:hover {
+            color: #f9a428;
+        }
+
+        .usernameStyle {
+            display: inline;
+            font-weight: bold;
+        }
+
+        .settingsStyle {
+            display: inline;
+            font-weight: normal;
+            cursor: pointer;
+            cursor: hand;
+        }
+
+        .settingsStyle:hover {
+            color: #f9a428;
+        }
+
+        .userInfos {
+            float: right;
+            background-color: #1b5799;
+            color: white;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 15px;
+            padding-right: 12px;
+            -moz-border-radius-bottomright: 8px;
+            -moz-border-radius-bottomleft: 8px;
+            -webkit-border-bottom-right-radius: 8px;
+            -webkit-border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            border-bottom-left-radius: 8px;
+            margin-right: 20px;
+        }
+    </ui:style>
+
+    <g:HTMLPanel styleName="{style.header}">
+        <div id="innerHeader">
+            <g:Image resource="{resources.logo}"/>
+
+            <h1>Espace Administration</h1>
+
+            <g:HTMLPanel styleName="{style.userInfos}">
+                <div style="float: left;">
+                    <g:Label ui:field="welcomeMessage" text="username" styleName="{style.usernameStyle}"/>
+                </div>
+
+                <div style="float: right;">
+                    <ul>
+                        <li>
+                            <g:Label text="Paramètres" ui:field="setting" styleName="{style.settingsStyle}"/>
+                        </li>
+                        <li>
+                            <g:Label text="Logout" ui:field="logout" styleName="{style.settingsStyle}"/>
+                        </li>
+                    </ul>
+                </div>
+
+                <div style="clear: both;"></div>
+            </g:HTMLPanel>
+
+            <div style="clear: both;"></div>
+        </div>
     </g:HTMLPanel>
 </ui:UiBinder>

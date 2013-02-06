@@ -20,7 +20,6 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.BootstrapperImpl;
 import com.gsr.myschool.back.client.place.NameTokens;
-import com.gsr.myschool.back.client.place.PlaceManager;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.web.RootPresenter;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
@@ -52,18 +51,16 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
     private final BackRequestFactory requestFactory;
     private final SecurityUtils securityUtils;
     private final BootstrapperImpl bootstrapper;
-    private final PlaceManager placeManager;
 
     @Inject
     public LoginPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                           final BackRequestFactory requestFactory, final SecurityUtils securityUtils,
-                          final BootstrapperImpl bootstrapper, final PlaceManager placeManager) {
+                          final BootstrapperImpl bootstrapper) {
         super(eventBus, view, proxy, RootPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
         this.securityUtils = securityUtils;
         this.bootstrapper = bootstrapper;
-        this.placeManager = placeManager;
 
         getView().setUiHandlers(this);
     }
