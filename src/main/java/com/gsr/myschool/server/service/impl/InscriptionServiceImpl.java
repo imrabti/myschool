@@ -22,6 +22,7 @@ import com.gsr.myschool.server.repos.ScolariteAnterieurRepos;
 import com.gsr.myschool.server.repos.ValueListRepos;
 import com.gsr.myschool.server.security.SecurityContextProvider;
 import com.gsr.myschool.server.service.InscriptionService;
+import com.gsr.myschool.server.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,6 +80,7 @@ public class InscriptionServiceImpl implements InscriptionService {
 
         User user = securityContextProvider.getCurrentUser();
         Dossier dossier = new Dossier();
+        dossier.setGeneratedNumDossier("GSR_" + DateUtils.currentYear() + "_" + System.currentTimeMillis());
         dossier.setStatus(DossierStatus.CREATED);
         dossier.setOwner(user);
         dossier.setInfoParent(infoParent);
