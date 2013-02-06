@@ -23,6 +23,8 @@ import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.DossierServiceRequest;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
+import com.gsr.myschool.back.client.web.application.reception.ui.DossierFilterEditor;
+import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierFilterProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
@@ -46,6 +48,8 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
         implements ReceptionUiHandlers {
     public interface MyView extends View, HasUiHandlers<ReceptionUiHandlers> {
         void setData(List<DossierProxy> data);
+
+        void editDossierFilter(DossierFilterDTOProxy dossierFilter);
     }
 
     @ProxyStandard
@@ -57,12 +61,13 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
     private final BackRequestFactory requestFactory;
     private final SharedMessageBundle messageBundle;
 
-    private String numDossierFilter ;
-    private String candidatFilter;
+    private DossierServiceRequest currentContext;
+    private DossierFilterDTOProxy currentDossierFilter;
 
     @Inject
     public ReceptionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
-            final BackRequestFactory requestFactory, final SharedMessageBundle messageBundle) {
+                              final BackRequestFactory requestFactory,
+                              final SharedMessageBundle messageBundle) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
@@ -73,7 +78,7 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
 
     @Override
     public void receive(DossierProxy dossier) {
-        requestFactory.dossierService().receive(dossier).fire(new ReceiverImpl<Boolean>() {
+        currentContext.receive(dossier).fire(new ReceiverImpl<Boolean>() {
             @Override
             public void onSuccess(Boolean response) {
                 String messageString = response ? messageBundle.operationSuccess() : messageBundle.operationFailure();
@@ -83,37 +88,31 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
                         .closeDelay(CloseDelay.DEFAULT)
                         .build();
                 MessageEvent.fire(this, message);
-                loadDossiers();
             }
         });
     }
 
     @Override
-    public void searchWithFilter(String numDossier, String nomCandidat) {
-        numDossierFilter = numDossier;
-        candidatFilter = nomCandidat;
-        loadDossiers();
+    public void searchWithFilter(DossierFilterDTOProxy dossierFilter) {
+        dossierFilter.setStatus(DossierStatus.SUBMITTED);
+        currentContext.findAllDossiersByCriteria(dossierFilter).fire(new ReceiverImpl<List<DossierProxy>>() {
+            @Override
+            public void onSuccess(List<DossierProxy> response) {
+                currentContext = requestFactory.dossierService();
+                currentDossierFilter = currentContext.edit(currentDossierFilter);
+
+                getView().setData(response);
+                getView().editDossierFilter(currentDossierFilter);
+            }
+        });
     }
 
     @Override
     protected void onReveal() {
-        numDossierFilter = "%";
-        candidatFilter = "%";
-        loadDossiers();
-    }
+        currentContext = requestFactory.dossierService();
+        currentDossierFilter = currentContext.create(DossierFilterDTOProxy.class);
+        getView().editDossierFilter(currentDossierFilter);
 
-    private void loadDossiers() {
-        DossierServiceRequest currentContext = requestFactory.dossierService();
-        DossierFilterProxy filter = currentContext.create(DossierFilterProxy.class);
-        filter.setNumDossier(numDossierFilter);
-        filter.setNomCandidat(candidatFilter);
-        filter.setStatus(DossierStatus.SUBMITTED);
-
-        currentContext.findAllDossiersInStatusByCriteria(filter).fire(new ReceiverImpl<List<DossierProxy>>() {
-            @Override
-            public void onSuccess(List<DossierProxy> result) {
-                getView().setData(result);
-            }
-        });
+        searchWithFilter(currentDossierFilter);
     }
 }

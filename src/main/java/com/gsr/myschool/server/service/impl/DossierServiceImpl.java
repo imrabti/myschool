@@ -52,8 +52,7 @@ public class DossierServiceImpl implements DossierService {
 
     @Override
     public Boolean receive(Dossier dossier) {
-        Map<Dossier, Task> dossiersAndTasks = new HashMap<Dossier, Task>();
-        dossiersAndTasks.putAll(validationProcessService.getAllNonReceivedDossiers());
+        Map<Dossier, Task> dossiersAndTasks = validationProcessService.getAllNonReceivedDossiers();
         for (Dossier dossierFromProcess: dossiersAndTasks.keySet()) {
             if (dossier.getId() == dossierFromProcess.getId()) {
                 validationProcessService.receiveDossier(dossiersAndTasks.get(dossierFromProcess.getId()));
@@ -89,6 +88,11 @@ public class DossierServiceImpl implements DossierService {
 
         if (filter.getCreated() != null) {
             spec = spec.and(DossierSpec.dossierCreatedEqual(filter.getCreated()));
+        }
+
+        if (!Strings.isNullOrEmpty(filter.getFirstnameOrlastname())) {
+            spec = spec.and(DossierSpec.firstnameLike(filter.getFirstnameOrlastname()))
+                    .or(DossierSpec.lastnameLike(filter.getFirstnameOrlastname()));
         }
 
         return dossierRepos.findAll(spec);
