@@ -54,7 +54,7 @@ public class InboxCell extends AbstractCell<InboxProxy> {
         this.resources = resources;
         this.showDetails = showDetails;
 
-        dateFormat = DateTimeFormat.getFormat("LLL d yyyy");
+        dateFormat = DateTimeFormat.getFormat("dd/MM/yyyy 'à' hh:mm");
     }
 
     @Override

@@ -16,7 +16,7 @@
         }
 
         .inbox_content {
-            font-size: 90%;
+            font-size: 80%;
             color: gray;
             padding: 5px;
         }
@@ -24,7 +24,7 @@
         .inbox_date {
             width: 20%;
             float: right;
-            font-size: 90%;
+            font-size: 80%;
         }
     </ui:style>
 
@@ -34,7 +34,7 @@
                 <ui:text from="{subject}"/>
             </div>
             <div class='{style.inbox_date}'>
-                <ui:text from="{date}"/>
+                Reçu le <ui:text from="{date}"/>
             </div>
             <span style="display: block; clear: both;"></span>
         </div>

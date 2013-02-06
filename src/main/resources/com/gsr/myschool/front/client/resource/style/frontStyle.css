@@ -1,8 +1,8 @@
 .msgRead {
-    border-bottom: 1px solid #f5f5f5;
+    border-bottom: 1px solid #9a9a9a;
 }
 
 .msgUnread {
     background-color: #f5f5f5;
-    border-bottom: 1px solid #f5f5f5;
+    border-bottom: 1px solid #9a9a9a;
 }
