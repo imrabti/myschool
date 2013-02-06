@@ -18,6 +18,7 @@ public class ValueType implements Serializable {
     @ManyToOne
     private ValueType parent;
     private Boolean system;
+    private String  name;
 
     public Long getId() {
         return id;
@@ -57,5 +58,13 @@ public class ValueType implements Serializable {
 
     public void setSystem(Boolean system) {
         this.system = system;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
