@@ -3,6 +3,8 @@ package com.gsr.myschool.server.service.impl;
 import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.repos.DossierRepos;
+import com.gsr.myschool.server.repos.spec.DossierSpec;
 import com.gsr.myschool.server.service.DossierService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,6 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,6 +29,9 @@ import java.util.List;
 public class DossierServiceTest {
     @Autowired
     private DossierService dossierService;
+
+    @Autowired
+    private DossierRepos dossierRepos;
 
     @Test
     public void testLoadDossierBySpec() {

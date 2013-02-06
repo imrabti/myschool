@@ -9,6 +9,7 @@ public class DossierFilterDTO implements Serializable {
     private String numDossier;
     private DossierStatus status;
     private Date created;
+    private String firstnameOrlastname;
 
     public String getNumDossier() {
         return numDossier;
@@ -32,5 +33,13 @@ public class DossierFilterDTO implements Serializable {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public String getFirstnameOrlastname() {
+        return firstnameOrlastname;
+    }
+
+    public void setFirstnameOrlastname(String firstnameOrlastname) {
+        this.firstnameOrlastname = firstnameOrlastname;
     }
 }
