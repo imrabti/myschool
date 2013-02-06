@@ -7,6 +7,10 @@
             width: 500px;
             margin-top: 20px;
         }
+
+        .rootPanel {
+            background-color: #eaf2ff;
+        }
     </ui:style>
 
     <g:LayoutPanel>
@@ -16,7 +20,7 @@
         </g:layer>
 
         <g:layer>
-            <g:SimpleLayoutPanel ui:field="main"/>
+            <g:SimpleLayoutPanel ui:field="main" styleName="{style.rootPanel}"/>
         </g:layer>
     </g:LayoutPanel>
 </ui:UiBinder>

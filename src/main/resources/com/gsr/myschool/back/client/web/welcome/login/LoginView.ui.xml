@@ -1,19 +1,47 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-    <g:HTMLPanel>
-        <h2>Login to the administration</h2>
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
 
-        <div>
+    <ui:with field="sharedResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+    <ui:with field="resources" type="com.gsr.myschool.back.client.resource.AdminResources"/>
+
+    <g:HTMLPanel styleName="{resources.adminStyleCss.loginBoxWrapper}">
+        <div class="{resources.adminStyleCss.headerWrapper}">
+            <g:Image resource="{sharedResources.logo}" styleName="{resources.adminStyleCss.logo}"/>
+
+            <ul class="{resources.adminStyleCss.tabsMenu}">
+                <li class="{resources.adminStyleCss.selected}">
+                    <g:InlineLabel text="Connexion"/>
+                </li>
+            </ul>
+
+            <div style="clear: both;"/>
+        </div>
+
+        <div class="{resources.adminStyleCss.loginContent}">
+            <h2>Se connecter à l'administration</h2>
+
             <g:Label ui:field="loginError" visible="false"
-                     text="Invalid e-mail or password."/>
+                 styleName="{resources.adminStyleCss.loginError}"/>
 
-            <g:Label text="Email"/>
-            <g:TextBox ui:field="username"/>
+            <boot:Form type="VERTICAL">
+                <boot:ControlGroup>
+                    <boot:ControlLabel>Email</boot:ControlLabel>
+                    <boot:Controls>
+                        <boot:TextBox ui:field="username" width="250px"/>
+                    </boot:Controls>
+                </boot:ControlGroup>
 
-            <g:Label text="Password"/>
-            <g:PasswordTextBox ui:field="password"/>
+                <boot:ControlGroup>
+                    <boot:ControlLabel>Password</boot:ControlLabel>
+                    <boot:Controls>
+                        <boot:PasswordTextBox ui:field="password" width="250px"/>
+                    </boot:Controls>
+                </boot:ControlGroup>
+            </boot:Form>
 
-            <g:Button ui:field="login" text="Login"/>
+            <boot:Button text="Se connecter" ui:field="login"
+                        styleName="btn btn-warning"/>
         </div>
     </g:HTMLPanel>
 </ui:UiBinder>

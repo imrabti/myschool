@@ -95,6 +95,11 @@ public class RegisterView extends ValidatedViewWithUiHandlers<RegisterUiHandlers
         processRegisterAction();
     }
 
+    @UiHandler("signin")
+    void onSignInClicked(ClickEvent event) {
+        getUiHandlers().login();
+    }
+
     @UiHandler("password")
     void onPasswordKeyUp(KeyUpEvent event) {
         if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {

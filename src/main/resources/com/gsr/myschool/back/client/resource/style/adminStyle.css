@@ -1,32 +1,62 @@
-@external navbar-inner;
-
-body {
-    font-family: "Droid Sans", Helvetica, Arial, sans-serif;
+.loginBoxWrapper {
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 150px;
 }
 
-.navbar-inner {
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
+.loginContent {
+    background: #ffffff;
+    padding: 20px;
+    box-shadow: 1px 3px 8px rgba(0,0,0,0.2);
 }
 
-.ajaxLoader {
-    color: #ffffff;
-    background-color: #545454;
+.loginContent h2 {
+    color: #9e9e9e;
+    font-weight: normal;
+    font-size: 18px;
+    margin: 0px;
+    padding: 0px;
     font-weight: bold;
-    position: fixed;
-    width: 100px;
-    left: 50%;
-    margin-left: -49px;
-    top: 0px;
-    text-align: center;
-    font-size: 12px;
-    -moz-border-radius-bottomleft: 5px;
-    -moz-border-radius-bottomright: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-    -webkit-border-bottom-right-radius: 5px;
-    display: block;
-    z-index: 100;
-    padding: 5px;
+    margin-bottom: 10px;
 }
 
+.headerWrapper {
+    position: relative;
+}
+
+.logo {
+    margin-bottom: 10px;
+    float: left;
+    display: block;
+}
+
+.tabsMenu {
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
+    font-size: 11px;
+    font-weight: bold;
+    right: 0px;
+    bottom: 6px;
+}
+
+.tabsMenu li {
+    display: inline;
+    padding: 10px;
+    background-color: #f4f8ff;
+    margin-left: 5px;
+    color: #bebebe;
+    cursor: pointer;
+}
+
+.tabsMenu li.selected {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.loginError  {
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: #7d0000;
+}

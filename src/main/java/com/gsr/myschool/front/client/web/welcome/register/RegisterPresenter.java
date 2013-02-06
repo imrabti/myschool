@@ -96,6 +96,11 @@ public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, Regis
         });
     }
 
+    @Override
+    public void login() {
+        placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
+    }
+
     protected void onReveal() {
         currentContext = requestFactory.registrationService();
         getView().edit(currentContext.create(UserProxy.class));
