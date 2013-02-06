@@ -2,12 +2,14 @@ package com.gsr.myschool.common.shared.dto;
 
 import com.gsr.myschool.server.validator.FieldMatch;
 import com.gsr.myschool.server.validator.NotBlank;
+import com.gsr.myschool.server.validator.OldPassword;
 import com.gsr.myschool.server.validator.Password;
 
 import java.io.Serializable;
 
 @FieldMatch(first = "password", second = "passwordConfirmation", params = {"passwordConfirmation", "Mot de passe"})
 public class PasswordDTO implements Serializable {
+    @OldPassword
     @NotBlank
     private String oldPassword;
     @Password
