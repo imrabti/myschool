@@ -16,18 +16,21 @@
 
 package com.gsr.myschool.back.client.web.application.reception;
 
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.DossierServiceRequest;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
-import com.gsr.myschool.common.client.proxy.DossierFilterProxy;
+import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
-import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
+import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
-import com.gsr.myschool.common.client.widget.messages.MessagePresenter;
+import com.gsr.myschool.common.client.widget.messages.CloseDelay;
+import com.gsr.myschool.common.client.widget.messages.Message;
+import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -37,14 +40,14 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
-import javax.validation.ConstraintViolation;
 import java.util.List;
-import java.util.Set;
 
 public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, ReceptionPresenter.MyProxy>
         implements ReceptionUiHandlers {
     public interface MyView extends View, HasUiHandlers<ReceptionUiHandlers> {
         void setData(List<DossierProxy> data);
+
+        void editDossierFilter(DossierFilterDTOProxy dossierFilter);
     }
 
     @ProxyStandard
@@ -54,64 +57,58 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
     }
 
     private final BackRequestFactory requestFactory;
-    private final MessagePresenter messagePresenter;
+    private final SharedMessageBundle messageBundle;
 
-    private String numDossierFilter ;
-    private String candidatFilter;
+    private DossierServiceRequest currentContext;
+    private DossierFilterDTOProxy currentDossierFilter;
 
     @Inject
     public ReceptionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
-            final BackRequestFactory requestFactory, final MessagePresenter messagePresenter) {
+                              final BackRequestFactory requestFactory,
+                              final SharedMessageBundle messageBundle) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
-        this.messagePresenter = messagePresenter;
+        this.messageBundle = messageBundle;
 
         getView().setUiHandlers(this);
     }
 
     @Override
     public void receive(DossierProxy dossier) {
-        requestFactory.dossierService().receive(dossier).fire(new ValidatedReceiverImpl<Boolean>() {
+        currentContext.receive(dossier).fire(new ReceiverImpl<Boolean>() {
             @Override
             public void onSuccess(Boolean response) {
-                messagePresenter.alertCrudOperationResponse(response);
-                loadDossiers();
-            }
-
-            @Override
-            public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                return;
+                String messageString = response ? messageBundle.operationSuccess() : messageBundle.operationFailure();
+                AlertType alertType = response ? AlertType.SUCCESS : AlertType.ERROR;
+                Message message = new Message.Builder(messageString)
+                        .style(alertType)
+                        .closeDelay(CloseDelay.DEFAULT)
+                        .build();
+                MessageEvent.fire(this, message);
             }
         });
     }
 
     @Override
-    public void searchWithFilter(String numDossier, String nomCandidat) {
-        numDossierFilter = numDossier;
-        candidatFilter = nomCandidat;
-        loadDossiers();
+    public void searchWithFilter(DossierFilterDTOProxy dossierFilter) {
+        dossierFilter.setStatus(DossierStatus.SUBMITTED);
+        currentContext.findAllDossiersByCriteria(dossierFilter).fire(new ReceiverImpl<List<DossierProxy>>() {
+            @Override
+            public void onSuccess(List<DossierProxy> response) {
+                currentContext = requestFactory.dossierService();
+                currentDossierFilter = currentContext.edit(currentDossierFilter);
+
+                getView().setData(response);
+                getView().editDossierFilter(currentDossierFilter);
+            }
+        });
     }
 
     @Override
     protected void onReveal() {
-        numDossierFilter = "%";
-        candidatFilter = "%";
-        loadDossiers();
-    }
-
-    private void loadDossiers() {
-        DossierServiceRequest currentContext = requestFactory.dossierService();
-        DossierFilterProxy filter = currentContext.create(DossierFilterProxy.class);
-        filter.setNumDossier(numDossierFilter);
-        filter.setNomCandidat(candidatFilter);
-        filter.setStatus(DossierStatus.SUBMITTED);
-
-        currentContext.findAllDossiersInStatusByCriteria(filter).fire(new ReceiverImpl<List<DossierProxy>>() {
-            @Override
-            public void onSuccess(List<DossierProxy> result) {
-                getView().setData(result);
-            }
-        });
+        currentContext = requestFactory.dossierService();
+        currentDossierFilter = currentContext.create(DossierFilterDTOProxy.class);
+        getView().editDossierFilter(currentDossierFilter);
     }
 }

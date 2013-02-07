@@ -1,9 +1,3 @@
-/***********************************************************************
- * Module:  NiveauEtude.java
- * Author:  mbouayad
- * Purpose: Defines the Class NiveauEtude
- ***********************************************************************/
-
 package com.gsr.myschool.server.business.core;
 
 import com.gsr.myschool.server.util.BeanMapper;

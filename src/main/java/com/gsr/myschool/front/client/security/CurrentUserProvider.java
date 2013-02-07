@@ -16,12 +16,11 @@
 
 package com.gsr.myschool.front.client.security;
 
+import com.google.inject.Inject;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.util.CallbackImpl;
-
-import javax.inject.Inject;
 
 public class CurrentUserProvider {
     private final FrontRequestFactory requestFactory;
@@ -41,6 +40,10 @@ public class CurrentUserProvider {
                 callback.onSuccess(userProxy);
             }
         });
+    }
+
+    public void reload(UserProxy user) {
+        currentUser = user;
     }
 
     public UserProxy get() {

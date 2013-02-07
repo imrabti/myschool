@@ -1,21 +1,22 @@
 package com.gsr.myschool.common.client.ui.user;
 
 import com.github.gwtbootstrap.client.ui.TextBox;
-import com.google.gwt.editor.client.Editor;
+import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
-import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.gsr.myschool.common.client.proxy.UserProxy;
+import com.gsr.myschool.common.client.util.EditorView;
 
-public class UserAccountEditor extends Composite implements Editor<UserProxy> {
+import static com.google.gwt.query.client.GQuery.$;
+
+public class UserAccountEditor extends Composite implements EditorView<UserProxy> {
     public interface Binder extends UiBinder<Widget, UserAccountEditor> {
     }
 
-    public interface AccountDriver extends RequestFactoryEditorDriver<UserProxy, UserAccountEditor> {
+    public interface Diver extends SimpleBeanEditorDriver<UserProxy, UserAccountEditor> {
     }
 
     @UiField
@@ -25,25 +26,33 @@ public class UserAccountEditor extends Composite implements Editor<UserProxy> {
     @UiField
     TextBox email;
 
-    private final AccountDriver accountDriver;
-
-    private UserProxy currentUser;
+    private final Diver driver;
 
     @Inject
-    public UserAccountEditor(final Binder uiBinder, final AccountDriver accountDriver) {
+    public UserAccountEditor(final Binder uiBinder, final Diver driver) {
+        this.driver = driver;
+
         initWidget(uiBinder.createAndBindUi(this));
+        driver.initialize(this);
 
-        this.accountDriver = accountDriver;
-        accountDriver.initialize(this);
+        $(firstName).id("firstName");
+        $(lastName).id("lastName");
+        $(email).id("email");
     }
 
-    public void edit(final UserProxy user, final RequestContext context) {
-        currentUser = context.edit(user);
-        accountDriver.edit(user, context);
+    @Override
+    public void edit(final UserProxy user) {
+        driver.edit(user);
+        firstName.setFocus(true);
     }
 
-    public void onSaveClicked() {
-        RequestContext context = accountDriver.flush();
-        context.fire();
+    @Override
+    public UserProxy get() {
+        UserProxy user = driver.flush();
+        if (driver.hasErrors()) {
+            return null;
+        } else {
+            return user;
+        }
     }
 }

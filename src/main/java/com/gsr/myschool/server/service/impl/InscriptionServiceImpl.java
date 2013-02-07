@@ -22,6 +22,8 @@ import com.gsr.myschool.server.repos.ScolariteAnterieurRepos;
 import com.gsr.myschool.server.repos.ValueListRepos;
 import com.gsr.myschool.server.security.SecurityContextProvider;
 import com.gsr.myschool.server.service.InscriptionService;
+import com.gsr.myschool.server.util.DateUtils;
+import com.gsr.myschool.server.util.UUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,6 +81,7 @@ public class InscriptionServiceImpl implements InscriptionService {
 
         User user = securityContextProvider.getCurrentUser();
         Dossier dossier = new Dossier();
+        dossier.setGeneratedNumDossier("GSR_" + DateUtils.currentYear() + "_" + UUIDGenerator.generateUUID());
         dossier.setStatus(DossierStatus.CREATED);
         dossier.setOwner(user);
         dossier.setInfoParent(infoParent);
@@ -135,9 +138,25 @@ public class InscriptionServiceImpl implements InscriptionService {
         currentCandidat.setCne(candidat.getCne());
         currentCandidat.setEmail(candidat.getEmail());
         currentCandidat.setGsm(candidat.getGsm());
-        currentCandidat.setNationality(valueListRepos.findOne(candidat.getNationality().getId()));
-        currentCandidat.setBacSerie(valueListRepos.findOne(candidat.getBacSerie().getId()));
-        currentCandidat.setBacYear(valueListRepos.findOne(candidat.getBacYear().getId()));
+
+        if (candidat.getNationality() != null) {
+            currentCandidat.setNationality(valueListRepos.findOne(candidat.getNationality().getId()));
+        } else {
+            currentCandidat.setNationality(null);
+        }
+
+        if (candidat.getBacYear() != null) {
+            currentCandidat.setBacYear(valueListRepos.findOne(candidat.getBacSerie().getId()));
+        } else {
+            currentCandidat.setBacYear(null);
+        }
+
+        if (candidat.getBacSerie() != null) {
+            currentCandidat.setBacSerie(valueListRepos.findOne(candidat.getBacYear().getId()));
+        } else {
+            currentCandidat.setBacSerie(null);
+        }
+
         candidatRepos.save(currentCandidat);
         return currentCandidat;
     }

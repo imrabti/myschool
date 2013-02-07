@@ -54,8 +54,13 @@ public class NiveauScolairePresenter extends PresenterWidget<NiveauScolairePrese
         if (event.getCurrentStep() == WizardStep.STEP_5) {
             getView().flushDossier();
 
-            currentDossier.setFiliere(currentContext.edit(currentDossier.getFiliere()));
-            currentDossier.setNiveauEtude(currentContext.edit(currentDossier.getNiveauEtude()));
+            if (currentDossier.getFiliere() != null) {
+                currentDossier.setFiliere(currentContext.edit(currentDossier.getFiliere()));
+            }
+
+            if (currentDossier.getNiveauEtude() != null) {
+                currentDossier.setNiveauEtude(currentContext.edit(currentDossier.getNiveauEtude()));
+            }
 
             currentContext.updateDossier(currentDossier).fire(new ValidatedReceiverImpl<DossierProxy>() {
                 @Override

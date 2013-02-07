@@ -19,6 +19,7 @@ package com.gsr.myschool.front.client.gin;
 import com.gsr.myschool.common.client.CommonModule;
 import com.gsr.myschool.common.client.request.RequestUrl;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
+import com.gsr.myschool.common.client.resource.message.HelpMessageBundle;
 import com.gsr.myschool.front.client.security.CurrentUserProvider;
 import com.gsr.myschool.front.client.resource.FrontResources;
 import com.gsr.myschool.common.client.util.ValueList;
@@ -52,6 +53,7 @@ public class ClientModule extends AbstractPresenterModule {
 
         bind(FrontResources.class).in(Singleton.class);
         bind(MessageBundle.class).in(Singleton.class);
+        bind(HelpMessageBundle.class).in(Singleton.class);
         bind(SecurityUtils.class).in(Singleton.class);
         bind(CurrentUserProvider.class).in(Singleton.class);
     }

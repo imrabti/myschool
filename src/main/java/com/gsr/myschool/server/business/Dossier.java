@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Map;
 
@@ -24,8 +25,10 @@ public class Dossier implements java.io.Serializable {
     private Candidat candidat;
     @ManyToOne
     private InfoParent infoParent;
+    @NotNull
     @ManyToOne
     private Filiere filiere;
+    @NotNull
     @ManyToOne
     private NiveauEtude niveauEtude;
     @ManyToOne

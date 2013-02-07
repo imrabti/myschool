@@ -1,38 +1,33 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'
-             xmlns:cell="urn:import:com.google.gwt.user.cellview.client"
-             xmlns:datepicker="urn:import:com.github.gwtbootstrap.datepicker.client.ui">
+             xmlns:s='urn:import:com.gsr.myschool.back.client.web.application.preinscription.ui'>
 
     <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
-    <g:LayoutPanel>
-        <g:layer top="0px" height="55px" right="20px" left="0px">
-            <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
-                <h2>
-                    <g:InlineLabel text="Dossiers Pré-Inscriptions"/>
-                </h2>
-            </g:HTMLPanel>
-        </g:layer>
+    <ui:style>
+        .contentWrapper {
+            margin-top: 12px;
+        }
+    </ui:style>
 
-        <g:layer top="90px" bottom="20px" right="20px" left="0px">
-            <boot:Form  type="INLINE">
-                <boot:ControlLabel>N° Dossier</boot:ControlLabel>
-                <boot:TextBox ui:field="numDossierFilter" />
-                <boot:ControlLabel>Statut</boot:ControlLabel>
-                <boot:ValueListBox ui:field="statusFilter" width="250px"/>
-                <boot:ControlLabel>Date Création</boot:ControlLabel>
-                <datepicker:DateBox autoClose="true" format="dd/mm/yyyy" ui:field="creationDateFilter" />
-                <boot:Button text="Rechercher" icon="SEARCH" ui:field="searchBtn" />
-            </boot:Form>
-        </g:layer>
+    <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
+        <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
+            <h2>
+                <g:InlineLabel text="Dossiers Pré-Inscriptions"/>
+            </h2>
+            <span style="display: block; clear: both;"/>
+        </g:HTMLPanel>
 
-        <g:layer top="130px" bottom="20px" right="20px" left="0px">
-            <cell:SimplePager ui:field='pager'/>
-        </g:layer>
+        <div class="{style.contentWrapper}">
+            <boot:Well>
+                <s:DossierFilterEditor ui:field="dossierFilterEditor"/>
+                <boot:Button text="Rechercher" icon="SEARCH" ui:field="search" />
+            </boot:Well>
 
-        <g:layer top="170px" bottom="20px" right="20px" left="0px">
-            <boot:CellTable ui:field="preInscriptionsTable" bordered="true"/>
-        </g:layer>
-    </g:LayoutPanel>
+            <div class="{style.contentWrapper}">
+                <boot:CellTable ui:field="preInscriptionsTable" bordered="true"/>
+            </div>
+        </div>
+    </g:HTMLPanel>
 </ui:UiBinder>
