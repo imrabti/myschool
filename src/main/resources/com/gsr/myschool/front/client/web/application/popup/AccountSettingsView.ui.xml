@@ -25,7 +25,7 @@
             <s:ModalHeader ui:field="modalHeader" text="Paramètres de votre compte"/>
 
             <h:HTMLPanel styleName="{style.tabPanelWrapper}">
-                <boot:TabPanel ui:field="steps" tabPosition="left">
+                <boot:TabPanel ui:field="tabs" tabPosition="left">
                     <boot:Tab heading="Infomations générales" active="true">
                         <g:HTMLPanel styleName="{style.contentWrapper}">
                             <p:UserAccountEditor ui:field="userAccountEditor"/>

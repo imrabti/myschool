@@ -41,16 +41,16 @@ public class CandidatPresenter extends PresenterWidget<CandidatPresenter.MyView>
         if (event.getCurrentStep() == WizardStep.STEP_2) {
             getView().flushCandidat();
 
-            if (currentCandidat.getNationality() != null) {
-                currentCandidat.setNationality(currentContext.edit(currentCandidat.getNationality()));
+            if (currentCandidat.getBacSerie() != null) {
+                currentCandidat.setBacSerie(currentContext.edit(currentCandidat.getBacSerie()));
             }
 
             if (currentCandidat.getBacYear() != null) {
                 currentCandidat.setBacYear(currentContext.edit(currentCandidat.getBacYear()));
             }
 
-            if (currentCandidat.getBacSerie() != null) {
-                currentCandidat.setBacSerie(currentContext.edit(currentCandidat.getBacSerie()));
+            if (currentCandidat.getNationality() != null) {
+                currentCandidat.setNationality(currentContext.edit(currentCandidat.getNationality()));
             }
 
             currentContext.updateCandidat(currentCandidat).fire(new ValidatedReceiverImpl<CandidatProxy>() {

@@ -43,7 +43,6 @@ public class MessageView extends ViewImpl implements MessagePresenter.MyView {
 
     @Override
     public void addMessage(Message message) {
-        removeMessage(message);
         MessageWidget messageWidget = messageWidgetFactory.createMessage(message);
         messages.add(messageWidget);
     }

@@ -16,23 +16,17 @@
 
 package com.gsr.myschool.back.client.web.application.preinscription;
 
-import com.google.gwt.view.client.HasData;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.DossierServiceRequest;
-import com.gsr.myschool.back.client.security.CurrentUserProvider;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.back.client.web.application.preinscription.popup.PreInscriptionDetailsPresenter;
-import com.gsr.myschool.common.client.proxy.DataPageProxy;
-import com.gsr.myschool.common.client.proxy.DossierFilterProxy;
+import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
-import com.gsr.myschool.common.client.proxy.PagedDossiersProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
-import com.gsr.myschool.common.shared.constants.GlobalParameters;
-import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -42,17 +36,14 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
-import java.util.Date;
 import java.util.List;
 
 public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.MyView, PreInscriptionPresenter.MyProxy>
         implements PreInscriptionUiHandlers {
     public interface MyView extends View, HasUiHandlers<PreInscriptionUiHandlers> {
-        void setData(List<DossierProxy> data, Integer start, Integer rowCount);
+        void setData(List<DossierProxy> data);
 
-        HasData<DossierProxy> getInscriptionsDisplay();
-
-        void initDataProvider();
+        void editDossierFilter(DossierFilterDTOProxy dossierFilter);
     }
 
     @ProxyStandard
@@ -62,23 +53,19 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
     public interface MyProxy extends ProxyPlace<PreInscriptionPresenter> {
     }
 
-    private final CurrentUserProvider currentUserProvider;
     private final BackRequestFactory requestFactory;
     private final PreInscriptionDetailsPresenter detailsPresenter;
 
-    private Integer paginationStart;
-    private String numDossierFilter;
-    private Date creationDateFilter;
-    private DossierStatus statusFilter;
+    private DossierServiceRequest currentContext;
+    private DossierFilterDTOProxy currentDossierFilter;
 
     @Inject
     public PreInscriptionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
-            final BackRequestFactory requestFactory,
-            final CurrentUserProvider currentUserProvider, final PreInscriptionDetailsPresenter detailsPresenter) {
+                                   final BackRequestFactory requestFactory,
+                                   final PreInscriptionDetailsPresenter detailsPresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
-        this.currentUserProvider = currentUserProvider;
         this.detailsPresenter = detailsPresenter;
 
         getView().setUiHandlers(this);
@@ -91,45 +78,23 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
     }
 
     @Override
-    public void searchWithFilter(String numDossier, DossierStatus dossierStatus, Date dateCreation) {
-        numDossierFilter = numDossier;
-        statusFilter = dossierStatus;
-        creationDateFilter = dateCreation;
-        loadDossiers(GlobalParameters.defaultPageNumber, GlobalParameters.defaultPageLength);
-    }
+    public void searchWithFilter(DossierFilterDTOProxy dossierFilter) {
+        currentContext.findAllDossiersByCriteria(dossierFilter).fire(new ReceiverImpl<List<DossierProxy>>() {
+            @Override
+            public void onSuccess(List<DossierProxy> response) {
+                currentContext = requestFactory.dossierService();
+                currentDossierFilter = currentContext.edit(currentDossierFilter);
 
-    @Override
-    public void loadDossiers(Integer start, Integer length) {
-        paginationStart = start;
-        Integer pageNumber = (start / length) + (start % length);
-        fireLoadDossierDataRequest(pageNumber, length);
+                getView().setData(response);
+                getView().editDossierFilter(currentDossierFilter);
+            }
+        });
     }
 
 	@Override
     protected void onReveal() {
-        getView().initDataProvider();
-        paginationStart = 0;
-        numDossierFilter = "%";
-        statusFilter = DossierStatus.All;
-        loadDossiers(GlobalParameters.defaultPageNumber, GlobalParameters.defaultPageLength);
-    }
-
-    private void fireLoadDossierDataRequest(final Integer start, Integer length) {
-        DossierServiceRequest currentContext = requestFactory.dossierService();
-        DataPageProxy page = currentContext.create(DataPageProxy.class);
-        page.setPageNumber(start);
-        page.setLength(length);
-
-        DossierFilterProxy filter = currentContext.create(DossierFilterProxy.class);
-        filter.setNumDossier(numDossierFilter);
-        filter.setStatus(statusFilter);
-        filter.setDateCreation(creationDateFilter);
-
-        currentContext.findAllDossiersByCriteria(filter, page).fire(new ReceiverImpl<PagedDossiersProxy>() {
-            @Override
-            public void onSuccess(PagedDossiersProxy result) {
-                getView().setData(result.getDossiers(), start, result.getTotalElements());
-            }
-        });
+        currentContext = requestFactory.dossierService();
+        currentDossierFilter = currentContext.create(DossierFilterDTOProxy.class);
+        getView().editDossierFilter(currentDossierFilter);
     }
 }

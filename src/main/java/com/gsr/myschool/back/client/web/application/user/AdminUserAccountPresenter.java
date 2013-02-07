@@ -50,19 +50,18 @@ public class AdminUserAccountPresenter extends Presenter<AdminUserAccountPresent
     public interface MyProxy extends ProxyPlace<AdminUserAccountPresenter> {
     }
 
-    private final CurrentUserProvider currentUserProvider;
     private final BackRequestFactory requestFactory;
     private final MessagePresenter messagePresenter;
     private final AdminUserAccountEditPresenter adminEditPresenter;
 
     @Inject
     public AdminUserAccountPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
-            final BackRequestFactory requestFactory, final CurrentUserProvider currentUserProvider,
-            final MessagePresenter messagePresenter, final AdminUserAccountEditPresenter adminEditPresenter) {
+            final BackRequestFactory requestFactory,
+            final MessagePresenter messagePresenter,
+            final AdminUserAccountEditPresenter adminEditPresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
-        this.currentUserProvider = currentUserProvider;
         this.messagePresenter = messagePresenter;
         this.adminEditPresenter = adminEditPresenter;
 
@@ -72,20 +71,20 @@ public class AdminUserAccountPresenter extends Presenter<AdminUserAccountPresent
 
     @Override
     public void accountDetails(AdminUserProxy adminUser) {
-        adminEditPresenter.editAccount(adminUser, messagePresenter, requestFactory.userService());
+        adminEditPresenter.editAccount(adminUser, requestFactory.userService());
         addToPopupSlot(adminEditPresenter);
 
     }
 
     @Override
     public void addAccount() {
-        adminEditPresenter.addAccount(requestFactory, messagePresenter);
+        adminEditPresenter.addAccount(requestFactory);
         addToPopupSlot(adminEditPresenter);
     }
 
     @Override
     public void updateAccountStatus(AdminUserProxy adminUser) {
-        adminEditPresenter.updateAccountStatus(adminUser, messagePresenter, requestFactory.userService());
+        adminEditPresenter.updateAccountStatus(adminUser, requestFactory.userService());
     }
 
     @Override
@@ -99,12 +98,11 @@ public class AdminUserAccountPresenter extends Presenter<AdminUserAccountPresent
     }
 
     private void loadUsers() {
-        requestFactory.userService().findAllAdminUser()
-                .fire(new ReceiverImpl<List<AdminUserProxy>>() {
-                    @Override
-                    public void onSuccess(List<AdminUserProxy> result) {
-                        getView().setData(result);
-                    }
-                });
+        requestFactory.userService().findAllAdminUser().fire(new ReceiverImpl<List<AdminUserProxy>>() {
+            @Override
+            public void onSuccess(List<AdminUserProxy> result) {
+                getView().setData(result);
+            }
+        });
     }
 }

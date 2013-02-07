@@ -17,26 +17,19 @@
 package com.gsr.myschool.server.service.impl;
 
 import com.google.common.base.Strings;
-import com.gsr.myschool.common.shared.type.DossierStatus;
+import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
 import com.gsr.myschool.server.business.Dossier;
-import com.gsr.myschool.server.business.ScolariteAnterieur;
-import com.gsr.myschool.server.dto.DataPage;
-import com.gsr.myschool.server.dto.DossierFilter;
-import com.gsr.myschool.server.dto.PagedDossiers;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.DossierRepos;
-import com.gsr.myschool.server.repos.ScolariteAnterieurRepos;
+import com.gsr.myschool.server.repos.spec.DossierSpec;
 import com.gsr.myschool.server.service.DossierService;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,8 +37,6 @@ import java.util.Map;
 public class DossierServiceImpl implements DossierService {
 	@Autowired
 	DossierRepos dossierRepos;
-    @Autowired
-    ScolariteAnterieurRepos scolariteAnterieurRepos;
     @Autowired
     private ValidationProcessService validationProcessService;
 
@@ -59,64 +50,34 @@ public class DossierServiceImpl implements DossierService {
 
     @Override
     public Boolean receive(Dossier dossier) {
-        Map<Dossier, Task> dossiersAndTasks = new HashMap<Dossier, Task>();
-        dossiersAndTasks.putAll(validationProcessService.getAllNonReceivedDossiers());
+        Map<Dossier, Task> dossiersAndTasks = validationProcessService.getAllNonReceivedDossiers();
         for (Dossier dossierFromProcess: dossiersAndTasks.keySet()) {
             if (dossier.getId() == dossierFromProcess.getId()) {
                 validationProcessService.receiveDossier(dossiersAndTasks.get(dossierFromProcess.getId()));
-                return true;
+                break;
             }
         }
-        return false;
+        return true;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Dossier> findAllDossiersInStatusByCriteria(DossierFilter filter) {
-        List<Dossier> dossiers = new ArrayList<Dossier>();
-        if (Strings.isNullOrEmpty(filter.getNumDossier())) {
-            filter.setNumDossier("%");
-        }
-        if (Strings.isNullOrEmpty(filter.getNomCandidat())) {
-            filter.setNumDossier("%");
-        }
-        dossiers.addAll(dossierRepos.findDossierByGeneratedNumDossierLikeAndStatusEqualsAndCandidatNomLike(
-                "%" + filter.getNumDossier() + "%", filter.getStatus(), "%" + filter.getNomCandidat() + "%"));
-        return dossiers;
-    }
+    public List<Dossier> findAllDossiersByCriteria(DossierFilterDTO filter) {
+        Specifications spec = Specifications.where(DossierSpec.numDossierLike(filter.getNumDossier()));
 
-    @Override
-    @Transactional(readOnly = true)
-    public PagedDossiers findAllDossiersByCriteria(DossierFilter filter, DataPage dataPageRequest) {
-        PageRequest page = new PageRequest(dataPageRequest.getPageNumber(), dataPageRequest.getLength(),
-                new Sort(Sort.Direction.DESC, "createDate"));
-        Page<Dossier> dossiers;
-        if (Strings.isNullOrEmpty(filter.getNumDossier())) {
-            filter.setNumDossier("%");
+        if (filter.getStatus() != null) {
+            spec = spec.and(DossierSpec.dossierStatusIs(filter.getStatus()));
         }
-        if (filter.getDateCreation() == null && filter.getStatus() == DossierStatus.All) {
-            dossiers = dossierRepos.findByNumDossierLike("%" + filter.getNumDossier() +"%", page);
-        } else if (filter.getDateCreation() == null && filter.getStatus() != DossierStatus.All) {
-            dossiers = dossierRepos.findByNumDossierLikeAndStatus("%" + filter.getNumDossier() +"%", filter.getStatus(),
-                    page);
-        } else if (filter.getDateCreation() != null && filter.getStatus() == DossierStatus.All) {
-            dossiers = dossierRepos.findByNumDossierLikeAndDateCreation("%" + filter.getNumDossier() +"%",
-                    filter.getDateCreation(), page);
-        } else {
-            dossiers = dossierRepos.findByNumDossierLikeAndStatusAndDateCreation(
-                    "%" + filter.getNumDossier() +"%", filter.getStatus(), filter.getDateCreation(), page);
-        }
-        return new PagedDossiers(dossiers.getContent(), (int) dossiers.getTotalElements());
-    }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<ScolariteAnterieur> findScolariteAnterieursByDossierId(Long dossierId) {
-        Dossier dossier = dossierRepos.findOne(dossierId);
-        if (dossier != null) {
-            return scolariteAnterieurRepos.findByCandidatId(dossier.getCandidat().getId());
-        } else {
-            return new ArrayList<ScolariteAnterieur>();
+        if (filter.getCreated() != null) {
+            spec = spec.and(DossierSpec.dossierCreatedEqual(filter.getCreated()));
         }
+
+        if (!Strings.isNullOrEmpty(filter.getFirstnameOrlastname())) {
+            spec = spec.and(DossierSpec.firstnameLike(filter.getFirstnameOrlastname()))
+                    .or(DossierSpec.lastnameLike(filter.getFirstnameOrlastname()));
+        }
+
+        return dossierRepos.findAll(spec);
     }
 }
