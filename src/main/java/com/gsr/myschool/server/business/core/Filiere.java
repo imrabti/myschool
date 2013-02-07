@@ -1,11 +1,15 @@
 package com.gsr.myschool.server.business.core;
 
+import com.gsr.myschool.server.util.BeanMapper;
+import org.apache.commons.beanutils.BeanMap;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Map;
 
 @Entity
 public class Filiere implements Serializable {
@@ -40,10 +44,7 @@ public class Filiere implements Serializable {
         this.description = newDescription;
     }
 
-    public String getReportsAttributes() {
-        return "Filiere{" +
-                "nom='" + nom + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
+	public Map getReportsAttributes() {
+        return BeanMapper.beanToMap(this);
+	}
 }
