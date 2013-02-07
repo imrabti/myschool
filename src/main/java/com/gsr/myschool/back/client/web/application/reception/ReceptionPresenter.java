@@ -110,7 +110,5 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
         currentContext = requestFactory.dossierService();
         currentDossierFilter = currentContext.create(DossierFilterDTOProxy.class);
         getView().editDossierFilter(currentDossierFilter);
-
-        searchWithFilter(currentDossierFilter);
     }
 }

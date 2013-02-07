@@ -78,10 +78,10 @@ public class InscriptionDetailView extends ViewImpl implements InscriptionDetail
 
     @Override
     public void setDossier(DossierProxy dossier) {
-        dossierTitle.setText(messageBundle.inscriptionDetailTitle("FH65656"));
+        dossierTitle.setText(messageBundle.inscriptionDetailTitle(dossier.getGeneratedNumDossier()));
 
         SafeHtml safeDate = SafeHtmlUtils.fromString(dateFormat.format(dossier.getCreateDate()));
-        SafeHtml safeDossierNum = SafeHtmlUtils.fromString("FH65656");
+        SafeHtml safeDossierNum = SafeHtmlUtils.fromString(dossier.getGeneratedNumDossier());
         SafeHtml safeDossierStatus = SafeHtmlUtils.fromString(dossier.getStatus().toString());
 
         dossierPanel.clear();
