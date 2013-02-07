@@ -19,7 +19,6 @@ public class Fraterie implements java.io.Serializable {
     @Name
     @NotBlank
     private String prenom;
-    @NotBlank
     private String numDossierGSR;
     @Enumerated
     private TypeFraterie typeFraterie;
