@@ -16,8 +16,11 @@
 
 package com.gsr.myschool.back.client.web.application.valueList;
 
+import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
 import com.google.inject.TypeLiteral;
 import com.gsr.myschool.back.client.web.application.valueList.popup.*;
+import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueListActionCellFactory;
+import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueTypeActionCellFactory;
 import com.gsr.myschool.back.client.web.application.valueList.widget.ValueTypePresenter;
 import com.gsr.myschool.back.client.web.application.valueList.widget.ValueTypeUiHandlers;
 import com.gsr.myschool.back.client.web.application.valueList.widget.ValueTypeView;
@@ -44,9 +47,10 @@ public class ValueListModule extends AbstractPresenterModule {
                 ValueListPresenter.MyProxy.class);
 
         bindPresenterWidget(ValueTypePresenter.class, ValueTypePresenter.MyView.class, ValueTypeView.class);
-
         bindPresenterWidget(AddValueListPresenter.class, AddValueListPresenter.MyView.class, AddValueListView.class);
-
         bindPresenterWidget(AddValueTypePresenter.class, AddValueTypePresenter.MyView.class, AddValueTypeView.class);
+
+        install(new GinFactoryModuleBuilder().build(ValueListActionCellFactory.class));
+        install(new GinFactoryModuleBuilder().build(ValueTypeActionCellFactory.class));
     }
 }

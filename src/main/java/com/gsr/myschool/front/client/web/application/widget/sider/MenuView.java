@@ -1,5 +1,6 @@
 package com.gsr.myschool.front.client.web.application.widget.sider;
 
+import com.github.gwtbootstrap.client.ui.Badge;
 import com.github.gwtbootstrap.client.ui.NavLink;
 import com.github.gwtbootstrap.client.ui.NavWidget;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -21,6 +22,8 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
     NavLink convocation;
     @UiField
     NavWidget inbox;
+    @UiField
+    Badge messagesCount;
 
     private MenuItem currentMenu;
 
@@ -46,6 +49,10 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
                 inbox.setActive(true);
                 break;
         }
+    }
+
+    public void updateMessageCount(Integer count){
+        messagesCount.setText(count.toString());
     }
 
     @UiHandler("inscription")

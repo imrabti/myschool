@@ -1,10 +1,12 @@
 package com.gsr.myschool.server.process;
 
+import com.gsr.myschool.common.shared.type.EmailType;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.business.EmailTemplate;
 import com.gsr.myschool.server.business.User;
+import com.gsr.myschool.server.repos.EmailTemplateRepos;
 import com.gsr.myschool.server.repos.UserRepos;
 import org.activiti.engine.RuntimeService;
-import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +17,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Map;
+
+import static java.lang.Thread.sleep;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -31,7 +35,7 @@ public class ValidationProcessTest {
     @Autowired
     private ValidationProcessService validationProcessService;
     @Autowired
-    private TaskService taskService;
+    private EmailTemplateRepos emailTemplateRepos;
     @Autowired
     private UserRepos userRepos;
 
@@ -40,20 +44,34 @@ public class ValidationProcessTest {
         dossier.setId(1l);
         user.setId(1L);
         user.setEmail("kecha.mohamed@gmail.com");
-        userRepos.save(user);
+        user.setFirstName("mohamed");
+        user.setLastName("kecha");
+//        userRepos.save(user);
 
         dossier.setOwner(user);
+        dossier.setGeneratedNumDossier("GSR_2013_hash");
+
+        // populate the email templates
+        EmailTemplate email = new EmailTemplate();
+        email.setId(3L);
+        email.setCode(EmailType.DOSSIER_RECEIVED);
+        email.setMessage("<html><body> hello $firstname $lastname," +
+                "<br> your dossier with ref : $refdossier was received ..." +
+                "<br> myschool.com </body></html>");
+        email.setSubject("Reception dossier myschool");
+        emailTemplateRepos.save(email);
     }
 
     @Test
-    public void checkService() {
+    public void checkService() throws InterruptedException {
         validationProcessService.startProcess(dossier);
 
-        Map x = validationProcessService.getAllNonReceivedDossiers();
+        Map<Dossier, Task> x = validationProcessService.getAllNonReceivedDossiers();
 
-        for (Object task : x.values()) {
-            System.out.println(((Task) task).getId());
-            System.out.println(x.get(task));
+        for (Task task : x.values()) {
+            System.out.println(task.getId());
+            validationProcessService.receiveDossier(task);
         }
+        sleep(100000);
     }
 }

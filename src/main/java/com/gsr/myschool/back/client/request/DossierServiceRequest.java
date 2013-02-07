@@ -40,4 +40,6 @@ public interface DossierServiceRequest extends RequestContext {
     Request<List<DossierProxy>> findAllDossiersInStatusByCriteria(DossierFilterProxy dossierFilterProxy);
 
     Request<Boolean> receive(DossierProxy dossier);
+
+    Request<List<ScolariteAnterieurProxy>> findScolariteAnterieursByDossierId(Long dossierId);
 }

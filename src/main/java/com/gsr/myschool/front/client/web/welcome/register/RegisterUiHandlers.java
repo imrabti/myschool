@@ -21,4 +21,6 @@ import com.gsr.myschool.common.client.proxy.UserProxy;
 
 public interface RegisterUiHandlers extends UiHandlers {
     void register(UserProxy user);
+
+    void login();
 }

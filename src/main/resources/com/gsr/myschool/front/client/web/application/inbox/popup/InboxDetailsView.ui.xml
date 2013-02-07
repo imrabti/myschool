@@ -1,0 +1,60 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:s='urn:import:com.gsr.myschool.common.client.widget'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+    <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+    <ui:style>
+        .contentWrapper {
+            padding: 20px;
+            width: 600px;
+        }
+
+        .content {
+            border-top: 1px solid #f5f5f5;
+            margin: 10px;
+            padding: 5px;
+        }
+
+        .message {
+            margin: 10px;
+            padding: 5px;
+        }
+
+        .subject {
+            font-size: 110%;
+            font-weight: bold;
+            width: 80%;
+            float: left;
+        }
+
+        .date {
+            width: 20%;
+            float: right;
+            font-size: 80%;
+        }
+    </ui:style>
+
+    <g:PopupPanel modal="true" autoHideEnabled="false" styleName="{resource.popupStyleCss.gwtPopupPanel}"
+                  glassEnabled="true">
+        <g:FlowPanel>
+            <s:ModalHeader ui:field="modalHeader" text="Message"/>
+            <g:HTMLPanel styleName="{style.contentWrapper}">
+                <div class="{style.message}">
+                    <div class="{style.subject}">
+                        <g:Label ui:field="subject"/>
+                    </div>
+                    <div class="{style.date}">
+                        <g:Label text="Reçu le " /><g:Label ui:field="date"/>
+                    </div>
+                    <span style="display: block; clear: both;"></span>
+                </div>
+                <div class="{style.content}">
+                    <g:HTML ui:field="content"/>
+                </div>
+            </g:HTMLPanel>
+            <g:HTMLPanel styleName="{resource.sharedStyleCss.buttonContainerPopup}">
+                <boot:Button ui:field="cancel" text="Retour"/>
+            </g:HTMLPanel>
+        </g:FlowPanel>
+    </g:PopupPanel>
+</ui:UiBinder>

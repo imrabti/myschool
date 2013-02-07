@@ -6,6 +6,7 @@ import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.valuelist.ValueList;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -17,8 +18,10 @@ public class Dossier implements java.io.Serializable {
     private Candidat candidat;
     @ManyToOne
     private InfoParent infoParent;
+    @NotNull
     @ManyToOne
     private Filiere filiere;
+    @NotNull
     @ManyToOne
     private NiveauEtude niveauEtude;
     @ManyToOne
@@ -144,5 +147,13 @@ public class Dossier implements java.io.Serializable {
 
     public void setAnneeScolaire(ValueList anneeScolaire) {
         this.anneeScolaire = anneeScolaire;
+    }
+
+    public String getReportsAttributes() {
+        return "Dossier{" +
+                "generatedPDFPath='" + generatedPDFPath + '\'' +
+                ", generatedNumDossier='" + generatedNumDossier + '\'' +
+                ", note='" + note + '\'' +
+                '}';
     }
 }

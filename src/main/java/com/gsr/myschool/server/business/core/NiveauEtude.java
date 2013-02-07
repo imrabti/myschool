@@ -43,4 +43,11 @@ public class NiveauEtude implements java.io.Serializable {
     public void setNom(String newNom) {
         this.nom = newNom;
     }
+
+    public String getReportsAttributes() {
+        return "NiveauEtude{" +
+                "annee=" + annee +
+                ", nom='" + nom + '\'' +
+                '}';
+    }
 }

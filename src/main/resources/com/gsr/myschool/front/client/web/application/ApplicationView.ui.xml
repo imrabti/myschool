@@ -2,9 +2,16 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:s='urn:import:com.gsr.myschool.front.client.web.application.widget.footer'
              xmlns:f='urn:import:com.gsr.myschool.common.client.widget'>
-    <g:SimpleLayoutPanel>
+
+    <ui:style>
+        .applicationWrapper {
+            background-color: #ffffff;
+        }
+    </ui:style>
+
+    <g:SimpleLayoutPanel styleName="{style.applicationWrapper}">
         <g:DockLayoutPanel unit='PX'>
-            <g:north size="42">
+            <g:north size="80">
                 <g:HTMLPanel>
                     <!-- Ajax Loader displayer -->
                     <f:AjaxLoader ui:field="ajaxLoader"/>

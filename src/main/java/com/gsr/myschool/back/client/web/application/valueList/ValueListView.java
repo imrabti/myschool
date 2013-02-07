@@ -16,56 +16,78 @@
 
 package com.gsr.myschool.back.client.web.application.valueList;
 
-import com.google.gwt.event.dom.client.ChangeEvent;
+import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
+import com.google.gwt.cell.client.ActionCell.Delegate;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
-import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
+import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueListActionCell;
+import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueListActionCellFactory;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.common.client.proxy.ValueListProxy;
+import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
+import com.gsr.myschool.common.client.widget.EmptyResult;
+
+import java.util.List;
 
 public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> implements ValueListPresenter.MyView {
     public interface Binder extends UiBinder<Widget, ValueListView> {
     }
 
     @UiField
-    CellTable LovTable;
-    @UiField
-    ListBox parent;
-    @UiField
-    ListBox defLov;
-    @UiField
-    Button delete;
-    @UiField
-    Button modify;
-    SingleSelectionModel<ValueListProxy> lovSelectionModel;
+    CellTable valueListTable;
     @UiField
     SimplePanel valueTypeDisplay;
+    @UiField
+    Button addValueList;
+
+    private Delegate<ValueListProxy> deleteAction;
+    private Delegate<ValueListProxy> modifyAction;
 
     private final MessageBundle messageBundle;
+    private final SingleSelectionModel<ValueListProxy> valueListSelectionModel;
+    private final ListDataProvider<ValueListProxy> dataProvider;
+    private final ValueListActionCellFactory actionCellFactory;
 
     @Inject
     public ValueListView(final Binder uiBinder, final MessageBundle messageBundle,
-                         final UiHandlersStrategy<ValueListUiHandlers> uiHandlers) {
+                         final UiHandlersStrategy<ValueListUiHandlers> uiHandlers,
+                         final SharedMessageBundle sharedMessageBundle,
+                         final ValueListActionCellFactory actionCellFactory) {
         super(uiHandlers);
 
         this.messageBundle = messageBundle;
+        this.actionCellFactory = actionCellFactory;
 
         initWidget(uiBinder.createAndBindUi(this));
+        initActions();
+        initDataGrid();
+
+        this.addValueList.setVisible(false);
+        this.dataProvider = new ListDataProvider<ValueListProxy>();
+        dataProvider.addDataDisplay(valueListTable);
+        this.valueListSelectionModel = new SingleSelectionModel<ValueListProxy>();
+        valueListTable.setSelectionModel(valueListSelectionModel);
+        valueListTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(),
+                AlertType.INFO));
     }
 
     @Override
-    public void setInSlot(Object slot, Widget content){
+    public void setInSlot(Object slot, Widget content) {
         if (content != null) {
             if (slot == ValueListPresenter.TYPE_SetValueTypeContent) {
                 valueTypeDisplay.setWidget(content);
@@ -74,49 +96,14 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
     }
 
     @Override
-    public void initTable() {
-        TextColumn<ValueListProxy> valueColumn = new TextColumn<ValueListProxy>() {
-            @Override
-            public String getValue(ValueListProxy object) {
-                return object.getValue();
-            }
-        };
-
-        TextColumn<ValueListProxy> parentColumn = new TextColumn<ValueListProxy>() {
-            @Override
-            public String getValue(ValueListProxy object) {
-                if (object.getParent() != null) {
-                    return object.getParent().getValue();
-                }
-                return "";
-            }
-        };
-
-        TextColumn<ValueListProxy> defLovColumn = new TextColumn<ValueListProxy>() {
-            @Override
-            public String getValue(ValueListProxy object) {
-                return object.getValueType().getCode().name();
-            }
-        };
-
-        getLovTable().addColumn(valueColumn, "Value");
-        getLovTable().addColumn(parentColumn, "Parent");
-        getLovTable().addColumn(defLovColumn, "Définition");
-        this.lovSelectionModel = new SingleSelectionModel<ValueListProxy>();
-        LovTable.setSelectionModel(this.lovSelectionModel);
+    public void setData(List<ValueListProxy> response) {
+        dataProvider.getList().clear();
+        dataProvider.getList().addAll(response);
     }
 
-    @UiHandler("defLov")
-    void onDefLovChanged(ChangeEvent event) {
-        getUiHandlers().getParent();
-    }
-
-    @UiHandler("delete")
-    void onDeleteClick(ClickEvent event) {
-    }
-
-    @UiHandler("modify")
-    void onModifyClick(ClickEvent event) {
+    @Override
+    public void setAddButtonVisible(Boolean bool){
+        addValueList.setVisible(bool);
     }
 
     @UiHandler("addValueList")
@@ -124,18 +111,52 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
         getUiHandlers().addValueList();
     }
 
-    @Override
-    public CellTable<ValueListProxy> getLovTable() {
-        return LovTable;
+    private void initActions() {
+        modifyAction = new Delegate<ValueListProxy>() {
+            @Override
+            public void execute(ValueListProxy valueList) {
+                getUiHandlers().modify(valueList);
+            }
+        };
+        deleteAction = new Delegate<ValueListProxy>() {
+            @Override
+            public void execute(ValueListProxy valueList) {
+                getUiHandlers().delete(valueList);
+            }
+        };
     }
 
-    @Override
-    public ListBox getParent() {
-        return parent;
-    }
+    private void initDataGrid() {
+        TextColumn<ValueListProxy> labelColumn = new TextColumn<ValueListProxy>() {
+            @Override
+            public String getValue(ValueListProxy valueList) {
+                return valueList.getLabel();
+            }
+        };
+        labelColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        valueListTable.addColumn(labelColumn, "Label");
+        valueListTable.setColumnWidth(labelColumn, 35, Style.Unit.PCT);
 
-    @Override
-    public ListBox getDefLov() {
-        return defLov;
+        TextColumn<ValueListProxy> valueColumn = new TextColumn<ValueListProxy>() {
+            @Override
+            public String getValue(ValueListProxy valueList) {
+                return valueList.getValue();
+            }
+        };
+        valueColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        valueListTable.addColumn(valueColumn, "Valeur");
+        valueListTable.setColumnWidth(valueColumn, 35, Style.Unit.PCT);
+
+        ValueListActionCell actionsCell = actionCellFactory.create(deleteAction, modifyAction);
+        Column<ValueListProxy, ValueListProxy> actionsColumn = new
+                Column<ValueListProxy, ValueListProxy>(actionsCell) {
+                    @Override
+                    public ValueListProxy getValue(ValueListProxy object) {
+                        return object;
+                    }
+                };
+        actionsColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+        valueListTable.addColumn(actionsColumn, "Actions");
+        valueListTable.setColumnWidth(actionsColumn, 35, Style.Unit.PCT);
     }
 }

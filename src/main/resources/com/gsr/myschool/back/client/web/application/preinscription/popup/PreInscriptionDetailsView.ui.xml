@@ -7,10 +7,6 @@
     <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
     <ui:style>
-        .tabPanelWrapper {
-            padding-left: 10px;
-        }
-
         .contentWrapper {
             padding: 10px;
             padding-right: 20px;
@@ -37,6 +33,11 @@
                 <boot:Tab heading="Niveau Scolaire">
                     <g:HTMLPanel styleName="{style.contentWrapper}">
                         <p:NiveauScolaireEditor ui:field="niveauScolaireEditor"/>
+                    </g:HTMLPanel>
+                </boot:Tab>
+                <boot:Tab heading="Scolarité Antérieure">
+                    <g:HTMLPanel styleName="{style.contentWrapper}">
+                        <boot:CellTable ui:field="etablissementTable" bordered="true"/>
                     </g:HTMLPanel>
                 </boot:Tab>
             </boot:TabPanel>

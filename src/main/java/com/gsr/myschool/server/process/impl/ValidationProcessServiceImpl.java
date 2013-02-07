@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.server.process.impl;
 
+import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.process.ValidationProcessService;
@@ -66,7 +67,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
 
         // Initialise process variables
         Map<String, Object> processParams = new HashMap<String, Object>();
-        processParams.put("email", dossier.getOwner().getEmail());
+        processParams.put("email", new EmailDTO());
         processParams.put("dossier", dossier);
         processParams.put("dueDate", "");
 

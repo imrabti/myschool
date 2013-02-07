@@ -34,12 +34,20 @@ public interface DossierRepos extends JpaRepository<Dossier, Long>, JpaSpecifica
     @Query("FROM Dossier d WHERE d.generatedNumDossier like ?1")
     Page<Dossier> findByNumDossierLike(String numDossier, Pageable pageable);
 
+    @Query("FROM Dossier d WHERE d.generatedNumDossier like ?1 AND d.status = ?2")
+    Page<Dossier> findByNumDossierLikeAndStatus(String numDossier, DossierStatus dossierStatus
+            , Pageable pageable);
+
+    @Query("FROM Dossier d WHERE d.generatedNumDossier like ?1 AND d.createDate >= ?2")
+    Page<Dossier> findByNumDossierLikeAndDateCreation(String numDossier
+            ,Date startDate, Pageable pageable);
+
     @Query("FROM Dossier d WHERE d.generatedNumDossier like ?1 AND d.status = ?2 AND d.createDate >= ?3")
     Page<Dossier> findByNumDossierLikeAndStatusAndDateCreation(String numDossier, DossierStatus dossierStatus
             ,Date startDate, Pageable pageable);
 
-    @Query("FROM Dossier d WHERE d.generatedNumDossier like ?1 AND d.status = ?2 AND d.candidat.firstname like ?3 " +
-            "OR d.candidat.lastname like ?3")
+    @Query("FROM Dossier d WHERE d.generatedNumDossier like ?1 AND d.status = ?2 AND d.candidat.firstname like ?3 "
+            + "OR d.candidat.lastname like ?3")
     List<Dossier> findDossierByGeneratedNumDossierLikeAndStatusEqualsAndCandidatNomLike(String numDossier,
             DossierStatus status, String nomCandidat);
 }

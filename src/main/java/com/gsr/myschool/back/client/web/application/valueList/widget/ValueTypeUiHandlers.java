@@ -16,14 +16,15 @@
 
 package com.gsr.myschool.back.client.web.application.valueList.widget;
 
+import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface ValueTypeUiHandlers extends UiHandlers {
-    public void selectionChanged();
-
-    public void modify();
-
-    public void delete();
-
     void addValueType();
+
+    void valueTypeChanged(ValueTypeProxy valueTypeProxy);
+
+    void editValueType(ValueTypeProxy valueType);
+
+    void deleteValueType(ValueTypeProxy valueType);
 }

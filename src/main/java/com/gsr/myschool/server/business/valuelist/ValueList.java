@@ -1,5 +1,8 @@
 package com.gsr.myschool.server.business.valuelist;
 
+import com.gsr.myschool.server.validator.NotBlank;
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -8,7 +11,11 @@ public class ValueList implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotBlank
+    @Length(max = 30)
     private String value;
+    @NotBlank
+    @Length(max = 30)
     private String label;
     @ManyToOne
     private ValueList parent;
@@ -53,5 +60,12 @@ public class ValueList implements Serializable {
 
     public void setValueType(ValueType valueType) {
         this.valueType = valueType;
+    }
+
+    public String getReportsAttributes() {
+        return "ValueList{" +
+                "value='" + value + '\'' +
+                ", label='" + label + '\'' +
+                '}';
     }
 }

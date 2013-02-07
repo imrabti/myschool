@@ -18,13 +18,17 @@ package com.gsr.myschool.server.process.impl;
 
 import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.common.shared.type.EmailType;
+import com.gsr.myschool.common.shared.type.InboxMessageStatus;
+import com.gsr.myschool.server.business.InboxMessage;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.process.RegisterProcessNestedService;
+import com.gsr.myschool.server.repos.InboxMessageRepos;
 import com.gsr.myschool.server.repos.UserRepos;
 import com.gsr.myschool.server.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +38,8 @@ public class RegisterProcessNestedServiceImpl implements RegisterProcessNestedSe
     private UserRepos userRepos;
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private InboxMessageRepos inboxMessageRepos;
 
     @Override
     public void deleteAccount(Long id) {
@@ -60,6 +66,15 @@ public class RegisterProcessNestedServiceImpl implements RegisterProcessNestedSe
         params.put("firstname", user.getFirstName());
 
         email = emailService.populateEmail(EmailType.ACTIVATION, email.getTo(), email.getFrom(), params, "", "");
+
+        InboxMessage message = new InboxMessage();
+        message.setParentUser(user);
+        message.setSubject(email.getSubject());
+        message.setContent(email.getMessage());
+        message.setMsgDate(new Date());
+        message.setMsgStatus(InboxMessageStatus.UNREAD);
+        inboxMessageRepos.save(message);
+
         return email;
     }
 }

@@ -1,46 +1,76 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
-    <g:HTMLPanel>
-        <h2>Register</h2>
 
-        <boot:Form type="HORIZONTAL">
-            <boot:ControlGroup>
-                <boot:ControlLabel>Email</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:TextBox ui:field="email"/>
-                </boot:Controls>
-            </boot:ControlGroup>
+    <ui:with field="sharedResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+    <ui:with field="resources" type="com.gsr.myschool.front.client.resource.FrontResources"/>
 
-            <boot:ControlGroup>
-                <boot:ControlLabel>Nom</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:TextBox ui:field="firstName"/>
-                </boot:Controls>
-            </boot:ControlGroup>
+    <ui:style>
+        .loginBoxWrapper {
+            width: 400px;
+            margin: 0 auto;
+            margin-top: 80px;
+        }
+    </ui:style>
 
-            <boot:ControlGroup>
-                <boot:ControlLabel>Prénom</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:TextBox ui:field="lastName"/>
-                </boot:Controls>
-            </boot:ControlGroup>
+    <g:HTMLPanel styleName="{style.loginBoxWrapper}">
+        <div class="{resources.frontStyleCss.headerWrapper}">
+            <g:Image resource="{sharedResources.logo}" styleName="{resources.frontStyleCss.logo}"/>
 
-            <boot:ControlGroup>
-                <boot:ControlLabel>Mot de passe</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:PasswordTextBox ui:field="password"/>
-                </boot:Controls>
-            </boot:ControlGroup>
+            <ul class="{resources.frontStyleCss.tabsMenu}">
+                <li class="{resources.frontStyleCss.selected}">
+                    <g:InlineLabel text="Nouveau compte"/>
+                </li>
 
-            <boot:ControlGroup>
-                <boot:ControlLabel>Confirmation mot de passe</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:PasswordTextBox ui:field="passwordConfirmation"/>
-                </boot:Controls>
-            </boot:ControlGroup>
+                <li>
+                    <g:InlineLabel ui:field="signin" text="Connexion"/>
+                </li>
+            </ul>
 
-            <g:Button ui:field="register" text="Inscrire"/>
-        </boot:Form>
+            <div style="clear: both;"/>
+        </div>
+
+        <div class="{resources.frontStyleCss.loginContent}">
+            <h2>Nouveau compte</h2>
+
+            <boot:Form type="VERTICAL">
+                <boot:ControlGroup>
+                    <boot:ControlLabel>Email</boot:ControlLabel>
+                    <boot:Controls>
+                        <boot:TextBox ui:field="email"/>
+                    </boot:Controls>
+                </boot:ControlGroup>
+
+                <boot:ControlGroup>
+                    <boot:ControlLabel>Nom</boot:ControlLabel>
+                    <boot:Controls>
+                        <boot:TextBox ui:field="firstName"/>
+                    </boot:Controls>
+                </boot:ControlGroup>
+
+                <boot:ControlGroup>
+                    <boot:ControlLabel>Prénom</boot:ControlLabel>
+                    <boot:Controls>
+                        <boot:TextBox ui:field="lastName"/>
+                    </boot:Controls>
+                </boot:ControlGroup>
+
+                <boot:ControlGroup>
+                    <boot:ControlLabel>Mot de passe</boot:ControlLabel>
+                    <boot:Controls>
+                        <boot:PasswordTextBox ui:field="password"/>
+                    </boot:Controls>
+                </boot:ControlGroup>
+
+                <boot:ControlGroup>
+                    <boot:ControlLabel>Confirmation mot de passe</boot:ControlLabel>
+                    <boot:Controls>
+                        <boot:PasswordTextBox ui:field="passwordConfirmation"/>
+                    </boot:Controls>
+                </boot:ControlGroup>
+            </boot:Form>
+
+            <g:Button ui:field="register" text="S'inscrire" styleName="btn btn-warning"/>
+        </div>
     </g:HTMLPanel>
 </ui:UiBinder>
