@@ -54,12 +54,12 @@ public class PreInscriptionDetailsPresenter extends PresenterWidget<PreInscripti
 
     private void loadScolariteAnterieur(DossierProxy currentDossier) {
         Long dossierId = currentDossier.getId();
-        requestFactory.dossierService().findScolariteAnterieursByDossierId(dossierId).fire(
+        /*requestFactory.dossierService().findScolariteAnterieursByDossierId(dossierId).fire(
                 new ReceiverImpl<List<ScolariteAnterieurProxy>>() {
                     @Override
                     public void onSuccess(List<ScolariteAnterieurProxy> result) {
                         getView().setScolariteData(result);
                     }
-                });
+                });*/
     }
 }

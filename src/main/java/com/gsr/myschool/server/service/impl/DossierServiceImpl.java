@@ -19,7 +19,6 @@ package com.gsr.myschool.server.service.impl;
 import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
 import com.gsr.myschool.server.business.Dossier;
-import com.gsr.myschool.server.dto.DossierFilter;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.repos.spec.DossierSpec;
@@ -31,7 +30,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -60,21 +58,6 @@ public class DossierServiceImpl implements DossierService {
             }
         }
         return true;
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Dossier> findAllDossiersInStatusByCriteria(DossierFilter filter) {
-        List<Dossier> dossiers = new ArrayList<Dossier>();
-        if (Strings.isNullOrEmpty(filter.getNumDossier())) {
-            filter.setNumDossier("%");
-        }
-        if (Strings.isNullOrEmpty(filter.getNomCandidat())) {
-            filter.setNumDossier("%");
-        }
-        dossiers.addAll(dossierRepos.findDossierByGeneratedNumDossierLikeAndStatusEqualsAndCandidatNomLike(
-                filter.getNumDossier(), filter.getStatus(), filter.getNomCandidat()));
-        return dossiers;
     }
 
     @Override

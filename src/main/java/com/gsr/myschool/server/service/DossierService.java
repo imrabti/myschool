@@ -18,10 +18,6 @@ package com.gsr.myschool.server.service;
 
 import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
 import com.gsr.myschool.server.business.Dossier;
-import com.gsr.myschool.server.business.ScolariteAnterieur;
-import com.gsr.myschool.server.dto.DataPage;
-import com.gsr.myschool.server.dto.DossierFilter;
-import com.gsr.myschool.server.dto.PagedDossiers;
 
 import java.util.List;
 
@@ -30,9 +26,5 @@ public interface DossierService {
 
     List<Dossier> findAllDossiersByCriteria(DossierFilterDTO filter);
 
-    List<Dossier> findAllDossiersInStatusByCriteria(DossierFilter filter);
-
     Boolean receive(Dossier dossier);
-
-    List<ScolariteAnterieur> findScolariteAnterieursByDossierId(Long dossierId);
 }

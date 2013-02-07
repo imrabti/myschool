@@ -19,13 +19,8 @@ package com.gsr.myschool.back.client.request;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
-import com.gsr.myschool.common.client.proxy.DataPageProxy;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
-import com.gsr.myschool.common.client.proxy.DossierFilterProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
-import com.gsr.myschool.common.client.proxy.PagedDossiersProxy;
-import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
-import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.service.impl.DossierServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
 
@@ -37,9 +32,5 @@ public interface DossierServiceRequest extends RequestContext {
 
     Request<List<DossierProxy>> findAllDossiersByCriteria(DossierFilterDTOProxy filter);
 
-    Request<List<DossierProxy>> findAllDossiersInStatusByCriteria(DossierFilterProxy dossierFilterProxy);
-
     Request<Boolean> receive(DossierProxy dossier);
-
-    Request<List<ScolariteAnterieurProxy>> findScolariteAnterieursByDossierId(Long dossierId);
 }
