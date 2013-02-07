@@ -1,10 +1,7 @@
 package com.gsr.myschool.back.client.web.application.reception;
 
-import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.CellTable;
-import com.github.gwtbootstrap.client.ui.TextBox;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
-import com.google.gwt.cell.client.ActionCell;
 import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -20,24 +17,23 @@ import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 import com.gsr.myschool.back.client.web.application.reception.renderer.ReceptionActionCell;
 import com.gsr.myschool.back.client.web.application.reception.renderer.ReceptionActionCellFactory;
+import com.gsr.myschool.back.client.web.application.reception.ui.DossierFilterEditor;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
 
 import java.util.List;
 
-public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers> implements ReceptionPresenter.MyView {
+public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers>
+        implements ReceptionPresenter.MyView {
     public interface Binder extends UiBinder<Widget, ReceptionView> {
     }
 
-    @UiField
-    TextBox numDossierFilter;
-    @UiField
-    TextBox candidatFilter;
-    @UiField
-    Button searchBtn;
+    @UiField(provided = true)
+    DossierFilterEditor dossierFilterEditor;
     @UiField
     CellTable<DossierProxy> inscriptionsTable;
 
@@ -45,22 +41,22 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers> imple
     private final ListDataProvider<DossierProxy> dataProvider;
     private final ReceptionActionCellFactory actionCellFactory;
 
-    private Delegate<DossierProxy> receiveAction;
-
     @Inject
     public ReceptionView(final Binder uiBinder, final SharedMessageBundle sharedMessageBundle,
-            final UiHandlersStrategy<ReceptionUiHandlers> uiHandlers,
-            final ReceptionActionCellFactory actionCellFactory) {
+                         final DossierFilterEditor dossierProxyEditor,
+                         final UiHandlersStrategy<ReceptionUiHandlers> uiHandlers,
+                         final ReceptionActionCellFactory actionCellFactory) {
         super(uiHandlers);
 
         this.actionCellFactory = actionCellFactory;
+        this.dossierFilterEditor = dossierProxyEditor;
 
         initWidget(uiBinder.createAndBindUi(this));
-
-        initActions();
         initDataGrid();
+
         dataProvider = new ListDataProvider<DossierProxy>();
         dataProvider.addDataDisplay(inscriptionsTable);
+
         dateFormat = DateTimeFormat.getFormat("LLL d yyyy");
         inscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
     }
@@ -71,18 +67,14 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers> imple
         dataProvider.getList().addAll(data);
     }
 
-    @UiHandler("searchBtn")
-    void onSearch(ClickEvent event) {
-        getUiHandlers().searchWithFilter(numDossierFilter.getValue(), candidatFilter.getValue());
+    @Override
+    public void editDossierFilter(DossierFilterDTOProxy dossierFilter) {
+        dossierFilterEditor.edit(dossierFilter);
     }
 
-    private void initActions() {
-        receiveAction = new ActionCell.Delegate<DossierProxy>() {
-            @Override
-            public void execute(DossierProxy dossier) {
-                getUiHandlers().receive(dossier);
-            }
-        };
+    @UiHandler("search")
+    void onSearch(ClickEvent event) {
+        getUiHandlers().searchWithFilter(dossierFilterEditor.get());
     }
 
     private void initDataGrid() {
@@ -146,6 +138,12 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers> imple
         inscriptionsTable.addColumn(createdColumn, "Date du dossier");
         inscriptionsTable.setColumnWidth(createdColumn, 20, Style.Unit.PCT);
 
+        Delegate<DossierProxy> receiveAction = new Delegate<DossierProxy>() {
+            @Override
+            public void execute(DossierProxy dossier) {
+                getUiHandlers().receive(dossier);
+            }
+        };
         ReceptionActionCell actionsCell = actionCellFactory.create(receiveAction);
         Column<DossierProxy, DossierProxy> actionsColumn = new
                 Column<DossierProxy, DossierProxy>(actionsCell) {

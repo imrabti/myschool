@@ -20,7 +20,6 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
-import com.gsr.myschool.back.client.security.CurrentUserProvider;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.back.client.web.application.user.popup.UserAccountEditPresenter;
 import com.gsr.myschool.back.client.web.application.user.popup.UserAccountEditUiHandlers;
@@ -30,7 +29,6 @@ import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
-import com.gsr.myschool.common.client.widget.messages.MessagePresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -53,23 +51,18 @@ public class UserAccountPresenter extends Presenter<UserAccountPresenter.MyView,
     public interface MyProxy extends ProxyPlace<UserAccountPresenter> {
     }
 
-    private final CurrentUserProvider currentUserProvider;
     private final BackRequestFactory requestFactory;
-    private final MessagePresenter messagePresenter;
     private final UserAccountEditPresenter userAccountEditPresenter;
     private final UserInscriptionListPresenter inscriptionListPresenter;
 
     @Inject
     public UserAccountPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
             final BackRequestFactory requestFactory,
-            final CurrentUserProvider currentUserProvider, final MessagePresenter messagePresenter,
             final UserAccountEditPresenter userAccountEditPresenter,
             final UserInscriptionListPresenter inscriptionListPresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
-        this.currentUserProvider = currentUserProvider;
-        this.messagePresenter = messagePresenter;
         this.userAccountEditPresenter = userAccountEditPresenter;
         this.inscriptionListPresenter = inscriptionListPresenter;
 
@@ -85,7 +78,7 @@ public class UserAccountPresenter extends Presenter<UserAccountPresenter.MyView,
 
     @Override
     public void accountDetails(UserProxy user) {
-        userAccountEditPresenter.editAccount(user, messagePresenter, requestFactory.userService());
+        userAccountEditPresenter.editAccount(user, requestFactory.userService());
         addToPopupSlot(userAccountEditPresenter);
     }
 
@@ -101,22 +94,20 @@ public class UserAccountPresenter extends Presenter<UserAccountPresenter.MyView,
     }
 
     private void loadUsers() {
-        requestFactory.userService().findAllPortalUser()
-                .fire(new ReceiverImpl<List<UserProxy>>() {
-                    @Override
-                    public void onSuccess(List<UserProxy> result) {
-                        getView().setData(result);
-                    }
-                });
+        requestFactory.userService().findAllPortalUser().fire(new ReceiverImpl<List<UserProxy>>() {
+            @Override
+            public void onSuccess(List<UserProxy> result) {
+                getView().setData(result);
+            }
+        });
     }
 
     private void loadInscriptions(Long userId) {
-        requestFactory.dossierService().findAllDossiersByUser(userId)
-                .fire(new ReceiverImpl<List<DossierProxy>>() {
-                    @Override
-                    public void onSuccess(List<DossierProxy> result) {
-                        inscriptionListPresenter.getView().setData(result);
-                    }
-                });
+        requestFactory.dossierService().findAllDossiersByUser(userId).fire(new ReceiverImpl<List<DossierProxy>>() {
+            @Override
+            public void onSuccess(List<DossierProxy> result) {
+                inscriptionListPresenter.getView().setData(result);
+            }
+        });
     }
 }

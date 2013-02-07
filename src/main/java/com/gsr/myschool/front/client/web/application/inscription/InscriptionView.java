@@ -130,11 +130,11 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         TextColumn<DossierProxy> idColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
-                return object.getId().toString();
+                return object.getGeneratedNumDossier();
             }
         };
         idColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-        inscriptionsTable.addColumn(idColumn, "ID");
+        inscriptionsTable.addColumn(idColumn, "N° Dossier");
         inscriptionsTable.setColumnWidth(idColumn, 20, Style.Unit.PCT);
 
         TextColumn<DossierProxy> statusColumn = new TextColumn<DossierProxy>() {

@@ -2,7 +2,14 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:s='urn:import:com.gsr.myschool.back.client.web.application.widget.footer'
              xmlns:f='urn:import:com.gsr.myschool.common.client.widget'>
-    <g:SimpleLayoutPanel>
+
+    <ui:style>
+        .applicationWrapper {
+            background-color: #ffffff;
+        }
+    </ui:style>
+
+    <g:SimpleLayoutPanel styleName="{style.applicationWrapper}">
         <g:DockLayoutPanel unit='PX'>
             <g:north size="80">
                 <g:HTMLPanel>
