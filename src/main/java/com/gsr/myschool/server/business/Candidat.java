@@ -1,18 +1,20 @@
 package com.gsr.myschool.server.business;
 
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.server.business.valuelist.ValueList;
 import com.gsr.myschool.server.util.BeanMapper;
 import com.gsr.myschool.server.validator.Email;
 import com.gsr.myschool.server.validator.Name;
 import com.gsr.myschool.server.validator.NotBlank;
 import com.gsr.myschool.server.validator.Phone;
-import org.apache.commons.beanutils.BeanMap;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -45,6 +47,9 @@ public class Candidat implements java.io.Serializable {
     public ValueList bacSerie;
     @ManyToOne
     public ValueList nationality;
+
+    @Transient
+    private String birthDateStr;
 
     public Long getId() {
         return id;
@@ -150,7 +155,16 @@ public class Candidat implements java.io.Serializable {
         this.nationality = nationality;
     }
 
-	public Map getReportsAttributes() {
+    public String getBirthDateStr() {
+        SimpleDateFormat sdf = new SimpleDateFormat(GlobalParameters.dateFormat);
+        return sdf.format(birthDate);
+    }
+
+    public void setBirthDateStr(String birthDateStr) {
+        this.birthDateStr = birthDateStr;
+    }
+
+    public Map getReportsAttributes() {
         return BeanMapper.beanToMap(this);
 	}
 }

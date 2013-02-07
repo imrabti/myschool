@@ -22,7 +22,8 @@ public class ReportController {
 
     @Autowired
     ReportService reportService;
-    @Value("${reportTemplatePattern}") String jasperTmp;
+    @Value("${reportPrepName}") String reportPrepName;
+    @Value("${reportSecName}") String reportSecName;
     @Autowired
     private DossierRepos dossierRepos;
 
@@ -46,7 +47,12 @@ public class ReportController {
     }
 
     private ReportDTO buildReportDto(Dossier dossier) {
-        ReportDTO printableDossier = new ReportDTO("report2");
+        ReportDTO printableDossier = new ReportDTO("");
+        if (dossier.getFiliere().getId() == 30) {
+           printableDossier.setReportName("reportPrepa");
+        } else {
+            printableDossier.setReportName("reportGeneral");
+        }
         printableDossier.getReportParameters().put("dossier", dossier.getReportsAttributes());
         if (dossier.getInfoParent().getParentType().equals(ParentType.PERE)) {
             printableDossier.getReportParameters().put("pere", dossier.getInfoParent().getReportsAttributes());
