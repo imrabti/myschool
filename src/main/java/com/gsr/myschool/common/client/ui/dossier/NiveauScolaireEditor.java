@@ -72,6 +72,7 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
 
     @UiHandler("filiere")
     void onFiliereChanged(ValueChangeEvent<FiliereProxy> event) {
+        niveauEtude.setValue(null);
         niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(filiere.getValue().getNom()));
     }
 }
