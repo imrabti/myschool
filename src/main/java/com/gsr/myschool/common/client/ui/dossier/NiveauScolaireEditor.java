@@ -41,8 +41,9 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
                                 final Driver driver) {
         this.valueList = valueList;
         this.driver = driver;
-        this.filiere = new ValueListBox<FiliereProxy>(new FiliereRenderer());
-        this.niveauEtude = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
+
+        filiere = new ValueListBox<FiliereProxy>(new FiliereRenderer());
+        niveauEtude = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);

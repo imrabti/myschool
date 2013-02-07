@@ -2,6 +2,7 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:b2='urn:import:com.github.gwtbootstrap.datepicker.client.ui'
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+
     <g:HTMLPanel>
         <boot:Form type="HORIZONTAL">
             <boot:ControlGroup>

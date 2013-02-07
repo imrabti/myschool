@@ -52,12 +52,6 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
             @Override
             public void onShow(TabPanel.ShownEvent shownEvent) {
                 adjustTabNavHeight();
-                WizardStep targetStep = WizardStep.value(steps.getSelectedTab());
-                if (targetStep.ordinal() < currentStep.ordinal()) {
-                    goToStep(targetStep);
-                } else {
-                    getUiHandlers().changeStep(currentStep, targetStep);
-                }
             }
         });
     }
