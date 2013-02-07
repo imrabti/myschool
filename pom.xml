@@ -394,9 +394,9 @@
             <version>${servlet-api.version}</version>
         </dependency>
         <dependency>
-            <groupId>jasperreports</groupId>
+            <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>3.5.3</version>
+            <version>4.0.2</version>
             <exclusions>
                 <exclusion>
                     <artifactId>jdtcore</artifactId>
