@@ -9,7 +9,7 @@ public class ReportRequestBuilder extends RequestBuilder {
     private StringBuffer postData;
 
     public ReportRequestBuilder() {
-        super(GET, "/report");
+        super(GET, "/resource/report");
         setHeader("Content-type", "application/x-www-form-urlencoded");
     }
 
@@ -19,6 +19,6 @@ public class ReportRequestBuilder extends RequestBuilder {
     }
 
     public void sendRequest() {
-        Window.open("/report?"+postData.toString(), "dossier" + new Date().getTime(), "_blank");
+        Window.open("/resource/report?"+postData.toString(), "dossier" + new Date().getTime(), "_blank");
     }
 }

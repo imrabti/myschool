@@ -14,26 +14,28 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 public class ReportServiceImpl implements ReportService, ResourceLoaderAware {
-     private ResourceLoader resourceLoader;
 
-     @Override
-     public byte[] generatePdf(ReportDTO reportDTO) throws Exception {
-          Resource resource = getResource("classpath:/META-INF/templates/" +
-                  reportDTO.getReportName() + ".jasper");
+    private ResourceLoader resourceLoader;
 
-          JREmptyDataSource emptyDataSource = new JREmptyDataSource();
-          JasperPrint jasperPrint = JasperFillManager.fillReport(resource.getInputStream(),
-                  reportDTO.getReportParameters(), emptyDataSource);
-          return JasperExportManager.exportReportToPdf(jasperPrint);
-     }
+    @Override
+    public byte[] generatePdf(ReportDTO reportDTO) throws Exception {
+        Resource resource = getResource("classpath:/META-INF/templates/" +
+                reportDTO.getReportName() + ".jasper");
+        reportDTO.getReportParameters().put("SUBREPORT_DIR", resource.getFile().getParent()+"/");
 
-     @Override
-     public void setResourceLoader(ResourceLoader resourceLoader) {
-          this.resourceLoader = resourceLoader;
-     }
+        JREmptyDataSource emptyDataSource = new JREmptyDataSource();
+        JasperPrint jasperPrint = JasperFillManager.fillReport(resource.getInputStream(),
+                reportDTO.getReportParameters(), emptyDataSource);
+        return JasperExportManager.exportReportToPdf(jasperPrint);
+    }
 
-     public Resource getResource(String location){
-          return resourceLoader.getResource(location);
-     }
+    @Override
+    public void setResourceLoader(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
+
+    public Resource getResource(String location){
+        return resourceLoader.getResource(location);
+    }
 }
 
