@@ -18,22 +18,26 @@ package com.gsr.myschool.server.process.impl;
 
 import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.common.shared.type.EmailType;
+import com.gsr.myschool.common.shared.type.InboxMessageStatus;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.business.InboxMessage;
 import com.gsr.myschool.server.process.ValidationProcessNestedService;
 import com.gsr.myschool.server.repos.DossierRepos;
+import com.gsr.myschool.server.repos.InboxMessageRepos;
 import com.gsr.myschool.server.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
 public class ValidationProcessNestedServiceImpl implements ValidationProcessNestedService {
     @Autowired
-    private DossierRepos dossierRepos;
-    @Autowired
     private EmailService emailService;
+    @Autowired
+    private InboxMessageRepos inboxMessageRepos;
 
     @Override
     public EmailDTO getReceivedDossierMail(Dossier dossier) throws Exception {
@@ -42,8 +46,17 @@ public class ValidationProcessNestedServiceImpl implements ValidationProcessNest
         params.put("firstname", dossier.getOwner().getFirstName());
         params.put("refdossier", dossier.getGeneratedNumDossier());
 
-        return emailService.populateEmail(EmailType.DOSSIER_RECEIVED,
-                dossier.getOwner().getEmail(),
-                "todefine@myschool.com", params, "", "");
+        EmailDTO email = emailService.populateEmail(EmailType.DOSSIER_RECEIVED,
+                dossier.getOwner().getEmail(), "todefine@myschool.com", params, "", "");
+
+        InboxMessage message = new InboxMessage();
+        message.setParentUser(dossier.getOwner());
+        message.setSubject(email.getSubject());
+        message.setContent(email.getMessage());
+        message.setMsgDate(new Date());
+        message.setMsgStatus(InboxMessageStatus.UNREAD);
+        inboxMessageRepos.save(message);
+
+        return email;
     }
 }
