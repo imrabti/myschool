@@ -6,9 +6,9 @@ import com.gsr.myschool.server.validator.Email;
 import com.gsr.myschool.server.validator.Name;
 import com.gsr.myschool.server.validator.NotBlank;
 import com.gsr.myschool.server.validator.Phone;
-import org.apache.commons.beanutils.BeanMap;
 
 import javax.persistence.*;
+import java.util.Map;
 
 @Entity
 public class InfoParent implements java.io.Serializable {
