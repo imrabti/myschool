@@ -2,7 +2,6 @@ package com.gsr.myschool.common.client.ui.dossier;
 
 import com.github.gwtbootstrap.client.ui.TextArea;
 import com.github.gwtbootstrap.client.ui.TextBox;
-import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -11,10 +10,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.InfoParentProxy;
 import com.gsr.myschool.common.client.util.EditorView;
-import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
-import com.gsr.myschool.common.shared.type.ParentType;
-
-import java.util.Arrays;
 
 import static com.google.gwt.query.client.GQuery.$;
 
@@ -29,8 +24,6 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
     TextBox nom;
     @UiField
     TextBox prenom;
-    @UiField(provided = true)
-    ValueListBox<ParentType> parentType;
     @UiField
     TextBox fonction;
     @UiField
@@ -52,16 +45,11 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
     public ParentEditor(final Binder uiBinder, final Driver driver) {
         this.driver = driver;
 
-        parentType = new ValueListBox<ParentType>(new EnumRenderer<ParentType>());
-        parentType.setValue(ParentType.PERE);
-        parentType.setAcceptableValues(Arrays.asList(ParentType.values()));
-
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
 
         $(nom).id("nom");
         $(prenom).id("prenom");
-        $(parentType).id("parentType");
         $(fonction).id("fonction");
         $(institution).id("institution");
         $(email).id("email");

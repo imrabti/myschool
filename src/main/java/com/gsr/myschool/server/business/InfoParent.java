@@ -6,13 +6,8 @@ import com.gsr.myschool.server.validator.Email;
 import com.gsr.myschool.server.validator.Name;
 import com.gsr.myschool.server.validator.NotBlank;
 import com.gsr.myschool.server.validator.Phone;
-import org.apache.commons.beanutils.BeanMap;
 
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Map;
 
 @Entity
@@ -41,6 +36,8 @@ public class InfoParent implements java.io.Serializable {
     @Enumerated
     private ParentType parentType;
     private String institution;
+    @ManyToOne
+    private Dossier dossier;
 
     public Long getId() {
         return id;
@@ -128,6 +125,14 @@ public class InfoParent implements java.io.Serializable {
 
     public void setInstitution(String institution) {
         this.institution = institution;
+    }
+
+    public Dossier getDossier() {
+        return dossier;
+    }
+
+    public void setDossier(Dossier dossier) {
+        this.dossier = dossier;
     }
 
 	public Map getReportsAttributes() {

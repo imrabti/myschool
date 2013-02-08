@@ -9,6 +9,7 @@ import com.gsr.myschool.common.client.proxy.InfoParentProxy;
 import com.gsr.myschool.common.client.proxy.ScolariteAnterieurProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
+import com.gsr.myschool.common.shared.type.ParentType;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.web.application.ApplicationPresenter;
@@ -22,13 +23,15 @@ import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> {
     public interface MyView extends View {
         void setDossier(DossierProxy dossier);
 
-        void setResponsable(InfoParentProxy infoParent);
+        void setResponsable(Map<ParentType, InfoParentProxy> infoParents);
 
         void setCandidat(CandidatProxy candidat);
 
@@ -63,11 +66,27 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> {
             public void onSuccess(DossierProxy result) {
                 currentDossier = result;
                 getView().setDossier(currentDossier);
-                getView().setResponsable(currentDossier.getInfoParent());
                 getView().setCandidat(currentDossier.getCandidat());
 
+                loadInfoParent();
                 loadFraterie();
                 loadScolariteAnterieur();
+            }
+        });
+    }
+
+    private void loadInfoParent() {
+        Long dossierId = currentDossier.getId();
+        requestFactory.inscriptionService().findInfoParentByDossierId(dossierId).fire(
+                new ReceiverImpl<List<InfoParentProxy>>() {
+            @Override
+            public void onSuccess(List<InfoParentProxy> result) {
+                Map<ParentType, InfoParentProxy> infoParents = new HashMap<ParentType, InfoParentProxy>();
+                for (InfoParentProxy infoParent : result) {
+                    infoParents.put(infoParent.getParentType(), infoParent);
+                }
+
+                getView().setResponsable(infoParents);
             }
         });
     }
