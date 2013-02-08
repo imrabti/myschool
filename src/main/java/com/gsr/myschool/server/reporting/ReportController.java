@@ -3,7 +3,9 @@ package com.gsr.myschool.server.reporting;
 import com.gsr.myschool.common.shared.dto.ReportDTO;
 import com.gsr.myschool.common.shared.type.ParentType;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.business.Fraterie;
 import com.gsr.myschool.server.repos.DossierRepos;
+import com.gsr.myschool.server.repos.FraterieRepos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
+import java.util.List;
 
 @Controller
 @RequestMapping("/report")
@@ -26,6 +29,8 @@ public class ReportController {
     @Value("${reportSecName}") String reportSecName;
     @Autowired
     private DossierRepos dossierRepos;
+    @Autowired
+    private FraterieRepos fraterieRepos;
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/pdf")
     @ResponseStatus(HttpStatus.OK)
@@ -48,7 +53,7 @@ public class ReportController {
 
     private ReportDTO buildReportDto(Dossier dossier) {
         ReportDTO printableDossier = new ReportDTO("");
-        if (dossier.getFiliere().getId() == 30) {
+        if (dossier.getFiliere() != null && dossier.getFiliere().getId() == 30) {
            printableDossier.setReportName("reportPrepa");
         } else {
             printableDossier.setReportName("reportGeneral");
@@ -64,10 +69,21 @@ public class ReportController {
             printableDossier.getReportParameters().put("tuteur", dossier.getInfoParent().getReportsAttributes());
         }
         printableDossier.getReportParameters().put("candidat", dossier.getCandidat().getReportsAttributes());
-        printableDossier.getReportParameters().put("niveauEtude", dossier.getNiveauEtude().getReportsAttributes());
-        printableDossier.getReportParameters().put("filiere", dossier.getFiliere().getReportsAttributes());
-
+        if (dossier.getNiveauEtude() != null) {
+            printableDossier.getReportParameters().put("niveauEtude", dossier.getNiveauEtude().getReportsAttributes());
+        }
+        if (dossier.getFiliere() != null) {
+            printableDossier.getReportParameters().put("filiere", dossier.getFiliere().getReportsAttributes());
+        }
+        loadFraterie(dossier, printableDossier);
         return printableDossier;
+    }
+
+    private void loadFraterie(Dossier dossier, ReportDTO printableDossier) {
+        List<Fraterie> fraterieList = fraterieRepos.findByCandidatId(dossier.getCandidat().getId());
+        if (fraterieList != null && fraterieList.size() > 0) {
+            printableDossier.getReportParameters().put("fraterie", fraterieList.get(0).getReportsAttributes());
+        }
     }
 }
 
