@@ -24,6 +24,7 @@ import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers>
         dataProvider = new ListDataProvider<DossierProxy>();
         dataProvider.addDataDisplay(inscriptionsTable);
 
-        dateFormat = DateTimeFormat.getFormat("LLL d yyyy");
+        dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
         inscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
     }
 
@@ -111,7 +112,11 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers>
         TextColumn<DossierProxy> cFiliereColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
-                return object.getFiliere().getNom();
+                if (object.getFiliere() == null) {
+                    return "";
+                } else {
+                    return object.getFiliere().getNom();
+                }
             }
         };
         cFiliereColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
@@ -121,7 +126,11 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers>
         TextColumn<DossierProxy> cLevelColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
-                return object.getNiveauEtude().getNom();
+                if (object.getNiveauEtude() == null) {
+                    return "";
+                } else {
+                    return object.getNiveauEtude().getNom();
+                }
             }
         };
         cLevelColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);

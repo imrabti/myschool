@@ -1,9 +1,6 @@
 package com.gsr.myschool.common.shared.constants;
 
 public class GlobalParameters {
-    public static final int defaultPageNumber = 0;
-    public static final int defaultPageLength = 10;
-    public static String dateFormat = "dd-MMMM-YYYY";
-
+    public static String DATE_FORMAT = "dd/MM/yyyy";
     public static int REFRESH_PERIODE = 60000;
 }

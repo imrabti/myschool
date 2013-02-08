@@ -76,7 +76,7 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
 
     @Override
     public void receive(DossierProxy dossier) {
-        currentContext.receive(dossier).fire(new ReceiverImpl<Boolean>() {
+        requestFactory.dossierService().receive(dossier).fire(new ReceiverImpl<Boolean>() {
             @Override
             public void onSuccess(Boolean response) {
                 String messageString = response ? messageBundle.operationSuccess() : messageBundle.operationFailure();
@@ -86,6 +86,7 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
                         .closeDelay(CloseDelay.DEFAULT)
                         .build();
                 MessageEvent.fire(this, message);
+                searchWithFilter(currentDossierFilter);
             }
         });
     }

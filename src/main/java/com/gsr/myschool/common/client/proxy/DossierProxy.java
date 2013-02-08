@@ -25,55 +25,55 @@ import java.util.Date;
 
 @ProxyFor(Dossier.class)
 public interface DossierProxy extends ValueProxy {
-    public Long getId();
+    Long getId();
 
-    public void setId(Long id);
+    void setId(Long id);
 
-    public CandidatProxy getCandidat();
+    CandidatProxy getCandidat();
 
-    public void setCandidat(CandidatProxy candidat);
+    void setCandidat(CandidatProxy candidat);
 
-    public InfoParentProxy getInfoParent();
+    FiliereProxy getFiliere();
 
-    public void setInfoParent(InfoParentProxy infoParent);
+    void setFiliere(FiliereProxy filiere);
 
-    public FiliereProxy getFiliere();
+    NiveauEtudeProxy getNiveauEtude();
 
-    public void setFiliere(FiliereProxy filiere);
+    void setNiveauEtude(NiveauEtudeProxy niveauEtude);
 
-    public NiveauEtudeProxy getNiveauEtude();
+    UserProxy getOwner();
 
-    public void setNiveauEtude(NiveauEtudeProxy niveauEtude);
+    void setOwner(UserProxy owner);
 
-    public UserProxy getOwner();
+    Date getCreateDate();
 
-    public void setOwner(UserProxy owner);
+    void setCreateDate(Date createDate);
 
-    public Date getCreateDate();
+    Date getSubmitDate();
 
-    public void setCreateDate(Date createDate);
+    void setSubmitDate(Date submitDate);
 
-    public Date getSubmitDate();
+    DossierStatus getStatus();
 
-    public void setSubmitDate(Date submitDate);
+    void setStatus(DossierStatus status);
 
-    public DossierStatus getStatus();
+    String getGeneratedPDFPath();
 
-    public void setStatus(DossierStatus status);
+    void setGeneratedPDFPath(String generatedPDFPath);
 
-    public String getGeneratedPDFPath();
+    String getGeneratedNumDossier();
 
-    public void setGeneratedPDFPath(String generatedPDFPath);
+    void setGeneratedNumDossier(String generatedNumDossier);
 
-    public String getGeneratedNumDossier();
+    String getNote();
 
-    public void setGeneratedNumDossier(String generatedNumDossier);
+    void setNote(String note);
 
-    public String getNote();
+    Date getRdvEntretien();
 
-    public void setNote(String note);
+    void setRdvEntretien(Date rdvEntretien);
 
-    public Date getRdvEntretien();
+    ValueListProxy getAnneeScolaire();
 
-    public void setRdvEntretien(Date rdvEntretien);
+    void setAnneeScolaire(ValueListProxy anneeScolaire);
 }

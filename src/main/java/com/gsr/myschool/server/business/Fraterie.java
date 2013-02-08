@@ -1,10 +1,12 @@
 package com.gsr.myschool.server.business;
 
 import com.gsr.myschool.common.shared.type.TypeFraterie;
+import com.gsr.myschool.server.util.BeanMapper;
 import com.gsr.myschool.server.validator.Name;
 import com.gsr.myschool.server.validator.NotBlank;
 
 import javax.persistence.*;
+import java.util.Map;
 
 @Entity
 public class Fraterie implements java.io.Serializable {
@@ -78,5 +80,9 @@ public class Fraterie implements java.io.Serializable {
 
     public void setValide(Boolean valide) {
         this.valide = valide;
+    }
+
+    public Map getReportsAttributes() {
+        return BeanMapper.beanToMap(this);
     }
 }

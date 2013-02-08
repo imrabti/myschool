@@ -3,6 +3,8 @@ package com.gsr.myschool.server.service.impl;
 import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.dto.ScolariteAnterieurDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
+import com.gsr.myschool.common.shared.type.ParentType;
+import com.gsr.myschool.common.shared.type.ValueTypeCode;
 import com.gsr.myschool.server.business.Candidat;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.EtablissementScolaire;
@@ -76,27 +78,46 @@ public class InscriptionServiceImpl implements InscriptionService {
         Candidat candidat = new Candidat();
         candidatRepos.save(candidat);
 
-        InfoParent infoParent = new InfoParent();
-        infoParentRepos.save(infoParent);
-
         User user = securityContextProvider.getCurrentUser();
+        String currentAnneeScolaire = DateUtils.currentYear() - 1 + "-" + DateUtils.currentYear();
+
         Dossier dossier = new Dossier();
         dossier.setGeneratedNumDossier("GSR_" + DateUtils.currentYear() + "_" + UUIDGenerator.generateUUID());
         dossier.setStatus(DossierStatus.CREATED);
         dossier.setOwner(user);
-        dossier.setInfoParent(infoParent);
         dossier.setCandidat(candidat);
         dossier.setCreateDate(new Date());
+        dossier.setAnneeScolaire(valueListRepos.findByValueAndValueTypeCode(currentAnneeScolaire,
+                ValueTypeCode.SCHOOL_YEAR));
         dossierRepos.save(dossier);
+
+        InfoParent pere = new InfoParent();
+        pere.setParentType(ParentType.PERE);
+        pere.setDossier(dossier);
+        infoParentRepos.save(pere);
+
+        InfoParent mere = new InfoParent();
+        mere.setParentType(ParentType.MERE);
+        mere.setDossier(dossier);
+        infoParentRepos.save(mere);
+
+        InfoParent tuteur = new InfoParent();
+        tuteur.setParentType(ParentType.TUTEUR);
+        tuteur.setDossier(dossier);
+        infoParentRepos.save(tuteur);
 
         return dossier;
     }
 
     @Override
     public void deleteInscription(Long dossierId) {
+        List<InfoParent> infoParents = infoParentRepos.findByDossierId(dossierId);
+        for (InfoParent infoParent : infoParents) {
+            infoParentRepos.delete(infoParent);
+        }
+
         Dossier currentDossier = dossierRepos.findOne(dossierId);
         dossierRepos.delete(currentDossier);
-        infoParentRepos.delete(currentDossier.getInfoParent());
         candidatRepos.delete(currentDossier.getCandidat());
     }
 
@@ -120,7 +141,6 @@ public class InscriptionServiceImpl implements InscriptionService {
         currentInfoParent.setEmail(infoParent.getEmail());
         currentInfoParent.setAddress(infoParent.getAddress());
         currentInfoParent.setFonction(infoParent.getFonction());
-        currentInfoParent.setParentType(infoParent.getParentType());
         currentInfoParent.setInstitution(infoParent.getInstitution());
         infoParentRepos.save(currentInfoParent);
         return currentInfoParent;
@@ -159,6 +179,13 @@ public class InscriptionServiceImpl implements InscriptionService {
 
         candidatRepos.save(currentCandidat);
         return currentCandidat;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<InfoParent> findInfoParentByDossierId(Long dossierId) {
+        List<InfoParent> infoParentList = infoParentRepos.findByDossierId(dossierId);
+        return infoParentList;
     }
 
     @Override

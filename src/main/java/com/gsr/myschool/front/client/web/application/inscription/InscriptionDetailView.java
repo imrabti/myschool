@@ -2,15 +2,14 @@ package com.gsr.myschool.front.client.web.application.inscription;
 
 import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
+import com.google.common.base.Objects;
 import com.google.common.base.Strings;
-import com.google.gwt.cell.client.ActionCell;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -27,9 +26,11 @@ import com.gsr.myschool.common.client.proxy.ScolariteAnterieurProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
 import com.gsr.myschool.common.client.widget.RowLabelValueFactory;
+import com.gsr.myschool.common.shared.type.ParentType;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
 
 import java.util.List;
+import java.util.Map;
 
 public class InscriptionDetailView extends ViewImpl implements InscriptionDetailPresenter.MyView {
     public interface Binder extends UiBinder<Widget, InscriptionDetailView> {
@@ -40,7 +41,11 @@ public class InscriptionDetailView extends ViewImpl implements InscriptionDetail
     @UiField
     HTMLPanel dossierPanel;
     @UiField
-    HTMLPanel responsablePanel;
+    HTMLPanel perePanel;
+    @UiField
+    HTMLPanel merePanel;
+    @UiField
+    HTMLPanel tuteurPanel;
     @UiField
     HTMLPanel candidatPanel;
     @UiField
@@ -85,60 +90,42 @@ public class InscriptionDetailView extends ViewImpl implements InscriptionDetail
         SafeHtml safeDossierStatus = SafeHtmlUtils.fromString(dossier.getStatus().toString());
 
         dossierPanel.clear();
-        dossierPanel.add(rowLabelValueFactory.create("N° Dossier : ", safeDossierNum));
-        dossierPanel.add(rowLabelValueFactory.create("Date de création : ", safeDate));
-        dossierPanel.add(rowLabelValueFactory.create("Status du dossier : ", safeDossierStatus));
+        dossierPanel.add(rowLabelValueFactory.createValueLabel("N° Dossier : ", safeDossierNum));
+        dossierPanel.add(rowLabelValueFactory.createValueLabel("Date de création : ", safeDate));
+        dossierPanel.add(rowLabelValueFactory.createValueLabel("Status du dossier : ", safeDossierStatus));
 
         if (dossier.getFiliere() != null) {
             SafeHtml safeFiliere = SafeHtmlUtils.fromString(dossier.getFiliere().getNom());
-            dossierPanel.add(rowLabelValueFactory.create("Filière : ", safeFiliere));
+            dossierPanel.add(rowLabelValueFactory.createValueLabel("Filière : ", safeFiliere));
         }
 
         if (dossier.getNiveauEtude() != null) {
             SafeHtml safeNiveauEtude = SafeHtmlUtils.fromString(dossier.getNiveauEtude().getNom());
-            dossierPanel.add(rowLabelValueFactory.create("Niveau d'étude : ", safeNiveauEtude));
+            dossierPanel.add(rowLabelValueFactory.createValueLabel("Niveau d'étude : ", safeNiveauEtude));
         }
     }
 
     @Override
-    public void setResponsable(InfoParentProxy infoParent) {
-        responsablePanel.clear();
-
-        SafeHtml safeNom = SafeHtmlUtils.fromString(infoParent.getNom());
-        SafeHtml safePrenom = SafeHtmlUtils.fromString(infoParent.getPrenom());
-        SafeHtml safeTelDom = SafeHtmlUtils.fromString(infoParent.getTelDom());
-        SafeHtml safeEmail = SafeHtmlUtils.fromString(infoParent.getEmail());
-        SafeHtml safeTypeParent = SafeHtmlUtils.fromString(infoParent.getParentType().toString());
-
-        responsablePanel.add(rowLabelValueFactory.create("Nom : ", safeNom));
-        responsablePanel.add(rowLabelValueFactory.create("Prénom : ", safePrenom));
-        responsablePanel.add(rowLabelValueFactory.create("Lien de parenté : ", safeTypeParent));
-        responsablePanel.add(rowLabelValueFactory.create("Email : ", safeEmail));
-        responsablePanel.add(rowLabelValueFactory.create("Téléphone maison : ", safeTelDom));
-
-        if (!Strings.isNullOrEmpty(infoParent.getTelGsm())) {
-            SafeHtml safeTelGsm = SafeHtmlUtils.fromString(infoParent.getTelGsm());
-            responsablePanel.add(rowLabelValueFactory.create("Téléphone GSM : ", safeTelGsm));
+    public void setResponsable(Map<ParentType, InfoParentProxy> infoParents) {
+        if (isInfoParentEmpty(infoParents.get(ParentType.PERE))) {
+            perePanel.setVisible(false);
+        } else {
+            perePanel.setVisible(true);
+            setupParentType(perePanel, infoParents.get(ParentType.PERE));
         }
 
-        if (!Strings.isNullOrEmpty(infoParent.getTelBureau())) {
-            SafeHtml safeTelBureau = SafeHtmlUtils.fromString(infoParent.getTelBureau());
-            responsablePanel.add(rowLabelValueFactory.create("Téléphone Bureau : ", safeTelBureau));
+        if (isInfoParentEmpty(infoParents.get(ParentType.MERE))) {
+            merePanel.setVisible(false);
+        } else {
+            merePanel.setVisible(true);
+            setupParentType(merePanel, infoParents.get(ParentType.MERE));
         }
 
-        if (!Strings.isNullOrEmpty(infoParent.getFonction())) {
-            SafeHtml safeFonction = SafeHtmlUtils.fromString(infoParent.getFonction());
-            responsablePanel.add(rowLabelValueFactory.create("Fonction : ", safeFonction));
-        }
-
-        if (!Strings.isNullOrEmpty(infoParent.getInstitution())) {
-            SafeHtml safeInstitution = SafeHtmlUtils.fromString(infoParent.getInstitution());
-            responsablePanel.add(rowLabelValueFactory.create("Institution : ", safeInstitution));
-        }
-
-        if (!Strings.isNullOrEmpty(infoParent.getAddress())) {
-            SafeHtml safeAdresse = SafeHtmlUtils.fromString(infoParent.getAddress());
-            responsablePanel.add(rowLabelValueFactory.create("Adresse : ", safeAdresse));
+        if (isInfoParentEmpty(infoParents.get(ParentType.TUTEUR))) {
+            tuteurPanel.setVisible(false);
+        } else {
+            tuteurPanel.setVisible(true);
+            setupParentType(tuteurPanel, infoParents.get(ParentType.TUTEUR));
         }
     }
 
@@ -146,49 +133,55 @@ public class InscriptionDetailView extends ViewImpl implements InscriptionDetail
     public void setCandidat(CandidatProxy candidat) {
         candidatPanel.clear();
 
-        SafeHtml safeFirstName = SafeHtmlUtils.fromString(candidat.getFirstname());
-        SafeHtml safeLastName = SafeHtmlUtils.fromString(candidat.getLastname());
-        SafeHtml safeBirthDate = SafeHtmlUtils.fromString(dateFormat.format(candidat.getBirthDate()));
-        SafeHtml safeBirthLocation = SafeHtmlUtils.fromString(candidat.getBirthLocation());
+        SafeHtml safeFirstName = SafeHtmlUtils.fromString(Objects.firstNonNull(candidat.getFirstname(), ""));
+        SafeHtml safeLastName = SafeHtmlUtils.fromString(Objects.firstNonNull(candidat.getLastname(), ""));
+        SafeHtml safeBirthLocation = SafeHtmlUtils.fromString(Objects.firstNonNull(candidat.getBirthLocation(), ""));
 
-        candidatPanel.add(rowLabelValueFactory.create("Nom : ", safeFirstName));
-        candidatPanel.add(rowLabelValueFactory.create("Prénom : ", safeLastName));
-        candidatPanel.add(rowLabelValueFactory.create("Date de naissance : ", safeBirthDate));
-        candidatPanel.add(rowLabelValueFactory.create("Lieu de naissance : ", safeBirthLocation));
+        SafeHtml safeBirthDate;
+        if (candidat.getBirthDate() == null) {
+            safeBirthDate = SafeHtmlUtils.fromString("");
+        } else {
+            safeBirthDate = SafeHtmlUtils.fromString(dateFormat.format(candidat.getBirthDate()));
+        }
+
+        candidatPanel.add(rowLabelValueFactory.createValueLabel("Nom : ", safeFirstName));
+        candidatPanel.add(rowLabelValueFactory.createValueLabel("Prénom : ", safeLastName));
+        candidatPanel.add(rowLabelValueFactory.createValueLabel("Date de naissance : ", safeBirthDate));
+        candidatPanel.add(rowLabelValueFactory.createValueLabel("Lieu de naissance : ", safeBirthLocation));
 
         if (!Strings.isNullOrEmpty(candidat.getPhone())) {
             SafeHtml safeTel = SafeHtmlUtils.fromString(candidat.getPhone());
-            candidatPanel.add(rowLabelValueFactory.create("Téléphone : ", safeTel));
+            candidatPanel.add(rowLabelValueFactory.createValueLabel("Téléphone : ", safeTel));
         }
 
         if (!Strings.isNullOrEmpty(candidat.getCin())) {
             SafeHtml safeCin = SafeHtmlUtils.fromString(candidat.getCin());
-            candidatPanel.add(rowLabelValueFactory.create("CIN : ", safeCin));
+            candidatPanel.add(rowLabelValueFactory.createValueLabel("CIN : ", safeCin));
         }
 
         if (!Strings.isNullOrEmpty(candidat.getCne())) {
             SafeHtml safeCne = SafeHtmlUtils.fromString(candidat.getCne());
-            candidatPanel.add(rowLabelValueFactory.create("CNE : ", safeCne));
+            candidatPanel.add(rowLabelValueFactory.createValueLabel("CNE : ", safeCne));
         }
 
         if (!Strings.isNullOrEmpty(candidat.getEmail())) {
             SafeHtml safeEmail = SafeHtmlUtils.fromString(candidat.getEmail());
-            candidatPanel.add(rowLabelValueFactory.create("Email : ", safeEmail));
+            candidatPanel.add(rowLabelValueFactory.createValueLabel("Email : ", safeEmail));
         }
 
         if (candidat.getNationality() != null) {
             SafeHtml safeNationality = SafeHtmlUtils.fromString(candidat.getNationality().getLabel());
-            candidatPanel.add(rowLabelValueFactory.create("Nationnalité : ", safeNationality));
+            candidatPanel.add(rowLabelValueFactory.createValueLabel("Nationnalité : ", safeNationality));
         }
 
         if (candidat.getBacSerie() != null) {
             SafeHtml safeBacSerie = SafeHtmlUtils.fromString(candidat.getBacSerie().getLabel());
-            candidatPanel.add(rowLabelValueFactory.create("Série du baccalauréat : ", safeBacSerie));
+            candidatPanel.add(rowLabelValueFactory.createValueLabel("Série du baccalauréat : ", safeBacSerie));
         }
 
         if (candidat.getBacYear() != null) {
             SafeHtml safeBacYear = SafeHtmlUtils.fromString(candidat.getBacYear().getLabel());
-            candidatPanel.add(rowLabelValueFactory.create("Année du baccalauréat : ", safeBacYear));
+            candidatPanel.add(rowLabelValueFactory.createValueLabel("Année du baccalauréat : ", safeBacYear));
         }
     }
 
@@ -276,5 +269,52 @@ public class InscriptionDetailView extends ViewImpl implements InscriptionDetail
         etablissementColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         etablissementTable.addColumn(anneeScolaireColumn, "Année scolaire");
         etablissementTable.setColumnWidth(anneeScolaireColumn, 20, Style.Unit.PCT);
+    }
+
+    private void setupParentType(HTMLPanel container, InfoParentProxy infoParent) {
+        container.clear();
+
+        SafeHtml safeNom = SafeHtmlUtils.fromString(Objects.firstNonNull(infoParent.getNom(), ""));
+        SafeHtml safePrenom = SafeHtmlUtils.fromString(Objects.firstNonNull(infoParent.getPrenom(), ""));
+        SafeHtml safeTelDom = SafeHtmlUtils.fromString(Objects.firstNonNull(infoParent.getTelDom(), ""));
+        SafeHtml safeEmail = SafeHtmlUtils.fromString(Objects.firstNonNull(infoParent.getEmail(), ""));
+
+        container.add(rowLabelValueFactory.createHeader(infoParent.getParentType().toString()));
+        container.add(rowLabelValueFactory.createValueLabel("Nom : ", safeNom));
+        container.add(rowLabelValueFactory.createValueLabel("Prénom : ", safePrenom));
+        container.add(rowLabelValueFactory.createValueLabel("Email : ", safeEmail));
+        container.add(rowLabelValueFactory.createValueLabel("Téléphone maison : ", safeTelDom));
+
+        if (!Strings.isNullOrEmpty(infoParent.getTelGsm())) {
+            SafeHtml safeTelGsm = SafeHtmlUtils.fromString(infoParent.getTelGsm());
+            container.add(rowLabelValueFactory.createValueLabel("Téléphone GSM : ", safeTelGsm));
+        }
+
+        if (!Strings.isNullOrEmpty(infoParent.getTelBureau())) {
+            SafeHtml safeTelBureau = SafeHtmlUtils.fromString(infoParent.getTelBureau());
+            container.add(rowLabelValueFactory.createValueLabel("Téléphone Bureau : ", safeTelBureau));
+        }
+
+        if (!Strings.isNullOrEmpty(infoParent.getFonction())) {
+            SafeHtml safeFonction = SafeHtmlUtils.fromString(infoParent.getFonction());
+            container.add(rowLabelValueFactory.createValueLabel("Fonction : ", safeFonction));
+        }
+
+        if (!Strings.isNullOrEmpty(infoParent.getInstitution())) {
+            SafeHtml safeInstitution = SafeHtmlUtils.fromString(infoParent.getInstitution());
+            container.add(rowLabelValueFactory.createValueLabel("Institution : ", safeInstitution));
+        }
+
+        if (!Strings.isNullOrEmpty(infoParent.getAddress())) {
+            SafeHtml safeAdresse = SafeHtmlUtils.fromString(infoParent.getAddress());
+            container.add(rowLabelValueFactory.createValueLabel("Adresse : ", safeAdresse));
+        }
+    }
+
+    private Boolean isInfoParentEmpty(InfoParentProxy infoParent) {
+        return Strings.isNullOrEmpty(infoParent.getNom())
+                && Strings.isNullOrEmpty(infoParent.getPrenom())
+                && Strings.isNullOrEmpty(infoParent.getTelDom())
+                && Strings.isNullOrEmpty(infoParent.getEmail());
     }
 }
