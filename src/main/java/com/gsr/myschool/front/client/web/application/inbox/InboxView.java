@@ -37,6 +37,7 @@ import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
 import com.gsr.myschool.common.shared.type.InboxMessageStatus;
+import com.gsr.myschool.front.client.resource.style.InboxListStyle;
 import com.gsr.myschool.front.client.web.application.inbox.renderer.InboxCell;
 import com.gsr.myschool.front.client.web.application.inbox.renderer.InboxCellFactory;
 
@@ -57,12 +58,13 @@ public class InboxView extends ViewWithUiHandlers<InboxUiHandlers> implements In
     public InboxView(final Binder uiBinder,
                      final UiHandlersStrategy<InboxUiHandlers> uiHandlers,
                      final SharedMessageBundle sharedMessageBundle,
-                     final InboxCellFactory inboxCellFactory) {
+                     final InboxCellFactory inboxCellFactory,
+                     final InboxListStyle listStyle) {
         super(uiHandlers);
 
         this.dataProvider = new ListDataProvider<InboxProxy>();
         this.multipleSelectionModel = new MultiSelectionModel<InboxProxy>();
-        this.inboxTable = new CellList<InboxProxy>(inboxCellFactory.create(setupShowDetails()));
+        this.inboxTable = new CellList<InboxProxy>(inboxCellFactory.create(setupShowDetails()), listStyle);
 
         initWidget(uiBinder.createAndBindUi(this));
 
