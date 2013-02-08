@@ -14,15 +14,15 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.application.user;
+package com.gsr.myschool.back.client.web.application.usergsr;
 
 import com.gsr.myschool.common.client.proxy.AdminUserProxy;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface AdminUserAccountUiHandlers extends UiHandlers {
-	void addAccount();
+    void delete(AdminUserProxy currentUser);
 
-    void updateAccountStatus(AdminUserProxy adminUser);
+    void update(AdminUserProxy currentUser);
 
-    void accountDetails(AdminUserProxy adminUser);
+    void addUser();
 }

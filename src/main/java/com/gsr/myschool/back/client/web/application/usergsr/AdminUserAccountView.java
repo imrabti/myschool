@@ -14,9 +14,10 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.application.user;
+package com.gsr.myschool.back.client.web.application.usergsr;
 
 import com.github.gwtbootstrap.client.ui.CellTable;
+import com.google.common.base.Strings;
 import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -30,8 +31,8 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
-import com.gsr.myschool.back.client.web.application.user.renderer.AdminUserActionCell;
-import com.gsr.myschool.back.client.web.application.user.renderer.AdminUserActionCellFactory;
+import com.gsr.myschool.back.client.web.application.usergsr.renderer.AdminUserActionCell;
+import com.gsr.myschool.back.client.web.application.usergsr.renderer.AdminUserActionCellFactory;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.AdminUserProxy;
@@ -51,7 +52,7 @@ public class AdminUserAccountView extends ViewWithUiHandlers<AdminUserAccountUiH
     private final AdminUserActionCellFactory actionCellFactoryAdmin;
 
     private Delegate<AdminUserProxy> editAccount;
-    private Delegate<AdminUserProxy> editStatus;
+    private Delegate<AdminUserProxy> delete;
 
     @Inject
     public AdminUserAccountView(final Binder uiBinder,
@@ -78,20 +79,20 @@ public class AdminUserAccountView extends ViewWithUiHandlers<AdminUserAccountUiH
 
     @UiHandler("add")
     void onAddClicked(ClickEvent event) {
-        getUiHandlers().addAccount();
+        getUiHandlers().addUser();
     }
 
     private void initActions() {
         editAccount = new Delegate<AdminUserProxy>() {
             @Override
             public void execute(AdminUserProxy user) {
-                getUiHandlers().accountDetails(user);
+                getUiHandlers().update(user);
             }
         };
-        editStatus = new Delegate<AdminUserProxy>() {
+        delete = new Delegate<AdminUserProxy>() {
             @Override
             public void execute(AdminUserProxy user) {
-                getUiHandlers().updateAccountStatus(user);
+                getUiHandlers().delete(user);
             }
         };
     }
@@ -140,6 +141,7 @@ public class AdminUserAccountView extends ViewWithUiHandlers<AdminUserAccountUiH
         TextColumn<AdminUserProxy> submittedColumn = new TextColumn<AdminUserProxy>() {
             @Override
             public String getValue(AdminUserProxy object) {
+                if(object.getCreated() == null) return "";
                 return dateFormat.format(object.getCreated());
             }
         };
@@ -147,7 +149,7 @@ public class AdminUserAccountView extends ViewWithUiHandlers<AdminUserAccountUiH
         userGsrTable.addColumn(submittedColumn, "Date de Création");
         userGsrTable.setColumnWidth(submittedColumn, 30, Style.Unit.PCT);
 
-        AdminUserActionCell actionsCellAdmin = actionCellFactoryAdmin.create(editAccount, editStatus);
+        AdminUserActionCell actionsCellAdmin = actionCellFactoryAdmin.create(editAccount, delete);
         Column<AdminUserProxy, AdminUserProxy> actionsColumn = new
                 Column<AdminUserProxy, AdminUserProxy>(actionsCellAdmin) {
             @Override

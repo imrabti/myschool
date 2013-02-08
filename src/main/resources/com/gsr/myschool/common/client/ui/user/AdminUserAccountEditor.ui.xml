@@ -33,6 +33,13 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
+                <boot:ControlLabel width="100px">Mot de passe</boot:ControlLabel>
+                <boot:Controls styleName="{style.smallMargin}">
+                    <boot:PasswordTextBox ui:field="password" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
                 <boot:ControlLabel width="100px">Statut</boot:ControlLabel>
                 <boot:Controls styleName="{style.smallMargin}">
                     <boot:ValueListBox ui:field="status" width="250px"/>
