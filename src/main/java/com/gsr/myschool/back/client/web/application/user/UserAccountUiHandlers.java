@@ -16,11 +16,12 @@
 
 package com.gsr.myschool.back.client.web.application.user;
 
+import com.gsr.myschool.common.client.proxy.UserFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface UserAccountUiHandlers extends UiHandlers {
-	void accountDetails(UserProxy userProxy);
+    void update(UserProxy currentUser);
 
-    void listInscriptions(Long userId);
+    void searchWithFilter(UserFilterDTOProxy userFilter);
 }

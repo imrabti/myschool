@@ -14,11 +14,10 @@ public class AdminAccountModule  extends AbstractPresenterModule {
     @Override
     protected void configure() {
         bind(new TypeLiteral<UiHandlersStrategy<AdminUserAccountUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<AdminUserAccountUiHandlers>>() {
-                });
+                .to(new TypeLiteral<SetterUiHandlersStrategy<AdminUserAccountUiHandlers>>() {});
         bind(new TypeLiteral<UiHandlersStrategy<AdminUserAccountEditUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<AdminUserAccountEditUiHandlers>>() {
-                });
+                .to(new TypeLiteral<SetterUiHandlersStrategy<AdminUserAccountEditUiHandlers>>() {});
+
         bindSingletonPresenterWidget(AdminUserAccountEditPresenter.class, AdminUserAccountEditPresenter.MyView.class,
                 AdminUserAccountEditView.class);
 

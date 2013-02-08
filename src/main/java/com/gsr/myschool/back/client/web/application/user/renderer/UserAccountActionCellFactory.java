@@ -5,6 +5,5 @@ import com.google.inject.assistedinject.Assisted;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 
 public interface UserAccountActionCellFactory {
-    UserAccountActionCell create(@Assisted("viewInscriptions") Delegate<UserProxy> viewInscriptions,
-            @Assisted("editAccount") Delegate<UserProxy> editAccount);
+    UserAccountActionCell create(@Assisted("editAccount") Delegate<UserProxy> editAccount);
 }

@@ -20,15 +20,18 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
+import com.gsr.myschool.back.client.request.UserServiceRequest;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
+import com.gsr.myschool.back.client.web.application.user.event.UserAccountChangedEvent;
 import com.gsr.myschool.back.client.web.application.user.popup.UserAccountEditPresenter;
-import com.gsr.myschool.back.client.web.application.user.popup.UserAccountEditUiHandlers;
 import com.gsr.myschool.back.client.web.application.user.popup.UserInscriptionListPresenter;
-import com.gsr.myschool.back.client.web.application.user.popup.UserInscriptionListUiHandlers;
+import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.client.proxy.UserFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -40,9 +43,11 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import java.util.List;
 
 public class UserAccountPresenter extends Presenter<UserAccountPresenter.MyView, UserAccountPresenter.MyProxy>
-        implements UserAccountUiHandlers, UserAccountEditUiHandlers, UserInscriptionListUiHandlers {
+        implements UserAccountUiHandlers, UserAccountChangedEvent.UserAccountChangedHandler {
     public interface MyView extends View, HasUiHandlers<UserAccountUiHandlers> {
         void setData(List<UserProxy> data);
+
+        void editUserFilter(UserFilterDTOProxy userFilter);
     }
 
     @ProxyStandard
@@ -53,44 +58,59 @@ public class UserAccountPresenter extends Presenter<UserAccountPresenter.MyView,
 
     private final BackRequestFactory requestFactory;
     private final UserAccountEditPresenter userAccountEditPresenter;
-    private final UserInscriptionListPresenter inscriptionListPresenter;
+
+    private UserServiceRequest currentContext;
+    private UserFilterDTOProxy currentUserFilter;
 
     @Inject
     public UserAccountPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
-            final BackRequestFactory requestFactory,
-            final UserAccountEditPresenter userAccountEditPresenter,
-            final UserInscriptionListPresenter inscriptionListPresenter) {
+                                final BackRequestFactory requestFactory,
+                                final UserAccountEditPresenter userAccountEditPresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
         this.userAccountEditPresenter = userAccountEditPresenter;
-        this.inscriptionListPresenter = inscriptionListPresenter;
 
         getView().setUiHandlers(this);
-        userAccountEditPresenter.getView().setUiHandlers(this);
-        inscriptionListPresenter.getView().setUiHandlers(this);
     }
 
     @Override
-    public void reloadUsers() {
-        loadUsers();
+    public void searchWithFilter(UserFilterDTOProxy userFilter) {
+        currentContext.findAllUsersByCriteria(userFilter).fire(new ReceiverImpl<List<UserProxy>>() {
+            @Override
+            public void onSuccess(List<UserProxy> response) {
+                currentContext = requestFactory.userService();
+                currentUserFilter = currentContext.edit(currentUserFilter);
+
+                getView().setData(response);
+                getView().editUserFilter(currentUserFilter);
+            }
+        });
     }
 
     @Override
-    public void accountDetails(UserProxy user) {
-        userAccountEditPresenter.editAccount(user, requestFactory.userService());
+    public void update(UserProxy currentUser) {
+        userAccountEditPresenter.editDatas(currentUser);
         addToPopupSlot(userAccountEditPresenter);
     }
 
     @Override
-    public void listInscriptions(Long userId) {
-        loadInscriptions(userId);
-        addToPopupSlot(inscriptionListPresenter);
+    public void onUserAccountChanged(UserAccountChangedEvent event) {
+        loadUsers();
+    }
+
+    @Override
+    protected void onBind() {
+        super.onBind();
+
+        addRegisteredHandler(UserAccountChangedEvent.TYPE, this);
     }
 
     @Override
     protected void onReveal() {
-        loadUsers();
+        currentContext = requestFactory.userService();
+        currentUserFilter = currentContext.create(UserFilterDTOProxy.class);
+        getView().editUserFilter(currentUserFilter);
     }
 
     private void loadUsers() {
@@ -98,15 +118,6 @@ public class UserAccountPresenter extends Presenter<UserAccountPresenter.MyView,
             @Override
             public void onSuccess(List<UserProxy> result) {
                 getView().setData(result);
-            }
-        });
-    }
-
-    private void loadInscriptions(Long userId) {
-        requestFactory.dossierService().findAllDossiersByUser(userId).fire(new ReceiverImpl<List<DossierProxy>>() {
-            @Override
-            public void onSuccess(List<DossierProxy> result) {
-                inscriptionListPresenter.getView().setData(result);
             }
         });
     }

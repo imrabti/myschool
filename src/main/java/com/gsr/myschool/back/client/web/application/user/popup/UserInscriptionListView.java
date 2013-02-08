@@ -39,9 +39,9 @@ public class UserInscriptionListView extends ValidatedPopupViewImplWithUiHandler
 
     @Inject
     public UserInscriptionListView(final EventBus eventBus, final Binder uiBinder,
-            final UiHandlersStrategy<UserInscriptionListUiHandlers> uiHandlers,
-            final SharedMessageBundle sharedMessageBundle,
-            final ValidationErrorPopup errorPopup, final ModalHeader modalHeader) {
+                                   final UiHandlersStrategy<UserInscriptionListUiHandlers> uiHandlers,
+                                   final SharedMessageBundle sharedMessageBundle,
+                                   final ValidationErrorPopup errorPopup, final ModalHeader modalHeader) {
         super(eventBus, errorPopup, uiHandlers);
 
         this.modalHeader = modalHeader;

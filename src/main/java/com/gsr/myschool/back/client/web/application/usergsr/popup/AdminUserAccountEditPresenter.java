@@ -8,7 +8,6 @@ import com.gsr.myschool.back.client.request.UserServiceRequest;
 import com.gsr.myschool.back.client.web.application.usergsr.event.AdminUserChangedEvent;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupView;
 import com.gsr.myschool.common.client.proxy.AdminUserProxy;
-import com.gsr.myschool.common.client.proxy.PasswordDTOProxy;
 import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.messages.CloseDelay;
@@ -30,9 +29,7 @@ public class AdminUserAccountEditPresenter extends PresenterWidget<AdminUserAcco
     private final SharedMessageBundle messageBundle;
     private final BackRequestFactory requestFactory;
     private UserServiceRequest currentContext;
-    private UserServiceRequest currentPasswordContext;
     private AdminUserProxy currentUser;
-    private PasswordDTOProxy currentPassword;
 
     @Inject
     public AdminUserAccountEditPresenter(final EventBus eventBus, final MyView view,

@@ -17,12 +17,16 @@
 package com.gsr.myschool.server.service.impl;
 
 import com.google.common.base.Strings;
+import com.gsr.myschool.common.shared.dto.UserFilterDTO;
 import com.gsr.myschool.server.business.AdminUser;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.repos.AdminUserRepos;
 import com.gsr.myschool.server.repos.UserRepos;
+import com.gsr.myschool.server.repos.spec.DossierSpec;
+import com.gsr.myschool.server.repos.spec.UserSpec;
 import com.gsr.myschool.server.service.UserManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -92,5 +96,20 @@ public class UserManagementServiceImpl implements UserManagementService {
         else if (adminUser.getId() == null) {
             adminUser.setCreated(new Date());
         }
+    }
+
+    @Override
+    public List<User> findAllUsersByCriteria(UserFilterDTO filter) {
+        Specifications spec = Specifications.where(UserSpec.emailLike(filter.getEmail()));
+
+        if (!Strings.isNullOrEmpty(filter.getPrenom())) {
+            spec = spec.and(UserSpec.firstnameLike(filter.getPrenom()));
+        }
+
+        if (!Strings.isNullOrEmpty(filter.getNom())) {
+            spec = spec.and(UserSpec.lastnameLike(filter.getNom()));
+        }
+
+        return userRepos.findAll(spec);
     }
 }

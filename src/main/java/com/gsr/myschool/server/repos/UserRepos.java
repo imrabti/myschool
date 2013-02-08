@@ -18,7 +18,8 @@ package com.gsr.myschool.server.repos;
 
 import com.gsr.myschool.server.business.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface UserRepos extends JpaRepository<User, Long> {
+public interface UserRepos extends JpaRepository<User, Long>, JpaSpecificationExecutor {
     User findByEmail(String email);
 }
