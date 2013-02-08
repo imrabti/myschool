@@ -23,8 +23,6 @@ public class Dossier implements java.io.Serializable {
     private Long id;
     @ManyToOne
     private Candidat candidat;
-    @ManyToOne
-    private InfoParent infoParent;
     @NotNull
     @ManyToOne
     private Filiere filiere;
@@ -58,14 +56,6 @@ public class Dossier implements java.io.Serializable {
 
     public void setCandidat(Candidat candidat) {
         this.candidat = candidat;
-    }
-
-    public InfoParent getInfoParent() {
-        return infoParent;
-    }
-
-    public void setInfoParent(InfoParent infoParent) {
-        this.infoParent = infoParent;
     }
 
     public Filiere getFiliere() {

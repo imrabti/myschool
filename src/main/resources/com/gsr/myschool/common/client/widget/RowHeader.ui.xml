@@ -2,21 +2,19 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
     <ui:style>
         .rowDataWrapper {
+            margin-top: 10px;
+            margin-bottom: 5px;
         }
 
-        .label {
+        .header {
             font-weight: bold;
             display: inline-block;
-            width: 180px;
-        }
-
-        .value {
-            display: inline-block;
+            font-size: 15px;
+            color: #9a9a9a;
         }
     </ui:style>
 
     <g:HTMLPanel styleName="{style.rowDataWrapper}">
-        <g:Label ui:field="label" styleName="{style.label}"/>
-        <g:HTML ui:field="value" styleName="{style.value}"/>
+        <g:Label ui:field="label" styleName="{style.header}"/>
     </g:HTMLPanel>
 </ui:UiBinder>

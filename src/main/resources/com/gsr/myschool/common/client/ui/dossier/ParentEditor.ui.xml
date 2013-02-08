@@ -3,6 +3,7 @@
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
 
     <ui:with field="helpMessage" type="com.gsr.myschool.common.client.resource.message.HelpMessageBundle"/>
+    <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
     <g:HTMLPanel>
         <boot:Form type="HORIZONTAL">
@@ -20,15 +21,6 @@
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.infoParentPrenom}">
                         <boot:TextBox ui:field="prenom" width="250px"/>
-                    </boot:Tooltip>
-                </boot:Controls>
-            </boot:ControlGroup>
-
-            <boot:ControlGroup>
-                <boot:ControlLabel>Lien de parenté</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.infoParentLienParente}">
-                        <boot:ValueListBox ui:field="parentType" width="250px"/>
                     </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
