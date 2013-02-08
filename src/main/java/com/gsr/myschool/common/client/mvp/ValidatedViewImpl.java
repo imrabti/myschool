@@ -96,7 +96,7 @@ public abstract class ValidatedViewImpl extends ViewImpl implements ValidatedVie
             @Override
             public void setPosition(int offsetWidth, int offsetHeight) {
                 int left = element.getAbsoluteLeft();
-                int top = element.getAbsoluteTop() - errorPopup.getOffsetHeight();
+                int top = element.getAbsoluteTop() - errorPopup.getOffsetHeight() - 10;
                 errorPopup.setPopupPosition(left, top);
             }
         });
