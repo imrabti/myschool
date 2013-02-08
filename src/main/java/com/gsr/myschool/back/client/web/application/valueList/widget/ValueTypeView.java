@@ -60,12 +60,12 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers>
                          final CellTableStyle cellTableStyle) {
         super(uiHandlers);
 
-
-
         this.dataProvider = new ListDataProvider<ValueTypeProxy>();
         this.valueTypeTable = new CellTable<ValueTypeProxy>(15, cellTableStyle);
+
         initDataGrid();
         initWidget(uiBinder.createAndBindUi(this));
+
         dataProvider.addDataDisplay(valueTypeTable);
         this.valueTypeSelectionModel = new SingleSelectionModel<ValueTypeProxy>();
         valueTypeSelectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {

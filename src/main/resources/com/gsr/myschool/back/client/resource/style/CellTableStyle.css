@@ -1,8 +1,21 @@
-.cellTableSelectedRow {
-    background: #0088cc;
+.cellTableCell:hover {
+    background: #f5f5f5;
 }
 
-.cellTableSelectedRowCell {
+.cellTableSelectedRow,
+.cellTableSelectedRowCell,
+.cellTableSelectedRow:hover,
+.cellTableSelectedRowCell:hover  {
+    background: #0088cc;
     color: #fff;
     font-weight: bold;
+}
+
+.cellTableCell {
+    border-color: transparent;
+    border-radius: 3px;
+}
+
+.cellTableHoveredRowCell {
+    border: none;
 }
