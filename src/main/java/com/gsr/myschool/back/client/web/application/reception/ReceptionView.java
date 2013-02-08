@@ -112,7 +112,11 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers>
         TextColumn<DossierProxy> cFiliereColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
-                return object.getFiliere().getNom();
+                if (object.getFiliere() == null) {
+                    return "";
+                } else {
+                    return object.getFiliere().getNom();
+                }
             }
         };
         cFiliereColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
@@ -122,7 +126,11 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers>
         TextColumn<DossierProxy> cLevelColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
-                return object.getNiveauEtude().getNom();
+                if (object.getNiveauEtude() == null) {
+                    return "";
+                } else {
+                    return object.getNiveauEtude().getNom();
+                }
             }
         };
         cLevelColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);

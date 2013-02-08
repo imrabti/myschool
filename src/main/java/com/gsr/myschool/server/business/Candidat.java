@@ -47,7 +47,6 @@ public class Candidat implements java.io.Serializable {
     public ValueList bacSerie;
     @ManyToOne
     public ValueList nationality;
-
     @Transient
     private String birthDateStr;
 

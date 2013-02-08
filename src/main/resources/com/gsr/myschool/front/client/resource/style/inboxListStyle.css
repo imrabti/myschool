@@ -1,0 +1,20 @@
+.cellListWidget {
+}
+
+.cellListEvenItem {
+    background: #ffffff;
+}
+
+.cellListOddItem {
+    background: #efefef;
+}
+
+.cellListKeyboardSelectedItem {
+    background: #fff;
+}
+
+.cellListSelectedItem {
+    background-image: none;
+    background-color: #ffc;
+    color: #000;
+}
