@@ -4,4 +4,6 @@ public class GlobalParameters {
     public static final int defaultPageNumber = 0;
     public static final int defaultPageLength = 10;
     public static String dateFormat = "dd-MMMM-YYYY";
+
+    public static int REFRESH_PERIODE = 60000;
 }
