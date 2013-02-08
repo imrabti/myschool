@@ -1,4 +1,4 @@
-package com.gsr.myschool.back.client.web.application.user.popup;
+package com.gsr.myschool.back.client.web.application.usergsr.popup;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -47,18 +47,13 @@ public class AdminUserAccountEditView extends ValidatedPopupViewImplWithUiHandle
     }
 
     @Override
-    public void edit(AdminUserProxy userProxy, UserServiceRequest userService) {
-        adminEditor.edit(userProxy, userService);
+    public void edit(AdminUserProxy userProxy) {
+        adminEditor.edit(userProxy);
     }
 
     @Override
-    public void updateAccountStatus(AdminUserProxy userProxy, UserServiceRequest userService) {
-        adminEditor.changeUserStatus(userProxy, userService);
-    }
-
-    @Override
-    public void refreshUserList() {
-        getUiHandlers().reloadUsers();
+    public void flush() {
+        adminEditor.get();
     }
 
     @UiHandler("cancel")
@@ -68,6 +63,6 @@ public class AdminUserAccountEditView extends ValidatedPopupViewImplWithUiHandle
 
     @UiHandler("save")
     void onSaveClicked(ClickEvent event) {
-        adminEditor.saveAccount();
+        getUiHandlers().saveAccount();
     }
 }

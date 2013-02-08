@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -75,10 +76,21 @@ public class UserManagementServiceImpl implements UserManagementService {
         }
     }
 
+    @Override
+    public void deleteAdminUser(Long id) {
+        adminUserRepos.delete(id);
+    }
+
     private void createNew(AdminUser adminUser) {
         if (Strings.isNullOrEmpty(adminUser.getUsername())) {
             adminUser.setUsername(adminUser.getLastName());
             adminUser.setPassword(adminUser.getUsername());
+        }
+        if (adminUser.getId() != null) {
+            adminUser.setUpdated(new Date());
+        }
+        else if (adminUser.getId() == null) {
+            adminUser.setCreated(new Date());
         }
     }
 }

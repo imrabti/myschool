@@ -21,6 +21,7 @@ import com.gsr.myschool.back.client.web.application.preinscription.PreInscriptio
 import com.gsr.myschool.back.client.web.application.reception.ReceptionModule;
 import com.gsr.myschool.back.client.web.application.settings.SettingsModule;
 import com.gsr.myschool.back.client.web.application.user.UserManagementModule;
+import com.gsr.myschool.back.client.web.application.usergsr.AdminAccountModule;
 import com.gsr.myschool.back.client.web.application.validation.ValidationModule;
 import com.gsr.myschool.back.client.web.application.valueList.ValueListModule;
 import com.gsr.myschool.back.client.web.application.widget.header.HeaderPresenter;
@@ -39,6 +40,7 @@ public class ApplicationModule extends AbstractPresenterModule {
         install(new ValueListModule());
         install(new ValidationModule());
         install(new UserManagementModule());
+        install(new AdminAccountModule());
         install(new SettingsModule());
         install(new ReceptionModule());
         install(new PreInscriptionModule());
