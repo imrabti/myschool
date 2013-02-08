@@ -33,6 +33,7 @@ public class ValidationErrorPopup extends PopupPanel {
     @Inject
     public ValidationErrorPopup(final Binder uiBinder) {
         setWidget(uiBinder.createAndBindUi(this));
+        setStyleName("");
     }
 
     public void setMessage(String message) {
