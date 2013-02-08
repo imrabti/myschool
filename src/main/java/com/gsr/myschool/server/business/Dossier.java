@@ -4,10 +4,17 @@ import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.core.Filiere;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.valuelist.ValueList;
+import com.gsr.myschool.server.util.BeanMapper;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Map;
 
 @Entity
 public class Dossier implements java.io.Serializable {
@@ -139,11 +146,7 @@ public class Dossier implements java.io.Serializable {
         this.anneeScolaire = anneeScolaire;
     }
 
-    public String getReportsAttributes() {
-        return "Dossier{" +
-                "generatedPDFPath='" + generatedPDFPath + '\'' +
-                ", generatedNumDossier='" + generatedNumDossier + '\'' +
-                ", note='" + note + '\'' +
-                '}';
+    public Map getReportsAttributes() {
+        return BeanMapper.beanToMap(this);
     }
 }

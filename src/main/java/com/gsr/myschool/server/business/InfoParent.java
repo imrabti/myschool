@@ -1,10 +1,12 @@
 package com.gsr.myschool.server.business;
 
 import com.gsr.myschool.common.shared.type.ParentType;
+import com.gsr.myschool.server.util.BeanMapper;
 import com.gsr.myschool.server.validator.Email;
 import com.gsr.myschool.server.validator.Name;
 import com.gsr.myschool.server.validator.NotBlank;
 import com.gsr.myschool.server.validator.Phone;
+import org.apache.commons.beanutils.BeanMap;
 
 import javax.persistence.*;
 
@@ -133,18 +135,7 @@ public class InfoParent implements java.io.Serializable {
         this.dossier = dossier;
     }
 
-    public String getReportsAttributes() {
-        return "InfoParent{" +
-                "nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", telGsm='" + telGsm + '\'' +
-                ", telDom='" + telDom + '\'' +
-                ", telBureau='" + telBureau + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", fonction='" + fonction + '\'' +
-                ", parentType=" + parentType +
-                ", institution='" + institution + '\'' +
-                '}';
-    }
+	public Map getReportsAttributes() {
+        return BeanMapper.beanToMap(this);
+	}
 }
