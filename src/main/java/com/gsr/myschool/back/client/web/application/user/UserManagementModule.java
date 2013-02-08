@@ -29,18 +29,16 @@ public class UserManagementModule extends AbstractPresenterModule {
     protected void configure() {
         bind(new TypeLiteral<UiHandlersStrategy<UserAccountUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<UserAccountUiHandlers>>() {});
-
         bind(new TypeLiteral<UiHandlersStrategy<UserInscriptionListUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<UserInscriptionListUiHandlers>>() {
-                });
+                .to(new TypeLiteral<SetterUiHandlersStrategy<UserInscriptionListUiHandlers>>() {});
         bind(new TypeLiteral<UiHandlersStrategy<UserAccountEditUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<UserAccountEditUiHandlers>>() {
-                });
+                .to(new TypeLiteral<SetterUiHandlersStrategy<UserAccountEditUiHandlers>>() {});
 
         bindSingletonPresenterWidget(UserAccountEditPresenter.class, UserAccountEditPresenter.MyView.class,
                 UserAccountEditView.class);
         bindSingletonPresenterWidget(UserInscriptionListPresenter.class, UserInscriptionListPresenter.MyView.class,
                 UserInscriptionListView.class);
+
         bindPresenter(UserAccountPresenter.class, UserAccountPresenter.MyView.class, UserAccountView.class,
                 UserAccountPresenter.MyProxy.class);
 
