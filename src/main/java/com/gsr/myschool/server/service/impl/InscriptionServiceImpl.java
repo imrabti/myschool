@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.dto.ScolariteAnterieurDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.ParentType;
+import com.gsr.myschool.common.shared.type.ValueTypeCode;
 import com.gsr.myschool.server.business.Candidat;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.EtablissementScolaire;
@@ -78,12 +79,16 @@ public class InscriptionServiceImpl implements InscriptionService {
         candidatRepos.save(candidat);
 
         User user = securityContextProvider.getCurrentUser();
+        String currentAnneeScolaire = DateUtils.currentYear() - 1 + "-" + DateUtils.currentYear();
+
         Dossier dossier = new Dossier();
         dossier.setGeneratedNumDossier("GSR_" + DateUtils.currentYear() + "_" + UUIDGenerator.generateUUID());
         dossier.setStatus(DossierStatus.CREATED);
         dossier.setOwner(user);
         dossier.setCandidat(candidat);
         dossier.setCreateDate(new Date());
+        dossier.setAnneeScolaire(valueListRepos.findByValueAndValueTypeCode(currentAnneeScolaire,
+                ValueTypeCode.SCHOOL_YEAR));
         dossierRepos.save(dossier);
 
         InfoParent pere = new InfoParent();
