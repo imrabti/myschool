@@ -17,6 +17,7 @@
 package com.gsr.myschool.back.client.web.application.usergsr;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
@@ -79,18 +80,20 @@ public class AdminUserAccountPresenter extends Presenter<AdminUserAccountPresent
 
     @Override
     public void delete(AdminUserProxy currentUser) {
-        requestFactory.userService().deleteAdminUser(currentUser.getId()).fire(new ReceiverImpl<Void>() {
-            @Override
-            public void onSuccess(Void response) {
-                Message message = new Message.Builder(messageBundle.deleteValueListSuccess())
-                        .style(AlertType.SUCCESS)
-                        .closeDelay(CloseDelay.DEFAULT)
-                        .build();
-                MessageEvent.fire(this, message);
+        if (Window.confirm(messageBundle.deleteConfirmation())) {
+            requestFactory.userService().deleteAdminUser(currentUser.getId()).fire(new ReceiverImpl<Void>() {
+                @Override
+                public void onSuccess(Void response) {
+                    Message message = new Message.Builder(messageBundle.deleteValueListSuccess())
+                            .style(AlertType.SUCCESS)
+                            .closeDelay(CloseDelay.DEFAULT)
+                            .build();
+                    MessageEvent.fire(this, message);
 
-                loadUsers();
-            }
-        });
+                    loadUsers();
+                }
+            });
+        }
     }
 
     @Override

@@ -23,17 +23,13 @@
         <g:FlowPanel>
             <s:ModalHeader ui:field="modalHeader" text="Compte GSR"/>
 
-            <boot:TabPanel ui:field="steps" tabPosition="left">
-                <boot:Tab heading="Informations générales" active="true">
-                    <g:HTMLPanel styleName="{style.contentWrapper}">
-                        <p:AdminUserAccountEditor ui:field="adminEditor"/>
-                    </g:HTMLPanel>
-                </boot:Tab>
-            </boot:TabPanel>
+            <g:HTMLPanel styleName="{style.contentWrapper}">
+                <p:AdminUserAccountEditor ui:field="adminEditor"/>
+            </g:HTMLPanel>
 
             <g:HTMLPanel styleName="{resource.sharedStyleCss.buttonContainerPopup}">
                 <boot:Button ui:field="cancel" text="Annuler"/>
-                <boot:Button ui:field="save"  text="Enregistrer" icon="SAVE"
+                <boot:Button ui:field="save" text="Enregistrer" icon="SAVE"
                              styleName="btn btn-primary"/>
             </g:HTMLPanel>
         </g:FlowPanel>

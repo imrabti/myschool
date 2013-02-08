@@ -24,19 +24,16 @@ public class UserAccountActionCell extends AbstractCell<UserProxy> {
     private final Renderer uiRenderer;
 
     private Delegate<UserProxy> editAccount;
-    private Delegate<UserProxy> viewInscriptions;
 
     private UserProxy selectedObject;
 
     @Inject
     public UserAccountActionCell(final Renderer uiRenderer,
-            @Assisted("editAccount") Delegate<UserProxy> editAccount,
-            @Assisted("viewInscriptions") Delegate<UserProxy> viewInscriptions) {
+            @Assisted("editAccount") Delegate<UserProxy> editAccount) {
         super(BrowserEvents.CLICK);
 
         this.uiRenderer = uiRenderer;
         this.editAccount = editAccount;
-        this.viewInscriptions = viewInscriptions;
     }
 
     @Override
@@ -54,10 +51,5 @@ public class UserAccountActionCell extends AbstractCell<UserProxy> {
     @UiHandler({"editAccount"})
     void onPreviewClicked(ClickEvent event) {
         editAccount.execute(selectedObject);
-    }
-
-    @UiHandler({"viewInscriptions"})
-    void onChangeStatus(ClickEvent event) {
-        viewInscriptions.execute(selectedObject);
     }
 }

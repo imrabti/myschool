@@ -90,4 +90,6 @@ public interface MessageBundle extends Messages {
     String deleteValueTypeSuccess();
 
     String addValueTypeSuccess();
+
+    String deleteConfirmation();
 }

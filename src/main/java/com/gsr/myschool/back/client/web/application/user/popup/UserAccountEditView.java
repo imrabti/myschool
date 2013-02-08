@@ -53,8 +53,8 @@ public class UserAccountEditView extends ValidatedPopupViewImplWithUiHandlers<Us
     }
 
     @Override
-    public void refreshUserList() {
-        getUiHandlers().reloadUsers();
+    public void flush() {
+        userEditor.get();
     }
 
     @UiHandler("cancel")
@@ -64,7 +64,6 @@ public class UserAccountEditView extends ValidatedPopupViewImplWithUiHandlers<Us
 
     @UiHandler("save")
     void onSaveClicked(ClickEvent event) {
-        userEditor.get();
-        hide();
+        getUiHandlers().saveAccount();
     }
 }

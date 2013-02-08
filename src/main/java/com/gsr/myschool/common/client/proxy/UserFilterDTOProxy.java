@@ -14,24 +14,23 @@
  * the License.
  */
 
-package com.gsr.myschool.server.service;
+package com.gsr.myschool.common.client.proxy;
 
+import com.google.web.bindery.requestfactory.shared.ProxyFor;
+import com.google.web.bindery.requestfactory.shared.ValueProxy;
 import com.gsr.myschool.common.shared.dto.UserFilterDTO;
-import com.gsr.myschool.server.business.AdminUser;
-import com.gsr.myschool.server.business.User;
 
-import java.util.List;
+@ProxyFor(UserFilterDTO.class)
+public interface UserFilterDTOProxy extends ValueProxy {
+    String getEmail();
 
-public interface UserManagementService {
-    List<AdminUser> findAllAdminUser();
+    void setEmail(String email);
 
-    List<User> findAllPortalUser();
+    String getNom();
 
-    Boolean saveUserAccount(User user);
+    void setNom(String name);
 
-    Boolean saveAdminAccount(AdminUser newAdmin);
+    String getPrenom();
 
-    void deleteAdminUser(Long id);
-
-    List<User> findAllUsersByCriteria(UserFilterDTO userFilter);
+    void setPrenom(String prenom);
 }
