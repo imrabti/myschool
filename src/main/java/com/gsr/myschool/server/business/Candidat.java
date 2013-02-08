@@ -156,7 +156,7 @@ public class Candidat implements java.io.Serializable {
     }
 
     public String getBirthDateStr() {
-        SimpleDateFormat sdf = new SimpleDateFormat(GlobalParameters.dateFormat);
+        SimpleDateFormat sdf = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
         return sdf.format(birthDate);
     }
 
