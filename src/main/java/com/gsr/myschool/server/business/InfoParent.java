@@ -34,6 +34,8 @@ public class InfoParent implements java.io.Serializable {
     @Enumerated
     private ParentType parentType;
     private String institution;
+    @ManyToOne
+    private Dossier dossier;
 
     public Long getId() {
         return id;
@@ -121,6 +123,14 @@ public class InfoParent implements java.io.Serializable {
 
     public void setInstitution(String institution) {
         this.institution = institution;
+    }
+
+    public Dossier getDossier() {
+        return dossier;
+    }
+
+    public void setDossier(Dossier dossier) {
+        this.dossier = dossier;
     }
 
     public String getReportsAttributes() {

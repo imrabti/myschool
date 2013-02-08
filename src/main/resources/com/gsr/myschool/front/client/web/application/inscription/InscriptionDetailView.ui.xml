@@ -24,7 +24,11 @@
             </boot:AccordionGroup>
 
             <boot:AccordionGroup heading="Responsable" defaultOpen="true">
-                <g:HTMLPanel ui:field="responsablePanel"/>
+                <g:HTMLPanel>
+                    <g:HTMLPanel ui:field="perePanel"/>
+                    <g:HTMLPanel ui:field="merePanel"/>
+                    <g:HTMLPanel ui:field="tuteurPanel"/>
+                </g:HTMLPanel>
             </boot:AccordionGroup>
 
             <boot:AccordionGroup heading="Candidat" defaultOpen="true">

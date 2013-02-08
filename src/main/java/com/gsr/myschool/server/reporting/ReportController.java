@@ -17,37 +17,36 @@ import java.io.BufferedOutputStream;
 @Controller
 @RequestMapping("/report")
 public class ReportController {
-     @Autowired
-     ReportService reportService;
+    @Autowired
+    ReportService reportService;
     @Autowired
     private DossierRepos dossierRepos;
 
-     @RequestMapping(method = RequestMethod.GET, produces = "application/pdf")
-     @ResponseStatus(HttpStatus.OK)
-     public void generateReport(@RequestParam String id, HttpServletResponse response) {
-         Dossier dossier = dossierRepos.findOne(Long.valueOf(id));
-         ReportDTO reportDTO = buildReportDto(dossier);
-         try {
-               response.addHeader("Content-Disposition", "inline; filename="+reportDTO.getReportName()+".pdf");
+    @RequestMapping(method = RequestMethod.GET, produces = "application/pdf")
+    @ResponseStatus(HttpStatus.OK)
+    public void generateReport(@RequestParam String id, HttpServletResponse response) {
+        Dossier dossier = dossierRepos.findOne(Long.valueOf(id));
+        ReportDTO reportDTO = buildReportDto(dossier);
+        try {
+            response.addHeader("Content-Disposition", "inline; filename=" + reportDTO.getReportName() + ".pdf");
 
-               BufferedOutputStream outputStream = new BufferedOutputStream(response.getOutputStream());
-               byte[] result =  reportService.generatePdf(reportDTO);
+            BufferedOutputStream outputStream = new BufferedOutputStream(response.getOutputStream());
+            byte[] result = reportService.generatePdf(reportDTO);
 
-               outputStream.write(result, 0, result.length);
-               outputStream.flush();
-               outputStream.close();
-          } catch(Exception e){
-               throw new RuntimeException(e);
-          }
-     }
+            outputStream.write(result, 0, result.length);
+            outputStream.flush();
+            outputStream.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private ReportDTO buildReportDto(Dossier dossier) {
         ReportDTO printableDossier = new ReportDTO("report2");
-        printableDossier.getReportParameters().put("infoParent", dossier.getInfoParent());
+        // TODO : Update InfoParent to load List : Pere, Mere, Tuteur
         printableDossier.getReportParameters().put("candidat", dossier.getCandidat());
         printableDossier.getReportParameters().put("niveauEtude", dossier.getNiveauEtude());
         printableDossier.getReportParameters().put("filiere", dossier.getFiliere());
         return printableDossier;
     }
 }
-

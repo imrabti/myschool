@@ -58,4 +58,6 @@ public interface MessageBundle extends Messages {
     String accountUpdatedSuccess();
 
     String passwordUpdatedSuccess();
+
+    String requiredInfoParentsError();
 }

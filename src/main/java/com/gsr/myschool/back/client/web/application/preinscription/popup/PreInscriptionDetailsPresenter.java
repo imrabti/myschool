@@ -43,7 +43,7 @@ public class PreInscriptionDetailsPresenter extends PresenterWidget<PreInscripti
 
     public void editInscriptionData(DossierProxy dossier) {
         currentContext = requestFactory.dossierService();
-        currentInfoParent = currentContext.edit(dossier.getInfoParent());
+        //currentInfoParent = currentContext.edit(dossier.getInfoParent());
         currentCandidat = currentContext.edit(dossier.getCandidat());
         loadScolariteAnterieur(dossier);
 

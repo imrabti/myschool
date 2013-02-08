@@ -33,10 +33,6 @@ public interface DossierProxy extends ValueProxy {
 
     public void setCandidat(CandidatProxy candidat);
 
-    public InfoParentProxy getInfoParent();
-
-    public void setInfoParent(InfoParentProxy infoParent);
-
     public FiliereProxy getFiliere();
 
     public void setFiliere(FiliereProxy filiere);
