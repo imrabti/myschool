@@ -40,6 +40,7 @@ import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 
 import java.util.List;
 
@@ -71,7 +72,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         initDataGrid();
 
         dataProvider = new ListDataProvider<DossierProxy>();
-        dateFormat = DateTimeFormat.getFormat("LLL d yyyy");
+        dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
 
         dataProvider.addDataDisplay(preInscriptionsTable);
         preInscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
@@ -112,7 +113,17 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         };
         statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         preInscriptionsTable.addColumn(statusColumn, "Statut");
-        preInscriptionsTable.setColumnWidth(statusColumn, 40, Style.Unit.PCT);
+        preInscriptionsTable.setColumnWidth(statusColumn, 20, Style.Unit.PCT);
+
+        TextColumn<DossierProxy> anneeScolaireColumn = new TextColumn<DossierProxy>() {
+            @Override
+            public String getValue(DossierProxy object) {
+                return object.getAnneeScolaire().getLabel();
+            }
+        };
+        statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        preInscriptionsTable.addColumn(anneeScolaireColumn, "Année scolaire");
+        preInscriptionsTable.setColumnWidth(anneeScolaireColumn, 20, Style.Unit.PCT);
 
         TextColumn<DossierProxy> createdColumn = new TextColumn<DossierProxy>() {
             @Override

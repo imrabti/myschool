@@ -130,26 +130,44 @@ public class ValueListPopulationTest {
 
         ValueList valueList = new ValueList();
         valueList.setValueType(valueType);
-        valueList.setLabel("2006");
-        valueList.setValue("2006");
+        valueList.setLabel("2006-2007");
+        valueList.setValue("2006-2007");
         valueListRepos.save(valueList);
 
         valueList = new ValueList();
         valueList.setValueType(valueType);
-        valueList.setLabel("2007");
-        valueList.setValue("2007");
+        valueList.setLabel("2007-2008");
+        valueList.setValue("2007-2008");
         valueListRepos.save(valueList);
 
         valueList = new ValueList();
         valueList.setValueType(valueType);
-        valueList.setLabel("2008");
-        valueList.setValue("2008");
+        valueList.setLabel("2008-2009");
+        valueList.setValue("2008-2009");
         valueListRepos.save(valueList);
 
         valueList = new ValueList();
         valueList.setValueType(valueType);
-        valueList.setLabel("2009");
-        valueList.setValue("2009");
+        valueList.setLabel("2009-2010");
+        valueList.setValue("2009-2010");
+        valueListRepos.save(valueList);
+
+        valueList = new ValueList();
+        valueList.setValueType(valueType);
+        valueList.setLabel("2010-2011");
+        valueList.setValue("2010-2011");
+        valueListRepos.save(valueList);
+
+        valueList = new ValueList();
+        valueList.setValueType(valueType);
+        valueList.setLabel("2011-2012");
+        valueList.setValue("2011-2012");
+        valueListRepos.save(valueList);
+
+        valueList = new ValueList();
+        valueList.setValueType(valueType);
+        valueList.setLabel("2012-2013");
+        valueList.setValue("2012-2013");
         valueListRepos.save(valueList);
     }
 }
