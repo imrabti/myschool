@@ -14,24 +14,36 @@
  * the License.
  */
 
-package com.gsr.myschool.server.service;
+package com.gsr.myschool.common.shared.dto;
 
-import com.gsr.myschool.common.shared.dto.UserFilterDTO;
-import com.gsr.myschool.server.business.AdminUser;
-import com.gsr.myschool.server.business.User;
+import java.io.Serializable;
 
-import java.util.List;
+public class UserFilterDTO implements Serializable {
+    private String email;
+    private String nom;
+    private String prenom;
 
-public interface UserManagementService {
-    List<AdminUser> findAllAdminUser();
+    public String getEmail() {
+        return email;
+    }
 
-    List<User> findAllPortalUser();
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    Boolean saveUserAccount(User user);
+    public String getNom() {
+        return nom;
+    }
 
-    Boolean saveAdminAccount(AdminUser newAdmin);
+    public void setNom(String name) {
+        this.nom = name;
+    }
 
-    void deleteAdminUser(Long id);
+    public String getPrenom() {
+        return prenom;
+    }
 
-    List<User> findAllUsersByCriteria(UserFilterDTO userFilter);
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
 }

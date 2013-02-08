@@ -5,7 +5,7 @@
             <span class="">Editer</span>
         </a>
         <a href="javascript:;" class="btn" ui:field="delete">
-            <i class="icon-edit"/>
+            <i class="icon-trash"/>
             <span class="">Supprimer</span>
         </a>
     </div>

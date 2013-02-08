@@ -7,9 +7,6 @@
     <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
     <ui:style>
-        .tabPanelWrapper {
-            padding-left: 10px;
-        }
 
         .contentWrapper {
             padding: 10px;
@@ -23,17 +20,13 @@
         <g:FlowPanel>
             <s:ModalHeader ui:field="modalHeader" text="Compte Portail"/>
 
-            <boot:TabPanel ui:field="steps" tabPosition="left">
-                <boot:Tab heading="Informations générales" active="true">
-                    <g:HTMLPanel styleName="{style.contentWrapper}">
-                        <p:UserAccountEditor ui:field="userEditor"/>
-                    </g:HTMLPanel>
-                </boot:Tab>
-            </boot:TabPanel>
+            <g:HTMLPanel styleName="{style.contentWrapper}">
+                <p:UserAccountEditor ui:field="userEditor"/>
+            </g:HTMLPanel>
 
             <g:HTMLPanel styleName="{resource.sharedStyleCss.buttonContainerPopup}">
                 <boot:Button ui:field="cancel" text="Annuler"/>
-                <boot:Button ui:field="save"  text="Enregistrer" icon="SAVE"
+                <boot:Button ui:field="save" text="Enregistrer" icon="SAVE"
                              styleName="btn btn-primary"/>
             </g:HTMLPanel>
         </g:FlowPanel>
