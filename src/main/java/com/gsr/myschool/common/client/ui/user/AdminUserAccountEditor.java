@@ -1,8 +1,10 @@
 package com.gsr.myschool.common.client.ui.user;
 
+import com.github.gwtbootstrap.client.ui.PasswordTextBox;
 import com.github.gwtbootstrap.client.ui.TextBox;
 import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.google.gwt.editor.client.Editor;
+import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
@@ -11,6 +13,7 @@ import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.gsr.myschool.common.client.proxy.AdminUserProxy;
+import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
 import com.gsr.myschool.common.shared.type.Authority;
 import com.gsr.myschool.common.shared.type.UserStatus;
@@ -19,11 +22,11 @@ import java.util.Arrays;
 
 import static com.google.gwt.query.client.GQuery.$;
 
-public class AdminUserAccountEditor extends Composite implements Editor<AdminUserProxy> {
+public class AdminUserAccountEditor extends Composite implements EditorView<AdminUserProxy> {
     public interface Binder extends UiBinder<Widget, AdminUserAccountEditor> {
     }
 
-    public interface AccountDriver extends RequestFactoryEditorDriver<AdminUserProxy, AdminUserAccountEditor> {
+    public interface AccountDriver extends SimpleBeanEditorDriver<AdminUserProxy, AdminUserAccountEditor> {
     }
 
     @UiField
@@ -36,10 +39,10 @@ public class AdminUserAccountEditor extends Composite implements Editor<AdminUse
     ValueListBox<UserStatus> status;
     @UiField(provided = true)
     ValueListBox<Authority> authority;
+    @UiField
+    PasswordTextBox password;
 
     private final AccountDriver accountDriver;
-
-    private AdminUserProxy currentUser;
 
     @Inject
     public AdminUserAccountEditor(final Binder uiBinder, final AccountDriver accountDriver) {
@@ -60,30 +63,21 @@ public class AdminUserAccountEditor extends Composite implements Editor<AdminUse
         $(email).id("email");
         $(status).id("status");
         $(authority).id("authority");
+        $(password).id("password");
     }
 
-    public void edit(final AdminUserProxy user, final RequestContext context) {
-        currentUser = context.edit(user);
-        accountDriver.edit(user, context);
+    @Override
+    public void edit(final AdminUserProxy user) {
+        accountDriver.edit(user);
     }
 
-    public void changeUserStatus(AdminUserProxy user, final RequestContext context) {
-        accountDriver.edit(user, context);
-        if (user.getStatus().equals(UserStatus.ACTIVE)) {
-            status.setValue(UserStatus.INACTIVE);
-        } else if (user.getStatus().equals(UserStatus.INACTIVE)) {
-            status.setValue(UserStatus.ACTIVE);
-        }
-        saveAccount();
-    }
-
-    public AdminUserProxy saveAccount() {
-        RequestContext context = accountDriver.flush();
+    @Override
+    public AdminUserProxy get() {
+        AdminUserProxy adminUser = accountDriver.flush();
         if (accountDriver.hasErrors()) {
             return null;
         } else {
-            context.fire();
-            return currentUser;
+            return adminUser;
         }
     }
 }

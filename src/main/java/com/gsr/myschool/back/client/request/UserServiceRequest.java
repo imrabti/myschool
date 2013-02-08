@@ -35,4 +35,6 @@ public interface UserServiceRequest extends RequestContext {
     Request<Boolean> saveUserAccount(UserProxy userProxy);
 
     Request<Boolean> saveAdminAccount(AdminUserProxy adminUserProxy);
+
+    Request<Void> deleteAdminUser(Long id);
 }

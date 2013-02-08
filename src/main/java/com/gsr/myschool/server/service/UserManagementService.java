@@ -29,4 +29,6 @@ public interface UserManagementService {
     Boolean saveUserAccount(User user);
 
     Boolean saveAdminAccount(AdminUser newAdmin);
+
+    void deleteAdminUser(Long id);
 }

@@ -1,4 +1,4 @@
-package com.gsr.myschool.back.client.web.application.user.renderer;
+package com.gsr.myschool.back.client.web.application.usergsr.renderer;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.ActionCell.Delegate;
@@ -24,19 +24,19 @@ public class AdminUserActionCell extends AbstractCell<AdminUserProxy> {
     private final Renderer uiRenderer;
 
     private Delegate<AdminUserProxy> editAccount;
-    private Delegate<AdminUserProxy> editStatus;
+    private Delegate<AdminUserProxy> delete;
 
     private AdminUserProxy selectedObject;
 
     @Inject
     public AdminUserActionCell(final Renderer uiRenderer,
-            @Assisted("editAccount") Delegate<AdminUserProxy> editAccount,
-            @Assisted("editStatus") Delegate<AdminUserProxy> editStatus) {
+                               @Assisted("editAccount") Delegate<AdminUserProxy> editAccount,
+                               @Assisted("delete") Delegate<AdminUserProxy> delete) {
         super(BrowserEvents.CLICK);
 
         this.uiRenderer = uiRenderer;
         this.editAccount = editAccount;
-        this.editStatus = editStatus;
+        this.delete = delete;
     }
 
     @Override
@@ -56,8 +56,8 @@ public class AdminUserActionCell extends AbstractCell<AdminUserProxy> {
         editAccount.execute(selectedObject);
     }
 
-    @UiHandler({"editStatus"})
+    @UiHandler({"delete"})
     void onChangeStatus(ClickEvent event) {
-        editStatus.execute(selectedObject);
+        delete.execute(selectedObject);
     }
 }
