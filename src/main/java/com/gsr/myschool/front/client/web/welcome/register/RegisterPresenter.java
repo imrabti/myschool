@@ -17,12 +17,12 @@
 package com.gsr.myschool.front.client.web.welcome.register;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
-import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.ValidatedView;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
+import com.gsr.myschool.common.client.util.URLUtils;
 import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
@@ -74,7 +74,8 @@ public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, Regis
 
     @Override
     public void register(UserProxy user) {
-        currentContext.register(user, Window.Location.getHost()).fire(new ValidatedReceiverImpl<Boolean>() {
+        String confirmationLink = URLUtils.generateURL(NameTokens.getLogin());
+        currentContext.register(user, confirmationLink).fire(new ValidatedReceiverImpl<Boolean>() {
             @Override
             public void onValidationError(Set<ConstraintViolation<?>> violations) {
                 getView().clearErrors();

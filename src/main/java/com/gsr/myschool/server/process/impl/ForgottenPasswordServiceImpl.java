@@ -19,9 +19,7 @@ package com.gsr.myschool.server.process.impl;
 import com.gsr.myschool.common.client.util.Base64;
 import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.common.shared.type.EmailType;
-import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.process.ForgottenPasswordService;
-import com.gsr.myschool.server.repos.UserRepos;
 import com.gsr.myschool.server.service.EmailService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -36,8 +34,6 @@ import java.util.Map;
 @Service
 public class ForgottenPasswordServiceImpl implements ForgottenPasswordService {
     @Autowired
-    private UserRepos userRepos;
-    @Autowired
     private EmailService emailService;
     @Autowired
     private RuntimeService runtimeService;
@@ -47,6 +43,7 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordService {
     @Override
     public void startProcessWithValidEmail(String email, String link) throws Exception {
         String token = Base64.encode(Long.toString((new Date()).getTime()));
+        token.replaceAll("=", "E");
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("email", email);
@@ -75,7 +72,7 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordService {
         EmailDTO email = (EmailDTO) runtimeService.getVariable(task.getExecutionId(), "email");
 
         Map<String, String> result = new HashMap<String, String>();
-        result.put(task.getId(), email.getTo());
+        result.put(email.getTo(), task.getId());
 
         return result;
     }
