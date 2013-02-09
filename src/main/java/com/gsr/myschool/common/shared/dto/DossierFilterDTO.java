@@ -8,7 +8,8 @@ import java.util.Date;
 public class DossierFilterDTO implements Serializable {
     private String numDossier;
     private DossierStatus status;
-    private Date created;
+    private Date dateTill;
+    private Date dateFrom;
     private String firstnameOrlastname;
 
     public String getNumDossier() {
@@ -27,12 +28,20 @@ public class DossierFilterDTO implements Serializable {
         this.status = status;
     }
 
-    public Date getCreated() {
-        return created;
+    public Date getDateTill() {
+        return dateTill;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setDateTill(Date till) {
+        this.dateTill = till;
+    }
+
+    public Date getDateFrom() {
+        return dateFrom;
+    }
+
+    public void setDateFrom(Date from) {
+        this.dateFrom = from;
     }
 
     public String getFirstnameOrlastname() {

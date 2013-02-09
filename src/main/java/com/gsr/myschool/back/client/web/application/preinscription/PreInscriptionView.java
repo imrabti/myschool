@@ -153,4 +153,5 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         preInscriptionsTable.addColumn(actionsColumn, "Détails");
         preInscriptionsTable.setColumnWidth(actionsColumn, 10, Style.Unit.PCT);
     }
+
 }

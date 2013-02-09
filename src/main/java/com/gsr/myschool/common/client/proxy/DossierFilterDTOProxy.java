@@ -17,9 +17,13 @@ public interface DossierFilterDTOProxy extends ValueProxy {
 
     public void setStatus(DossierStatus status);
 
-    public Date getCreated();
+    public Date getDateTill();
 
-    public void setCreated(Date created);
+    public void setDateTill(Date till);
+
+    public Date getDateFrom();
+
+    public void setDateFrom(Date from);
 
     public String getFirstnameOrlastname();
 

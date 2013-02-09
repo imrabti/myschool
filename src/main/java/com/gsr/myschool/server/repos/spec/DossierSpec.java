@@ -39,6 +39,24 @@ public class DossierSpec {
         };
     }
 
+    public static Specification<Dossier> dossierCreatedGreater(final Date date) {
+        return new Specification<Dossier>() {
+            @Override
+            public Predicate toPredicate(Root<Dossier> dossierRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.greaterThanOrEqualTo(dossierRoot.<Date>get("createDate"), date);
+            }
+        };
+    }
+
+    public static Specification<Dossier> dossierCreatedLower(final Date date) {
+        return new Specification<Dossier>() {
+            @Override
+            public Predicate toPredicate(Root<Dossier> dossierRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.lessThanOrEqualTo(dossierRoot.<Date>get("createDate"), date);
+            }
+        };
+    }
+
     public static Specification<Dossier> firstnameLike(final String name) {
         return new Specification<Dossier>() {
             @Override
