@@ -4,9 +4,25 @@
 
     <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
-    <g:HTMLPanel>
-                    <boot:PageHeader text="Types" />
-                    <boot:Button ui:field="addValueType" icon="PLUS">Add value type</boot:Button>
-        <boot:CellTable ui:field="valueTypeTable" />
+    <ui:style>
+        .contentWrapper {
+            margin-top: 12px;
+        }
+    </ui:style>
+
+    <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
+        <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
+            <h2>
+                <g:InlineLabel text="Types"/>
+            </h2>
+            <span style="display: block; clear: both;"/>
+        </g:HTMLPanel>
+
+        <div class="{style.contentWrapper}">
+
+            <div class="{style.contentWrapper}">
+                <boot:CellTable ui:field="valueTypeTable" />
+            </div>
+        </div>
     </g:HTMLPanel>
 </ui:UiBinder>

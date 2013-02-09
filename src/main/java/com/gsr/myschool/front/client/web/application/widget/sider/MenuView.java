@@ -51,8 +51,13 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         }
     }
 
-    public void updateMessageCount(Integer count){
-        messagesCount.setText(count.toString());
+    public void updateMessageCount(Integer count) {
+        if (count == 0) {
+            messagesCount.setVisible(false);
+        } else {
+            messagesCount.setVisible(true);
+            messagesCount.setText(count.toString());
+        }
     }
 
     @UiHandler("inscription")

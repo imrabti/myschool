@@ -4,6 +4,4 @@ import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface HeaderUiHandlers extends UiHandlers {
     void logout();
-
-    void setting();
 }
