@@ -24,7 +24,7 @@
         }
     </ui:style>
 
-    <g:HTMLPanel>
+    <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
         <div class="{style.container}">
             <div class="{style.right}">
                 <g:SimplePanel ui:field="valueTypeDisplay"/>
