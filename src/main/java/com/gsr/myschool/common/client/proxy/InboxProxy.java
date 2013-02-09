@@ -27,7 +27,7 @@ import java.util.Date;
 public interface InboxProxy extends ValueProxy {
     Long getId();
 
-    void setId(Long newId) ;
+    void setId(Long newId);
 
     UserProxy getParentUser();
 
@@ -48,4 +48,8 @@ public interface InboxProxy extends ValueProxy {
     InboxMessageStatus getMsgStatus();
 
     void setMsgStatus(InboxMessageStatus newMsgStatus);
+
+    String getRawContent();
+
+    void setRawContent(String rawContent);
 }

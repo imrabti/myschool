@@ -17,6 +17,8 @@ public class InboxMessage implements java.io.Serializable {
     private Date msgDate;
     @Enumerated
     private InboxMessageStatus msgStatus;
+    @Transient
+    private String rawContent;
 
     public Long getId() {
         return id;
@@ -64,5 +66,13 @@ public class InboxMessage implements java.io.Serializable {
 
     public void setMsgStatus(InboxMessageStatus newMsgStatus) {
         this.msgStatus = newMsgStatus;
+    }
+
+    public String getRawContent() {
+        return rawContent;
+    }
+
+    public void setRawContent(String rawContent) {
+        this.rawContent = rawContent;
     }
 }
