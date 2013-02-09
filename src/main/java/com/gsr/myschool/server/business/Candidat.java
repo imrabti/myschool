@@ -8,12 +8,7 @@ import com.gsr.myschool.server.validator.Name;
 import com.gsr.myschool.server.validator.NotBlank;
 import com.gsr.myschool.server.validator.Phone;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -30,6 +25,7 @@ public class Candidat implements java.io.Serializable {
     @NotBlank
     private String lastname;
     @NotBlank
+    @Temporal(TemporalType.DATE)
     private Date birthDate;
     @NotBlank
     private String birthLocation;

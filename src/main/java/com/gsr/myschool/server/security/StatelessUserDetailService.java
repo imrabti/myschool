@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.server.security;
 
+import com.gsr.myschool.common.shared.type.UserStatus;
 import com.gsr.myschool.server.repos.UserRepos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -36,13 +37,14 @@ public class StatelessUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        com.gsr.myschool.server.business.User user =  userRepos.findByEmail(email);
+        com.gsr.myschool.server.business.User user = userRepos.findByEmail(email);
         if (user == null) {
             throw new UsernameNotFoundException("Bad credentials");
         } else {
             List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
             authorities.add(new SimpleGrantedAuthority(user.getAuthority().name()));
-            return new User(user.getEmail(), user.getPassword(), authorities);
+            return new User(user.getEmail(), user.getPassword(), user.getStatus() == UserStatus.ACTIVE,
+                    true, true, true, authorities);
         }
     }
 }

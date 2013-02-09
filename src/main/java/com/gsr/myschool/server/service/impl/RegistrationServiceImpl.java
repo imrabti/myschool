@@ -22,7 +22,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     public Boolean register(User user, String link) {
         try {
             user.setAuthority(Authority.ROLE_USER);
-            user.setStatus(UserStatus.INACTIVE);;
+            user.setStatus(UserStatus.INACTIVE);
             user = userRepos.save(user);
             registerProcessService.register(user, link);
             return true;

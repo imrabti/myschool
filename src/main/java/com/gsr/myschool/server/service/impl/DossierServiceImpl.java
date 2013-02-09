@@ -75,8 +75,12 @@ public class DossierServiceImpl implements DossierService {
             spec = spec.and(DossierSpec.dossierStatusIs(filter.getStatus()));
         }
 
-        if (filter.getCreated() != null) {
-            spec = spec.and(DossierSpec.dossierCreatedEqual(filter.getCreated()));
+        if (filter.getDateTill() != null) {
+            spec = spec.and(DossierSpec.dossierCreatedLower(filter.getDateTill()));
+        }
+
+        if (filter.getDateFrom() != null) {
+            spec = spec.and(DossierSpec.dossierCreatedGreater(filter.getDateFrom()));
         }
 
         if (!Strings.isNullOrEmpty(filter.getFirstnameOrlastname())) {

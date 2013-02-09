@@ -102,6 +102,7 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers>
         TextColumn<DossierProxy> cBirthColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
+                if (object.getCandidat().getBirthDate() == null) return "";
                 return dateFormat.format(object.getCandidat().getBirthDate());
             }
         };
@@ -140,6 +141,7 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers>
         TextColumn<DossierProxy> createdColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
+                if (object.getCreateDate() == null) return "";
                 return dateFormat.format(object.getCreateDate());
             }
         };
