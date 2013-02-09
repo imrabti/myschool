@@ -92,4 +92,6 @@ public interface MessageBundle extends Messages {
     String addValueTypeSuccess();
 
     String deleteConfirmation();
+
+    String inscriptionDetailTitle(String dossierNum);
 }
