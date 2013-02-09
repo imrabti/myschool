@@ -28,7 +28,9 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     @UiField(provided = true)
     ValueListBox<DossierStatus> status;
     @UiField
-    DateBoxAppended created;
+    DateBoxAppended dateFrom;
+    @UiField
+    DateBoxAppended dateTill;
 
     private final Driver driver;
 

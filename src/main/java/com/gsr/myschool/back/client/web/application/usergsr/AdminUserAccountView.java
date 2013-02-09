@@ -36,6 +36,7 @@ import com.gsr.myschool.back.client.web.application.usergsr.renderer.AdminUserAc
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.AdminUserProxy;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 
 import java.util.List;
 
@@ -68,7 +69,7 @@ public class AdminUserAccountView extends ViewWithUiHandlers<AdminUserAccountUiH
 
         dataProvider = new ListDataProvider<AdminUserProxy>();
         dataProvider.addDataDisplay(userGsrTable);
-        dateFormat = DateTimeFormat.getFormat("LLL d yyyy");
+        dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
     }
 
     @Override
@@ -98,6 +99,16 @@ public class AdminUserAccountView extends ViewWithUiHandlers<AdminUserAccountUiH
     }
 
     private void initDataGrid() {
+        TextColumn<AdminUserProxy> loginColumn = new TextColumn<AdminUserProxy>() {
+            @Override
+            public String getValue(AdminUserProxy object) {
+                return object.getEmail();
+            }
+        };
+        loginColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+        userGsrTable.addColumn(loginColumn, "Email");
+        userGsrTable.setColumnWidth(loginColumn, 20, Style.Unit.PCT);
+
 		TextColumn<AdminUserProxy> fNameColumn = new TextColumn<AdminUserProxy>() {
 			@Override
 			public String getValue(AdminUserProxy object) {
@@ -121,6 +132,7 @@ public class AdminUserAccountView extends ViewWithUiHandlers<AdminUserAccountUiH
         TextColumn<AdminUserProxy> roleColumn = new TextColumn<AdminUserProxy>() {
             @Override
             public String getValue(AdminUserProxy object) {
+                if(object.getAuthority() == null) return "";
                 return object.getAuthority().toString();
             }
         };
@@ -131,6 +143,7 @@ public class AdminUserAccountView extends ViewWithUiHandlers<AdminUserAccountUiH
         TextColumn<AdminUserProxy> statusColumn = new TextColumn<AdminUserProxy>() {
             @Override
             public String getValue(AdminUserProxy object) {
+                if(object.getStatus() == null) return "";
                 return object.getStatus().toString();
             }
         };

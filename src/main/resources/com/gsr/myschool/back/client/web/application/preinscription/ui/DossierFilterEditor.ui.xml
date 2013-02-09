@@ -19,9 +19,16 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Date de création</boot:ControlLabel>
+                <boot:ControlLabel>Date du</boot:ControlLabel>
                 <boot:Controls>
-                    <b2:DateBoxAppended ui:field="created"/>
+                    <b2:DateBoxAppended ui:field="dateFrom"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Date au</boot:ControlLabel>
+                <boot:Controls>
+                    <b2:DateBoxAppended ui:field="dateTill"/>
                 </boot:Controls>
             </boot:ControlGroup>
         </boot:Form>
