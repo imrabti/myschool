@@ -58,7 +58,7 @@ public class InboxCell extends AbstractCell<InboxProxy> {
     public void render(Context context, InboxProxy value, SafeHtmlBuilder safeHtmlBuilder) {
         String msgStyle = value.getMsgStatus() == InboxMessageStatus.READ ?
                 resources.frontStyleCss().msgRead() : resources.frontStyleCss().msgUnread();
-        String content = value.getContent();
+        String content = value.getRawContent();
         if (content.length() > 100) {
             content = content.substring(0, 100) + "...";
         }
