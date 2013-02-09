@@ -18,16 +18,33 @@
             float: right;
             margin-right: -300px;
         }
+
+        .contentWrapper {
+            margin-top: 12px;
+        }
     </ui:style>
-    <g:HTMLPanel>
+
+    <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
         <div class="{style.container}">
             <div class="{style.right}">
                 <g:SimplePanel ui:field="valueTypeDisplay"/>
             </div>
             <div class="{style.left}">
-                <boot:PageHeader text="Liste de valeurs"/>
-                <boot:Button ui:field="addValueList">Ajouter une valeur</boot:Button>
-                <boot:CellTable ui:field="valueListTable"/>
+                <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
+                    <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
+                        <h2>
+                            <g:InlineLabel text="Liste de valeurs"/>
+                        </h2>
+                        <div>
+                            <boot:Button ui:field="addValueList" text="Ajouter une valeur" icon="PLUS"/>
+                        </div>
+                        <span style="display: block; clear: both;"/>
+                    </g:HTMLPanel>
+
+                    <div class="{style.contentWrapper}">
+                        <boot:CellTable ui:field="valueListTable" bordered="true"/>
+                    </div>
+                </g:HTMLPanel>
             </div>
         </div>
     </g:HTMLPanel>

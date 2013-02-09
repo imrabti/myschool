@@ -30,7 +30,7 @@ import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 public class HeaderPresenter extends PresenterWidget<HeaderPresenter.MyView>
 		implements HeaderUiHandlers {
     public interface MyView extends View, HasUiHandlers<HeaderUiHandlers> {
-        void displayUserInfo(String username);
+        void displayUserInfo(String firstname, String lastname);
     }
 
     private final PlaceManager placeManager;
@@ -58,12 +58,7 @@ public class HeaderPresenter extends PresenterWidget<HeaderPresenter.MyView>
     }
 
     @Override
-    public void setting() {
-        // TODO : here display admin valueList popup...
-    }
-
-    @Override
     protected void onReveal() {
-        getView().displayUserInfo(adminUserProvider.get().getUsername());
+        getView().displayUserInfo(adminUserProvider.get().getFirstName(), adminUserProvider.get().getLastName());
     }
 }
