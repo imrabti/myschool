@@ -21,6 +21,7 @@ public class NameTokens {
 
     public static final String login = "login";
     public static final String register = "register";
+    public static final String resetpassword = "resetpassword";
     public static final String inscription = "inscription";
     public static final String inscriptiondetail = "inscriptiondetail";
     public static final String editinscription = "editinscription";
@@ -33,6 +34,10 @@ public class NameTokens {
 
     public static String getRegister() {
         return register;
+    }
+
+    public static String getResetPassword() {
+        return resetpassword;
     }
 
     public static String getInscription() {

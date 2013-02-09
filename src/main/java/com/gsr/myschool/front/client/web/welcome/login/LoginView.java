@@ -107,6 +107,11 @@ public class LoginView extends ViewWithUiHandlers<LoginUiHandlers> implements Lo
         }
     }
 
+    @UiHandler("forgotPassword")
+    void onForgotPasswordClicked(ClickEvent event) {
+        getUiHandlers().forgotPassword();
+    }
+
     private void processLoginAction() {
         UserCredentials credentials = get();
 

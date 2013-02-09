@@ -74,14 +74,14 @@ public class BootstrapperImpl implements Bootstrapper {
         if (securityUtils.isLoggedIn()) {
             adminUserProvider.load(getCurrentUserCallback);
         } else {
-            bounceToLogin();
+            placeManager.revealCurrentPlace();
         }
     }
 
     private void onGetCurrentUser(AdminUserProxy currentUser) {
         if (currentUser == null) {
             logger.info("User is not authentified -- access denied...");
-            bounceToLogin();
+            placeManager.revealCurrentPlace();
         } else {
             bounceToHome();
         }
@@ -89,11 +89,6 @@ public class BootstrapperImpl implements Bootstrapper {
 
     private void bounceToHome() {
         PlaceRequest place = new PlaceRequest(NameTokens.getPreInscriptions());
-        placeManager.revealPlace(place);
-    }
-
-    private void bounceToLogin() {
-        PlaceRequest place = new PlaceRequest(NameTokens.getLogin());
         placeManager.revealPlace(place);
     }
 }
