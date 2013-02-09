@@ -143,6 +143,7 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
         TextColumn<UserProxy> statusColumn = new TextColumn<UserProxy>() {
             @Override
             public String getValue(UserProxy object) {
+                if(object.getStatus() == null) return "";
                 return object.getStatus().toString();
             }
         };
