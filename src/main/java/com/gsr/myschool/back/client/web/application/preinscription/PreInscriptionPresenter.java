@@ -22,7 +22,6 @@ import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.DossierServiceRequest;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
-import com.gsr.myschool.back.client.web.application.preinscription.popup.PreInscriptionDetailsPresenter;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
@@ -34,6 +33,8 @@ import com.gwtplatform.mvp.client.annotations.GatekeeperParams;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
+import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
 import java.util.List;
@@ -54,7 +55,7 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
     }
 
     private final BackRequestFactory requestFactory;
-    private final PreInscriptionDetailsPresenter detailsPresenter;
+    private final PlaceManager placeManager;
 
     private DossierServiceRequest currentContext;
     private DossierFilterDTOProxy currentDossierFilter;
@@ -62,19 +63,20 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
     @Inject
     public PreInscriptionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                                    final BackRequestFactory requestFactory,
-                                   final PreInscriptionDetailsPresenter detailsPresenter) {
+                                   final PlaceManager placeManager) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
-        this.detailsPresenter = detailsPresenter;
+        this.placeManager = placeManager;
 
         getView().setUiHandlers(this);
     }
 
     @Override
     public void viewDetails(DossierProxy dossier) {
-        detailsPresenter.editInscriptionData(dossier);
-        addToPopupSlot(detailsPresenter);
+        PlaceRequest placeRequest = new PlaceRequest(NameTokens.getInscriptiondetail());
+        placeRequest = placeRequest.with("id", dossier.getId().toString());
+        placeManager.revealPlace(placeRequest);
     }
 
     @Override
@@ -91,7 +93,7 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
         });
     }
 
-	@Override
+    @Override
     protected void onReveal() {
         currentContext = requestFactory.dossierService();
         currentDossierFilter = currentContext.create(DossierFilterDTOProxy.class);
