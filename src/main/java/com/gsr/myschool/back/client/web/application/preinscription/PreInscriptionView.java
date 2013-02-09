@@ -108,6 +108,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         TextColumn<DossierProxy> statusColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
+                if (object.getStatus() == null) return "";
                 return object.getStatus().toString();
             }
         };
@@ -118,6 +119,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         TextColumn<DossierProxy> anneeScolaireColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
+                if (object.getAnneeScolaire() == null) return "";
                 return object.getAnneeScolaire().getLabel();
             }
         };
@@ -128,6 +130,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         TextColumn<DossierProxy> createdColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
+                if (object.getCreateDate() == null) return "";
                 return dateFormat.format(object.getCreateDate());
             }
         };
@@ -153,5 +156,4 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         preInscriptionsTable.addColumn(actionsColumn, "Détails");
         preInscriptionsTable.setColumnWidth(actionsColumn, 10, Style.Unit.PCT);
     }
-
 }
