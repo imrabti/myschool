@@ -41,6 +41,7 @@ import com.gsr.myschool.common.client.proxy.UserFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 
 import java.util.List;
 
@@ -77,7 +78,7 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
 
         dataProvider = new ListDataProvider<UserProxy>();
         dataProvider.addDataDisplay(userPortalTable);
-        dateFormat = DateTimeFormat.getFormat("LLL d yyyy");
+        dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
 
         userPortalTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
     }
@@ -138,6 +139,16 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
         submittedColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         userPortalTable.addColumn(submittedColumn, "Date de création");
         userPortalTable.setColumnWidth(submittedColumn, 30, Style.Unit.PCT);
+
+        TextColumn<UserProxy> statusColumn = new TextColumn<UserProxy>() {
+            @Override
+            public String getValue(UserProxy object) {
+                return object.getStatus().toString();
+            }
+        };
+        statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        userPortalTable.addColumn(statusColumn, "Status");
+        userPortalTable.setColumnWidth(statusColumn, 30, Style.Unit.PCT);
 
         UserAccountActionCell actionsCell = actionCellFactory.create(editAccount);
         Column<UserProxy, UserProxy> actionsColumn = new
