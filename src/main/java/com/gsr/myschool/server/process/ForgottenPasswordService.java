@@ -16,8 +16,6 @@
 
 package com.gsr.myschool.server.process;
 
-import com.gsr.myschool.server.business.User;
-
 import java.util.Map;
 
 public interface ForgottenPasswordService {
@@ -45,7 +43,7 @@ public interface ForgottenPasswordService {
 
     /**
      * Checks if there is a task registered in activiti engine with the given token
-     * it returns a HashMap<TaskId, email> describing the task id and the user's email address
+     * it returns a HashMap<email, TaskId> describing the task id and the user's email address
      * wanting to change his password
      *
      * @param token

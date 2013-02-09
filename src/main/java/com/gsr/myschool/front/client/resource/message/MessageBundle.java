@@ -60,4 +60,14 @@ public interface MessageBundle extends Messages {
     String passwordUpdatedSuccess();
 
     String requiredInfoParentsError();
+
+    String forgotPasswordSuccess();
+
+    String forgotPasswordFailure();
+
+    String forgotPasswordWrongToken();
+
+    String resetPasswordFailure();
+
+    String resetPasswordSuccess();
 }

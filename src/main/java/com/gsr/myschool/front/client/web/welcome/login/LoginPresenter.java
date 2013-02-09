@@ -31,6 +31,7 @@ import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.front.client.web.RootPresenter;
+import com.gsr.myschool.front.client.web.welcome.popup.ForgotPasswordPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -58,12 +59,13 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
     private final BootstrapperImpl bootstrapper;
     private final PlaceManager placeManager;
     private final MessageBundle messageBundle;
+    private final ForgotPasswordPresenter forgotPasswordPresenter;
 
     @Inject
     public LoginPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                           final FrontRequestFactory requestFactory, final SecurityUtils securityUtils,
                           final BootstrapperImpl bootstrapper, final PlaceManager placeManager,
-                          final MessageBundle messageBundle) {
+                          final MessageBundle messageBundle, final ForgotPasswordPresenter forgotPasswordPresenter) {
         super(eventBus, view, proxy, RootPresenter.TYPE_SetMainContent);
 
         this.messageBundle = messageBundle;
@@ -71,6 +73,7 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
         this.securityUtils = securityUtils;
         this.bootstrapper = bootstrapper;
         this.placeManager = placeManager;
+        this.forgotPasswordPresenter = forgotPasswordPresenter;
 
         getView().setUiHandlers(this);
     }
@@ -116,6 +119,11 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
     @Override
     public void register() {
         placeManager.revealPlace(new PlaceRequest(NameTokens.getRegister()));
+    }
+
+    @Override
+    public void forgotPassword() {
+        addToPopupSlot(forgotPasswordPresenter);
     }
 
     @Override

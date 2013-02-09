@@ -117,4 +117,17 @@ body {
     border-top: none;
 }
 
+.linkButton {
+    color: #1b5799;
+    font-size: 13px;
+    border: none;
+    background: none;
+}
 
+.linkButton:hover {
+    color: #1b5799;
+    font-size: 13px;
+    border: none;
+    background: none;
+    text-decoration: underline;
+}

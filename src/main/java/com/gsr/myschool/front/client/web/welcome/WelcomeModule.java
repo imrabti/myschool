@@ -19,6 +19,12 @@ package com.gsr.myschool.front.client.web.welcome;
 import com.google.inject.TypeLiteral;
 import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.front.client.web.welcome.popup.ForgotPasswordPresenter;
+import com.gsr.myschool.front.client.web.welcome.popup.ForgotPasswordUiHandlers;
+import com.gsr.myschool.front.client.web.welcome.popup.ForgotPasswordView;
+import com.gsr.myschool.front.client.web.welcome.resetpassword.ResetPasswordPresenter;
+import com.gsr.myschool.front.client.web.welcome.resetpassword.ResetPasswordUiHandlers;
+import com.gsr.myschool.front.client.web.welcome.resetpassword.ResetPasswordView;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 import com.gsr.myschool.front.client.web.welcome.login.LoginPresenter;
 import com.gsr.myschool.front.client.web.welcome.login.LoginUiHandlers;
@@ -34,10 +40,19 @@ public class WelcomeModule extends AbstractPresenterModule {
                 .to(new TypeLiteral<SetterUiHandlersStrategy<LoginUiHandlers>>() {});
         bind(new TypeLiteral<UiHandlersStrategy<RegisterUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<RegisterUiHandlers>>() {});
+        bind(new TypeLiteral<UiHandlersStrategy<ForgotPasswordUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<ForgotPasswordUiHandlers>>() {});
+        bind(new TypeLiteral<UiHandlersStrategy<ResetPasswordUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<ResetPasswordUiHandlers>>() {});
 
         bindPresenter(LoginPresenter.class, LoginPresenter.MyView.class, LoginView.class,
                 LoginPresenter.MyProxy.class);
         bindPresenter(RegisterPresenter.class, RegisterPresenter.MyView.class, RegisterView.class,
                 RegisterPresenter.MyProxy.class);
+        bindPresenter(ResetPasswordPresenter.class, ResetPasswordPresenter.MyView.class, ResetPasswordView.class,
+                ResetPasswordPresenter.MyProxy.class);
+
+        bindSingletonPresenterWidget(ForgotPasswordPresenter.class, ForgotPasswordPresenter.MyView.class,
+                ForgotPasswordView.class);
     }
 }
