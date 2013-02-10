@@ -38,6 +38,9 @@ import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
+import com.gwtplatform.mvp.client.proxy.PlaceManagerImpl;
+import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
 import java.util.List;
@@ -58,6 +61,7 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
 
     private final BackRequestFactory requestFactory;
     private final SharedMessageBundle messageBundle;
+    private final PlaceManager placeManager;
 
     private DossierServiceRequest currentContext;
     private DossierFilterDTOProxy currentDossierFilter;
@@ -65,13 +69,22 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
     @Inject
     public ReceptionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                               final BackRequestFactory requestFactory,
+                              final PlaceManager placeManager,
                               final SharedMessageBundle messageBundle) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
         this.messageBundle = messageBundle;
+        this.placeManager = placeManager;
 
         getView().setUiHandlers(this);
+    }
+
+    @Override
+    public void viewDetails(DossierProxy dossier) {
+        PlaceRequest placeRequest = new PlaceRequest(NameTokens.getInscriptiondetail());
+        placeRequest = placeRequest.with("id", dossier.getId().toString());
+        placeManager.revealPlace(placeRequest);
     }
 
     @Override
