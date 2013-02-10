@@ -20,7 +20,6 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupView;
-import com.gsr.myschool.common.client.proxy.InboxProxy;
 import com.gsr.myschool.common.client.proxy.MatiereExamenProxy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.proxy.PieceJustifProxy;
@@ -29,7 +28,7 @@ import com.gwtplatform.mvp.client.PresenterWidget;
 
 import java.util.List;
 
-public class GlobalParamDetailsPresenter extends PresenterWidget<GlobalParamDetailsPresenter.MyView> {
+public class NiveauEtudeInfosPresenter extends PresenterWidget<NiveauEtudeInfosPresenter.MyView> {
     public interface MyView extends ValidatedPopupView{
         void setDataPieceJustf(List<PieceJustifProxy> response);
 
@@ -41,8 +40,8 @@ public class GlobalParamDetailsPresenter extends PresenterWidget<GlobalParamDeta
     private NiveauEtudeProxy currentNiveauEtude;
 
     @Inject
-    public GlobalParamDetailsPresenter(final EventBus eventBus, final MyView view,
-                                       final BackRequestFactory requestFactory) {
+    public NiveauEtudeInfosPresenter(final EventBus eventBus, final MyView view,
+                                     final BackRequestFactory requestFactory) {
         super(eventBus, view);
 
         this.requestFactory = requestFactory;

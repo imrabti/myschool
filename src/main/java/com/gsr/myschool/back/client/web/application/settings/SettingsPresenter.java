@@ -21,13 +21,9 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
-import com.gsr.myschool.back.client.web.application.settings.popup.GlobalParamDetailsPresenter;
-import com.gsr.myschool.common.client.proxy.FiliereProxy;
-import com.gsr.myschool.common.client.proxy.InboxProxy;
+import com.gsr.myschool.back.client.web.application.settings.popup.NiveauEtudeInfosPresenter;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
-import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
-import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -36,14 +32,12 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
-import java.util.List;
-
 public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, SettingsPresenter.MyProxy>
         implements SettingsUiHandlers {
     public interface MyView extends View, HasUiHandlers<SettingsUiHandlers> {
     }
 
-    private final GlobalParamDetailsPresenter globalParamDetailsPresenter;
+    private final NiveauEtudeInfosPresenter niveauEtudeInfosPresenter;
 
     @ProxyStandard
     @NameToken(NameTokens.generalSettings)
@@ -56,18 +50,18 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
     @Inject
     public SettingsPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                              final BackRequestFactory requestFactory,
-                             final GlobalParamDetailsPresenter globalParamDetailsPresenter) {
+                             final NiveauEtudeInfosPresenter niveauEtudeInfosPresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
-        this.globalParamDetailsPresenter = globalParamDetailsPresenter;
+        this.niveauEtudeInfosPresenter = niveauEtudeInfosPresenter;
 
         getView().setUiHandlers(this);
     }
 
     @Override
     public void showDetails(NiveauEtudeProxy value) {
-        globalParamDetailsPresenter.setCurrentNiveauEtude(value);
-        addToPopupSlot(globalParamDetailsPresenter);
+        niveauEtudeInfosPresenter.setCurrentNiveauEtude(value);
+        addToPopupSlot(niveauEtudeInfosPresenter);
     }
 }
