@@ -74,6 +74,7 @@ public class AdminUserAccountView extends ViewWithUiHandlers<AdminUserAccountUiH
 
     @Override
     public void setData(List<AdminUserProxy> data) {
+        userGsrTable.setPageSize(data.size());
         dataProvider.getList().clear();
         dataProvider.getList().addAll(data);
     }

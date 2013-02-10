@@ -76,6 +76,7 @@ public class InboxView extends ViewWithUiHandlers<InboxUiHandlers> implements In
 
     @Override
     public void setData(List<InboxProxy> response) {
+        inboxTable.setPageSize(response.size());
         dataProvider.getList().clear();
         dataProvider.getList().addAll(response);
     }

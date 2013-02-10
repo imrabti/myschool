@@ -80,6 +80,7 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers>
 
     @Override
     public void setData(List<ValueTypeProxy> data) {
+        valueTypeTable.setPageSize(data.size());
         dataProvider.getList().clear();
         dataProvider.getList().addAll(data);
     }

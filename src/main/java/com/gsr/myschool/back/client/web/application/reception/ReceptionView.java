@@ -64,6 +64,7 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers>
 
     @Override
     public void setData(List<DossierProxy> data) {
+        inscriptionsTable.setPageSize(data.size());
         dataProvider.getList().clear();
         dataProvider.getList().addAll(data);
     }

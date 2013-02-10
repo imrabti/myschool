@@ -81,6 +81,7 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
 
     @Override
     public void setData(List<DossierProxy> data) {
+        inscriptionsTable.setPageSize(data.size());
         dataProvider.getList().clear();
         dataProvider.getList().addAll(data);
     }
