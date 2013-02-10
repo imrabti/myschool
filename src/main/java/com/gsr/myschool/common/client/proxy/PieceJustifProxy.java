@@ -14,13 +14,19 @@
  * the License.
  */
 
-package com.gsr.myschool.server.repos;
+package com.gsr.myschool.common.client.proxy;
 
-import com.gsr.myschool.server.business.core.NiveauEtude;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.google.web.bindery.requestfactory.shared.ProxyFor;
+import com.google.web.bindery.requestfactory.shared.ValueProxy;
+import com.gsr.myschool.server.business.core.PieceJustif;
 
-import java.util.List;
+@ProxyFor(PieceJustif.class)
+public interface PieceJustifProxy extends ValueProxy {
+    Long getId();
 
-public interface NiveauEtudeRepos extends JpaRepository<NiveauEtude, Long> {
-    List<NiveauEtude> findByFiliereId(Long id);
+    void setId(Long newId);
+
+    String getNom();
+
+    void setNom(String newNom);
 }

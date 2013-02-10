@@ -14,13 +14,14 @@
  * the License.
  */
 
-package com.gsr.myschool.server.repos;
+package com.gsr.myschool.back.client.web.application.settings.renderer;
 
-import com.gsr.myschool.server.business.core.NiveauEtude;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.google.gwt.cell.client.ActionCell;
+import com.google.inject.assistedinject.Assisted;
+import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
+import com.gsr.myschool.common.client.util.ValueList;
 
-import java.util.List;
-
-public interface NiveauEtudeRepos extends JpaRepository<NiveauEtude, Long> {
-    List<NiveauEtude> findByFiliereId(Long id);
+public interface NiveauEtudeInfosTreeFactory {
+    NiveauEtudeInfosTree create(final ValueList valueList,
+                           @Assisted ActionCell.Delegate<NiveauEtudeProxy> showDetails);
 }
