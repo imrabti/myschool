@@ -6,7 +6,8 @@ public enum MenuItem {
     VALIDATION("VALIDATION"),
     USERS_GSR("USERS_GSR"),
     USERS_PORTAL("USERS_PORTAL"),
-    VALUE_LIST("VALUE_LIST");
+    VALUE_LIST("VALUE_LIST"),
+    GENERAL_SETTINGS("GENRAL SETTINGS");
 
     private String label;
 

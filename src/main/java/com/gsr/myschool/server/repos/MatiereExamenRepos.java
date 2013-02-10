@@ -16,11 +16,14 @@
 
 package com.gsr.myschool.server.repos;
 
-import com.gsr.myschool.server.business.core.NiveauEtude;
+import com.gsr.myschool.server.business.core.MatiereExamen;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface NiveauEtudeRepos extends JpaRepository<NiveauEtude, Long> {
-    List<NiveauEtude> findByFiliereId(Long id);
+public interface MatiereExamenRepos extends JpaRepository<MatiereExamen, Long> {
+    @Query("SELECT m From MatiereExamen m, MatiereExamDuNE e WHERE e.niveauEtude.id = :id AND e.matiereExamen.id = m.id")
+    List<MatiereExamen> findByNiveauEtude(@Param("id") Long niveauEtude);
 }

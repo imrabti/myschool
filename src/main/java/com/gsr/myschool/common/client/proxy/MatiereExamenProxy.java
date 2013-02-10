@@ -14,24 +14,27 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.request;
+package com.gsr.myschool.common.client.proxy;
 
-import com.google.web.bindery.requestfactory.shared.RequestFactory;
+import com.google.web.bindery.requestfactory.shared.ProxyFor;
+import com.google.web.bindery.requestfactory.shared.ValueProxy;
+import com.gsr.myschool.server.business.core.MatiereExamen;
 
-public interface BackRequestFactory extends RequestFactory {
-    AuthenticationRequest adminAuthenticationService();
+@ProxyFor(MatiereExamen.class)
+public interface MatiereExamenProxy extends ValueProxy {
+    public Long getId();
 
-    ValueTypeServiceRequest valueTypeServiceRequest();
+    public void setId(Long newId);
 
-    ValueListServiceRequest valueListServiceRequest();
+    public String getNom();
 
-    DossierServiceRequest dossierService();
+    public void setNom(String newNom);
 
-    UserServiceRequest userService();
+    public ValueListProxy getDe();
 
-    CachedListValueRequest cachedListValueService();
+    public void setDe(ValueListProxy de);
 
-    InscriptionRequest inscriptionService();
+    public ValueListProxy getA();
 
-    NiveauEtudeRequest niveauEtudeService();
+    public void setA(ValueListProxy a);
 }

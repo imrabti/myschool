@@ -26,6 +26,8 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
     NavLink userGsr;
     @UiField
     NavLink valueList;
+    @UiField
+    NavLink generalSettings;
 
     private MenuItem currentMenu;
 
@@ -110,6 +112,14 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         getUiHandlers().onMenuChanged(currentMenu);
     }
 
+    @UiHandler("generalSettings")
+    void onGeneralSettingsClicked(ClickEvent event) {
+        clearActive();
+        generalSettings.setActive(true);
+        currentMenu = MenuItem.GENERAL_SETTINGS;
+        getUiHandlers().onMenuChanged(currentMenu);
+    }
+
     private void clearActive() {
         preInscription.setActive(false);
         reception.setActive(false);
@@ -117,5 +127,6 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         valueList.setActive(false);
         userGsr.setActive(false);
         userPortal.setActive(false);
+        generalSettings.setActive(false);
     }
 }
