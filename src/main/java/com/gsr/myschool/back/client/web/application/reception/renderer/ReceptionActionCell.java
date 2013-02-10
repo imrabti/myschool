@@ -24,16 +24,19 @@ public class ReceptionActionCell extends AbstractCell<DossierProxy> {
     private final Renderer uiRenderer;
 
     private Delegate<DossierProxy> receive;
+    private Delegate<DossierProxy> viewDetails;
 
     private DossierProxy selectedObject;
 
     @Inject
     public ReceptionActionCell(final Renderer uiRenderer,
-            @Assisted("receive") Delegate<DossierProxy> receive) {
+            @Assisted("receive") Delegate<DossierProxy> receive,
+            @Assisted("viewDetails") Delegate<DossierProxy> viewDetails) {
         super(BrowserEvents.CLICK);
 
         this.uiRenderer = uiRenderer;
         this.receive = receive;
+        this.viewDetails = viewDetails;
     }
 
     @Override
@@ -49,7 +52,12 @@ public class ReceptionActionCell extends AbstractCell<DossierProxy> {
     }
 
     @UiHandler({"receive"})
-    void onPreviewClicked(ClickEvent event) {
+    void onReceiveClicked(ClickEvent event) {
         receive.execute(selectedObject);
+    }
+
+    @UiHandler({"viewDetails"})
+    void onPreviewClicked(ClickEvent event) {
+        viewDetails.execute(selectedObject);
     }
 }

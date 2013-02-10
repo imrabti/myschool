@@ -24,4 +24,6 @@ public interface ReceptionUiHandlers extends UiHandlers {
     void receive(DossierProxy dossier);
 
     void searchWithFilter(DossierFilterDTOProxy dossierFilter);
+
+    void viewDetails(DossierProxy dossier);
 }

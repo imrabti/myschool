@@ -14,9 +14,8 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.application.preinscription;
+package com.gsr.myschool.back.client.web.application.dossierdetails;
 
-import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.common.base.Objects;
@@ -37,7 +36,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
-import com.gsr.myschool.common.client.mvp.ViewImpl;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.*;

@@ -155,7 +155,14 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers>
                 getUiHandlers().receive(dossier);
             }
         };
-        ReceptionActionCell actionsCell = actionCellFactory.create(receiveAction);
+        Delegate<DossierProxy> previewAction = new Delegate<DossierProxy>() {
+            @Override
+            public void execute(DossierProxy dossier) {
+                getUiHandlers().viewDetails(dossier);
+            }
+        };
+
+        ReceptionActionCell actionsCell = actionCellFactory.create(receiveAction, previewAction);
         Column<DossierProxy, DossierProxy> actionsColumn = new
                 Column<DossierProxy, DossierProxy>(actionsCell) {
                     @Override

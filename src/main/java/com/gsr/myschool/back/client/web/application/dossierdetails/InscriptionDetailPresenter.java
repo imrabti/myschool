@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.application.preinscription;
+package com.gsr.myschool.back.client.web.application.dossierdetails;
 
 import com.google.gwt.user.client.History;
 import com.google.inject.Inject;
