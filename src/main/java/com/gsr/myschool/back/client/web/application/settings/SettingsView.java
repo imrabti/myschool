@@ -23,7 +23,7 @@ import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
-import com.gsr.myschool.back.client.web.application.settings.renderer.MyTreeViewModelFactory;
+import com.gsr.myschool.back.client.web.application.settings.renderer.NiveauEtudeInfosTreeFactory;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.FiliereProxy;
@@ -42,11 +42,11 @@ public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> impleme
     @Inject
     public SettingsView(final Binder uiBinder, final ValueList valueList,
             final UiHandlersStrategy<SettingsUiHandlers> uiHandlers,
-            final MyTreeViewModelFactory myTreeViewModelFactory) {
+            final NiveauEtudeInfosTreeFactory niveauEtudeInfosTreeFactory) {
         super(uiHandlers);
 
         this.dataProvider = new ListDataProvider<FiliereProxy>();
-        myTree = new CellTree(myTreeViewModelFactory.create(valueList, setupShowDetails()), null);
+        myTree = new CellTree(niveauEtudeInfosTreeFactory.create(valueList, setupShowDetails()), null);
 
         initWidget(uiBinder.createAndBindUi(this));
     }

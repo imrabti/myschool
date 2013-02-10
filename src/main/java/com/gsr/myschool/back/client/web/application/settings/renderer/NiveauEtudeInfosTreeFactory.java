@@ -21,7 +21,7 @@ import com.google.inject.assistedinject.Assisted;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.util.ValueList;
 
-public interface MyTreeViewModelFactory {
-    MyTreeViewModel create(final ValueList valueList,
+public interface NiveauEtudeInfosTreeFactory {
+    NiveauEtudeInfosTree create(final ValueList valueList,
                            @Assisted ActionCell.Delegate<NiveauEtudeProxy> showDetails);
 }

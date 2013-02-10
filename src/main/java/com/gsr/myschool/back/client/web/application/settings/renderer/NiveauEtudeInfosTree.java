@@ -32,14 +32,13 @@ import com.gsr.myschool.common.client.proxy.FiliereProxy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.util.ValueList;
 
-public class MyTreeViewModel implements TreeViewModel {
-
+public class NiveauEtudeInfosTree implements TreeViewModel {
     private final ValueList valueList;
     private Delegate<NiveauEtudeProxy> showDetails;
 
     @Inject
-    public MyTreeViewModel(final ValueList valueList, @Assisted Delegate<NiveauEtudeProxy> showDetails) {
-
+    public NiveauEtudeInfosTree(final ValueList valueList,
+                                @Assisted Delegate<NiveauEtudeProxy> showDetails) {
         this.valueList = valueList;
         this.showDetails = showDetails;
     }

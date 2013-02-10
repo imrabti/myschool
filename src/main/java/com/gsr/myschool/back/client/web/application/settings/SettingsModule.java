@@ -20,7 +20,7 @@ import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
 import com.google.inject.TypeLiteral;
 import com.gsr.myschool.back.client.web.application.settings.popup.GlobalParamDetailsPresenter;
 import com.gsr.myschool.back.client.web.application.settings.popup.GlobalParamDetailsView;
-import com.gsr.myschool.back.client.web.application.settings.renderer.MyTreeViewModelFactory;
+import com.gsr.myschool.back.client.web.application.settings.renderer.NiveauEtudeInfosTreeFactory;
 import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
@@ -37,6 +37,6 @@ public class SettingsModule extends AbstractPresenterModule {
         bindSingletonPresenterWidget(GlobalParamDetailsPresenter.class, GlobalParamDetailsPresenter.MyView.class,
                 GlobalParamDetailsView.class);
 
-        install(new GinFactoryModuleBuilder().build(MyTreeViewModelFactory.class));
+        install(new GinFactoryModuleBuilder().build(NiveauEtudeInfosTreeFactory.class));
     }
 }
