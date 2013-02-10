@@ -35,7 +35,7 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
     }
 
     @ProxyStandard
-    @NameToken(NameTokens.settings)
+    @NameToken(NameTokens.generalSettings)
     @UseGatekeeper(LoggedInGatekeeper.class)
     public interface MyProxy extends ProxyPlace<SettingsPresenter> {
     }
