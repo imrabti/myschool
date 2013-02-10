@@ -14,13 +14,17 @@
  * the License.
  */
 
-package com.gsr.myschool.server.repos;
+package com.gsr.myschool.back.client.web.application.settings.renderer;
 
-import com.gsr.myschool.server.business.core.NiveauEtude;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.google.gwt.cell.client.AbstractCell;
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import com.gsr.myschool.common.client.proxy.MatiereExamenProxy;
 
-import java.util.List;
-
-public interface NiveauEtudeRepos extends JpaRepository<NiveauEtude, Long> {
-    List<NiveauEtude> findByFiliereId(Long id);
+public class MatiereExamenRenderer extends AbstractCell<MatiereExamenProxy> {
+    @Override
+    public void render(Context context, MatiereExamenProxy value, SafeHtmlBuilder sb) {
+        if (value != null) {
+            sb.appendEscaped(value.getNom());
+        }
+    }
 }

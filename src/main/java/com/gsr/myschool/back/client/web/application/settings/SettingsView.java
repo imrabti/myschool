@@ -16,21 +16,47 @@
 
 package com.gsr.myschool.back.client.web.application.settings;
 
+import com.google.gwt.cell.client.ActionCell;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
+import com.gsr.myschool.back.client.web.application.settings.renderer.MyTreeViewModelFactory;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.common.client.proxy.FiliereProxy;
+import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
+import com.gsr.myschool.common.client.util.ValueList;
 
 public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> implements SettingsPresenter.MyView {
     public interface Binder extends UiBinder<Widget, SettingsView> {
     }
 
+    @UiField(provided = true)
+    CellTree myTree;
+
+    private final ListDataProvider<FiliereProxy> dataProvider;
+
     @Inject
-    public SettingsView(final Binder uiBinder,
-            final UiHandlersStrategy<SettingsUiHandlers> uiHandlers) {
+    public SettingsView(final Binder uiBinder, final ValueList valueList,
+            final UiHandlersStrategy<SettingsUiHandlers> uiHandlers,
+            final MyTreeViewModelFactory myTreeViewModelFactory) {
         super(uiHandlers);
 
+        this.dataProvider = new ListDataProvider<FiliereProxy>();
+        myTree = new CellTree(myTreeViewModelFactory.create(valueList, setupShowDetails()), null);
+
         initWidget(uiBinder.createAndBindUi(this));
+    }
+
+    private ActionCell.Delegate<NiveauEtudeProxy> setupShowDetails(){
+        return new ActionCell.Delegate<NiveauEtudeProxy>() {
+            @Override
+            public void execute(NiveauEtudeProxy object) {
+                getUiHandlers().showDetails(object);
+            }
+        };
     }
 }
