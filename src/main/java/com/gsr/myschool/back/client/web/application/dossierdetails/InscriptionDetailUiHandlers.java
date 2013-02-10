@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.application.preinscription;
+package com.gsr.myschool.back.client.web.application.dossierdetails;
 
 import com.gwtplatform.mvp.client.UiHandlers;
 

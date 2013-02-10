@@ -4,5 +4,9 @@
             <i class="icon-validate"/>
             <span class="">confirmer reception</span>
         </a>
+        <a href="javascript:;" class="btn" ui:field="viewDetails">
+            <i class="icon-plus"/>
+            <span class="">consulter</span>
+        </a>
     </div>
 </ui:UiBinder>

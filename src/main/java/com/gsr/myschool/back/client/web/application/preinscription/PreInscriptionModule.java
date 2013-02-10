@@ -18,9 +18,6 @@ package com.gsr.myschool.back.client.web.application.preinscription;
 
 import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
 import com.google.inject.TypeLiteral;
-import com.gsr.myschool.back.client.web.application.preinscription.popup.PreInscriptionDetailsPresenter;
-import com.gsr.myschool.back.client.web.application.preinscription.popup.PreInscriptionDetailsUiHandlers;
-import com.gsr.myschool.back.client.web.application.preinscription.popup.PreInscriptionDetailsView;
 import com.gsr.myschool.back.client.web.application.preinscription.renderer.PreInscriptionActionCellFactory;
 import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
@@ -31,18 +28,9 @@ public class PreInscriptionModule extends AbstractPresenterModule {
     protected void configure() {
         bind(new TypeLiteral<UiHandlersStrategy<PreInscriptionUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<PreInscriptionUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<PreInscriptionDetailsUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<PreInscriptionDetailsUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<InscriptionDetailUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<InscriptionDetailUiHandlers>>() {});
-
-        bindSingletonPresenterWidget(PreInscriptionDetailsPresenter.class, PreInscriptionDetailsPresenter.MyView.class,
-                PreInscriptionDetailsView.class);
 
         bindPresenter(PreInscriptionPresenter.class, PreInscriptionPresenter.MyView.class, PreInscriptionView.class,
                 PreInscriptionPresenter.MyProxy.class);
-        bindPresenter(InscriptionDetailPresenter.class, InscriptionDetailPresenter.MyView.class,
-                InscriptionDetailView.class, InscriptionDetailPresenter.MyProxy.class);
 
         install(new GinFactoryModuleBuilder().build(PreInscriptionActionCellFactory.class));
     }
