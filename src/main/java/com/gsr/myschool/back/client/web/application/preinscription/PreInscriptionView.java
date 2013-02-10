@@ -80,6 +80,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
 
     @Override
     public void setData(List<DossierProxy> data) {
+        preInscriptionsTable.setPageSize(data.size());
         dataProvider.getList().clear();
         dataProvider.getList().addAll(data);
     }

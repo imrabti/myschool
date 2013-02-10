@@ -85,6 +85,7 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
 
     @Override
     public void setData(List<UserProxy> data) {
+        userPortalTable.setPageSize(data.size());
         dataProvider.getList().clear();
         dataProvider.getList().addAll(data);
     }
