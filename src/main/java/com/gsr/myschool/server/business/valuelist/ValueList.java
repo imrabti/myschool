@@ -19,10 +19,10 @@ public class ValueList implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotBlank
-    @Length(max = 30)
+    @Length(max = 256)
     private String value;
     @NotBlank
-    @Length(max = 30)
+    @Length(max = 256)
     private String label;
     @ManyToOne
     private ValueList parent;

@@ -179,13 +179,13 @@ public class InscriptionServiceImpl implements InscriptionService {
         }
 
         if (candidat.getBacYear() != null) {
-            currentCandidat.setBacYear(valueListRepos.findOne(candidat.getBacSerie().getId()));
+            currentCandidat.setBacYear(valueListRepos.findOne(candidat.getBacYear().getId()));
         } else {
             currentCandidat.setBacYear(null);
         }
 
         if (candidat.getBacSerie() != null) {
-            currentCandidat.setBacSerie(valueListRepos.findOne(candidat.getBacYear().getId()));
+            currentCandidat.setBacSerie(valueListRepos.findOne(candidat.getBacSerie().getId()));
         } else {
             currentCandidat.setBacSerie(null);
         }
