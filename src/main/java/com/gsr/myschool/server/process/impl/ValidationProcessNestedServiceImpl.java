@@ -23,6 +23,7 @@ import com.gsr.myschool.server.process.ValidationProcessNestedService;
 import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -34,6 +35,8 @@ public class ValidationProcessNestedServiceImpl implements ValidationProcessNest
     private DossierRepos dossierRepos;
     @Autowired
     private EmailService emailService;
+    @Value("${mailserver.sender}")
+    private String sender;
 
     @Override
     public EmailDTO getReceivedDossierMail(Dossier dossier) throws Exception {
@@ -44,6 +47,6 @@ public class ValidationProcessNestedServiceImpl implements ValidationProcessNest
 
         return emailService.populateEmail(EmailType.DOSSIER_RECEIVED,
                 dossier.getOwner().getEmail(),
-                "todefine@myschool.com", params, "", "");
+                sender, params, "", "");
     }
 }

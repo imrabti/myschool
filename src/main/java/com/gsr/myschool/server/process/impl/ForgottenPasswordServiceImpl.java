@@ -27,6 +27,7 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -43,17 +44,24 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordService {
     private RuntimeService runtimeService;
     @Autowired
     private TaskService taskService;
+    @Value("${mailserver.sender}")
+    private String sender;
 
     @Override
     public void startProcessWithValidEmail(String email, String link) throws Exception {
         String token = Base64.encode(Long.toString((new Date()).getTime()));
+        token = token.replace("=", "E");
+
+        User user = userRepos.findByEmail(email);
 
         Map<String, String> params = new HashMap<String, String>();
+        params.put("firstname",user.getFirstName());
+        params.put("lastname",user.getLastName());
         params.put("email", email);
         params.put("link", link+ ";token=" +token);
 
         EmailDTO emailDTO = emailService.populateEmail(EmailType.FORGOTTEN_PASSWORD,
-                email, "todefine@myschool.com", params, "", "");
+                email, sender, params, "", "");
 
         Map<String, Object> processParams = new HashMap<String, Object>();
         processParams.put("token", token);

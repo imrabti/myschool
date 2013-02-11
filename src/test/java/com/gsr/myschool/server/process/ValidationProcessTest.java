@@ -38,6 +38,8 @@ public class ValidationProcessTest {
     private EmailTemplateRepos emailTemplateRepos;
     @Autowired
     private UserRepos userRepos;
+    @Autowired
+    private ValidationProcessNestedService validationProcessNestedService;
 
     @Before
     public void startProcess() throws Exception {
@@ -64,14 +66,7 @@ public class ValidationProcessTest {
 
     @Test
     public void checkService() throws InterruptedException {
-        validationProcessService.startProcess(dossier);
 
-        Map<Dossier, Task> x = validationProcessService.getAllNonReceivedDossiers();
-
-        for (Task task : x.values()) {
-            System.out.println(task.getId());
-            validationProcessService.receiveDossier(task);
-        }
         sleep(100000);
     }
 }
