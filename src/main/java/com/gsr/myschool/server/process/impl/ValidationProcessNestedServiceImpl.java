@@ -26,6 +26,7 @@ import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.repos.InboxMessageRepos;
 import com.gsr.myschool.server.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -38,6 +39,8 @@ public class ValidationProcessNestedServiceImpl implements ValidationProcessNest
     private EmailService emailService;
     @Autowired
     private InboxMessageRepos inboxMessageRepos;
+    @Value("${mailserver.sender}")
+    private String sender;
 
     @Override
     public EmailDTO getReceivedDossierMail(Dossier dossier) throws Exception {
@@ -47,7 +50,7 @@ public class ValidationProcessNestedServiceImpl implements ValidationProcessNest
         params.put("refdossier", dossier.getGeneratedNumDossier());
 
         EmailDTO email = emailService.populateEmail(EmailType.DOSSIER_RECEIVED,
-                dossier.getOwner().getEmail(), "todefine@myschool.com", params, "", "");
+                dossier.getOwner().getEmail(), sender, params, "", "");
 
         InboxMessage message = new InboxMessage();
         message.setParentUser(dossier.getOwner());
