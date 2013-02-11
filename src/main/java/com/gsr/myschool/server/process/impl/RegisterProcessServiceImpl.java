@@ -28,6 +28,7 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -44,6 +45,8 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
     private RuntimeService runtimeService;
     @Autowired
     private TaskService taskService;
+    @Value("${mailserver.sender}")
+    private String sender;
 
     @Override
     public void register(User user) throws Exception {
@@ -54,7 +57,7 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
         params.put("firstname", user.getFirstName());
         params.put("link", "mylink/?token=" + token);
 
-        EmailDTO email = emailService.populateEmail(EmailType.REGISTRATION, user.getEmail(), "todefine@myschool.com", params, "", "");
+        EmailDTO email = emailService.populateEmail(EmailType.REGISTRATION, user.getEmail(), sender, params, "", "");
 
         Map<String, Object> processParams = new HashMap<String, Object>();
         processParams.put("token", token);
@@ -75,7 +78,7 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
         params.put("firstname", user.getFirstName());
         params.put("link", link);
 
-        EmailDTO email = emailService.populateEmail(EmailType.REGISTRATION, user.getEmail(), "todefine@myschool.com", params, "", "");
+        EmailDTO email = emailService.populateEmail(EmailType.REGISTRATION, user.getEmail(), sender, params, "", "");
 
         Map<String, Object> processParams = new HashMap<String, Object>();
         processParams.put("token", token);
