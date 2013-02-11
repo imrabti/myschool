@@ -44,7 +44,7 @@
         <sequenceFlow id="flow17" sourceRef="inclusivegateway11" targetRef="affectationTask"/>
         <task id="manualTask" name="Envoi du dossier physique"/>
         <serviceTask id="DossierIncompletMail" name="Envoi du mail en attente de completion du dossier"
-                     activiti:type="mail">
+                     activiti:type="mail" activiti:async="true">
             <extensionElements>
                 <activiti:field name="from" expression="${email.from}"/>
                 <activiti:field name="to" expression="${email.to}"/>
@@ -74,7 +74,7 @@
         <serviceTask id="getEmailReceivedTask" name="Get Received Email"
                      activiti:expression="#{validationProcessNestedService.getReceivedDossierMail(dossier)}"
                      activiti:resultVariable="email"/>
-        <serviceTask id="DossierRecuEmail" name="Envoie Email Dossier reçus" activiti:type="mail">
+        <serviceTask id="DossierRecuEmail" name="Envoie Email Dossier reçus" activiti:type="mail" activiti:async="true">
             <extensionElements>
                 <activiti:field name="from" expression="${email.from}"/>
                 <activiti:field name="to" expression="${email.to}"/>

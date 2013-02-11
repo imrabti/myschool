@@ -71,7 +71,7 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
             }
         };
         numDossierColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        fraterieTable.addColumn(numDossierColumn, "#");
+        fraterieTable.addColumn(numDossierColumn, "N° dossier GSR");
         fraterieTable.setColumnWidth(numDossierColumn, 15, Style.Unit.PCT);
 
         TextColumn<FraterieProxy> nomPrenomColumn = new TextColumn<FraterieProxy>() {
