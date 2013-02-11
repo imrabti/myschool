@@ -38,8 +38,8 @@ import com.gsr.myschool.common.client.widget.ModalHeader;
 
 import java.util.List;
 
-public class GlobalParamDetailsView extends ValidatedPopupViewImpl implements GlobalParamDetailsPresenter.MyView {
-    public interface Binder extends UiBinder<PopupPanel, GlobalParamDetailsView> {
+public class NiveauEtudeInfosView extends ValidatedPopupViewImpl implements NiveauEtudeInfosPresenter.MyView {
+    public interface Binder extends UiBinder<PopupPanel, NiveauEtudeInfosView> {
     }
 
     private final ListDataProvider<PieceJustifProxy> dataProviderPieces;
@@ -54,10 +54,10 @@ public class GlobalParamDetailsView extends ValidatedPopupViewImpl implements Gl
     CellList<PieceJustifProxy> pieceJustifList;
 
     @Inject
-    protected GlobalParamDetailsView(EventBus eventBus, final Binder uiBinder,
-                                     final ValidationErrorPopup errorPopup,
-                                     final SharedMessageBundle sharedMessageBundle,
-                                     final ModalHeader modalHeader) {
+    protected NiveauEtudeInfosView(EventBus eventBus, final Binder uiBinder,
+                                   final ValidationErrorPopup errorPopup,
+                                   final SharedMessageBundle sharedMessageBundle,
+                                   final ModalHeader modalHeader) {
         super(eventBus, errorPopup);
 
         this.modalHeader = modalHeader;

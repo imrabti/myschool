@@ -18,8 +18,8 @@ package com.gsr.myschool.back.client.web.application.settings;
 
 import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
 import com.google.inject.TypeLiteral;
-import com.gsr.myschool.back.client.web.application.settings.popup.GlobalParamDetailsPresenter;
-import com.gsr.myschool.back.client.web.application.settings.popup.GlobalParamDetailsView;
+import com.gsr.myschool.back.client.web.application.settings.popup.NiveauEtudeInfosPresenter;
+import com.gsr.myschool.back.client.web.application.settings.popup.NiveauEtudeInfosView;
 import com.gsr.myschool.back.client.web.application.settings.renderer.NiveauEtudeInfosTreeFactory;
 import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
@@ -34,8 +34,8 @@ public class SettingsModule extends AbstractPresenterModule {
         bindPresenter(SettingsPresenter.class, SettingsPresenter.MyView.class, SettingsView.class,
                 SettingsPresenter.MyProxy.class);
 
-        bindSingletonPresenterWidget(GlobalParamDetailsPresenter.class, GlobalParamDetailsPresenter.MyView.class,
-                GlobalParamDetailsView.class);
+        bindSingletonPresenterWidget(NiveauEtudeInfosPresenter.class, NiveauEtudeInfosPresenter.MyView.class,
+                NiveauEtudeInfosView.class);
 
         install(new GinFactoryModuleBuilder().build(NiveauEtudeInfosTreeFactory.class));
     }

@@ -11,7 +11,7 @@
                 <boot:ControlLabel>Nom</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.candidatNom}">
-                        <boot:TextBox ui:field="firstname" width="250px"/>
+                        <boot:TextBox ui:field="lastname" width="250px"/>
                     </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
@@ -20,7 +20,7 @@
                 <boot:ControlLabel>Prénom</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.candidatPrenom}">
-                        <boot:TextBox ui:field="lastname" width="250px"/>
+                        <boot:TextBox ui:field="firstname" width="250px"/>
                     </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>

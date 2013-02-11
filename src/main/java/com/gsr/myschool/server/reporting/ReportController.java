@@ -4,9 +4,12 @@ import com.gsr.myschool.common.shared.dto.ReportDTO;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.Fraterie;
 import com.gsr.myschool.server.business.InfoParent;
+import com.gsr.myschool.server.business.core.PieceJustif;
+import com.gsr.myschool.server.business.core.PieceJustifDuNE;
 import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.repos.FraterieRepos;
 import com.gsr.myschool.server.repos.InfoParentRepos;
+import com.gsr.myschool.server.repos.PieceJustifDuNERepos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -33,6 +37,8 @@ public class ReportController {
     private DossierRepos dossierRepos;
     @Autowired
     private FraterieRepos fraterieRepos;
+    @Autowired
+    private PieceJustifDuNERepos pieceJustifDuNERepos;
     @Autowired
     private InfoParentRepos infoParentRepos;
 
@@ -57,22 +63,44 @@ public class ReportController {
 
     private ReportDTO buildReportDto(Dossier dossier) {
         ReportDTO printableDossier = new ReportDTO("");
-        if (dossier.getFiliere() != null && dossier.getFiliere().getId() == 30) {
+        if (dossier.getFiliere() != null && dossier.getFiliere().getId() >= 30) {
             printableDossier.setReportName("reportPrepa");
         } else {
             printableDossier.setReportName("reportGeneral");
         }
         printableDossier.getReportParameters().put("dossier", dossier.getReportsAttributes());
         printableDossier.getReportParameters().put("candidat", dossier.getCandidat().getReportsAttributes());
+        if (dossier.getCandidat().getNationality() != null) {
+            printableDossier.getReportParameters().put("nationalite", dossier.getCandidat().getNationality()
+                    .getReportsAttributes());
+        }
         if (dossier.getNiveauEtude() != null) {
             printableDossier.getReportParameters().put("niveauEtude", dossier.getNiveauEtude().getReportsAttributes());
         }
         if (dossier.getFiliere() != null) {
             printableDossier.getReportParameters().put("filiere", dossier.getFiliere().getReportsAttributes());
         }
+        if (dossier.getCandidat().getBacSerie() != null) {
+            printableDossier.getReportParameters().put("bacSerie", dossier.getCandidat().getBacSerie().
+            getReportsAttributes());
+        }
+        if (dossier.getCandidat().getBacYear() != null) {
+            printableDossier.getReportParameters().put("bacYear", dossier.getCandidat().getBacYear().
+            getReportsAttributes());
+        }
         loadInfoParents(dossier, printableDossier);
         loadFraterie(dossier, printableDossier);
+        loadPiecesJustif(dossier, printableDossier);
         return printableDossier;
+    }
+
+    private void loadPiecesJustif(Dossier dossier, ReportDTO printableDossier) {
+        List<PieceJustifDuNE> piecesList = pieceJustifDuNERepos.findByNiveauEtudeId(dossier.getNiveauEtude().getId());
+        List<PieceJustif> pieceJustifs = new ArrayList<PieceJustif>();
+        for (PieceJustifDuNE piece: piecesList) {
+            pieceJustifs.add(piece.getPieceJustif());
+        }
+        printableDossier.getReportParameters().put("pieces", pieceJustifs);
     }
 
     private void loadFraterie(Dossier dossier, ReportDTO printableDossier) {

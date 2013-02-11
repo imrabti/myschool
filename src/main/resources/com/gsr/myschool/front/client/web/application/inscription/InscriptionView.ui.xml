@@ -22,6 +22,8 @@
         </g:HTMLPanel>
 
         <div class="{style.tableWrapper}">
+            <g:HTML ui:field="errors" styleName="{clientResources.sharedStyleCss.errorBox}"/>
+
             <boot:CellTable ui:field="inscriptionsTable" bordered="true"/>
         </div>
     </g:HTMLPanel>

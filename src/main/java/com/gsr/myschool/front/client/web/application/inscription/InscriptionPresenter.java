@@ -47,6 +47,10 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
         implements InscriptionUiHandlers {
     public interface MyView extends View, HasUiHandlers<InscriptionUiHandlers> {
         void setData(List<DossierProxy> data);
+
+        void showErrors(List<String> errors);
+
+        void clearErrors();
     }
 
     @ProxyStandard
@@ -120,15 +124,19 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
     public void submitInscription(DossierProxy dossier) {
         if (Window.confirm(messageBundle.inscriptionSubmitConf())) {
             Long dossierId = dossier.getId();
-            requestFactory.inscriptionService().submitInscription(dossierId).fire(new ReceiverImpl<Void>() {
+            requestFactory.inscriptionService().submitInscription(dossierId).fire(new ReceiverImpl<List<String>>() {
                 @Override
-                public void onSuccess(Void response) {
-                    Message message = new Message.Builder(messageBundle.inscriptionSubmitSuccess())
-                            .style(AlertType.SUCCESS)
-                            .closeDelay(CloseDelay.DEFAULT)
-                            .build();
-                    MessageEvent.fire(this, message);
-                    loadAllInscriptions();
+                public void onSuccess(List<String> response) {
+                    if (response.isEmpty()) {
+                        Message message = new Message.Builder(messageBundle.inscriptionSubmitSuccess())
+                                .style(AlertType.SUCCESS)
+                                .closeDelay(CloseDelay.DEFAULT)
+                                .build();
+                        MessageEvent.fire(this, message);
+                        loadAllInscriptions();
+                    } else {
+                        getView().showErrors(response);
+                    }
                 }
             });
         }
@@ -142,6 +150,7 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
     @Override
     protected void onReveal() {
         loadAllInscriptions();
+        getView().clearErrors();
     }
 
     private void printDossier(DossierProxy dossier) {
