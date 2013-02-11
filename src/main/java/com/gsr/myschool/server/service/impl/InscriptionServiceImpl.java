@@ -290,7 +290,8 @@ public class InscriptionServiceImpl implements InscriptionService {
             if (niveauEtude.getId() == GlobalParameters.PETITE_SECTION) {
                 Integer validBirthYear = DateUtils.currentYear() - niveauEtude.getAnnee();
                 Integer birthYear = DateUtils.getYear(dossier.getCandidat().getBirthDate());
-                if (birthYear != validBirthYear) {
+
+                if (birthYear.compareTo(validBirthYear) != 0) {
                     errors.add(messageBean.getMessage("petiteSectionAge"));
                 }
             } else if (niveauEtude.getAnnee() == null) {

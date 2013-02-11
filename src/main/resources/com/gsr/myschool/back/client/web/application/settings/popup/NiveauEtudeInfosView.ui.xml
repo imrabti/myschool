@@ -7,7 +7,13 @@
 
     <ui:style>
         .contentWrapper {
-            padding: 20px 20px 10px 30px
+            padding: 20px 20px 10px 30px;
+            min-width: 600px;
+            min-height: 400px;
+        }
+
+        .listWrapper {
+            margin-top: 10px;
         }
     </ui:style>
 
@@ -22,16 +28,19 @@
                     </h2>
                     <span style="display: block; clear: both;"/>
                 </g:HTMLPanel>
-                <div class="{style.contentWrapper}">
+
+                <div class="{style.listWrapper}">
                     <cell:CellList ui:field="matiereExamenList"/>
                 </div>
+
                 <g:HTMLPanel styleName="{resource.sharedStyleCss.bigTitle}">
                     <h2>
                         <g:InlineLabel text="Pièces justificatives"/>
                     </h2>
                     <span style="display: block; clear: both;"/>
                 </g:HTMLPanel>
-                <div class="{style.contentWrapper}">
+
+                <div class="{style.listWrapper}">
                     <cell:CellList ui:field="pieceJustifList"/>
                 </div>
             </g:HTMLPanel>

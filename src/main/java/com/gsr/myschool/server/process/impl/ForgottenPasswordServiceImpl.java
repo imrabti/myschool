@@ -43,7 +43,7 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordService {
     @Override
     public void startProcessWithValidEmail(String email, String link) throws Exception {
         String token = Base64.encode(Long.toString((new Date()).getTime()));
-        token.replaceAll("=", "E");
+        token = token.replaceAll("=", "E");
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("email", email);

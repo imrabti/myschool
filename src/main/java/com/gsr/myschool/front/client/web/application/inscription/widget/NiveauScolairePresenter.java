@@ -78,9 +78,7 @@ public class NiveauScolairePresenter extends PresenterWidget<NiveauScolairePrese
                     getView().editDossier(currentDossier);
 
                     Message message = new Message.Builder(messageBundle.newInscriptionSuccess())
-                            .style(AlertType.SUCCESS)
-                            .closeDelay(CloseDelay.DEFAULT)
-                            .build();
+                            .style(AlertType.SUCCESS).closeDelay(CloseDelay.DEFAULT).build();
                     MessageEvent.fire(this, message);
                     placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
                 }
