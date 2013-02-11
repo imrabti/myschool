@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.Map;
 
 @Service
@@ -32,6 +33,7 @@ public class RegistrationServiceImpl implements RegistrationService {
             User userdb = userRepos.findByEmail(user.getEmail());
             if (userdb != null) return false;
 
+            user.setCreated(new Date());
             user.setAuthority(Authority.ROLE_USER);
             user.setStatus(UserStatus.INACTIVE);
             user = userRepos.save(user);
