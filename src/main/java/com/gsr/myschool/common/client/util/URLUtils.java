@@ -10,7 +10,7 @@ public class URLUtils {
         builder.append(GWT.getHostPageBaseURL());
         builder.append(hostPage);
 
-        if (GWT.isClient()) {
+        if (!GWT.isScript()) {
             builder.append(GWT_DEV_MOD);
         }
 
@@ -23,7 +23,7 @@ public class URLUtils {
         StringBuilder builder = new StringBuilder();
         builder.append(GWT.getHostPageBaseURL());
 
-        if (GWT.isClient()) {
+        if (!GWT.isScript()) {
             builder.append(GWT_DEV_MOD);
         }
 
