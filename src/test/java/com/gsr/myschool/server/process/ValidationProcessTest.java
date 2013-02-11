@@ -38,8 +38,6 @@ public class ValidationProcessTest {
     private EmailTemplateRepos emailTemplateRepos;
     @Autowired
     private UserRepos userRepos;
-    @Autowired
-    private ValidationProcessNestedService validationProcessNestedService;
 
     @Before
     public void startProcess() throws Exception {
