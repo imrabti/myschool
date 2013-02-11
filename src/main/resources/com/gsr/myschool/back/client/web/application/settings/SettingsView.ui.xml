@@ -4,12 +4,6 @@
 
     <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
-    <ui:style>
-        .contentWrapper {
-            margin-top: 12px;
-        }
-    </ui:style>
-
     <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
         <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
             <h2>
@@ -18,8 +12,6 @@
             <span style="display: block; clear: both;"/>
         </g:HTMLPanel>
 
-        <div class="{style.contentWrapper}">
-            <cell:CellTree ui:field="myTree"/>
-        </div>
+        <cell:CellTree ui:field="myTree"/>
     </g:HTMLPanel>
 </ui:UiBinder>

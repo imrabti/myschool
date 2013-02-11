@@ -28,7 +28,7 @@ public class Message {
         private Boolean defaultCloseButton = true;
 
         public Builder(String message) {
-            this.message = SafeHtmlUtils.fromString(message);
+            this.message = SafeHtmlUtils.fromTrustedString(message);
         }
 
         public Builder(SafeHtml message) {
