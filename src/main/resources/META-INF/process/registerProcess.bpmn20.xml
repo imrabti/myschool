@@ -7,7 +7,7 @@
         <startEvent id="start"/>
         <sequenceFlow sourceRef="start" targetRef="sendActivationMail"/>
 
-        <serviceTask id="sendActivationMail" name="sendmail task" activiti:type="mail">
+        <serviceTask id="sendActivationMail" name="sendmail task" activiti:type="mail" activiti:async="true">
             <extensionElements>
                 <activiti:field name="from" expression="${email.from}"/>
                 <activiti:field name="to" expression="${email.to}"/>
@@ -22,7 +22,7 @@
             </extensionElements>
         </serviceTask>
 
-        <sequenceFlow sourceRef="sendActivationMail" targetRef="activationTask"/>
+        <sequenceFlow sourceRef="sendActivationMail" targetRef="activationTask" />
 
         <userTask id="activationTask" activiti:assignee="${token}"/>
         <boundaryEvent id="timerDelete" attachedToRef="activationTask" cancelActivity="false">
@@ -44,7 +44,7 @@
 
         <sequenceFlow sourceRef="getActivationMail" targetRef="sendRegistrationMail"/>
 
-        <serviceTask id="sendRegistrationMail" name="send activation task" activiti:type="mail">
+        <serviceTask id="sendRegistrationMail" name="send activation task" activiti:type="mail" activiti:async="true">
             <extensionElements>
                 <activiti:field name="from" expression="${email.from}"/>
                 <activiti:field name="to" expression="${email.to}"/>
@@ -69,7 +69,7 @@
 
         <sequenceFlow sourceRef="getRelanceMail" targetRef="sendRelanceTask"/>
 
-        <serviceTask id="sendRelanceTask" name="send relance task" activiti:type="mail">
+        <serviceTask id="sendRelanceTask" name="send relance task" activiti:type="mail" activiti:async="true">
             <extensionElements>
                 <activiti:field name="from" expression="${email.from}"/>
                 <activiti:field name="to" expression="${email.to}"/>

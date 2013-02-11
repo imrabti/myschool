@@ -28,6 +28,10 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public Boolean register(User user, String link) {
         try {
+            // naive test
+            User userdb = userRepos.findByEmail(user.getEmail());
+            if (userdb != null) return false;
+
             user.setAuthority(Authority.ROLE_USER);
             user.setStatus(UserStatus.INACTIVE);
             user = userRepos.save(user);
