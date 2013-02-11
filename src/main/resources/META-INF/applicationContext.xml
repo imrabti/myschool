@@ -46,11 +46,15 @@
         </property>
     </bean>
 
+    <!-- Injection and Integration of ValidationFactory with Spring -->
+    <bean class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
     <!-- Loading message properties from class path -->
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basenames">
             <list>
                 <value>com.gsr.myschool.common.i18n.ValidationMessages</value>
+                <value>com.gsr.myschool.common.i18n.ErrorMessages</value>
             </list>
         </property>
     </bean>

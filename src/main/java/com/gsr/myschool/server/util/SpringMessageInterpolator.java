@@ -18,7 +18,7 @@ public class SpringMessageInterpolator implements MessageInterpolator {
 			}
         }
 
-		return builder.build() .resolveMessage(messageSource, Locale.FRANCE).getText();
+		return builder.build().resolveMessage(messageSource, Locale.FRANCE).getText();
 	}
 
 	public String interpolate(String messageTemplate, Context context, Locale locale) {

@@ -70,6 +70,11 @@ public class ParentView extends ValidatedViewImpl implements ParentPresenter.MyV
         }
     }
 
+    @Override
+    public ParentType selectedTabs() {
+        return tabs.getValue();
+    }
+
     public void editPere(InfoParentProxy pere) {
         pereEditor.edit(pere);
     }

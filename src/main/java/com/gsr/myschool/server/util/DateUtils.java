@@ -12,4 +12,11 @@ public class DateUtils {
 
         return calendar.get(Calendar.YEAR);
     }
+
+    public static Integer getYear(Date date) {
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setTime(date);
+
+        return calendar.get(Calendar.YEAR);
+    }
 }

@@ -2,10 +2,12 @@ package com.gsr.myschool.front.client.web.application.inscription;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.TabPanel;
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -75,8 +77,13 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
 
     @Override
     public void adjustTabNavHeight() {
-        $(".nav-tabs").height(0);
-        $(".nav-tabs").height(steps.getOffsetHeight() - 20);
+        Scheduler.get().scheduleDeferred(new Command() {
+            @Override
+            public void execute() {
+                $(".nav-tabs").height(0);
+                $(".nav-tabs").height(steps.getOffsetHeight() - 20);
+            }
+        });
     }
 
     @Override

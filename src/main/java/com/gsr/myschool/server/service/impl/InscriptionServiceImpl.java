@@ -1,6 +1,7 @@
 package com.gsr.myschool.server.service.impl;
 
 import com.google.common.base.Strings;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.dto.ScolariteAnterieurDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.ParentType;
@@ -12,6 +13,8 @@ import com.gsr.myschool.server.business.Fraterie;
 import com.gsr.myschool.server.business.InfoParent;
 import com.gsr.myschool.server.business.ScolariteAnterieur;
 import com.gsr.myschool.server.business.User;
+import com.gsr.myschool.server.business.core.NiveauEtude;
+import com.gsr.myschool.server.business.valuelist.ValueList;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.CandidatRepos;
 import com.gsr.myschool.server.repos.DossierRepos;
@@ -25,14 +28,20 @@ import com.gsr.myschool.server.repos.ValueListRepos;
 import com.gsr.myschool.server.security.SecurityContextProvider;
 import com.gsr.myschool.server.service.InscriptionService;
 import com.gsr.myschool.server.util.DateUtils;
+import com.gsr.myschool.server.util.I18nMessageBean;
 import com.gsr.myschool.server.util.UUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Validator;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -59,6 +68,10 @@ public class InscriptionServiceImpl implements InscriptionService {
     private NiveauEtudeRepos niveauEtudeRepos;
     @Autowired
     private ValidationProcessService validationProcessService;
+    @Autowired
+    private Validator validator;
+    @Autowired
+    private I18nMessageBean messageBean;
 
     @Override
     @Transactional(readOnly = true)
@@ -254,8 +267,79 @@ public class InscriptionServiceImpl implements InscriptionService {
 
     @Override
     @Transactional(readOnly = true)
-    public void submitInscription(Long dossierId) {
+    public List<String> submitInscription(Long dossierId) {
+        Set<String> validationErrors = new HashSet<String>();
+
+        validatedDossier(dossierId, validationErrors);
+        validateInfoParent(dossierId, validationErrors);
+
+        if (validationErrors.isEmpty()) {
+            Dossier dossier = dossierRepos.findOne(dossierId);
+            validationProcessService.startProcess(dossier);
+        }
+
+        return new ArrayList<String>(validationErrors);
+    }
+
+    private void validatedDossier(Long dossierId, Set<String> errors) {
         Dossier dossier = dossierRepos.findOne(dossierId);
-        validationProcessService.startProcess(dossier);
+        if (!validator.validate(dossier).isEmpty()) {
+            errors.add(messageBean.getMessage("missingDossierInfo"));
+        } else {
+            NiveauEtude niveauEtude = dossier.getNiveauEtude();
+            if (niveauEtude.getId() == GlobalParameters.PETITE_SECTION) {
+                Integer validBirthYear = DateUtils.currentYear() - niveauEtude.getAnnee();
+                Integer birthYear = DateUtils.getYear(dossier.getCandidat().getBirthDate());
+                if (birthYear != validBirthYear) {
+                    errors.add(messageBean.getMessage("petiteSectionAge"));
+                }
+            } else if (niveauEtude.getAnnee() == null) {
+                if (dossier.getCandidat().getBacSerie() == null
+                        || dossier.getCandidat().getBacYear() == null) {
+                    errors.add(messageBean.getMessage("bacRequired"));
+                    return;
+                }
+
+                ValueList bacSerie = dossier.getCandidat().getBacSerie();
+                if (niveauEtude.getId() == GlobalParameters.BAC_SGT_ECO
+                        && bacSerie.getId() != GlobalParameters.BAC_ECO) {
+                    errors.add(messageBean.getMessage("bacECORequired"));
+                    return;
+                }
+
+                if (niveauEtude.getId() == GlobalParameters.BAC_AUTRES
+                        && bacSerie.getId() == GlobalParameters.BAC_ECO) {
+                    errors.add(messageBean.getMessage("bacAutresRequired"));
+                    return;
+                }
+            }
+        }
+    }
+
+    private void validateInfoParent(Long dossierId, Set<String> errors) {
+        Map<ParentType, InfoParent> infoParentMap = new HashMap<ParentType, InfoParent>();
+        for (InfoParent infoParent : infoParentRepos.findByDossierId(dossierId)) {
+            infoParentMap.put(infoParent.getParentType(), infoParent);
+        }
+
+        InfoParent pere = infoParentMap.get(ParentType.PERE);
+        InfoParent mere = infoParentMap.get(ParentType.MERE);
+        InfoParent tuteur = infoParentMap.get(ParentType.TUTEUR);
+
+        if (!pere.isInfoParentEmpty() || !mere.isInfoParentEmpty() || !tuteur.isInfoParentEmpty()) {
+            if (!pere.isInfoParentEmpty() && !validator.validate(pere).isEmpty()) {
+                errors.add(messageBean.getMessage("missingParentInfo"));
+            }
+
+            if (!mere.isInfoParentEmpty() && !validator.validate(mere).isEmpty()) {
+                errors.add(messageBean.getMessage("missingParentInfo"));
+            }
+
+            if (!tuteur.isInfoParentEmpty() && !validator.validate(tuteur).isEmpty()) {
+                errors.add(messageBean.getMessage("missingParentInfo"));
+            }
+        } else {
+            errors.add(messageBean.getMessage("requiredParentInfo"));
+        }
     }
 }
