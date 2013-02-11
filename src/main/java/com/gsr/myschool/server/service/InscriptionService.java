@@ -40,5 +40,5 @@ public interface InscriptionService {
 
     void deleteFraterie(Long fraterieId);
 
-    void submitInscription(Long dossierId);
+    List<String> submitInscription(Long dossierId);
 }

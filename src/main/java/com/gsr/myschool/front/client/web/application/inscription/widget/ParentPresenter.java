@@ -22,13 +22,18 @@ import com.gsr.myschool.front.client.web.application.inscription.event.DisplaySt
 import com.gwtplatform.mvp.client.PresenterWidget;
 
 import javax.validation.ConstraintViolation;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
         implements ChangeStepEvent.ChangeStepHandler {
     public interface MyView extends ValidatedView {
         void showEditor(ParentType parentType);
+
+        ParentType selectedTabs();
 
         void editPere(InfoParentProxy infoParent);
 
@@ -55,8 +60,8 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
     private InscriptionRequest currentTuteurContext;
     private InfoParentProxy currentTuteur;
 
-    private Boolean pereValid;
-    private Boolean mereValid;
+    private List<ParentType> usedInfoParent;
+    private Map<ParentType, Boolean> recievedCorrectly;
 
     @Inject
     public ParentPresenter(final EventBus eventBus, final MyView view,
@@ -71,20 +76,37 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
     @Override
     public void onChangeStep(final ChangeStepEvent event) {
         if (event.getCurrentStep() == WizardStep.STEP_1) {
+            usedInfoParent = new ArrayList<ParentType>();
+            recievedCorrectly = new HashMap<ParentType, Boolean>();
+
             getView().flushPere();
             getView().flushMere();
             getView().flushTuteur();
 
-            if (!isInfoParentEmpty(currentTuteur)) {
-                processTuteur(event.getNextStep());
-            } else if (!isInfoParentEmpty(currentPere) && !isInfoParentEmpty(currentMere)) {
-                processPere(event.getNextStep());
-                processMere(event.getNextStep());
+            if (!isInfoParentEmpty(currentPere)
+                    || !isInfoParentEmpty(currentMere)
+                    || !isInfoParentEmpty(currentTuteur)) {
+                if (!isInfoParentEmpty(currentPere)) {
+                    usedInfoParent.add(ParentType.PERE);
+                    recievedCorrectly.put(ParentType.PERE, false);
+                    processPere(event.getNextStep());
+                }
+
+                if (!isInfoParentEmpty(currentMere)) {
+                    usedInfoParent.add(ParentType.MERE);
+                    recievedCorrectly.put(ParentType.MERE, false);
+                    processMere(event.getNextStep());
+                }
+
+                if (!isInfoParentEmpty(currentTuteur)) {
+                    usedInfoParent.add(ParentType.TUTEUR);
+                    recievedCorrectly.put(ParentType.TUTEUR, false);
+                    processTuteur(event.getNextStep());
+                }
+
             } else {
                 Message message = new Message.Builder(messageBundle.requiredInfoParentsError())
-                        .style(AlertType.ERROR)
-                        .closeDelay(CloseDelay.NEVER)
-                        .build();
+                        .style(AlertType.ERROR).closeDelay(CloseDelay.LONG).build();
                 MessageEvent.fire(this, message);
             }
         }
@@ -123,7 +145,6 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
     private void preparePere(InfoParentProxy pere) {
         currentPereContext = requestFactory.inscriptionService();
         currentPere = currentPereContext.edit(pere);
-        pereValid = !isInfoParentEmpty(currentPere);
 
         getView().editPere(currentPere);
     }
@@ -131,7 +152,6 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
     private void prepareMere(InfoParentProxy mere) {
         currentMereContext = requestFactory.inscriptionService();
         currentMere = currentMereContext.edit(mere);
-        mereValid = !isInfoParentEmpty(currentMere);
 
         getView().editMere(currentMere);
     }
@@ -147,22 +167,25 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
         currentPereContext.updateParent(currentPere).fire(new ValidatedReceiverImpl<InfoParentProxy>() {
             @Override
             public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                getView().showEditor(ParentType.PERE);
                 getView().clearErrors();
                 getView().showErrors(violations);
-                pereValid = false;
+                getView().showEditor(ParentType.PERE);
+                recievedCorrectly.put(ParentType.PERE, false);
             }
 
             @Override
             public void onSuccess(InfoParentProxy result) {
                 currentPereContext = requestFactory.inscriptionService();
                 currentPere = currentPereContext.edit(result);
-                pereValid = true;
+                recievedCorrectly.put(ParentType.PERE, true);
 
-                getView().clearErrors();
                 getView().editPere(currentPere);
 
-                if (pereValid && mereValid) {
+                if (getView().selectedTabs()  == ParentType.PERE) {
+                    getView().clearErrors();
+                }
+
+                if (canProceed()) {
                     DisplayStepEvent.fire(this, nextStep);
                 }
             }
@@ -173,22 +196,25 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
         currentMereContext.updateParent(currentMere).fire(new ValidatedReceiverImpl<InfoParentProxy>() {
             @Override
             public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                getView().showEditor(ParentType.MERE);
                 getView().clearErrors();
                 getView().showErrors(violations);
-                mereValid = false;
+                getView().showEditor(ParentType.MERE);
+                recievedCorrectly.put(ParentType.MERE, false);
             }
 
             @Override
             public void onSuccess(InfoParentProxy result) {
                 currentMereContext = requestFactory.inscriptionService();
                 currentMere = currentMereContext.edit(result);
-                mereValid = true;
+                recievedCorrectly.put(ParentType.MERE, true);
 
-                getView().clearErrors();
                 getView().editMere(currentMere);
 
-                if (pereValid && mereValid) {
+                if (getView().selectedTabs()  == ParentType.MERE) {
+                    getView().clearErrors();
+                }
+
+                if (canProceed()) {
                     DisplayStepEvent.fire(this, nextStep);
                 }
             }
@@ -199,20 +225,27 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
         currentTuteurContext.updateParent(currentTuteur).fire(new ValidatedReceiverImpl<InfoParentProxy>() {
             @Override
             public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                getView().showEditor(ParentType.TUTEUR);
                 getView().clearErrors();
                 getView().showErrors(violations);
+                getView().showEditor(ParentType.TUTEUR);
+                recievedCorrectly.put(ParentType.TUTEUR, false);
             }
 
             @Override
             public void onSuccess(InfoParentProxy result) {
                 currentTuteurContext = requestFactory.inscriptionService();
                 currentTuteur = currentTuteurContext.edit(result);
+                recievedCorrectly.put(ParentType.TUTEUR, true);
 
-                getView().clearErrors();
                 getView().editTuteur(currentTuteur);
 
-                DisplayStepEvent.fire(this, nextStep);
+                if (getView().selectedTabs()  == ParentType.TUTEUR) {
+                    getView().clearErrors();
+                }
+
+                if (canProceed()) {
+                    DisplayStepEvent.fire(this, nextStep);
+                }
             }
         });
     }
@@ -222,5 +255,14 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
                 && Strings.isNullOrEmpty(infoParent.getPrenom())
                 && Strings.isNullOrEmpty(infoParent.getTelDom())
                 && Strings.isNullOrEmpty(infoParent.getEmail());
+    }
+
+    private Boolean canProceed() {
+        for (ParentType parentType : usedInfoParent) {
+            if (!recievedCorrectly.get(parentType)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
