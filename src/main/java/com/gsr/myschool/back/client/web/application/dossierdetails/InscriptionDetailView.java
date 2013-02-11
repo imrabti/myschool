@@ -230,7 +230,7 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
             }
         };
         numDossierColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        fraterieTable.addColumn(numDossierColumn, "#");
+        fraterieTable.addColumn(numDossierColumn, "N° dossier GSR");
         fraterieTable.setColumnWidth(numDossierColumn, 25, Style.Unit.PCT);
 
         TextColumn<FraterieProxy> nomPrenomColumn = new TextColumn<FraterieProxy>() {
