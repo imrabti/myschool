@@ -30,7 +30,7 @@ public class SecureRequestTransport extends DefaultRequestTransport {
 
     public SecureRequestTransport(final SecurityUtils securityUtils, String requestUrl) {
         this.securityUtils = securityUtils;
-        setRequestUrl(requestUrl);
+        this.setRequestUrl(requestUrl);
     }
 
     @Override

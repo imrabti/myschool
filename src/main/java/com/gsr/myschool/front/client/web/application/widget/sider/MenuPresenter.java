@@ -1,8 +1,10 @@
 package com.gsr.myschool.front.client.web.application.widget.sider;
 
+import com.google.gwt.user.client.Timer;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.security.CurrentUserProvider;
@@ -25,6 +27,13 @@ public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> impleme
     private final FrontRequestFactory requestFactory;
     private final CurrentUserProvider currentUserProvider;
 
+    private Timer refreshTimer = new Timer() {
+        @Override
+        public void run() {
+            getMessagesCount();
+        }
+    };
+
     @Inject
     public MenuPresenter(EventBus eventBus, MyView view, final PlaceManager placeManager,
                          final FrontRequestFactory requestFactory,
@@ -34,6 +43,8 @@ public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> impleme
         this.placeManager = placeManager;
         this.requestFactory = requestFactory;
         this.currentUserProvider = currentUserProvider;
+
+        initTimer();
 
         getView().setUiHandlers(this);
     }
@@ -59,7 +70,7 @@ public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> impleme
     }
 
     @Override
-    protected void onBind(){
+    protected void onBind() {
         super.onBind();
 
         addRegisteredHandler(InboxStatusChangedEvent.TYPE, this);
@@ -68,7 +79,7 @@ public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> impleme
 
     @Override
     protected void onReveal() {
-        PlaceRequest currentPlace =  placeManager.getCurrentPlaceRequest();
+        PlaceRequest currentPlace = placeManager.getCurrentPlaceRequest();
         MenuItem currentMenu = MenuItem.INSCRIPTION;
 
         if (currentPlace.matchesNameToken(NameTokens.getInscription())) {
@@ -84,13 +95,17 @@ public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> impleme
         getMessagesCount();
     }
 
-    private void getMessagesCount(){
+    private void getMessagesCount() {
         requestFactory.inboxService().countAllUnreadInboxMessages(currentUserProvider.get().getId())
                 .fire(new ReceiverImpl<Integer>() {
-            @Override
-            public void onSuccess(Integer integer) {
-                getView().updateMessageCount(integer);
-            }
-        });
+                    @Override
+                    public void onSuccess(Integer integer) {
+                        getView().updateMessageCount(integer);
+                    }
+                });
+    }
+
+    private void initTimer() {
+        refreshTimer.scheduleRepeating(GlobalParameters.REFRESH_PERIODE);
     }
 }

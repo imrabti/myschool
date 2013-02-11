@@ -23,4 +23,6 @@ public interface LoginUiHandlers extends UiHandlers {
     void login(UserCredentials credentials);
 
     void register();
+
+    void forgotPassword();
 }

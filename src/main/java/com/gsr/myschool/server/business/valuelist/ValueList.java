@@ -1,10 +1,17 @@
 package com.gsr.myschool.server.business.valuelist;
 
+import com.gsr.myschool.server.util.BeanMapper;
 import com.gsr.myschool.server.validator.NotBlank;
+import org.apache.commons.beanutils.BeanMap;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.io.Serializable;
+import java.util.Map;
 
 @Entity
 public class ValueList implements Serializable {
@@ -12,10 +19,10 @@ public class ValueList implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotBlank
-    @Length(max = 30)
+    @Length(max = 256)
     private String value;
     @NotBlank
-    @Length(max = 30)
+    @Length(max = 256)
     private String label;
     @ManyToOne
     private ValueList parent;
@@ -62,10 +69,7 @@ public class ValueList implements Serializable {
         this.valueType = valueType;
     }
 
-    public String getReportsAttributes() {
-        return "ValueList{" +
-                "value='" + value + '\'' +
-                ", label='" + label + '\'' +
-                '}';
-    }
+	public Map getReportsAttributes() {
+        return BeanMapper.beanToMap(this);
+	}
 }

@@ -4,9 +4,12 @@ import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.core.Filiere;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.valuelist.ValueList;
+import com.gsr.myschool.server.util.BeanMapper;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Map;
 
 @Entity
 public class Dossier implements java.io.Serializable {
@@ -15,15 +18,17 @@ public class Dossier implements java.io.Serializable {
     private Long id;
     @ManyToOne
     private Candidat candidat;
-    @ManyToOne
-    private InfoParent infoParent;
+    @NotNull
     @ManyToOne
     private Filiere filiere;
+    @NotNull
     @ManyToOne
     private NiveauEtude niveauEtude;
     @ManyToOne
     private User owner;
+    @Temporal(TemporalType.DATE)
     private Date createDate;
+    @Temporal(TemporalType.DATE)
     private Date submitDate;
     @Enumerated
     private DossierStatus status;
@@ -48,14 +53,6 @@ public class Dossier implements java.io.Serializable {
 
     public void setCandidat(Candidat candidat) {
         this.candidat = candidat;
-    }
-
-    public InfoParent getInfoParent() {
-        return infoParent;
-    }
-
-    public void setInfoParent(InfoParent infoParent) {
-        this.infoParent = infoParent;
     }
 
     public Filiere getFiliere() {
@@ -146,11 +143,7 @@ public class Dossier implements java.io.Serializable {
         this.anneeScolaire = anneeScolaire;
     }
 
-    public String getReportsAttributes() {
-        return "Dossier{" +
-                "generatedPDFPath='" + generatedPDFPath + '\'' +
-                ", generatedNumDossier='" + generatedNumDossier + '\'' +
-                ", note='" + note + '\'' +
-                '}';
+    public Map getReportsAttributes() {
+        return BeanMapper.beanToMap(this);
     }
 }

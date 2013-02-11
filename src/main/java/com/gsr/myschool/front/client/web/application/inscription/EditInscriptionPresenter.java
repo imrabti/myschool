@@ -2,6 +2,7 @@ package com.gsr.myschool.front.client.web.application.inscription;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
@@ -82,7 +83,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
             @Override
             public void onSuccess(DossierProxy result) {
                 currentDossier = result;
-                parentPresenter.editData(currentDossier.getInfoParent());
+                parentPresenter.editData(currentDossier);
                 candidatPresenter.editData(currentDossier.getCandidat());
                 frateriePresenter.editData(currentDossier);
                 scolariteAnterieurPresenter.editData(currentDossier);
@@ -92,8 +93,19 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
     }
 
     @Override
-    public void onDisplayStep(DisplayStepEvent event) {
-        getView().goToStep(event.getStep());
+    public void onDisplayStep(final DisplayStepEvent event) {
+        if (event.getStep() == WizardStep.STEP_5) {
+            Long dossierId = currentDossier.getId();
+            requestFactory.inscriptionService().findDossierById(dossierId).fire(new ReceiverImpl<DossierProxy>() {
+                @Override
+                public void onSuccess(DossierProxy result) {
+                    niveauScolairePresenter.editData(result);
+                    getView().goToStep(event.getStep());
+                }
+            });
+        } else {
+            getView().goToStep(event.getStep());
+        }
     }
 
     @Override

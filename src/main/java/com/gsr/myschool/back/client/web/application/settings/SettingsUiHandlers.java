@@ -16,7 +16,9 @@
 
 package com.gsr.myschool.back.client.web.application.settings;
 
+import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface SettingsUiHandlers extends UiHandlers {
+    void showDetails(NiveauEtudeProxy object);
 }

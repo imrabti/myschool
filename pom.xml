@@ -40,6 +40,7 @@
         <xalan.version>2.7.1</xalan.version>
         <json.version>20090211</json.version>
         <activiti.version>5.11</activiti.version>
+        <jsoup.version>1.7.2</jsoup.version>
         
         <!-- testing -->
         <junit.version>4.11</junit.version>
@@ -394,9 +395,9 @@
             <version>${servlet-api.version}</version>
         </dependency>
         <dependency>
-            <groupId>jasperreports</groupId>
+            <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>3.5.3</version>
+            <version>4.0.2</version>
             <exclusions>
                 <exclusion>
                     <artifactId>jdtcore</artifactId>
@@ -440,6 +441,12 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava-gwt</artifactId>
             <version>${guava.version}</version>
+        </dependency>
+        <dependency>
+            <!-- jsoup HTML parser library @ http://jsoup.org/ -->
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsoup.version}</version>
         </dependency>
 
         <!-- Test dependencies -->

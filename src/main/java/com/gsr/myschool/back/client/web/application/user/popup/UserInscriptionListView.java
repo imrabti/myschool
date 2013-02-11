@@ -21,6 +21,7 @@ import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
 import com.gsr.myschool.common.client.widget.ModalHeader;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 
 import java.util.List;
 
@@ -39,9 +40,9 @@ public class UserInscriptionListView extends ValidatedPopupViewImplWithUiHandler
 
     @Inject
     public UserInscriptionListView(final EventBus eventBus, final Binder uiBinder,
-            final UiHandlersStrategy<UserInscriptionListUiHandlers> uiHandlers,
-            final SharedMessageBundle sharedMessageBundle,
-            final ValidationErrorPopup errorPopup, final ModalHeader modalHeader) {
+                                   final UiHandlersStrategy<UserInscriptionListUiHandlers> uiHandlers,
+                                   final SharedMessageBundle sharedMessageBundle,
+                                   final ValidationErrorPopup errorPopup, final ModalHeader modalHeader) {
         super(eventBus, errorPopup, uiHandlers);
 
         this.modalHeader = modalHeader;
@@ -50,7 +51,7 @@ public class UserInscriptionListView extends ValidatedPopupViewImplWithUiHandler
         initDataGrid();
         dataProvider = new ListDataProvider<DossierProxy>();
         dataProvider.addDataDisplay(userInscriptionsTable);
-        dateFormat = DateTimeFormat.getFormat("LLL d yyyy");
+        dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
 
         userInscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
 

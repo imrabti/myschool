@@ -2,86 +2,111 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:b2='urn:import:com.github.gwtbootstrap.datepicker.client.ui'
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+
+    <ui:with field="helpMessage" type="com.gsr.myschool.common.client.resource.message.HelpMessageBundle"/>
+
     <g:HTMLPanel>
         <boot:Form type="HORIZONTAL">
             <boot:ControlGroup>
                 <boot:ControlLabel>Nom</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:TextBox ui:field="firstname" width="250px"/>
+                    <boot:Tooltip text="{helpMessage.candidatNom}">
+                        <boot:TextBox ui:field="lastname" width="250px"/>
+                    </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
                 <boot:ControlLabel>Prénom</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:TextBox ui:field="lastname" width="250px"/>
+                    <boot:Tooltip text="{helpMessage.candidatPrenom}">
+                        <boot:TextBox ui:field="firstname" width="250px"/>
+                    </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
                 <boot:ControlLabel>Date de naissance</boot:ControlLabel>
                 <boot:Controls>
-                    <b2:DateBoxAppended ui:field="birthDate"/>
+                    <boot:Tooltip text="{helpMessage.candidatDateNaissance}">
+                        <b2:DateBoxAppended ui:field="birthDate"/>
+                    </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
                 <boot:ControlLabel>Lieu de naissance</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:TextBox ui:field="birthLocation" width="250px"/>
+                    <boot:Tooltip text="{helpMessage.candidatLieuNaissance}">
+                        <boot:TextBox ui:field="birthLocation" width="250px"/>
+                    </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
                 <boot:ControlLabel>Adresse email</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:InputAddOn prependText="@">
-                        <boot:TextBox ui:field="email" width="230px"/>
-                    </boot:InputAddOn>
+                    <boot:Tooltip text="{helpMessage.candidatAdresseEmail}">
+                        <boot:InputAddOn prependText="@">
+                            <boot:TextBox ui:field="email" width="230px"/>
+                        </boot:InputAddOn>
+                    </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
                 <boot:ControlLabel>Téléphone</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:InputAddOn prependIcon="PHONE">
-                        <boot:TextBox ui:field="phone" width="230px"/>
-                    </boot:InputAddOn>
+                    <boot:Tooltip text="{helpMessage.candidatTelephone}">
+                        <boot:InputAddOn prependIcon="PHONE">
+                            <boot:TextBox ui:field="phone" width="230px"/>
+                        </boot:InputAddOn>
+                    </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
                 <boot:ControlLabel>CIN</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:TextBox ui:field="cin" width="250px"/>
+                    <boot:Tooltip text="{helpMessage.candidatCin}">
+                        <boot:TextBox ui:field="cin" width="250px"/>
+                    </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
                 <boot:ControlLabel>CNE</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:TextBox ui:field="cne" width="250px"/>
+                    <boot:Tooltip text="{helpMessage.candidatCne}">
+                        <boot:TextBox ui:field="cne" width="250px"/>
+                    </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
                 <boot:ControlLabel>Nationnalité</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:ValueListBox ui:field="nationality" width="250px"/>
+                    <boot:Tooltip text="{helpMessage.candidatNationnalite}">
+                        <boot:ValueListBox ui:field="nationality" width="250px"/>
+                    </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
                 <boot:ControlLabel>Série du baccalauréat</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:ValueListBox ui:field="bacSerie" width="250px"/>
+                    <boot:Tooltip text="{helpMessage.candidatBacSerie}">
+                        <boot:ValueListBox ui:field="bacSerie" width="250px"/>
+                    </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
                 <boot:ControlLabel>Année du baccalauréat</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:ValueListBox ui:field="bacYear" width="250px"/>
+                    <boot:Tooltip text="{helpMessage.candidatBacAnnee}">
+                        <boot:ValueListBox ui:field="bacYear" width="250px"/>
+                    </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
         </boot:Form>

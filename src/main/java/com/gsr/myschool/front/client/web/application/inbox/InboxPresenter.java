@@ -20,7 +20,6 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.proxy.InboxProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
-import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
 import com.gsr.myschool.common.shared.type.InboxMessageStatus;
 import com.gsr.myschool.front.client.place.NameTokens;
@@ -37,9 +36,7 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
-import javax.validation.ConstraintViolation;
 import java.util.List;
-import java.util.Set;
 
 public class InboxPresenter extends Presenter<InboxPresenter.MyView, InboxPresenter.MyProxy>
         implements InboxUiHandlers, InboxStatusChangedEvent.InboxStatusChangedHandler {
@@ -112,24 +109,24 @@ public class InboxPresenter extends Presenter<InboxPresenter.MyView, InboxPresen
     }
 
     @Override
-    protected void onBind(){
+    protected void onBind() {
         super.onBind();
 
         addRegisteredHandler(InboxStatusChangedEvent.TYPE, this);
     }
 
     @Override
-    protected void onReveal(){
+    protected void onReveal() {
         fillCellList();
     }
 
-    private void fillCellList(){
+    private void fillCellList() {
         requestFactory.inboxService().findAllInboxMessage(currentUserProvider.get().getId())
                 .fire(new ReceiverImpl<List<InboxProxy>>() {
-            @Override
-            public void onSuccess(List<InboxProxy> inboxProxies) {
-                getView().setData(inboxProxies);
-            }
-        });
+                    @Override
+                    public void onSuccess(List<InboxProxy> inboxProxies) {
+                        getView().setData(inboxProxies);
+                    }
+                });
     }
 }

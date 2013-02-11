@@ -1,0 +1,20 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <ui:style>
+        .rowDataWrapper {
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .header {
+            font-weight: bold;
+            display: inline-block;
+            font-size: 15px;
+            color: #9a9a9a;
+        }
+    </ui:style>
+
+    <g:HTMLPanel styleName="{style.rowDataWrapper}">
+        <g:Label ui:field="label" styleName="{style.header}"/>
+    </g:HTMLPanel>
+</ui:UiBinder>

@@ -1,15 +1,17 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:cell='urn:import:com.google.gwt.user.cellview.client'>
 
     <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
-    <g:LayoutPanel>
-        <g:layer top="0px" height="55px" right="20px" left="0px">
-            <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
-                <h2>
-                    <g:InlineLabel text="Paramètres Généraux"/>
-                </h2>
-            </g:HTMLPanel>
-        </g:layer>
-    </g:LayoutPanel>
+    <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
+        <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
+            <h2>
+                <g:InlineLabel text="Paramètres Généraux"/>
+            </h2>
+            <span style="display: block; clear: both;"/>
+        </g:HTMLPanel>
+
+        <cell:CellTree ui:field="myTree"/>
+    </g:HTMLPanel>
 </ui:UiBinder>

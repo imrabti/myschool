@@ -19,7 +19,10 @@ package com.gsr.myschool.back.client.web.application.settings;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
+import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
+import com.gsr.myschool.back.client.web.application.settings.popup.NiveauEtudeInfosPresenter;
+import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -34,16 +37,31 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
     public interface MyView extends View, HasUiHandlers<SettingsUiHandlers> {
     }
 
+    private final NiveauEtudeInfosPresenter niveauEtudeInfosPresenter;
+
     @ProxyStandard
-    @NameToken(NameTokens.settings)
+    @NameToken(NameTokens.generalSettings)
     @UseGatekeeper(LoggedInGatekeeper.class)
     public interface MyProxy extends ProxyPlace<SettingsPresenter> {
     }
 
+    private final BackRequestFactory requestFactory;
+
     @Inject
-    public SettingsPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy) {
+    public SettingsPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
+                             final BackRequestFactory requestFactory,
+                             final NiveauEtudeInfosPresenter niveauEtudeInfosPresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
+        this.requestFactory = requestFactory;
+        this.niveauEtudeInfosPresenter = niveauEtudeInfosPresenter;
+
         getView().setUiHandlers(this);
+    }
+
+    @Override
+    public void showDetails(NiveauEtudeProxy value) {
+        niveauEtudeInfosPresenter.setCurrentNiveauEtude(value);
+        addToPopupSlot(niveauEtudeInfosPresenter);
     }
 }

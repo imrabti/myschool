@@ -30,4 +30,8 @@ public interface BackRequestFactory extends RequestFactory {
     UserServiceRequest userService();
 
     CachedListValueRequest cachedListValueService();
+
+    InscriptionRequest inscriptionService();
+
+    NiveauEtudeRequest niveauEtudeService();
 }

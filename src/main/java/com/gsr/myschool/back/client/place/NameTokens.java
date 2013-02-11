@@ -27,7 +27,8 @@ public class NameTokens {
     public static final String userPortal = "userPortal";
     public static final String userGsr = "userGsr";
     public static final String valueList = "valuelist";
-    public static final String settings = "settings";
+    public static final String generalSettings = "generalSettings";
+    public static final String inscriptiondetail = "inscriptionDetails";
 
     public static String getLogin() {
         return login;
@@ -53,8 +54,8 @@ public class NameTokens {
         return valueList;
     }
 
-    public static String getSettings(){
-        return settings;
+    public static String getGeneralSettings() {
+        return generalSettings;
     }
 
     public static String getUserPortal() {
@@ -67,5 +68,9 @@ public class NameTokens {
 
     public static String getRequestUrl() {
         return requestUrl;
+    }
+
+    public static String getInscriptiondetail() {
+        return inscriptiondetail;
     }
 }

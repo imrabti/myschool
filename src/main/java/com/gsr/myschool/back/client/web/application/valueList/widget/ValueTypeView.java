@@ -32,6 +32,7 @@ import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
+import com.gsr.myschool.back.client.resource.style.CellTableStyle;
 import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueTypeActionCell;
 import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueTypeActionCellFactory;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
@@ -47,35 +48,29 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers>
     public interface Binder extends UiBinder<Widget, ValueTypeView> {
     }
 
-    @UiField
+    @UiField(provided = true)
     CellTable<ValueTypeProxy> valueTypeTable;
-
-    private Delegate<ValueTypeProxy> deleteAction;
-    private Delegate<ValueTypeProxy> modifyAction;
 
     private final SingleSelectionModel<ValueTypeProxy> valueTypeSelectionModel;
     private final ListDataProvider<ValueTypeProxy> dataProvider;
-    private final ValueTypeActionCellFactory actionCellFactory;
 
     @Inject
     public ValueTypeView(final Binder uiBinder, final UiHandlersStrategy<ValueTypeUiHandlers> uiHandlers,
                          final SharedMessageBundle sharedMessageBundle,
-                         final ValueTypeActionCellFactory actionCellFactory) {
+                         final CellTableStyle cellTableStyle) {
         super(uiHandlers);
 
-        this.actionCellFactory = actionCellFactory;
-
-        initWidget(uiBinder.createAndBindUi(this));
-        initActions();
-        initDataGrid();
-
         this.dataProvider = new ListDataProvider<ValueTypeProxy>();
+        this.valueTypeTable = new CellTable<ValueTypeProxy>(15, cellTableStyle);
+
+        initDataGrid();
+        initWidget(uiBinder.createAndBindUi(this));
+
         dataProvider.addDataDisplay(valueTypeTable);
         this.valueTypeSelectionModel = new SingleSelectionModel<ValueTypeProxy>();
         valueTypeSelectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
             @Override
             public void onSelectionChange(SelectionChangeEvent event) {
-                // TODO : valueTypeTable.getRowElement().addClassName("selected");
                 getUiHandlers().valueTypeChanged(valueTypeSelectionModel.getSelectedObject());
             }
         });
@@ -85,6 +80,7 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers>
 
     @Override
     public void setData(List<ValueTypeProxy> data) {
+        valueTypeTable.setPageSize(data.size());
         dataProvider.getList().clear();
         dataProvider.getList().addAll(data);
     }
@@ -100,38 +96,5 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers>
         codeColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         valueTypeTable.addColumn(codeColumn, "Code");
         valueTypeTable.setColumnWidth(codeColumn, 35, Style.Unit.PCT);
-
-        ValueTypeActionCell actionsCell = actionCellFactory.create(deleteAction, modifyAction);
-        Column<ValueTypeProxy, ValueTypeProxy> actionsColumn = new
-                Column<ValueTypeProxy, ValueTypeProxy>(actionsCell) {
-                    @Override
-                    public ValueTypeProxy getValue(ValueTypeProxy object) {
-                        return object;
-                    }
-                };
-        actionsColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        valueTypeTable.addColumn(actionsColumn, "Actions");
-        valueTypeTable.setColumnWidth(actionsColumn, 35, Style.Unit.PCT);
-    }
-
-    @UiHandler("addValueType")
-    void onAddValueTypeClicked(ClickEvent event) {
-        getUiHandlers().addValueType();
-    }
-
-    private void initActions() {
-        modifyAction = new Delegate<ValueTypeProxy>() {
-            @Override
-            public void execute(ValueTypeProxy valueType) {
-                getUiHandlers().editValueType(valueType);
-            }
-        };
-
-        deleteAction = new Delegate<ValueTypeProxy>() {
-            @Override
-            public void execute(ValueTypeProxy valueType) {
-                getUiHandlers().deleteValueType(valueType);
-            }
-        };
     }
 }

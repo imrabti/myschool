@@ -20,6 +20,8 @@ import com.gsr.myschool.common.shared.type.InboxMessageStatus;
 import com.gsr.myschool.server.business.InboxMessage;
 import com.gsr.myschool.server.repos.InboxMessageRepos;
 import com.gsr.myschool.server.service.InboxService;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +58,12 @@ public class InboxServiceImpl implements InboxService {
 
     @Override
     public List<InboxMessage> findAllInboxMessage(Long userId) {
-        return inboxMessageRepos.findByParentUser_id(userId);
+        List<InboxMessage> messages = inboxMessageRepos.findByParentUser_id(userId);
+        for (InboxMessage message : messages) {
+            Document doc = Jsoup.parse(message.getContent());
+            message.setRawContent(doc.body().text());
+        }
+        return messages;
     }
 
     @Override

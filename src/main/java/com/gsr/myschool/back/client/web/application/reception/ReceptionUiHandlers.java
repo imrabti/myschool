@@ -16,11 +16,14 @@
 
 package com.gsr.myschool.back.client.web.application.reception;
 
+import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface ReceptionUiHandlers extends UiHandlers {
     void receive(DossierProxy dossier);
 
-    void searchWithFilter(String numDossier, String nomCandidat);
+    void searchWithFilter(DossierFilterDTOProxy dossierFilter);
+
+    void viewDetails(DossierProxy dossier);
 }

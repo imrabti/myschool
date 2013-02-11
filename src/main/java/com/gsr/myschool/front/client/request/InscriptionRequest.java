@@ -30,6 +30,8 @@ public interface InscriptionRequest extends RequestContext {
 
     Request<CandidatProxy> updateCandidat(CandidatProxy candidat);
 
+    Request<List<InfoParentProxy>> findInfoParentByDossierId(Long dossierId);
+
     Request<List<ScolariteAnterieurProxy>> findScolariteAnterieursByDossierId(Long dossierId);
 
     Request<Void> createNewScolariteAnterieur(ScolariteAnterieurDTOProxy scolariteAnterieur, Long dossierId);
@@ -42,5 +44,5 @@ public interface InscriptionRequest extends RequestContext {
 
     Request<Void> deleteFraterie(Long fraterieId);
 
-    Request<Void> submitInscription(Long dossierId);
+    Request<List<String>> submitInscription(Long dossierId);
 }

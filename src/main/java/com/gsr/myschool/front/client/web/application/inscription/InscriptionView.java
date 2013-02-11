@@ -27,6 +27,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.view.client.ListDataProvider;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
@@ -37,6 +38,7 @@ import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.front.client.web.application.inscription.renderer.InscriptionActionCell;
 import com.gsr.myschool.front.client.web.application.inscription.renderer.InscriptionActionCellFactory;
 
@@ -48,6 +50,8 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
 
     @UiField
     CellTable<DossierProxy> inscriptionsTable;
+    @UiField
+    HTML errors;
 
     private final DateTimeFormat dateFormat;
     private final ListDataProvider<DossierProxy> dataProvider;
@@ -74,14 +78,35 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
 
         dataProvider = new ListDataProvider<DossierProxy>();
         dataProvider.addDataDisplay(inscriptionsTable);
-        dateFormat = DateTimeFormat.getFormat("LLL d yyyy");
+        dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
         inscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
     }
 
     @Override
     public void setData(List<DossierProxy> data) {
+        inscriptionsTable.setPageSize(data.size());
         dataProvider.getList().clear();
         dataProvider.getList().addAll(data);
+    }
+
+    @Override
+    public void showErrors(List<String> violations) {
+        errors.setVisible(true);
+        StringBuilder builder = new StringBuilder();
+        builder.append("<ul>");
+        for (String violation : violations) {
+            builder.append("<li class=\"error\">");
+            builder.append(violation);
+            builder.append("</li>");
+        }
+        builder.append("</ul>");
+        errors.setHTML(builder.toString());
+    }
+
+    @Override
+    public void clearErrors() {
+        errors.setHTML("");
+        errors.setVisible(false);
     }
 
     @UiHandler("add")
@@ -130,12 +155,12 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         TextColumn<DossierProxy> idColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
-                return object.getId().toString();
+                return object.getGeneratedNumDossier();
             }
         };
         idColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-        inscriptionsTable.addColumn(idColumn, "ID");
-        inscriptionsTable.setColumnWidth(idColumn, 20, Style.Unit.PCT);
+        inscriptionsTable.addColumn(idColumn, "N° Dossier");
+        inscriptionsTable.setColumnWidth(idColumn, 15, Style.Unit.PCT);
 
         TextColumn<DossierProxy> statusColumn = new TextColumn<DossierProxy>() {
             @Override
@@ -145,7 +170,17 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         };
         statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         inscriptionsTable.addColumn(statusColumn, "Status");
-        inscriptionsTable.setColumnWidth(statusColumn, 25, Style.Unit.PCT);
+        inscriptionsTable.setColumnWidth(statusColumn, 20, Style.Unit.PCT);
+
+        TextColumn<DossierProxy> anneeScolaireColumn = new TextColumn<DossierProxy>() {
+            @Override
+            public String getValue(DossierProxy object) {
+                return object.getAnneeScolaire().getLabel();
+            }
+        };
+        statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        inscriptionsTable.addColumn(anneeScolaireColumn, "Année scolaire");
+        inscriptionsTable.setColumnWidth(anneeScolaireColumn, 20, Style.Unit.PCT);
 
         TextColumn<DossierProxy> candidatColumn = new TextColumn<DossierProxy>() {
             @Override
@@ -162,7 +197,7 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         };
         candidatColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         inscriptionsTable.addColumn(candidatColumn, "Candidat");
-        inscriptionsTable.setColumnWidth(candidatColumn, 35, Style.Unit.PCT);
+        inscriptionsTable.setColumnWidth(candidatColumn, 30, Style.Unit.PCT);
 
         TextColumn<DossierProxy> createdColumn = new TextColumn<DossierProxy>() {
             @Override
@@ -176,7 +211,7 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         };
         createdColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         inscriptionsTable.addColumn(createdColumn, "Date d'inscription");
-        inscriptionsTable.setColumnWidth(createdColumn, 25, Style.Unit.PCT);
+        inscriptionsTable.setColumnWidth(createdColumn, 20, Style.Unit.PCT);
 
         InscriptionActionCell actionsCell = actionCellFactory.create(previewAction, editAction,
                 deleteAction, submitAction, printAction);

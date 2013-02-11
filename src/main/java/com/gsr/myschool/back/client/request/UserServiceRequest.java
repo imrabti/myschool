@@ -20,6 +20,7 @@ import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
 import com.gsr.myschool.common.client.proxy.AdminUserProxy;
+import com.gsr.myschool.common.client.proxy.UserFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.server.service.impl.UserManagementServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
@@ -35,4 +36,8 @@ public interface UserServiceRequest extends RequestContext {
     Request<Boolean> saveUserAccount(UserProxy userProxy);
 
     Request<Boolean> saveAdminAccount(AdminUserProxy adminUserProxy);
+
+    Request<Void> deleteAdminUser(Long id);
+
+    Request<List<UserProxy>> findAllUsersByCriteria(UserFilterDTOProxy userFilter);
 }

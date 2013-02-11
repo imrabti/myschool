@@ -25,7 +25,7 @@ public interface MessageBundle extends Messages {
 
     String registerInfoMissing();
 
-    String welcomeMessage(String username);
+    String welcomeMessage(String firstName, String lastName);
 
     String cannotDeleteDefLovException();
 
@@ -90,4 +90,8 @@ public interface MessageBundle extends Messages {
     String deleteValueTypeSuccess();
 
     String addValueTypeSuccess();
+
+    String deleteConfirmation();
+
+    String inscriptionDetailTitle(String dossierNum);
 }

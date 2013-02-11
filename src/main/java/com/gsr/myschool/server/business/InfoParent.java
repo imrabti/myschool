@@ -1,12 +1,16 @@
 package com.gsr.myschool.server.business;
 
+import com.google.common.base.Strings;
+import com.gsr.myschool.common.client.proxy.InfoParentProxy;
 import com.gsr.myschool.common.shared.type.ParentType;
+import com.gsr.myschool.server.util.BeanMapper;
 import com.gsr.myschool.server.validator.Email;
 import com.gsr.myschool.server.validator.Name;
 import com.gsr.myschool.server.validator.NotBlank;
 import com.gsr.myschool.server.validator.Phone;
 
 import javax.persistence.*;
+import java.util.Map;
 
 @Entity
 public class InfoParent implements java.io.Serializable {
@@ -34,6 +38,8 @@ public class InfoParent implements java.io.Serializable {
     @Enumerated
     private ParentType parentType;
     private String institution;
+    @ManyToOne
+    private Dossier dossier;
 
     public Long getId() {
         return id;
@@ -123,18 +129,22 @@ public class InfoParent implements java.io.Serializable {
         this.institution = institution;
     }
 
-    public String getReportsAttributes() {
-        return "InfoParent{" +
-                "nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", telGsm='" + telGsm + '\'' +
-                ", telDom='" + telDom + '\'' +
-                ", telBureau='" + telBureau + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", fonction='" + fonction + '\'' +
-                ", parentType=" + parentType +
-                ", institution='" + institution + '\'' +
-                '}';
+    public Dossier getDossier() {
+        return dossier;
+    }
+
+    public void setDossier(Dossier dossier) {
+        this.dossier = dossier;
+    }
+
+	public Map getReportsAttributes() {
+        return BeanMapper.beanToMap(this);
+	}
+
+    public Boolean isInfoParentEmpty() {
+        return Strings.isNullOrEmpty(nom)
+                && Strings.isNullOrEmpty(prenom)
+                && Strings.isNullOrEmpty(telDom)
+                && Strings.isNullOrEmpty(email);
     }
 }

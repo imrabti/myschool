@@ -1,0 +1,36 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'
+             xmlns:b2='urn:import:com.github.gwtbootstrap.datepicker.client.ui'>
+    <g:HTMLPanel>
+        <boot:Form type="HORIZONTAL">
+            <boot:ControlGroup>
+                <boot:ControlLabel>N° Dossier</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:TextBox ui:field="numDossier" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Status</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:ValueListBox ui:field="status" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Date du</boot:ControlLabel>
+                <boot:Controls>
+                    <b2:DateBoxAppended ui:field="dateFrom"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Date au</boot:ControlLabel>
+                <boot:Controls>
+                    <b2:DateBoxAppended ui:field="dateTill"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+        </boot:Form>
+    </g:HTMLPanel>
+</ui:UiBinder>

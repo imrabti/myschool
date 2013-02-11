@@ -13,7 +13,6 @@ import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.UserProxy;
-import com.gsr.myschool.common.client.ui.user.PasswordEditor;
 import com.gsr.myschool.common.client.ui.user.UserAccountEditor;
 import com.gsr.myschool.common.client.widget.ModalHeader;
 
@@ -30,8 +29,9 @@ public class UserAccountEditView extends ValidatedPopupViewImplWithUiHandlers<Us
     @Inject
     public UserAccountEditView(final EventBus eventBus, final Binder uiBinder,
             final UiHandlersStrategy<UserAccountEditUiHandlers> uiHandlers,
-            final ValidationErrorPopup errorPopup, final ModalHeader modalHeader,
-            final UserAccountEditor userEditor, final PasswordEditor passwordEditor) {
+            final ValidationErrorPopup errorPopup,
+            final ModalHeader modalHeader,
+            final UserAccountEditor userEditor) {
         super(eventBus, errorPopup, uiHandlers);
 
         this.modalHeader = modalHeader;
@@ -48,13 +48,13 @@ public class UserAccountEditView extends ValidatedPopupViewImplWithUiHandlers<Us
     }
 
     @Override
-    public void edit(UserProxy userProxy, UserServiceRequest userService) {
-        userEditor.edit(userProxy, userService);
+    public void edit(UserProxy userProxy) {
+        userEditor.edit(userProxy);
     }
 
     @Override
-    public void refreshUserList() {
-        getUiHandlers().reloadUsers();
+    public void flush() {
+        userEditor.get();
     }
 
     @UiHandler("cancel")
@@ -64,7 +64,6 @@ public class UserAccountEditView extends ValidatedPopupViewImplWithUiHandlers<Us
 
     @UiHandler("save")
     void onSaveClicked(ClickEvent event) {
-        userEditor.onSaveClicked();
-        hide();
+        getUiHandlers().saveAccount();
     }
 }

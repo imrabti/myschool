@@ -1,17 +1,17 @@
 package com.gsr.myschool.server.business;
 
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.server.business.valuelist.ValueList;
+import com.gsr.myschool.server.util.BeanMapper;
 import com.gsr.myschool.server.validator.Email;
 import com.gsr.myschool.server.validator.Name;
 import com.gsr.myschool.server.validator.NotBlank;
 import com.gsr.myschool.server.validator.Phone;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 @Entity
 public class Candidat implements java.io.Serializable {
@@ -25,6 +25,7 @@ public class Candidat implements java.io.Serializable {
     @NotBlank
     private String lastname;
     @NotBlank
+    @Temporal(TemporalType.DATE)
     private Date birthDate;
     @NotBlank
     private String birthLocation;
@@ -42,6 +43,8 @@ public class Candidat implements java.io.Serializable {
     public ValueList bacSerie;
     @ManyToOne
     public ValueList nationality;
+    @Transient
+    private String birthDateStr;
 
     public Long getId() {
         return id;
@@ -147,17 +150,16 @@ public class Candidat implements java.io.Serializable {
         this.nationality = nationality;
     }
 
-    public String getReportsAttributes() {
-        return "Candidat{" +
-                "firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", birthDate=" + birthDate +
-                ", birthLocation='" + birthLocation + '\'' +
-                ", phone='" + phone + '\'' +
-                ", cin='" + cin + '\'' +
-                ", cne='" + cne + '\'' +
-                ", email='" + email + '\'' +
-                ", gsm='" + gsm + '\'' +
-                '}';
+    public String getBirthDateStr() {
+        SimpleDateFormat sdf = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
+        return sdf.format(birthDate);
     }
+
+    public void setBirthDateStr(String birthDateStr) {
+        this.birthDateStr = birthDateStr;
+    }
+
+    public Map getReportsAttributes() {
+        return BeanMapper.beanToMap(this);
+	}
 }

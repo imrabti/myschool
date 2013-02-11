@@ -47,6 +47,9 @@
 
             <boot:Button text="Se connecter" ui:field="login"
                          styleName="btn btn-warning"/>
+
+            <g:Button ui:field="forgotPassword" text="Mote de passe oublié ?"
+                      styleName="{sharedResources.sharedStyleCss.linkButton}"/>
         </div>
     </g:HTMLPanel>
 </ui:UiBinder>

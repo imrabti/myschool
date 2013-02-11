@@ -21,13 +21,14 @@ import com.gsr.myschool.server.business.Dossier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-public interface DossierRepos extends JpaRepository<Dossier, Long> {
+public interface DossierRepos extends JpaRepository<Dossier, Long>, JpaSpecificationExecutor {
     List<Dossier> findByOwnerId(Long userId);
 
     @Query("FROM Dossier d WHERE d.generatedNumDossier like ?1")

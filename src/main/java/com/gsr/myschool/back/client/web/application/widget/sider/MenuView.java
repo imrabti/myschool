@@ -26,6 +26,8 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
     NavLink userGsr;
     @UiField
     NavLink valueList;
+    @UiField
+    NavLink generalSettings;
 
     private MenuItem currentMenu;
 
@@ -64,62 +66,58 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
 
     @UiHandler("preInscription")
     void onInscriptionClicked(ClickEvent event) {
-        if (currentMenu != MenuItem.PRE_INSCRIPTION) {
-            clearActive();
-            preInscription.setActive(true);
-            currentMenu = MenuItem.PRE_INSCRIPTION;
-            getUiHandlers().onMenuChanged(currentMenu);
-        }
+        clearActive();
+        preInscription.setActive(true);
+        currentMenu = MenuItem.PRE_INSCRIPTION;
+        getUiHandlers().onMenuChanged(currentMenu);
     }
 
     @UiHandler("reception")
     void onConvocationClicked(ClickEvent event) {
-        if (currentMenu != MenuItem.RECEPTION) {
-            clearActive();
-            reception.setActive(true);
-            currentMenu = MenuItem.RECEPTION;
-            getUiHandlers().onMenuChanged(currentMenu);
-        }
+        clearActive();
+        reception.setActive(true);
+        currentMenu = MenuItem.RECEPTION;
+        getUiHandlers().onMenuChanged(currentMenu);
     }
 
     @UiHandler("validation")
     void onInboxClicked(ClickEvent event) {
-        if (currentMenu != MenuItem.VALIDATION) {
-            clearActive();
-            validation.setActive(true);
-            currentMenu = MenuItem.VALIDATION;
-            getUiHandlers().onMenuChanged(currentMenu);
-        }
+        clearActive();
+        validation.setActive(true);
+        currentMenu = MenuItem.VALIDATION;
+        getUiHandlers().onMenuChanged(currentMenu);
     }
 
     @UiHandler("userPortal")
     void onUserPortalClicked(ClickEvent event) {
-        if (currentMenu != MenuItem.USERS_PORTAL) {
-            clearActive();
-            userPortal.setActive(true);
-            currentMenu = MenuItem.USERS_PORTAL;
-            getUiHandlers().onMenuChanged(currentMenu);
-        }
+        clearActive();
+        userPortal.setActive(true);
+        currentMenu = MenuItem.USERS_PORTAL;
+        getUiHandlers().onMenuChanged(currentMenu);
     }
 
     @UiHandler("userGsr")
     void onUserGsrClicked(ClickEvent event) {
-        if (currentMenu != MenuItem.USERS_GSR) {
-            clearActive();
-            userGsr.setActive(true);
-            currentMenu = MenuItem.USERS_GSR;
-            getUiHandlers().onMenuChanged(currentMenu);
-        }
+        clearActive();
+        userGsr.setActive(true);
+        currentMenu = MenuItem.USERS_GSR;
+        getUiHandlers().onMenuChanged(currentMenu);
     }
 
     @UiHandler("valueList")
     void onValueListClicked(ClickEvent event) {
-        if (currentMenu != MenuItem.VALUE_LIST) {
-            clearActive();
-            valueList.setActive(true);
-            currentMenu = MenuItem.VALUE_LIST;
-            getUiHandlers().onMenuChanged(currentMenu);
-        }
+        clearActive();
+        valueList.setActive(true);
+        currentMenu = MenuItem.VALUE_LIST;
+        getUiHandlers().onMenuChanged(currentMenu);
+    }
+
+    @UiHandler("generalSettings")
+    void onGeneralSettingsClicked(ClickEvent event) {
+        clearActive();
+        generalSettings.setActive(true);
+        currentMenu = MenuItem.GENERAL_SETTINGS;
+        getUiHandlers().onMenuChanged(currentMenu);
     }
 
     private void clearActive() {
@@ -129,5 +127,6 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         valueList.setActive(false);
         userGsr.setActive(false);
         userPortal.setActive(false);
+        generalSettings.setActive(false);
     }
 }

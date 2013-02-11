@@ -27,5 +27,7 @@ public interface FrontRequestFactory extends RequestFactory {
 
     CachedListValueRequest cachedListValueService();
 
+    UserAccountRequest userAccountService();
+
     InboxRequest inboxService();
 }

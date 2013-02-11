@@ -38,13 +38,14 @@ public class StatelessAdminDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        AdminUser user =  adminUserRepos.findByEmail(email);
+        AdminUser user = adminUserRepos.findByEmail(email);
         if (user == null || user.getStatus() == UserStatus.INACTIVE) {
             throw new UsernameNotFoundException("Bad credentials");
         } else {
             List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
             authorities.add(new SimpleGrantedAuthority(user.getAuthority().name()));
-            return new User(user.getEmail(), user.getPassword(), authorities);
+            return new User(user.getEmail(), user.getPassword(), user.getStatus() == UserStatus.ACTIVE,
+                    true, true, true, authorities);
         }
     }
 }

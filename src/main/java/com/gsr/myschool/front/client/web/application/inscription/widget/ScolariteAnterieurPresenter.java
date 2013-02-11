@@ -63,8 +63,14 @@ public class ScolariteAnterieurPresenter extends PresenterWidget<ScolariteAnteri
     @Override
     public void addScolariteAnterieur(ScolariteAnterieurDTOProxy scolariteAnterieur) {
         Long dossierId = currentDossier.getId();
-        scolariteAnterieur.setEtablissement(currentContext.edit(scolariteAnterieur.getEtablissement()));
-        scolariteAnterieur.setAnneeScolaire(currentContext.edit(scolariteAnterieur.getAnneeScolaire()));
+
+        if (scolariteAnterieur.getEtablissement() != null) {
+            scolariteAnterieur.setEtablissement(currentContext.edit(scolariteAnterieur.getEtablissement()));
+        }
+
+        if (scolariteAnterieur.getAnneeScolaire() != null) {
+            scolariteAnterieur.setAnneeScolaire(currentContext.edit(scolariteAnterieur.getAnneeScolaire()));
+        }
 
         currentContext.createNewScolariteAnterieur(scolariteAnterieur, dossierId).fire(
                 new ValidatedReceiverImpl<Void>() {

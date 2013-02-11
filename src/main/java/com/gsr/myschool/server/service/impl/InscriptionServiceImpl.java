@@ -1,8 +1,11 @@
 package com.gsr.myschool.server.service.impl;
 
 import com.google.common.base.Strings;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.dto.ScolariteAnterieurDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
+import com.gsr.myschool.common.shared.type.ParentType;
+import com.gsr.myschool.common.shared.type.ValueTypeCode;
 import com.gsr.myschool.server.business.Candidat;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.EtablissementScolaire;
@@ -10,6 +13,8 @@ import com.gsr.myschool.server.business.Fraterie;
 import com.gsr.myschool.server.business.InfoParent;
 import com.gsr.myschool.server.business.ScolariteAnterieur;
 import com.gsr.myschool.server.business.User;
+import com.gsr.myschool.server.business.core.NiveauEtude;
+import com.gsr.myschool.server.business.valuelist.ValueList;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.CandidatRepos;
 import com.gsr.myschool.server.repos.DossierRepos;
@@ -22,13 +27,21 @@ import com.gsr.myschool.server.repos.ScolariteAnterieurRepos;
 import com.gsr.myschool.server.repos.ValueListRepos;
 import com.gsr.myschool.server.security.SecurityContextProvider;
 import com.gsr.myschool.server.service.InscriptionService;
+import com.gsr.myschool.server.util.DateUtils;
+import com.gsr.myschool.server.util.I18nMessageBean;
+import com.gsr.myschool.server.util.UUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Validator;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -55,6 +68,10 @@ public class InscriptionServiceImpl implements InscriptionService {
     private NiveauEtudeRepos niveauEtudeRepos;
     @Autowired
     private ValidationProcessService validationProcessService;
+    @Autowired
+    private Validator validator;
+    @Autowired
+    private I18nMessageBean messageBean;
 
     @Override
     @Transactional(readOnly = true)
@@ -74,26 +91,46 @@ public class InscriptionServiceImpl implements InscriptionService {
         Candidat candidat = new Candidat();
         candidatRepos.save(candidat);
 
-        InfoParent infoParent = new InfoParent();
-        infoParentRepos.save(infoParent);
-
         User user = securityContextProvider.getCurrentUser();
+        String currentAnneeScolaire = DateUtils.currentYear() - 1 + "-" + DateUtils.currentYear();
+
         Dossier dossier = new Dossier();
+        dossier.setGeneratedNumDossier("GSR_" + DateUtils.currentYear() + "_" + UUIDGenerator.generateUUID());
         dossier.setStatus(DossierStatus.CREATED);
         dossier.setOwner(user);
-        dossier.setInfoParent(infoParent);
         dossier.setCandidat(candidat);
         dossier.setCreateDate(new Date());
+        dossier.setAnneeScolaire(valueListRepos.findByValueAndValueTypeCode(currentAnneeScolaire,
+                ValueTypeCode.SCHOOL_YEAR));
         dossierRepos.save(dossier);
+
+        InfoParent pere = new InfoParent();
+        pere.setParentType(ParentType.PERE);
+        pere.setDossier(dossier);
+        infoParentRepos.save(pere);
+
+        InfoParent mere = new InfoParent();
+        mere.setParentType(ParentType.MERE);
+        mere.setDossier(dossier);
+        infoParentRepos.save(mere);
+
+        InfoParent tuteur = new InfoParent();
+        tuteur.setParentType(ParentType.TUTEUR);
+        tuteur.setDossier(dossier);
+        infoParentRepos.save(tuteur);
 
         return dossier;
     }
 
     @Override
     public void deleteInscription(Long dossierId) {
+        List<InfoParent> infoParents = infoParentRepos.findByDossierId(dossierId);
+        for (InfoParent infoParent : infoParents) {
+            infoParentRepos.delete(infoParent);
+        }
+
         Dossier currentDossier = dossierRepos.findOne(dossierId);
         dossierRepos.delete(currentDossier);
-        infoParentRepos.delete(currentDossier.getInfoParent());
         candidatRepos.delete(currentDossier.getCandidat());
     }
 
@@ -117,7 +154,6 @@ public class InscriptionServiceImpl implements InscriptionService {
         currentInfoParent.setEmail(infoParent.getEmail());
         currentInfoParent.setAddress(infoParent.getAddress());
         currentInfoParent.setFonction(infoParent.getFonction());
-        currentInfoParent.setParentType(infoParent.getParentType());
         currentInfoParent.setInstitution(infoParent.getInstitution());
         infoParentRepos.save(currentInfoParent);
         return currentInfoParent;
@@ -135,11 +171,34 @@ public class InscriptionServiceImpl implements InscriptionService {
         currentCandidat.setCne(candidat.getCne());
         currentCandidat.setEmail(candidat.getEmail());
         currentCandidat.setGsm(candidat.getGsm());
-        currentCandidat.setNationality(valueListRepos.findOne(candidat.getNationality().getId()));
-        currentCandidat.setBacSerie(valueListRepos.findOne(candidat.getBacSerie().getId()));
-        currentCandidat.setBacYear(valueListRepos.findOne(candidat.getBacYear().getId()));
+
+        if (candidat.getNationality() != null) {
+            currentCandidat.setNationality(valueListRepos.findOne(candidat.getNationality().getId()));
+        } else {
+            currentCandidat.setNationality(null);
+        }
+
+        if (candidat.getBacYear() != null) {
+            currentCandidat.setBacYear(valueListRepos.findOne(candidat.getBacYear().getId()));
+        } else {
+            currentCandidat.setBacYear(null);
+        }
+
+        if (candidat.getBacSerie() != null) {
+            currentCandidat.setBacSerie(valueListRepos.findOne(candidat.getBacSerie().getId()));
+        } else {
+            currentCandidat.setBacSerie(null);
+        }
+
         candidatRepos.save(currentCandidat);
         return currentCandidat;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<InfoParent> findInfoParentByDossierId(Long dossierId) {
+        List<InfoParent> infoParentList = infoParentRepos.findByDossierId(dossierId);
+        return infoParentList;
     }
 
     @Override
@@ -208,8 +267,80 @@ public class InscriptionServiceImpl implements InscriptionService {
 
     @Override
     @Transactional(readOnly = true)
-    public void submitInscription(Long dossierId) {
+    public List<String> submitInscription(Long dossierId) {
+        Set<String> validationErrors = new HashSet<String>();
+
+        validatedDossier(dossierId, validationErrors);
+        validateInfoParent(dossierId, validationErrors);
+
+        if (validationErrors.isEmpty()) {
+            Dossier dossier = dossierRepos.findOne(dossierId);
+            validationProcessService.startProcess(dossier);
+        }
+
+        return new ArrayList<String>(validationErrors);
+    }
+
+    private void validatedDossier(Long dossierId, Set<String> errors) {
         Dossier dossier = dossierRepos.findOne(dossierId);
-        validationProcessService.startProcess(dossier);
+        if (!validator.validate(dossier).isEmpty()) {
+            errors.add(messageBean.getMessage("missingDossierInfo"));
+        } else {
+            NiveauEtude niveauEtude = dossier.getNiveauEtude();
+            if (niveauEtude.getId() == GlobalParameters.PETITE_SECTION) {
+                Integer validBirthYear = DateUtils.currentYear() - niveauEtude.getAnnee();
+                Integer birthYear = DateUtils.getYear(dossier.getCandidat().getBirthDate());
+
+                if (birthYear.compareTo(validBirthYear) != 0) {
+                    errors.add(messageBean.getMessage("petiteSectionAge"));
+                }
+            } else if (niveauEtude.getAnnee() == null) {
+                if (dossier.getCandidat().getBacSerie() == null
+                        || dossier.getCandidat().getBacYear() == null) {
+                    errors.add(messageBean.getMessage("bacRequired"));
+                    return;
+                }
+
+                ValueList bacSerie = dossier.getCandidat().getBacSerie();
+                if (niveauEtude.getId() == GlobalParameters.BAC_SGT_ECO
+                        && bacSerie.getId() != GlobalParameters.BAC_ECO) {
+                    errors.add(messageBean.getMessage("bacECORequired"));
+                    return;
+                }
+
+                if (niveauEtude.getId() == GlobalParameters.BAC_AUTRES
+                        && bacSerie.getId() == GlobalParameters.BAC_ECO) {
+                    errors.add(messageBean.getMessage("bacAutresRequired"));
+                    return;
+                }
+            }
+        }
+    }
+
+    private void validateInfoParent(Long dossierId, Set<String> errors) {
+        Map<ParentType, InfoParent> infoParentMap = new HashMap<ParentType, InfoParent>();
+        for (InfoParent infoParent : infoParentRepos.findByDossierId(dossierId)) {
+            infoParentMap.put(infoParent.getParentType(), infoParent);
+        }
+
+        InfoParent pere = infoParentMap.get(ParentType.PERE);
+        InfoParent mere = infoParentMap.get(ParentType.MERE);
+        InfoParent tuteur = infoParentMap.get(ParentType.TUTEUR);
+
+        if (!pere.isInfoParentEmpty() || !mere.isInfoParentEmpty() || !tuteur.isInfoParentEmpty()) {
+            if (!pere.isInfoParentEmpty() && !validator.validate(pere).isEmpty()) {
+                errors.add(messageBean.getMessage("missingParentInfo"));
+            }
+
+            if (!mere.isInfoParentEmpty() && !validator.validate(mere).isEmpty()) {
+                errors.add(messageBean.getMessage("missingParentInfo"));
+            }
+
+            if (!tuteur.isInfoParentEmpty() && !validator.validate(tuteur).isEmpty()) {
+                errors.add(messageBean.getMessage("missingParentInfo"));
+            }
+        } else {
+            errors.add(messageBean.getMessage("requiredParentInfo"));
+        }
     }
 }

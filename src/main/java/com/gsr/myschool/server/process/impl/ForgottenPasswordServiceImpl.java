@@ -83,7 +83,7 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordService {
         EmailDTO email = (EmailDTO) runtimeService.getVariable(task.getExecutionId(), "email");
 
         Map<String, String> result = new HashMap<String, String>();
-        result.put(task.getId(), email.getTo());
+        result.put(email.getTo(), task.getId());
 
         return result;
     }

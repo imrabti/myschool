@@ -1,7 +1,23 @@
-@external accordion-group, accordion-toggle, accordion-inner;
+@external navbar-inner, nav-tabs, nav, accordion-group, accordion-toggle, accordion-inner, error;
 
 body {
     font-family: "Droid Sans", Helvetica, Arial, sans-serif;
+}
+
+.navbar-inner {
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.nav-tabs {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    min-height: 200px;
+}
+
+.nav {
+    margin-bottom: 0px;
 }
 
 .ajaxLoader {
@@ -99,4 +115,35 @@ body {
 
 .accordion-inner {
     border-top: none;
+}
+
+.linkButton {
+    color: #1b5799;
+    font-size: 13px;
+    border: none;
+    background: none;
+}
+
+.linkButton:hover {
+    color: #1b5799;
+    font-size: 13px;
+    border: none;
+    background: none;
+    text-decoration: underline;
+}
+
+.errorBox {
+    background-position: 10px center;
+    padding: 10px;
+    padding-left: 20px;
+    padding-bottom: 0px;
+    margin-bottom: 20px;
+    border: 1px solid #a70f1a;
+    margin-bottom: 10px;
+}
+
+.errorBox .error {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #7e0a12;
 }

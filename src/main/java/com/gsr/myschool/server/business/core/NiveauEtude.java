@@ -1,12 +1,14 @@
-/***********************************************************************
- * Module:  NiveauEtude.java
- * Author:  mbouayad
- * Purpose: Defines the Class NiveauEtude
- ***********************************************************************/
-
 package com.gsr.myschool.server.business.core;
 
-import javax.persistence.*;
+import com.gsr.myschool.server.util.BeanMapper;
+import org.apache.commons.beanutils.BeanMap;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import java.util.Map;
 
 @Entity
 public class NiveauEtude implements java.io.Serializable {
@@ -50,10 +52,7 @@ public class NiveauEtude implements java.io.Serializable {
         this.nom = newNom;
     }
 
-    public String getReportsAttributes() {
-        return "NiveauEtude{" +
-                "annee=" + annee +
-                ", nom='" + nom + '\'' +
-                '}';
-    }
+	public Map getReportsAttributes() {
+        return BeanMapper.beanToMap(this);
+	}
 }

@@ -97,6 +97,7 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
 
     @Override
     public void setData(List<ValueListProxy> response) {
+        valueListTable.setPageSize(response.size());
         dataProvider.getList().clear();
         dataProvider.getList().addAll(response);
     }

@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.server.service;
 
+import com.gsr.myschool.common.shared.dto.UserFilterDTO;
 import com.gsr.myschool.server.business.AdminUser;
 import com.gsr.myschool.server.business.User;
 
@@ -29,4 +30,8 @@ public interface UserManagementService {
     Boolean saveUserAccount(User user);
 
     Boolean saveAdminAccount(AdminUser newAdmin);
+
+    void deleteAdminUser(Long id);
+
+    List<User> findAllUsersByCriteria(UserFilterDTO userFilter);
 }

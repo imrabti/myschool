@@ -7,13 +7,7 @@ import com.gsr.myschool.server.validator.Name;
 import com.gsr.myschool.server.validator.NotBlank;
 import com.gsr.myschool.server.validator.Unique;
 
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -27,6 +21,7 @@ public class AdminUser implements Serializable {
     @Email
     @NotBlank
     private String email;
+    @NotBlank
     private String password;
     @Name
     @NotBlank
@@ -123,12 +118,10 @@ public class AdminUser implements Serializable {
         this.updated = updated;
     }
 
-    @PrePersist
     protected void onCreate() {
         created = new Date();
     }
 
-    @PreUpdate
     protected void onUpdate() {
         updated = new Date();
     }

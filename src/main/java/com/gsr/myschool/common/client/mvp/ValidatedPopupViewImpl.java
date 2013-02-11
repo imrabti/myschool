@@ -16,8 +16,6 @@
 
 package com.gsr.myschool.common.client.mvp;
 
-import com.github.gwtbootstrap.client.ui.ControlGroup;
-import com.github.gwtbootstrap.client.ui.constants.ControlGroupType;
 import com.google.common.base.Strings;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.query.client.Function;
@@ -53,13 +51,10 @@ public abstract class ValidatedPopupViewImpl extends PopupViewImpl implements Va
             $(fieldId).attr("message", message);
             $(fieldId).addClass("errorField");
 
-            ControlGroup wrapper;
             if ($(fieldId).parent().hasClass("input-prepend")) {
-                wrapper = $(fieldId).parent().parent().parent().widget();
-                wrapper.setType(ControlGroupType.ERROR);
+                $(fieldId).parent().parent().parent().addClass("error");
             } else {
-                wrapper = $(fieldId).parent().parent().widget();
-                wrapper.setType(ControlGroupType.ERROR);
+                $(fieldId).parent().parent().addClass("error");
             }
 
             $(fieldId).focus(new Function() {
@@ -88,13 +83,10 @@ public abstract class ValidatedPopupViewImpl extends PopupViewImpl implements Va
                 $(fieldId).unbind(Event.ONBLUR);
                 $(fieldId).removeClass("errorField");
 
-                ControlGroup wrapper;
                 if ($(fieldId).parent().hasClass("input-prepend")) {
-                    wrapper = $(fieldId).parent().parent().parent().widget();
-                    wrapper.setType(ControlGroupType.NONE);
+                    $(fieldId).parent().parent().parent().removeClass("error");
                 } else {
-                    wrapper = $(fieldId).parent().parent().widget();
-                    wrapper.setType(ControlGroupType.NONE);
+                    $(fieldId).parent().parent().removeClass("error");
                 }
             }
         });

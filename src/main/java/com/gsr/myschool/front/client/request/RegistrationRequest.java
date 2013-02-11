@@ -19,6 +19,8 @@ package com.gsr.myschool.front.client.request;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
+import com.gsr.myschool.common.client.proxy.ForgotPasswordDTOProxy;
+import com.gsr.myschool.common.client.proxy.ResetPasswordDTOProxy;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.server.service.impl.RegistrationServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
@@ -28,4 +30,10 @@ public interface RegistrationRequest extends RequestContext {
     Request<Boolean> activateAccount(String token);
 
     Request<Boolean> register(UserProxy user, String link);
+
+    Request<Boolean> startForgotPasswordProcess(ForgotPasswordDTOProxy forgotPassword, String link);
+
+    Request<String> verifyForgotPassword(String token);
+
+    Request<Boolean> resetPassword(ResetPasswordDTOProxy resetPassword, String token, String email);
 }

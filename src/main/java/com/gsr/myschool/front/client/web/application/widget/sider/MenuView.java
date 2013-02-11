@@ -51,38 +51,37 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         }
     }
 
-    public void updateMessageCount(Integer count){
-        messagesCount.setText(count.toString());
+    public void updateMessageCount(Integer count) {
+        if (count == 0) {
+            messagesCount.setVisible(false);
+        } else {
+            messagesCount.setVisible(true);
+            messagesCount.setText(count.toString());
+        }
     }
 
     @UiHandler("inscription")
     void onInscriptionClicked(ClickEvent event) {
-        if (currentMenu != MenuItem.INSCRIPTION) {
-            clearActive();
-            inscription.setActive(true);
-            currentMenu = MenuItem.INSCRIPTION;
-            getUiHandlers().onMenuChanged(currentMenu);
-        }
+        clearActive();
+        inscription.setActive(true);
+        currentMenu = MenuItem.INSCRIPTION;
+        getUiHandlers().onMenuChanged(currentMenu);
     }
 
     @UiHandler("convocation")
     void onConvocationClicked(ClickEvent event) {
-        if (currentMenu != MenuItem.CONVOCATION) {
-            clearActive();
-            convocation.setActive(true);
-            currentMenu = MenuItem.CONVOCATION;
-            getUiHandlers().onMenuChanged(currentMenu);
-        }
+        clearActive();
+        convocation.setActive(true);
+        currentMenu = MenuItem.CONVOCATION;
+        getUiHandlers().onMenuChanged(currentMenu);
     }
 
     @UiHandler("inbox")
     void onInboxClicked(ClickEvent event) {
-        if (currentMenu != MenuItem.INBOX) {
-            clearActive();
-            inbox.setActive(true);
-            currentMenu = MenuItem.INBOX;
-            getUiHandlers().onMenuChanged(currentMenu);
-        }
+        clearActive();
+        inbox.setActive(true);
+        currentMenu = MenuItem.INBOX;
+        getUiHandlers().onMenuChanged(currentMenu);
     }
 
     private void clearActive() {

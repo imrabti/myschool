@@ -54,4 +54,20 @@ public interface MessageBundle extends Messages {
     String inscriptionSubmitConf();
 
     String inscriptionSubmitSuccess();
+
+    String accountUpdatedSuccess();
+
+    String passwordUpdatedSuccess();
+
+    String requiredInfoParentsError();
+
+    String forgotPasswordSuccess();
+
+    String forgotPasswordFailure();
+
+    String forgotPasswordWrongToken();
+
+    String resetPasswordFailure();
+
+    String resetPasswordSuccess();
 }

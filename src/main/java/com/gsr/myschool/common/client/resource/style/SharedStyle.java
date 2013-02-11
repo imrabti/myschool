@@ -14,4 +14,8 @@ public interface SharedStyle extends CssResource {
     String buttonContainer();
 
     String buttonContainerPopup();
+
+    String linkButton();
+
+    String errorBox();
 }

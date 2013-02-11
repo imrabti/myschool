@@ -9,7 +9,8 @@ import com.gwtplatform.mvp.client.PresenterWidget;
 
 import java.util.List;
 
-public class UserInscriptionListPresenter extends PresenterWidget<UserInscriptionListPresenter.MyView>  {
+public class UserInscriptionListPresenter extends PresenterWidget<UserInscriptionListPresenter.MyView>
+        implements UserInscriptionListUiHandlers {
     public interface MyView extends ValidatedPopupView, HasUiHandlers<UserInscriptionListUiHandlers> {
         void setData(List<DossierProxy> data);
     }

@@ -16,7 +16,6 @@
 
 package com.gsr.myschool.front.client.web.application.inbox.renderer;
 
-import com.google.common.base.Strings;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.cell.client.ValueUpdater;
@@ -25,9 +24,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiRenderer;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.gsr.myschool.common.client.proxy.InboxProxy;
@@ -61,7 +58,7 @@ public class InboxCell extends AbstractCell<InboxProxy> {
     public void render(Context context, InboxProxy value, SafeHtmlBuilder safeHtmlBuilder) {
         String msgStyle = value.getMsgStatus() == InboxMessageStatus.READ ?
                 resources.frontStyleCss().msgRead() : resources.frontStyleCss().msgUnread();
-        String content = value.getContent();
+        String content = value.getRawContent();
         if (content.length() > 100) {
             content = content.substring(0, 100) + "...";
         }

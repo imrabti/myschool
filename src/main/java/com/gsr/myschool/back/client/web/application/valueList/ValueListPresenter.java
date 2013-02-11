@@ -17,6 +17,7 @@
 package com.gsr.myschool.back.client.web.application.valueList;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.requestfactory.shared.Receiver;
@@ -94,17 +95,19 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
 
     @Override
     public void delete(ValueListProxy valueListProxy) {
-        requestFactory.valueListServiceRequest().deleteValueList(valueListProxy.getId()).fire(new ReceiverImpl<Void>() {
-            @Override
-            public void onSuccess(Void response) {
-                Message message = new Message.Builder(messageBundle.deleteValueListSuccess())
-                        .style(AlertType.SUCCESS)
-                        .closeDelay(CloseDelay.DEFAULT)
-                        .build();
-                MessageEvent.fire(this, message);
-            }
-        });
-        fillTable();
+        if (Window.confirm(messageBundle.deleteConfirmation())) {
+            requestFactory.valueListServiceRequest().deleteValueList(valueListProxy.getId()).fire(new ReceiverImpl<Void>() {
+                @Override
+                public void onSuccess(Void response) {
+                    Message message = new Message.Builder(messageBundle.deleteValueListSuccess())
+                            .style(AlertType.SUCCESS)
+                            .closeDelay(CloseDelay.DEFAULT)
+                            .build();
+                    MessageEvent.fire(this, message);
+                    fillTable();
+                }
+            });
+        }
     }
 
     @Override
