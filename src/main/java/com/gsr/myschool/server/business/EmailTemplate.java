@@ -18,6 +18,7 @@ public class EmailTemplate implements Serializable {
     private String subject;
     private Date created;
     private Date updated;
+    private String definition;
 
     public Long getId() {
         return id;
@@ -65,5 +66,13 @@ public class EmailTemplate implements Serializable {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public String getDefinition() {
+        return definition;
+    }
+
+    public void setDefinition(String definition) {
+        this.definition = definition;
     }
 }

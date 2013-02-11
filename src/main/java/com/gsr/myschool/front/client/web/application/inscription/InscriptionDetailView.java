@@ -26,6 +26,7 @@ import com.gsr.myschool.common.client.proxy.ScolariteAnterieurProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
 import com.gsr.myschool.common.client.widget.RowLabelValueFactory;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.type.ParentType;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
 
@@ -70,7 +71,7 @@ public class InscriptionDetailView extends ViewImpl implements InscriptionDetail
         initFraterieDataGrid();
         initScolariteAnterieurDataGrid();
 
-        dateFormat = DateTimeFormat.getFormat("LLL d yyyy");
+        dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
         fraterieDataProvider = new ListDataProvider<FraterieProxy>();
         scolariteDataProvider = new ListDataProvider<ScolariteAnterieurProxy>();
 
@@ -205,7 +206,7 @@ public class InscriptionDetailView extends ViewImpl implements InscriptionDetail
             }
         };
         numDossierColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        fraterieTable.addColumn(numDossierColumn, "#");
+        fraterieTable.addColumn(numDossierColumn, "N° dossier GSR");
         fraterieTable.setColumnWidth(numDossierColumn, 25, Style.Unit.PCT);
 
         TextColumn<FraterieProxy> nomPrenomColumn = new TextColumn<FraterieProxy>() {
