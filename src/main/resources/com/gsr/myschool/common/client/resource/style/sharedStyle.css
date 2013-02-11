@@ -1,4 +1,4 @@
-@external navbar-inner, nav-tabs, nav, accordion-group, accordion-toggle, accordion-inner;
+@external navbar-inner, nav-tabs, nav, accordion-group, accordion-toggle, accordion-inner, error;
 
 body {
     font-family: "Droid Sans", Helvetica, Arial, sans-serif;
@@ -130,4 +130,20 @@ body {
     border: none;
     background: none;
     text-decoration: underline;
+}
+
+.errorBox {
+    background-position: 10px center;
+    padding: 10px;
+    padding-left: 20px;
+    padding-bottom: 0px;
+    margin-bottom: 20px;
+    border: 1px solid #a70f1a;
+    margin-bottom: 10px;
+}
+
+.errorBox .error {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #7e0a12;
 }

@@ -1,5 +1,7 @@
 package com.gsr.myschool.server.business;
 
+import com.google.common.base.Strings;
+import com.gsr.myschool.common.client.proxy.InfoParentProxy;
 import com.gsr.myschool.common.shared.type.ParentType;
 import com.gsr.myschool.server.util.BeanMapper;
 import com.gsr.myschool.server.validator.Email;
@@ -138,4 +140,11 @@ public class InfoParent implements java.io.Serializable {
 	public Map getReportsAttributes() {
         return BeanMapper.beanToMap(this);
 	}
+
+    public Boolean isInfoParentEmpty() {
+        return Strings.isNullOrEmpty(nom)
+                && Strings.isNullOrEmpty(prenom)
+                && Strings.isNullOrEmpty(telDom)
+                && Strings.isNullOrEmpty(email);
+    }
 }
