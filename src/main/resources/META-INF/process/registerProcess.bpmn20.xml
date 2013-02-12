@@ -3,9 +3,43 @@
              xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:activiti="http://activiti.org/bpmn">
+
+    <signal id="mailNotReceivedId" name="mailNotReceived" />
+
     <process id="register" isExecutable="true" name="test">
+
+        <sequenceFlow sourceRef="para" targetRef="notreceived"/>
+
+        <intermediateCatchEvent id="notreceived">
+            <signalEventDefinition signalRef="mailNotReceivedId" />
+        </intermediateCatchEvent>
+
+        <sequenceFlow sourceRef="notreceived" targetRef="sendActivationMailAgain"/>
+
+        <serviceTask id="sendActivationMailAgain" name="sendmail task" activiti:type="mail" activiti:async="true">
+            <extensionElements>
+                <activiti:field name="from" expression="${email.from}"/>
+                <activiti:field name="to" expression="${email.to}"/>
+                <activiti:field name="subject" expression="${email.subject}"/>
+                <activiti:field name="html">
+                    <activiti:expression>
+                        <![CDATA[
+                            ${email.message} test
+                        ]]>
+                    </activiti:expression>
+                </activiti:field>
+            </extensionElements>
+        </serviceTask>
+
+        <sequenceFlow sourceRef="sendActivationMailAgain" targetRef="terminateState"/>
+
+        <intermediateThrowEvent id="terminateState"/>
+
         <startEvent id="start"/>
-        <sequenceFlow sourceRef="start" targetRef="sendActivationMail"/>
+        <sequenceFlow sourceRef="start" targetRef="para"/>
+
+        <parallelGateway id="para" />
+        <sequenceFlow sourceRef="para" targetRef="sendActivationMail"/>
 
         <serviceTask id="sendActivationMail" name="sendmail task" activiti:type="mail" activiti:async="true">
             <extensionElements>
@@ -27,12 +61,12 @@
         <userTask id="activationTask" activiti:assignee="${token}"/>
         <boundaryEvent id="timerDelete" attachedToRef="activationTask" cancelActivity="false">
             <timerEventDefinition>
-                <timeDuration>PT30M</timeDuration>
+                <timeDuration>P5D</timeDuration>
             </timerEventDefinition>
         </boundaryEvent>
         <boundaryEvent id="timerRelance" attachedToRef="activationTask" cancelActivity="false" >
             <timerEventDefinition>
-                <timeDuration>PT10M</timeDuration>
+                <timeDuration>P2D</timeDuration>
             </timerEventDefinition>
         </boundaryEvent>
 
