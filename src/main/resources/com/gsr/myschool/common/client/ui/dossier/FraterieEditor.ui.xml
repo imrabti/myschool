@@ -34,6 +34,33 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
+                <boot:ControlLabel>Classe</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.classe}">
+                        <boot:TextBox ui:field="classe" width="250px"/>
+                    </boot:Tooltip>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Niveau</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.niveau}">
+                        <boot:TextBox ui:field="niveau" width="250px"/>
+                    </boot:Tooltip>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Etablissement</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.etablissement}">
+                        <boot:TextBox ui:field="etablissement" width="250px"/>
+                    </boot:Tooltip>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
                 <boot:ControlLabel>Type de fraterie</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.fraterieType}">

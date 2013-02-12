@@ -30,6 +30,12 @@ public class FraterieEditor extends Composite implements EditorView<FraterieProx
     TextBox prenom;
     @UiField
     TextBox numDossierGSR;
+    @UiField
+    TextBox classe;
+    @UiField
+    TextBox niveau;
+    @UiField
+    TextBox etablissement;
     @UiField(provided = true)
     ValueListBox<TypeFraterie> typeFraterie;
 
@@ -46,6 +52,9 @@ public class FraterieEditor extends Composite implements EditorView<FraterieProx
         $(nom).id("nom");
         $(prenom).id("prenom");
         $(numDossierGSR).id("numDossierGSR");
+        $(classe).id("classe");
+        $(niveau).id("niveau");
+        $(etablissement).id("etablissement");
         $(typeFraterie).id("typeFraterie");
 
         typeFraterie.setAcceptableValues(Arrays.asList(TypeFraterie.values()));

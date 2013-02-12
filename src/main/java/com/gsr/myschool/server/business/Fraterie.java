@@ -22,6 +22,9 @@ public class Fraterie implements java.io.Serializable {
     @NotBlank
     private String prenom;
     private String numDossierGSR;
+    private String niveau;
+    private String classe;
+    private String etablissement;
     @Enumerated
     private TypeFraterie typeFraterie;
     private Boolean valide;
@@ -80,6 +83,30 @@ public class Fraterie implements java.io.Serializable {
 
     public void setValide(Boolean valide) {
         this.valide = valide;
+    }
+
+    public String getNiveau() {
+        return niveau;
+    }
+
+    public void setNiveau(String niveau) {
+        this.niveau = niveau;
+    }
+
+    public String getClasse() {
+        return classe;
+    }
+
+    public void setClasse(String classe) {
+        this.classe = classe;
+    }
+
+    public String getEtablissement() {
+        return etablissement;
+    }
+
+    public void setEtablissement(String etablissement) {
+        this.etablissement = etablissement;
     }
 
     public Map getReportsAttributes() {

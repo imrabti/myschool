@@ -27,6 +27,18 @@ public interface FraterieProxy extends ValueProxy {
 
     public void setNumDossierGSR(String numDossierGSR);
 
+    public String getNiveau();
+
+    public void setNiveau(String niveau);
+
+    public String getClasse();
+
+    public void setClasse(String classe);
+
+    public String getEtablissement();
+
+    public void setEtablissement(String etablissement);
+
     public TypeFraterie getTypeFraterie();
 
     public void setTypeFraterie(TypeFraterie typeFraterie);
