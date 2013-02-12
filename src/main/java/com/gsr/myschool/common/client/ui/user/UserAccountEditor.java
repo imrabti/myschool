@@ -67,4 +67,8 @@ public class UserAccountEditor extends Composite implements EditorView<UserProxy
             return user;
         }
     }
+
+    public void setStatusVisible(Boolean bool) {
+        this.status.setVisible(bool);
+    }
 }
