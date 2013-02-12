@@ -16,6 +16,8 @@ import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.renderer.ValueListRenderer;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
 
+import java.util.List;
+
 import static com.google.gwt.query.client.GQuery.$;
 
 public class CandidatEditor extends Composite implements EditorView<CandidatProxy> {
@@ -63,7 +65,13 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
 
-        nationality.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.NATIONALITY));
+        List<ValueListProxy> nationalities = valueList.getValueListByCode(ValueTypeCode.NATIONALITY);
+        for (ValueListProxy nationalityFromList : nationalities) {
+            if ("MAROCAINE".equals(nationalityFromList.getValue())) {
+                nationality.setValue(nationalityFromList);
+            }
+        }
+        nationality.setAcceptableValues(nationalities);
         bacYear.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.BAC_YEAR));
         bacSerie.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.BAC_SERIE));
 
