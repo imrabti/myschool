@@ -105,7 +105,7 @@ public class RegisterProcessServiceTest {
     public void myTest() throws Exception {
         user.setStatus(UserStatus.INACTIVE);
         user.setEmail(mail);
-        user.setId(7L);
+        user.setId(9L);
         user.setFirstName(fname);
         user.setLastName(lname);
         userRepos.save(user);
@@ -116,6 +116,8 @@ public class RegisterProcessServiceTest {
                 .signalEventSubscriptionName("mailNotReceived")
                 .list();
 
+        registerProcessService.mailNotReceived(user);
+        Thread.sleep(10000);
         registerProcessService.mailNotReceived(user);
     }
 }
