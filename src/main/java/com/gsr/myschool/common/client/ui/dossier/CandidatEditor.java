@@ -21,14 +21,13 @@ import java.util.List;
 import static com.google.gwt.query.client.GQuery.$;
 
 public class CandidatEditor extends Composite implements EditorView<CandidatProxy> {
-
-    public static final String DEFAULT_NATIONALITY = "MAROCAINE";
-
     public interface Binder extends UiBinder<Widget, CandidatEditor> {
     }
 
     public interface Driver extends SimpleBeanEditorDriver<CandidatProxy, CandidatEditor> {
     }
+
+    public static final String DEFAULT_NATIONALITY = "MAROCAINE";
 
     @UiField
     TextBox firstname;
