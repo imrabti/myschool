@@ -49,7 +49,6 @@ public class AccountSettingsView extends ValidatedPopupViewImplWithUiHandlers<Ac
         this.passwordEditor = passwordEditor;
 
         initWidget(uiBinder.createAndBindUi(this));
-        userAccountEditor.setStatusVisible(false);
 
         modalHeader.addCloseHandler(new ClickHandler() {
             @Override

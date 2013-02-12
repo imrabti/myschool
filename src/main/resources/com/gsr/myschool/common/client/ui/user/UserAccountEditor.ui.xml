@@ -32,7 +32,7 @@
                 </boot:Controls>
             </boot:ControlGroup>
 
-            <boot:ControlGroup>
+            <boot:ControlGroup ui:field="statusGroup" >
                 <boot:ControlLabel width="100px">Statut</boot:ControlLabel>
                 <boot:Controls styleName="{style.smallMargin}">
                     <boot:ValueListBox ui:field="status" width="250px"/>

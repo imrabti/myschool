@@ -21,6 +21,9 @@ import java.util.List;
 import static com.google.gwt.query.client.GQuery.$;
 
 public class CandidatEditor extends Composite implements EditorView<CandidatProxy> {
+
+    public static final String DEFAULT_NATIONALITY = "MAROCAINE";
+
     public interface Binder extends UiBinder<Widget, CandidatEditor> {
     }
 
@@ -51,12 +54,14 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
     ValueListBox<ValueListProxy> bacYear;
 
     private final Driver driver;
+    private final ValueList valueList;
 
     @Inject
     public CandidatEditor(final Binder uiBinder, final Driver driver,
                           final ValueList valueList,
                           final ValueListRenderer valueListRenderer) {
         this.driver = driver;
+        this.valueList = valueList;
 
         nationality = new ValueListBox<ValueListProxy>(valueListRenderer);
         bacSerie = new ValueListBox<ValueListProxy>(valueListRenderer);
@@ -65,13 +70,7 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
 
-        List<ValueListProxy> nationalities = valueList.getValueListByCode(ValueTypeCode.NATIONALITY);
-        for (ValueListProxy nationalityFromList : nationalities) {
-            if ("MAROCAINE".equals(nationalityFromList.getValue())) {
-                nationality.setValue(nationalityFromList);
-            }
-        }
-        nationality.setAcceptableValues(nationalities);
+        nationality.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.NATIONALITY));
         bacYear.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.BAC_YEAR));
         bacSerie.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.BAC_SERIE));
 
@@ -92,6 +91,9 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
     public void edit(CandidatProxy candidat) {
         firstname.setFocus(true);
         driver.edit(candidat);
+        if (candidat.getNationality() == null) {
+            nationality.setValue(getDefaultNationality());
+        }
     }
 
     @Override
@@ -102,5 +104,14 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
         } else {
             return candidat;
         }
+    }
+
+    private ValueListProxy getDefaultNationality() {
+        for (ValueListProxy nationalityFromList : valueList.getValueListByCode(ValueTypeCode.NATIONALITY)) {
+            if (DEFAULT_NATIONALITY.equals(nationalityFromList.getValue())) {
+                return nationalityFromList;
+            }
+        }
+        return null;
     }
 }
