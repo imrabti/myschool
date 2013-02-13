@@ -94,6 +94,36 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
         fraterieTable.addColumn(typeFraterieColumn, "Type fraterie");
         fraterieTable.setColumnWidth(typeFraterieColumn, 20, Style.Unit.PCT);
 
+        TextColumn<FraterieProxy> niveauColumn = new TextColumn<FraterieProxy>() {
+            @Override
+            public String getValue(FraterieProxy object) {
+                return object.getNiveau().toString();
+            }
+        };
+        niveauColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        fraterieTable.addColumn(niveauColumn, "Niveau");
+        fraterieTable.setColumnWidth(niveauColumn, 20, Style.Unit.PCT);
+
+        TextColumn<FraterieProxy> classeColumn = new TextColumn<FraterieProxy>() {
+            @Override
+            public String getValue(FraterieProxy object) {
+                return object.getClasse().toString();
+            }
+        };
+        classeColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        fraterieTable.addColumn(classeColumn, "Classe");
+        fraterieTable.setColumnWidth(classeColumn, 20, Style.Unit.PCT);
+
+        TextColumn<FraterieProxy> etablissementColumn = new TextColumn<FraterieProxy>() {
+            @Override
+            public String getValue(FraterieProxy object) {
+                return object.getEtablissement().toString();
+            }
+        };
+        etablissementColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        fraterieTable.addColumn(etablissementColumn, "Etablissement");
+        fraterieTable.setColumnWidth(etablissementColumn, 20, Style.Unit.PCT);
+
         ActionCell<FraterieProxy> actionCell = new ActionCell<FraterieProxy>("Supprimer",
                 new ActionCell.Delegate<FraterieProxy>(){
             @Override

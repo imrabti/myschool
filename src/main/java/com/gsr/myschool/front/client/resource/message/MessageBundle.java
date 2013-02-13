@@ -70,4 +70,8 @@ public interface MessageBundle extends Messages {
     String resetPasswordFailure();
 
     String resetPasswordSuccess();
+
+    String resendMailSuccess();
+
+    String resendMailFailure();
 }

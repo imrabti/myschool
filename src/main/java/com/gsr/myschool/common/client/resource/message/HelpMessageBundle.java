@@ -51,6 +51,12 @@ public interface HelpMessageBundle extends Messages {
 
     String fraterieNumDossier();
 
+    String classe();
+
+    String niveau();
+
+    String etablissement();
+
     String fraterieType();
 
     String scolariteEtablissement();
