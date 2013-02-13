@@ -58,6 +58,7 @@ public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, Regis
     private final MessageBundle messageBundle;
 
     private RegistrationRequest currentContext;
+    private Boolean registerViolation;
 
     @Inject
     public RegisterPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
@@ -74,27 +75,33 @@ public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, Regis
 
     @Override
     public void register(UserProxy user) {
-        String confirmationLink = URLUtils.generateURL(NameTokens.getLogin());
-        currentContext.register(user, confirmationLink).fire(new ValidatedReceiverImpl<Boolean>() {
-            @Override
-            public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                getView().clearErrors();
-                getView().showErrors(violations);
-            }
+        if (!registerViolation) {
+            String confirmationLink = URLUtils.generateURL(NameTokens.getLogin());
+            currentContext.register(user, confirmationLink).fire(new ValidatedReceiverImpl<Boolean>() {
+                @Override
+                public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                    registerViolation = true;
+                    getView().clearErrors();
+                    getView().showErrors(violations);
+                }
 
-            @Override
-            public void onSuccess(Boolean aBoolean) {
-                getView().clearErrors();
-                String messageString = aBoolean ? messageBundle.registerSuccess() : messageBundle.registerFailure();
-                AlertType alertType = aBoolean ? AlertType.SUCCESS : AlertType.ERROR;
-                Message message = new Message.Builder(messageString)
-                        .style(alertType)
-                        .closeDelay(CloseDelay.NEVER)
-                        .build();
-                MessageEvent.fire(this, message);
-                placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
-            }
-        });
+                @Override
+                public void onSuccess(Boolean aBoolean) {
+                    registerViolation = false;
+                    getView().clearErrors();
+
+                    String messageString = aBoolean ? messageBundle.registerSuccess() : messageBundle.registerFailure();
+                    AlertType alertType = aBoolean ? AlertType.SUCCESS : AlertType.ERROR;
+                    Message message = new Message.Builder(messageString)
+                            .style(alertType).closeDelay(CloseDelay.LONG).build();
+                    MessageEvent.fire(this, message);
+
+                    placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
+                }
+                });
+        } else {
+            currentContext.fire();
+        }
     }
 
     @Override
@@ -104,6 +111,7 @@ public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, Regis
 
     protected void onReveal() {
         currentContext = requestFactory.registrationService();
+        registerViolation = false;
         getView().edit(currentContext.create(UserProxy.class));
     }
 }

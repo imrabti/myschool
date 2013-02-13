@@ -45,6 +45,7 @@ public class ResetPasswordPresenter extends Presenter<MyView, MyProxy> implement
 
     private RegistrationRequest currentContext;
     private ResetPasswordDTOProxy currentResetPassword;
+    private Boolean resetPasswordViolation;
     private String token;
     private String userEmail;
 
@@ -82,48 +83,52 @@ public class ResetPasswordPresenter extends Presenter<MyView, MyProxy> implement
 
     @Override
     public void saveNewPassword(ResetPasswordDTOProxy resetPassword) {
-        currentContext.resetPassword(resetPassword, token, userEmail).fire(new ValidatedReceiverImpl<Boolean>() {
-            @Override
-            public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                getView().clearErrors();
-                getView().showErrors(violations);
-            }
-
-            @Override
-            public void onSuccess(Boolean response) {
-                String messageString = response ? messageBundle.resetPasswordSuccess()
-                        : messageBundle.resetPasswordFailure();
-                AlertType alertType = response ? AlertType.SUCCESS : AlertType.ERROR;
-                Message message = new Message.Builder(messageString)
-                        .style(alertType)
-                        .closeDelay(CloseDelay.LONG)
-                        .build();
-                MessageEvent.fire(this, message);
-                getView().clearErrors();
-
-                if (response) {
-                    placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
-                } else {
-                    currentContext = requestFactory.registrationService();
-                    currentResetPassword = currentContext.edit(currentResetPassword);
-                    getView().edit(currentResetPassword);
+        if (!resetPasswordViolation) {
+            currentContext.resetPassword(resetPassword, token, userEmail).fire(new ValidatedReceiverImpl<Boolean>() {
+                @Override
+                public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                    resetPasswordViolation = true;
+                    getView().clearErrors();
+                    getView().showErrors(violations);
                 }
-            }
-        });
+
+                @Override
+                public void onSuccess(Boolean response) {
+                    String messageString = response ? messageBundle.resetPasswordSuccess()
+                            : messageBundle.resetPasswordFailure();
+                    AlertType alertType = response ? AlertType.SUCCESS : AlertType.ERROR;
+                    Message message = new Message.Builder(messageString)
+                            .style(alertType).closeDelay(CloseDelay.LONG).build();
+                    MessageEvent.fire(this, message);
+                    getView().clearErrors();
+
+                    resetPasswordViolation = false;
+
+                    if (response) {
+                        placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
+                    } else {
+                        currentContext = requestFactory.registrationService();
+                        currentResetPassword = currentContext.edit(currentResetPassword);
+                        getView().edit(currentResetPassword);
+                    }
+                }
+            });
+        } else {
+            currentContext.fire();
+        }
     }
 
     @Override
     protected void onReveal() {
         currentContext = requestFactory.registrationService();
         currentResetPassword = currentContext.create(ResetPasswordDTOProxy.class);
+        resetPasswordViolation = false;
         getView().edit(currentResetPassword);
     }
 
     private void bounceToLogin() {
         Message message = new Message.Builder(messageBundle.forgotPasswordWrongToken())
-                .style(AlertType.ERROR)
-                .closeDelay(CloseDelay.LONG)
-                .build();
+                .style(AlertType.ERROR).closeDelay(CloseDelay.LONG).build();
         MessageEvent.fire(this, message);
         placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
     }
