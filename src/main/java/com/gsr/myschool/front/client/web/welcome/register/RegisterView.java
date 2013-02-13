@@ -107,6 +107,11 @@ public class RegisterView extends ValidatedViewWithUiHandlers<RegisterUiHandlers
         }
     }
 
+    @UiHandler("resendMail")
+    void onResendMailClicked(ClickEvent event) {
+        getUiHandlers().resendMail();
+    }
+
     private void processRegisterAction() {
         UserProxy user = get();
         getUiHandlers().register(user);

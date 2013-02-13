@@ -28,7 +28,7 @@
                 <boot:TabPanel ui:field="tabs" tabPosition="left">
                     <boot:Tab heading="Infomations générales" active="true">
                         <g:HTMLPanel styleName="{style.contentWrapper}">
-                            <p:UserAccountEditor ui:field="userAccountEditor"/>
+                            <p:UserAccountEditor ui:field="userAccountEditor" statusVisible="false"/>
                         </g:HTMLPanel>
                     </boot:Tab>
                     <boot:Tab heading="Mot de passe">

@@ -71,6 +71,9 @@
             </boot:Form>
 
             <g:Button ui:field="register" text="S'inscrire" styleName="btn btn-warning"/>
+
+            <g:Button ui:field="resendMail" text="Email d'activation non reçus ?"
+                      styleName="{sharedResources.sharedStyleCss.linkButton}"/>
         </div>
     </g:HTMLPanel>
 </ui:UiBinder>

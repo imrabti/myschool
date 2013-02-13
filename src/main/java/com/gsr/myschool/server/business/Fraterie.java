@@ -1,6 +1,7 @@
 package com.gsr.myschool.server.business;
 
 import com.gsr.myschool.common.shared.type.TypeFraterie;
+import com.gsr.myschool.common.shared.type.TypeNiveauEtude;
 import com.gsr.myschool.server.util.BeanMapper;
 import com.gsr.myschool.server.validator.Name;
 import com.gsr.myschool.server.validator.NotBlank;
@@ -22,6 +23,10 @@ public class Fraterie implements java.io.Serializable {
     @NotBlank
     private String prenom;
     private String numDossierGSR;
+    @Enumerated
+    private TypeNiveauEtude niveau;
+    private String classe;
+    private String etablissement;
     @Enumerated
     private TypeFraterie typeFraterie;
     private Boolean valide;
@@ -80,6 +85,30 @@ public class Fraterie implements java.io.Serializable {
 
     public void setValide(Boolean valide) {
         this.valide = valide;
+    }
+
+    public TypeNiveauEtude getNiveau() {
+        return niveau;
+    }
+
+    public void setNiveau(TypeNiveauEtude niveau) {
+        this.niveau = niveau;
+    }
+
+    public String getClasse() {
+        return classe;
+    }
+
+    public void setClasse(String classe) {
+        this.classe = classe;
+    }
+
+    public String getEtablissement() {
+        return etablissement;
+    }
+
+    public void setEtablissement(String etablissement) {
+        this.etablissement = etablissement;
     }
 
     public Map getReportsAttributes() {
