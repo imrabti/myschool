@@ -19,17 +19,18 @@ import com.gwtplatform.mvp.client.PresenterWidget;
 import javax.validation.ConstraintViolation;
 import java.util.Set;
 
-public class AdminUserAccountEditPresenter extends PresenterWidget<AdminUserAccountEditPresenter.MyView> implements AdminUserAccountEditUiHandlers {
+public class AdminUserAccountEditPresenter extends PresenterWidget<AdminUserAccountEditPresenter.MyView>
+        implements AdminUserAccountEditUiHandlers {
     public interface MyView extends ValidatedPopupView, HasUiHandlers<AdminUserAccountEditUiHandlers> {
         void edit(AdminUserProxy userProxy);
-
-        void flush();
     }
 
     private final SharedMessageBundle messageBundle;
     private final BackRequestFactory requestFactory;
+
     private UserServiceRequest currentContext;
     private AdminUserProxy currentUser;
+    private Boolean userViolation;
 
     @Inject
     public AdminUserAccountEditPresenter(final EventBus eventBus, final MyView view,
@@ -46,48 +47,53 @@ public class AdminUserAccountEditPresenter extends PresenterWidget<AdminUserAcco
     public void editDatas(AdminUserProxy adminUser) {
         currentContext = requestFactory.userService();
         currentUser = currentContext.edit(adminUser);
+        userViolation = false;
+
         getView().edit(currentUser);
     }
 
     public void initDatas() {
         currentContext = requestFactory.userService();
         currentUser = currentContext.create(AdminUserProxy.class);
+        userViolation = false;
+
         getView().edit(currentUser);
     }
 
-    public void saveAccount() {
-        getView().flush();
+    @Override
+    public void saveAccount(AdminUserProxy userProxy) {
+        if (!userViolation) {
+            currentContext.saveAdminAccount(currentUser).fire(new ValidatedReceiverImpl<Boolean>() {
+                @Override
+                public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                    userViolation = true;
 
-        currentContext.saveAdminAccount(currentUser).fire(new ValidatedReceiverImpl<Boolean>() {
-            @Override
-            public void onSuccess(Boolean response) {
-                String messageString = response ? messageBundle.operationSuccess() : messageBundle.operationFailure();
-                AlertType alertType = response ? AlertType.SUCCESS : AlertType.ERROR;
-                Message message = new Message.Builder(messageString)
-                        .style(alertType)
-                        .closeDelay(CloseDelay.DEFAULT)
-                        .build();
-                MessageEvent.fire(this, message);
-                AdminUserChangedEvent.fire(this);
+                    getView().clearErrors();
+                    getView().showErrors(violations);
+                }
 
-                getView().clearErrors();
-                getView().hide();
-            }
+                @Override
+                public void onSuccess(Boolean response) {
+                    String messageString = response ? messageBundle.operationSuccess() : messageBundle.operationFailure();
+                    AlertType alertType = response ? AlertType.SUCCESS : AlertType.ERROR;
+                    Message message = new Message.Builder(messageString)
+                            .style(alertType).closeDelay(CloseDelay.DEFAULT).build();
+                    MessageEvent.fire(this, message);
+                    AdminUserChangedEvent.fire(this);
 
-            @Override
-            public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                getView().clearErrors();
-                getView().showErrors(violations);
-            }
-        });
+                    userViolation = false;
+
+                    getView().clearErrors();
+                    getView().hide();
+                }
+            });
+        } else {
+            currentContext.fire();
+        }
     }
 
     @Override
     protected void onReveal(){
-        super.onReveal();
-
         getView().clearErrors();
     }
-
-
 }

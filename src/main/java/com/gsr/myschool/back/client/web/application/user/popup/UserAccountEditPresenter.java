@@ -23,14 +23,14 @@ public class UserAccountEditPresenter extends PresenterWidget<UserAccountEditPre
         implements UserAccountEditUiHandlers {
     public interface MyView extends ValidatedPopupView, HasUiHandlers<UserAccountEditUiHandlers> {
         void edit(UserProxy userProxy);
-
-        void flush();
     }
 
     private final SharedMessageBundle messageBundle;
     private final BackRequestFactory requestFactory;
+
     private UserServiceRequest currentContext;
     private UserProxy currentUser;
+    private Boolean userViolation;
 
     @Inject
     public UserAccountEditPresenter(final EventBus eventBus, final MyView view,
@@ -44,36 +44,43 @@ public class UserAccountEditPresenter extends PresenterWidget<UserAccountEditPre
         getView().setUiHandlers(this);
     }
 
-    public void saveAccount() {
-        getView().flush();
+    @Override
+    public void saveAccount(UserProxy userProxy) {
+        if (!userViolation) {
+            currentContext.saveUserAccount(currentUser).fire(new ValidatedReceiverImpl<Boolean>() {
+                @Override
+                public void onSuccess(Boolean response) {
+                    userViolation = true;
 
-        currentContext.saveUserAccount(currentUser).fire(new ValidatedReceiverImpl<Boolean>() {
-            @Override
-            public void onSuccess(Boolean response) {
-                String messageString = response ? messageBundle.operationSuccess() : messageBundle.operationFailure();
-                AlertType alertType = response ? AlertType.SUCCESS : AlertType.ERROR;
-                Message message = new Message.Builder(messageString)
-                        .style(alertType)
-                        .closeDelay(CloseDelay.DEFAULT)
-                        .build();
-                MessageEvent.fire(this, message);
-                UserAccountChangedEvent.fire(this);
+                    String messageString = response ? messageBundle.operationSuccess() : messageBundle.operationFailure();
+                    AlertType alertType = response ? AlertType.SUCCESS : AlertType.ERROR;
+                    Message message = new Message.Builder(messageString)
+                            .style(alertType).closeDelay(CloseDelay.DEFAULT).build();
+                    MessageEvent.fire(this, message);
+                    UserAccountChangedEvent.fire(this);
 
-                getView().clearErrors();
-                getView().hide();
-            }
+                    getView().clearErrors();
+                    getView().hide();
+                }
 
-            @Override
-            public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                getView().clearErrors();
-                getView().showErrors(violations);
-            }
-        });
+                @Override
+                public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                    userViolation = false;
+
+                    getView().clearErrors();
+                    getView().showErrors(violations);
+                }
+            });
+        } else {
+            currentContext.fire();
+        }
     }
 
     public void editDatas(UserProxy userProxy) {
         currentContext = requestFactory.userService();
         currentUser = currentContext.edit(userProxy);
+        userViolation = false;
+
         getView().edit(currentUser);
     }
 }
