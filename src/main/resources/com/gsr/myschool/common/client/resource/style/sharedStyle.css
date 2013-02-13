@@ -147,3 +147,10 @@ body {
     font-size: 14px;
     color: #7e0a12;
 }
+
+@sprite .requiredField {
+    gwt-image: "required";
+    width: 12px;
+    height: 10px;
+    display: inline-block;
+}
