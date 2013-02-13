@@ -3,6 +3,7 @@
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
 
     <ui:with field="helpMessage" type="com.gsr.myschool.common.client.resource.message.HelpMessageBundle"/>
+    <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
     <g:HTMLPanel>
         <boot:Form type="HORIZONTAL">
@@ -30,6 +31,7 @@
                     <boot:Tooltip text="{helpMessage.scolariteNiveauEtude}">
                         <boot:ValueListBox ui:field="typeNiveauEtude" width="250px"/>
                     </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
@@ -39,6 +41,7 @@
                     <boot:Tooltip text="{helpMessage.scolariteClasse}">
                         <boot:TextBox ui:field="classe" width="250px"/>
                     </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
@@ -48,6 +51,7 @@
                     <boot:Tooltip text="{helpMessage.scolariteAnneeScolaire}">
                         <boot:ValueListBox ui:field="anneeScolaire" width="250px"/>
                     </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
         </boot:Form>
