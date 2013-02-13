@@ -45,8 +45,10 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
 
     private final BackRequestFactory requestFactory;
     private final MessageBundle messageBundle;
+
     private ValueTypeProxy currentValueType;
     private ValueTypeServiceRequest currentContext;
+    private Boolean valueTypeViolation;
 
     @Inject
     public AddValueTypePresenter(final EventBus eventBus, final MyView view,
@@ -69,6 +71,8 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
     public void editDatas(ValueTypeProxy valueType) {
         currentContext = requestFactory.valueTypeServiceRequest();
         currentValueType = currentContext.edit(valueType);
+        valueTypeViolation = false;
+
         getView().editType(currentValueType);
     }
 
@@ -80,32 +84,38 @@ public class AddValueTypePresenter extends PresenterWidget<AddValueTypePresenter
                 currentContext.edit(currentValueType.getParent()) : null);
         currentValueType.setRegex(currentValueType.getRegex() != null ?
                 currentContext.edit(currentValueType.getRegex()) : null);
-        currentContext.updateValueType(currentValueType).fire(new ValidatedReceiverImpl<Void>() {
-            @Override
-            public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                getView().clearErrors();
-                getView().showErrors(violations);
-            }
 
-            @Override
-            public void onSuccess(Void aVoid) {
-                getView().clearErrors();
-                getView().editType(currentValueType);
-                Message message = new Message.Builder(messageBundle.addValueTypeSuccess())
-                        .style(AlertType.SUCCESS)
-                        .closeDelay(CloseDelay.DEFAULT)
-                        .build();
-                MessageEvent.fire(this, message);
-                fireEvent(new ValueTypeChangedEvent(currentValueType));
-                getView().hide();
-            }
-        });
+        if (!valueTypeViolation) {
+            currentContext.updateValueType(currentValueType).fire(new ValidatedReceiverImpl<Void>() {
+                @Override
+                public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                    valueTypeViolation = true;
+
+                    getView().clearErrors();
+                    getView().showErrors(violations);
+                }
+
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Message message = new Message.Builder(messageBundle.addValueTypeSuccess())
+                            .style(AlertType.SUCCESS).closeDelay(CloseDelay.DEFAULT).build();
+                    MessageEvent.fire(this, message);
+                    fireEvent(new ValueTypeChangedEvent(currentValueType));
+
+                    valueTypeViolation = false;
+
+                    getView().clearErrors();
+                    getView().editType(currentValueType);
+                    getView().hide();
+                }
+            });
+        } else {
+            currentContext.fire();
+        }
     }
 
     @Override
     protected void onReveal(){
-        super.onReveal();
-
         getView().clearErrors();
     }
 }

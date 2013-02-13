@@ -47,8 +47,10 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
 
     private final BackRequestFactory requestFactory;
     private final MessageBundle messageBundle;
+
     private ValueListProxy currentValueList;
     private ValueListServiceRequest currentContext;
+    private Boolean valueListViolation;
 
     @Inject
     public AddValueListPresenter(final EventBus eventBus, final MyView view,
@@ -72,6 +74,8 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
     public void editDatas(ValueListProxy valuelist) {
         currentContext = requestFactory.valueListServiceRequest();
         currentValueList = currentContext.edit(valuelist);
+        valueListViolation = false;
+
         getView().editValue(currentValueList);
     }
 
@@ -82,33 +86,38 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
         currentValueList.setValueType(currentContext.edit(currentValueList.getValueType()));
         currentValueList.setParent(currentValueList.getParent() != null ?
                 currentContext.edit(currentValueList.getParent()) : null);
-        currentContext.addValueList(currentValueList).fire(new ValidatedReceiverImpl<Void>() {
 
-            @Override
-            public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                getView().clearErrors();
-                getView().showErrors(violations);
-            }
+        if (!valueListViolation) {
+            currentContext.addValueList(currentValueList).fire(new ValidatedReceiverImpl<Void>() {
+                @Override
+                public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                    valueListViolation = true;
 
-            @Override
-            public void onSuccess(Void aVoid) {
-                getView().clearErrors();
-                getView().editValue(currentValueList);
-                Message message = new Message.Builder(messageBundle.addValueListSuccess())
-                        .style(AlertType.SUCCESS)
-                        .closeDelay(CloseDelay.DEFAULT)
-                        .build();
-                MessageEvent.fire(this, message);
-                fireEvent(new ValueListChangedEvent(currentValueList));
-                getView().hide();
-            }
-        });
+                    getView().clearErrors();
+                    getView().showErrors(violations);
+                }
+
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Message message = new Message.Builder(messageBundle.addValueListSuccess())
+                            .style(AlertType.SUCCESS).closeDelay(CloseDelay.DEFAULT).build();
+                    MessageEvent.fire(this, message);
+                    fireEvent(new ValueListChangedEvent(currentValueList));
+
+                    valueListViolation = false;
+
+                    getView().clearErrors();
+                    getView().editValue(currentValueList);
+                    getView().hide();
+                }
+            });
+        } else {
+            currentContext.fire();
+        }
     }
 
     @Override
     protected void onReveal(){
-        super.onReveal();
-
         getView().clearErrors();
     }
 }

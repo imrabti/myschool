@@ -40,6 +40,7 @@ public class ScolariteAnterieurPresenter extends PresenterWidget<ScolariteAnteri
     private InscriptionRequest currentContext;
     private DossierProxy currentDossier;
     private ScolariteAnterieurDTOProxy currentScolarite;
+    private Boolean scolariteAnterieurViolation;
 
     @Inject
     public ScolariteAnterieurPresenter(final EventBus eventBus, final MyView view,
@@ -72,23 +73,30 @@ public class ScolariteAnterieurPresenter extends PresenterWidget<ScolariteAnteri
             scolariteAnterieur.setAnneeScolaire(currentContext.edit(scolariteAnterieur.getAnneeScolaire()));
         }
 
-        currentContext.createNewScolariteAnterieur(scolariteAnterieur, dossierId).fire(
-                new ValidatedReceiverImpl<Void>() {
-            @Override
-            public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                getView().clearErrors();
-                getView().showErrors(violations);
-            }
+        if (!scolariteAnterieurViolation) {
+            currentContext.createNewScolariteAnterieur(scolariteAnterieur, dossierId).fire(
+                    new ValidatedReceiverImpl<Void>() {
+                @Override
+                public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                    getView().clearErrors();
+                    getView().showErrors(violations);
+                    scolariteAnterieurViolation = true;
+                }
 
-            @Override
-            public void onSuccess(Void response) {
-                currentContext = requestFactory.inscriptionService();
-                currentScolarite = currentContext.create(ScolariteAnterieurDTOProxy.class);
-                getView().editScolariteAnterieur(currentScolarite);
-                getView().clearErrors();
-                loadScolariteAnterieur();
-            }
-        });
+                @Override
+                public void onSuccess(Void response) {
+                    currentContext = requestFactory.inscriptionService();
+                    currentScolarite = currentContext.create(ScolariteAnterieurDTOProxy.class);
+                    scolariteAnterieurViolation = false;
+
+                    getView().editScolariteAnterieur(currentScolarite);
+                    getView().clearErrors();
+                    loadScolariteAnterieur();
+                }
+            });
+        } else {
+            currentContext.fire();
+        }
     }
 
     @Override
@@ -99,9 +107,7 @@ public class ScolariteAnterieurPresenter extends PresenterWidget<ScolariteAnteri
                 @Override
                 public void onSuccess(Void response) {
                     Message message = new Message.Builder(messageBundle.deleteScolariteAnterieurSuccess())
-                                .style(AlertType.SUCCESS)
-                                .closeDelay(CloseDelay.DEFAULT)
-                                .build();
+                                .style(AlertType.SUCCESS).closeDelay(CloseDelay.DEFAULT).build();
                     MessageEvent.fire(this, message);
                     loadScolariteAnterieur();
                 }
@@ -113,6 +119,7 @@ public class ScolariteAnterieurPresenter extends PresenterWidget<ScolariteAnteri
         currentDossier = dossierProxy;
         currentContext = requestFactory.inscriptionService();
         currentScolarite = currentContext.create(ScolariteAnterieurDTOProxy.class);
+        scolariteAnterieurViolation = false;
 
         getView().editScolariteAnterieur(currentScolarite);
         loadScolariteAnterieur();
