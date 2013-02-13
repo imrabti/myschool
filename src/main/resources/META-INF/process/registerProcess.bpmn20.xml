@@ -21,7 +21,7 @@
                 <activiti:field name="html">
                     <activiti:expression>
                         <![CDATA[
-                            ${email.message} test
+                            ${email.message}
                         ]]>
                     </activiti:expression>
                 </activiti:field>
