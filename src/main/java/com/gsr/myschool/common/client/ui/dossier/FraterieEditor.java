@@ -33,7 +33,7 @@ public class FraterieEditor extends Composite implements EditorView<FraterieProx
     TextBox numDossierGSR;
     @UiField
     TextBox classe;
-    @UiField
+    @UiField(provided = true)
     ValueListBox<TypeNiveauEtude> niveau;
     @UiField
     TextBox etablissement;
@@ -46,6 +46,7 @@ public class FraterieEditor extends Composite implements EditorView<FraterieProx
     public FraterieEditor(final Binder uiBinder, final Driver driver) {
         this.driver = driver;
         this.typeFraterie = new ValueListBox<TypeFraterie>(new EnumRenderer<TypeFraterie>());
+        this.niveau = new ValueListBox<TypeNiveauEtude>(new EnumRenderer<TypeNiveauEtude>());
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
