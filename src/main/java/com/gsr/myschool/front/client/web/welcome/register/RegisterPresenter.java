@@ -31,6 +31,7 @@ import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.request.RegistrationRequest;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.front.client.web.RootPresenter;
+import com.gsr.myschool.front.client.web.welcome.popup.ResendmailPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.annotations.NameToken;
@@ -56,18 +57,21 @@ public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, Regis
     private final FrontRequestFactory requestFactory;
     private final PlaceManager placeManager;
     private final MessageBundle messageBundle;
+    private final ResendmailPresenter resendmailPresenter;
 
     private RegistrationRequest currentContext;
 
     @Inject
     public RegisterPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                              final FrontRequestFactory requestFactory, final MessageBundle messageBundle,
-                             final PlaceManager placeManager) {
+                             final PlaceManager placeManager,
+                             final ResendmailPresenter resendmailPresenter) {
         super(eventBus, view, proxy, RootPresenter.TYPE_SetMainContent);
 
         this.messageBundle = messageBundle;
         this.requestFactory = requestFactory;
         this.placeManager = placeManager;
+        this.resendmailPresenter = resendmailPresenter;
 
         getView().setUiHandlers(this);
     }
@@ -100,6 +104,11 @@ public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, Regis
     @Override
     public void login() {
         placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
+    }
+
+    @Override
+    public void resendMail() {
+        addToPopupSlot(resendmailPresenter);
     }
 
     protected void onReveal() {

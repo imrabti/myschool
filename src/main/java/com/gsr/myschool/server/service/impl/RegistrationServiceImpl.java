@@ -90,4 +90,19 @@ public class RegistrationServiceImpl implements RegistrationService {
             return false;
         }
     }
+
+    @Override
+    public Boolean mailnotreceived(ForgotPasswordDTO forgotPassword) {
+        User user = userRepos.findByEmail(forgotPassword.getEmail());
+        if (user == null || user.getStatus() == UserStatus.ACTIVE) {
+            return false;
+        }
+        try {
+            registerProcessService.mailNotReceived(user);
+
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
