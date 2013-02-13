@@ -1,6 +1,7 @@
 package com.gsr.myschool.server.business;
 
 import com.gsr.myschool.common.shared.type.TypeFraterie;
+import com.gsr.myschool.common.shared.type.TypeNiveauEtude;
 import com.gsr.myschool.server.util.BeanMapper;
 import com.gsr.myschool.server.validator.Name;
 import com.gsr.myschool.server.validator.NotBlank;
@@ -22,7 +23,8 @@ public class Fraterie implements java.io.Serializable {
     @NotBlank
     private String prenom;
     private String numDossierGSR;
-    private String niveau;
+    @Enumerated
+    private TypeNiveauEtude niveau;
     private String classe;
     private String etablissement;
     @Enumerated
@@ -85,11 +87,11 @@ public class Fraterie implements java.io.Serializable {
         this.valide = valide;
     }
 
-    public String getNiveau() {
+    public TypeNiveauEtude getNiveau() {
         return niveau;
     }
 
-    public void setNiveau(String niveau) {
+    public void setNiveau(TypeNiveauEtude niveau) {
         this.niveau = niveau;
     }
 

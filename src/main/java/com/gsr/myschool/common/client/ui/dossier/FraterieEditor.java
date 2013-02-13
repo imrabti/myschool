@@ -12,6 +12,7 @@ import com.gsr.myschool.common.client.proxy.FraterieProxy;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
 import com.gsr.myschool.common.shared.type.TypeFraterie;
+import com.gsr.myschool.common.shared.type.TypeNiveauEtude;
 
 import java.util.Arrays;
 
@@ -33,7 +34,7 @@ public class FraterieEditor extends Composite implements EditorView<FraterieProx
     @UiField
     TextBox classe;
     @UiField
-    TextBox niveau;
+    ValueListBox<TypeNiveauEtude> niveau;
     @UiField
     TextBox etablissement;
     @UiField(provided = true)
@@ -57,6 +58,7 @@ public class FraterieEditor extends Composite implements EditorView<FraterieProx
         $(etablissement).id("etablissement");
         $(typeFraterie).id("typeFraterie");
 
+        niveau.setAcceptableValues(Arrays.asList(TypeNiveauEtude.values()));
         typeFraterie.setAcceptableValues(Arrays.asList(TypeFraterie.values()));
     }
 

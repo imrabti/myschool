@@ -46,7 +46,7 @@
                 <boot:ControlLabel>Niveau</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.niveau}">
-                        <boot:TextBox ui:field="niveau" width="250px"/>
+                        <boot:ValueListBox ui:field="niveau" width="250px"/>
                     </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
