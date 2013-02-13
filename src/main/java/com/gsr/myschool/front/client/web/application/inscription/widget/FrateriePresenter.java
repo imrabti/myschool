@@ -39,6 +39,7 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
     private InscriptionRequest currentContext;
     private DossierProxy currentDossier;
     private FraterieProxy currentFraterie;
+    private Boolean fraterieViolation;
 
     @Inject
     public FrateriePresenter(final EventBus eventBus, final MyView view,
@@ -62,22 +63,29 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
     @Override
     public void addFraterie(FraterieProxy fraterie) {
         Long dossierId = currentDossier.getId();
-        currentContext.createNewFraterie(fraterie, dossierId).fire(new ValidatedReceiverImpl<Void>() {
-            @Override
-            public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                getView().clearErrors();
-                getView().showErrors(violations);
-            }
+        if (!fraterieViolation) {
+            currentContext.createNewFraterie(fraterie, dossierId).fire(new ValidatedReceiverImpl<Void>() {
+                @Override
+                public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                    getView().clearErrors();
+                    getView().showErrors(violations);
+                    fraterieViolation = true;
+                }
 
-            @Override
-            public void onSuccess(Void response) {
-                currentContext = requestFactory.inscriptionService();
-                currentFraterie = currentContext.create(FraterieProxy.class);
-                getView().editFraterie(currentFraterie);
-                getView().clearErrors();
-                loadFraterie();
-            }
-        });
+                @Override
+                public void onSuccess(Void response) {
+                    currentContext = requestFactory.inscriptionService();
+                    currentFraterie = currentContext.create(FraterieProxy.class);
+                    fraterieViolation = false;
+
+                    getView().editFraterie(currentFraterie);
+                    getView().clearErrors();
+                    loadFraterie();
+                }
+            });
+        } else {
+            currentContext.fire();
+        }
     }
 
     @Override
@@ -88,9 +96,7 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
                 @Override
                 public void onSuccess(Void response) {
                     Message message = new Message.Builder(messageBundle.deleteFraterieSuccess())
-                            .style(AlertType.SUCCESS)
-                            .closeDelay(CloseDelay.DEFAULT)
-                            .build();
+                            .style(AlertType.SUCCESS).closeDelay(CloseDelay.DEFAULT).build();
                     MessageEvent.fire(this, message);
                     loadFraterie();
                 }
@@ -102,6 +108,7 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
         currentDossier = dossierProxy;
         currentContext = requestFactory.inscriptionService();
         currentFraterie = currentContext.create(FraterieProxy.class);
+        fraterieViolation = false;
 
         getView().editFraterie(currentFraterie);
         loadFraterie();
