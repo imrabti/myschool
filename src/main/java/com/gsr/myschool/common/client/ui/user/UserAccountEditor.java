@@ -1,5 +1,6 @@
 package com.gsr.myschool.common.client.ui.user;
 
+import com.github.gwtbootstrap.client.ui.ControlGroup;
 import com.github.gwtbootstrap.client.ui.TextBox;
 import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
@@ -32,6 +33,8 @@ public class UserAccountEditor extends Composite implements EditorView<UserProxy
     TextBox email;
     @UiField(provided = true)
     ValueListBox<UserStatus> status;
+    @UiField
+    ControlGroup statusGroup;
 
     private final Diver driver;
 
@@ -66,5 +69,9 @@ public class UserAccountEditor extends Composite implements EditorView<UserProxy
         } else {
             return user;
         }
+    }
+
+    public void setStatusVisible(Boolean bool) {
+        this.statusGroup.setVisible(bool);
     }
 }

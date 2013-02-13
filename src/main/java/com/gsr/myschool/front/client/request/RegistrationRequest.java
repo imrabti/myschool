@@ -36,4 +36,6 @@ public interface RegistrationRequest extends RequestContext {
     Request<String> verifyForgotPassword(String token);
 
     Request<Boolean> resetPassword(ResetPasswordDTOProxy resetPassword, String token, String email);
+
+    Request<Boolean> mailnotreceived(ForgotPasswordDTOProxy forgotPassword);
 }

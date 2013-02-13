@@ -16,6 +16,8 @@ import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.renderer.ValueListRenderer;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
 
+import java.util.List;
+
 import static com.google.gwt.query.client.GQuery.$;
 
 public class CandidatEditor extends Composite implements EditorView<CandidatProxy> {
@@ -24,6 +26,8 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
 
     public interface Driver extends SimpleBeanEditorDriver<CandidatProxy, CandidatEditor> {
     }
+
+    public static final String DEFAULT_NATIONALITY = "MAROCAINE";
 
     @UiField
     TextBox firstname;
@@ -49,12 +53,14 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
     ValueListBox<ValueListProxy> bacYear;
 
     private final Driver driver;
+    private final ValueList valueList;
 
     @Inject
     public CandidatEditor(final Binder uiBinder, final Driver driver,
                           final ValueList valueList,
                           final ValueListRenderer valueListRenderer) {
         this.driver = driver;
+        this.valueList = valueList;
 
         nationality = new ValueListBox<ValueListProxy>(valueListRenderer);
         bacSerie = new ValueListBox<ValueListProxy>(valueListRenderer);
@@ -84,6 +90,9 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
     public void edit(CandidatProxy candidat) {
         firstname.setFocus(true);
         driver.edit(candidat);
+        if (candidat.getNationality() == null) {
+            nationality.setValue(getDefaultNationality());
+        }
     }
 
     @Override
@@ -94,5 +103,14 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
         } else {
             return candidat;
         }
+    }
+
+    private ValueListProxy getDefaultNationality() {
+        for (ValueListProxy nationalityFromList : valueList.getValueListByCode(ValueTypeCode.NATIONALITY)) {
+            if (DEFAULT_NATIONALITY.equals(nationalityFromList.getValue())) {
+                return nationalityFromList;
+            }
+        }
+        return null;
     }
 }

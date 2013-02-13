@@ -1,95 +1,132 @@
 <definitions id="definitions"
              targetNamespace="http://activiti.org/bpmn20"
              xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:activiti="http://activiti.org/bpmn">
+
+    <signal id="mailNotReceivedId" name="mailNotReceived"/>
+
     <process id="register" isExecutable="true" name="test">
+
+        <boundaryEvent id="notreceived" attachedToRef="sub" cancelActivity="false" >
+            <signalEventDefinition signalRef="mailNotReceivedId"/>
+        </boundaryEvent>
+
+        <sequenceFlow sourceRef="notreceived" targetRef="sendActivationMailAgain"/>
+
+        <serviceTask id="sendActivationMailAgain" name="sendmail task" activiti:type="mail" activiti:async="true">
+            <extensionElements>
+                <activiti:field name="from" expression="${email.from}"/>
+                <activiti:field name="to" expression="${email.to}"/>
+                <activiti:field name="subject" expression="${email.subject}"/>
+                <activiti:field name="html">
+                    <activiti:expression>
+                        <![CDATA[
+                            ${email.message}
+                        ]]>
+                    </activiti:expression>
+                </activiti:field>
+            </extensionElements>
+        </serviceTask>
+
+        <sequenceFlow sourceRef="sendActivationMailAgain" targetRef="terminateState"/>
+
+        <intermediateThrowEvent id="terminateState"/>
+
         <startEvent id="start"/>
-        <sequenceFlow sourceRef="start" targetRef="sendActivationMail"/>
 
-        <serviceTask id="sendActivationMail" name="sendmail task" activiti:type="mail" activiti:async="true">
-            <extensionElements>
-                <activiti:field name="from" expression="${email.from}"/>
-                <activiti:field name="to" expression="${email.to}"/>
-                <activiti:field name="subject" expression="${email.subject}"/>
-                <activiti:field name="html">
-                    <activiti:expression>
-                        <![CDATA[
+        <sequenceFlow sourceRef="start" targetRef="sub"/>
+
+        <subProcess id="sub">
+
+            <startEvent id="substart"/>
+            <sequenceFlow sourceRef="substart" targetRef="sendActivationMail"/>
+
+            <serviceTask id="sendActivationMail" name="sendmail task" activiti:type="mail" activiti:async="true">
+                <extensionElements>
+                    <activiti:field name="from" expression="${email.from}"/>
+                    <activiti:field name="to" expression="${email.to}"/>
+                    <activiti:field name="subject" expression="${email.subject}"/>
+                    <activiti:field name="html">
+                        <activiti:expression>
+                            <![CDATA[
                             ${email.message}
                         ]]>
-                    </activiti:expression>
-                </activiti:field>
-            </extensionElements>
-        </serviceTask>
+                        </activiti:expression>
+                    </activiti:field>
+                </extensionElements>
+            </serviceTask>
 
-        <sequenceFlow sourceRef="sendActivationMail" targetRef="activationTask" />
+            <sequenceFlow sourceRef="sendActivationMail" targetRef="activationTask"/>
 
-        <userTask id="activationTask" activiti:assignee="${token}"/>
-        <boundaryEvent id="timerDelete" attachedToRef="activationTask" cancelActivity="false">
-            <timerEventDefinition>
-                <timeDuration>PT30M</timeDuration>
-            </timerEventDefinition>
-        </boundaryEvent>
-        <boundaryEvent id="timerRelance" attachedToRef="activationTask" cancelActivity="false" >
-            <timerEventDefinition>
-                <timeDuration>PT10M</timeDuration>
-            </timerEventDefinition>
-        </boundaryEvent>
+            <userTask id="activationTask" activiti:assignee="${token}"/>
+            <boundaryEvent id="timerDelete" attachedToRef="activationTask" cancelActivity="false">
+                <timerEventDefinition>
+                    <timeDuration>P5D</timeDuration>
+                </timerEventDefinition>
+            </boundaryEvent>
+            <boundaryEvent id="timerRelance" attachedToRef="activationTask" cancelActivity="false">
+                <timerEventDefinition>
+                    <timeDuration>P2D</timeDuration>
+                </timerEventDefinition>
+            </boundaryEvent>
 
-        <sequenceFlow sourceRef="activationTask" targetRef="getActivationMail"/>
+            <sequenceFlow sourceRef="activationTask" targetRef="getActivationMail"/>
 
-        <serviceTask id="getActivationMail"
-                     activiti:expression="#{registerProcessNestedService.getActivationMail(userId,email)}"
-                     activiti:resultVariable="email" />
+            <serviceTask id="getActivationMail"
+                         activiti:expression="#{registerProcessNestedService.getActivationMail(userId,email)}"
+                         activiti:resultVariable="email"/>
 
-        <sequenceFlow sourceRef="getActivationMail" targetRef="sendRegistrationMail"/>
+            <sequenceFlow sourceRef="getActivationMail" targetRef="sendRegistrationMail"/>
 
-        <serviceTask id="sendRegistrationMail" name="send activation task" activiti:type="mail" activiti:async="true">
-            <extensionElements>
-                <activiti:field name="from" expression="${email.from}"/>
-                <activiti:field name="to" expression="${email.to}"/>
-                <activiti:field name="subject" expression="${email.subject}"/>
-                <activiti:field name="html">
-                    <activiti:expression>
-                        <![CDATA[
+            <serviceTask id="sendRegistrationMail" name="send activation task" activiti:type="mail"
+                         activiti:async="true">
+                <extensionElements>
+                    <activiti:field name="from" expression="${email.from}"/>
+                    <activiti:field name="to" expression="${email.to}"/>
+                    <activiti:field name="subject" expression="${email.subject}"/>
+                    <activiti:field name="html">
+                        <activiti:expression>
+                            <![CDATA[
                             ${email.message}
                         ]]>
-                    </activiti:expression>
-                </activiti:field>
-            </extensionElements>
-        </serviceTask>
+                        </activiti:expression>
+                    </activiti:field>
+                </extensionElements>
+            </serviceTask>
 
-        <sequenceFlow sourceRef="sendRegistrationMail" targetRef="end"/>
-        <endEvent id="end"/>
+            <sequenceFlow sourceRef="sendRegistrationMail" targetRef="end"/>
+            <endEvent id="end"/>
 
-        <sequenceFlow sourceRef="timerRelance" targetRef="getRelanceMail"/>
-        <serviceTask id="getRelanceMail"
-                     activiti:expression="#{registerProcessNestedService.getRelanceMail(userId,link,email)}"
-                     activiti:resultVariable="email"/>
+            <sequenceFlow sourceRef="timerRelance" targetRef="getRelanceMail"/>
+            <serviceTask id="getRelanceMail"
+                         activiti:expression="#{registerProcessNestedService.getRelanceMail(userId,link,email)}"
+                         activiti:resultVariable="email"/>
 
-        <sequenceFlow sourceRef="getRelanceMail" targetRef="sendRelanceTask"/>
+            <sequenceFlow sourceRef="getRelanceMail" targetRef="sendRelanceTask"/>
 
-        <serviceTask id="sendRelanceTask" name="send relance task" activiti:type="mail" activiti:async="true">
-            <extensionElements>
-                <activiti:field name="from" expression="${email.from}"/>
-                <activiti:field name="to" expression="${email.to}"/>
-                <activiti:field name="subject" expression="${email.subject}"/>
-                <activiti:field name="html">
-                    <activiti:expression>
-                        <![CDATA[
+            <serviceTask id="sendRelanceTask" name="send relance task" activiti:type="mail" activiti:async="true">
+                <extensionElements>
+                    <activiti:field name="from" expression="${email.from}"/>
+                    <activiti:field name="to" expression="${email.to}"/>
+                    <activiti:field name="subject" expression="${email.subject}"/>
+                    <activiti:field name="html">
+                        <activiti:expression>
+                            <![CDATA[
                             ${email.message}
                         ]]>
-                    </activiti:expression>
-                </activiti:field>
-            </extensionElements>
-        </serviceTask>
-        <sequenceFlow sourceRef="sendRelanceTask" targetRef="relanceEnd"/>
-        <intermediateThrowEvent id="relanceEnd"/>
+                        </activiti:expression>
+                    </activiti:field>
+                </extensionElements>
+            </serviceTask>
+            <sequenceFlow sourceRef="sendRelanceTask" targetRef="relanceEnd"/>
+            <intermediateThrowEvent id="relanceEnd"/>
 
-        <sequenceFlow sourceRef="timerDelete" targetRef="deleteTask"/>
-        <serviceTask id="deleteTask" activiti:expression="#{registerProcessNestedService.deleteAccount(userId)}"/>
-        <sequenceFlow sourceRef="deleteTask" targetRef="deleteEnd"/>
-        <endEvent id="deleteEnd"/>
-
+            <sequenceFlow sourceRef="timerDelete" targetRef="deleteTask"/>
+            <serviceTask id="deleteTask" activiti:expression="#{registerProcessNestedService.deleteAccount(userId)}"/>
+            <sequenceFlow sourceRef="deleteTask" targetRef="deleteEnd"/>
+            <endEvent id="deleteEnd"/>
+        </subProcess>
+        <sequenceFlow sourceRef="sub" targetRef="veryend"/>
+        <endEvent id="veryend"/>
     </process>
 </definitions>

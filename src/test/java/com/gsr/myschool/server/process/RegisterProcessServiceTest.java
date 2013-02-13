@@ -7,11 +7,14 @@ import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.repos.EmailTemplateRepos;
 import com.gsr.myschool.server.repos.UserRepos;
 import org.activiti.engine.RuntimeService;
+import org.activiti.engine.runtime.Execution;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"" +
@@ -33,7 +36,7 @@ public class RegisterProcessServiceTest {
     private String fname = "mohamed";
     private String lname = "kecha";
 
-    @Test
+  //  @Test
     public void init() {
         // populate the email templates
         EmailTemplate email = new EmailTemplate();
@@ -97,4 +100,24 @@ public class RegisterProcessServiceTest {
 //        registerProcessService.register(user);
 //        Thread.sleep(40000);
 //    }
+
+    @Test
+    public void myTest() throws Exception {
+        user.setStatus(UserStatus.INACTIVE);
+        user.setEmail(mail);
+        user.setId(9L);
+        user.setFirstName(fname);
+        user.setLastName(lname);
+        userRepos.save(user);
+
+        registerProcessService.register(user);
+
+        List<Execution> executions = runtimeService.createExecutionQuery()
+                .signalEventSubscriptionName("mailNotReceived")
+                .list();
+
+        registerProcessService.mailNotReceived(user);
+        Thread.sleep(10000);
+        registerProcessService.mailNotReceived(user);
+    }
 }

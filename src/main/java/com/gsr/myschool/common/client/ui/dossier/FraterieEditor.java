@@ -12,6 +12,7 @@ import com.gsr.myschool.common.client.proxy.FraterieProxy;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
 import com.gsr.myschool.common.shared.type.TypeFraterie;
+import com.gsr.myschool.common.shared.type.TypeNiveauEtude;
 
 import java.util.Arrays;
 
@@ -30,6 +31,12 @@ public class FraterieEditor extends Composite implements EditorView<FraterieProx
     TextBox prenom;
     @UiField
     TextBox numDossierGSR;
+    @UiField
+    TextBox classe;
+    @UiField(provided = true)
+    ValueListBox<TypeNiveauEtude> niveau;
+    @UiField
+    TextBox etablissement;
     @UiField(provided = true)
     ValueListBox<TypeFraterie> typeFraterie;
 
@@ -39,6 +46,7 @@ public class FraterieEditor extends Composite implements EditorView<FraterieProx
     public FraterieEditor(final Binder uiBinder, final Driver driver) {
         this.driver = driver;
         this.typeFraterie = new ValueListBox<TypeFraterie>(new EnumRenderer<TypeFraterie>());
+        this.niveau = new ValueListBox<TypeNiveauEtude>(new EnumRenderer<TypeNiveauEtude>());
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
@@ -46,8 +54,12 @@ public class FraterieEditor extends Composite implements EditorView<FraterieProx
         $(nom).id("nom");
         $(prenom).id("prenom");
         $(numDossierGSR).id("numDossierGSR");
+        $(classe).id("classe");
+        $(niveau).id("niveau");
+        $(etablissement).id("etablissement");
         $(typeFraterie).id("typeFraterie");
 
+        niveau.setAcceptableValues(Arrays.asList(TypeNiveauEtude.values()));
         typeFraterie.setAcceptableValues(Arrays.asList(TypeFraterie.values()));
     }
 

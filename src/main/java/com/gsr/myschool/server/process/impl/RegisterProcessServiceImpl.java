@@ -26,6 +26,7 @@ import com.gsr.myschool.server.repos.UserRepos;
 import com.gsr.myschool.server.service.EmailService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -100,5 +101,16 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
         userRepos.save(user);
 
         taskService.complete(task.getId());
+    }
+
+    @Override
+    public void mailNotReceived(User user) throws Exception {
+        Execution execution = runtimeService.createExecutionQuery()
+                .signalEventSubscriptionName("mailNotReceived")
+                .processVariableValueEquals("userId", user.getId())
+                .singleResult();
+
+        if (execution == null) throw new Exception();
+        runtimeService.signalEventReceived("mailNotReceived", execution.getId());
     }
 }

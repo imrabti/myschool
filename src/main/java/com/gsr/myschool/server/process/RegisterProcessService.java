@@ -16,7 +16,6 @@
 
 package com.gsr.myschool.server.process;
 
-import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.server.business.User;
 
 public interface RegisterProcessService {
@@ -25,4 +24,6 @@ public interface RegisterProcessService {
     void activateAccount(String token) throws Exception;
 
     void register(User user, String link) throws Exception;
+
+    void mailNotReceived(User user) throws Exception;
 }
