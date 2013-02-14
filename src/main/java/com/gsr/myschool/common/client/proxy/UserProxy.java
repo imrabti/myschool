@@ -19,6 +19,7 @@ package com.gsr.myschool.common.client.proxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;
 import com.gsr.myschool.common.shared.type.Authority;
+import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.UserStatus;
 import com.gsr.myschool.server.business.User;
 
@@ -65,4 +66,8 @@ public interface UserProxy extends ValueProxy {
     UserStatus getStatus();
 
     void setStatus(UserStatus status);
+
+    public Gender getGender() ;
+
+    public void setGender(Gender gender) ;
 }

@@ -18,6 +18,7 @@ package com.gsr.myschool.server.process.impl;
 
 import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.common.shared.type.EmailType;
+import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.InboxMessageStatus;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.InboxMessage;
@@ -45,6 +46,7 @@ public class ValidationProcessNestedServiceImpl implements ValidationProcessNest
     @Override
     public EmailDTO getReceivedDossierMail(Dossier dossier) throws Exception {
         Map<String, String> params = new HashMap<String, String>();
+        params.put("gender", dossier.getOwner().getGender() == Gender.FEMALE ? "Madame" : "Monsieur");
         params.put("lastname", dossier.getOwner().getLastName());
         params.put("firstname", dossier.getOwner().getFirstName());
         params.put("refdossier", dossier.getGeneratedNumDossier());

@@ -19,6 +19,7 @@ package com.gsr.myschool.server.process.impl;
 import com.gsr.myschool.common.client.util.Base64;
 import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.common.shared.type.EmailType;
+import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.process.ForgottenPasswordService;
 import com.gsr.myschool.server.repos.UserRepos;
@@ -55,6 +56,7 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordService {
         User user = userRepos.findByEmail(email);
 
         Map<String, String> params = new HashMap<String, String>();
+        params.put("gender", user.getGender() == Gender.FEMALE ? "Madame" : "Monsieur");
         params.put("firstname",user.getFirstName());
         params.put("lastname",user.getLastName());
         params.put("email", email);

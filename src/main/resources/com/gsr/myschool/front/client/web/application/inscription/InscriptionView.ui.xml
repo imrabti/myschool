@@ -13,10 +13,10 @@
     <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
         <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
             <h2>
-                <g:InlineLabel text="Mes Inscriptions"/>
+                <g:InlineLabel text="Mes pré-inscriptions"/>
             </h2>
             <div>
-                <boot:Button ui:field="add" text="Nouvelle inscription" icon="PLUS"/>
+                <boot:Button ui:field="add" text="Nouvelle pré-inscription" icon="PLUS"/>
             </div>
             <span style="display: block; clear: both;"/>
         </g:HTMLPanel>

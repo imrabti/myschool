@@ -1,6 +1,7 @@
 package com.gsr.myschool.server.business;
 
 import com.gsr.myschool.common.shared.type.Authority;
+import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.UserStatus;
 import com.gsr.myschool.server.validator.Email;
 import com.gsr.myschool.server.validator.FieldMatch;
@@ -43,6 +44,8 @@ public class User implements Serializable {
     private Authority authority;
     @Enumerated
     private UserStatus status;
+    @Enumerated
+    private Gender gender;
     private Date created;
     private Date updated;
 
@@ -127,5 +130,13 @@ public class User implements Serializable {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 }

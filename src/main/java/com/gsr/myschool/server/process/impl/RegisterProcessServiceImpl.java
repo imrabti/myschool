@@ -19,6 +19,7 @@ package com.gsr.myschool.server.process.impl;
 import com.gsr.myschool.common.client.util.Base64;
 import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.common.shared.type.EmailType;
+import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.UserStatus;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.process.RegisterProcessService;
@@ -54,6 +55,7 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
         String token = Base64.encode((new Date()).toString());
 
         Map<String, String> params = new HashMap<String, String>();
+        params.put("gender", user.getGender() == Gender.FEMALE ? "Madame" : "Monsieur");
         params.put("lastname", user.getLastName());
         params.put("firstname", user.getFirstName());
         params.put("link", "mylink/?token=" + token);
@@ -75,6 +77,7 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
         link = link + ";token=" + token;
 
         Map<String, String> params = new HashMap<String, String>();
+        params.put("gender", user.getGender() == Gender.FEMALE ? "Madame" : "Monsieur");
         params.put("lastname", user.getLastName());
         params.put("firstname", user.getFirstName());
         params.put("link", link);

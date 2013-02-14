@@ -18,6 +18,7 @@ package com.gsr.myschool.server.process.impl;
 
 import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.common.shared.type.EmailType;
+import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.InboxMessageStatus;
 import com.gsr.myschool.server.business.InboxMessage;
 import com.gsr.myschool.server.business.User;
@@ -50,6 +51,7 @@ public class RegisterProcessNestedServiceImpl implements RegisterProcessNestedSe
     public EmailDTO getRelanceMail(Long id, String link, EmailDTO email) throws Exception {
         User user = userRepos.findOne(id);
         Map<String, String> params = new HashMap<String, String>();
+        params.put("gender", user.getGender() == Gender.FEMALE ? "Madame" : "Monsieur");
         params.put("lastname", user.getLastName());
         params.put("firstname", user.getFirstName());
         params.put("link", link);
@@ -62,6 +64,7 @@ public class RegisterProcessNestedServiceImpl implements RegisterProcessNestedSe
     public EmailDTO getActivationMail(Long id, EmailDTO email) throws Exception {
         User user = userRepos.findOne(id);
         Map<String, String> params = new HashMap<String, String>();
+        params.put("gender", user.getGender() == Gender.FEMALE ? "Madame" : "Monsieur");
         params.put("lastname", user.getLastName());
         params.put("firstname", user.getFirstName());
 
