@@ -15,4 +15,8 @@ public interface SharedResources extends ClientBundle {
     @Source("com/gsr/myschool/common/client/resource/image/logo.png")
     @ImageResource.ImageOptions(repeatStyle = ImageResource.RepeatStyle.None)
     ImageResource logo();
+
+    @Source("com/gsr/myschool/common/client/resource/image/required.png")
+    @ImageResource.ImageOptions(repeatStyle = ImageResource.RepeatStyle.None)
+    ImageResource required();
 }

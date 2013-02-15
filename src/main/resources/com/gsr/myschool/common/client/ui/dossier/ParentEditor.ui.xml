@@ -13,6 +13,7 @@
                     <boot:Tooltip text="{helpMessage.infoParentNom}">
                         <boot:TextBox ui:field="nom" width="250px"/>
                     </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
@@ -22,6 +23,7 @@
                     <boot:Tooltip text="{helpMessage.infoParentPrenom}">
                         <boot:TextBox ui:field="prenom" width="250px"/>
                     </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
@@ -51,6 +53,7 @@
                             <boot:TextBox ui:field="email" width="228px"/>
                         </boot:InputAddOn>
                     </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
@@ -62,6 +65,7 @@
                             <boot:TextBox ui:field="telDom" width="228px"/>
                         </boot:InputAddOn>
                     </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
 

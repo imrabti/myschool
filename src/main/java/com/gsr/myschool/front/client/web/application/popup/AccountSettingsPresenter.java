@@ -40,6 +40,9 @@ public class AccountSettingsPresenter extends PresenterWidget<AccountSettingsPre
     private UserProxy currentUser;
     private PasswordDTOProxy currentPassword;
 
+    private Boolean userViolation;
+    private Boolean passwordViolation;
+
     @Inject
     public AccountSettingsPresenter(final EventBus eventBus, final MyView view,
                                     final FrontRequestFactory requestFactory,
@@ -59,55 +62,64 @@ public class AccountSettingsPresenter extends PresenterWidget<AccountSettingsPre
     @Override
     public void saveUser(UserProxy user) {
         if (currentUserContext.isChanged()) {
-            currentUser.setPasswordConfirmation(currentUser.getPassword());
-            currentUserContext.updateAccount(user).fire(new ValidatedReceiverImpl<UserProxy>() {
-                @Override
-                public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                    getView().clearErrors();
-                    getView().showErrors(violations);
-                }
+            if (!userViolation) {
+                currentUser.setPasswordConfirmation(currentUser.getPassword());
+                currentUserContext.updateAccount(user).fire(new ValidatedReceiverImpl<UserProxy>() {
+                    @Override
+                    public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                        getView().clearErrors();
+                        getView().showErrors(violations);
+                        userViolation = true;
+                    }
 
-                @Override
-                public void onSuccess(UserProxy result) {
-                    Message message = new Message.Builder(messageBundle.accountUpdatedSuccess())
-                            .style(AlertType.SUCCESS)
-                            .closeDelay(CloseDelay.DEFAULT)
-                            .build();
-                    MessageEvent.fire(this, message);
+                    @Override
+                    public void onSuccess(UserProxy result) {
+                        Message message = new Message.Builder(messageBundle.accountUpdatedSuccess())
+                                .style(AlertType.SUCCESS).closeDelay(CloseDelay.DEFAULT).build();
+                        MessageEvent.fire(this, message);
 
-                    securityUtils.updateUsername(result.getEmail());
-                    currentUserProvider.reload(result);
+                        securityUtils.updateUsername(result.getEmail());
+                        currentUserProvider.reload(result);
+                        userViolation = false;
 
-                    getView().clearErrors();
-                    getView().hide();
-                }
-            });
+                        getView().clearErrors();
+                        getView().hide();
+                    }
+                });
+            } else {
+                currentUserContext.fire();
+            }
         }
     }
 
     @Override
     public void savePassword(PasswordDTOProxy password) {
         if (currentPasswordContext.isChanged()) {
-            currentPasswordContext.updatePassword(password).fire(new ValidatedReceiverImpl<Void>() {
-                @Override
-                public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                    getView().clearErrors();
-                    getView().showErrors(violations);
-                }
+            if (!passwordViolation) {
+                currentPasswordContext.updatePassword(password).fire(new ValidatedReceiverImpl<Void>() {
+                    @Override
+                    public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                        getView().clearErrors();
+                        getView().showErrors(violations);
+                        passwordViolation = true;
+                    }
 
-                @Override
-                public void onSuccess(Void response) {
-                    Message message = new Message.Builder(messageBundle.passwordUpdatedSuccess())
-                            .style(AlertType.SUCCESS)
-                            .closeDelay(CloseDelay.DEFAULT)
-                            .build();
-                    MessageEvent.fire(this, message);
+                    @Override
+                    public void onSuccess(Void response) {
+                        Message message = new Message.Builder(messageBundle.passwordUpdatedSuccess())
+                                .style(AlertType.SUCCESS).closeDelay(CloseDelay.DEFAULT).build();
+                        MessageEvent.fire(this, message);
 
-                    securityUtils.updatePassword(currentPassword.getPassword());
-                    getView().clearErrors();
-                    getView().hide();
-                }
-            });
+                        securityUtils.updatePassword(currentPassword.getPassword());
+                        passwordViolation = false;
+
+                        getView().clearErrors();
+                        getView().hide();
+                    }
+                });
+            } else {
+                currentPasswordContext.fire();
+            }
         }
     }
 
@@ -117,12 +129,14 @@ public class AccountSettingsPresenter extends PresenterWidget<AccountSettingsPre
             public void onSuccess(UserProxy result) {
                 currentUserContext = requestFactory.userAccountService();
                 currentUser = currentUserContext.edit(result);
+                userViolation = false;
                 getView().editUser(currentUser);
             }
         });
 
         currentPasswordContext = requestFactory.userAccountService();
         currentPassword = currentPasswordContext.create(PasswordDTOProxy.class);
+        passwordViolation = false;
         getView().editPassword(currentPassword);
     }
 }

@@ -51,11 +51,6 @@ public class AdminUserAccountEditView extends ValidatedPopupViewImplWithUiHandle
         adminEditor.edit(userProxy);
     }
 
-    @Override
-    public void flush() {
-        adminEditor.get();
-    }
-
     @UiHandler("cancel")
     void onCancelClicked(ClickEvent event) {
         hide();
@@ -63,6 +58,6 @@ public class AdminUserAccountEditView extends ValidatedPopupViewImplWithUiHandle
 
     @UiHandler("save")
     void onSaveClicked(ClickEvent event) {
-        getUiHandlers().saveAccount();
+        getUiHandlers().saveAccount(adminEditor.get());
     }
 }

@@ -3,6 +3,7 @@ package com.gsr.myschool.common.client.proxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;
 import com.gsr.myschool.common.shared.type.TypeFraterie;
+import com.gsr.myschool.common.shared.type.TypeNiveauEtude;
 import com.gsr.myschool.server.business.Fraterie;
 
 @ProxyFor(Fraterie.class)
@@ -26,6 +27,18 @@ public interface FraterieProxy extends ValueProxy {
     public String getNumDossierGSR();
 
     public void setNumDossierGSR(String numDossierGSR);
+
+    public TypeNiveauEtude getNiveau();
+
+    public void setNiveau(TypeNiveauEtude niveau);
+
+    public String getClasse();
+
+    public void setClasse(String classe);
+
+    public String getEtablissement();
+
+    public void setEtablissement(String etablissement);
 
     public TypeFraterie getTypeFraterie();
 

@@ -64,14 +64,7 @@ public class ValidationProcessTest {
 
     @Test
     public void checkService() throws InterruptedException {
-        validationProcessService.startProcess(dossier);
 
-        Map<Dossier, Task> x = validationProcessService.getAllNonReceivedDossiers();
-
-        for (Task task : x.values()) {
-            System.out.println(task.getId());
-            validationProcessService.receiveDossier(task);
-        }
         sleep(100000);
     }
 }

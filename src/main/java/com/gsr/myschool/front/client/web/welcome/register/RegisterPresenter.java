@@ -31,6 +31,7 @@ import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.request.RegistrationRequest;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.front.client.web.RootPresenter;
+import com.gsr.myschool.front.client.web.welcome.popup.ResendmailPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.annotations.NameToken;
@@ -56,45 +57,55 @@ public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, Regis
     private final FrontRequestFactory requestFactory;
     private final PlaceManager placeManager;
     private final MessageBundle messageBundle;
+    private final ResendmailPresenter resendmailPresenter;
 
     private RegistrationRequest currentContext;
+    private Boolean registerViolation;
 
     @Inject
     public RegisterPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                              final FrontRequestFactory requestFactory, final MessageBundle messageBundle,
-                             final PlaceManager placeManager) {
+                             final PlaceManager placeManager,
+                             final ResendmailPresenter resendmailPresenter) {
         super(eventBus, view, proxy, RootPresenter.TYPE_SetMainContent);
 
         this.messageBundle = messageBundle;
         this.requestFactory = requestFactory;
         this.placeManager = placeManager;
+        this.resendmailPresenter = resendmailPresenter;
 
         getView().setUiHandlers(this);
     }
 
     @Override
     public void register(UserProxy user) {
-        String confirmationLink = URLUtils.generateURL(NameTokens.getLogin());
-        currentContext.register(user, confirmationLink).fire(new ValidatedReceiverImpl<Boolean>() {
-            @Override
-            public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                getView().clearErrors();
-                getView().showErrors(violations);
-            }
+        if (!registerViolation) {
+            String confirmationLink = URLUtils.generateURL(NameTokens.getLogin());
+            currentContext.register(user, confirmationLink).fire(new ValidatedReceiverImpl<Boolean>() {
+                @Override
+                public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                    registerViolation = true;
+                    getView().clearErrors();
+                    getView().showErrors(violations);
+                }
 
-            @Override
-            public void onSuccess(Boolean aBoolean) {
-                getView().clearErrors();
-                String messageString = aBoolean ? messageBundle.registerSuccess() : messageBundle.registerFailure();
-                AlertType alertType = aBoolean ? AlertType.SUCCESS : AlertType.ERROR;
-                Message message = new Message.Builder(messageString)
-                        .style(alertType)
-                        .closeDelay(CloseDelay.NEVER)
-                        .build();
-                MessageEvent.fire(this, message);
-                placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
-            }
-        });
+                @Override
+                public void onSuccess(Boolean aBoolean) {
+                    registerViolation = false;
+                    getView().clearErrors();
+
+                    String messageString = aBoolean ? messageBundle.registerSuccess() : messageBundle.registerFailure();
+                    AlertType alertType = aBoolean ? AlertType.SUCCESS : AlertType.ERROR;
+                    Message message = new Message.Builder(messageString)
+                            .style(alertType).closeDelay(CloseDelay.LONG).build();
+                    MessageEvent.fire(this, message);
+
+                    placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
+                }
+                });
+        } else {
+            currentContext.fire();
+        }
     }
 
     @Override
@@ -102,8 +113,14 @@ public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, Regis
         placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
     }
 
+    @Override
+    public void resendMail() {
+        addToPopupSlot(resendmailPresenter);
+    }
+
     protected void onReveal() {
         currentContext = requestFactory.registrationService();
+        registerViolation = false;
         getView().edit(currentContext.create(UserProxy.class));
     }
 }

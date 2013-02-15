@@ -26,8 +26,10 @@ import com.gsr.myschool.server.repos.UserRepos;
 import com.gsr.myschool.server.service.EmailService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -44,6 +46,8 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
     private RuntimeService runtimeService;
     @Autowired
     private TaskService taskService;
+    @Value("${mailserver.sender}")
+    private String sender;
 
     @Override
     public void register(User user) throws Exception {
@@ -54,7 +58,7 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
         params.put("firstname", user.getFirstName());
         params.put("link", "mylink/?token=" + token);
 
-        EmailDTO email = emailService.populateEmail(EmailType.REGISTRATION, user.getEmail(), "todefine@myschool.com", params, "", "");
+        EmailDTO email = emailService.populateEmail(EmailType.REGISTRATION, user.getEmail(), sender, params, "", "");
 
         Map<String, Object> processParams = new HashMap<String, Object>();
         processParams.put("token", token);
@@ -75,7 +79,7 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
         params.put("firstname", user.getFirstName());
         params.put("link", link);
 
-        EmailDTO email = emailService.populateEmail(EmailType.REGISTRATION, user.getEmail(), "todefine@myschool.com", params, "", "");
+        EmailDTO email = emailService.populateEmail(EmailType.REGISTRATION, user.getEmail(), sender, params, "", "");
 
         Map<String, Object> processParams = new HashMap<String, Object>();
         processParams.put("token", token);
@@ -97,5 +101,16 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
         userRepos.save(user);
 
         taskService.complete(task.getId());
+    }
+
+    @Override
+    public void mailNotReceived(User user) throws Exception {
+        Execution execution = runtimeService.createExecutionQuery()
+                .signalEventSubscriptionName("mailNotReceived")
+                .processVariableValueEquals("userId", user.getId())
+                .singleResult();
+
+        if (execution == null) throw new Exception();
+        runtimeService.signalEventReceived("mailNotReceived", execution.getId());
     }
 }

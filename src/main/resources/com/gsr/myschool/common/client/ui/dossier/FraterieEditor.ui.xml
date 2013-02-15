@@ -3,6 +3,7 @@
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
 
     <ui:with field="helpMessage" type="com.gsr.myschool.common.client.resource.message.HelpMessageBundle"/>
+    <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
     <g:HTMLPanel>
         <boot:Form type="HORIZONTAL">
@@ -12,6 +13,7 @@
                     <boot:Tooltip text="{helpMessage.fraterieNom}">
                         <boot:TextBox ui:field="nom" width="250px"/>
                     </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
@@ -21,6 +23,7 @@
                     <boot:Tooltip text="{helpMessage.frateriePrenom}">
                         <boot:TextBox ui:field="prenom" width="250px"/>
                     </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
@@ -34,11 +37,39 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
+                <boot:ControlLabel>Classe</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.classe}">
+                        <boot:TextBox ui:field="classe" width="250px"/>
+                    </boot:Tooltip>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Niveau</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.niveau}">
+                        <boot:ValueListBox ui:field="niveau" width="250px"/>
+                    </boot:Tooltip>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Etablissement</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.etablissement}">
+                        <boot:TextBox ui:field="etablissement" width="250px"/>
+                    </boot:Tooltip>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
                 <boot:ControlLabel>Type de fraterie</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.fraterieType}">
                         <boot:ValueListBox ui:field="typeFraterie" width="250px"/>
                     </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
         </boot:Form>

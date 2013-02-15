@@ -36,6 +36,7 @@ public class NiveauScolairePresenter extends PresenterWidget<NiveauScolairePrese
 
     private InscriptionRequest currentContext;
     private DossierProxy currentDossier;
+    private Boolean niveauScolaireViolation;
 
     @Inject
     public NiveauScolairePresenter(final EventBus eventBus, final MyView view,
@@ -62,35 +63,40 @@ public class NiveauScolairePresenter extends PresenterWidget<NiveauScolairePrese
                 currentDossier.setNiveauEtude(currentContext.edit(currentDossier.getNiveauEtude()));
             }
 
-            currentContext.updateDossier(currentDossier).fire(new ValidatedReceiverImpl<DossierProxy>() {
-                @Override
-                public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                    getView().clearErrors();
-                    getView().showErrors(violations);
-                }
+            if (!niveauScolaireViolation) {
+                currentContext.updateDossier(currentDossier).fire(new ValidatedReceiverImpl<DossierProxy>() {
+                    @Override
+                    public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                        getView().clearErrors();
+                        getView().showErrors(violations);
+                        niveauScolaireViolation = true;
+                    }
 
-                @Override
-                public void onSuccess(DossierProxy result) {
-                    currentContext = requestFactory.inscriptionService();
-                    currentDossier = currentContext.edit(result);
+                    @Override
+                    public void onSuccess(DossierProxy result) {
+                        currentContext = requestFactory.inscriptionService();
+                        currentDossier = currentContext.edit(result);
+                        niveauScolaireViolation = false;
 
-                    getView().clearErrors();
-                    getView().editDossier(currentDossier);
+                        getView().clearErrors();
+                        getView().editDossier(currentDossier);
 
-                    Message message = new Message.Builder(messageBundle.newInscriptionSuccess())
-                            .style(AlertType.SUCCESS)
-                            .closeDelay(CloseDelay.DEFAULT)
-                            .build();
-                    MessageEvent.fire(this, message);
-                    placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
-                }
-            });
+                        Message message = new Message.Builder(messageBundle.newInscriptionSuccess())
+                                .style(AlertType.SUCCESS).closeDelay(CloseDelay.DEFAULT).build();
+                        MessageEvent.fire(this, message);
+                        placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
+                    }
+                });
+            } else {
+                currentContext.fire();
+            }
         }
     }
 
     public void editData(DossierProxy dossierProxy) {
         currentContext = requestFactory.inscriptionService();
         currentDossier = currentContext.edit(dossierProxy);
+        niveauScolaireViolation = false;
 
         getView().editDossier(currentDossier);
     }

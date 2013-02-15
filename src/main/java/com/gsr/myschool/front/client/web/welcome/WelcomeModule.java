@@ -19,9 +19,7 @@ package com.gsr.myschool.front.client.web.welcome;
 import com.google.inject.TypeLiteral;
 import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
-import com.gsr.myschool.front.client.web.welcome.popup.ForgotPasswordPresenter;
-import com.gsr.myschool.front.client.web.welcome.popup.ForgotPasswordUiHandlers;
-import com.gsr.myschool.front.client.web.welcome.popup.ForgotPasswordView;
+import com.gsr.myschool.front.client.web.welcome.popup.*;
 import com.gsr.myschool.front.client.web.welcome.resetpassword.ResetPasswordPresenter;
 import com.gsr.myschool.front.client.web.welcome.resetpassword.ResetPasswordUiHandlers;
 import com.gsr.myschool.front.client.web.welcome.resetpassword.ResetPasswordView;
@@ -44,6 +42,8 @@ public class WelcomeModule extends AbstractPresenterModule {
                 .to(new TypeLiteral<SetterUiHandlersStrategy<ForgotPasswordUiHandlers>>() {});
         bind(new TypeLiteral<UiHandlersStrategy<ResetPasswordUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<ResetPasswordUiHandlers>>() {});
+        bind(new TypeLiteral<UiHandlersStrategy<ResendmailUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<ResendmailUiHandlers>>() {});
 
         bindPresenter(LoginPresenter.class, LoginPresenter.MyView.class, LoginView.class,
                 LoginPresenter.MyProxy.class);
@@ -54,5 +54,7 @@ public class WelcomeModule extends AbstractPresenterModule {
 
         bindSingletonPresenterWidget(ForgotPasswordPresenter.class, ForgotPasswordPresenter.MyView.class,
                 ForgotPasswordView.class);
+        bindSingletonPresenterWidget(ResendmailPresenter.class, ResendmailPresenter.MyView.class,
+                ResendmailView.class);
     }
 }

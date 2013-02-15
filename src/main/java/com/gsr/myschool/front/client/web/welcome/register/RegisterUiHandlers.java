@@ -23,4 +23,6 @@ public interface RegisterUiHandlers extends UiHandlers {
     void register(UserProxy user);
 
     void login();
+
+    void resendMail();
 }
