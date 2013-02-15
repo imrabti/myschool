@@ -17,6 +17,8 @@
                 <boot:Button ui:field="listOl" icon="LIST_OL" iconSize="SMALL"/>
                 <boot:Button ui:field="listUl" icon="LIST_UL" iconSize="SMALL"/>
             </boot:ButtonGroup>
+
+            <boot:Button ui:field="createLink" icon="LINK" iconSize="SMALL"/>
         </boot:ButtonToolbar>
     </g:HTMLPanel>
 </ui:UiBinder>
