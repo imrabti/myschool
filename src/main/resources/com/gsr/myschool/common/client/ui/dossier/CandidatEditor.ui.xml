@@ -44,6 +44,15 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
+                <boot:ControlLabel>Nationnalité</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.candidatNationnalite}">
+                        <boot:ValueListBox ui:field="nationality" width="250px"/>
+                    </boot:Tooltip>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
                 <boot:ControlLabel>Adresse email</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.candidatAdresseEmail}">
@@ -65,6 +74,8 @@
                 </boot:Controls>
             </boot:ControlGroup>
 
+            <g:RenderablePanel ui:field="infosBac">
+
             <boot:ControlGroup>
                 <boot:ControlLabel>CIN</boot:ControlLabel>
                 <boot:Controls>
@@ -75,19 +86,10 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>CNE</boot:ControlLabel>
+                <boot:ControlLabel>CNE/INE</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.candidatCne}">
                         <boot:TextBox ui:field="cne" width="250px"/>
-                    </boot:Tooltip>
-                </boot:Controls>
-            </boot:ControlGroup>
-
-            <boot:ControlGroup>
-                <boot:ControlLabel>Nationnalité</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.candidatNationnalite}">
-                        <boot:ValueListBox ui:field="nationality" width="250px"/>
                     </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
@@ -109,6 +111,7 @@
                     </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
+            </g:RenderablePanel>
         </boot:Form>
     </g:HTMLPanel>
 </ui:UiBinder>
