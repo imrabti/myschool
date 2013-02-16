@@ -48,7 +48,7 @@ public class ReportController {
         Dossier dossier = dossierRepos.findOne(Long.valueOf(dossierId));
         ReportDTO reportDTO = buildReportDto(dossier);
         try {
-            response.addHeader("Content-Disposition", "inline; filename=" + reportDTO.getReportName() + ".pdf");
+            response.addHeader("Content-Disposition", "attachment; filename=" + dossier.getGeneratedNumDossier() + ".pdf");
 
             BufferedOutputStream outputStream = new BufferedOutputStream(response.getOutputStream());
             byte[] result = reportService.generatePdf(reportDTO);
