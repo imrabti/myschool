@@ -4,10 +4,14 @@ import com.github.gwtbootstrap.client.ui.TextBox;
 import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.github.gwtbootstrap.datepicker.client.ui.DateBoxAppended;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.RenderablePanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.datepicker.client.CalendarUtil;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.CandidatProxy;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
@@ -16,7 +20,7 @@ import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.renderer.ValueListRenderer;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
 
-import java.util.List;
+import java.util.Date;
 
 import static com.google.gwt.query.client.GQuery.$;
 
@@ -51,6 +55,8 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
     ValueListBox<ValueListProxy> bacSerie;
     @UiField(provided = true)
     ValueListBox<ValueListProxy> bacYear;
+    @UiField
+    RenderablePanel infosBac;
 
     private final Driver driver;
     private final ValueList valueList;
@@ -72,6 +78,21 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
         nationality.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.NATIONALITY));
         bacYear.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.BAC_YEAR));
         bacSerie.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.BAC_SERIE));
+
+        birthDate.addValueChangeHandler(new ValueChangeHandler<Date>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<Date> event) {
+                Date dateofbirth = event.getValue();
+
+                CalendarUtil.addMonthsToDate(dateofbirth, 192);
+
+                if (dateofbirth.after(new Date())) {
+                    setBacVisible(false);
+                } else {
+                    setBacVisible(true);
+                }
+            }
+        });
 
         $(firstname).id("firstname");
         $(lastname).id("lastname");
@@ -103,6 +124,10 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
         } else {
             return candidat;
         }
+    }
+
+    public void setBacVisible(Boolean bool) {
+        infosBac.setVisible(bool);
     }
 
     private ValueListProxy getDefaultNationality() {

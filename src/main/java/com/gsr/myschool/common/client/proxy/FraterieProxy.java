@@ -36,9 +36,9 @@ public interface FraterieProxy extends ValueProxy {
 
     public void setClasse(String classe);
 
-    public String getEtablissement();
+    public EtablissementScolaireProxy getEtablissement();
 
-    public void setEtablissement(String etablissement);
+    public void setEtablissement(EtablissementScolaireProxy etablissement);
 
     public TypeFraterie getTypeFraterie();
 
