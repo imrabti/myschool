@@ -17,8 +17,8 @@
 package com.gsr.myschool.common.shared.type;
 
 public enum Gender {
-    MALE("Homme"),
-    FEMALE("Femme");
+    MALE("Monsieur"),
+    FEMALE("Madame");
 
     private String label;
 

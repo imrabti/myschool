@@ -46,7 +46,7 @@ public class ValidationProcessNestedServiceImpl implements ValidationProcessNest
     @Override
     public EmailDTO getReceivedDossierMail(Dossier dossier) throws Exception {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("gender", dossier.getOwner().getGender() == Gender.FEMALE ? "Madame" : "Monsieur");
+        params.put("gender", dossier.getOwner().getGender().toString());
         params.put("lastname", dossier.getOwner().getLastName());
         params.put("firstname", dossier.getOwner().getFirstName());
         params.put("refdossier", dossier.getGeneratedNumDossier());

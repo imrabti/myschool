@@ -56,7 +56,7 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordService {
         User user = userRepos.findByEmail(email);
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put("gender", user.getGender() == Gender.FEMALE ? "Madame" : "Monsieur");
+        params.put("gender", user.getGender().toString());
         params.put("firstname",user.getFirstName());
         params.put("lastname",user.getLastName());
         params.put("email", email);
