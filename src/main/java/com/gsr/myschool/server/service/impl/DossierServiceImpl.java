@@ -84,12 +84,16 @@ public class DossierServiceImpl implements DossierService {
             spec = spec.and(DossierSpec.dossierCreatedGreater(filter.getDateFrom()));
         }
 
-        if (filter.getFiliere() != null && filter.getFiliere().getId() != null) {
+        if (filter.getFiliere() != null) {
             spec = spec.and(DossierSpec.filiereEqual(filter.getFiliere()));
         }
 
         if (filter.getNiveauEtude() != null) {
             spec = spec.and(DossierSpec.niveauEtudeEqual(filter.getNiveauEtude()));
+        }
+
+        if (filter.getGsrFraterie() != null && filter.getGsrFraterie() != false) {
+            spec = spec.and(DossierSpec.isGsrFraterie(filter.getGsrFraterie()));
         }
 
         return dossierRepos.findAll(spec);

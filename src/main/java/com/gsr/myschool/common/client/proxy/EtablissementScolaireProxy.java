@@ -21,4 +21,9 @@ public interface EtablissementScolaireProxy extends ValueProxy {
     String getAdresse();
 
     void setAdresse(String newAdresse);
+
+
+    public Boolean getGsr();
+
+    public void setGsr(Boolean gsr);
 }
