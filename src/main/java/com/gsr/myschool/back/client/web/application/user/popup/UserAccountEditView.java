@@ -8,7 +8,6 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-import com.gsr.myschool.back.client.request.UserServiceRequest;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
@@ -52,11 +51,6 @@ public class UserAccountEditView extends ValidatedPopupViewImplWithUiHandlers<Us
         userEditor.edit(userProxy);
     }
 
-    @Override
-    public void flush() {
-        userEditor.get();
-    }
-
     @UiHandler("cancel")
     void onCancelClicked(ClickEvent event) {
         hide();
@@ -64,6 +58,6 @@ public class UserAccountEditView extends ValidatedPopupViewImplWithUiHandlers<Us
 
     @UiHandler("save")
     void onSaveClicked(ClickEvent event) {
-        getUiHandlers().saveAccount();
+        getUiHandlers().saveAccount(userEditor.get());
     }
 }

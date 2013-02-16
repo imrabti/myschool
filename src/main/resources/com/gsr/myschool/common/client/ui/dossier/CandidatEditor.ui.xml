@@ -4,6 +4,7 @@
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
 
     <ui:with field="helpMessage" type="com.gsr.myschool.common.client.resource.message.HelpMessageBundle"/>
+    <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
     <g:HTMLPanel>
         <boot:Form type="HORIZONTAL">
@@ -13,6 +14,7 @@
                     <boot:Tooltip text="{helpMessage.candidatNom}">
                         <boot:TextBox ui:field="lastname" width="250px"/>
                     </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
@@ -22,6 +24,7 @@
                     <boot:Tooltip text="{helpMessage.candidatPrenom}">
                         <boot:TextBox ui:field="firstname" width="250px"/>
                     </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
@@ -31,6 +34,7 @@
                     <boot:Tooltip text="{helpMessage.candidatDateNaissance}">
                         <b2:DateBoxAppended ui:field="birthDate"/>
                     </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
@@ -40,6 +44,7 @@
                     <boot:Tooltip text="{helpMessage.candidatLieuNaissance}">
                         <boot:TextBox ui:field="birthLocation" width="250px"/>
                     </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
@@ -91,6 +96,16 @@
                     <boot:Tooltip text="{helpMessage.candidatCne}">
                         <boot:TextBox ui:field="cne" width="250px"/>
                     </boot:Tooltip>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Nationnalité</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.candidatNationnalite}">
+                        <boot:ValueListBox ui:field="nationality" width="250px"/>
+                    </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
 

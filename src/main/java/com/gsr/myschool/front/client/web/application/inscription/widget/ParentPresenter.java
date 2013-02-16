@@ -53,12 +53,15 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
 
     private InscriptionRequest currentPereContext;
     private InfoParentProxy currentPere;
+    private Boolean pereViolation;
 
     private InscriptionRequest currentMereContext;
     private InfoParentProxy currentMere;
+    private Boolean mereViolation;
 
     private InscriptionRequest currentTuteurContext;
     private InfoParentProxy currentTuteur;
+    private Boolean tuteurViolation;
 
     private List<ParentType> usedInfoParent;
     private Map<ParentType, Boolean> recievedCorrectly;
@@ -145,6 +148,7 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
     private void preparePere(InfoParentProxy pere) {
         currentPereContext = requestFactory.inscriptionService();
         currentPere = currentPereContext.edit(pere);
+        pereViolation = false;
 
         getView().editPere(currentPere);
     }
@@ -152,6 +156,7 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
     private void prepareMere(InfoParentProxy mere) {
         currentMereContext = requestFactory.inscriptionService();
         currentMere = currentMereContext.edit(mere);
+        mereViolation = false;
 
         getView().editMere(currentMere);
     }
@@ -159,95 +164,114 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
     private void prepareTuteur(InfoParentProxy tuteur) {
         currentTuteurContext = requestFactory.inscriptionService();
         currentTuteur = currentTuteurContext.edit(tuteur);
+        tuteurViolation = false;
 
         getView().editTuteur(currentTuteur);
     }
 
     private void processPere(final WizardStep nextStep) {
-        currentPereContext.updateParent(currentPere).fire(new ValidatedReceiverImpl<InfoParentProxy>() {
-            @Override
-            public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                getView().clearErrors();
-                getView().showErrors(violations);
-                getView().showEditor(ParentType.PERE);
-                recievedCorrectly.put(ParentType.PERE, false);
-            }
-
-            @Override
-            public void onSuccess(InfoParentProxy result) {
-                currentPereContext = requestFactory.inscriptionService();
-                currentPere = currentPereContext.edit(result);
-                recievedCorrectly.put(ParentType.PERE, true);
-
-                getView().editPere(currentPere);
-
-                if (getView().selectedTabs()  == ParentType.PERE) {
+        if (!pereViolation) {
+            currentPereContext.updateParent(currentPere).fire(new ValidatedReceiverImpl<InfoParentProxy>() {
+                @Override
+                public void onValidationError(Set<ConstraintViolation<?>> violations) {
                     getView().clearErrors();
+                    getView().showErrors(violations);
+                    getView().showEditor(ParentType.PERE);
+                    recievedCorrectly.put(ParentType.PERE, false);
+                    pereViolation = true;
                 }
 
-                if (canProceed()) {
-                    DisplayStepEvent.fire(this, nextStep);
+                @Override
+                public void onSuccess(InfoParentProxy result) {
+                    currentPereContext = requestFactory.inscriptionService();
+                    currentPere = currentPereContext.edit(result);
+                    recievedCorrectly.put(ParentType.PERE, true);
+                    pereViolation = false;
+
+                    getView().editPere(currentPere);
+
+                    if (getView().selectedTabs()  == ParentType.PERE) {
+                        getView().clearErrors();
+                    }
+
+                    if (canProceed()) {
+                        DisplayStepEvent.fire(this, nextStep);
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            currentPereContext.fire();
+        }
     }
 
     private void processMere(final WizardStep nextStep) {
-        currentMereContext.updateParent(currentMere).fire(new ValidatedReceiverImpl<InfoParentProxy>() {
-            @Override
-            public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                getView().clearErrors();
-                getView().showErrors(violations);
-                getView().showEditor(ParentType.MERE);
-                recievedCorrectly.put(ParentType.MERE, false);
-            }
-
-            @Override
-            public void onSuccess(InfoParentProxy result) {
-                currentMereContext = requestFactory.inscriptionService();
-                currentMere = currentMereContext.edit(result);
-                recievedCorrectly.put(ParentType.MERE, true);
-
-                getView().editMere(currentMere);
-
-                if (getView().selectedTabs()  == ParentType.MERE) {
+        if (!mereViolation) {
+            currentMereContext.updateParent(currentMere).fire(new ValidatedReceiverImpl<InfoParentProxy>() {
+                @Override
+                public void onValidationError(Set<ConstraintViolation<?>> violations) {
                     getView().clearErrors();
+                    getView().showErrors(violations);
+                    getView().showEditor(ParentType.MERE);
+                    recievedCorrectly.put(ParentType.MERE, false);
+                    mereViolation = true;
                 }
 
-                if (canProceed()) {
-                    DisplayStepEvent.fire(this, nextStep);
+                @Override
+                public void onSuccess(InfoParentProxy result) {
+                    currentMereContext = requestFactory.inscriptionService();
+                    currentMere = currentMereContext.edit(result);
+                    recievedCorrectly.put(ParentType.MERE, true);
+                    mereViolation = false;
+
+                    getView().editMere(currentMere);
+
+                    if (getView().selectedTabs()  == ParentType.MERE) {
+                        getView().clearErrors();
+                    }
+
+                    if (canProceed()) {
+                        DisplayStepEvent.fire(this, nextStep);
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            currentMereContext.fire();
+        }
     }
 
     private void processTuteur(final WizardStep nextStep) {
-        currentTuteurContext.updateParent(currentTuteur).fire(new ValidatedReceiverImpl<InfoParentProxy>() {
-            @Override
-            public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                getView().clearErrors();
-                getView().showErrors(violations);
-                getView().showEditor(ParentType.TUTEUR);
-                recievedCorrectly.put(ParentType.TUTEUR, false);
-            }
-
-            @Override
-            public void onSuccess(InfoParentProxy result) {
-                currentTuteurContext = requestFactory.inscriptionService();
-                currentTuteur = currentTuteurContext.edit(result);
-                recievedCorrectly.put(ParentType.TUTEUR, true);
-
-                getView().editTuteur(currentTuteur);
-
-                if (getView().selectedTabs()  == ParentType.TUTEUR) {
+        if (!tuteurViolation) {
+            currentTuteurContext.updateParent(currentTuteur).fire(new ValidatedReceiverImpl<InfoParentProxy>() {
+                @Override
+                public void onValidationError(Set<ConstraintViolation<?>> violations) {
                     getView().clearErrors();
+                    getView().showErrors(violations);
+                    getView().showEditor(ParentType.TUTEUR);
+                    recievedCorrectly.put(ParentType.TUTEUR, false);
+                    tuteurViolation = true;
                 }
 
-                if (canProceed()) {
-                    DisplayStepEvent.fire(this, nextStep);
+                @Override
+                public void onSuccess(InfoParentProxy result) {
+                    currentTuteurContext = requestFactory.inscriptionService();
+                    currentTuteur = currentTuteurContext.edit(result);
+                    recievedCorrectly.put(ParentType.TUTEUR, true);
+                    tuteurViolation = false;
+
+                    getView().editTuteur(currentTuteur);
+
+                    if (getView().selectedTabs()  == ParentType.TUTEUR) {
+                        getView().clearErrors();
+                    }
+
+                    if (canProceed()) {
+                        DisplayStepEvent.fire(this, nextStep);
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            currentTuteurContext.fire();
+        }
     }
 
     private Boolean isInfoParentEmpty(InfoParentProxy infoParent) {

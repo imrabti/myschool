@@ -27,6 +27,7 @@ public class CandidatPresenter extends PresenterWidget<CandidatPresenter.MyView>
 
     private InscriptionRequest currentContext;
     private CandidatProxy currentCandidat;
+    private Boolean candidatViolation;
 
     @Inject
     public CandidatPresenter(final EventBus eventBus, final MyView view,
@@ -53,30 +54,37 @@ public class CandidatPresenter extends PresenterWidget<CandidatPresenter.MyView>
                 currentCandidat.setNationality(currentContext.edit(currentCandidat.getNationality()));
             }
 
-            currentContext.updateCandidat(currentCandidat).fire(new ValidatedReceiverImpl<CandidatProxy>() {
-                @Override
-                public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                    getView().clearErrors();
-                    getView().showErrors(violations);
-                }
+            if (!candidatViolation) {
+                currentContext.updateCandidat(currentCandidat).fire(new ValidatedReceiverImpl<CandidatProxy>() {
+                    @Override
+                    public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                        getView().clearErrors();
+                        getView().showErrors(violations);
+                        candidatViolation = true;
+                    }
 
-                @Override
-                public void onSuccess(CandidatProxy result) {
-                    currentContext = requestFactory.inscriptionService();
-                    currentCandidat = currentContext.edit(result);
+                    @Override
+                    public void onSuccess(CandidatProxy result) {
+                        currentContext = requestFactory.inscriptionService();
+                        currentCandidat = currentContext.edit(result);
+                        candidatViolation = false;
 
-                    getView().clearErrors();
-                    getView().editCandidat(currentCandidat);
+                        getView().clearErrors();
+                        getView().editCandidat(currentCandidat);
 
-                    DisplayStepEvent.fire(this, event.getNextStep());
-                }
-            });
+                        DisplayStepEvent.fire(this, event.getNextStep());
+                    }
+                });
+            } else {
+                currentContext.fire();
+            }
         }
     }
 
     public void editData(CandidatProxy candidatProxy) {
         currentContext = requestFactory.inscriptionService();
         currentCandidat = currentContext.edit(candidatProxy);
+        candidatViolation = false;
 
         getView().editCandidat(currentCandidat);
     }

@@ -3,6 +3,7 @@
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
 
     <ui:with field="helpMessage" type="com.gsr.myschool.common.client.resource.message.HelpMessageBundle"/>
+    <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
     <g:HTMLPanel>
         <boot:Form type="HORIZONTAL">
@@ -12,6 +13,7 @@
                     <boot:Tooltip text="{helpMessage.fraterieNom}">
                         <boot:TextBox ui:field="nom" width="250px"/>
                     </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
@@ -21,6 +23,7 @@
                     <boot:Tooltip text="{helpMessage.frateriePrenom}">
                         <boot:TextBox ui:field="prenom" width="250px"/>
                     </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
@@ -66,6 +69,7 @@
                     <boot:Tooltip text="{helpMessage.fraterieType}">
                         <boot:ValueListBox ui:field="typeFraterie" width="250px"/>
                     </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
         </boot:Form>

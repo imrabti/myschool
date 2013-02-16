@@ -31,6 +31,7 @@ public class ForgotPasswordPresenter extends PresenterWidget<MyView> implements 
 
     private RegistrationRequest currentContext;
     private ForgotPasswordDTOProxy currentForgotPassword;
+    private Boolean forgotPasswordViolation;
 
     @Inject
     public ForgotPasswordPresenter(final EventBus eventBus, final MyView view,
@@ -46,36 +47,42 @@ public class ForgotPasswordPresenter extends PresenterWidget<MyView> implements 
 
     @Override
     public void forgotPassword(ForgotPasswordDTOProxy forgotPassword) {
-        String passwordLink = URLUtils.generateURL(NameTokens.getResetPassword());
-        currentContext.startForgotPasswordProcess(forgotPassword, passwordLink).fire(
-                new ValidatedReceiverImpl<Boolean>() {
-            @Override
-            public void onValidationError(Set<ConstraintViolation<?>> violations) {
-                getView().clearErrors();
-                getView().showErrors(violations);
-            }
+        if (!forgotPasswordViolation) {
+            String passwordLink = URLUtils.generateURL(NameTokens.getResetPassword());
+            currentContext.startForgotPasswordProcess(forgotPassword, passwordLink).fire(
+                    new ValidatedReceiverImpl<Boolean>() {
+                @Override
+                public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                    forgotPasswordViolation = true;
+                    getView().clearErrors();
+                    getView().showErrors(violations);
+                }
 
-            @Override
-            public void onSuccess(Boolean response) {
-                String messageString = response ? messageBundle.forgotPasswordSuccess()
-                        : messageBundle.forgotPasswordFailure();
-                AlertType alertType = response ? AlertType.SUCCESS : AlertType.ERROR;
-                Message message = new Message.Builder(messageString)
-                        .style(alertType)
-                        .closeDelay(CloseDelay.DEFAULT)
-                        .build();
-                MessageEvent.fire(this, message);
+                @Override
+                public void onSuccess(Boolean response) {
+                    String messageString = response ? messageBundle.forgotPasswordSuccess()
+                            : messageBundle.forgotPasswordFailure();
+                    AlertType alertType = response ? AlertType.SUCCESS : AlertType.ERROR;
+                    Message message = new Message.Builder(messageString)
+                            .style(alertType).closeDelay(CloseDelay.DEFAULT).build();
+                    MessageEvent.fire(this, message);
 
-                getView().clearErrors();
-                getView().hide();
-            }
-        });
+                    forgotPasswordViolation = false;
+
+                    getView().clearErrors();
+                    getView().hide();
+                }
+            });
+        } else {
+            currentContext.fire();
+        }
     }
 
     @Override
     protected void onReveal() {
         currentContext = requestFactory.registrationService();
         currentForgotPassword = currentContext.create(ForgotPasswordDTOProxy.class);
+        forgotPasswordViolation = false;
         getView().edit(currentForgotPassword);
     }
 }
