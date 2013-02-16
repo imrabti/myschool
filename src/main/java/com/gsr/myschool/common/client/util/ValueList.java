@@ -15,6 +15,8 @@ public interface ValueList {
 
     List<NiveauEtudeProxy> getNiveauEtudeList(String filiere);
 
+    List<NiveauEtudeProxy> getNiveauEtudeList();
+
     List<ValueListProxy> getValueListByCode(ValueTypeCode valueTypeCode);
 
     void initFiliereList();

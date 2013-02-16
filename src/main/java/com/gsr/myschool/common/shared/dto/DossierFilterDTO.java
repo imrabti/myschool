@@ -1,15 +1,20 @@
 package com.gsr.myschool.common.shared.dto;
 
 import com.gsr.myschool.common.shared.type.DossierStatus;
+import com.gsr.myschool.server.business.core.Filiere;
+import com.gsr.myschool.server.business.core.NiveauEtude;
 
 import java.io.Serializable;
 import java.util.Date;
 
 public class DossierFilterDTO implements Serializable {
     private String numDossier;
+    private Boolean gsrFraterie;
     private DossierStatus status;
     private Date dateTill;
     private Date dateFrom;
+    private Filiere filiere;
+    private NiveauEtude niveauEtude;
     private String firstnameOrlastname;
 
     public String getNumDossier() {
@@ -18,6 +23,14 @@ public class DossierFilterDTO implements Serializable {
 
     public void setNumDossier(String numDossier) {
         this.numDossier = numDossier;
+    }
+
+    public Boolean getGsrFraterie() {
+        return gsrFraterie;
+    }
+
+    public void setGsrFraterie(Boolean gsrFraterie) {
+        this.gsrFraterie = gsrFraterie;
     }
 
     public DossierStatus getStatus() {
@@ -50,5 +63,21 @@ public class DossierFilterDTO implements Serializable {
 
     public void setFirstnameOrlastname(String firstnameOrlastname) {
         this.firstnameOrlastname = firstnameOrlastname;
+    }
+
+    public Filiere getFiliere() {
+        return filiere;
+    }
+
+    public void setFiliere(Filiere filiere) {
+        this.filiere = filiere;
+    }
+
+    public NiveauEtude getNiveauEtude() {
+        return niveauEtude;
+    }
+
+    public void setNiveauEtude(NiveauEtude niveauEtude) {
+        this.niveauEtude = niveauEtude;
     }
 }

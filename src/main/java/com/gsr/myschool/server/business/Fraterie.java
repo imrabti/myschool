@@ -26,10 +26,11 @@ public class Fraterie implements java.io.Serializable {
     @Enumerated
     private TypeNiveauEtude niveau;
     private String classe;
-    private String etablissement;
     @Enumerated
     private TypeFraterie typeFraterie;
     private Boolean valide;
+    @ManyToOne
+    private EtablissementScolaire etablissement;
 
     public Long getId() {
         return id;
@@ -103,11 +104,11 @@ public class Fraterie implements java.io.Serializable {
         this.classe = classe;
     }
 
-    public String getEtablissement() {
+    public EtablissementScolaire getEtablissement() {
         return etablissement;
     }
 
-    public void setEtablissement(String etablissement) {
+    public void setEtablissement(EtablissementScolaire etablissement) {
         this.etablissement = etablissement;
     }
 

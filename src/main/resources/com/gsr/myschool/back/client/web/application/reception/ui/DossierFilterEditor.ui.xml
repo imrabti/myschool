@@ -1,7 +1,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'
-             xmlns:b2='urn:import:com.github.gwtbootstrap.datepicker.client.ui'>
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
     <g:HTMLPanel>
         <boot:Form type="HORIZONTAL">
             <boot:ControlGroup>
@@ -17,6 +16,21 @@
                     <boot:TextBox ui:field="firstnameOrlastname" width="250px"/>
                 </boot:Controls>
             </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Filière</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:ValueListBox ui:field="filiere" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Niveau d'études</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:ValueListBox ui:field="niveauEtude" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
         </boot:Form>
     </g:HTMLPanel>
 </ui:UiBinder>

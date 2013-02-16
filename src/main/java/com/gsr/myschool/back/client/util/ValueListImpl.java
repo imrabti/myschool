@@ -20,6 +20,7 @@ public class ValueListImpl implements ValueList {
     private final BackRequestFactory requestFactory;
 
     private List<FiliereProxy> filiereList;
+    private List<NiveauEtudeProxy> niveauEtudeList;
     private List<EtablissementScolaireProxy> etablissementScolaireList;
     private Map<String, List<NiveauEtudeProxy>> niveauEtudeMap;
     private Map<ValueTypeCode, List<ValueListProxy>> valueListMap;
@@ -27,6 +28,7 @@ public class ValueListImpl implements ValueList {
     @Inject
     public ValueListImpl(final BackRequestFactory requestFactory) {
         this.requestFactory = requestFactory;
+        this.niveauEtudeList = new ArrayList<NiveauEtudeProxy>();
         this.filiereList = new ArrayList<FiliereProxy>();
         this.etablissementScolaireList = new ArrayList<EtablissementScolaireProxy>();
         this.niveauEtudeMap = new HashMap<String, List<NiveauEtudeProxy>>();
@@ -58,6 +60,14 @@ public class ValueListImpl implements ValueList {
         }
 
         return Objects.firstNonNull(niveauEtudeMap.get(filiere), new ArrayList<NiveauEtudeProxy>());
+    }
+
+    @Override
+    public List<NiveauEtudeProxy> getNiveauEtudeList() {
+        if(niveauEtudeList == null) {
+            initNiveauEtudeMap();
+        }
+        return niveauEtudeList;
     }
 
     @Override
@@ -95,6 +105,7 @@ public class ValueListImpl implements ValueList {
         requestFactory.cachedListValueService().findAllNiveauEtude().fire(new Receiver<List<NiveauEtudeProxy>>() {
             @Override
             public void onSuccess(List<NiveauEtudeProxy> result) {
+                niveauEtudeList.addAll(result);
                 niveauEtudeMap = new HashMap<String, List<NiveauEtudeProxy>>();
                 for (NiveauEtudeProxy niveauEtude : result) {
                     if (!niveauEtudeMap.containsKey(niveauEtude.getFiliere().getNom())) {
