@@ -150,6 +150,11 @@ public class InscriptionDetailView extends ViewImpl implements InscriptionDetail
         candidatPanel.add(rowLabelValueFactory.createValueLabel("Date de naissance : ", safeBirthDate));
         candidatPanel.add(rowLabelValueFactory.createValueLabel("Lieu de naissance : ", safeBirthLocation));
 
+        if (candidat.getNationality() != null) {
+            SafeHtml safeNationality = SafeHtmlUtils.fromString(candidat.getNationality().getLabel());
+            candidatPanel.add(rowLabelValueFactory.createValueLabel("Nationnalité : ", safeNationality));
+        }
+
         if (!Strings.isNullOrEmpty(candidat.getPhone())) {
             SafeHtml safeTel = SafeHtmlUtils.fromString(candidat.getPhone());
             candidatPanel.add(rowLabelValueFactory.createValueLabel("Téléphone : ", safeTel));
@@ -162,17 +167,12 @@ public class InscriptionDetailView extends ViewImpl implements InscriptionDetail
 
         if (!Strings.isNullOrEmpty(candidat.getCne())) {
             SafeHtml safeCne = SafeHtmlUtils.fromString(candidat.getCne());
-            candidatPanel.add(rowLabelValueFactory.createValueLabel("CNE : ", safeCne));
+            candidatPanel.add(rowLabelValueFactory.createValueLabel("CNE/INE : ", safeCne));
         }
 
         if (!Strings.isNullOrEmpty(candidat.getEmail())) {
             SafeHtml safeEmail = SafeHtmlUtils.fromString(candidat.getEmail());
             candidatPanel.add(rowLabelValueFactory.createValueLabel("Email : ", safeEmail));
-        }
-
-        if (candidat.getNationality() != null) {
-            SafeHtml safeNationality = SafeHtmlUtils.fromString(candidat.getNationality().getLabel());
-            candidatPanel.add(rowLabelValueFactory.createValueLabel("Nationnalité : ", safeNationality));
         }
 
         if (candidat.getBacSerie() != null) {
@@ -306,10 +306,36 @@ public class InscriptionDetailView extends ViewImpl implements InscriptionDetail
         SafeHtml safePrenom = SafeHtmlUtils.fromString(Objects.firstNonNull(infoParent.getPrenom(), ""));
         SafeHtml safeTelDom = SafeHtmlUtils.fromString(Objects.firstNonNull(infoParent.getTelDom(), ""));
         SafeHtml safeEmail = SafeHtmlUtils.fromString(Objects.firstNonNull(infoParent.getEmail(), ""));
+        SafeHtml safeBirthLocation = SafeHtmlUtils.fromString(Objects.firstNonNull(infoParent.getBirthLocation(), ""));
+
+        SafeHtml safeBirthDate;
+        if (infoParent.getBirthDate() == null) {
+            safeBirthDate = SafeHtmlUtils.fromString("");
+        } else {
+            safeBirthDate = SafeHtmlUtils.fromString(dateFormat.format(infoParent.getBirthDate()));
+        }
 
         container.add(rowLabelValueFactory.createHeader(infoParent.getParentType().toString()));
         container.add(rowLabelValueFactory.createValueLabel("Nom : ", safeNom));
         container.add(rowLabelValueFactory.createValueLabel("Prénom : ", safePrenom));
+        container.add(rowLabelValueFactory.createValueLabel("Date de naissance : ", safeBirthDate));
+        container.add(rowLabelValueFactory.createValueLabel("Lieu de naissance : ", safeBirthLocation));
+
+        if (infoParent.getNationality() != null) {
+            SafeHtml safeNationality = SafeHtmlUtils.fromString(infoParent.getNationality().getLabel());
+            container.add(rowLabelValueFactory.createValueLabel("Nationnalité : ", safeNationality));
+        }
+
+        if (infoParent.getParentType() == ParentType.TUTEUR) {
+            SafeHtml safeCivilite = SafeHtmlUtils.fromString(infoParent.getCivilite().toString());
+            container.add(rowLabelValueFactory.createValueLabel("Civilité : ", safeCivilite));
+
+            if (!Strings.isNullOrEmpty(infoParent.getLientParente())) {
+                SafeHtml safelienParent = SafeHtmlUtils.fromString(infoParent.getLientParente());
+                container.add(rowLabelValueFactory.createValueLabel("Lien de parenté : ", safelienParent));
+            }
+        }
+
         container.add(rowLabelValueFactory.createValueLabel("Email : ", safeEmail));
         container.add(rowLabelValueFactory.createValueLabel("Téléphone maison : ", safeTelDom));
 

@@ -38,11 +38,11 @@ public class Candidat implements java.io.Serializable {
     @Phone
     private String gsm;
     @ManyToOne
-    public ValueList bacYear;
+    private ValueList bacYear;
     @ManyToOne
-    public ValueList bacSerie;
+    private ValueList bacSerie;
     @ManyToOne
-    public ValueList nationality;
+    private ValueList nationality;
     @Transient
     private String birthDateStr;
 
