@@ -1,5 +1,8 @@
 package com.gsr.myschool.server.business;
 
+import com.gsr.myschool.common.shared.type.EtablissementType;
+import com.gsr.myschool.server.business.valuelist.ValueList;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,8 +12,10 @@ public class EtablissementScolaire implements java.io.Serializable {
     private Long id;
     @Column(unique = true)
     private String nom;
-    private Boolean reference;
-    private String adresse;
+    @ManyToOne
+    private ValueList ville;
+    @Enumerated
+    private EtablissementType type;
     private Boolean gsr;
 
     public Long getId() {
@@ -29,20 +34,20 @@ public class EtablissementScolaire implements java.io.Serializable {
         this.nom = newNom;
     }
 
-    public Boolean getReference() {
-        return reference;
+    public ValueList getVille() {
+        return ville;
     }
 
-    public void setReference(Boolean newReference) {
-        this.reference = newReference;
+    public void setVille(ValueList ville) {
+        this.ville = ville;
     }
 
-    public String getAdresse() {
-        return adresse;
+    public EtablissementType getType() {
+        return type;
     }
 
-    public void setAdresse(String newAdresse) {
-        this.adresse = newAdresse;
+    public void setType(EtablissementType type) {
+        this.type = type;
     }
 
     public Boolean getGsr() {

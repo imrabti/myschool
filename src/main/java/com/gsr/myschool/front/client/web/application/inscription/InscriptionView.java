@@ -101,6 +101,7 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         }
         builder.append("</ul>");
         errors.setHTML(builder.toString());
+        errors.getElement().scrollIntoView();
     }
 
     @Override
