@@ -26,26 +26,18 @@ public class EtablissementScolairePopulationTest {
     public void populateValueType() {
         EtablissementScolaire etablissementScolaire = new EtablissementScolaire();
         etablissementScolaire.setNom("Al Jahid");
-        etablissementScolaire.setAdresse("21 Cite Ibn Rochd Casablanca");
-        etablissementScolaire.setReference(true);
         etablissementScolaireRepos.save(etablissementScolaire);
 
         etablissementScolaire = new EtablissementScolaire();
         etablissementScolaire.setNom("CTM des mines");
-        etablissementScolaire.setAdresse("Hay Nakhil 3445 Rabat");
-        etablissementScolaire.setReference(true);
         etablissementScolaireRepos.save(etablissementScolaire);
 
         etablissementScolaire = new EtablissementScolaire();
         etablissementScolaire.setNom("Des orangers");
-        etablissementScolaire.setAdresse("31 Bd Zerktouni Casablanca");
-        etablissementScolaire.setReference(true);
         etablissementScolaireRepos.save(etablissementScolaire);
 
         etablissementScolaire = new EtablissementScolaire();
         etablissementScolaire.setNom("Ibn Sina");
-        etablissementScolaire.setAdresse("23 Bd 2 MarsCasablanca");
-        etablissementScolaire.setReference(true);
         etablissementScolaireRepos.save(etablissementScolaire);
     }
 }

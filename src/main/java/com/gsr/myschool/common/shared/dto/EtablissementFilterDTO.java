@@ -1,36 +1,19 @@
-package com.gsr.myschool.server.business;
+package com.gsr.myschool.common.shared.dto;
 
 import com.gsr.myschool.common.shared.type.EtablissementType;
 import com.gsr.myschool.server.business.valuelist.ValueList;
 
-import javax.persistence.*;
-
-@Entity
-public class EtablissementScolaire implements java.io.Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @Column(unique = true)
+public class EtablissementFilterDTO {
     private String nom;
-    @ManyToOne
     private ValueList ville;
-    @Enumerated
     private EtablissementType type;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long newId) {
-        this.id = newId;
-    }
 
     public String getNom() {
         return nom;
     }
 
-    public void setNom(String newNom) {
-        this.nom = newNom;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public ValueList getVille() {

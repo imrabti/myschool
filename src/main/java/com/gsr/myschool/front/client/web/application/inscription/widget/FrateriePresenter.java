@@ -18,6 +18,7 @@ import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.front.client.web.application.inscription.WizardStep;
 import com.gsr.myschool.front.client.web.application.inscription.event.ChangeStepEvent;
 import com.gsr.myschool.front.client.web.application.inscription.event.DisplayStepEvent;
+import com.gsr.myschool.front.client.web.application.inscription.popup.EtablissementFilterPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 
@@ -35,6 +36,7 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
 
     private final FrontRequestFactory requestFactory;
     private final MessageBundle messageBundle;
+    private final EtablissementFilterPresenter etablissementFilterPresenter;
 
     private InscriptionRequest currentContext;
     private DossierProxy currentDossier;
@@ -44,10 +46,12 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
     @Inject
     public FrateriePresenter(final EventBus eventBus, final MyView view,
                              final FrontRequestFactory requestFactory,
+                             final EtablissementFilterPresenter etablissementFilterPresenter,
                              final MessageBundle messageBundle) {
         super(eventBus, view);
 
         this.requestFactory = requestFactory;
+        this.etablissementFilterPresenter = etablissementFilterPresenter;
         this.messageBundle = messageBundle;
 
         getView().setUiHandlers(this);
@@ -102,6 +106,11 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
                 }
             });
         }
+    }
+
+    @Override
+    public void selectEtablissement() {
+        addToPopupSlot(etablissementFilterPresenter);
     }
 
     public void editData(DossierProxy dossierProxy) {

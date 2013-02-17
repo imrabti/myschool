@@ -3,8 +3,10 @@ package com.gsr.myschool.common.client.ui.dossier;
 import com.github.gwtbootstrap.client.ui.TextBox;
 import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -25,6 +27,10 @@ public class FraterieEditor extends Composite implements EditorView<FraterieProx
     public interface Driver extends SimpleBeanEditorDriver<FraterieProxy, FraterieEditor> {
     }
 
+    public interface Handler {
+        void onSelectEtablissement();
+    }
+
     @UiField
     TextBox nom;
     @UiField
@@ -41,6 +47,7 @@ public class FraterieEditor extends Composite implements EditorView<FraterieProx
     ValueListBox<TypeFraterie> typeFraterie;
 
     private final Driver driver;
+    private Handler handler;
 
     @Inject
     public FraterieEditor(final Binder uiBinder, final Driver driver) {
@@ -76,5 +83,14 @@ public class FraterieEditor extends Composite implements EditorView<FraterieProx
         } else {
             return fraterie;
         }
+    }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+    }
+
+    @UiHandler("selectEtablissement")
+    void onSelectEtablissementClicked(ClickEvent event) {
+        handler.onSelectEtablissement();
     }
 }
