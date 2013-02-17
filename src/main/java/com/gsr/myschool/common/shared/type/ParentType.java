@@ -3,7 +3,7 @@ package com.gsr.myschool.common.shared.type;
 public enum ParentType {
     PERE("Père"),
     MERE("Mère"),
-    TUTEUR("Tuteur");
+    TUTEUR("Tuteur légal");
 
     private String label;
 

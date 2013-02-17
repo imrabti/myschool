@@ -18,6 +18,7 @@ import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.renderer.ValueListRenderer;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
 
 import java.util.Date;
@@ -30,8 +31,6 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
 
     public interface Driver extends SimpleBeanEditorDriver<CandidatProxy, CandidatEditor> {
     }
-
-    public static final String DEFAULT_NATIONALITY = "MAROCAINE";
 
     @UiField
     TextBox firstname;
@@ -111,6 +110,7 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
     public void edit(CandidatProxy candidat) {
         firstname.setFocus(true);
         driver.edit(candidat);
+
         if (candidat.getNationality() == null) {
             nationality.setValue(getDefaultNationality());
         }
@@ -132,7 +132,7 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
 
     private ValueListProxy getDefaultNationality() {
         for (ValueListProxy nationalityFromList : valueList.getValueListByCode(ValueTypeCode.NATIONALITY)) {
-            if (DEFAULT_NATIONALITY.equals(nationalityFromList.getValue())) {
+            if (GlobalParameters.DEFAULT_NATIONALITY.equals(nationalityFromList.getValue())) {
                 return nationalityFromList;
             }
         }

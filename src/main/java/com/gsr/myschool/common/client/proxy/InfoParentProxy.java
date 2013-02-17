@@ -2,8 +2,11 @@ package com.gsr.myschool.common.client.proxy;
 
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;
+import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.ParentType;
 import com.gsr.myschool.server.business.InfoParent;
+
+import java.util.Date;
 
 @ProxyFor(InfoParent.class)
 public interface InfoParentProxy extends ValueProxy {
@@ -50,4 +53,24 @@ public interface InfoParentProxy extends ValueProxy {
     String getInstitution();
 
     void setInstitution(String institution);
+
+    Gender getCivilite();
+
+    void setCivilite(Gender civilite);
+
+    Date getBirthDate();
+
+    void setBirthDate(Date birthDate);
+
+    String getBirthLocation();
+
+    void setBirthLocation(String birthLocation);
+
+    ValueListProxy getNationality();
+
+    void setNationality(ValueListProxy nationality);
+
+    String getLientParente();
+
+    void setLientParente(String lientParente);
 }

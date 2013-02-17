@@ -1,6 +1,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'
+             xmlns:b2='urn:import:com.github.gwtbootstrap.datepicker.client.ui'>
 
     <ui:with field="helpMessage" type="com.gsr.myschool.common.client.resource.message.HelpMessageBundle"/>
     <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
@@ -22,6 +23,55 @@
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.infoParentPrenom}">
                         <boot:TextBox ui:field="prenom" width="250px"/>
+                    </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup ui:field="civiliteWrapper">
+                <boot:ControlLabel>Civilité</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.infoParentCivilite}">
+                        <boot:ValueListBox ui:field="civilite"/>
+                    </boot:Tooltip>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup ui:field="lienParenteWrapper">
+                <boot:ControlLabel>Lien de parenté</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.infoParentLienParente}">
+                        <boot:TextBox ui:field="lientParente" width="250px"/>
+                    </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Date de naissance</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.infoParentDateNaissance}">
+                        <b2:DateBoxAppended ui:field="birthDate"/>
+                    </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Lieu de naissance</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.infoParentLieuNaissance}">
+                        <boot:TextBox ui:field="birthLocation" width="250px"/>
+                    </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Nationnalité</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.infoParentNationnalite}">
+                        <boot:ValueListBox ui:field="nationality" width="250px"/>
                     </boot:Tooltip>
                     <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
