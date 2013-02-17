@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.dto.ScolariteAnterieurDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
+import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.ParentType;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
 import com.gsr.myschool.server.business.Candidat;
@@ -107,11 +108,13 @@ public class InscriptionServiceImpl implements InscriptionService {
         InfoParent pere = new InfoParent();
         pere.setParentType(ParentType.PERE);
         pere.setDossier(dossier);
+        pere.setCivilite(Gender.MALE);
         infoParentRepos.save(pere);
 
         InfoParent mere = new InfoParent();
         mere.setParentType(ParentType.MERE);
         mere.setDossier(dossier);
+        pere.setCivilite(Gender.FEMALE);
         infoParentRepos.save(mere);
 
         InfoParent tuteur = new InfoParent();
@@ -155,6 +158,17 @@ public class InscriptionServiceImpl implements InscriptionService {
         currentInfoParent.setAddress(infoParent.getAddress());
         currentInfoParent.setFonction(infoParent.getFonction());
         currentInfoParent.setInstitution(infoParent.getInstitution());
+        currentInfoParent.setBirthLocation(infoParent.getBirthLocation());
+        currentInfoParent.setBirthDate(infoParent.getBirthDate());
+        currentInfoParent.setCivilite(infoParent.getCivilite());
+        currentInfoParent.setLientParente(infoParent.getLientParente());
+
+        if (infoParent.getNationality() != null) {
+            currentInfoParent.setNationality(valueListRepos.findOne(infoParent.getNationality().getId()));
+        } else {
+            currentInfoParent.setNationality(null);
+        }
+
         infoParentRepos.save(currentInfoParent);
         return currentInfoParent;
     }
