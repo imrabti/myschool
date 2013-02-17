@@ -13,7 +13,7 @@
 
     <g:HTMLPanel>
         <h3 class="{clientResources.sharedStyleCss.mediumTitle}">
-            Scolarité antérieur
+            Scolarité Actuelle
         </h3>
 
         <boot:Paragraph>
