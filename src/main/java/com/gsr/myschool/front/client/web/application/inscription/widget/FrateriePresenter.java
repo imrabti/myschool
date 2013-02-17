@@ -18,6 +18,8 @@ import com.gsr.myschool.front.client.request.InscriptionRequest;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.front.client.web.application.inscription.WizardStep;
 import com.gsr.myschool.front.client.web.application.inscription.event.ChangeStepEvent;
+import com.gsr.myschool.front.client.web.application.inscription.event.DisplayStepEvent;
+import com.gsr.myschool.front.client.web.application.inscription.popup.EtablissementFilterPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
@@ -38,6 +40,7 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
     private final FrontRequestFactory requestFactory;
     private final PlaceManager placeManager;
     private final MessageBundle messageBundle;
+    private final EtablissementFilterPresenter etablissementFilterPresenter;
 
     private InscriptionRequest currentContext;
     private DossierProxy currentDossier;
@@ -48,10 +51,12 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
     public FrateriePresenter(final EventBus eventBus, final MyView view,
                              final FrontRequestFactory requestFactory,
                              final PlaceManager placeManager,
+                             final EtablissementFilterPresenter etablissementFilterPresenter,
                              final MessageBundle messageBundle) {
         super(eventBus, view);
 
         this.requestFactory = requestFactory;
+        this.etablissementFilterPresenter = etablissementFilterPresenter;
         this.messageBundle = messageBundle;
         this.placeManager = placeManager;
 
@@ -110,6 +115,11 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
                 }
             });
         }
+    }
+
+    @Override
+    public void selectEtablissement() {
+        addToPopupSlot(etablissementFilterPresenter);
     }
 
     public void editData(DossierProxy dossierProxy) {

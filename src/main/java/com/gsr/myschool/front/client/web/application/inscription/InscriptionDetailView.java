@@ -5,19 +5,23 @@ import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
-import com.gsr.myschool.common.client.mvp.ViewImpl;
+import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
+import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.CandidatProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.FraterieProxy;
@@ -27,13 +31,15 @@ import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
 import com.gsr.myschool.common.client.widget.RowLabelValueFactory;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.ParentType;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
 
 import java.util.List;
 import java.util.Map;
 
-public class InscriptionDetailView extends ViewImpl implements InscriptionDetailPresenter.MyView {
+public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailUiHandlers>
+        implements InscriptionDetailPresenter.MyView {
     public interface Binder extends UiBinder<Widget, InscriptionDetailView> {
     }
 
@@ -50,6 +56,10 @@ public class InscriptionDetailView extends ViewImpl implements InscriptionDetail
     @UiField
     HTMLPanel candidatPanel;
     @UiField
+    HTMLPanel submitContainer;
+    @UiField
+    HTML errors;
+    @UiField
     CellTable<FraterieProxy> fraterieTable;
     @UiField
     CellTable<ScolariteAnterieurProxy> etablissementTable;
@@ -62,8 +72,11 @@ public class InscriptionDetailView extends ViewImpl implements InscriptionDetail
 
     @Inject
     public InscriptionDetailView(final Binder uiBinder, final MessageBundle messageBundle,
+                                 final UiHandlersStrategy<InscriptionDetailUiHandlers> uiHandlersStrategy,
                                  final RowLabelValueFactory rowLabelValueFactory,
                                  final SharedMessageBundle sharedMessageBundle) {
+        super(uiHandlersStrategy);
+
         this.messageBundle = messageBundle;
         this.rowLabelValueFactory = rowLabelValueFactory;
 
@@ -85,6 +98,7 @@ public class InscriptionDetailView extends ViewImpl implements InscriptionDetail
     @Override
     public void setDossier(DossierProxy dossier) {
         dossierTitle.setText(messageBundle.inscriptionDetailTitle(dossier.getGeneratedNumDossier()));
+        submitContainer.setVisible(dossier.getStatus() == DossierStatus.CREATED);
 
         SafeHtml safeDate = SafeHtmlUtils.fromString(dateFormat.format(dossier.getCreateDate()));
         SafeHtml safeDossierNum = SafeHtmlUtils.fromString(dossier.getGeneratedNumDossier());
@@ -196,6 +210,32 @@ public class InscriptionDetailView extends ViewImpl implements InscriptionDetail
     public void setFraterie(List<FraterieProxy> data) {
         fraterieDataProvider.getList().clear();
         fraterieDataProvider.getList().addAll(data);
+    }
+
+    @Override
+    public void showErrors(List<String> errorsList) {
+        errors.setVisible(true);
+        StringBuilder builder = new StringBuilder();
+        builder.append("<ul>");
+        for (String violation : errorsList) {
+            builder.append("<li class=\"error\">");
+            builder.append(violation);
+            builder.append("</li>");
+        }
+        builder.append("</ul>");
+        errors.setHTML(builder.toString());
+        errors.getElement().scrollIntoView();
+    }
+
+    @Override
+    public void clearErrors() {
+        errors.setHTML("");
+        errors.setVisible(false);
+    }
+
+    @UiHandler("submit")
+    void onSubmitClicked(ClickEvent event) {
+        getUiHandlers().submitInscription();
     }
 
     private void initFraterieDataGrid() {

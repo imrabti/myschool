@@ -2,6 +2,7 @@ package com.gsr.myschool.server.service.impl;
 
 import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
+import com.gsr.myschool.common.shared.dto.EtablissementFilterDTO;
 import com.gsr.myschool.common.shared.dto.ScolariteAnterieurDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.Gender;
@@ -26,12 +27,14 @@ import com.gsr.myschool.server.repos.InfoParentRepos;
 import com.gsr.myschool.server.repos.NiveauEtudeRepos;
 import com.gsr.myschool.server.repos.ScolariteAnterieurRepos;
 import com.gsr.myschool.server.repos.ValueListRepos;
+import com.gsr.myschool.server.repos.spec.EtablissementScolaireSpec;
 import com.gsr.myschool.server.security.SecurityContextProvider;
 import com.gsr.myschool.server.service.InscriptionService;
 import com.gsr.myschool.server.util.DateUtils;
 import com.gsr.myschool.server.util.I18nMessageBean;
 import com.gsr.myschool.server.util.UUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -217,6 +220,22 @@ public class InscriptionServiceImpl implements InscriptionService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<EtablissementScolaire> findEtablissementByFilter(EtablissementFilterDTO filter) {
+        Specifications spec = Specifications.where(EtablissementScolaireSpec.nomLike(filter.getNom()));
+
+        if (filter.getVille() != null) {
+            spec = spec.and(EtablissementScolaireSpec.villeEqual(filter.getVille()));
+        }
+
+        if (filter.getType() != null) {
+            spec = spec.and(EtablissementScolaireSpec.typeEqual(filter.getType()));
+        }
+
+        return etablissementScolaireRepos.findAll(spec);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<ScolariteAnterieur> findScolariteAnterieursByDossierId(Long dossierId) {
         Dossier dossier = dossierRepos.findOne(dossierId);
         if (dossier != null) {
@@ -233,7 +252,7 @@ public class InscriptionServiceImpl implements InscriptionService {
         if (!Strings.isNullOrEmpty(scolariteAnterieur.getNewEtablissementScolaire())) {
             etablissementScolaire = new EtablissementScolaire();
             etablissementScolaire.setNom(scolariteAnterieur.getNewEtablissementScolaire());
-            etablissementScolaire.setReference(false);
+            //etablissementScolaire.setReference(false);
             etablissementScolaireRepos.save(etablissementScolaire);
         } else {
             etablissementScolaire = scolariteAnterieur.getEtablissement();

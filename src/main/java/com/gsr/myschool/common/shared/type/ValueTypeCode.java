@@ -6,7 +6,8 @@ public enum ValueTypeCode {
     BAC_SERIE("Serie baccalauréat"),
     NATIONALITY("Nationnalité"),
     SCHOOL_YEAR("Année scolaire"),
-    COUNTRY("Pays");
+    COUNTRY("Pays"),
+    CITY("Ville");
 
     private String label;
 
