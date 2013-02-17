@@ -6,7 +6,7 @@
 
     <g:HTMLPanel>
         <h3 class="{clientResources.sharedStyleCss.mediumTitle}">
-            Informations sur le responsable
+            Information Parents
         </h3>
 
         <boot:Paragraph>

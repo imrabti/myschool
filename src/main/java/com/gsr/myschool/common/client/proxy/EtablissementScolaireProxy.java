@@ -22,7 +22,7 @@ public interface EtablissementScolaireProxy extends ValueProxy {
 
     void setAdresse(String newAdresse);
 
-    public Boolean getGsr();
+    Boolean getGsr();
 
-    public void setGsr(Boolean gsr);
+    void setGsr(Boolean gsr);
 }
