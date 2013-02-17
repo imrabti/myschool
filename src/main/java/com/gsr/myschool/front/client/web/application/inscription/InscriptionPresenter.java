@@ -129,9 +129,7 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
                 public void onSuccess(List<String> response) {
                     if (response.isEmpty()) {
                         Message message = new Message.Builder(messageBundle.inscriptionSubmitSuccess())
-                                .style(AlertType.SUCCESS)
-                                .closeDelay(CloseDelay.DEFAULT)
-                                .build();
+                                .style(AlertType.SUCCESS).closeDelay(CloseDelay.DEFAULT).build();
                         MessageEvent.fire(this, message);
                         loadAllInscriptions();
                     } else {
@@ -158,7 +156,6 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
         requestBuilder.buildData(dossier.getId().toString());
         requestBuilder.sendRequest();
     }
-
 
     private void loadAllInscriptions() {
         requestFactory.inscriptionService().findAllDossiers().fire(new ReceiverImpl<List<DossierProxy>>() {

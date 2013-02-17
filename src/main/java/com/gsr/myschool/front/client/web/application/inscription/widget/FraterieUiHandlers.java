@@ -7,4 +7,6 @@ public interface FraterieUiHandlers extends UiHandlers {
     void addFraterie(FraterieProxy fraterie);
 
     void deleteFraterie(FraterieProxy fraterie);
+
+    void selectEtablissement();
 }

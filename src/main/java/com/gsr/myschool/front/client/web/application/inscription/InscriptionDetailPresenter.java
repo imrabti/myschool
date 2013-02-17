@@ -1,5 +1,7 @@
 package com.gsr.myschool.front.client.web.application.inscription;
 
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.proxy.CandidatProxy;
@@ -9,12 +11,17 @@ import com.gsr.myschool.common.client.proxy.InfoParentProxy;
 import com.gsr.myschool.common.client.proxy.ScolariteAnterieurProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
+import com.gsr.myschool.common.client.widget.messages.CloseDelay;
+import com.gsr.myschool.common.client.widget.messages.Message;
+import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.type.ParentType;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
+import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.front.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.front.client.web.application.inscription.InscriptionDetailPresenter.MyView;
 import com.gsr.myschool.front.client.web.application.inscription.InscriptionDetailPresenter.MyProxy;
+import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
@@ -27,8 +34,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> {
-    public interface MyView extends View {
+public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> implements InscriptionDetailUiHandlers {
+    public interface MyView extends View, HasUiHandlers<InscriptionDetailUiHandlers> {
         void setDossier(DossierProxy dossier);
 
         void setResponsable(Map<ParentType, InfoParentProxy> infoParents);
@@ -38,6 +45,10 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> {
         void setScolariteAnterieur(List<ScolariteAnterieurProxy> scolariteAnterieurList);
 
         void setFraterie(List<FraterieProxy> fraterieList);
+
+        void showErrors(List<String> errors);
+
+        void clearErrors();
     }
 
     @ProxyStandard
@@ -47,15 +58,20 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> {
     }
 
     private final FrontRequestFactory requestFactory;
+    private final MessageBundle messageBundle;
 
     private DossierProxy currentDossier;
 
     @Inject
     public InscriptionDetailPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
-                                      final FrontRequestFactory requestFactory) {
+                                      final FrontRequestFactory requestFactory,
+                                      final MessageBundle messageBundle) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
+        this.messageBundle = messageBundle;
+
+        getView().setUiHandlers(this);
     }
 
     @Override
@@ -67,12 +83,33 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> {
                 currentDossier = result;
                 getView().setDossier(currentDossier);
                 getView().setCandidat(currentDossier.getCandidat());
+                getView().clearErrors();
 
                 loadInfoParent();
                 loadFraterie();
                 loadScolariteAnterieur();
             }
         });
+    }
+
+    @Override
+    public void submitInscription() {
+        if (Window.confirm(messageBundle.inscriptionSubmitConf())) {
+            Long dossierId = currentDossier.getId();
+            requestFactory.inscriptionService().submitInscription(dossierId).fire(new ReceiverImpl<List<String>>() {
+                @Override
+                public void onSuccess(List<String> response) {
+                    if (response.isEmpty()) {
+                        Message message = new Message.Builder(messageBundle.inscriptionSubmitSuccess())
+                                .style(AlertType.SUCCESS).closeDelay(CloseDelay.DEFAULT).build();
+                        MessageEvent.fire(this, message);
+                        getView().clearErrors();
+                    } else {
+                        getView().showErrors(response);
+                    }
+                }
+            });
+        }
     }
 
     private void loadInfoParent() {

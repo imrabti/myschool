@@ -20,6 +20,9 @@ import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
 import com.google.inject.TypeLiteral;
 import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.front.client.web.application.inscription.popup.EtablissementFilterPresenter;
+import com.gsr.myschool.front.client.web.application.inscription.popup.EtablissementFilterUiHandlers;
+import com.gsr.myschool.front.client.web.application.inscription.popup.EtablissementFilterView;
 import com.gsr.myschool.front.client.web.application.inscription.renderer.InscriptionActionCellFactory;
 import com.gsr.myschool.front.client.web.application.inscription.widget.CandidatPresenter;
 import com.gsr.myschool.front.client.web.application.inscription.widget.CandidatView;
@@ -46,6 +49,10 @@ public class InscriptionModule extends AbstractPresenterModule {
                 .to(new TypeLiteral<SetterUiHandlersStrategy<ScolariteAnterieurUiHandlers>>() {});
         bind(new TypeLiteral<UiHandlersStrategy<FraterieUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<FraterieUiHandlers>>() {});
+        bind(new TypeLiteral<UiHandlersStrategy<EtablissementFilterUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<EtablissementFilterUiHandlers>>() {});
+        bind(new TypeLiteral<UiHandlersStrategy<InscriptionDetailUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<InscriptionDetailUiHandlers>>() {});
 
         bindPresenter(InscriptionPresenter.class, InscriptionPresenter.MyView.class, InscriptionView.class,
                 InscriptionPresenter.MyProxy.class);
@@ -64,6 +71,8 @@ public class InscriptionModule extends AbstractPresenterModule {
                 ScolariteAnterieurView.class);
         bindSingletonPresenterWidget(FrateriePresenter.class, FrateriePresenter.MyView.class,
                 FraterieView.class);
+        bindSingletonPresenterWidget(EtablissementFilterPresenter.class, EtablissementFilterPresenter.MyView.class,
+                EtablissementFilterView.class);
 
         install(new GinFactoryModuleBuilder().build(InscriptionActionCellFactory.class));
     }

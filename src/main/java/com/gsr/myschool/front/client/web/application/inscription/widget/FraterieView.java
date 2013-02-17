@@ -24,7 +24,8 @@ import com.gsr.myschool.common.client.widget.EmptyResult;
 
 import java.util.List;
 
-public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers> implements FrateriePresenter.MyView {
+public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers>
+        implements FrateriePresenter.MyView, FraterieEditor.Handler {
     public interface Binder extends UiBinder<Widget, FraterieView> {
     }
 
@@ -50,6 +51,7 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
         dataProvider = new ListDataProvider<FraterieProxy>();
         dataProvider.addDataDisplay(fraterieTable);
         fraterieTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
+        fraterieEditor.setHandler(this);
     }
 
     @Override
@@ -61,6 +63,11 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
     @Override
     public void editFraterie(FraterieProxy fraterie) {
         fraterieEditor.edit(fraterie);
+    }
+
+    @Override
+    public void onSelectEtablissement() {
+        getUiHandlers().selectEtablissement();
     }
 
     private void initDataGrid() {

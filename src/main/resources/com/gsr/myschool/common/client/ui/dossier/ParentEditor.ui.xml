@@ -11,7 +11,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Nom</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.infoParentNom}">
+                    <boot:Tooltip text="{helpMessage.infoParentNom}" placement="RIGHT">
                         <boot:TextBox ui:field="nom" width="250px"/>
                     </boot:Tooltip>
                     <span class="{resource.sharedStyleCss.requiredField}"/>
@@ -133,7 +133,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Travail</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.infoParentTelTravail}">
+                    <boot:Tooltip text="{helpMessage.infoParentTelTravail}" placement="RIGHT">
                         <boot:InputAddOn prependIcon="PHONE">
                             <boot:TextBox ui:field="telBureau" width="228px"/>
                         </boot:InputAddOn>

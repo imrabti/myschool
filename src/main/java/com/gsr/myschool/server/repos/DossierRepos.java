@@ -16,38 +16,12 @@
 
 package com.gsr.myschool.server.repos;
 
-import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Query;
 
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 public interface DossierRepos extends JpaRepository<Dossier, Long>, JpaSpecificationExecutor {
     List<Dossier> findByOwnerId(Long userId);
-
-    @Query("FROM Dossier d WHERE d.generatedNumDossier like ?1")
-    Page<Dossier> findByNumDossierLike(String numDossier, Pageable pageable);
-
-    @Query("FROM Dossier d WHERE d.generatedNumDossier like ?1 AND d.status = ?2")
-    Page<Dossier> findByNumDossierLikeAndStatus(String numDossier, DossierStatus dossierStatus
-            , Pageable pageable);
-
-    @Query("FROM Dossier d WHERE d.generatedNumDossier like ?1 AND d.createDate >= ?2")
-    Page<Dossier> findByNumDossierLikeAndDateCreation(String numDossier
-            ,Date startDate, Pageable pageable);
-
-    @Query("FROM Dossier d WHERE d.generatedNumDossier like ?1 AND d.status = ?2 AND d.createDate >= ?3")
-    Page<Dossier> findByNumDossierLikeAndStatusAndDateCreation(String numDossier, DossierStatus dossierStatus
-            ,Date startDate, Pageable pageable);
-
-    @Query("FROM Dossier d WHERE d.generatedNumDossier like ?1 AND d.status = ?2 AND d.candidat.firstname like ?3 "
-            + "OR d.candidat.lastname like ?3")
-    List<Dossier> findDossierByGeneratedNumDossierLikeAndStatusEqualsAndCandidatNomLike(String numDossier,
-            DossierStatus status, String nomCandidat);
 }
