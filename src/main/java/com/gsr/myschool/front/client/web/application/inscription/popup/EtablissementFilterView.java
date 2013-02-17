@@ -128,9 +128,10 @@ public class EtablissementFilterView extends PopupViewWithUiHandlers<Etablisseme
         getUiHandlers().search(get());
     }
 
+    @UiHandler("choose")
     void onChooseClicked(ClickEvent event) {
         if (selectedValue != null) {
-
+            getUiHandlers().valueSelected(selectedValue);
         } else {
             // TODO : Afficher message erreur
         }
