@@ -1,23 +1,16 @@
 package com.gsr.myschool.front.client.web.application.inscription.widget;
 
-import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.ValidatedView;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
-import com.gsr.myschool.common.client.widget.messages.CloseDelay;
-import com.gsr.myschool.common.client.widget.messages.Message;
-import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
-import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.request.InscriptionRequest;
-import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.front.client.web.application.inscription.WizardStep;
 import com.gsr.myschool.front.client.web.application.inscription.event.ChangeStepEvent;
+import com.gsr.myschool.front.client.web.application.inscription.event.DisplayStepEvent;
 import com.gwtplatform.mvp.client.PresenterWidget;
-import com.gwtplatform.mvp.client.proxy.PlaceManager;
-import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 
 import javax.validation.ConstraintViolation;
 import java.util.Set;
@@ -31,8 +24,6 @@ public class NiveauScolairePresenter extends PresenterWidget<NiveauScolairePrese
     }
 
     private final FrontRequestFactory requestFactory;
-    private final PlaceManager placeManager;
-    private final MessageBundle messageBundle;
 
     private InscriptionRequest currentContext;
     private DossierProxy currentDossier;
@@ -40,19 +31,15 @@ public class NiveauScolairePresenter extends PresenterWidget<NiveauScolairePrese
 
     @Inject
     public NiveauScolairePresenter(final EventBus eventBus, final MyView view,
-                                   final FrontRequestFactory requestFactory,
-                                   final PlaceManager placeManager,
-                                   final MessageBundle messageBundle) {
+                                   final FrontRequestFactory requestFactory) {
         super(eventBus, view);
 
         this.requestFactory = requestFactory;
-        this.placeManager = placeManager;
-        this.messageBundle = messageBundle;
     }
 
     @Override
-    public void onChangeStep(ChangeStepEvent event) {
-        if (event.getCurrentStep() == WizardStep.STEP_5) {
+    public void onChangeStep(final ChangeStepEvent event) {
+        if (event.getCurrentStep() == WizardStep.STEP_4) {
             getView().flushDossier();
 
             if (currentDossier.getFiliere() != null) {
@@ -81,10 +68,7 @@ public class NiveauScolairePresenter extends PresenterWidget<NiveauScolairePrese
                         getView().clearErrors();
                         getView().editDossier(currentDossier);
 
-                        Message message = new Message.Builder(messageBundle.newInscriptionSuccess())
-                                .style(AlertType.SUCCESS).closeDelay(CloseDelay.DEFAULT).build();
-                        MessageEvent.fire(this, message);
-                        placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
+                        DisplayStepEvent.fire(this, event.getNextStep());
                     }
                 });
             } else {

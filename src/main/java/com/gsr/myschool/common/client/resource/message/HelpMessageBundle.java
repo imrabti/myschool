@@ -23,6 +23,14 @@ public interface HelpMessageBundle extends Messages {
 
     String infoParentAdresse();
 
+    String infoParentDateNaissance();
+
+    String infoParentLieuNaissance();
+
+    String infoParentNationnalite();
+
+    String infoParentCivilite();
+
     String candidatNom();
 
     String candidatPrenom();
@@ -51,11 +59,11 @@ public interface HelpMessageBundle extends Messages {
 
     String fraterieNumDossier();
 
-    String classe();
+    String fraterieClasse();
 
-    String niveau();
+    String fraterieNiveau();
 
-    String etablissement();
+    String fraterieEtablissement();
 
     String fraterieType();
 

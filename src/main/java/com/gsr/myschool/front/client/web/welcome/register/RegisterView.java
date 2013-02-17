@@ -18,6 +18,7 @@ package com.gsr.myschool.front.client.web.welcome.register;
 
 import com.github.gwtbootstrap.client.ui.PasswordTextBox;
 import com.github.gwtbootstrap.client.ui.TextBox;
+import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -32,6 +33,10 @@ import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.util.EditorView;
+import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
+import com.gsr.myschool.common.shared.type.Gender;
+
+import java.util.Arrays;
 
 import static com.google.gwt.query.client.GQuery.$;
 
@@ -49,6 +54,8 @@ public class RegisterView extends ValidatedViewWithUiHandlers<RegisterUiHandlers
     TextBox firstName;
     @UiField
     TextBox lastName;
+    @UiField(provided = true)
+    ValueListBox<Gender> gender;
     @UiField
     PasswordTextBox password;
     @UiField
@@ -63,6 +70,7 @@ public class RegisterView extends ValidatedViewWithUiHandlers<RegisterUiHandlers
         super(uiHandlersStrategy, validationErrorPopup);
 
         this.driver = driver;
+        this.gender = new ValueListBox<Gender>(new EnumRenderer<Gender>());
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
@@ -71,6 +79,7 @@ public class RegisterView extends ValidatedViewWithUiHandlers<RegisterUiHandlers
         $(firstName).id("firstName");
         $(lastName).id("lastName");
         $(password).id("password");
+        $(gender).id("gender");
         $(passwordConfirmation).id("passwordConfirmation");
     }
 
@@ -78,6 +87,9 @@ public class RegisterView extends ValidatedViewWithUiHandlers<RegisterUiHandlers
     public void edit(UserProxy user) {
         email.setFocus(true);
         driver.edit(user);
+
+        gender.setValue(Gender.MALE);
+        gender.setAcceptableValues(Arrays.asList(Gender.values()));
     }
 
     @Override

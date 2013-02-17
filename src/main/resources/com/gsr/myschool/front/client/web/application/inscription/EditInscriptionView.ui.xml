@@ -13,7 +13,7 @@
     <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
         <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
             <h2>
-                <g:InlineLabel text="Editer une inscription"/>
+                <g:InlineLabel text="Editer une pré-inscription"/>
             </h2>
             <span style="display: block; clear: both;"/>
         </g:HTMLPanel>

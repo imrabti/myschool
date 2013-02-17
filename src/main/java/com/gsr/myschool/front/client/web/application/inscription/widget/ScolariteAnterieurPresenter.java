@@ -56,7 +56,7 @@ public class ScolariteAnterieurPresenter extends PresenterWidget<ScolariteAnteri
 
     @Override
     public void onChangeStep(ChangeStepEvent event) {
-        if (event.getCurrentStep() == WizardStep.STEP_4) {
+        if (event.getCurrentStep() == WizardStep.STEP_3) {
             DisplayStepEvent.fire(this, event.getNextStep());
         }
     }

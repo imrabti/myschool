@@ -170,7 +170,7 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
             }
         };
         statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        inscriptionsTable.addColumn(statusColumn, "Status");
+        inscriptionsTable.addColumn(statusColumn, "Statut");
         inscriptionsTable.setColumnWidth(statusColumn, 20, Style.Unit.PCT);
 
         TextColumn<DossierProxy> anneeScolaireColumn = new TextColumn<DossierProxy>() {

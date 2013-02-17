@@ -86,21 +86,28 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
                 parentPresenter.editData(currentDossier);
                 candidatPresenter.editData(currentDossier.getCandidat());
                 frateriePresenter.editData(currentDossier);
-                scolariteAnterieurPresenter.editData(currentDossier);
-                niveauScolairePresenter.editData(currentDossier);
             }
         });
     }
 
     @Override
     public void onDisplayStep(final DisplayStepEvent event) {
-        if (event.getStep() == WizardStep.STEP_5) {
-            Long dossierId = currentDossier.getId();
+        Long dossierId = currentDossier.getId();
+
+        if (event.getStep() == WizardStep.STEP_3) {
             requestFactory.inscriptionService().findDossierById(dossierId).fire(new ReceiverImpl<DossierProxy>() {
                 @Override
                 public void onSuccess(DossierProxy result) {
-                    niveauScolairePresenter.editData(result);
                     getView().goToStep(event.getStep());
+                    scolariteAnterieurPresenter.editData(result);
+                }
+            });
+        } else if (event.getStep() == WizardStep.STEP_4) {
+            requestFactory.inscriptionService().findDossierById(dossierId).fire(new ReceiverImpl<DossierProxy>() {
+                @Override
+                public void onSuccess(DossierProxy result) {
+                    getView().goToStep(event.getStep());
+                    niveauScolairePresenter.editData(result);
                 }
             });
         } else {
@@ -125,8 +132,8 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
 
         setInSlot(TYPE_Step_1_Content, parentPresenter);
         setInSlot(TYPE_Step_2_Content, candidatPresenter);
-        setInSlot(TYPE_Step_3_Content, frateriePresenter);
-        setInSlot(TYPE_Step_4_Content, scolariteAnterieurPresenter);
-        setInSlot(TYPE_Step_5_Content, niveauScolairePresenter);
+        setInSlot(TYPE_Step_3_Content, scolariteAnterieurPresenter);
+        setInSlot(TYPE_Step_4_Content, niveauScolairePresenter);
+        setInSlot(TYPE_Step_5_Content, frateriePresenter);
     }
 }

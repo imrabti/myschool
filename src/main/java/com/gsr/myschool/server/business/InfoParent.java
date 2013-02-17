@@ -2,7 +2,9 @@ package com.gsr.myschool.server.business;
 
 import com.google.common.base.Strings;
 import com.gsr.myschool.common.client.proxy.InfoParentProxy;
+import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.ParentType;
+import com.gsr.myschool.server.business.valuelist.ValueList;
 import com.gsr.myschool.server.util.BeanMapper;
 import com.gsr.myschool.server.validator.Email;
 import com.gsr.myschool.server.validator.Name;
@@ -10,6 +12,7 @@ import com.gsr.myschool.server.validator.NotBlank;
 import com.gsr.myschool.server.validator.Phone;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Map;
 
 @Entity
@@ -40,6 +43,16 @@ public class InfoParent implements java.io.Serializable {
     private String institution;
     @ManyToOne
     private Dossier dossier;
+    @Enumerated
+    private Gender civilite;
+    @NotBlank
+    @Temporal(TemporalType.DATE)
+    private Date birthDate;
+    @NotBlank
+    private String birthLocation;
+    @ManyToOne
+    private ValueList nationality;
+    private String lientParente;
 
     public Long getId() {
         return id;
@@ -137,7 +150,47 @@ public class InfoParent implements java.io.Serializable {
         this.dossier = dossier;
     }
 
-	public Map getReportsAttributes() {
+    public Gender getCivilite() {
+        return civilite;
+    }
+
+    public void setCivilite(Gender civilite) {
+        this.civilite = civilite;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getBirthLocation() {
+        return birthLocation;
+    }
+
+    public void setBirthLocation(String birthLocation) {
+        this.birthLocation = birthLocation;
+    }
+
+    public ValueList getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(ValueList nationality) {
+        this.nationality = nationality;
+    }
+
+    public String getLientParente() {
+        return lientParente;
+    }
+
+    public void setLientParente(String lientParente) {
+        this.lientParente = lientParente;
+    }
+
+    public Map getReportsAttributes() {
         return BeanMapper.beanToMap(this);
 	}
 

@@ -30,7 +30,7 @@ public class UserSpec {
         return new Specification<User>() {
             @Override
             public Predicate toPredicate(Root<User> userRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                String likePattern = Strings.isNullOrEmpty(name) ? "%" : name + "%";
+                String likePattern = Strings.isNullOrEmpty(name) ? "%" : "%" + name + "%";
                 return cb.like(userRoot.<String>get("firstName"), likePattern);
             }
         };

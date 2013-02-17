@@ -5,16 +5,23 @@
     <g:HTMLPanel>
         <boot:Form type="HORIZONTAL">
             <boot:ControlGroup>
-                <boot:ControlLabel>N° Dossier</boot:ControlLabel>
+                <boot:ControlLabel>Status</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:TextBox ui:field="numDossier" width="250px"/>
+                    <boot:ValueListBox ui:field="status" width="250px"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Status</boot:ControlLabel>
+                <boot:ControlLabel>Filière</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:ValueListBox ui:field="status" width="250px"/>
+                    <boot:ValueListBox ui:field="filiere" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Niveau d'études</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:ValueListBox ui:field="niveauEtude" width="250px"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
@@ -31,6 +38,14 @@
                     <b2:DateBoxAppended ui:field="dateTill"/>
                 </boot:Controls>
             </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Frère ou soeur scolarisé au GSR</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:CheckBox ui:field="gsrFraterie" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
         </boot:Form>
     </g:HTMLPanel>
 </ui:UiBinder>

@@ -50,6 +50,8 @@ public class ParentView extends ValidatedViewImpl implements ParentPresenter.MyV
 
         tabs.setValue(ParentType.PERE);
         tabs.setAcceptableValues(Arrays.asList(ParentType.values()));
+
+        tuteurEditor.setTuteur(true);
     }
 
     @Override
@@ -71,7 +73,7 @@ public class ParentView extends ValidatedViewImpl implements ParentPresenter.MyV
     }
 
     @Override
-    public ParentType selectedTabs() {
+    public ParentType selectedTab() {
         return tabs.getValue();
     }
 

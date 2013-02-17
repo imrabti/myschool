@@ -16,6 +16,7 @@ public class EtablissementScolaire implements java.io.Serializable {
     private ValueList ville;
     @Enumerated
     private EtablissementType type;
+    private Boolean gsr;
 
     public Long getId() {
         return id;
@@ -47,5 +48,13 @@ public class EtablissementScolaire implements java.io.Serializable {
 
     public void setType(EtablissementType type) {
         this.type = type;
+    }
+
+    public Boolean getGsr() {
+        return gsr;
+    }
+
+    public void setGsr(Boolean gsr) {
+        this.gsr = gsr;
     }
 }

@@ -45,7 +45,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Classe</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.classe}">
+                    <boot:Tooltip text="{helpMessage.fraterieClasse}">
                         <boot:TextBox ui:field="classe" width="250px"/>
                     </boot:Tooltip>
                 </boot:Controls>
@@ -54,7 +54,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Niveau</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.niveau}">
+                    <boot:Tooltip text="{helpMessage.fraterieNiveau}">
                         <boot:ValueListBox ui:field="niveau" width="250px"/>
                     </boot:Tooltip>
                 </boot:Controls>
@@ -63,7 +63,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Etablissement</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.etablissement}">
+                    <boot:Tooltip text="{helpMessage.fraterieEtablissement}">
                         <boot:InputAddOn>
                             <boot:TextBox ui:field="etablissement" width="250px" enabled="false"/>
                             <boot:appendWidget>

@@ -26,12 +26,12 @@
 
         <boot:Accordion styleName="{style.accordionWrapper}">
             <g:HTML ui:field="errors" styleName="{clientResources.sharedStyleCss.errorBox}"/>
-
-            <boot:AccordionGroup heading="Dossier" defaultOpen="true">
+            
+            <boot:AccordionGroup heading="Information Dossier" defaultOpen="true">
                 <g:HTMLPanel ui:field="dossierPanel"/>
             </boot:AccordionGroup>
 
-            <boot:AccordionGroup heading="Responsable" defaultOpen="true">
+            <boot:AccordionGroup heading="Information Parents" defaultOpen="true">
                 <g:HTMLPanel>
                     <g:HTMLPanel ui:field="perePanel"/>
                     <g:HTMLPanel ui:field="merePanel"/>
@@ -39,7 +39,7 @@
                 </g:HTMLPanel>
             </boot:AccordionGroup>
 
-            <boot:AccordionGroup heading="Candidat" defaultOpen="true">
+            <boot:AccordionGroup heading="Information Candidat" defaultOpen="true">
                 <g:HTMLPanel ui:field="candidatPanel"/>
             </boot:AccordionGroup>
 
@@ -47,7 +47,7 @@
                 <boot:CellTable ui:field="fraterieTable" bordered="true"/>
             </boot:AccordionGroup>
 
-            <boot:AccordionGroup heading="Scolarité antérieur" defaultOpen="true">
+            <boot:AccordionGroup heading="Scolarité Actuelle" defaultOpen="true">
                 <boot:CellTable ui:field="etablissementTable" bordered="true"/>
             </boot:AccordionGroup>
         </boot:Accordion>

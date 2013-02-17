@@ -22,4 +22,8 @@ public interface EtablissementScolaireProxy extends ValueProxy {
     EtablissementType getType();
 
     void setType(EtablissementType type);
+
+    Boolean getGsr();
+
+    void setGsr(Boolean gsr);
 }
