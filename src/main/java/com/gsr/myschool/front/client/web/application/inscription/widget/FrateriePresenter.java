@@ -12,14 +12,16 @@ import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
 import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
+import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.request.InscriptionRequest;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.front.client.web.application.inscription.WizardStep;
 import com.gsr.myschool.front.client.web.application.inscription.event.ChangeStepEvent;
-import com.gsr.myschool.front.client.web.application.inscription.event.DisplayStepEvent;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
+import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 
 import javax.validation.ConstraintViolation;
 import java.util.List;
@@ -34,6 +36,7 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
     }
 
     private final FrontRequestFactory requestFactory;
+    private final PlaceManager placeManager;
     private final MessageBundle messageBundle;
 
     private InscriptionRequest currentContext;
@@ -44,19 +47,24 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
     @Inject
     public FrateriePresenter(final EventBus eventBus, final MyView view,
                              final FrontRequestFactory requestFactory,
+                             final PlaceManager placeManager,
                              final MessageBundle messageBundle) {
         super(eventBus, view);
 
         this.requestFactory = requestFactory;
         this.messageBundle = messageBundle;
+        this.placeManager = placeManager;
 
         getView().setUiHandlers(this);
     }
 
     @Override
     public void onChangeStep(ChangeStepEvent event) {
-        if (event.getCurrentStep() == WizardStep.STEP_3) {
-            DisplayStepEvent.fire(this, event.getNextStep());
+        if (event.getCurrentStep() == WizardStep.STEP_5) {
+            Message message = new Message.Builder(messageBundle.newInscriptionSuccess())
+                    .style(AlertType.SUCCESS).build();
+            MessageEvent.fire(this, message);
+            placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
         }
     }
 

@@ -7,7 +7,7 @@
 
     <g:HTMLPanel>
         <h3 class="{clientResources.sharedStyleCss.mediumTitle}">
-            Informations sur le candidat
+            Information Candidat
         </h3>
 
         <boot:Paragraph>
