@@ -3,8 +3,6 @@ package com.gsr.myschool.common.client.request;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.user.client.Window;
 
-import java.util.Date;
-
 public class ReportRequestBuilder extends RequestBuilder {
     private StringBuffer postData;
 
@@ -19,6 +17,6 @@ public class ReportRequestBuilder extends RequestBuilder {
     }
 
     public void sendRequest() {
-        Window.open("/resource/report?"+postData.toString(), "dossier" + new Date().getTime(), "_blank");
+        Window.open("/resource/report?"+postData.toString(), "Impression Dossier GSR", "_blank");
     }
 }
