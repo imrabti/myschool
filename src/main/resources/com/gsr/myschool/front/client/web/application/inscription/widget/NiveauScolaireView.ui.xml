@@ -7,7 +7,7 @@
 
     <g:HTMLPanel>
         <h3 class="{clientResources.sharedStyleCss.mediumTitle}">
-            Filière et Niveau Scolaire
+            Scolarité Souhaitée
         </h3>
 
         <boot:Paragraph>

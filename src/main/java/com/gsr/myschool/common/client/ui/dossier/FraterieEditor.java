@@ -35,8 +35,6 @@ public class FraterieEditor extends Composite implements EditorView<FraterieProx
     TextBox classe;
     @UiField(provided = true)
     ValueListBox<TypeNiveauEtude> niveau;
-    @UiField
-    TextBox etablissement;
     @UiField(provided = true)
     ValueListBox<TypeFraterie> typeFraterie;
 
@@ -56,7 +54,6 @@ public class FraterieEditor extends Composite implements EditorView<FraterieProx
         $(numDossierGSR).id("numDossierGSR");
         $(classe).id("classe");
         $(niveau).id("niveau");
-        $(etablissement).id("etablissement");
         $(typeFraterie).id("typeFraterie");
 
         niveau.setAcceptableValues(Arrays.asList(TypeNiveauEtude.values()));
