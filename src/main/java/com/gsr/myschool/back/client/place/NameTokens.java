@@ -17,7 +17,7 @@
 package com.gsr.myschool.back.client.place;
 
 public class NameTokens {
-    public static final String requestUrl = "/gwtAdminRequest";
+    public static final String requestUrl = "gwtAdminRequest";
 
     public static final String login = "login";
     public static final String administration = "application";

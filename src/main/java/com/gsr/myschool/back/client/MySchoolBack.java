@@ -20,11 +20,21 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.gwtplatform.mvp.client.ApplicationController;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class MySchoolBack implements EntryPoint {
+    private static final Logger log = Logger.getLogger(MySchoolBack.class.getName());
     private static ApplicationController controller = GWT.create(ApplicationController.class);
 
     @Override
     public void onModuleLoad() {
         controller.init();
+
+        GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
+            public void onUncaughtException(Throwable e) {
+                log.log(Level.SEVERE, e.getMessage(), e);
+            }
+        });
     }
 }
