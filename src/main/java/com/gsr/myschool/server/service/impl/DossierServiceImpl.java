@@ -69,7 +69,8 @@ public class DossierServiceImpl implements DossierService {
     @Override
     @Transactional(readOnly = true)
     public List<Dossier> findAllDossiersByCriteria(DossierFilterDTO filter) {
-        Specifications spec = Specifications.where(DossierSpec.numDossierLike(filter.getNumDossier()));
+        Specifications spec = Specifications.where(DossierSpec.firstnameLike(filter.getFirstnameOrlastname()))
+                .or(DossierSpec.lastnameLike(filter.getFirstnameOrlastname()));
 
         if (filter.getStatus() != null) {
             spec = spec.and(DossierSpec.dossierStatusIs(filter.getStatus()));
@@ -83,9 +84,16 @@ public class DossierServiceImpl implements DossierService {
             spec = spec.and(DossierSpec.dossierCreatedGreater(filter.getDateFrom()));
         }
 
-        if (!Strings.isNullOrEmpty(filter.getFirstnameOrlastname())) {
-            spec = spec.and(DossierSpec.firstnameLike(filter.getFirstnameOrlastname()))
-                    .or(DossierSpec.lastnameLike(filter.getFirstnameOrlastname()));
+        if (filter.getFiliere() != null) {
+            spec = spec.and(DossierSpec.filiereEqual(filter.getFiliere()));
+        }
+
+        if (filter.getNiveauEtude() != null) {
+            spec = spec.and(DossierSpec.niveauEtudeEqual(filter.getNiveauEtude()));
+        }
+
+        if (filter.getGsrFraterie() != null && filter.getGsrFraterie() != false) {
+            spec = spec.and(DossierSpec.isGsrFraterie(filter.getGsrFraterie()));
         }
 
         return dossierRepos.findAll(spec);

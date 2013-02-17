@@ -13,6 +13,10 @@ public interface DossierFilterDTOProxy extends ValueProxy {
 
     public void setNumDossier(String numDossier);
 
+    public Boolean getGsrFraterie();
+
+    public void setGsrFraterie(Boolean gsrFraterie);
+
     public DossierStatus getStatus();
 
     public void setStatus(DossierStatus status);
@@ -28,4 +32,12 @@ public interface DossierFilterDTOProxy extends ValueProxy {
     public String getFirstnameOrlastname();
 
     public void setFirstnameOrlastname(String firstnameOrlastname);
+
+    public NiveauEtudeProxy getNiveauEtude();
+
+    public void setNiveauEtude(NiveauEtudeProxy niveauEtude);
+
+    public FiliereProxy getFiliere();
+
+    public void setFiliere(FiliereProxy filiere);
 }

@@ -18,6 +18,7 @@ package com.gsr.myschool.front.client.web.application.widget.header;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.front.client.security.CurrentUserProvider;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.common.client.security.SecurityUtils;
@@ -30,7 +31,7 @@ import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 
 public class HeaderPresenter extends PresenterWidget<HeaderPresenter.MyView> implements HeaderUiHandlers {
     public interface MyView extends View, HasUiHandlers<HeaderUiHandlers> {
-        void displayUserInfo(String firstName, String lastName);
+        void displayUserInfo(Boolean genre, String firstName, String lastName);
     }
 
     private final PlaceManager placeManager;
@@ -69,6 +70,7 @@ public class HeaderPresenter extends PresenterWidget<HeaderPresenter.MyView> imp
     protected void onReveal() {
         String firstName = currentUserProvider.get().getFirstName();
         String lastName = currentUserProvider.get().getLastName();
-        getView().displayUserInfo(firstName, lastName);
+        Boolean genre = currentUserProvider.get().getGender() == Gender.FEMALE;
+        getView().displayUserInfo(genre, firstName, lastName);
     }
 }

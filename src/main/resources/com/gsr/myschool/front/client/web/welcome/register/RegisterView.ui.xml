@@ -42,16 +42,23 @@
                 </boot:ControlGroup>
 
                 <boot:ControlGroup>
+                    <boot:ControlLabel>Civilité</boot:ControlLabel>
+                    <boot:Controls>
+                        <boot:ValueListBox ui:field="gender"/>
+                    </boot:Controls>
+                </boot:ControlGroup>
+
+                <boot:ControlGroup>
                     <boot:ControlLabel>Nom</boot:ControlLabel>
                     <boot:Controls>
-                        <boot:TextBox ui:field="firstName"/>
+                        <boot:TextBox ui:field="lastName"/>
                     </boot:Controls>
                 </boot:ControlGroup>
 
                 <boot:ControlGroup>
                     <boot:ControlLabel>Prénom</boot:ControlLabel>
                     <boot:Controls>
-                        <boot:TextBox ui:field="lastName"/>
+                        <boot:TextBox ui:field="firstName"/>
                     </boot:Controls>
                 </boot:ControlGroup>
 

@@ -11,6 +11,7 @@ public class EtablissementScolaire implements java.io.Serializable {
     private String nom;
     private Boolean reference;
     private String adresse;
+    private Boolean gsr;
 
     public Long getId() {
         return id;
@@ -42,5 +43,13 @@ public class EtablissementScolaire implements java.io.Serializable {
 
     public void setAdresse(String newAdresse) {
         this.adresse = newAdresse;
+    }
+
+    public Boolean getGsr() {
+        return gsr;
+    }
+
+    public void setGsr(Boolean gsr) {
+        this.gsr = gsr;
     }
 }

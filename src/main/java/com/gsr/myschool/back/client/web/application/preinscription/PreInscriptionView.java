@@ -139,6 +139,34 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         preInscriptionsTable.addColumn(createdColumn, "Date de création");
         preInscriptionsTable.setColumnWidth(createdColumn, 30, Style.Unit.PCT);
 
+        TextColumn<DossierProxy> cFiliereColumn = new TextColumn<DossierProxy>() {
+            @Override
+            public String getValue(DossierProxy object) {
+                if (object.getFiliere() == null) {
+                    return "";
+                } else {
+                    return object.getFiliere().getNom();
+                }
+            }
+        };
+        cFiliereColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        preInscriptionsTable.addColumn(cFiliereColumn, "Filiere");
+        preInscriptionsTable.setColumnWidth(cFiliereColumn, 15, Style.Unit.PCT);
+
+        TextColumn<DossierProxy> cLevelColumn = new TextColumn<DossierProxy>() {
+            @Override
+            public String getValue(DossierProxy object) {
+                if (object.getNiveauEtude() == null) {
+                    return "";
+                } else {
+                    return object.getNiveauEtude().getNom();
+                }
+            }
+        };
+        cLevelColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        preInscriptionsTable.addColumn(cLevelColumn, "Niveau");
+        preInscriptionsTable.setColumnWidth(cLevelColumn, 15, Style.Unit.PCT);
+
         Delegate<DossierProxy> viewDetailsAction = new Delegate<DossierProxy>() {
             @Override
             public void execute(DossierProxy dossier) {

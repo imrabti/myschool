@@ -1,5 +1,6 @@
 package com.gsr.myschool.back.client.web.application.preinscription.ui;
 
+import com.github.gwtbootstrap.client.ui.CheckBox;
 import com.github.gwtbootstrap.client.ui.TextBox;
 import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.github.gwtbootstrap.datepicker.client.ui.DateBoxAppended;
@@ -10,8 +11,14 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
+import com.gsr.myschool.common.client.proxy.FiliereProxy;
+import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
+import com.gsr.myschool.common.client.ui.dossier.renderer.FiliereRenderer;
+import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
 import com.gsr.myschool.common.client.util.EditorView;
+import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
+import com.gsr.myschool.common.client.widget.renderer.ValueListRenderer;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 
 import java.util.Arrays;
@@ -24,9 +31,13 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     }
 
     @UiField
-    TextBox numDossier;
+    CheckBox gsrFraterie;
     @UiField(provided = true)
     ValueListBox<DossierStatus> status;
+    @UiField(provided = true)
+    ValueListBox<NiveauEtudeProxy> niveauEtude;
+    @UiField(provided = true)
+    ValueListBox<FiliereProxy> filiere;
     @UiField
     DateBoxAppended dateFrom;
     @UiField
@@ -35,21 +46,25 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     private final Driver driver;
 
     @Inject
-    public DossierFilterEditor(final Binder uiBinder, final Driver driver) {
+    public DossierFilterEditor(final Binder uiBinder, final Driver driver, final ValueList valueList) {
         this.driver = driver;
 
-        status = new ValueListBox<DossierStatus>(new EnumRenderer<DossierStatus>());
+        this.status = new ValueListBox<DossierStatus>(new EnumRenderer<DossierStatus>());
+        this.filiere = new ValueListBox<FiliereProxy>(new FiliereRenderer());
+        this.niveauEtude = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
 
         initWidget(uiBinder.createAndBindUi(this));
 
         status.setAcceptableValues(Arrays.asList(DossierStatus.values()));
+        filiere.setAcceptableValues(valueList.getFiliereList());
+        niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList());
 
         driver.initialize(this);
     }
 
     @Override
     public void edit(DossierFilterDTOProxy object) {
-        numDossier.setFocus(true);
+        gsrFraterie.setFocus(true);
         driver.edit(object);
     }
 
