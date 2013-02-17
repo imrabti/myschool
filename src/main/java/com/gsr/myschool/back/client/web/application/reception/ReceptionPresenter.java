@@ -107,6 +107,12 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
     @Override
     public void searchWithFilter(DossierFilterDTOProxy dossierFilter) {
         dossierFilter.setStatus(DossierStatus.SUBMITTED);
+
+        currentDossierFilter.setFiliere(currentDossierFilter.getFiliere() != null ?
+                currentContext.edit(currentDossierFilter.getFiliere()) : null);
+        currentDossierFilter.setNiveauEtude(currentDossierFilter.getNiveauEtude() != null ?
+                currentContext.edit(currentDossierFilter.getNiveauEtude()) : null);
+
         currentContext.findAllDossiersByCriteria(dossierFilter).fire(new ReceiverImpl<List<DossierProxy>>() {
             @Override
             public void onSuccess(List<DossierProxy> response) {

@@ -49,6 +49,15 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
+                <boot:ControlLabel>Nationnalité</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.candidatNationnalite}">
+                        <boot:ValueListBox ui:field="nationality" width="250px"/>
+                    </boot:Tooltip>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
                 <boot:ControlLabel>Adresse email</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.candidatAdresseEmail}">
@@ -70,51 +79,43 @@
                 </boot:Controls>
             </boot:ControlGroup>
 
-            <boot:ControlGroup>
-                <boot:ControlLabel>CIN</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.candidatCin}">
-                        <boot:TextBox ui:field="cin" width="250px"/>
-                    </boot:Tooltip>
-                </boot:Controls>
-            </boot:ControlGroup>
+            <g:RenderablePanel ui:field="infosBac">
+                <boot:ControlGroup>
+                    <boot:ControlLabel>CIN</boot:ControlLabel>
+                    <boot:Controls>
+                        <boot:Tooltip text="{helpMessage.candidatCin}">
+                            <boot:TextBox ui:field="cin" width="250px"/>
+                        </boot:Tooltip>
+                    </boot:Controls>
+                </boot:ControlGroup>
 
-            <boot:ControlGroup>
-                <boot:ControlLabel>CNE</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.candidatCne}">
-                        <boot:TextBox ui:field="cne" width="250px"/>
-                    </boot:Tooltip>
-                </boot:Controls>
-            </boot:ControlGroup>
+                <boot:ControlGroup>
+                    <boot:ControlLabel>CNE/INE</boot:ControlLabel>
+                    <boot:Controls>
+                        <boot:Tooltip text="{helpMessage.candidatCne}">
+                            <boot:TextBox ui:field="cne" width="250px"/>
+                        </boot:Tooltip>
+                    </boot:Controls>
+                </boot:ControlGroup>
 
-            <boot:ControlGroup>
-                <boot:ControlLabel>Nationnalité</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.candidatNationnalite}">
-                        <boot:ValueListBox ui:field="nationality" width="250px"/>
-                    </boot:Tooltip>
-                    <span class="{resource.sharedStyleCss.requiredField}"/>
-                </boot:Controls>
-            </boot:ControlGroup>
+                <boot:ControlGroup>
+                    <boot:ControlLabel>Série du baccalauréat</boot:ControlLabel>
+                    <boot:Controls>
+                        <boot:Tooltip text="{helpMessage.candidatBacSerie}">
+                            <boot:ValueListBox ui:field="bacSerie" width="250px"/>
+                        </boot:Tooltip>
+                    </boot:Controls>
+                </boot:ControlGroup>
 
-            <boot:ControlGroup>
-                <boot:ControlLabel>Série du baccalauréat</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.candidatBacSerie}">
-                        <boot:ValueListBox ui:field="bacSerie" width="250px"/>
-                    </boot:Tooltip>
-                </boot:Controls>
-            </boot:ControlGroup>
-
-            <boot:ControlGroup>
-                <boot:ControlLabel>Année du baccalauréat</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.candidatBacAnnee}">
-                        <boot:ValueListBox ui:field="bacYear" width="250px"/>
-                    </boot:Tooltip>
-                </boot:Controls>
-            </boot:ControlGroup>
+                <boot:ControlGroup>
+                    <boot:ControlLabel>Année du baccalauréat</boot:ControlLabel>
+                    <boot:Controls>
+                        <boot:Tooltip text="{helpMessage.candidatBacAnnee}">
+                            <boot:ValueListBox ui:field="bacYear" width="250px"/>
+                        </boot:Tooltip>
+                    </boot:Controls>
+                </boot:ControlGroup>
+            </g:RenderablePanel>
         </boot:Form>
     </g:HTMLPanel>
 </ui:UiBinder>

@@ -10,7 +10,12 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
+import com.gsr.myschool.common.client.proxy.FiliereProxy;
+import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
+import com.gsr.myschool.common.client.ui.dossier.renderer.FiliereRenderer;
+import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
 import com.gsr.myschool.common.client.util.EditorView;
+import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 
@@ -27,16 +32,25 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     TextBox numDossier;
     @UiField
     TextBox firstnameOrlastname;
+    @UiField(provided = true)
+    ValueListBox<NiveauEtudeProxy> niveauEtude;
+    @UiField(provided = true)
+    ValueListBox<FiliereProxy> filiere;
 
     private final Driver driver;
 
     @Inject
-    public DossierFilterEditor(final Binder uiBinder, final Driver driver) {
+    public DossierFilterEditor(final Binder uiBinder, final Driver driver, final ValueList valueList) {
         this.driver = driver;
 
-        initWidget(uiBinder.createAndBindUi(this));
+        this.filiere = new ValueListBox<FiliereProxy>(new FiliereRenderer());
+        this.niveauEtude = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
 
+        initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
+
+        filiere.setAcceptableValues(valueList.getFiliereList());
+        niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList());
     }
 
     @Override
@@ -51,6 +65,8 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         if (driver.hasErrors()) {
             return null;
         } else {
+            dossierFilter.setNiveauEtude(niveauEtude.getValue());
+            dossierFilter.setFiliere(filiere.getValue());
             return dossierFilter;
         }
     }

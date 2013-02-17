@@ -4,6 +4,10 @@ import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Candidat;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.business.EtablissementScolaire;
+import com.gsr.myschool.server.business.Fraterie;
+import com.gsr.myschool.server.business.core.Filiere;
+import com.gsr.myschool.server.business.core.NiveauEtude;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;
@@ -16,7 +20,7 @@ public class DossierSpec {
             @Override
             public Predicate toPredicate(Root<Dossier> dossierRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 String likePattern = Strings.isNullOrEmpty(numDossier) ? "%" : numDossier + "%";
-                return cb.like(dossierRoot.<String> get("generatedNumDossier"), likePattern);
+                return cb.like(dossierRoot.<String>get("generatedNumDossier"), likePattern);
             }
         };
     }
@@ -25,7 +29,7 @@ public class DossierSpec {
         return new Specification<Dossier>() {
             @Override
             public Predicate toPredicate(Root<Dossier> dossierRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                return cb.equal(dossierRoot.<DossierStatus> get("status"), dossierStatus);
+                return cb.equal(dossierRoot.<DossierStatus>get("status"), dossierStatus);
             }
         };
     }
@@ -61,10 +65,8 @@ public class DossierSpec {
         return new Specification<Dossier>() {
             @Override
             public Predicate toPredicate(Root<Dossier> dossierRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                Path<Candidat> CandidatRoot = dossierRoot.get("candidat");
-
                 String likePattern = Strings.isNullOrEmpty(name) ? "%" : name + "%";
-                return cb.like(CandidatRoot.<String>get("firstname"), likePattern);
+                return cb.like(dossierRoot.<Candidat>get("candidat").<String>get("lastname"), likePattern);
             }
         };
     }
@@ -73,10 +75,38 @@ public class DossierSpec {
         return new Specification<Dossier>() {
             @Override
             public Predicate toPredicate(Root<Dossier> dossierRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                Path<Candidat> CandidatRoot = dossierRoot.get("candidat");
-
                 String likePattern = Strings.isNullOrEmpty(name) ? "%" : "%" + name + "%";
-                return cb.like(CandidatRoot.<String>get("lastname"), likePattern);
+                return cb.like(dossierRoot.<Candidat>get("candidat").<String>get("lastname"), likePattern);
+            }
+        };
+    }
+
+    public static Specification<Dossier> isGsrFraterie(final Boolean bool) {
+        return new Specification<Dossier>() {
+            @Override
+            public Predicate toPredicate(Root<Dossier> dossierRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                // First join Dossier.Candidat second is Candidat.fraterie
+                Join<Candidat, Fraterie> dossierFraterie = dossierRoot.join("candidat").join("candidat");
+
+                return cb.equal(dossierFraterie.<EtablissementScolaire>get("etablissement").<Boolean>get("gsr"), bool);
+            }
+        };
+    }
+
+    public static Specification<Dossier> filiereEqual(final Filiere filiere) {
+        return new Specification<Dossier>() {
+            @Override
+            public Predicate toPredicate(Root<Dossier> dossierRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.equal(dossierRoot.<Filiere>get("filiere").<Long>get("id"), filiere.getId());
+            }
+        };
+    }
+
+    public static Specification<Dossier> niveauEtudeEqual(final NiveauEtude niveauEtude) {
+        return new Specification<Dossier>() {
+            @Override
+            public Predicate toPredicate(Root<Dossier> dossierRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.equal(dossierRoot.<NiveauEtude>get("niveauEtude").<Long>get("id"), niveauEtude.getId());
             }
         };
     }

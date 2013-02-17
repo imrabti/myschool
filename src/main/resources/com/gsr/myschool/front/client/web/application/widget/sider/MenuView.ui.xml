@@ -15,9 +15,9 @@
     <g:HTMLPanel styleName="{style.menuWrapper}">
         <boot:WellNavList addStyleNames="{style.menu}">
             <boot:NavHeader>Menu</boot:NavHeader>
-            <boot:NavLink ui:field="inscription" icon="EDIT">Mes inscriptions</boot:NavLink>
+            <boot:NavLink ui:field="inscription" icon="EDIT">Mes pré-inscriptions</boot:NavLink>
             <boot:NavLink ui:field="convocation" icon="ENVELOPE_ALT" visible="false">Mes convocations</boot:NavLink>
-            <boot:NavWidget ui:field="inbox" icon="INBOX" text="Inbox">
+            <boot:NavWidget ui:field="inbox" icon="INBOX" text="Boîte de réception">
                 <boot:Badge ui:field="messagesCount" />
             </boot:NavWidget>
         </boot:WellNavList>
