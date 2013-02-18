@@ -50,7 +50,6 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         driver.initialize(this);
 
         filiere.setAcceptableValues(valueList.getFiliereList());
-        niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList());
     }
 
     @Override

@@ -67,6 +67,7 @@ public class ValueListImpl implements ValueList {
         if(niveauEtudeList == null) {
             initNiveauEtudeMap();
         }
+
         return niveauEtudeList;
     }
 
