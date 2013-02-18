@@ -23,6 +23,7 @@ import com.gsr.myschool.common.client.proxy.FraterieProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.ui.dossier.FraterieEditor;
 import com.gsr.myschool.common.client.widget.EmptyResult;
+import com.gsr.myschool.common.shared.type.TypeEnseignement;
 
 import java.util.List;
 
@@ -96,7 +97,19 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
         };
         nomPrenomColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         fraterieTable.addColumn(nomPrenomColumn, "Nom et prénom");
-        fraterieTable.setColumnWidth(nomPrenomColumn, 35, Style.Unit.PCT);
+        fraterieTable.setColumnWidth(nomPrenomColumn, 20, Style.Unit.PCT);
+
+        TextColumn<FraterieProxy> filiereColumn = new TextColumn<FraterieProxy>() {
+            @Override
+            public String getValue(FraterieProxy object) {
+                if (object.getFiliere() == null) return "";
+                return TypeEnseignement.BILINGUE.getNomFiliere().equals(object.getFiliere().getNom())?
+                        TypeEnseignement.BILINGUE.toString() : TypeEnseignement.MISSION.toString();
+            }
+        };
+        filiereColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        fraterieTable.addColumn(filiereColumn, "Type d'enseignement");
+        fraterieTable.setColumnWidth(filiereColumn, 15, Style.Unit.PCT);
 
         TextColumn<FraterieProxy> classeColumn = new TextColumn<FraterieProxy>() {
             @Override
@@ -118,7 +131,7 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
         };
         etablissementColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         fraterieTable.addColumn(etablissementColumn, "Etablissement");
-        fraterieTable.setColumnWidth(etablissementColumn, 20, Style.Unit.PCT);
+        fraterieTable.setColumnWidth(etablissementColumn, 30, Style.Unit.PCT);
 
         ActionCell<FraterieProxy> actionCell = new ActionCell<FraterieProxy>("Supprimer",
                 new ActionCell.Delegate<FraterieProxy>() {
