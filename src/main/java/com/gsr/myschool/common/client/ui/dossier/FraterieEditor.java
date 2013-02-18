@@ -1,6 +1,5 @@
 package com.gsr.myschool.common.client.ui.dossier;
 
-
 import com.github.gwtbootstrap.client.ui.CheckBox;
 import com.github.gwtbootstrap.client.ui.TextBox;
 import com.github.gwtbootstrap.client.ui.ValueListBox;

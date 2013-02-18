@@ -21,6 +21,7 @@ import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.front.client.web.application.inscription.WizardStep;
 import com.gsr.myschool.front.client.web.application.inscription.event.ChangeStepEvent;
 import com.gsr.myschool.front.client.web.application.inscription.event.EtablissementSelectedEvent;
+import com.gsr.myschool.front.client.web.application.inscription.event.EtablissementSelectedEvent.EtablissementSelectedHandler;
 import com.gsr.myschool.front.client.web.application.inscription.popup.EtablissementFilterPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
@@ -32,7 +33,7 @@ import java.util.List;
 import java.util.Set;
 
 public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
-        implements FraterieUiHandlers, ChangeStepEvent.ChangeStepHandler, EtablissementSelectedEvent.EtablissementSelectedHandler {
+        implements FraterieUiHandlers, ChangeStepEvent.ChangeStepHandler, EtablissementSelectedHandler {
     public interface MyView extends ValidatedView, HasUiHandlers<FraterieUiHandlers> {
         void setData(List<FraterieProxy> data);
 
