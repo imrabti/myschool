@@ -44,15 +44,6 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Scolarisé</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.fraterieNiveau}">
-                        <boot:CheckBox ui:field="scolarise" width="250px"/>
-                    </boot:Tooltip>
-                </boot:Controls>
-            </boot:ControlGroup>
-
-            <boot:ControlGroup>
                 <boot:ControlLabel>Date de naissance</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.candidatDateNaissance}">
@@ -69,6 +60,15 @@
                         <boot:TextBox ui:field="birthLocation" width="250px"/>
                     </boot:Tooltip>
                     <span class="{resource.sharedStyleCss.requiredField}"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Scolarisé</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.fraterieNiveau}">
+                        <boot:CheckBox ui:field="scolarise" width="250px"/>
+                    </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
 
@@ -97,7 +97,7 @@
                     <boot:Controls>
                         <boot:Tooltip text="{helpMessage.fraterieEtablissement}">
                             <boot:InputAddOn>
-                                <boot:TextBox ui:field="etablissement" width="250px" enabled="false"/>
+                                <boot:TextBox ui:field="etablissementLabel" width="250px" enabled="false"/>
                                 <boot:appendWidget>
                                     <g:Label ui:field="selectEtablissement"
                                              styleName="icon-search {style.actAsButton}"/>

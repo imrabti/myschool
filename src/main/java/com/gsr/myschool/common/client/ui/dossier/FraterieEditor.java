@@ -1,8 +1,8 @@
 package com.gsr.myschool.common.client.ui.dossier;
 
+
 import com.github.gwtbootstrap.client.ui.CheckBox;
 import com.github.gwtbootstrap.client.ui.TextBox;
-import com.github.gwtbootstrap.client.ui.ValueBox;
 import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.github.gwtbootstrap.datepicker.client.ui.DateBoxAppended;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
@@ -16,10 +16,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.RenderablePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.gsr.myschool.common.client.proxy.EtablissementScolaireProxy;
 import com.gsr.myschool.common.client.proxy.FraterieDTOProxy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
-import com.gsr.myschool.common.client.ui.dossier.renderer.EtablissementRenderer;
 import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
@@ -62,7 +60,8 @@ public class FraterieEditor extends Composite implements EditorView<FraterieDTOP
     @UiField(provided = true)
     ValueListBox<NiveauEtudeProxy> niveau;
     @UiField
-    TextBox etablissement;
+    @Ignore
+    TextBox etablissementLabel;
 
     private final Driver driver;
     private Handler handler;
@@ -79,6 +78,8 @@ public class FraterieEditor extends Composite implements EditorView<FraterieDTOP
         $(nom).id("nom");
         $(prenom).id("prenom");
         $(numDossierGSR).id("numDossierGSR");
+        $(birthDate).id("birthDate");
+        $(birthLocation).id("birthLocation");
 
         filiere.setAcceptableValues(Arrays.asList(TypeEnseignement.values()));
         filiere.addValueChangeHandler(new ValueChangeHandler<TypeEnseignement>() {
@@ -107,6 +108,7 @@ public class FraterieEditor extends Composite implements EditorView<FraterieDTOP
     @Override
     public void edit(FraterieDTOProxy fraterie) {
         driver.edit(fraterie);
+        scolariseFields.setVisible(false);
     }
 
     @Override
@@ -117,6 +119,10 @@ public class FraterieEditor extends Composite implements EditorView<FraterieDTOP
         } else {
             return fraterie;
         }
+    }
+
+    public void setEtablissementLabel(String etablissementLabel) {
+        this.etablissementLabel.setText(etablissementLabel);
     }
 
     public void setHandler(Handler handler) {

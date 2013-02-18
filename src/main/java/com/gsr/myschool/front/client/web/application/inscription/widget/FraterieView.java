@@ -17,6 +17,7 @@ import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ValidatedViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.common.client.proxy.EtablissementScolaireProxy;
 import com.gsr.myschool.common.client.proxy.FraterieDTOProxy;
 import com.gsr.myschool.common.client.proxy.FraterieProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
@@ -71,6 +72,11 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
         getUiHandlers().selectEtablissement();
     }
 
+    @Override
+    public void setEtablissement(EtablissementScolaireProxy selectedEtablissement) {
+        fraterieEditor.setEtablissementLabel(selectedEtablissement.getNom());
+    }
+
     private void initDataGrid() {
         TextColumn<FraterieProxy> numDossierColumn = new TextColumn<FraterieProxy>() {
             @Override
@@ -92,16 +98,6 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
         fraterieTable.addColumn(nomPrenomColumn, "Nom et prénom");
         fraterieTable.setColumnWidth(nomPrenomColumn, 35, Style.Unit.PCT);
 
-        TextColumn<FraterieProxy> niveauColumn = new TextColumn<FraterieProxy>() {
-            @Override
-            public String getValue(FraterieProxy object) {
-                return object.getNiveau().toString();
-            }
-        };
-        niveauColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        fraterieTable.addColumn(niveauColumn, "Niveau");
-        fraterieTable.setColumnWidth(niveauColumn, 20, Style.Unit.PCT);
-
         TextColumn<FraterieProxy> classeColumn = new TextColumn<FraterieProxy>() {
             @Override
             public String getValue(FraterieProxy object) {
@@ -110,7 +106,7 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
             }
         };
         classeColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        fraterieTable.addColumn(classeColumn, "Classe");
+        fraterieTable.addColumn(classeColumn, "Niveau");
         fraterieTable.setColumnWidth(classeColumn, 20, Style.Unit.PCT);
 
         TextColumn<FraterieProxy> etablissementColumn = new TextColumn<FraterieProxy>() {
