@@ -243,15 +243,6 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
         fraterieTable.addColumn(nomPrenomColumn, "Nom et prénom");
         fraterieTable.setColumnWidth(nomPrenomColumn, 45, Style.Unit.PCT);
 
-        TextColumn<FraterieProxy> typeFraterieColumn = new TextColumn<FraterieProxy>() {
-            @Override
-            public String getValue(FraterieProxy object) {
-                return object.getTypeFraterie().toString();
-            }
-        };
-        typeFraterieColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        fraterieTable.addColumn(typeFraterieColumn, "Type fraterie");
-        fraterieTable.setColumnWidth(typeFraterieColumn, 30, Style.Unit.PCT);
         TextColumn<FraterieProxy> niveauColumn = new TextColumn<FraterieProxy>() {
             @Override
             public String getValue(FraterieProxy object) {
@@ -264,7 +255,8 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
         TextColumn<FraterieProxy> classeColumn = new TextColumn<FraterieProxy>() {
             @Override
             public String getValue(FraterieProxy object) {
-                return object.getClasse().toString();
+                if(object.getNiveau() == null) return "";
+                return object.getNiveau().getNom();
             }
         };
         classeColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);

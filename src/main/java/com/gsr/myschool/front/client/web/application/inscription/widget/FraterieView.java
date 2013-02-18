@@ -17,6 +17,7 @@ import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ValidatedViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.common.client.proxy.FraterieDTOProxy;
 import com.gsr.myschool.common.client.proxy.FraterieProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.ui.dossier.FraterieEditor;
@@ -61,7 +62,7 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
     }
 
     @Override
-    public void editFraterie(FraterieProxy fraterie) {
+    public void editFraterie(FraterieDTOProxy fraterie) {
         fraterieEditor.edit(fraterie);
     }
 
@@ -91,16 +92,6 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
         fraterieTable.addColumn(nomPrenomColumn, "Nom et prénom");
         fraterieTable.setColumnWidth(nomPrenomColumn, 35, Style.Unit.PCT);
 
-        TextColumn<FraterieProxy> typeFraterieColumn = new TextColumn<FraterieProxy>() {
-            @Override
-            public String getValue(FraterieProxy object) {
-                return object.getTypeFraterie().toString();
-            }
-        };
-        typeFraterieColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        fraterieTable.addColumn(typeFraterieColumn, "Type fraterie");
-        fraterieTable.setColumnWidth(typeFraterieColumn, 20, Style.Unit.PCT);
-
         TextColumn<FraterieProxy> niveauColumn = new TextColumn<FraterieProxy>() {
             @Override
             public String getValue(FraterieProxy object) {
@@ -114,7 +105,8 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
         TextColumn<FraterieProxy> classeColumn = new TextColumn<FraterieProxy>() {
             @Override
             public String getValue(FraterieProxy object) {
-                return object.getClasse().toString();
+                if (object.getNiveau() == null) return "";
+                return object.getNiveau().getNom();
             }
         };
         classeColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
@@ -124,7 +116,8 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
         TextColumn<FraterieProxy> etablissementColumn = new TextColumn<FraterieProxy>() {
             @Override
             public String getValue(FraterieProxy object) {
-                return object.getEtablissement().toString();
+                if (object.getEtablissement() == null) return "";
+                return object.getEtablissement().getNom();
             }
         };
         etablissementColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
@@ -132,12 +125,12 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
         fraterieTable.setColumnWidth(etablissementColumn, 20, Style.Unit.PCT);
 
         ActionCell<FraterieProxy> actionCell = new ActionCell<FraterieProxy>("Supprimer",
-                new ActionCell.Delegate<FraterieProxy>(){
-            @Override
-            public void execute(FraterieProxy object) {
-                getUiHandlers().deleteFraterie(object);
-            }
-        });
+                new ActionCell.Delegate<FraterieProxy>() {
+                    @Override
+                    public void execute(FraterieProxy object) {
+                        getUiHandlers().deleteFraterie(object);
+                    }
+                });
         Column<FraterieProxy, FraterieProxy> actionColumn = new Column<FraterieProxy, FraterieProxy>(actionCell) {
             @Override
             public FraterieProxy getValue(FraterieProxy object) {

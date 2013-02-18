@@ -3,6 +3,7 @@ package com.gsr.myschool.server.service.impl;
 import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.dto.EtablissementFilterDTO;
+import com.gsr.myschool.common.shared.dto.FraterieDTO;
 import com.gsr.myschool.common.shared.dto.ScolariteAnterieurDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.Gender;
@@ -285,10 +286,25 @@ public class InscriptionServiceImpl implements InscriptionService {
     }
 
     @Override
-    public void createNewFraterie(Fraterie fraterie, Long dossierId) {
+    public void createNewFraterie(FraterieDTO fraterieDTO, Long dossierId) {
+        Fraterie fraterie = new Fraterie();
+        fraterie.setBirthDate(fraterieDTO.getBirthDate());
+        fraterie.setBirthLocation(fraterieDTO.getBirthLocation());
+        fraterie.setNom(fraterieDTO.getNom());
+        fraterie.setPrenom(fraterieDTO.getPrenom());
+        fraterie.setScolarise(fraterieDTO.getScolarise());
         Dossier dossier = dossierRepos.findOne(dossierId);
         fraterie.setCandidat(dossier.getCandidat());
         fraterie.setValide(false);
+        if (fraterieDTO.getEtablissement() != null) {
+            fraterie.setEtablissement(etablissementScolaireRepos.findOne(fraterieDTO.getEtablissement().getId()));
+        }
+        if (fraterieDTO.getNiveau() != null) {
+            fraterie.setNiveau(niveauEtudeRepos.findOne(fraterieDTO.getNiveau().getId()));
+        }
+        if (fraterieDTO.getFiliere() != null) {
+            fraterie.setFiliere(filiereRepos.findByNom(fraterieDTO.getFiliere().getNomFiliere()));
+        }
         fraterieRepos.save(fraterie);
     }
 

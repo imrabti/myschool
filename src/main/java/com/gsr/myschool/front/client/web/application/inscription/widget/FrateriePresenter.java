@@ -6,6 +6,7 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.ValidatedView;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.client.proxy.FraterieDTOProxy;
 import com.gsr.myschool.common.client.proxy.FraterieProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
@@ -34,7 +35,7 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
     public interface MyView extends ValidatedView, HasUiHandlers<FraterieUiHandlers> {
         void setData(List<FraterieProxy> data);
 
-        void editFraterie(FraterieProxy fraterie);
+        void editFraterie(FraterieDTOProxy fraterie);
     }
 
     private final FrontRequestFactory requestFactory;
@@ -44,7 +45,7 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
 
     private InscriptionRequest currentContext;
     private DossierProxy currentDossier;
-    private FraterieProxy currentFraterie;
+    private FraterieDTOProxy currentFraterie;
     private Boolean fraterieViolation;
 
     @Inject
@@ -61,6 +62,8 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
         this.placeManager = placeManager;
 
         getView().setUiHandlers(this);
+
+        loadFraterie();
     }
 
     @Override
@@ -74,9 +77,12 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
     }
 
     @Override
-    public void addFraterie(FraterieProxy fraterie) {
+    public void addFraterie(FraterieDTOProxy fraterie) {
         Long dossierId = currentDossier.getId();
         if (!fraterieViolation) {
+            if(fraterie.getNiveau() != null) {
+                fraterie.setNiveau(currentContext.edit(fraterie.getNiveau()));
+            }
             currentContext.createNewFraterie(fraterie, dossierId).fire(new ValidatedReceiverImpl<Void>() {
                 @Override
                 public void onValidationError(Set<ConstraintViolation<?>> violations) {
@@ -88,7 +94,7 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
                 @Override
                 public void onSuccess(Void response) {
                     currentContext = requestFactory.inscriptionService();
-                    currentFraterie = currentContext.create(FraterieProxy.class);
+                    currentFraterie = currentContext.create(FraterieDTOProxy.class);
                     fraterieViolation = false;
 
                     getView().editFraterie(currentFraterie);
@@ -125,7 +131,7 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
     public void editData(DossierProxy dossierProxy) {
         currentDossier = dossierProxy;
         currentContext = requestFactory.inscriptionService();
-        currentFraterie = currentContext.create(FraterieProxy.class);
+        currentFraterie = currentContext.create(FraterieDTOProxy.class);
         fraterieViolation = false;
 
         getView().editFraterie(currentFraterie);
