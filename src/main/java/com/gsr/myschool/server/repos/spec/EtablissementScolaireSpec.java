@@ -27,8 +27,7 @@ public class EtablissementScolaireSpec {
         return new Specification<EtablissementScolaire>() {
             @Override
             public Predicate toPredicate(Root<EtablissementScolaire> etablissementScolaireRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                Path<ValueList> VilleRoot = etablissementScolaireRoot.get("ville");
-                return cb.equal(VilleRoot.<Long>get("id"), ville.getId());
+                return cb.equal(etablissementScolaireRoot.<ValueList>get("ville").<Long>get("id"), ville.getId());
             }
         };
     }
