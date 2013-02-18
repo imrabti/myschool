@@ -24,11 +24,13 @@ import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.common.client.proxy.*;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
-import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
+import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.type.ParentType;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
+import com.gwtplatform.mvp.client.annotations.GatekeeperParams;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
@@ -55,7 +57,8 @@ public class InscriptionDetailPresenter extends Presenter<InscriptionDetailPrese
 
     @ProxyStandard
     @NameToken(NameTokens.inscriptiondetail)
-    @UseGatekeeper(LoggedInGatekeeper.class)
+    @UseGatekeeper(HasRoleGatekeeper.class)
+    @GatekeeperParams({GlobalParameters.ROLE_ADMIN, GlobalParameters.ROLE_OPERATOR})
     public interface MyProxy extends ProxyPlace<InscriptionDetailPresenter> {
     }
 

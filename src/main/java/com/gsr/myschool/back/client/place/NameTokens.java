@@ -17,10 +17,7 @@
 package com.gsr.myschool.back.client.place;
 
 public class NameTokens {
-    public static final String requestUrl = "gwtAdminRequest";
-
     public static final String login = "login";
-    public static final String administration = "application";
     public static final String preInscriptions = "preInscriptions";
     public static final String reception = "reception";
     public static final String validation = "validation";
@@ -32,10 +29,6 @@ public class NameTokens {
 
     public static String getLogin() {
         return login;
-    }
-
-    public static String getAdministration() {
-        return administration;
     }
 
     public static String getPreInscriptions() {
@@ -64,10 +57,6 @@ public class NameTokens {
 
     public static String getUserGsr() {
         return userGsr;
-    }
-
-    public static String getRequestUrl() {
-        return requestUrl;
     }
 
     public static String getInscriptiondetail() {

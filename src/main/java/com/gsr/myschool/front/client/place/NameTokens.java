@@ -17,8 +17,6 @@
 package com.gsr.myschool.front.client.place;
 
 public class NameTokens {
-    public static final String requestUrl = "gwtRequest";
-
     public static final String login = "login";
     public static final String register = "register";
     public static final String resetpassword = "resetpassword";
