@@ -1,21 +1,32 @@
-package com.gsr.myschool.server.business;
+/**
+ * Copyright 2012 Nuvola Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
 
-import com.gsr.myschool.server.business.core.Filiere;
+package com.gsr.myschool.common.shared.dto;
+
+import com.gsr.myschool.common.shared.type.TypeEnseignement;
+import com.gsr.myschool.server.business.Candidat;
+import com.gsr.myschool.server.business.EtablissementScolaire;
 import com.gsr.myschool.server.business.core.NiveauEtude;
-import com.gsr.myschool.server.util.BeanMapper;
 import com.gsr.myschool.server.validator.Name;
 import com.gsr.myschool.server.validator.NotBlank;
 
-import javax.persistence.*;
 import java.util.Date;
-import java.util.Map;
 
-@Entity
-public class Fraterie implements java.io.Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class FraterieDTO {
     private Long id;
-    @ManyToOne
     private Candidat candidat;
     @Name
     @NotBlank
@@ -26,16 +37,12 @@ public class Fraterie implements java.io.Serializable {
     private String numDossierGSR;
     private Boolean valide;
     @NotBlank
-    @Temporal(TemporalType.DATE)
     private Date birthDate;
     @NotBlank
     private String birthLocation;
     private Boolean scolarise;
-    @ManyToOne
-    private Filiere filiere;
-    @ManyToOne
+    private TypeEnseignement filiere;
     private NiveauEtude niveau;
-    @ManyToOne
     private EtablissementScolaire etablissement;
 
     public Long getId() {
@@ -78,28 +85,12 @@ public class Fraterie implements java.io.Serializable {
         this.numDossierGSR = numDossierGSR;
     }
 
-    public NiveauEtude getNiveau() {
-        return niveau;
-    }
-
-    public void setNiveau(NiveauEtude niveau) {
-        this.niveau = niveau;
-    }
-
     public Boolean getValide() {
         return valide;
     }
 
     public void setValide(Boolean valide) {
         this.valide = valide;
-    }
-
-    public EtablissementScolaire getEtablissement() {
-        return etablissement;
-    }
-
-    public void setEtablissement(EtablissementScolaire etablissement) {
-        this.etablissement = etablissement;
     }
 
     public Date getBirthDate() {
@@ -126,15 +117,27 @@ public class Fraterie implements java.io.Serializable {
         this.scolarise = scolarise;
     }
 
-    public Filiere getFiliere() {
+    public TypeEnseignement getFiliere() {
         return filiere;
     }
 
-    public void setFiliere(Filiere filiere) {
+    public void setFiliere(TypeEnseignement filiere) {
         this.filiere = filiere;
     }
 
-    public Map getReportsAttributes() {
-        return BeanMapper.beanToMap(this);
+    public NiveauEtude getNiveau() {
+        return niveau;
+    }
+
+    public void setNiveau(NiveauEtude niveau) {
+        this.niveau = niveau;
+    }
+
+    public EtablissementScolaire getEtablissement() {
+        return etablissement;
+    }
+
+    public void setEtablissement(EtablissementScolaire etablissement) {
+        this.etablissement = etablissement;
     }
 }

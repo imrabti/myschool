@@ -1,13 +1,30 @@
+/**
+ * Copyright 2012 Nuvola Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
+
 package com.gsr.myschool.common.client.proxy;
 
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;
-import com.gsr.myschool.server.business.Fraterie;
+import com.gsr.myschool.common.shared.dto.FraterieDTO;
+import com.gsr.myschool.common.shared.type.TypeEnseignement;
 
 import java.util.Date;
 
-@ProxyFor(Fraterie.class)
-public interface FraterieProxy extends ValueProxy {
+@ProxyFor(FraterieDTO.class)
+public interface FraterieDTOProxy extends ValueProxy {
     Long getId();
 
     void setId(Long id);
@@ -52,7 +69,7 @@ public interface FraterieProxy extends ValueProxy {
 
     void setScolarise(Boolean scolarise);
 
-    FiliereProxy getFiliere();
+    TypeEnseignement getFiliere();
 
-    void setFiliere(FiliereProxy filiere);
+    void setFiliere(TypeEnseignement filiere);
 }

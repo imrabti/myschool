@@ -1,6 +1,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'
+             xmlns:b='urn:import:com.github.gwtbootstrap.datepicker.client.ui'>
 
     <ui:with field="helpMessage" type="com.gsr.myschool.common.client.resource.message.HelpMessageBundle"/>
     <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
@@ -43,46 +44,70 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Classe</boot:ControlLabel>
+                <boot:ControlLabel>Date de naissance</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.fraterieClasse}">
-                        <boot:TextBox ui:field="classe" width="250px"/>
-                    </boot:Tooltip>
-                </boot:Controls>
-            </boot:ControlGroup>
-
-            <boot:ControlGroup>
-                <boot:ControlLabel>Niveau</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.fraterieNiveau}">
-                        <boot:ValueListBox ui:field="niveau" width="250px"/>
-                    </boot:Tooltip>
-                </boot:Controls>
-            </boot:ControlGroup>
-
-            <boot:ControlGroup>
-                <boot:ControlLabel>Etablissement</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.fraterieEtablissement}">
-                        <boot:InputAddOn>
-                            <boot:TextBox ui:field="etablissement" width="250px" enabled="false"/>
-                            <boot:appendWidget>
-                                <g:Label ui:field="selectEtablissement" styleName="icon-search {style.actAsButton}"/>
-                            </boot:appendWidget>
-                        </boot:InputAddOn>
-                    </boot:Tooltip>
-                </boot:Controls>
-            </boot:ControlGroup>
-
-            <boot:ControlGroup>
-                <boot:ControlLabel>Type de fraterie</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.fraterieType}">
-                        <boot:ValueListBox ui:field="typeFraterie" width="250px"/>
+                    <boot:Tooltip text="{helpMessage.candidatDateNaissance}">
+                        <b:DateBoxAppended ui:field="birthDate"/>
                     </boot:Tooltip>
                     <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Lieu de naissance</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.candidatLieuNaissance}">
+                        <boot:TextBox ui:field="birthLocation" width="250px"/>
+                    </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Scolarisé</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.fraterieNiveau}">
+                        <boot:CheckBox ui:field="scolarise" width="250px"/>
+                    </boot:Tooltip>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <g:RenderablePanel ui:field="scolariseFields" visible="false">
+
+                <boot:ControlGroup>
+                    <boot:ControlLabel>Type d'enseignement</boot:ControlLabel>
+                    <boot:Controls>
+                        <boot:Tooltip text="{helpMessage.fraterieNiveau}">
+                            <boot:ValueListBox ui:field="filiere" width="250px"/>
+                        </boot:Tooltip>
+                    </boot:Controls>
+                </boot:ControlGroup>
+
+                <boot:ControlGroup>
+                    <boot:ControlLabel>Niveau d'étude actuel</boot:ControlLabel>
+                    <boot:Controls>
+                        <boot:Tooltip text="{helpMessage.fraterieNiveau}">
+                            <boot:ValueListBox ui:field="niveau" width="250px"/>
+                        </boot:Tooltip>
+                    </boot:Controls>
+                </boot:ControlGroup>
+
+                <boot:ControlGroup>
+                    <boot:ControlLabel>Etablissement actuel</boot:ControlLabel>
+                    <boot:Controls>
+                        <boot:Tooltip text="{helpMessage.fraterieEtablissement}">
+                            <boot:InputAddOn>
+                                <boot:TextBox ui:field="etablissementLabel" width="250px" enabled="false"/>
+                                <boot:appendWidget>
+                                    <g:Label ui:field="selectEtablissement"
+                                             styleName="icon-search {style.actAsButton}"/>
+                                </boot:appendWidget>
+                            </boot:InputAddOn>
+                        </boot:Tooltip>
+                    </boot:Controls>
+                </boot:ControlGroup>
+            </g:RenderablePanel>
+
         </boot:Form>
     </g:HTMLPanel>
 </ui:UiBinder>
