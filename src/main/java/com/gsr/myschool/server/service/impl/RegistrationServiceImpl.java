@@ -40,6 +40,7 @@ public class RegistrationServiceImpl implements RegistrationService {
             registerProcessService.register(user, link);
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             userRepos.delete(user);
             return false;
         }
