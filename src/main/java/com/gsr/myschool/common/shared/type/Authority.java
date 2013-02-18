@@ -18,6 +18,6 @@ public enum Authority {
     }
 
     public static Authority[] adminRoles() {
-        return new Authority[]{ROLE_ADMIN, ROLE_OPERATOR, ROLE_REPORTER};
+        return new Authority[] {ROLE_ADMIN, ROLE_OPERATOR, ROLE_REPORTER};
     }
 }

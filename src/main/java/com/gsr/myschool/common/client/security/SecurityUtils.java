@@ -65,7 +65,13 @@ public class SecurityUtils {
                 sessionStorage.containsKey(Credentials.PASSWORD.name());
     }
 
-    public Boolean hasAuthority(String authority) {
-        return sessionStorage.containsKey(authority);
+    public Boolean hasAuthority(String... authorities) {
+        for (String authority : authorities) {
+            if (sessionStorage.containsKey(authority)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -20,10 +20,12 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
-import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
+import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
+import com.gwtplatform.mvp.client.annotations.GatekeeperParams;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
@@ -36,7 +38,8 @@ public class ValidationPresenter extends Presenter<ValidationPresenter.MyView, V
 
     @ProxyStandard
     @NameToken(NameTokens.validation)
-    @UseGatekeeper(LoggedInGatekeeper.class)
+    @UseGatekeeper(HasRoleGatekeeper.class)
+    @GatekeeperParams({GlobalParameters.ROLE_ADMIN})
     public interface MyProxy extends ProxyPlace<ValidationPresenter> {
     }
 

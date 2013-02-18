@@ -32,13 +32,15 @@ import com.gsr.myschool.back.client.web.application.valueList.widget.ValueTypePr
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
-import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
+import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
 import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
+import com.gwtplatform.mvp.client.annotations.GatekeeperParams;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
@@ -57,7 +59,8 @@ public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, Val
 
     @ProxyStandard
     @NameToken(value = NameTokens.valueList)
-    @UseGatekeeper(LoggedInGatekeeper.class)
+    @UseGatekeeper(HasRoleGatekeeper.class)
+    @GatekeeperParams({GlobalParameters.ROLE_ADMIN})
     public interface MyProxy extends ProxyPlace<ValueListPresenter> {
     }
 

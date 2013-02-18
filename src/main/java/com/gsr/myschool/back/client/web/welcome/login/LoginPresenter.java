@@ -32,9 +32,6 @@ import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresenter.MyProxy>
         implements LoginUiHandlers {
     public interface MyView extends View, HasUiHandlers<LoginUiHandlers> {
@@ -67,23 +64,20 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
 
     @Override
     public void login(final UserCredentials credentials) {
-        requestFactory.adminAuthenticationService().authenticate(credentials.getUsername(), credentials.getPassword())
-                .fire(new ReceiverImpl<Boolean>() {
-					@Override
-					public void onSuccess(Boolean authenticated) {
-						if (authenticated) {
-							securityUtils.setCredentials(credentials.getUsername(), credentials.getPassword());
+        String username = credentials.getUsername();
+        String password = credentials.getPassword();
 
-							List<String> authorities = new ArrayList<String>();
-							authorities.add("ROLE_ADMIN");
-							securityUtils.setAuthorities(authorities);
-
-							bootstrapper.onBootstrap();
-						} else {
-							getView().displayLoginError(true);
-						}
-					}
-				});
+        requestFactory.adminAuthenticationService().authenticate(username, password).fire(new ReceiverImpl<Boolean>() {
+            @Override
+            public void onSuccess(Boolean authenticated) {
+                if (authenticated) {
+                    securityUtils.setCredentials(credentials.getUsername(), credentials.getPassword());
+                    bootstrapper.onBootstrap();
+                } else {
+                    getView().displayLoginError(true);
+                }
+            }
+        });
     }
 
     @Override
