@@ -20,7 +20,6 @@ import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.web.RootPresenter;
 import com.gsr.myschool.back.client.web.application.widget.header.HeaderPresenter;
 import com.gsr.myschool.back.client.web.application.widget.sider.MenuPresenter;
@@ -29,7 +28,6 @@ import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.ContentSlot;
-import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
@@ -43,7 +41,6 @@ public class ApplicationPresenter extends Presenter<ApplicationPresenter.MyView,
     }
 
     @ProxyStandard
-    @NameToken(NameTokens.administration)
     public interface MyProxy extends ProxyPlace<ApplicationPresenter> {
     }
 
