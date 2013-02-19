@@ -20,7 +20,6 @@ import com.google.gwt.storage.client.Storage;
 import com.google.gwt.storage.client.StorageMap;
 
 import java.util.List;
-import java.util.Set;
 
 public class SecurityUtils {
     private final StorageMap sessionStorage;
