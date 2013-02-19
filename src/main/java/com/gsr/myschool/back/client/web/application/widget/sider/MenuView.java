@@ -1,5 +1,6 @@
 package com.gsr.myschool.back.client.web.application.widget.sider;
 
+import com.github.gwtbootstrap.client.ui.NavHeader;
 import com.github.gwtbootstrap.client.ui.NavLink;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -9,6 +10,8 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.common.client.security.SecurityUtils;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 
 public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements MenuPresenter.MyView {
     public interface Binder extends UiBinder<Widget, MenuView> {
@@ -28,13 +31,33 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
     NavLink valueList;
     @UiField
     NavLink generalSettings;
+    @UiField
+    NavHeader settingsHeader;
+
+    private final SecurityUtils securityUtils;
 
     private MenuItem currentMenu;
 
     @Inject
-    public MenuView(final Binder uiBinder, final UiHandlersStrategy<MenuUiHandlers> uiHandlersStrategy) {
+    public MenuView(final Binder uiBinder, final SecurityUtils securityUtils,
+                    final UiHandlersStrategy<MenuUiHandlers> uiHandlersStrategy) {
         super(uiHandlersStrategy);
+
+        this.securityUtils = securityUtils;
+
         initWidget(uiBinder.createAndBindUi(this));
+    }
+
+    @Override
+    public void setupMenuSecurity() {
+        preInscription.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
+        reception.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN, GlobalParameters.ROLE_OPERATOR));
+        validation.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
+        userPortal.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
+        userGsr.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
+        valueList.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
+        generalSettings.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
+        settingsHeader.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
     }
 
     @Override

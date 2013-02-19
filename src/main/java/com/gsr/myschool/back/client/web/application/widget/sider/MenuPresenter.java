@@ -12,6 +12,8 @@ import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> implements MenuUiHandlers {
     public interface MyView extends View, HasUiHandlers<MenuUiHandlers> {
         void setSelectedMenu(MenuItem currentMenu);
+
+        void setupMenuSecurity();
     }
 
     private final PlaceManager placeManager;
@@ -68,6 +70,7 @@ public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> impleme
             currentMenu = MenuItem.GENERAL_SETTINGS;
         }
 
+        getView().setupMenuSecurity();
         getView().setSelectedMenu(currentMenu);
     }
 }

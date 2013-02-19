@@ -10,6 +10,7 @@ import com.gsr.myschool.server.business.core.Filiere;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import org.springframework.data.jpa.domain.Specification;
 
+import javax.persistence.Query;
 import javax.persistence.criteria.*;
 import java.util.Date;
 import java.util.List;
@@ -85,10 +86,12 @@ public class DossierSpec {
         return new Specification<Dossier>() {
             @Override
             public Predicate toPredicate(Root<Dossier> dossierRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                // First join Dossier.Candidat second is Candidat.fraterie
-                Join<Candidat, Fraterie> dossierFraterie = dossierRoot.join("candidat").join("candidat");
+                final Subquery<Long> fraterieQuery = query.subquery(Long.class);
+                final Root<Fraterie> fraterie = fraterieQuery.from(Fraterie.class);
+                fraterieQuery.select(fraterie.<Candidat>get("candidat").<Long>get("id"));
+                fraterieQuery.where(cb.equal(fraterie.<EtablissementScolaire>get("etablissement").<Boolean>get("gsr"), bool));
 
-                return cb.equal(dossierFraterie.<EtablissementScolaire>get("etablissement").<Boolean>get("gsr"), bool);
+                 return cb.in(dossierRoot.<Candidat>get("candidat").<Long>get("id")).value(fraterieQuery);
             }
         };
     }

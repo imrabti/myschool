@@ -1,30 +1,39 @@
 package com.gsr.myschool.common.client.ui.dossier;
 
+import com.github.gwtbootstrap.client.ui.CheckBox;
 import com.github.gwtbootstrap.client.ui.TextBox;
 import com.github.gwtbootstrap.client.ui.ValueListBox;
+import com.github.gwtbootstrap.datepicker.client.ui.DateBoxAppended;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.RenderablePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.gsr.myschool.common.client.proxy.FraterieProxy;
+import com.gsr.myschool.common.client.proxy.FraterieDTOProxy;
+import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
+import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
 import com.gsr.myschool.common.client.util.EditorView;
+import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
-import com.gsr.myschool.common.shared.type.TypeFraterie;
-import com.gsr.myschool.common.shared.type.TypeNiveauEtude;
+import com.gsr.myschool.common.shared.type.TypeEnseignement;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static com.google.gwt.query.client.GQuery.$;
 
-public class FraterieEditor extends Composite implements EditorView<FraterieProxy> {
+public class FraterieEditor extends Composite implements EditorView<FraterieDTOProxy> {
     public interface Binder extends UiBinder<Widget, FraterieEditor> {
     }
 
-    public interface Driver extends SimpleBeanEditorDriver<FraterieProxy, FraterieEditor> {
+    public interface Driver extends SimpleBeanEditorDriver<FraterieDTOProxy, FraterieEditor> {
     }
 
     public interface Handler {
@@ -38,20 +47,29 @@ public class FraterieEditor extends Composite implements EditorView<FraterieProx
     @UiField
     TextBox numDossierGSR;
     @UiField
-    TextBox classe;
+    RenderablePanel scolariseFields;
+    @UiField
+    DateBoxAppended birthDate;
+    @UiField
+    TextBox birthLocation;
+    @UiField
+    CheckBox scolarise;
     @UiField(provided = true)
-    ValueListBox<TypeNiveauEtude> niveau;
+    ValueListBox<TypeEnseignement> filiere;
     @UiField(provided = true)
-    ValueListBox<TypeFraterie> typeFraterie;
+    ValueListBox<NiveauEtudeProxy> niveau;
+    @UiField
+    @Ignore
+    TextBox etablissementLabel;
 
     private final Driver driver;
     private Handler handler;
 
     @Inject
-    public FraterieEditor(final Binder uiBinder, final Driver driver) {
+    public FraterieEditor(final Binder uiBinder, final Driver driver, final ValueList valueList) {
         this.driver = driver;
-        this.typeFraterie = new ValueListBox<TypeFraterie>(new EnumRenderer<TypeFraterie>());
-        this.niveau = new ValueListBox<TypeNiveauEtude>(new EnumRenderer<TypeNiveauEtude>());
+        this.filiere = new ValueListBox<TypeEnseignement>(new EnumRenderer<TypeEnseignement>());
+        this.niveau = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
@@ -59,27 +77,51 @@ public class FraterieEditor extends Composite implements EditorView<FraterieProx
         $(nom).id("nom");
         $(prenom).id("prenom");
         $(numDossierGSR).id("numDossierGSR");
-        $(classe).id("classe");
-        $(niveau).id("niveau");
-        $(typeFraterie).id("typeFraterie");
+        $(birthDate).id("birthDate");
+        $(birthLocation).id("birthLocation");
 
-        niveau.setAcceptableValues(Arrays.asList(TypeNiveauEtude.values()));
-        typeFraterie.setAcceptableValues(Arrays.asList(TypeFraterie.values()));
+        filiere.setAcceptableValues(Arrays.asList(TypeEnseignement.values()));
+        filiere.addValueChangeHandler(new ValueChangeHandler<TypeEnseignement>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<TypeEnseignement> event) {
+                if (event.getValue() == null) {
+                    niveau = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
+                    niveau.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
+                } else {
+                    List<NiveauEtudeProxy> values = valueList.getNiveauEtudeList(event.getValue().getNomFiliere());
+                    niveau.setValue(values.get(0));
+                    niveau.setAcceptableValues(values);
+                }
+            }
+        });
+
+        scolariseFields.setVisible(false);
+        scolarise.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<Boolean> event) {
+                scolariseFields.setVisible(event.getValue());
+            }
+        });
     }
 
     @Override
-    public void edit(FraterieProxy fraterie) {
+    public void edit(FraterieDTOProxy fraterie) {
         driver.edit(fraterie);
+        scolariseFields.setVisible(false);
     }
 
     @Override
-    public FraterieProxy get() {
-        FraterieProxy fraterie = driver.flush();
+    public FraterieDTOProxy get() {
+        FraterieDTOProxy fraterie = driver.flush();
         if (driver.hasErrors()) {
             return null;
         } else {
             return fraterie;
         }
+    }
+
+    public void setEtablissementLabel(String etablissementLabel) {
+        this.etablissementLabel.setText(etablissementLabel);
     }
 
     public void setHandler(Handler handler) {

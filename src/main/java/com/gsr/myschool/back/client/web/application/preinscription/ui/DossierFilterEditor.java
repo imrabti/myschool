@@ -5,6 +5,8 @@ import com.github.gwtbootstrap.client.ui.TextBox;
 import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.github.gwtbootstrap.datepicker.client.ui.DateBoxAppended;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
@@ -21,6 +23,7 @@ import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
 import com.gsr.myschool.common.client.widget.renderer.ValueListRenderer;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DossierFilterEditor extends Composite implements EditorView<DossierFilterDTOProxy> {
@@ -44,27 +47,40 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     DateBoxAppended dateTill;
 
     private final Driver driver;
+    private final ValueList valueList;
 
     @Inject
     public DossierFilterEditor(final Binder uiBinder, final Driver driver, final ValueList valueList) {
         this.driver = driver;
+        this.valueList = valueList;
 
         this.status = new ValueListBox<DossierStatus>(new EnumRenderer<DossierStatus>());
         this.filiere = new ValueListBox<FiliereProxy>(new FiliereRenderer());
         this.niveauEtude = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
 
         initWidget(uiBinder.createAndBindUi(this));
+        driver.initialize(this);
 
         status.setAcceptableValues(Arrays.asList(DossierStatus.values()));
         filiere.setAcceptableValues(valueList.getFiliereList());
-        niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList());
+        niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
 
-        driver.initialize(this);
+        filiere.addValueChangeHandler(new ValueChangeHandler<FiliereProxy>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<FiliereProxy> event) {
+                if(event.getValue() != null) {
+                    niveauEtude.setValue(null);
+                    niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(event.getValue().getNom()));
+                } else {
+                    niveauEtude = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
+                    niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
+                }
+            }
+        });
     }
 
     @Override
     public void edit(DossierFilterDTOProxy object) {
-        gsrFraterie.setFocus(true);
         driver.edit(object);
     }
 

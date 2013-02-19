@@ -24,17 +24,15 @@ import com.gsr.myschool.back.client.request.UserServiceRequest;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.back.client.web.application.user.event.UserAccountChangedEvent;
 import com.gsr.myschool.back.client.web.application.user.popup.UserAccountEditPresenter;
-import com.gsr.myschool.back.client.web.application.user.popup.UserInscriptionListPresenter;
-import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
-import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.UserFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
-import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
-import com.gsr.myschool.common.shared.type.DossierStatus;
+import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
+import com.gwtplatform.mvp.client.annotations.GatekeeperParams;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
@@ -52,7 +50,8 @@ public class UserAccountPresenter extends Presenter<UserAccountPresenter.MyView,
 
     @ProxyStandard
     @NameToken(NameTokens.userPortal)
-    @UseGatekeeper(LoggedInGatekeeper.class)
+    @UseGatekeeper(HasRoleGatekeeper.class)
+    @GatekeeperParams({GlobalParameters.ROLE_ADMIN})
     public interface MyProxy extends ProxyPlace<UserAccountPresenter> {
     }
 

@@ -21,6 +21,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AdminUserRepos extends JpaRepository<AdminUser, Long> {
 	AdminUser findByEmail(String email);
-
-	AdminUser findByUsername(String username);
 }

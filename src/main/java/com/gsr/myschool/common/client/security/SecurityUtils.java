@@ -40,8 +40,7 @@ public class SecurityUtils {
     }
 
     public void clearCredentials() {
-        sessionStorage.remove(Credentials.USERNAME.name());
-        sessionStorage.remove(Credentials.PASSWORD.name());
+        sessionStorage.clear();
     }
 
     public void updatePassword(String password) {
@@ -65,7 +64,13 @@ public class SecurityUtils {
                 sessionStorage.containsKey(Credentials.PASSWORD.name());
     }
 
-    public Boolean hasAuthority(String authority) {
-        return sessionStorage.containsKey(authority);
+    public Boolean hasAuthority(String... authorities) {
+        for (String authority : authorities) {
+            if (sessionStorage.containsKey(authority)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -6,6 +6,8 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.ValidatedView;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.client.proxy.EtablissementScolaireProxy;
+import com.gsr.myschool.common.client.proxy.FraterieDTOProxy;
 import com.gsr.myschool.common.client.proxy.FraterieProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
@@ -18,7 +20,8 @@ import com.gsr.myschool.front.client.request.InscriptionRequest;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.front.client.web.application.inscription.WizardStep;
 import com.gsr.myschool.front.client.web.application.inscription.event.ChangeStepEvent;
-import com.gsr.myschool.front.client.web.application.inscription.event.DisplayStepEvent;
+import com.gsr.myschool.front.client.web.application.inscription.event.EtablissementSelectedEvent;
+import com.gsr.myschool.front.client.web.application.inscription.event.EtablissementSelectedEvent.EtablissementSelectedHandler;
 import com.gsr.myschool.front.client.web.application.inscription.popup.EtablissementFilterPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
@@ -30,11 +33,13 @@ import java.util.List;
 import java.util.Set;
 
 public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
-        implements FraterieUiHandlers, ChangeStepEvent.ChangeStepHandler {
+        implements FraterieUiHandlers, ChangeStepEvent.ChangeStepHandler, EtablissementSelectedHandler {
     public interface MyView extends ValidatedView, HasUiHandlers<FraterieUiHandlers> {
         void setData(List<FraterieProxy> data);
 
-        void editFraterie(FraterieProxy fraterie);
+        void editFraterie(FraterieDTOProxy fraterie);
+
+        void setEtablissement(EtablissementScolaireProxy selectedEtablissement);
     }
 
     private final FrontRequestFactory requestFactory;
@@ -44,8 +49,9 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
 
     private InscriptionRequest currentContext;
     private DossierProxy currentDossier;
-    private FraterieProxy currentFraterie;
+    private FraterieDTOProxy currentFraterie;
     private Boolean fraterieViolation;
+    private EtablissementScolaireProxy currentEtablissement;
 
     @Inject
     public FrateriePresenter(final EventBus eventBus, final MyView view,
@@ -74,8 +80,15 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
     }
 
     @Override
-    public void addFraterie(FraterieProxy fraterie) {
+    public void addFraterie(FraterieDTOProxy fraterie) {
         Long dossierId = currentDossier.getId();
+        if (fraterie.getNiveau() != null) {
+            fraterie.setNiveau(currentContext.edit(fraterie.getNiveau()));
+        }
+        if (currentEtablissement != null) {
+            fraterie.setEtablissement(currentContext.edit(currentEtablissement));
+        }
+
         if (!fraterieViolation) {
             currentContext.createNewFraterie(fraterie, dossierId).fire(new ValidatedReceiverImpl<Void>() {
                 @Override
@@ -88,7 +101,7 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
                 @Override
                 public void onSuccess(Void response) {
                     currentContext = requestFactory.inscriptionService();
-                    currentFraterie = currentContext.create(FraterieProxy.class);
+                    currentFraterie = currentContext.create(FraterieDTOProxy.class);
                     fraterieViolation = false;
 
                     getView().editFraterie(currentFraterie);
@@ -122,10 +135,16 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
         addToPopupSlot(etablissementFilterPresenter);
     }
 
+    @Override
+    public void onEtablissementSelected(EtablissementSelectedEvent event) {
+        getView().setEtablissement(event.getSelectedEtablissement());
+        currentEtablissement = event.getSelectedEtablissement();
+    }
+
     public void editData(DossierProxy dossierProxy) {
         currentDossier = dossierProxy;
         currentContext = requestFactory.inscriptionService();
-        currentFraterie = currentContext.create(FraterieProxy.class);
+        currentFraterie = currentContext.create(FraterieDTOProxy.class);
         fraterieViolation = false;
 
         getView().editFraterie(currentFraterie);
@@ -135,6 +154,7 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
     @Override
     protected void onBind() {
         addRegisteredHandler(ChangeStepEvent.getType(), this);
+        addRegisteredHandler(EtablissementSelectedEvent.getType(), this);
     }
 
     private void loadFraterie() {

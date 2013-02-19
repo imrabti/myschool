@@ -25,11 +25,14 @@ import com.gsr.myschool.common.client.resource.SharedResources;
 import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gsr.myschool.common.client.util.CallbackImpl;
 import com.gsr.myschool.common.client.util.ValueList;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gwtplatform.mvp.client.Bootstrapper;
 import com.gwtplatform.mvp.client.annotations.Bootstrap;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 @Bootstrap
@@ -83,12 +86,25 @@ public class BootstrapperImpl implements Bootstrapper {
             logger.info("User is not authentified -- access denied...");
             placeManager.revealCurrentPlace();
         } else {
-            bounceToHome();
+            List<String> authorities = new ArrayList<String>();
+            authorities.add(currentUser.getAuthority().name());
+            securityUtils.setAuthorities(authorities);
+
+            if (securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN)) {
+                bounceToHome();
+            } else if (securityUtils.hasAuthority(GlobalParameters.ROLE_OPERATOR)) {
+                bounceToReception();
+            }
         }
     }
 
     private void bounceToHome() {
         PlaceRequest place = new PlaceRequest(NameTokens.getPreInscriptions());
+        placeManager.revealPlace(place);
+    }
+
+    private void bounceToReception() {
+        PlaceRequest place = new PlaceRequest(NameTokens.getReception());
         placeManager.revealPlace(place);
     }
 }

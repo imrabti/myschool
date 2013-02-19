@@ -49,7 +49,7 @@ public class ClientModule extends AbstractPresenterModule {
         bind(FrontRequestFactory.class).toProvider(RequestFactoryProvider.class).in(Singleton.class);
         bind(ValueList.class).to(ValueListImpl.class).in(Singleton.class);
         bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.login);
-        bindConstant().annotatedWith(RequestUrl.class).to(NameTokens.requestUrl);
+        bindConstant().annotatedWith(RequestUrl.class).to("gwtRequest");
 
         bind(FrontResources.class).in(Singleton.class);
         bind(MessageBundle.class).in(Singleton.class);
