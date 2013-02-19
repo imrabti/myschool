@@ -18,7 +18,7 @@ import java.util.Arrays;
 public class LoggingAspect {
     private Log log = LogFactory.getLog(this.getClass());
 
-    @Pointcut("execution(* com.gsr.myschool.service.*.*(..))")
+    @Pointcut("execution(* com.gsr.myschool.server.service.*.*(..))")
     protected void loggingOperation() {}
 
     @Before("loggingOperation()")

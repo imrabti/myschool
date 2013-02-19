@@ -25,7 +25,7 @@
     <context:component-scan base-package="com.gsr.myschool.server.*"/>
 
     <!-- Activate AOP Annotations -->
-    <aop:aspectj-autoproxy />
+    <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
 
     <!-- EntityManager Transaction manager -->
     <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
