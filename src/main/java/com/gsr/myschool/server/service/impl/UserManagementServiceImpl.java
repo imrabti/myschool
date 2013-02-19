@@ -22,7 +22,6 @@ import com.gsr.myschool.server.business.AdminUser;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.repos.AdminUserRepos;
 import com.gsr.myschool.server.repos.UserRepos;
-import com.gsr.myschool.server.repos.spec.DossierSpec;
 import com.gsr.myschool.server.repos.spec.UserSpec;
 import com.gsr.myschool.server.service.UserManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,8 +71,13 @@ public class UserManagementServiceImpl implements UserManagementService {
     @Override
     public Boolean saveAdminAccount(AdminUser adminUser) {
         try {
-            createNew(adminUser);
+            if (adminUser.getId() != null) {
+                adminUser.setUpdated(new Date());
+            } else if (adminUser.getId() == null) {
+                adminUser.setCreated(new Date());
+            }
             adminUserRepos.save(adminUser);
+
             return true;
         } catch (Exception e) {
             return false;
@@ -83,19 +87,6 @@ public class UserManagementServiceImpl implements UserManagementService {
     @Override
     public void deleteAdminUser(Long id) {
         adminUserRepos.delete(id);
-    }
-
-    private void createNew(AdminUser adminUser) {
-        if (Strings.isNullOrEmpty(adminUser.getUsername())) {
-            adminUser.setUsername(adminUser.getLastName());
-            adminUser.setPassword(adminUser.getUsername());
-        }
-        if (adminUser.getId() != null) {
-            adminUser.setUpdated(new Date());
-        }
-        else if (adminUser.getId() == null) {
-            adminUser.setCreated(new Date());
-        }
     }
 
     @Override

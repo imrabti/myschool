@@ -31,7 +31,6 @@ public class AdminPopulationTest {
         AdminUser adminUser = new AdminUser();
         adminUser.setFirstName("admin");
         adminUser.setLastName("gsr");
-        adminUser.setUsername("admingsr1");
         adminUser.setPassword("admingsr1");
         adminUser.setCreated(new Date());
         adminUser.setStatus(UserStatus.ACTIVE);
