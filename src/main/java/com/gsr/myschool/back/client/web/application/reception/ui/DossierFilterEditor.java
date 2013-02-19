@@ -4,6 +4,8 @@ import com.github.gwtbootstrap.client.ui.TextBox;
 import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.github.gwtbootstrap.datepicker.client.ui.DateBoxAppended;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
@@ -50,6 +52,15 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         driver.initialize(this);
 
         filiere.setAcceptableValues(valueList.getFiliereList());
+        filiere.addValueChangeHandler(new ValueChangeHandler<FiliereProxy>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<FiliereProxy> event) {
+                niveauEtude = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
+                if(event.getValue() != null) {
+                    niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(event.getValue().getNom()));
+                }
+            }
+        });
     }
 
     @Override
