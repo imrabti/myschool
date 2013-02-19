@@ -7,9 +7,10 @@
 
     <ui:style>
         .loginBoxWrapper {
-            width: 400px;
+            width: 450px;
             margin: 0 auto;
             margin-top: 80px;
+            overflow-y: auto;
         }
     </ui:style>
 
@@ -33,7 +34,7 @@
         <div class="{resources.frontStyleCss.loginContent}">
             <h2>Nouveau compte</h2>
 
-            <boot:Form type="VERTICAL">
+            <boot:Form type="HORIZONTAL">
                 <boot:ControlGroup>
                     <boot:ControlLabel>Email</boot:ControlLabel>
                     <boot:Controls>
