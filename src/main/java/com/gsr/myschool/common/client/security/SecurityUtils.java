@@ -20,6 +20,7 @@ import com.google.gwt.storage.client.Storage;
 import com.google.gwt.storage.client.StorageMap;
 
 import java.util.List;
+import java.util.Set;
 
 public class SecurityUtils {
     private final StorageMap sessionStorage;
@@ -40,8 +41,7 @@ public class SecurityUtils {
     }
 
     public void clearCredentials() {
-        sessionStorage.remove(Credentials.USERNAME.name());
-        sessionStorage.remove(Credentials.PASSWORD.name());
+        sessionStorage.clear();
     }
 
     public void updatePassword(String password) {
