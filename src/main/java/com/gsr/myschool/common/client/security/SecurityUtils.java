@@ -40,8 +40,7 @@ public class SecurityUtils {
     }
 
     public void clearCredentials() {
-        sessionStorage.remove(Credentials.USERNAME.name());
-        sessionStorage.remove(Credentials.PASSWORD.name());
+        sessionStorage.clear();
     }
 
     public void updatePassword(String password) {
