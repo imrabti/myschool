@@ -50,7 +50,7 @@ public class InscriptionDetailPresenter extends Presenter<InscriptionDetailPrese
 
         void setCandidat(CandidatProxy candidat);
 
-        void setScolariteAnterieur(List<ScolariteAnterieurProxy> scolariteAnterieurList);
+        void setScolariteAnterieur(List<ScolariteActuelleProxy> scolariteAnterieurList);
 
         void setFraterie(List<FraterieProxy> fraterieList);
     }
@@ -117,9 +117,9 @@ public class InscriptionDetailPresenter extends Presenter<InscriptionDetailPrese
     private void loadScolariteAnterieur() {
         Long dossierId = currentDossier.getId();
         requestFactory.inscriptionService().findScolariteAnterieursByDossierId(dossierId).fire(
-                new ReceiverImpl<List<ScolariteAnterieurProxy>>() {
+                new ReceiverImpl<List<ScolariteActuelleProxy>>() {
                     @Override
-                    public void onSuccess(List<ScolariteAnterieurProxy> result) {
+                    public void onSuccess(List<ScolariteActuelleProxy> result) {
                         getView().setScolariteAnterieur(result);
                     }
                 });

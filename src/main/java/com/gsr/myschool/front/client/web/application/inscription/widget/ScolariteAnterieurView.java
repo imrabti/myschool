@@ -18,8 +18,8 @@ import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ValidatedViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
-import com.gsr.myschool.common.client.proxy.ScolariteAnterieurDTOProxy;
-import com.gsr.myschool.common.client.proxy.ScolariteAnterieurProxy;
+import com.gsr.myschool.common.client.proxy.ScolariteActuelleProxy;
+import com.gsr.myschool.common.client.proxy.ScolariteActuelleDTOProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.ui.dossier.ScolariteAnterieurEditor;
 import com.gsr.myschool.common.client.widget.EmptyResult;
@@ -34,9 +34,9 @@ public class ScolariteAnterieurView extends ValidatedViewWithUiHandlers<Scolarit
     @UiField(provided = true)
     ScolariteAnterieurEditor scolariteAnterieurEditor;
     @UiField
-    CellTable<ScolariteAnterieurProxy> etablissementTable;
+    CellTable<ScolariteActuelleProxy> etablissementTable;
 
-    private final ListDataProvider<ScolariteAnterieurProxy> dataProvider;
+    private final ListDataProvider<ScolariteActuelleProxy> dataProvider;
 
     @Inject
     public ScolariteAnterieurView(final Binder uiBinder, final ValidationErrorPopup errorPopup,
@@ -50,26 +50,26 @@ public class ScolariteAnterieurView extends ValidatedViewWithUiHandlers<Scolarit
         initWidget(uiBinder.createAndBindUi(this));
         initDataGrid();
 
-        dataProvider = new ListDataProvider<ScolariteAnterieurProxy>();
+        dataProvider = new ListDataProvider<ScolariteActuelleProxy>();
         dataProvider.addDataDisplay(etablissementTable);
         etablissementTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
     }
 
     @Override
-    public void setData(List<ScolariteAnterieurProxy> data) {
+    public void setData(List<ScolariteActuelleProxy> data) {
         dataProvider.getList().clear();
         dataProvider.getList().addAll(data);
     }
 
     @Override
-    public void editScolariteAnterieur(ScolariteAnterieurDTOProxy scolariteAnterieur) {
+    public void editScolariteAnterieur(ScolariteActuelleDTOProxy scolariteAnterieur) {
         scolariteAnterieurEditor.edit(scolariteAnterieur);
     }
 
     private void initDataGrid() {
-        TextColumn<ScolariteAnterieurProxy> etablissementColumn = new TextColumn<ScolariteAnterieurProxy>() {
+        TextColumn<ScolariteActuelleProxy> etablissementColumn = new TextColumn<ScolariteActuelleProxy>() {
             @Override
-            public String getValue(ScolariteAnterieurProxy object) {
+            public String getValue(ScolariteActuelleProxy object) {
                 return object.getEtablissement().getNom();
             }
         };
@@ -77,9 +77,9 @@ public class ScolariteAnterieurView extends ValidatedViewWithUiHandlers<Scolarit
         etablissementTable.addColumn(etablissementColumn, "Etablissement");
         etablissementTable.setColumnWidth(etablissementColumn, 30, Style.Unit.PCT);
 
-        TextColumn<ScolariteAnterieurProxy> niveauEtudeColumn = new TextColumn<ScolariteAnterieurProxy>() {
+        TextColumn<ScolariteActuelleProxy> niveauEtudeColumn = new TextColumn<ScolariteActuelleProxy>() {
             @Override
-            public String getValue(ScolariteAnterieurProxy object) {
+            public String getValue(ScolariteActuelleProxy object) {
                 return object.getTypeNiveauEtude().toString();
             }
         };
@@ -87,9 +87,9 @@ public class ScolariteAnterieurView extends ValidatedViewWithUiHandlers<Scolarit
         etablissementTable.addColumn(niveauEtudeColumn, "Niveau etude");
         etablissementTable.setColumnWidth(niveauEtudeColumn, 15, Style.Unit.PCT);
 
-        TextColumn<ScolariteAnterieurProxy> classeColumn = new TextColumn<ScolariteAnterieurProxy>() {
+        TextColumn<ScolariteActuelleProxy> classeColumn = new TextColumn<ScolariteActuelleProxy>() {
             @Override
-            public String getValue(ScolariteAnterieurProxy object) {
+            public String getValue(ScolariteActuelleProxy object) {
                 return object.getClasse();
             }
         };
@@ -97,9 +97,9 @@ public class ScolariteAnterieurView extends ValidatedViewWithUiHandlers<Scolarit
         etablissementTable.addColumn(classeColumn, "Classe");
         etablissementTable.setColumnWidth(classeColumn, 20, Style.Unit.PCT);
 
-        TextColumn<ScolariteAnterieurProxy> anneeScolaireColumn = new TextColumn<ScolariteAnterieurProxy>() {
+        TextColumn<ScolariteActuelleProxy> anneeScolaireColumn = new TextColumn<ScolariteActuelleProxy>() {
             @Override
-            public String getValue(ScolariteAnterieurProxy object) {
+            public String getValue(ScolariteActuelleProxy object) {
                 return object.getAnneeScolaire().getValue();
             }
         };
@@ -107,17 +107,17 @@ public class ScolariteAnterieurView extends ValidatedViewWithUiHandlers<Scolarit
         etablissementTable.addColumn(anneeScolaireColumn, "Année scolaire");
         etablissementTable.setColumnWidth(anneeScolaireColumn, 20, Style.Unit.PCT);
 
-        ActionCell<ScolariteAnterieurProxy> actionCell = new ActionCell<ScolariteAnterieurProxy>("Supprimer",
-                new Delegate<ScolariteAnterieurProxy>(){
+        ActionCell<ScolariteActuelleProxy> actionCell = new ActionCell<ScolariteActuelleProxy>("Supprimer",
+                new Delegate<ScolariteActuelleProxy>(){
             @Override
-            public void execute(ScolariteAnterieurProxy object) {
+            public void execute(ScolariteActuelleProxy object) {
                 getUiHandlers().deleteScolariteAnterieur(object);
             }
         });
-        Column<ScolariteAnterieurProxy, ScolariteAnterieurProxy> actionColumn = new
-                Column<ScolariteAnterieurProxy, ScolariteAnterieurProxy>(actionCell) {
+        Column<ScolariteActuelleProxy, ScolariteActuelleProxy> actionColumn = new
+                Column<ScolariteActuelleProxy, ScolariteActuelleProxy>(actionCell) {
             @Override
-            public ScolariteAnterieurProxy getValue(ScolariteAnterieurProxy object) {
+            public ScolariteActuelleProxy getValue(ScolariteActuelleProxy object) {
                 return object;
             }
         };

@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.EtablissementScolaireProxy;
-import com.gsr.myschool.common.client.proxy.ScolariteAnterieurDTOProxy;
+import com.gsr.myschool.common.client.proxy.ScolariteActuelleDTOProxy;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.ui.dossier.renderer.EtablissementRenderer;
 import com.gsr.myschool.common.client.util.EditorView;
@@ -25,11 +25,11 @@ import java.util.Arrays;
 
 import static com.google.gwt.query.client.GQuery.$;
 
-public class ScolariteAnterieurEditor extends Composite implements EditorView<ScolariteAnterieurDTOProxy> {
+public class ScolariteAnterieurEditor extends Composite implements EditorView<ScolariteActuelleDTOProxy> {
     public interface Binder extends UiBinder<HTMLPanel, ScolariteAnterieurEditor> {
     }
 
-    public interface Driver extends SimpleBeanEditorDriver<ScolariteAnterieurDTOProxy, ScolariteAnterieurEditor> {
+    public interface Driver extends SimpleBeanEditorDriver<ScolariteActuelleDTOProxy, ScolariteAnterieurEditor> {
     }
 
     private static final String AUTRES = "- Autres -";
@@ -74,13 +74,13 @@ public class ScolariteAnterieurEditor extends Composite implements EditorView<Sc
     }
 
     @Override
-    public void edit(ScolariteAnterieurDTOProxy scolariteAnterieur) {
+    public void edit(ScolariteActuelleDTOProxy scolariteAnterieur) {
         driver.edit(scolariteAnterieur);
     }
 
     @Override
-    public ScolariteAnterieurDTOProxy get() {
-        ScolariteAnterieurDTOProxy scolariteAnterieur = driver.flush();
+    public ScolariteActuelleDTOProxy get() {
+        ScolariteActuelleDTOProxy scolariteAnterieur = driver.flush();
         if (driver.hasErrors()) {
             return null;
         } else {

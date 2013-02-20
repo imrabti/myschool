@@ -6,8 +6,8 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.ValidatedView;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
-import com.gsr.myschool.common.client.proxy.ScolariteAnterieurDTOProxy;
-import com.gsr.myschool.common.client.proxy.ScolariteAnterieurProxy;
+import com.gsr.myschool.common.client.proxy.ScolariteActuelleDTOProxy;
+import com.gsr.myschool.common.client.proxy.ScolariteActuelleProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
 import com.gsr.myschool.common.client.widget.messages.CloseDelay;
@@ -29,9 +29,9 @@ import java.util.Set;
 public class ScolariteAnterieurPresenter extends PresenterWidget<ScolariteAnterieurPresenter.MyView>
         implements ScolariteAnterieurUiHandlers, ChangeStepEvent.ChangeStepHandler  {
     public interface MyView extends ValidatedView, HasUiHandlers<ScolariteAnterieurUiHandlers> {
-        void editScolariteAnterieur(ScolariteAnterieurDTOProxy scolariteAnterieur);
+        void editScolariteAnterieur(ScolariteActuelleDTOProxy scolariteAnterieur);
 
-        void setData(List<ScolariteAnterieurProxy> data);
+        void setData(List<ScolariteActuelleProxy> data);
     }
 
     private final FrontRequestFactory requestFactory;
@@ -39,7 +39,7 @@ public class ScolariteAnterieurPresenter extends PresenterWidget<ScolariteAnteri
 
     private InscriptionRequest currentContext;
     private DossierProxy currentDossier;
-    private ScolariteAnterieurDTOProxy currentScolarite;
+    private ScolariteActuelleDTOProxy currentScolarite;
     private Boolean scolariteAnterieurViolation;
 
     @Inject
@@ -62,7 +62,7 @@ public class ScolariteAnterieurPresenter extends PresenterWidget<ScolariteAnteri
     }
 
     @Override
-    public void addScolariteAnterieur(ScolariteAnterieurDTOProxy scolariteAnterieur) {
+    public void addScolariteAnterieur(ScolariteActuelleDTOProxy scolariteAnterieur) {
         Long dossierId = currentDossier.getId();
 
         if (scolariteAnterieur.getEtablissement() != null) {
@@ -86,7 +86,7 @@ public class ScolariteAnterieurPresenter extends PresenterWidget<ScolariteAnteri
                 @Override
                 public void onSuccess(Void response) {
                     currentContext = requestFactory.inscriptionService();
-                    currentScolarite = currentContext.create(ScolariteAnterieurDTOProxy.class);
+                    currentScolarite = currentContext.create(ScolariteActuelleDTOProxy.class);
                     scolariteAnterieurViolation = false;
 
                     getView().editScolariteAnterieur(currentScolarite);
@@ -100,7 +100,7 @@ public class ScolariteAnterieurPresenter extends PresenterWidget<ScolariteAnteri
     }
 
     @Override
-    public void deleteScolariteAnterieur(ScolariteAnterieurProxy scolariteAnterieur) {
+    public void deleteScolariteAnterieur(ScolariteActuelleProxy scolariteAnterieur) {
         if (Window.confirm(messageBundle.deleteScolariteAnterieurConf())) {
             Long scolariteId = scolariteAnterieur.getId();
             requestFactory.inscriptionService().deleteScolariteAnterieur(scolariteId).fire(new ReceiverImpl<Void>() {
@@ -118,7 +118,7 @@ public class ScolariteAnterieurPresenter extends PresenterWidget<ScolariteAnteri
     public void editData(DossierProxy dossierProxy) {
         currentDossier = dossierProxy;
         currentContext = requestFactory.inscriptionService();
-        currentScolarite = currentContext.create(ScolariteAnterieurDTOProxy.class);
+        currentScolarite = currentContext.create(ScolariteActuelleDTOProxy.class);
         scolariteAnterieurViolation = false;
 
         getView().editScolariteAnterieur(currentScolarite);
@@ -133,9 +133,9 @@ public class ScolariteAnterieurPresenter extends PresenterWidget<ScolariteAnteri
     private void loadScolariteAnterieur() {
         Long dossierId = currentDossier.getId();
         requestFactory.inscriptionService().findScolariteAnterieursByDossierId(dossierId).fire(
-                new ReceiverImpl<List<ScolariteAnterieurProxy>>() {
+                new ReceiverImpl<List<ScolariteActuelleProxy>>() {
             @Override
-            public void onSuccess(List<ScolariteAnterieurProxy> result) {
+            public void onSuccess(List<ScolariteActuelleProxy> result) {
                 getView().setData(result);
             }
         });

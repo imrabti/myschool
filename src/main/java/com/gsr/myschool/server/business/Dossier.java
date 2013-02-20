@@ -38,6 +38,8 @@ public class Dossier implements java.io.Serializable {
     private Date rdvEntretien;
     @ManyToOne
     private ValueList anneeScolaire;
+    @ManyToOne
+    private ScolariteActuelle scolariteActuelle;
 
     public Long getId() {
         return id;
@@ -141,6 +143,14 @@ public class Dossier implements java.io.Serializable {
 
     public void setAnneeScolaire(ValueList anneeScolaire) {
         this.anneeScolaire = anneeScolaire;
+    }
+
+    public ScolariteActuelle getScolariteActuelle() {
+        return scolariteActuelle;
+    }
+
+    public void setScolariteActuelle(ScolariteActuelle scolariteActuelle) {
+        this.scolariteActuelle = scolariteActuelle;
     }
 
     public Map getReportsAttributes() {

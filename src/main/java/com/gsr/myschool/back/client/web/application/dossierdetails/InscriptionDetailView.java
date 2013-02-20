@@ -69,12 +69,12 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
     @UiField
     CellTable<FraterieProxy> fraterieTable;
     @UiField
-    CellTable<ScolariteAnterieurProxy> etablissementTable;
+    CellTable<ScolariteActuelleProxy> etablissementTable;
 
     private final DateTimeFormat dateFormat;
     private final MessageBundle messageBundle;
     private final ListDataProvider<FraterieProxy> fraterieDataProvider;
-    private final ListDataProvider<ScolariteAnterieurProxy> scolariteDataProvider;
+    private final ListDataProvider<ScolariteActuelleProxy> scolariteDataProvider;
     private final RowLabelValueFactory rowLabelValueFactory;
 
     @Inject
@@ -93,7 +93,7 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
 
         dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
         fraterieDataProvider = new ListDataProvider<FraterieProxy>();
-        scolariteDataProvider = new ListDataProvider<ScolariteAnterieurProxy>();
+        scolariteDataProvider = new ListDataProvider<ScolariteActuelleProxy>();
 
         fraterieDataProvider.addDataDisplay(fraterieTable);
         scolariteDataProvider.addDataDisplay(etablissementTable);
@@ -212,7 +212,7 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
     }
 
     @Override
-    public void setScolariteAnterieur(List<ScolariteAnterieurProxy> data) {
+    public void setScolariteAnterieur(List<ScolariteActuelleProxy> data) {
         scolariteDataProvider.getList().clear();
         scolariteDataProvider.getList().addAll(data);
     }
@@ -280,9 +280,9 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
     }
 
     private void initScolariteAnterieurDataGrid() {
-        TextColumn<ScolariteAnterieurProxy> etablissementColumn = new TextColumn<ScolariteAnterieurProxy>() {
+        TextColumn<ScolariteActuelleProxy> etablissementColumn = new TextColumn<ScolariteActuelleProxy>() {
             @Override
-            public String getValue(ScolariteAnterieurProxy object) {
+            public String getValue(ScolariteActuelleProxy object) {
                 return object.getEtablissement().getNom();
             }
         };
@@ -290,9 +290,9 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
         etablissementTable.addColumn(etablissementColumn, "Etablissement");
         etablissementTable.setColumnWidth(etablissementColumn, 35, Style.Unit.PCT);
 
-        TextColumn<ScolariteAnterieurProxy> niveauEtudeColumn = new TextColumn<ScolariteAnterieurProxy>() {
+        TextColumn<ScolariteActuelleProxy> niveauEtudeColumn = new TextColumn<ScolariteActuelleProxy>() {
             @Override
-            public String getValue(ScolariteAnterieurProxy object) {
+            public String getValue(ScolariteActuelleProxy object) {
                 return object.getTypeNiveauEtude().toString();
             }
         };
@@ -300,9 +300,9 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
         etablissementTable.addColumn(niveauEtudeColumn, "Niveau etude");
         etablissementTable.setColumnWidth(niveauEtudeColumn, 20, Style.Unit.PCT);
 
-        TextColumn<ScolariteAnterieurProxy> classeColumn = new TextColumn<ScolariteAnterieurProxy>() {
+        TextColumn<ScolariteActuelleProxy> classeColumn = new TextColumn<ScolariteActuelleProxy>() {
             @Override
-            public String getValue(ScolariteAnterieurProxy object) {
+            public String getValue(ScolariteActuelleProxy object) {
                 return object.getClasse();
             }
         };
@@ -310,9 +310,9 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
         etablissementTable.addColumn(classeColumn, "Classe");
         etablissementTable.setColumnWidth(classeColumn, 25, Style.Unit.PCT);
 
-        TextColumn<ScolariteAnterieurProxy> anneeScolaireColumn = new TextColumn<ScolariteAnterieurProxy>() {
+        TextColumn<ScolariteActuelleProxy> anneeScolaireColumn = new TextColumn<ScolariteActuelleProxy>() {
             @Override
-            public String getValue(ScolariteAnterieurProxy object) {
+            public String getValue(ScolariteActuelleProxy object) {
                 return object.getAnneeScolaire().getValue();
             }
         };
