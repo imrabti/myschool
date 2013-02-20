@@ -103,7 +103,7 @@
                             <g:Label text="Paramètres" ui:field="setting" styleName="{style.settingsStyle}"/>
                         </li>
                         <li>
-                            <g:Label text="Logout" ui:field="logout" styleName="{style.settingsStyle}"/>
+                            <g:Label text="Déconnexion" ui:field="logout" styleName="{style.settingsStyle}"/>
                         </li>
                     </ul>
                 </div>

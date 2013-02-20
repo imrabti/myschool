@@ -100,7 +100,7 @@
                 <div style="float: right;">
                     <ul>
                         <li>
-                            <g:Label text="Logout" ui:field="logout" styleName="{style.settingsStyle}"/>
+                            <g:Label text="Déconnexion" ui:field="logout" styleName="{style.settingsStyle}"/>
                         </li>
                     </ul>
                 </div>
