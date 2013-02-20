@@ -25,11 +25,11 @@ import java.util.Arrays;
 
 import static com.google.gwt.query.client.GQuery.$;
 
-public class ScolariteAnterieurEditor extends Composite implements EditorView<ScolariteActuelleDTOProxy> {
-    public interface Binder extends UiBinder<HTMLPanel, ScolariteAnterieurEditor> {
+public class ScolariteActuelleEditor extends Composite implements EditorView<ScolariteActuelleDTOProxy> {
+    public interface Binder extends UiBinder<HTMLPanel, ScolariteActuelleEditor> {
     }
 
-    public interface Driver extends SimpleBeanEditorDriver<ScolariteActuelleDTOProxy, ScolariteAnterieurEditor> {
+    public interface Driver extends SimpleBeanEditorDriver<ScolariteActuelleDTOProxy, ScolariteActuelleEditor> {
     }
 
     private static final String AUTRES = "- Autres -";
@@ -48,9 +48,9 @@ public class ScolariteAnterieurEditor extends Composite implements EditorView<Sc
     private final Driver driver;
 
     @Inject
-    public ScolariteAnterieurEditor(final Binder uiBinder, final Driver driver,
-                                    final ValueList valueList,
-                                    final ValueListRenderer valueListRenderer) {
+    public ScolariteActuelleEditor(final Binder uiBinder, final Driver driver,
+                                   final ValueList valueList,
+                                   final ValueListRenderer valueListRenderer) {
         this.driver = driver;
 
         etablissement = new ValueListBox<EtablissementScolaireProxy>(new EtablissementRenderer());
