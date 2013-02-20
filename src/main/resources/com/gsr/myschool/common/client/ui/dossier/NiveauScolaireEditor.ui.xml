@@ -6,7 +6,9 @@
     <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
     <g:HTMLPanel>
+        <h4 style="padding-left:50px;">Choix 1</h4>
         <boot:Form type="HORIZONTAL">
+
             <boot:ControlGroup>
                 <boot:ControlLabel>Filière</boot:ControlLabel>
                 <boot:Controls>
@@ -22,6 +24,29 @@
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.niveauScolaireNiveauEtudes}">
                         <boot:ValueListBox ui:field="niveauEtude" width="250px"/>
+                    </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+        </boot:Form>
+
+        <h4 style="padding-left:50px;">Choix 2</h4>
+        <boot:Form type="HORIZONTAL">
+            <boot:ControlGroup>
+                <boot:ControlLabel>Filière</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.niveauScolaireFiliere}">
+                        <boot:ValueListBox ui:field="filiere2" width="250px"/>
+                    </boot:Tooltip>
+                    <span class="{resource.sharedStyleCss.requiredField}"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Niveau d'etude</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.niveauScolaireNiveauEtudes}">
+                        <boot:ValueListBox ui:field="niveauEtude2" width="250px"/>
                     </boot:Tooltip>
                     <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
