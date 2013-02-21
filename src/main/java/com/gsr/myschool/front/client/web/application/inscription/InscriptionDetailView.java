@@ -101,6 +101,10 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
         dossierPanel.add(rowLabelValueFactory.createValueLabel("Date de création : ", safeDate));
         dossierPanel.add(rowLabelValueFactory.createValueLabel("Status du dossier : ", safeDossierStatus));
 
+        if (dossier.getFiliere2() != null) {
+            dossierPanel.add(rowLabelValueFactory.createHeader("Choix 1"));
+        }
+
         if (dossier.getFiliere() != null) {
             SafeHtml safeFiliere = SafeHtmlUtils.fromString(dossier.getFiliere().getNom());
             dossierPanel.add(rowLabelValueFactory.createValueLabel("Filière : ", safeFiliere));
@@ -108,6 +112,17 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
 
         if (dossier.getNiveauEtude() != null) {
             SafeHtml safeNiveauEtude = SafeHtmlUtils.fromString(dossier.getNiveauEtude().getNom());
+            dossierPanel.add(rowLabelValueFactory.createValueLabel("Niveau d'étude : ", safeNiveauEtude));
+        }
+
+        if (dossier.getFiliere2() != null) {
+            dossierPanel.add(rowLabelValueFactory.createHeader("Choix 2"));
+            SafeHtml safeFiliere = SafeHtmlUtils.fromString(dossier.getFiliere2().getNom());
+            dossierPanel.add(rowLabelValueFactory.createValueLabel("Filière : ", safeFiliere));
+        }
+
+        if (dossier.getNiveauEtude2() != null) {
+            SafeHtml safeNiveauEtude = SafeHtmlUtils.fromString(dossier.getNiveauEtude2().getNom());
             dossierPanel.add(rowLabelValueFactory.createValueLabel("Niveau d'étude : ", safeNiveauEtude));
         }
     }
@@ -225,15 +240,6 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
     }
 
     private void initFraterieDataGrid() {
-        TextColumn<FraterieProxy> numDossierColumn = new TextColumn<FraterieProxy>() {
-            @Override
-            public String getValue(FraterieProxy object) {
-                return object.getNumDossierGSR();
-            }
-        };
-        numDossierColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        fraterieTable.addColumn(numDossierColumn, "N° dossier GSR");
-        fraterieTable.setColumnWidth(numDossierColumn, 15, Style.Unit.PCT);
 
         TextColumn<FraterieProxy> nomPrenomColumn = new TextColumn<FraterieProxy>() {
             @Override
@@ -243,7 +249,7 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
         };
         nomPrenomColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         fraterieTable.addColumn(nomPrenomColumn, "Nom et prénom");
-        fraterieTable.setColumnWidth(nomPrenomColumn, 20, Style.Unit.PCT);
+        fraterieTable.setColumnWidth(nomPrenomColumn, 30, Style.Unit.PCT);
 
         TextColumn<FraterieProxy> filiereColumn = new TextColumn<FraterieProxy>() {
             @Override
@@ -255,7 +261,7 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
         };
         filiereColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         fraterieTable.addColumn(filiereColumn, "Type d'enseignement");
-        fraterieTable.setColumnWidth(filiereColumn, 15, Style.Unit.PCT);
+        fraterieTable.setColumnWidth(filiereColumn, 20, Style.Unit.PCT);
 
         TextColumn<FraterieProxy> classeColumn = new TextColumn<FraterieProxy>() {
             @Override

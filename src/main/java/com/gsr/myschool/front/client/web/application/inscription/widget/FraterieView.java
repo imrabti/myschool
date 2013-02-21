@@ -79,16 +79,6 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
     }
 
     private void initDataGrid() {
-        TextColumn<FraterieProxy> numDossierColumn = new TextColumn<FraterieProxy>() {
-            @Override
-            public String getValue(FraterieProxy object) {
-                return object.getNumDossierGSR();
-            }
-        };
-        numDossierColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        fraterieTable.addColumn(numDossierColumn, "N° dossier GSR");
-        fraterieTable.setColumnWidth(numDossierColumn, 15, Style.Unit.PCT);
-
         TextColumn<FraterieProxy> nomPrenomColumn = new TextColumn<FraterieProxy>() {
             @Override
             public String getValue(FraterieProxy object) {
@@ -97,7 +87,7 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
         };
         nomPrenomColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         fraterieTable.addColumn(nomPrenomColumn, "Nom et prénom");
-        fraterieTable.setColumnWidth(nomPrenomColumn, 20, Style.Unit.PCT);
+        fraterieTable.setColumnWidth(nomPrenomColumn, 25, Style.Unit.PCT);
 
         TextColumn<FraterieProxy> filiereColumn = new TextColumn<FraterieProxy>() {
             @Override
@@ -148,7 +138,7 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
         };
         actionColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         fraterieTable.addColumn(actionColumn, "Action");
-        fraterieTable.setColumnWidth(actionColumn, 15, Style.Unit.PCT);
+        fraterieTable.setColumnWidth(actionColumn, 10, Style.Unit.PCT);
     }
 
     @UiHandler("addFraterie")

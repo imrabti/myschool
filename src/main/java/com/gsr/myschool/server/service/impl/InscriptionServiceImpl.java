@@ -1,9 +1,10 @@
 package com.gsr.myschool.server.service.impl;
 
+import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.dto.EtablissementFilterDTO;
 import com.gsr.myschool.common.shared.dto.FraterieDTO;
-import com.gsr.myschool.common.shared.dto.ScolariteActuelleDTO;
+import com.gsr.myschool.common.shared.dto.ScolariteAnterieurDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.ParentType;
@@ -13,7 +14,7 @@ import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.EtablissementScolaire;
 import com.gsr.myschool.server.business.Fraterie;
 import com.gsr.myschool.server.business.InfoParent;
-import com.gsr.myschool.server.business.ScolariteActuelle;
+import com.gsr.myschool.server.business.ScolariteAnterieur;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.valuelist.ValueList;
@@ -25,7 +26,7 @@ import com.gsr.myschool.server.repos.FiliereRepos;
 import com.gsr.myschool.server.repos.FraterieRepos;
 import com.gsr.myschool.server.repos.InfoParentRepos;
 import com.gsr.myschool.server.repos.NiveauEtudeRepos;
-import com.gsr.myschool.server.repos.ScolariteActuelleRepos;
+import com.gsr.myschool.server.repos.ScolariteAnterieurRepos;
 import com.gsr.myschool.server.repos.ValueListRepos;
 import com.gsr.myschool.server.repos.spec.EtablissementScolaireSpec;
 import com.gsr.myschool.server.security.SecurityContextProvider;
@@ -39,13 +40,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Validator;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional
@@ -149,6 +144,13 @@ public class InscriptionServiceImpl implements InscriptionService {
         Dossier currentDossier = dossierRepos.findOne(dossier.getId());
         currentDossier.setFiliere(filiereRepos.findOne(dossier.getFiliere().getId()));
         currentDossier.setNiveauEtude(niveauEtudeRepos.findOne(dossier.getNiveauEtude().getId()));
+
+        currentDossier.setFiliere2(dossier.getFiliere2() != null ?
+                filiereRepos.findOne(dossier.getFiliere2().getId()) : null);
+
+        currentDossier.setNiveauEtude2(dossier.getNiveauEtude2() != null ?
+                niveauEtudeRepos.findOne(dossier.getNiveauEtude2().getId()) : null);
+
         dossierRepos.save(currentDossier);
         return currentDossier;
     }

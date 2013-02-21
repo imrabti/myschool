@@ -31,7 +31,7 @@ import com.gwtplatform.mvp.client.annotations.Bootstrap;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -86,7 +86,9 @@ public class BootstrapperImpl implements Bootstrapper {
             logger.info("User is not authentified -- access denied...");
             placeManager.revealCurrentPlace();
         } else {
-            securityUtils.setAuthorities(Arrays.asList(new String[] {currentUser.getAuthority().name()}));
+            List<String> authorities = new ArrayList<String>();
+            authorities.add(currentUser.getAuthority().name());
+            securityUtils.setAuthorities(authorities);
 
             if (securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN)) {
                 bounceToHome();

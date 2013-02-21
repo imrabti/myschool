@@ -25,6 +25,10 @@ public class Dossier implements java.io.Serializable {
     @ManyToOne
     private NiveauEtude niveauEtude;
     @ManyToOne
+    private Filiere filiere2;
+    @ManyToOne
+    private NiveauEtude niveauEtude2;
+    @ManyToOne
     private User owner;
     @Temporal(TemporalType.DATE)
     private Date createDate;
@@ -151,6 +155,22 @@ public class Dossier implements java.io.Serializable {
 
     public void setScolariteActuelle(ScolariteActuelle scolariteActuelle) {
         this.scolariteActuelle = scolariteActuelle;
+    }
+
+    public Filiere getFiliere2() {
+        return filiere2;
+    }
+
+    public void setFiliere2(Filiere filiere2) {
+        this.filiere2 = filiere2;
+    }
+
+    public NiveauEtude getNiveauEtude2() {
+        return niveauEtude2;
+    }
+
+    public void setNiveauEtude2(NiveauEtude niveauEtude2) {
+        this.niveauEtude2 = niveauEtude2;
     }
 
     public Map getReportsAttributes() {
