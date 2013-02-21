@@ -60,10 +60,14 @@ public class ScolariteActuellePresenter extends PresenterWidget<ScolariteActuell
 
             if (selectedEtablissement != null) {
                 currentScolarite.setEtablissement(currentContext.edit(selectedEtablissement));
+            } else {
+                currentScolarite.setEtablissement(null);
             }
 
             if (currentScolarite.getNiveauEtude() != null) {
                 currentScolarite.setNiveauEtude(currentContext.edit(currentScolarite.getNiveauEtude()));
+            } else {
+                currentScolarite.setNiveauEtude(null);
             }
 
             if (!scolariteActuelleViolation) {

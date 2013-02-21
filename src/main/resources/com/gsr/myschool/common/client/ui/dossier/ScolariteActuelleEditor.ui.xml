@@ -16,7 +16,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Etablissement scolaire</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.scolariteEtablissement}">
+                    <boot:Tooltip text="{helpMessage.scolariteEtablissement}" placement="RIGHT">
                         <boot:InputAddOn>
                             <boot:TextBox ui:field="etablissementLabel" width="250px" enabled="false"/>
                             <boot:appendWidget>
@@ -31,7 +31,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Type d'enseignement</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.scolariteTypeEnseignement}">
+                    <boot:Tooltip text="{helpMessage.scolariteTypeEnseignement}" placement="RIGHT">
                         <boot:ValueListBox ui:field="typeEnseignement" width="250px"/>
                     </boot:Tooltip>
                 </boot:Controls>
@@ -40,7 +40,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Niveau etude</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.scolariteNiveauEtude}">
+                    <boot:Tooltip text="{helpMessage.scolariteNiveauEtude}" placement="RIGHT">
                         <boot:ValueListBox ui:field="niveauEtude" width="250px"/>
                     </boot:Tooltip>
                     <span class="{resource.sharedStyleCss.requiredField}"/>

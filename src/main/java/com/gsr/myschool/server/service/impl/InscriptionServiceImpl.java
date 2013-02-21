@@ -217,14 +217,29 @@ public class InscriptionServiceImpl implements InscriptionService {
 
     @Override
     public ScolariteActuelle updateScolariteActuelle(ScolariteActuelleDTO scolariteActuelle) {
-        Long etablissementId = scolariteActuelle.getEtablissement().getId();
-        Long niveauEtudeId = scolariteActuelle.getNiveauEtude().getId();
-        String filiereNom = scolariteActuelle.getTypeEnseignement().getNomFiliere();
-
         ScolariteActuelle currentScolariteActuelle = scolariteActuelleRepos.findOne(scolariteActuelle.getId());
-        currentScolariteActuelle.setEtablissement(etablissementScolaireRepos.findOne(etablissementId));
-        currentScolariteActuelle.setFiliere(filiereRepos.findByNom(filiereNom));
-        currentScolariteActuelle.setNiveauEtude(niveauEtudeRepos.findOne(niveauEtudeId));
+
+        if (scolariteActuelle.getEtablissement() != null) {
+            Long etablissementId = scolariteActuelle.getEtablissement().getId();
+            currentScolariteActuelle.setEtablissement(etablissementScolaireRepos.findOne(etablissementId));
+        } else {
+            currentScolariteActuelle.setEtablissement(null);
+        }
+
+        if (scolariteActuelle.getTypeEnseignement() != null) {
+            String filiereNom = scolariteActuelle.getTypeEnseignement().getNomFiliere();
+            currentScolariteActuelle.setFiliere(filiereRepos.findByNom(filiereNom));
+        } else {
+            currentScolariteActuelle.setFiliere(null);
+        }
+
+        if (scolariteActuelle.getNiveauEtude() != null) {
+            Long niveauEtudeId = scolariteActuelle.getNiveauEtude().getId();
+            currentScolariteActuelle.setNiveauEtude(niveauEtudeRepos.findOne(niveauEtudeId));
+        } else {
+            currentScolariteActuelle.setNiveauEtude(null);
+        }
+
         scolariteActuelleRepos.save(currentScolariteActuelle);
 
         return currentScolariteActuelle;
