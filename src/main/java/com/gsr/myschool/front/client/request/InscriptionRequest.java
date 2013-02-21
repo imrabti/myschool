@@ -3,9 +3,15 @@ package com.gsr.myschool.front.client.request;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
-import com.gsr.myschool.common.client.proxy.*;
-import com.gsr.myschool.common.shared.dto.EtablissementFilterDTO;
-import com.gsr.myschool.server.business.EtablissementScolaire;
+import com.gsr.myschool.common.client.proxy.CandidatProxy;
+import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.client.proxy.EtablissementFilterDTOProxy;
+import com.gsr.myschool.common.client.proxy.EtablissementScolaireProxy;
+import com.gsr.myschool.common.client.proxy.FraterieDTOProxy;
+import com.gsr.myschool.common.client.proxy.FraterieProxy;
+import com.gsr.myschool.common.client.proxy.InfoParentProxy;
+import com.gsr.myschool.common.client.proxy.ScolariteActuelleDTOProxy;
+import com.gsr.myschool.common.client.proxy.ScolariteActuelleProxy;
 import com.gsr.myschool.server.service.impl.InscriptionServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
 
@@ -27,15 +33,11 @@ public interface InscriptionRequest extends RequestContext {
 
     Request<CandidatProxy> updateCandidat(CandidatProxy candidat);
 
+    Request<ScolariteActuelleProxy> updateScolariteActuelle(ScolariteActuelleDTOProxy scolariteActuelle);
+
     Request<List<InfoParentProxy>> findInfoParentByDossierId(Long dossierId);
 
     Request<List<EtablissementScolaireProxy>> findEtablissementByFilter(EtablissementFilterDTOProxy filter);
-
-    Request<List<ScolariteAnterieurProxy>> findScolariteAnterieursByDossierId(Long dossierId);
-
-    Request<Void> createNewScolariteAnterieur(ScolariteAnterieurDTOProxy scolariteAnterieur, Long dossierId);
-
-    Request<Void> deleteScolariteAnterieur(Long scolariteAnterieurId);
 
     Request<List<FraterieProxy>> findFraterieByDossierId(Long dossierId);
 

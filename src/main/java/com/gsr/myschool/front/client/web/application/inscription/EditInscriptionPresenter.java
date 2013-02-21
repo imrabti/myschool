@@ -2,7 +2,6 @@ package com.gsr.myschool.front.client.web.application.inscription;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
@@ -15,9 +14,9 @@ import com.gsr.myschool.front.client.web.application.inscription.event.ChangeSte
 import com.gsr.myschool.front.client.web.application.inscription.event.DisplayStepEvent;
 import com.gsr.myschool.front.client.web.application.inscription.widget.CandidatPresenter;
 import com.gsr.myschool.front.client.web.application.inscription.widget.FrateriePresenter;
-import com.gsr.myschool.front.client.web.application.inscription.widget.NiveauScolairePresenter;
+import com.gsr.myschool.front.client.web.application.inscription.widget.SolariteSouhaitePresenter;
 import com.gsr.myschool.front.client.web.application.inscription.widget.ParentPresenter;
-import com.gsr.myschool.front.client.web.application.inscription.widget.ScolariteAnterieurPresenter;
+import com.gsr.myschool.front.client.web.application.inscription.widget.ScolariteActuellePresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -51,8 +50,8 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
     private final ParentPresenter parentPresenter;
     private final CandidatPresenter candidatPresenter;
     private final FrateriePresenter frateriePresenter;
-    private final ScolariteAnterieurPresenter scolariteAnterieurPresenter;
-    private final NiveauScolairePresenter niveauScolairePresenter;
+    private final ScolariteActuellePresenter scolariteActuellePresenter;
+    private final SolariteSouhaitePresenter solariteSouhaitePresenter;
 
     private DossierProxy currentDossier;
 
@@ -62,16 +61,16 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
                                     final ParentPresenter parentPresenter,
                                     final CandidatPresenter candidatPresenter,
                                     final FrateriePresenter frateriePresenter,
-                                    final ScolariteAnterieurPresenter scolariteAnterieurPresenter,
-                                    final NiveauScolairePresenter niveauScolairePresenter) {
+                                    final ScolariteActuellePresenter scolariteActuellePresenter,
+                                    final SolariteSouhaitePresenter solariteSouhaitePresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
         this.parentPresenter = parentPresenter;
         this.candidatPresenter = candidatPresenter;
         this.frateriePresenter = frateriePresenter;
-        this.scolariteAnterieurPresenter = scolariteAnterieurPresenter;
-        this.niveauScolairePresenter = niveauScolairePresenter;
+        this.scolariteActuellePresenter = scolariteActuellePresenter;
+        this.solariteSouhaitePresenter = solariteSouhaitePresenter;
 
         getView().setUiHandlers(this);
     }
@@ -99,7 +98,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
                 @Override
                 public void onSuccess(DossierProxy result) {
                     getView().goToStep(event.getStep());
-                    scolariteAnterieurPresenter.editData(result);
+                    scolariteActuellePresenter.editData(result);
                 }
             });
         } else if (event.getStep() == WizardStep.STEP_4) {
@@ -107,7 +106,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
                 @Override
                 public void onSuccess(DossierProxy result) {
                     getView().goToStep(event.getStep());
-                    niveauScolairePresenter.editData(result);
+                    solariteSouhaitePresenter.editData(result);
                 }
             });
         } else {
@@ -132,8 +131,8 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
 
         setInSlot(TYPE_Step_1_Content, parentPresenter);
         setInSlot(TYPE_Step_2_Content, candidatPresenter);
-        setInSlot(TYPE_Step_3_Content, scolariteAnterieurPresenter);
-        setInSlot(TYPE_Step_4_Content, niveauScolairePresenter);
+        setInSlot(TYPE_Step_3_Content, scolariteActuellePresenter);
+        setInSlot(TYPE_Step_4_Content, solariteSouhaitePresenter);
         setInSlot(TYPE_Step_5_Content, frateriePresenter);
     }
 }
