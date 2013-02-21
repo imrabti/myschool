@@ -29,8 +29,8 @@ import com.gsr.myschool.front.client.web.application.inscription.widget.Candidat
 import com.gsr.myschool.front.client.web.application.inscription.widget.FrateriePresenter;
 import com.gsr.myschool.front.client.web.application.inscription.widget.FraterieUiHandlers;
 import com.gsr.myschool.front.client.web.application.inscription.widget.FraterieView;
-import com.gsr.myschool.front.client.web.application.inscription.widget.NiveauScolairePresenter;
-import com.gsr.myschool.front.client.web.application.inscription.widget.NiveauScolaireView;
+import com.gsr.myschool.front.client.web.application.inscription.widget.ScolariteSouhaiteView;
+import com.gsr.myschool.front.client.web.application.inscription.widget.SolariteSouhaitePresenter;
 import com.gsr.myschool.front.client.web.application.inscription.widget.ParentPresenter;
 import com.gsr.myschool.front.client.web.application.inscription.widget.ParentView;
 import com.gsr.myschool.front.client.web.application.inscription.widget.ScolariteActuellePresenter;
@@ -63,8 +63,8 @@ public class InscriptionModule extends AbstractPresenterModule {
 
         bindSingletonPresenterWidget(ParentPresenter.class, ParentPresenter.MyView.class,
                 ParentView.class);
-        bindSingletonPresenterWidget(NiveauScolairePresenter.class, NiveauScolairePresenter.MyView.class,
-                NiveauScolaireView.class);
+        bindSingletonPresenterWidget(SolariteSouhaitePresenter.class, SolariteSouhaitePresenter.MyView.class,
+                ScolariteSouhaiteView.class);
         bindSingletonPresenterWidget(CandidatPresenter.class, CandidatPresenter.MyView.class,
                 CandidatView.class);
         bindSingletonPresenterWidget(ScolariteActuellePresenter.class, ScolariteActuellePresenter.MyView.class,

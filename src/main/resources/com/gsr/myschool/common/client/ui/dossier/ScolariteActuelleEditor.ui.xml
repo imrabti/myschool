@@ -43,7 +43,6 @@
                     <boot:Tooltip text="{helpMessage.scolariteNiveauEtude}" placement="RIGHT">
                         <boot:ValueListBox ui:field="niveauEtude" width="250px"/>
                     </boot:Tooltip>
-                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
         </boot:Form>

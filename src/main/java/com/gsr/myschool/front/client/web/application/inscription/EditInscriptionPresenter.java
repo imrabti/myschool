@@ -14,7 +14,7 @@ import com.gsr.myschool.front.client.web.application.inscription.event.ChangeSte
 import com.gsr.myschool.front.client.web.application.inscription.event.DisplayStepEvent;
 import com.gsr.myschool.front.client.web.application.inscription.widget.CandidatPresenter;
 import com.gsr.myschool.front.client.web.application.inscription.widget.FrateriePresenter;
-import com.gsr.myschool.front.client.web.application.inscription.widget.NiveauScolairePresenter;
+import com.gsr.myschool.front.client.web.application.inscription.widget.SolariteSouhaitePresenter;
 import com.gsr.myschool.front.client.web.application.inscription.widget.ParentPresenter;
 import com.gsr.myschool.front.client.web.application.inscription.widget.ScolariteActuellePresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -51,7 +51,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
     private final CandidatPresenter candidatPresenter;
     private final FrateriePresenter frateriePresenter;
     private final ScolariteActuellePresenter scolariteActuellePresenter;
-    private final NiveauScolairePresenter niveauScolairePresenter;
+    private final SolariteSouhaitePresenter solariteSouhaitePresenter;
 
     private DossierProxy currentDossier;
 
@@ -62,7 +62,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
                                     final CandidatPresenter candidatPresenter,
                                     final FrateriePresenter frateriePresenter,
                                     final ScolariteActuellePresenter scolariteActuellePresenter,
-                                    final NiveauScolairePresenter niveauScolairePresenter) {
+                                    final SolariteSouhaitePresenter solariteSouhaitePresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
@@ -70,7 +70,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
         this.candidatPresenter = candidatPresenter;
         this.frateriePresenter = frateriePresenter;
         this.scolariteActuellePresenter = scolariteActuellePresenter;
-        this.niveauScolairePresenter = niveauScolairePresenter;
+        this.solariteSouhaitePresenter = solariteSouhaitePresenter;
 
         getView().setUiHandlers(this);
     }
@@ -106,7 +106,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
                 @Override
                 public void onSuccess(DossierProxy result) {
                     getView().goToStep(event.getStep());
-                    niveauScolairePresenter.editData(result);
+                    solariteSouhaitePresenter.editData(result);
                 }
             });
         } else {
@@ -132,7 +132,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
         setInSlot(TYPE_Step_1_Content, parentPresenter);
         setInSlot(TYPE_Step_2_Content, candidatPresenter);
         setInSlot(TYPE_Step_3_Content, scolariteActuellePresenter);
-        setInSlot(TYPE_Step_4_Content, niveauScolairePresenter);
+        setInSlot(TYPE_Step_4_Content, solariteSouhaitePresenter);
         setInSlot(TYPE_Step_5_Content, frateriePresenter);
     }
 }
