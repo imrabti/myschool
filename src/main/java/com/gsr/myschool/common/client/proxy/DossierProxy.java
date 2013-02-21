@@ -41,6 +41,14 @@ public interface DossierProxy extends ValueProxy {
 
     void setNiveauEtude(NiveauEtudeProxy niveauEtude);
 
+    FiliereProxy getFiliere2();
+
+    void setFiliere2(FiliereProxy filiere);
+
+    NiveauEtudeProxy getNiveauEtude2();
+
+    void setNiveauEtude2(NiveauEtudeProxy niveauEtude);
+
     UserProxy getOwner();
 
     void setOwner(UserProxy owner);

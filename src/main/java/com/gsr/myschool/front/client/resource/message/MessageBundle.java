@@ -74,4 +74,6 @@ public interface MessageBundle extends Messages {
     String resendMailSuccess();
 
     String resendMailFailure();
+
+    String niveauScolaireFaillure();
 }
