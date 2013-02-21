@@ -73,7 +73,6 @@
             </boot:ControlGroup>
 
             <g:RenderablePanel ui:field="scolariseFields" visible="false">
-
                 <boot:ControlGroup>
                     <boot:ControlLabel>Type d'enseignement</boot:ControlLabel>
                     <boot:Controls>
@@ -107,7 +106,6 @@
                     </boot:Controls>
                 </boot:ControlGroup>
             </g:RenderablePanel>
-
         </boot:Form>
     </g:HTMLPanel>
 </ui:UiBinder>

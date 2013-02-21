@@ -4,54 +4,112 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.ValidatedView;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.client.proxy.EtablissementScolaireProxy;
 import com.gsr.myschool.common.client.proxy.ScolariteActuelleDTOProxy;
 import com.gsr.myschool.common.client.proxy.ScolariteActuelleProxy;
+import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
 import com.gsr.myschool.common.shared.type.TypeEnseignement;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.request.InscriptionRequest;
 import com.gsr.myschool.front.client.web.application.inscription.WizardStep;
 import com.gsr.myschool.front.client.web.application.inscription.event.ChangeStepEvent;
 import com.gsr.myschool.front.client.web.application.inscription.event.DisplayStepEvent;
+import com.gsr.myschool.front.client.web.application.inscription.event.EtablissementSelectedEvent;
+import com.gsr.myschool.front.client.web.application.inscription.popup.EtablissementFilterPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 
+import javax.validation.ConstraintViolation;
+import java.util.Set;
+
 public class ScolariteActuellePresenter extends PresenterWidget<ScolariteActuellePresenter.MyView>
-        implements ScolariteActuelleUiHandlers, ChangeStepEvent.ChangeStepHandler  {
+        implements ScolariteActuelleUiHandlers, ChangeStepEvent.ChangeStepHandler,
+        EtablissementSelectedEvent.EtablissementSelectedHandler  {
     public interface MyView extends ValidatedView, HasUiHandlers<ScolariteActuelleUiHandlers> {
         void editScolariteAnterieur(ScolariteActuelleDTOProxy scolariteAnterieur);
 
         void flushScolariteActuelle();
+
+        void setEtablissement(EtablissementScolaireProxy selectedEtablissement);
     }
 
     private final FrontRequestFactory requestFactory;
+    private final EtablissementFilterPresenter etablissementFilterPresenter;
 
     private InscriptionRequest currentContext;
     private ScolariteActuelleDTOProxy currentScolarite;
-    private Boolean scolariteAnterieurViolation;
+    private EtablissementScolaireProxy selectedEtablissement;
+    private Boolean scolariteActuelleViolation;
 
     @Inject
     public ScolariteActuellePresenter(final EventBus eventBus, final MyView view,
-                                      final FrontRequestFactory requestFactory) {
+                                      final FrontRequestFactory requestFactory,
+                                      final EtablissementFilterPresenter etablissementFilterPresenter) {
         super(eventBus, view);
 
         this.requestFactory = requestFactory;
+        this.etablissementFilterPresenter = etablissementFilterPresenter;
 
         getView().setUiHandlers(this);
     }
 
     @Override
-    public void onChangeStep(ChangeStepEvent event) {
+    public void onChangeStep(final ChangeStepEvent event) {
         if (event.getCurrentStep() == WizardStep.STEP_3) {
             getView().flushScolariteActuelle();
 
-            DisplayStepEvent.fire(this, event.getNextStep());
+            if (selectedEtablissement != null) {
+                currentScolarite.setEtablissement(currentContext.edit(selectedEtablissement));
+            }
+
+            if (currentScolarite.getNiveauEtude() != null) {
+                currentScolarite.setNiveauEtude(currentContext.edit(currentScolarite.getNiveauEtude()));
+            }
+
+            if (!scolariteActuelleViolation) {
+                currentContext.updateScolariteActuelle(currentScolarite).fire(
+                        new ValidatedReceiverImpl<ScolariteActuelleProxy>() {
+                    @Override
+                    public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                        getView().clearErrors();
+                        getView().showErrors(violations);
+                        scolariteActuelleViolation = true;
+                    }
+
+                    @Override
+                    public void onSuccess(ScolariteActuelleProxy response) {
+                        currentContext = requestFactory.inscriptionService();
+                        currentScolarite = currentContext.create(ScolariteActuelleDTOProxy.class);
+                        scolariteActuelleViolation = false;
+
+                        prepareScolariteActuelleDTO(response);
+                        getView().clearErrors();
+                        getView().editScolariteAnterieur(currentScolarite);
+
+                        DisplayStepEvent.fire(this, event.getNextStep());
+                    }
+                });
+            } else {
+                currentContext.fire();
+            }
         }
+    }
+
+    @Override
+    public void onEtablissementSelected(EtablissementSelectedEvent event) {
+        getView().setEtablissement(event.getSelectedEtablissement());
+        selectedEtablissement = event.getSelectedEtablissement();
+    }
+
+    @Override
+    public void selectEtablissement() {
+        addToPopupSlot(etablissementFilterPresenter);
     }
 
     public void editData(DossierProxy dossierProxy) {
         currentContext = requestFactory.inscriptionService();
         currentScolarite = currentContext.create(ScolariteActuelleDTOProxy.class);
-        scolariteAnterieurViolation = false;
+        scolariteActuelleViolation = false;
 
         prepareScolariteActuelleDTO(dossierProxy.getScolariteActuelle());
         getView().editScolariteAnterieur(currentScolarite);
@@ -60,13 +118,14 @@ public class ScolariteActuellePresenter extends PresenterWidget<ScolariteActuell
     @Override
     protected void onBind() {
         addRegisteredHandler(ChangeStepEvent.getType(), this);
+        addRegisteredHandler(EtablissementSelectedEvent.getType(), this);
     }
 
     private void prepareScolariteActuelleDTO(ScolariteActuelleProxy scolariteActuelle) {
         scolariteActuelle = currentContext.edit(scolariteActuelle);
+        selectedEtablissement = scolariteActuelle.getEtablissement();
 
         currentScolarite.setId(scolariteActuelle.getId());
-        currentScolarite.setEtablissement(scolariteActuelle.getEtablissement());
         currentScolarite.setNiveauEtude(scolariteActuelle.getNiveauEtude());
 
         if (scolariteActuelle.getFiliere() != null) {

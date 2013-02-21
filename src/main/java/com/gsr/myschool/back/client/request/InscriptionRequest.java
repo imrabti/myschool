@@ -22,7 +22,6 @@ import com.google.web.bindery.requestfactory.shared.Service;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.FraterieProxy;
 import com.gsr.myschool.common.client.proxy.InfoParentProxy;
-import com.gsr.myschool.common.client.proxy.ScolariteActuelleProxy;
 import com.gsr.myschool.server.service.impl.InscriptionServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
 
@@ -33,8 +32,6 @@ public interface InscriptionRequest extends RequestContext {
     Request<DossierProxy> findDossierById(Long dossierId);
 
     Request<List<InfoParentProxy>> findInfoParentByDossierId(Long dossierId);
-
-    Request<List<ScolariteActuelleProxy>> findScolariteAnterieursByDossierId(Long dossierId);
 
     Request<List<FraterieProxy>> findFraterieByDossierId(Long dossierId);
 }

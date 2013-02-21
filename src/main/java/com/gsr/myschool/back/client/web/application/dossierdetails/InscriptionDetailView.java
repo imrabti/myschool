@@ -68,13 +68,10 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
     HTMLPanel candidatPanel;
     @UiField
     CellTable<FraterieProxy> fraterieTable;
-    @UiField
-    CellTable<ScolariteActuelleProxy> etablissementTable;
 
     private final DateTimeFormat dateFormat;
     private final MessageBundle messageBundle;
     private final ListDataProvider<FraterieProxy> fraterieDataProvider;
-    private final ListDataProvider<ScolariteActuelleProxy> scolariteDataProvider;
     private final RowLabelValueFactory rowLabelValueFactory;
 
     @Inject
@@ -89,17 +86,12 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
 
         initWidget(uiBinder.createAndBindUi(this));
         initFraterieDataGrid();
-        initScolariteAnterieurDataGrid();
 
         dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
         fraterieDataProvider = new ListDataProvider<FraterieProxy>();
-        scolariteDataProvider = new ListDataProvider<ScolariteActuelleProxy>();
 
         fraterieDataProvider.addDataDisplay(fraterieTable);
-        scolariteDataProvider.addDataDisplay(etablissementTable);
-
         fraterieTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
-        etablissementTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
     }
 
     @UiHandler("back")
@@ -212,12 +204,6 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
     }
 
     @Override
-    public void setScolariteAnterieur(List<ScolariteActuelleProxy> data) {
-        scolariteDataProvider.getList().clear();
-        scolariteDataProvider.getList().addAll(data);
-    }
-
-    @Override
     public void setFraterie(List<FraterieProxy> data) {
         fraterieDataProvider.getList().clear();
         fraterieDataProvider.getList().addAll(data);
@@ -277,48 +263,6 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
         etablissementColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         fraterieTable.addColumn(etablissementColumn, "Etablissement");
         fraterieTable.setColumnWidth(etablissementColumn, 30, Style.Unit.PCT);
-    }
-
-    private void initScolariteAnterieurDataGrid() {
-        TextColumn<ScolariteActuelleProxy> etablissementColumn = new TextColumn<ScolariteActuelleProxy>() {
-            @Override
-            public String getValue(ScolariteActuelleProxy object) {
-                return object.getEtablissement().getNom();
-            }
-        };
-        etablissementColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        etablissementTable.addColumn(etablissementColumn, "Etablissement");
-        etablissementTable.setColumnWidth(etablissementColumn, 35, Style.Unit.PCT);
-
-        TextColumn<ScolariteActuelleProxy> niveauEtudeColumn = new TextColumn<ScolariteActuelleProxy>() {
-            @Override
-            public String getValue(ScolariteActuelleProxy object) {
-                return object.getTypeNiveauEtude().toString();
-            }
-        };
-        etablissementColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        etablissementTable.addColumn(niveauEtudeColumn, "Niveau etude");
-        etablissementTable.setColumnWidth(niveauEtudeColumn, 20, Style.Unit.PCT);
-
-        TextColumn<ScolariteActuelleProxy> classeColumn = new TextColumn<ScolariteActuelleProxy>() {
-            @Override
-            public String getValue(ScolariteActuelleProxy object) {
-                return object.getClasse();
-            }
-        };
-        etablissementColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        etablissementTable.addColumn(classeColumn, "Classe");
-        etablissementTable.setColumnWidth(classeColumn, 25, Style.Unit.PCT);
-
-        TextColumn<ScolariteActuelleProxy> anneeScolaireColumn = new TextColumn<ScolariteActuelleProxy>() {
-            @Override
-            public String getValue(ScolariteActuelleProxy object) {
-                return object.getAnneeScolaire().getValue();
-            }
-        };
-        etablissementColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        etablissementTable.addColumn(anneeScolaireColumn, "Année scolaire");
-        etablissementTable.setColumnWidth(anneeScolaireColumn, 20, Style.Unit.PCT);
     }
 
     private void setupParentType(HTMLPanel container, InfoParentProxy infoParent) {

@@ -3,6 +3,7 @@ package com.gsr.myschool.common.client.ui.dossier;
 import com.github.gwtbootstrap.client.ui.TextBox;
 import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -10,16 +11,13 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.inject.Inject;
-import com.gsr.myschool.common.client.proxy.EtablissementScolaireProxy;
+import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.proxy.ScolariteActuelleDTOProxy;
-import com.gsr.myschool.common.client.proxy.ValueListProxy;
-import com.gsr.myschool.common.client.ui.dossier.renderer.EtablissementRenderer;
+import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
-import com.gsr.myschool.common.client.widget.renderer.ValueListRenderer;
-import com.gsr.myschool.common.shared.type.TypeNiveauEtude;
-import com.gsr.myschool.common.shared.type.ValueTypeCode;
+import com.gsr.myschool.common.shared.type.TypeEnseignement;
 
 import java.util.Arrays;
 
@@ -32,45 +30,39 @@ public class ScolariteActuelleEditor extends Composite implements EditorView<Sco
     public interface Driver extends SimpleBeanEditorDriver<ScolariteActuelleDTOProxy, ScolariteActuelleEditor> {
     }
 
-    private static final String AUTRES = "- Autres -";
+    public interface Handler {
+        void onSelectEtablissement();
+    }
 
-    @UiField(provided = true)
-    ValueListBox<EtablissementScolaireProxy> etablissement;
     @UiField
-    TextBox newEtablissementScolaire;
+    @Ignore
+    TextBox etablissementLabel;
     @UiField(provided = true)
-    ValueListBox<TypeNiveauEtude> typeNiveauEtude;
-    @UiField
-    TextBox classe;
+    ValueListBox<TypeEnseignement> typeEnseignement;
     @UiField(provided = true)
-    ValueListBox<ValueListProxy> anneeScolaire;
+    ValueListBox<NiveauEtudeProxy> niveauEtude;
 
     private final Driver driver;
+    private final ValueList valueList;
+
+    private Handler handler;
 
     @Inject
     public ScolariteActuelleEditor(final Binder uiBinder, final Driver driver,
-                                   final ValueList valueList,
-                                   final ValueListRenderer valueListRenderer) {
+                                   final ValueList valueList) {
         this.driver = driver;
+        this.valueList = valueList;
 
-        etablissement = new ValueListBox<EtablissementScolaireProxy>(new EtablissementRenderer());
-        typeNiveauEtude = new ValueListBox<TypeNiveauEtude>(new EnumRenderer<TypeNiveauEtude>());
-        anneeScolaire = new ValueListBox<ValueListProxy>(valueListRenderer);
+        typeEnseignement = new ValueListBox<TypeEnseignement>(new EnumRenderer<TypeEnseignement>());
+        niveauEtude = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
 
-        etablissement.setAcceptableValues(valueList.getEtablissementScolaireList());
-        typeNiveauEtude.setAcceptableValues(Arrays.asList(TypeNiveauEtude.values()));
-        anneeScolaire.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR));
+        typeEnseignement.setAcceptableValues(Arrays.asList(TypeEnseignement.values()));
 
-        $(etablissement).id("etablissement");
-        $(newEtablissementScolaire).id("newEtablissementScolaire");
-        $(typeNiveauEtude).id("typeNiveauEtude");
-        $(classe).id("classe");
-        $(anneeScolaire).id("anneeScolaire");
-
-        newEtablissementScolaire.setEnabled(false);
+        $(typeEnseignement).id("typeEnseignement");
+        $(niveauEtude).id("niveauEtude");;
     }
 
     @Override
@@ -88,13 +80,22 @@ public class ScolariteActuelleEditor extends Composite implements EditorView<Sco
         }
     }
 
-    @UiHandler("etablissement")
-    void onEtablissementChanged(ValueChangeEvent<EtablissementScolaireProxy> event) {
-        if (etablissement.getValue().getNom().equals(AUTRES)) {
-            newEtablissementScolaire.setEnabled(true);
-        } else {
-            newEtablissementScolaire.setEnabled(false);
-            newEtablissementScolaire.setText("");
-        }
+    public void setEtablissementLabel(String etablissementLabel) {
+        this.etablissementLabel.setText(etablissementLabel);
+    }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+    }
+
+    @UiHandler("selectEtablissement")
+    void onSelectEtablissementClicked(ClickEvent event) {
+        handler.onSelectEtablissement();
+    }
+
+    @UiHandler("typeEnseignement")
+    void onTypeEnseignementChanged(ValueChangeEvent<TypeEnseignement> event) {
+        niveauEtude.setValue(null);
+        niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(typeEnseignement.getValue().getNomFiliere()));
     }
 }

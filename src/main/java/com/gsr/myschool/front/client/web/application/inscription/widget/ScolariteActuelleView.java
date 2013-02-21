@@ -7,11 +7,12 @@ import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ValidatedViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.common.client.proxy.EtablissementScolaireProxy;
 import com.gsr.myschool.common.client.proxy.ScolariteActuelleDTOProxy;
 import com.gsr.myschool.common.client.ui.dossier.ScolariteActuelleEditor;
 
 public class ScolariteActuelleView extends ValidatedViewWithUiHandlers<ScolariteActuelleUiHandlers>
-        implements ScolariteActuellePresenter.MyView {
+        implements ScolariteActuellePresenter.MyView, ScolariteActuelleEditor.Handler {
     public interface Binder extends UiBinder<Widget, ScolariteActuelleView> {
     }
 
@@ -27,11 +28,22 @@ public class ScolariteActuelleView extends ValidatedViewWithUiHandlers<Scolarite
         this.scolariteActuelleEditor = scolariteActuelleEditor;
 
         initWidget(uiBinder.createAndBindUi(this));
+        scolariteActuelleEditor.setHandler(this);
+    }
+
+    @Override
+    public void onSelectEtablissement() {
+        getUiHandlers().selectEtablissement();
     }
 
     @Override
     public void editScolariteAnterieur(ScolariteActuelleDTOProxy scolariteAnterieur) {
         scolariteActuelleEditor.edit(scolariteAnterieur);
+    }
+
+    @Override
+    public void setEtablissement(EtablissementScolaireProxy selectedEtablissement) {
+        scolariteActuelleEditor.setEtablissementLabel(selectedEtablissement.getNom());
     }
 
     @Override

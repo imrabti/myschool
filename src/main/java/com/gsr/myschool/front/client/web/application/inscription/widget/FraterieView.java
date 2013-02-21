@@ -49,12 +49,12 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
         this.fraterieEditor = fraterieEditor;
 
         initWidget(uiBinder.createAndBindUi(this));
+        fraterieEditor.setHandler(this);
         initDataGrid();
 
         dataProvider = new ListDataProvider<FraterieProxy>();
         dataProvider.addDataDisplay(fraterieTable);
         fraterieTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
-        fraterieEditor.setHandler(this);
     }
 
     @Override

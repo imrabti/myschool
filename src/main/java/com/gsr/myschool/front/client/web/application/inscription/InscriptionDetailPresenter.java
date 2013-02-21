@@ -42,8 +42,6 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> imple
 
         void setCandidat(CandidatProxy candidat);
 
-        void setScolariteAnterieur(List<ScolariteActuelleProxy> scolariteAnterieurList);
-
         void setFraterie(List<FraterieProxy> fraterieList);
 
         void showErrors(List<String> errors);
@@ -87,7 +85,6 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> imple
 
                 loadInfoParent();
                 loadFraterie();
-                loadScolariteAnterieur();
             }
         });
     }
@@ -124,17 +121,6 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> imple
                 }
 
                 getView().setResponsable(infoParents);
-            }
-        });
-    }
-
-    private void loadScolariteAnterieur() {
-        Long dossierId = currentDossier.getId();
-        requestFactory.inscriptionService().findScolariteAnterieursByDossierId(dossierId).fire(
-                new ReceiverImpl<List<ScolariteActuelleProxy>>() {
-            @Override
-            public void onSuccess(List<ScolariteActuelleProxy> result) {
-                getView().setScolariteAnterieur(result);
             }
         });
     }
