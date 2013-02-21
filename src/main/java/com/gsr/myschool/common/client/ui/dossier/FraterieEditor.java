@@ -7,7 +7,6 @@ import com.github.gwtbootstrap.datepicker.client.ui.DateBoxAppended;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -63,13 +62,17 @@ public class FraterieEditor extends Composite implements EditorView<FraterieDTOP
     TextBox etablissementLabel;
 
     private final Driver driver;
+    private final ValueList valueList;
+
     private Handler handler;
 
     @Inject
     public FraterieEditor(final Binder uiBinder, final Driver driver, final ValueList valueList) {
         this.driver = driver;
-        this.filiere = new ValueListBox<TypeEnseignement>(new EnumRenderer<TypeEnseignement>());
-        this.niveau = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
+        this.valueList = valueList;
+
+        filiere = new ValueListBox<TypeEnseignement>(new EnumRenderer<TypeEnseignement>());
+        niveau = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
@@ -81,27 +84,7 @@ public class FraterieEditor extends Composite implements EditorView<FraterieDTOP
         $(birthLocation).id("birthLocation");
 
         filiere.setAcceptableValues(Arrays.asList(TypeEnseignement.values()));
-        filiere.addValueChangeHandler(new ValueChangeHandler<TypeEnseignement>() {
-            @Override
-            public void onValueChange(ValueChangeEvent<TypeEnseignement> event) {
-                if (event.getValue() == null) {
-                    niveau = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
-                    niveau.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
-                } else {
-                    List<NiveauEtudeProxy> values = valueList.getNiveauEtudeList(event.getValue().getNomFiliere());
-                    niveau.setValue(values.get(0));
-                    niveau.setAcceptableValues(values);
-                }
-            }
-        });
-
         scolariseFields.setVisible(false);
-        scolarise.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-            @Override
-            public void onValueChange(ValueChangeEvent<Boolean> event) {
-                scolariseFields.setVisible(event.getValue());
-            }
-        });
     }
 
     @Override
@@ -131,5 +114,22 @@ public class FraterieEditor extends Composite implements EditorView<FraterieDTOP
     @UiHandler("selectEtablissement")
     void onSelectEtablissementClicked(ClickEvent event) {
         handler.onSelectEtablissement();
+    }
+
+    @UiHandler("filiere")
+    void onTypeEnseignementChanged(ValueChangeEvent<TypeEnseignement> event) {
+        if (event.getValue() == null) {
+            niveau = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
+            niveau.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
+        } else {
+            List<NiveauEtudeProxy> values = valueList.getNiveauEtudeList(event.getValue().getNomFiliere());
+            niveau.setValue(values.get(0));
+            niveau.setAcceptableValues(values);
+        }
+    }
+
+    @UiHandler("scolarise")
+    void onScolariseChanged(ValueChangeEvent<Boolean> event) {
+        scolariseFields.setVisible(event.getValue());
     }
 }

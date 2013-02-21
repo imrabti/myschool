@@ -1,19 +1,32 @@
 package com.gsr.myschool.server.service.impl;
 
-import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.dto.EtablissementFilterDTO;
 import com.gsr.myschool.common.shared.dto.FraterieDTO;
-import com.gsr.myschool.common.shared.dto.ScolariteAnterieurDTO;
+import com.gsr.myschool.common.shared.dto.ScolariteActuelleDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.ParentType;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
-import com.gsr.myschool.server.business.*;
+import com.gsr.myschool.server.business.Candidat;
+import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.business.EtablissementScolaire;
+import com.gsr.myschool.server.business.Fraterie;
+import com.gsr.myschool.server.business.InfoParent;
+import com.gsr.myschool.server.business.ScolariteActuelle;
+import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.valuelist.ValueList;
 import com.gsr.myschool.server.process.ValidationProcessService;
-import com.gsr.myschool.server.repos.*;
+import com.gsr.myschool.server.repos.CandidatRepos;
+import com.gsr.myschool.server.repos.DossierRepos;
+import com.gsr.myschool.server.repos.EtablissementScolaireRepos;
+import com.gsr.myschool.server.repos.FiliereRepos;
+import com.gsr.myschool.server.repos.FraterieRepos;
+import com.gsr.myschool.server.repos.InfoParentRepos;
+import com.gsr.myschool.server.repos.NiveauEtudeRepos;
+import com.gsr.myschool.server.repos.ScolariteActuelleRepos;
+import com.gsr.myschool.server.repos.ValueListRepos;
 import com.gsr.myschool.server.repos.spec.EtablissementScolaireSpec;
 import com.gsr.myschool.server.security.SecurityContextProvider;
 import com.gsr.myschool.server.service.InscriptionService;
@@ -42,7 +55,7 @@ public class InscriptionServiceImpl implements InscriptionService {
     @Autowired
     private EtablissementScolaireRepos etablissementScolaireRepos;
     @Autowired
-    private ScolariteAnterieurRepos scolariteAnterieurRepos;
+    private ScolariteActuelleRepos scolariteActuelleRepos;
     @Autowired
     private ValueListRepos valueListRepos;
     @Autowired
@@ -76,6 +89,9 @@ public class InscriptionServiceImpl implements InscriptionService {
         Candidat candidat = new Candidat();
         candidatRepos.save(candidat);
 
+        ScolariteActuelle scolariteActuelle = new ScolariteActuelle();
+        scolariteActuelleRepos.save(scolariteActuelle);
+
         User user = securityContextProvider.getCurrentUser();
         String currentAnneeScolaire = DateUtils.currentYear() - 1 + "-" + DateUtils.currentYear();
 
@@ -84,6 +100,7 @@ public class InscriptionServiceImpl implements InscriptionService {
         dossier.setStatus(DossierStatus.CREATED);
         dossier.setOwner(user);
         dossier.setCandidat(candidat);
+        dossier.setScolariteActuelle(scolariteActuelle);
         dossier.setCreateDate(new Date());
         dossier.setAnneeScolaire(valueListRepos.findByValueAndValueTypeCode(currentAnneeScolaire,
                 ValueTypeCode.SCHOOL_YEAR));
@@ -200,6 +217,36 @@ public class InscriptionServiceImpl implements InscriptionService {
     }
 
     @Override
+    public ScolariteActuelle updateScolariteActuelle(ScolariteActuelleDTO scolariteActuelle) {
+        ScolariteActuelle currentScolariteActuelle = scolariteActuelleRepos.findOne(scolariteActuelle.getId());
+
+        if (scolariteActuelle.getEtablissement() != null) {
+            Long etablissementId = scolariteActuelle.getEtablissement().getId();
+            currentScolariteActuelle.setEtablissement(etablissementScolaireRepos.findOne(etablissementId));
+        } else {
+            currentScolariteActuelle.setEtablissement(null);
+        }
+
+        if (scolariteActuelle.getTypeEnseignement() != null) {
+            String filiereNom = scolariteActuelle.getTypeEnseignement().getNomFiliere();
+            currentScolariteActuelle.setFiliere(filiereRepos.findByNom(filiereNom));
+        } else {
+            currentScolariteActuelle.setFiliere(null);
+        }
+
+        if (scolariteActuelle.getNiveauEtude() != null) {
+            Long niveauEtudeId = scolariteActuelle.getNiveauEtude().getId();
+            currentScolariteActuelle.setNiveauEtude(niveauEtudeRepos.findOne(niveauEtudeId));
+        } else {
+            currentScolariteActuelle.setNiveauEtude(null);
+        }
+
+        scolariteActuelleRepos.save(currentScolariteActuelle);
+
+        return currentScolariteActuelle;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<InfoParent> findInfoParentByDossierId(Long dossierId) {
         List<InfoParent> infoParentList = infoParentRepos.findByDossierId(dossierId);
@@ -220,45 +267,6 @@ public class InscriptionServiceImpl implements InscriptionService {
         }
 
         return etablissementScolaireRepos.findAll(spec);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<ScolariteAnterieur> findScolariteAnterieursByDossierId(Long dossierId) {
-        Dossier dossier = dossierRepos.findOne(dossierId);
-        if (dossier != null) {
-            return scolariteAnterieurRepos.findByCandidatId(dossier.getCandidat().getId());
-        } else {
-            return new ArrayList<ScolariteAnterieur>();
-        }
-    }
-
-    @Override
-    public void createNewScolariteAnterieur(ScolariteAnterieurDTO scolariteAnterieur, Long dossierId) {
-        EtablissementScolaire etablissementScolaire;
-
-        if (!Strings.isNullOrEmpty(scolariteAnterieur.getNewEtablissementScolaire())) {
-            etablissementScolaire = new EtablissementScolaire();
-            etablissementScolaire.setNom(scolariteAnterieur.getNewEtablissementScolaire());
-            //etablissementScolaire.setReference(false);
-            etablissementScolaireRepos.save(etablissementScolaire);
-        } else {
-            etablissementScolaire = scolariteAnterieur.getEtablissement();
-        }
-
-        ScolariteAnterieur newScolariteAnterieur = new ScolariteAnterieur();
-        newScolariteAnterieur.setClasse(scolariteAnterieur.getClasse());
-        newScolariteAnterieur.setTypeNiveauEtude(scolariteAnterieur.getTypeNiveauEtude());
-        newScolariteAnterieur.setAnneeScolaire(scolariteAnterieur.getAnneeScolaire());
-        newScolariteAnterieur.setEtablissement(etablissementScolaire);
-        newScolariteAnterieur.setCandidat(dossierRepos.findOne(dossierId).getCandidat());
-        scolariteAnterieurRepos.save(newScolariteAnterieur);
-    }
-
-    @Override
-    public void deleteScolariteAnterieur(Long scolariteAnterieurId) {
-        ScolariteAnterieur scolariteAnterieur = scolariteAnterieurRepos.findOne(scolariteAnterieurId);
-        scolariteAnterieurRepos.delete(scolariteAnterieur);
     }
 
     @Override

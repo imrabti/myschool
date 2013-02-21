@@ -29,6 +29,16 @@ public enum TypeEnseignement {
         this.id = id;
     }
 
+    public static TypeEnseignement getByNomFilere(String nomFiliere) {
+        if (nomFiliere.equals(MISSION.getNomFiliere())) {
+            return MISSION;
+        } else if (nomFiliere.equals(BILINGUE.getNomFiliere())) {
+            return BILINGUE;
+        } else {
+            return null;
+        }
+    }
+
     @Override
     public String toString() {
         return label;
