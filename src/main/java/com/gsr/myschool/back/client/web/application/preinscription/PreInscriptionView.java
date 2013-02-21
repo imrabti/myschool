@@ -95,7 +95,34 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         getUiHandlers().searchWithFilter(dossierFilterEditor.get());
     }
 
+    @UiHandler("initialize")
+    void onInitialize(ClickEvent event) {
+        getUiHandlers().init();
+    }
+
     private void initDataGrid() {
+        TextColumn<DossierProxy> nomColumn = new TextColumn<DossierProxy>() {
+            @Override
+            public String getValue(DossierProxy object) {
+                if (object.getCandidat() == null) return "";
+                return object.getCandidat().getLastname() + " " + object.getCandidat().getFirstname();
+            }
+        };
+        nomColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+        preInscriptionsTable.addColumn(nomColumn, "Nom prénom");
+        preInscriptionsTable.setColumnWidth(nomColumn, 20, Style.Unit.PCT);
+
+        TextColumn<DossierProxy> dateColumn = new TextColumn<DossierProxy>() {
+            @Override
+            public String getValue(DossierProxy object) {
+                if (object.getCandidat() == null) return "";
+                return dateFormat.format(object.getCandidat().getBirthDate());
+            }
+        };
+        dateColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+        preInscriptionsTable.addColumn(dateColumn, "Date de naissance");
+        preInscriptionsTable.setColumnWidth(dateColumn, 10, Style.Unit.PCT);
+
         TextColumn<DossierProxy> refColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
@@ -104,7 +131,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         };
         refColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         preInscriptionsTable.addColumn(refColumn, "N° Dossier");
-        preInscriptionsTable.setColumnWidth(refColumn, 20, Style.Unit.PCT);
+        preInscriptionsTable.setColumnWidth(refColumn, 10, Style.Unit.PCT);
 
         TextColumn<DossierProxy> statusColumn = new TextColumn<DossierProxy>() {
             @Override
@@ -115,7 +142,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         };
         statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         preInscriptionsTable.addColumn(statusColumn, "Statut");
-        preInscriptionsTable.setColumnWidth(statusColumn, 20, Style.Unit.PCT);
+        preInscriptionsTable.setColumnWidth(statusColumn, 10, Style.Unit.PCT);
 
         TextColumn<DossierProxy> anneeScolaireColumn = new TextColumn<DossierProxy>() {
             @Override
@@ -126,7 +153,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         };
         statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         preInscriptionsTable.addColumn(anneeScolaireColumn, "Année scolaire");
-        preInscriptionsTable.setColumnWidth(anneeScolaireColumn, 20, Style.Unit.PCT);
+        preInscriptionsTable.setColumnWidth(anneeScolaireColumn, 10, Style.Unit.PCT);
 
         TextColumn<DossierProxy> createdColumn = new TextColumn<DossierProxy>() {
             @Override
@@ -137,7 +164,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         };
         createdColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         preInscriptionsTable.addColumn(createdColumn, "Date de création");
-        preInscriptionsTable.setColumnWidth(createdColumn, 30, Style.Unit.PCT);
+        preInscriptionsTable.setColumnWidth(createdColumn, 5, Style.Unit.PCT);
 
         TextColumn<DossierProxy> cFiliereColumn = new TextColumn<DossierProxy>() {
             @Override
@@ -151,7 +178,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         };
         cFiliereColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         preInscriptionsTable.addColumn(cFiliereColumn, "Filiere");
-        preInscriptionsTable.setColumnWidth(cFiliereColumn, 15, Style.Unit.PCT);
+        preInscriptionsTable.setColumnWidth(cFiliereColumn, 20, Style.Unit.PCT);
 
         TextColumn<DossierProxy> cLevelColumn = new TextColumn<DossierProxy>() {
             @Override
@@ -165,7 +192,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         };
         cLevelColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         preInscriptionsTable.addColumn(cLevelColumn, "Niveau");
-        preInscriptionsTable.setColumnWidth(cLevelColumn, 15, Style.Unit.PCT);
+        preInscriptionsTable.setColumnWidth(cLevelColumn, 25, Style.Unit.PCT);
 
         Delegate<DossierProxy> viewDetailsAction = new Delegate<DossierProxy>() {
             @Override

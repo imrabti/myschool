@@ -47,12 +47,10 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     DateBoxAppended dateTill;
 
     private final Driver driver;
-    private final ValueList valueList;
 
     @Inject
     public DossierFilterEditor(final Binder uiBinder, final Driver driver, final ValueList valueList) {
         this.driver = driver;
-        this.valueList = valueList;
 
         this.status = new ValueListBox<DossierStatus>(new EnumRenderer<DossierStatus>());
         this.filiere = new ValueListBox<FiliereProxy>(new FiliereRenderer());
