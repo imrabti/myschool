@@ -2,36 +2,20 @@
     <div class="btn-group">
         <a href="javascript:;" class="btn" ui:field="preview">
             <i class="icon-search"/>
-            <span class="">Détails</span>
         </a>
-        <a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
-            <span class="caret"></span>
+        <a href="javascript:;" style="display: none;" ui:field="edit">
+            <i class="icon-edit"/>
+            <span class="">Mettre à jour</span>
         </a>
-        <ul class="dropdown-menu pull-right">
-            <li style="display: none;">
-                <a href="javascript:;" ui:field="edit">
-                    <i class="icon-edit"/>
-                    <span class="">Mettre à jour</span>
-                </a>
-            </li>
-            <li style="display: none;">
-                <a href="javascript:;" ui:field="delete">
-                    <i class="icon-remove"/>
-                    <span class="">Supprimer</span>
-                </a>
-            </li>
-            <li style="display: none;">
-                <a href="javascript:;" ui:field="submit">
-                    <i class="icon-share"/>
-                    <span class="">Soumettre</span>
-                </a>
-            </li>
-            <li>
-                <a href="javascript:;" ui:field="print">
-                    <i class="icon-print"/>
-                    <span class="">Imprimer</span>
-                </a>
-            </li>
-        </ul>
+        <a href="javascript:;" style="display: none;" ui:field="delete">
+            <i class="icon-remove"/>
+            <span class="">Supprimer</span>
+        </a>
+        <a href="javascript:;" style="display: none;" ui:field="submit">
+            <i class="icon-share"/>
+        </a>
+        <a href="javascript:;" class="btn" ui:field="print">
+            <i class="icon-print"/>
+        </a>
     </div>
 </ui:UiBinder>
