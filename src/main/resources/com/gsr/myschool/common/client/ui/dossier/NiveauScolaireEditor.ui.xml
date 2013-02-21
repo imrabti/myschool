@@ -12,7 +12,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Filière</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.niveauScolaireFiliere}">
+                    <boot:Tooltip text="{helpMessage.niveauScolaireFiliere}" placement="RIGHT">
                         <boot:ValueListBox ui:field="filiere" width="250px"/>
                     </boot:Tooltip>
                     <span class="{resource.sharedStyleCss.requiredField}"/>
@@ -22,7 +22,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Niveau d'etude</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.niveauScolaireNiveauEtudes}">
+                    <boot:Tooltip text="{helpMessage.niveauScolaireNiveauEtudes}" placement="RIGHT">
                         <boot:ValueListBox ui:field="niveauEtude" width="250px"/>
                     </boot:Tooltip>
                     <span class="{resource.sharedStyleCss.requiredField}"/>
@@ -35,20 +35,18 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Filière</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.niveauScolaireFiliere}">
+                    <boot:Tooltip text="{helpMessage.niveauScolaireFiliere}" placement="RIGHT">
                         <boot:ValueListBox ui:field="filiere2" width="250px"/>
                     </boot:Tooltip>
-                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
                 <boot:ControlLabel>Niveau d'etude</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.niveauScolaireNiveauEtudes}">
+                    <boot:Tooltip text="{helpMessage.niveauScolaireNiveauEtudes}" placement="RIGHT">
                         <boot:ValueListBox ui:field="niveauEtude2" width="250px"/>
                     </boot:Tooltip>
-                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
         </boot:Form>

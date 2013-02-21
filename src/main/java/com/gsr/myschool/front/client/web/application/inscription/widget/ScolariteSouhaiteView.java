@@ -6,20 +6,19 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ValidatedViewImpl;
 import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
-import com.gsr.myschool.common.client.mvp.ViewImpl;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.ui.dossier.NiveauScolaireEditor;
 
-public class NiveauScolaireView extends ValidatedViewImpl implements NiveauScolairePresenter.MyView {
-    public interface Binder extends UiBinder<Widget, NiveauScolaireView> {
+public class ScolariteSouhaiteView extends ValidatedViewImpl implements SolariteSouhaitePresenter.MyView {
+    public interface Binder extends UiBinder<Widget, ScolariteSouhaiteView> {
     }
 
     @UiField(provided = true)
     NiveauScolaireEditor niveauScolaireEditor;
 
     @Inject
-    public NiveauScolaireView(final Binder uiBinder, final ValidationErrorPopup errorPopup,
-                              final NiveauScolaireEditor niveauScolaireEditor) {
+    public ScolariteSouhaiteView(final Binder uiBinder, final ValidationErrorPopup errorPopup,
+                                 final NiveauScolaireEditor niveauScolaireEditor) {
         super(errorPopup);
 
         this.niveauScolaireEditor = niveauScolaireEditor;

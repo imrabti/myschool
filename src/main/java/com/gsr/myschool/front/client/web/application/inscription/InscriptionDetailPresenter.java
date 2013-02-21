@@ -8,7 +8,7 @@ import com.gsr.myschool.common.client.proxy.CandidatProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.FraterieProxy;
 import com.gsr.myschool.common.client.proxy.InfoParentProxy;
-import com.gsr.myschool.common.client.proxy.ScolariteAnterieurProxy;
+import com.gsr.myschool.common.client.proxy.ScolariteActuelleProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
 import com.gsr.myschool.common.client.widget.messages.CloseDelay;
@@ -41,8 +41,6 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> imple
         void setResponsable(Map<ParentType, InfoParentProxy> infoParents);
 
         void setCandidat(CandidatProxy candidat);
-
-        void setScolariteAnterieur(List<ScolariteAnterieurProxy> scolariteAnterieurList);
 
         void setFraterie(List<FraterieProxy> fraterieList);
 
@@ -87,7 +85,6 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> imple
 
                 loadInfoParent();
                 loadFraterie();
-                loadScolariteAnterieur();
             }
         });
     }
@@ -124,17 +121,6 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> imple
                 }
 
                 getView().setResponsable(infoParents);
-            }
-        });
-    }
-
-    private void loadScolariteAnterieur() {
-        Long dossierId = currentDossier.getId();
-        requestFactory.inscriptionService().findScolariteAnterieursByDossierId(dossierId).fire(
-                new ReceiverImpl<List<ScolariteAnterieurProxy>>() {
-            @Override
-            public void onSuccess(List<ScolariteAnterieurProxy> result) {
-                getView().setScolariteAnterieur(result);
             }
         });
     }

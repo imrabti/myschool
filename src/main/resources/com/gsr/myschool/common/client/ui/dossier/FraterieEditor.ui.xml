@@ -17,7 +17,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Nom</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.fraterieNom}">
+                    <boot:Tooltip text="{helpMessage.fraterieNom}" placement="RIGHT">
                         <boot:TextBox ui:field="nom" width="250px"/>
                     </boot:Tooltip>
                     <span class="{resource.sharedStyleCss.requiredField}"/>
@@ -27,7 +27,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Prénom</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.frateriePrenom}">
+                    <boot:Tooltip text="{helpMessage.frateriePrenom}" placement="RIGHT">
                         <boot:TextBox ui:field="prenom" width="250px"/>
                     </boot:Tooltip>
                     <span class="{resource.sharedStyleCss.requiredField}"/>
@@ -37,7 +37,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>N° dossier GSR</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.fraterieNumDossier}">
+                    <boot:Tooltip text="{helpMessage.fraterieNumDossier}" placement="RIGHT">
                         <boot:TextBox ui:field="numDossierGSR" width="250px"/>
                     </boot:Tooltip>
                 </boot:Controls>
@@ -46,7 +46,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Date de naissance</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.candidatDateNaissance}">
+                    <boot:Tooltip text="{helpMessage.candidatDateNaissance}" placement="RIGHT">
                         <b:DateBoxAppended ui:field="birthDate"/>
                     </boot:Tooltip>
                     <span class="{resource.sharedStyleCss.requiredField}"/>
@@ -56,7 +56,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Lieu de naissance</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.candidatLieuNaissance}">
+                    <boot:Tooltip text="{helpMessage.candidatLieuNaissance}" placement="RIGHT">
                         <boot:TextBox ui:field="birthLocation" width="250px"/>
                     </boot:Tooltip>
                     <span class="{resource.sharedStyleCss.requiredField}"/>
@@ -66,18 +66,17 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Scolarisé</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.fraterieNiveau}">
+                    <boot:Tooltip text="{helpMessage.fraterieNiveau}" placement="RIGHT">
                         <boot:CheckBox ui:field="scolarise" width="250px"/>
                     </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <g:RenderablePanel ui:field="scolariseFields" visible="false">
-
                 <boot:ControlGroup>
                     <boot:ControlLabel>Type d'enseignement</boot:ControlLabel>
                     <boot:Controls>
-                        <boot:Tooltip text="{helpMessage.fraterieNiveau}">
+                        <boot:Tooltip text="{helpMessage.fraterieNiveau}" placement="RIGHT">
                             <boot:ValueListBox ui:field="filiere" width="250px"/>
                         </boot:Tooltip>
                     </boot:Controls>
@@ -86,7 +85,7 @@
                 <boot:ControlGroup>
                     <boot:ControlLabel>Niveau d'étude actuel</boot:ControlLabel>
                     <boot:Controls>
-                        <boot:Tooltip text="{helpMessage.fraterieNiveau}">
+                        <boot:Tooltip text="{helpMessage.fraterieNiveau}" placement="RIGHT">
                             <boot:ValueListBox ui:field="niveau" width="250px"/>
                         </boot:Tooltip>
                     </boot:Controls>
@@ -95,7 +94,7 @@
                 <boot:ControlGroup>
                     <boot:ControlLabel>Etablissement actuel</boot:ControlLabel>
                     <boot:Controls>
-                        <boot:Tooltip text="{helpMessage.fraterieEtablissement}">
+                        <boot:Tooltip text="{helpMessage.fraterieEtablissement}" placement="RIGHT">
                             <boot:InputAddOn>
                                 <boot:TextBox ui:field="etablissementLabel" width="250px" enabled="false"/>
                                 <boot:appendWidget>
@@ -107,7 +106,6 @@
                     </boot:Controls>
                 </boot:ControlGroup>
             </g:RenderablePanel>
-
         </boot:Form>
     </g:HTMLPanel>
 </ui:UiBinder>

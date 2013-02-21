@@ -21,7 +21,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Prénom</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.infoParentPrenom}">
+                    <boot:Tooltip text="{helpMessage.infoParentPrenom}" placement="RIGHT">
                         <boot:TextBox ui:field="prenom" width="250px"/>
                     </boot:Tooltip>
                     <span class="{resource.sharedStyleCss.requiredField}"/>
@@ -31,7 +31,7 @@
             <boot:ControlGroup ui:field="civiliteWrapper">
                 <boot:ControlLabel>Civilité</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.infoParentCivilite}">
+                    <boot:Tooltip text="{helpMessage.infoParentCivilite}" placement="RIGHT">
                         <boot:ValueListBox ui:field="civilite"/>
                     </boot:Tooltip>
                 </boot:Controls>
@@ -40,7 +40,7 @@
             <boot:ControlGroup ui:field="lienParenteWrapper">
                 <boot:ControlLabel>Lien de parenté</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.infoParentLienParente}">
+                    <boot:Tooltip text="{helpMessage.infoParentLienParente}" placement="RIGHT">
                         <boot:TextBox ui:field="lientParente" width="250px"/>
                     </boot:Tooltip>
                     <span class="{resource.sharedStyleCss.requiredField}"/>
@@ -50,7 +50,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Date de naissance</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.infoParentDateNaissance}">
+                    <boot:Tooltip text="{helpMessage.infoParentDateNaissance}" placement="RIGHT">
                         <b2:DateBoxAppended ui:field="birthDate"/>
                     </boot:Tooltip>
                     <span class="{resource.sharedStyleCss.requiredField}"/>
@@ -60,7 +60,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Lieu de naissance</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.infoParentLieuNaissance}">
+                    <boot:Tooltip text="{helpMessage.infoParentLieuNaissance}" placement="RIGHT">
                         <boot:TextBox ui:field="birthLocation" width="250px"/>
                     </boot:Tooltip>
                     <span class="{resource.sharedStyleCss.requiredField}"/>
@@ -70,7 +70,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Nationnalité</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.infoParentNationnalite}">
+                    <boot:Tooltip text="{helpMessage.infoParentNationnalite}" placement="RIGHT">
                         <boot:ValueListBox ui:field="nationality" width="250px"/>
                     </boot:Tooltip>
                     <span class="{resource.sharedStyleCss.requiredField}"/>
@@ -80,7 +80,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Fonction</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.infoParentFonction}">
+                    <boot:Tooltip text="{helpMessage.infoParentFonction}" placement="RIGHT">
                         <boot:TextBox ui:field="fonction" width="250px"/>
                     </boot:Tooltip>
                 </boot:Controls>
@@ -89,7 +89,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Institution</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.infoParentInstitution}">
+                    <boot:Tooltip text="{helpMessage.infoParentInstitution}" placement="RIGHT">
                         <boot:TextBox ui:field="institution" width="250px"/>
                     </boot:Tooltip>
                 </boot:Controls>
@@ -98,7 +98,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Adresse email</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.infoParentAdresseEmail}">
+                    <boot:Tooltip text="{helpMessage.infoParentAdresseEmail}" placement="RIGHT">
                         <boot:InputAddOn prependText="@">
                             <boot:TextBox ui:field="email" width="228px"/>
                         </boot:InputAddOn>
@@ -110,7 +110,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Maison</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.infoParentTelMaison}">
+                    <boot:Tooltip text="{helpMessage.infoParentTelMaison}" placement="RIGHT">
                         <boot:InputAddOn prependIcon="PHONE">
                             <boot:TextBox ui:field="telDom" width="228px"/>
                         </boot:InputAddOn>
@@ -122,7 +122,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Mobile GSM</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.infoParentTelMobile}">
+                    <boot:Tooltip text="{helpMessage.infoParentTelMobile}" placement="RIGHT">
                         <boot:InputAddOn prependIcon="PHONE">
                             <boot:TextBox ui:field="telGsm" width="228px"/>
                         </boot:InputAddOn>
@@ -144,7 +144,7 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Adresse</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.infoParentAdresse}">
+                    <boot:Tooltip text="{helpMessage.infoParentAdresse}" placement="RIGHT">
                         <boot:TextArea ui:field="address" width="250px"/>
                     </boot:Tooltip>
                 </boot:Controls>

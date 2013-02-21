@@ -1,0 +1,50 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+
+    <ui:with field="helpMessage" type="com.gsr.myschool.common.client.resource.message.HelpMessageBundle"/>
+    <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+
+    <ui:style>
+        .actAsButton {
+            cursor: pointer;
+        }
+    </ui:style>
+
+    <g:HTMLPanel>
+        <boot:Form type="HORIZONTAL">
+            <boot:ControlGroup>
+                <boot:ControlLabel>Etablissement scolaire</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.scolariteEtablissement}" placement="RIGHT">
+                        <boot:InputAddOn>
+                            <boot:TextBox ui:field="etablissementLabel" width="250px" enabled="false"/>
+                            <boot:appendWidget>
+                                <g:Label ui:field="selectEtablissement"
+                                         styleName="icon-search {style.actAsButton}"/>
+                            </boot:appendWidget>
+                        </boot:InputAddOn>
+                    </boot:Tooltip>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Type d'enseignement</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.scolariteTypeEnseignement}" placement="RIGHT">
+                        <boot:ValueListBox ui:field="typeEnseignement" width="250px"/>
+                    </boot:Tooltip>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Niveau etude</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.scolariteNiveauEtude}" placement="RIGHT">
+                        <boot:ValueListBox ui:field="niveauEtude" width="250px"/>
+                    </boot:Tooltip>
+                </boot:Controls>
+            </boot:ControlGroup>
+        </boot:Form>
+    </g:HTMLPanel>
+</ui:UiBinder>
