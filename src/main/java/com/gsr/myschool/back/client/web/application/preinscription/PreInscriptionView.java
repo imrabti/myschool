@@ -110,7 +110,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         };
         nomColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         preInscriptionsTable.addColumn(nomColumn, "Nom prénom");
-        preInscriptionsTable.setColumnWidth(nomColumn, 20, Style.Unit.PCT);
+        preInscriptionsTable.setColumnWidth(nomColumn, 15, Style.Unit.PCT);
 
         TextColumn<DossierProxy> dateColumn = new TextColumn<DossierProxy>() {
             @Override
@@ -164,7 +164,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         };
         createdColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         preInscriptionsTable.addColumn(createdColumn, "Date de création");
-        preInscriptionsTable.setColumnWidth(createdColumn, 5, Style.Unit.PCT);
+        preInscriptionsTable.setColumnWidth(createdColumn, 10, Style.Unit.PCT);
 
         TextColumn<DossierProxy> cFiliereColumn = new TextColumn<DossierProxy>() {
             @Override
@@ -178,7 +178,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         };
         cFiliereColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         preInscriptionsTable.addColumn(cFiliereColumn, "Filiere");
-        preInscriptionsTable.setColumnWidth(cFiliereColumn, 20, Style.Unit.PCT);
+        preInscriptionsTable.setColumnWidth(cFiliereColumn, 10, Style.Unit.PCT);
 
         TextColumn<DossierProxy> cLevelColumn = new TextColumn<DossierProxy>() {
             @Override
@@ -192,7 +192,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         };
         cLevelColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         preInscriptionsTable.addColumn(cLevelColumn, "Niveau");
-        preInscriptionsTable.setColumnWidth(cLevelColumn, 25, Style.Unit.PCT);
+        preInscriptionsTable.setColumnWidth(cLevelColumn, 15, Style.Unit.PCT);
 
         Delegate<DossierProxy> viewDetailsAction = new Delegate<DossierProxy>() {
             @Override
