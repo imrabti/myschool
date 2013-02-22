@@ -99,6 +99,13 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
     }
 
     @Override
+    public void init() {
+        currentContext = requestFactory.dossierService();
+        currentDossierFilter = currentContext.create(DossierFilterDTOProxy.class);
+        getView().editDossierFilter(currentDossierFilter);
+    }
+
+    @Override
     protected void onReveal() {
         currentContext = requestFactory.dossierService();
         currentDossierFilter = currentContext.create(DossierFilterDTOProxy.class);

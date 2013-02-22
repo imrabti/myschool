@@ -350,6 +350,21 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
             SafeHtml safeAdresse = SafeHtmlUtils.fromString(infoParent.getAddress());
             container.add(rowLabelValueFactory.createValueLabel("Adresse : ", safeAdresse));
         }
+
+        if (infoParent.getParentGsr()) {
+            SafeHtml safe = SafeHtmlUtils.fromString("oui");
+            container.add(rowLabelValueFactory.createValueLabel("Ancien de GSR : ", safe));
+        }
+
+        if (!Strings.isNullOrEmpty(infoParent.getPromotionGsr())) {
+            SafeHtml safe = SafeHtmlUtils.fromString(infoParent.getPromotionGsr());
+            container.add(rowLabelValueFactory.createValueLabel("Promotion : ", safe));
+        }
+
+        if (!Strings.isNullOrEmpty(infoParent.getFormationGsr())) {
+            SafeHtml safe = SafeHtmlUtils.fromString(infoParent.getFormationGsr());
+            container.add(rowLabelValueFactory.createValueLabel("Formation : ", safe));
+        }
     }
 
     private Boolean isInfoParentEmpty(InfoParentProxy infoParent) {

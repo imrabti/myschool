@@ -16,6 +16,7 @@ public class DossierFilterDTO implements Serializable {
     private Filiere filiere;
     private NiveauEtude niveauEtude;
     private String firstnameOrlastname;
+    private Boolean parentGsr;
 
     public String getNumDossier() {
         return numDossier;
@@ -79,5 +80,13 @@ public class DossierFilterDTO implements Serializable {
 
     public void setNiveauEtude(NiveauEtude niveauEtude) {
         this.niveauEtude = niveauEtude;
+    }
+
+    public Boolean getParentGsr() {
+        return parentGsr;
+    }
+
+    public void setParentGsr(Boolean parentGsr) {
+        this.parentGsr = parentGsr;
     }
 }

@@ -1,9 +1,11 @@
 package com.gsr.myschool.common.client.ui.user;
 
 import com.github.gwtbootstrap.client.ui.ControlGroup;
+import com.github.gwtbootstrap.client.ui.PasswordTextBox;
 import com.github.gwtbootstrap.client.ui.TextBox;
 import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
+import com.google.gwt.query.client.plugins.widgets.PasswordTextBoxWidgetFactory;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
@@ -35,6 +37,10 @@ public class UserAccountEditor extends Composite implements EditorView<UserProxy
     ValueListBox<UserStatus> status;
     @UiField
     ControlGroup statusGroup;
+    @UiField
+    PasswordTextBox password;
+    @UiField
+    ControlGroup passwordField;
 
     private final Diver driver;
 
@@ -50,6 +56,7 @@ public class UserAccountEditor extends Composite implements EditorView<UserProxy
         driver.initialize(this);
 
         $(firstName).id("firstName");
+        $(password).id("password");
         $(lastName).id("lastName");
         $(email).id("email");
         $(status).id("status");
@@ -73,5 +80,9 @@ public class UserAccountEditor extends Composite implements EditorView<UserProxy
 
     public void setStatusVisible(Boolean bool) {
         this.statusGroup.setVisible(bool);
+    }
+
+    public void setPasswordVisible(boolean bool) {
+        this.passwordField.setVisible(bool);
     }
 }

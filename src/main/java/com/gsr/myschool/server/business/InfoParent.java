@@ -1,7 +1,6 @@
 package com.gsr.myschool.server.business;
 
 import com.google.common.base.Strings;
-import com.gsr.myschool.common.client.proxy.InfoParentProxy;
 import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.ParentType;
 import com.gsr.myschool.server.business.valuelist.ValueList;
@@ -53,6 +52,9 @@ public class InfoParent implements java.io.Serializable {
     @ManyToOne
     private ValueList nationality;
     private String lientParente;
+    private Boolean parentGsr;
+    private String promotionGsr;
+    private String formationGsr;
 
     public Long getId() {
         return id;
@@ -190,9 +192,33 @@ public class InfoParent implements java.io.Serializable {
         this.lientParente = lientParente;
     }
 
+    public Boolean getParentGsr() {
+        return parentGsr;
+    }
+
+    public void setParentGsr(Boolean parentGsr) {
+        this.parentGsr = parentGsr;
+    }
+
+    public String getPromotionGsr() {
+        return promotionGsr;
+    }
+
+    public void setPromotionGsr(String promotionGsr) {
+        this.promotionGsr = promotionGsr;
+    }
+
+    public String getFormationGsr() {
+        return formationGsr;
+    }
+
+    public void setFormationGsr(String formationGsr) {
+        this.formationGsr = formationGsr;
+    }
+
     public Map getReportsAttributes() {
         return BeanMapper.beanToMap(this);
-	}
+    }
 
     public Boolean isInfoParentEmpty() {
         return Strings.isNullOrEmpty(nom)

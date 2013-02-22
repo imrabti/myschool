@@ -73,4 +73,16 @@ public interface InfoParentProxy extends ValueProxy {
     String getLientParente();
 
     void setLientParente(String lientParente);
+
+    Boolean getParentGsr();
+
+    void setParentGsr(Boolean parentGsr);
+
+    String getPromotionGsr();
+
+    void setPromotionGsr(String promotionGsr);
+
+    String getFormationGsr();
+
+    void setFormationGsr(String formationGsr);
 }

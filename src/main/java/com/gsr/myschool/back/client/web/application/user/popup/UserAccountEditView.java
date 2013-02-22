@@ -38,6 +38,8 @@ public class UserAccountEditView extends ValidatedPopupViewImplWithUiHandlers<Us
 
         initWidget(uiBinder.createAndBindUi(this));
 
+        userEditor.setPasswordVisible(true);
+
         modalHeader.addCloseHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
