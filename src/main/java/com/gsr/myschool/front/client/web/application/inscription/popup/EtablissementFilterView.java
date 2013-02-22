@@ -18,6 +18,7 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+import com.gsr.myschool.front.client.resource.style.CellTableStyle;
 import com.gsr.myschool.common.client.mvp.PopupViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.EtablissementFilterDTOProxy;
@@ -50,7 +51,7 @@ public class EtablissementFilterView extends PopupViewWithUiHandlers<Etablisseme
     ValueListBox<ValueListProxy> ville;
     @UiField(provided = true)
     ValueListBox<EtablissementType> type;
-    @UiField
+    @UiField(provided = true)
     CellTable<EtablissementScolaireProxy> etablissementTable;
 
     private final Driver driver;
@@ -63,6 +64,7 @@ public class EtablissementFilterView extends PopupViewWithUiHandlers<Etablisseme
     public EtablissementFilterView(final EventBus eventBus, final Binder uiBinder,
                                    final Driver driver, final ModalHeader modalHeader,
                                    final SharedMessageBundle sharedMessageBundle,
+                                   final CellTableStyle cellTableStyle,
                                    final ValueList valueList, final ValueListRenderer valueListRenderer,
                                    final UiHandlersStrategy<EtablissementFilterUiHandlers> uiHandlersStrategy) {
         super(eventBus, uiHandlersStrategy);
@@ -73,6 +75,7 @@ public class EtablissementFilterView extends PopupViewWithUiHandlers<Etablisseme
         this.type = new ValueListBox<EtablissementType>(new EnumRenderer<EtablissementType>());
         this.dataProvider = new ListDataProvider<EtablissementScolaireProxy>();
         this.selectionModel = new SingleSelectionModel<EtablissementScolaireProxy>();
+        this.etablissementTable = new CellTable<EtablissementScolaireProxy>(10,cellTableStyle);
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
