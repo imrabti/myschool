@@ -7,15 +7,12 @@
 
     <g:HTMLPanel>
         <h3 class="{clientResources.sharedStyleCss.mediumTitle}">
-            Information Candidat
+            Etape 2 : Informations relatives a votre enfant
         </h3>
 
         <boot:Paragraph>
-            Nulla feugiat laoreet sem at rhoncus. Nulla quis nisi nibh, id varius massa.
-            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
-            Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-            Quisque ante turpis, tristique sit amet vestibulum a, rutrum at dolor.
-            Nunc tincidunt posuere felis sit amet lobortis. Morbi consectetur arcu dapibus felis dapibus posuere.
+            Afin de traiter au mieux le dossier de pré-inscription de votre enfant,
+            nous vous invitons a compléter les champs ci-dessous.
         </boot:Paragraph>
 
         <s:CandidatEditor ui:field="candidatEditor" bacVisible="false"/>
