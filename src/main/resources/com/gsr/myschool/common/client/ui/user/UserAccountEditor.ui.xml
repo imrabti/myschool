@@ -32,7 +32,14 @@
                 </boot:Controls>
             </boot:ControlGroup>
 
-            <boot:ControlGroup ui:field="statusGroup" >
+            <boot:ControlGroup ui:field="passwordField" visible="false">
+                <boot:ControlLabel width="100px">Mot de passe</boot:ControlLabel>
+                <boot:Controls styleName="{style.smallMargin}">
+                    <boot:PasswordTextBox ui:field="password" width="230px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup ui:field="statusGroup">
                 <boot:ControlLabel width="100px">Statut</boot:ControlLabel>
                 <boot:Controls styleName="{style.smallMargin}">
                     <boot:ValueListBox ui:field="status" width="250px"/>

@@ -96,6 +96,10 @@ public class DossierServiceImpl implements DossierService {
             spec = spec.and(DossierSpec.isGsrFraterie(filter.getGsrFraterie()));
         }
 
+        if (filter.getParentGsr()) {
+            spec = spec.and(DossierSpec.isParentGsr(filter.getParentGsr()));
+        }
+
         return dossierRepos.findAll(spec);
     }
 }

@@ -170,6 +170,9 @@ public class InscriptionServiceImpl implements InscriptionService {
         currentInfoParent.setBirthDate(infoParent.getBirthDate());
         currentInfoParent.setCivilite(infoParent.getCivilite());
         currentInfoParent.setLientParente(infoParent.getLientParente());
+        currentInfoParent.setPromotionGsr(infoParent.getPromotionGsr());
+        currentInfoParent.setFormationGsr(infoParent.getFormationGsr());
+        currentInfoParent.setParentGsr(infoParent.getParentGsr());
 
         if (infoParent.getNationality() != null) {
             currentInfoParent.setNationality(valueListRepos.findOne(infoParent.getNationality().getId()));

@@ -23,6 +23,7 @@
             <boot:Well>
                 <s:DossierFilterEditor ui:field="dossierFilterEditor"/>
                 <boot:Button text="Rechercher" icon="SEARCH" ui:field="search" />
+                <boot:Button text="Initialiser formulaire"  ui:field="initialize" />
             </boot:Well>
 
             <div class="{style.contentWrapper}">
