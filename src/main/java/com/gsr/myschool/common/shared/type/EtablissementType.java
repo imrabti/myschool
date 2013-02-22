@@ -1,7 +1,11 @@
 package com.gsr.myschool.common.shared.type;
 
 public enum EtablissementType {
-    PRIVE("Privé"), PUBLIQUE("Publique");
+    PUBLIQUE("Publique"),
+    PRIVE("Privé"),
+    HOMOLOGUE("Homologué"),
+    AEFE("AEFE"),
+    OSUI("OSUI");
 
     private String label;
 
