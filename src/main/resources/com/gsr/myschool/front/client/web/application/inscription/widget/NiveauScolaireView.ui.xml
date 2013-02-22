@@ -7,15 +7,11 @@
 
     <g:HTMLPanel>
         <h3 class="{clientResources.sharedStyleCss.mediumTitle}">
-            Scolarité Souhaitée
+            Etape 4 : Scolarité Souhaitée pour votre enfant
         </h3>
 
         <boot:Paragraph>
-            Morbi diam nulla, tempus sed fermentum ut, lobortis at ante. Aenean sit amet sapien quis nisl
-            cursus mattis et dapibus eros. Proin eleifend nibh sed dolor rutrum at vestibulum sapien semper.
-            Nam sed ante lacus. Duis nisl nibh, tincidunt a feugiat eget, dictum in nisl. Ut pellentesque nisl
-            a elit consectetur ac tempus purus hendrerit. Cras sollicitudin facilisis mi, vitae
-            sollicitudin lectus sodales at. Sed ac nunc est. Pellentesque molestie, nibh vitae commodo euismod.
+            Nous vous informons que la demande de pré-inscription de votre enfant sera traitée selon sa date de naissance (voir mode de sélection des élèves : les envoyer vers le lien concerné sur notre site web) et selon les places disponibles. Vous serez donc amenés a prioriser vos choix concernant les formations dispensées au sein de notre établissement.
         </boot:Paragraph>
 
         <s:NiveauScolaireEditor ui:field="niveauScolaireEditor"/>

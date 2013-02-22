@@ -6,15 +6,12 @@
 
     <g:HTMLPanel>
         <h3 class="{clientResources.sharedStyleCss.mediumTitle}">
-            Information Parents
+            Etape 1 : Informations relatives aux parents ou tuteur légal
         </h3>
 
         <boot:Paragraph>
-            Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-            Quisque eu felis enim, quis dapibus odio. Aliquam eget sem massa, et euismod nulla.
-            Ut dictum congue cursus. Sed quis dolor at neque placerat malesuada id in orci.
-            Fusce vel risus vitae eros rhoncus elementum nec a purus. Maecenas eleifend neque ut
-            magna pellentesque vulputate.
+            Cette étape consiste a remplir tous les champs concernant les parents (mère et père) ou le tuteur légal de l'enfant.
+            Ces informations sont capitales afin que vous puissiez suivre en ligne les étapes a travers lesquels passent le dossier de pré-inscription de votre enfant.
         </boot:Paragraph>
 
         <g:ValuePicker ui:field="tabs"/>
