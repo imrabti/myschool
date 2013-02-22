@@ -2,6 +2,7 @@ package com.gsr.myschool.server.business;
 
 import com.gsr.myschool.common.shared.type.EmailType;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
@@ -14,6 +15,7 @@ public class EmailTemplate implements Serializable {
     private Long id;
     @Enumerated
     private EmailType code;
+    @Column(length = 450)
     private String message;
     private String subject;
     private Date created;
