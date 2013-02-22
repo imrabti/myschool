@@ -11,7 +11,9 @@
         </h3>
 
         <boot:Paragraph>
-            Nous avons besoin de connaître le scolarité actuelle de votre enfant pour mieux comprendre l'orientation que vous souhaitez donner au parcours scolaire de votre enfant. Nous comptons donc sur vous pour remplir tous les champs demandes.
+            Nous avons besoin de connaître le scolarité actuelle de votre enfant pour mieux comprendre
+            l'orientation que vous souhaitez donner au parcours scolaire de votre enfant.
+            Nous comptons donc sur vous pour remplir tous les champs demandes.
         </boot:Paragraph>
 
         <s:ScolariteActuelleEditor ui:field="scolariteActuelleEditor"/>

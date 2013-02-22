@@ -11,7 +11,8 @@
         </h3>
 
         <boot:Paragraph>
-            Afin de traiter au mieux le dossier de pré-inscription de votre enfant, nous vous invitons a compléter les champs ci-dessous.
+            Afin de traiter au mieux le dossier de pré-inscription de votre enfant,
+            nous vous invitons a compléter les champs ci-dessous.
         </boot:Paragraph>
 
         <s:CandidatEditor ui:field="candidatEditor" bacVisible="false"/>

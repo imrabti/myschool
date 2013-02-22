@@ -11,7 +11,8 @@
 
         <boot:Paragraph>
             Cette étape consiste a remplir tous les champs concernant les parents (mère et père) ou le tuteur légal de l'enfant.
-            Ces informations sont capitales afin que vous puissiez suivre en ligne les étapes a travers lesquels passent le dossier de pré-inscription de votre enfant.
+            Ces informations sont capitales afin que vous puissiez suivre en ligne les étapes a travers lesquels passent le dossier
+            de pré-inscription de votre enfant.
         </boot:Paragraph>
 
         <g:ValuePicker ui:field="tabs"/>
