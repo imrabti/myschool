@@ -2,15 +2,11 @@ package com.gsr.myschool.server.repos.spec;
 
 import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.type.DossierStatus;
-import com.gsr.myschool.server.business.Candidat;
-import com.gsr.myschool.server.business.Dossier;
-import com.gsr.myschool.server.business.EtablissementScolaire;
-import com.gsr.myschool.server.business.Fraterie;
+import com.gsr.myschool.server.business.*;
 import com.gsr.myschool.server.business.core.Filiere;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.Query;
 import javax.persistence.criteria.*;
 import java.util.Date;
 import java.util.List;
@@ -91,7 +87,7 @@ public class DossierSpec {
                 fraterieQuery.select(fraterie.<Candidat>get("candidat").<Long>get("id"));
                 fraterieQuery.where(cb.equal(fraterie.<EtablissementScolaire>get("etablissement").<Boolean>get("gsr"), bool));
 
-                 return cb.in(dossierRoot.<Candidat>get("candidat").<Long>get("id")).value(fraterieQuery);
+                return cb.in(dossierRoot.<Candidat>get("candidat").<Long>get("id")).value(fraterieQuery);
             }
         };
     }
@@ -119,6 +115,20 @@ public class DossierSpec {
             @Override
             public Predicate toPredicate(Root<Dossier> dossierRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 return cb.and(dossierRoot.<Long>get("id").in(id));
+            }
+        };
+    }
+
+    public static Specification<Dossier> isParentGsr(final Boolean parentGsr) {
+        return new Specification<Dossier>() {
+            @Override
+            public Predicate toPredicate(Root<Dossier> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                final Subquery<Long> infoParentQuery = query.subquery(Long.class);
+                final Root<InfoParent> parents = infoParentQuery.from(InfoParent.class);
+                infoParentQuery.select(parents.<Dossier>get("dossier").<Long>get("id"));
+                infoParentQuery.where(cb.equal(parents.<Boolean>get("parentGsr"), parentGsr));
+
+                return cb.in(root.<Long>get("id")).value(infoParentQuery);
             }
         };
     }
