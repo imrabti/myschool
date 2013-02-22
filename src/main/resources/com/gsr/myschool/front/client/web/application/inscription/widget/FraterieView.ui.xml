@@ -13,15 +13,10 @@
 
     <g:HTMLPanel>
         <h3 class="{clientResources.sharedStyleCss.mediumTitle}">
-            Fraterie
+            Etape 5 : Fraterie
         </h3>
 
         <boot:Paragraph>
-            Sed volutpat condimentum pharetra. Phasellus arcu magna, viverra eget dapibus ac, aliquam volutpat lacus.
-            Vivamus libero quam, lobortis id egestas at, fermentum in arcu. Suspendisse eu libero tellus.
-            Nam semper enim nec felis vulputate sagittis. Aliquam erat volutpat. Vestibulum convallis diam vel
-            justo porta et luctus justo sodales. Etiam in nisi at neque auctor sodales.
-            Quisque id odio enim, in sagittis justo.
         </boot:Paragraph>
 
         <boot:Well>
