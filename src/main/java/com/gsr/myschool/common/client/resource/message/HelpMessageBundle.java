@@ -69,13 +69,9 @@ public interface HelpMessageBundle extends Messages {
 
     String scolariteEtablissement();
 
-    String scolariteAutreEtablissement();
-
     String scolariteNiveauEtude();
 
-    String scolariteClasse();
-
-    String scolariteAnneeScolaire();
+    String scolariteTypeEnseignement();
 
     String niveauScolaireFiliere();
 

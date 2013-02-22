@@ -5,12 +5,6 @@
 
     <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
-    <ui:style>
-        .tableWrapper {
-            margin-top: 12px;
-        }
-    </ui:style>
-
     <g:HTMLPanel>
         <h3 class="{clientResources.sharedStyleCss.mediumTitle}">
             Etape 3 : Scolarité Actuelle de votre enfant
@@ -20,13 +14,6 @@
             Nous avons besoin de connaître le scolarité actuelle de votre enfant pour mieux comprendre l'orientation que vous souhaitez donner au parcours scolaire de votre enfant. Nous comptons donc sur vous pour remplir tous les champs demandes.
         </boot:Paragraph>
 
-        <boot:Well>
-            <s:ScolariteAnterieurEditor ui:field="scolariteAnterieurEditor"/>
-            <boot:Button text="Ajouter" icon="PLUS" ui:field="addEtablissement"/>
-        </boot:Well>
-
-        <div class="{style.tableWrapper}">
-            <boot:CellTable ui:field="etablissementTable" bordered="true"/>
-        </div>
+        <s:ScolariteActuelleEditor ui:field="scolariteActuelleEditor"/>
     </g:HTMLPanel>
 </ui:UiBinder>

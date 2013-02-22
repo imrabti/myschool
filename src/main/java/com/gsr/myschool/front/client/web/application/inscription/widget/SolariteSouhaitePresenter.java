@@ -21,7 +21,7 @@ import com.gwtplatform.mvp.client.PresenterWidget;
 import javax.validation.ConstraintViolation;
 import java.util.Set;
 
-public class NiveauScolairePresenter extends PresenterWidget<NiveauScolairePresenter.MyView>
+public class SolariteSouhaitePresenter extends PresenterWidget<SolariteSouhaitePresenter.MyView>
         implements ChangeStepEvent.ChangeStepHandler {
     public interface MyView extends ValidatedView {
         void editDossier(DossierProxy dossier);
@@ -37,9 +37,9 @@ public class NiveauScolairePresenter extends PresenterWidget<NiveauScolairePrese
     private Boolean niveauScolaireViolation;
 
     @Inject
-    public NiveauScolairePresenter(final EventBus eventBus, final MyView view,
-                                   final FrontRequestFactory requestFactory,
-                                   final MessageBundle messageBundle) {
+    public SolariteSouhaitePresenter(final EventBus eventBus, final MyView view,
+                                     final FrontRequestFactory requestFactory,
+                                     final MessageBundle messageBundle) {
         super(eventBus, view);
 
         this.requestFactory = requestFactory;

@@ -29,13 +29,13 @@ import com.gsr.myschool.front.client.web.application.inscription.widget.Candidat
 import com.gsr.myschool.front.client.web.application.inscription.widget.FrateriePresenter;
 import com.gsr.myschool.front.client.web.application.inscription.widget.FraterieUiHandlers;
 import com.gsr.myschool.front.client.web.application.inscription.widget.FraterieView;
-import com.gsr.myschool.front.client.web.application.inscription.widget.NiveauScolairePresenter;
-import com.gsr.myschool.front.client.web.application.inscription.widget.NiveauScolaireView;
+import com.gsr.myschool.front.client.web.application.inscription.widget.ScolariteSouhaiteView;
+import com.gsr.myschool.front.client.web.application.inscription.widget.SolariteSouhaitePresenter;
 import com.gsr.myschool.front.client.web.application.inscription.widget.ParentPresenter;
 import com.gsr.myschool.front.client.web.application.inscription.widget.ParentView;
-import com.gsr.myschool.front.client.web.application.inscription.widget.ScolariteAnterieurPresenter;
-import com.gsr.myschool.front.client.web.application.inscription.widget.ScolariteAnterieurUiHandlers;
-import com.gsr.myschool.front.client.web.application.inscription.widget.ScolariteAnterieurView;
+import com.gsr.myschool.front.client.web.application.inscription.widget.ScolariteActuellePresenter;
+import com.gsr.myschool.front.client.web.application.inscription.widget.ScolariteActuelleUiHandlers;
+import com.gsr.myschool.front.client.web.application.inscription.widget.ScolariteActuelleView;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 public class InscriptionModule extends AbstractPresenterModule {
@@ -45,8 +45,8 @@ public class InscriptionModule extends AbstractPresenterModule {
                 .to(new TypeLiteral<SetterUiHandlersStrategy<InscriptionUiHandlers>>() {});
         bind(new TypeLiteral<UiHandlersStrategy<EditInscriptionUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<EditInscriptionUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<ScolariteAnterieurUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<ScolariteAnterieurUiHandlers>>() {});
+        bind(new TypeLiteral<UiHandlersStrategy<ScolariteActuelleUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<ScolariteActuelleUiHandlers>>() {});
         bind(new TypeLiteral<UiHandlersStrategy<FraterieUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<FraterieUiHandlers>>() {});
         bind(new TypeLiteral<UiHandlersStrategy<EtablissementFilterUiHandlers>>() {})
@@ -63,12 +63,12 @@ public class InscriptionModule extends AbstractPresenterModule {
 
         bindSingletonPresenterWidget(ParentPresenter.class, ParentPresenter.MyView.class,
                 ParentView.class);
-        bindSingletonPresenterWidget(NiveauScolairePresenter.class, NiveauScolairePresenter.MyView.class,
-                NiveauScolaireView.class);
+        bindSingletonPresenterWidget(SolariteSouhaitePresenter.class, SolariteSouhaitePresenter.MyView.class,
+                ScolariteSouhaiteView.class);
         bindSingletonPresenterWidget(CandidatPresenter.class, CandidatPresenter.MyView.class,
                 CandidatView.class);
-        bindSingletonPresenterWidget(ScolariteAnterieurPresenter.class, ScolariteAnterieurPresenter.MyView.class,
-                ScolariteAnterieurView.class);
+        bindSingletonPresenterWidget(ScolariteActuellePresenter.class, ScolariteActuellePresenter.MyView.class,
+                ScolariteActuelleView.class);
         bindSingletonPresenterWidget(FrateriePresenter.class, FrateriePresenter.MyView.class,
                 FraterieView.class);
         bindSingletonPresenterWidget(EtablissementFilterPresenter.class, EtablissementFilterPresenter.MyView.class,

@@ -41,10 +41,6 @@
             <boot:AccordionGroup heading="Fraterie" defaultOpen="true">
                 <boot:CellTable ui:field="fraterieTable" bordered="true"/>
             </boot:AccordionGroup>
-
-            <boot:AccordionGroup heading="Scolarité Actuelle" defaultOpen="true">
-                <boot:CellTable ui:field="etablissementTable" bordered="true"/>
-            </boot:AccordionGroup>
         </boot:Accordion>
     </g:HTMLPanel>
 </ui:UiBinder>
