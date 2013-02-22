@@ -40,4 +40,8 @@ public interface DossierFilterDTOProxy extends ValueProxy {
     public FiliereProxy getFiliere();
 
     public void setFiliere(FiliereProxy filiere);
+
+    public Boolean getParentGsr();
+
+    public void setParentGsr(Boolean parentGsr);
 }

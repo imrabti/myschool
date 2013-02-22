@@ -45,6 +45,8 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     DateBoxAppended dateFrom;
     @UiField
     DateBoxAppended dateTill;
+    @UiField
+    CheckBox parentGsr;
 
     private final Driver driver;
 

@@ -149,6 +149,27 @@
                     </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Avez-vous étudie au GSR ?</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:CheckBox ui:field="parentGsr" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Si oui, vous avez fait partie de quelle promotion ?</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:TextBox ui:field="promotionGsr" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Quelle formation aviez-vous suivi ?</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:ValueListBox ui:field="formationGsr" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
         </boot:Form>
     </g:HTMLPanel>
 </ui:UiBinder>

@@ -1,11 +1,9 @@
 package com.gsr.myschool.common.client.ui.dossier;
 
-import com.github.gwtbootstrap.client.ui.ControlGroup;
-import com.github.gwtbootstrap.client.ui.TextArea;
-import com.github.gwtbootstrap.client.ui.TextBox;
-import com.github.gwtbootstrap.client.ui.ValueListBox;
+import com.github.gwtbootstrap.client.ui.*;
 import com.github.gwtbootstrap.datepicker.client.ui.DateBoxAppended;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
+import com.google.gwt.text.shared.AbstractRenderer;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
@@ -21,7 +19,9 @@ import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static com.google.gwt.query.client.GQuery.$;
 
@@ -64,6 +64,12 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
     ControlGroup civiliteWrapper;
     @UiField
     ControlGroup lienParenteWrapper;
+    @UiField
+    CheckBox parentGsr;
+    @UiField
+    TextBox promotionGsr;
+    @UiField(provided = true)
+    ValueListBox<String> formationGsr;
 
     private final Driver driver;
     private final ValueList valueList;
@@ -77,12 +83,20 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
 
         civilite = new ValueListBox<Gender>(new EnumRenderer<Gender>());
         nationality = new ValueListBox<ValueListProxy>(valueListRenderer);
+        formationGsr = new ValueListBox<String>(new AbstractRenderer<String>() {
+            @Override
+            public String render(String object) {
+                return object;
+            }
+        });
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
         setTuteur(false);
 
         nationality.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.NATIONALITY));
+        formationGsr.setValue(null);
+        formationGsr.setAcceptableValues(initListFormations());
 
         $(nom).id("nom");
         $(prenom).id("prenom");
@@ -135,5 +149,14 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
             }
         }
         return null;
+    }
+
+    private List<String> initListFormations() {
+        ArrayList<String> formations = new ArrayList<String>();
+        formations.add("");
+        formations.add("Bilingue enrichie");
+        formations.add("Française");
+
+        return formations;
     }
 }
