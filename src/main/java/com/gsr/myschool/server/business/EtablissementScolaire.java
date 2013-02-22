@@ -10,7 +10,6 @@ public class EtablissementScolaire implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(unique = true)
     private String nom;
     @ManyToOne
     private ValueList ville;
