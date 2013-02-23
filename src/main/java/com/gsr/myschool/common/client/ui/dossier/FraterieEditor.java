@@ -44,8 +44,6 @@ public class FraterieEditor extends Composite implements EditorView<FraterieDTOP
     @UiField
     TextBox prenom;
     @UiField
-    TextBox numDossierGSR;
-    @UiField
     RenderablePanel scolariseFields;
     @UiField
     DateBoxAppended birthDate;
@@ -79,10 +77,10 @@ public class FraterieEditor extends Composite implements EditorView<FraterieDTOP
 
         $(nom).id("nom");
         $(prenom).id("prenom");
-        $(numDossierGSR).id("numDossierGSR");
         $(birthDate).id("birthDate");
         $(birthLocation).id("birthLocation");
 
+        filiere.setValue(TypeEnseignement.BILINGUE);
         filiere.setAcceptableValues(Arrays.asList(TypeEnseignement.values()));
         scolariseFields.setVisible(false);
     }
@@ -119,7 +117,7 @@ public class FraterieEditor extends Composite implements EditorView<FraterieDTOP
     @UiHandler("filiere")
     void onTypeEnseignementChanged(ValueChangeEvent<TypeEnseignement> event) {
         if (event.getValue() == null) {
-            niveau = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
+            niveau.setValue(null);
             niveau.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
         } else {
             List<NiveauEtudeProxy> values = valueList.getNiveauEtudeList(event.getValue().getNomFiliere());

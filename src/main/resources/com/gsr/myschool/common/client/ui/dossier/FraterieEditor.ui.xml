@@ -35,15 +35,6 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>N° dossier GSR</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.fraterieNumDossier}" placement="RIGHT">
-                        <boot:TextBox ui:field="numDossierGSR" width="250px"/>
-                    </boot:Tooltip>
-                </boot:Controls>
-            </boot:ControlGroup>
-
-            <boot:ControlGroup>
                 <boot:ControlLabel>Date de naissance</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.candidatDateNaissance}" placement="RIGHT">
