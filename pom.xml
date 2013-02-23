@@ -397,7 +397,7 @@
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>4.0.2</version>
+            <version>5.0.0</version>
             <exclusions>
                 <exclusion>
                     <artifactId>jdtcore</artifactId>

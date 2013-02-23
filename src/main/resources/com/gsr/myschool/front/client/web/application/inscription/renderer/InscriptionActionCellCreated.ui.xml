@@ -9,11 +9,11 @@
         <a href="javascript:;" class="btn" ui:field="delete">
             <i class="icon-remove"/>
         </a>
+        <a href="javascript:;" style="display: none;" ui:field="print">
+            <i class="icon-print"/>
+        </a>
         <a href="javascript:;" class="btn" ui:field="submit">
             <i class="icon-share"/>
-        </a>
-        <a href="javascript:;" class="btn" ui:field="print">
-            <i class="icon-print"/>
         </a>
     </div>
 </ui:UiBinder>
