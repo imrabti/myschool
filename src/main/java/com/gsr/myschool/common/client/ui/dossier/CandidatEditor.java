@@ -15,9 +15,10 @@ import com.google.gwt.user.datepicker.client.CalendarUtil;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.CandidatProxy;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
+import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
-import com.gsr.myschool.common.client.widget.renderer.ValueListRenderer;
+import com.gsr.myschool.common.client.widget.renderer.ValueListRendererFactory;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
 
@@ -63,13 +64,14 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
     @Inject
     public CandidatEditor(final Binder uiBinder, final Driver driver,
                           final ValueList valueList,
-                          final ValueListRenderer valueListRenderer) {
+                          final SharedMessageBundle messageBundle,
+                          final ValueListRendererFactory valueListRendererFactory) {
         this.driver = driver;
         this.valueList = valueList;
 
-        nationality = new ValueListBox<ValueListProxy>(valueListRenderer);
-        bacSerie = new ValueListBox<ValueListProxy>(valueListRenderer);
-        bacYear = new ValueListBox<ValueListProxy>(valueListRenderer);
+        nationality = new ValueListBox<ValueListProxy>(valueListRendererFactory.create(messageBundle.emptyValueList()));
+        bacSerie = new ValueListBox<ValueListProxy>(valueListRendererFactory.create(messageBundle.emptyValueList()));
+        bacYear = new ValueListBox<ValueListProxy>(valueListRendererFactory.create(messageBundle.emptyValueList()));
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);

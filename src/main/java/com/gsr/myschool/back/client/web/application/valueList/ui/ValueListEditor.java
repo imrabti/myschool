@@ -27,8 +27,9 @@ import com.google.inject.Inject;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.util.EditorView;
-import com.gsr.myschool.common.client.widget.renderer.ValueListRenderer;
+import com.gsr.myschool.common.client.widget.renderer.ValueListRendererFactory;
 
 import java.util.List;
 
@@ -54,10 +55,11 @@ public class ValueListEditor extends Composite implements EditorView<ValueListPr
     @Inject
     public ValueListEditor(final Binder uiBinder, final Driver driver,
                            final BackRequestFactory requestFactory,
-                           final ValueListRenderer valueListRenderer) {
+                           final SharedMessageBundle messageBundle,
+                           final ValueListRendererFactory valueListRendererFactory) {
         this.driver = driver;
         this.requestFactory = requestFactory;
-        this.parent = new ValueListBox<ValueListProxy>(valueListRenderer);
+        this.parent = new ValueListBox<ValueListProxy>(valueListRendererFactory.create(messageBundle.emptyValueList()));
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);

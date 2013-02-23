@@ -18,21 +18,21 @@ package com.gsr.myschool.common.client.widget.renderer;
 
 import com.google.gwt.text.shared.AbstractRenderer;
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
-import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 
 public class ValueListRenderer extends AbstractRenderer<ValueListProxy> {
-    private final SharedMessageBundle messageBundle;
+    private String emptyMessage;
 
     @Inject
-    public ValueListRenderer(final SharedMessageBundle messageBundle) {
-        this.messageBundle = messageBundle;
+    public ValueListRenderer(@Assisted String emptyMessage) {
+        this.emptyMessage = emptyMessage;
     }
 
     @Override
     public String render(ValueListProxy valueListProxy) {
         if (valueListProxy == null) {
-            return messageBundle.emptyValueList();
+            return emptyMessage;
         }
         return valueListProxy.getLabel();
     }
