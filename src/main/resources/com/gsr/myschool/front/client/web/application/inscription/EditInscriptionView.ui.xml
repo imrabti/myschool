@@ -42,10 +42,18 @@
 
         <g:HTMLPanel styleName="{clientResources.sharedStyleCss.buttonContainer}"
                      addStyleNames="{style.noBackground}">
-            <boot:Button ui:field="back" text="Précedent" icon="CHEVRON_LEFT"/>
-            <boot:Button ui:field="next"  text="Suivant" icon="CHEVRON_RIGHT"
-                         iconPosition="RIGHT" styleName="btn btn-primary"/>
-            <boot:Button ui:field="finish" text="Terminer" icon="OK" styleName="btn btn-success"/>
+            <div style="float: left;">
+                <boot:Button ui:field="saveExit" text="Enregistrer et sortir"/>
+            </div>
+
+            <div style="float: right;">
+                <boot:Button ui:field="back" text="Précedent" icon="CHEVRON_LEFT"/>
+                <boot:Button ui:field="next"  text="Suivant" icon="CHEVRON_RIGHT"
+                             iconPosition="RIGHT" styleName="btn btn-primary"/>
+                <boot:Button ui:field="finish" text="Terminer" icon="OK" styleName="btn btn-success"/>
+            </div>
+
+            <div style="clear: both;"/>
         </g:HTMLPanel>
     </g:HTMLPanel>
 </ui:UiBinder>

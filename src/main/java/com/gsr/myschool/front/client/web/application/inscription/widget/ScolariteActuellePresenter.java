@@ -9,6 +9,7 @@ import com.gsr.myschool.common.client.proxy.ScolariteActuelleDTOProxy;
 import com.gsr.myschool.common.client.proxy.ScolariteActuelleProxy;
 import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
 import com.gsr.myschool.common.shared.type.TypeEnseignement;
+import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.request.InscriptionRequest;
 import com.gsr.myschool.front.client.web.application.inscription.WizardStep;
@@ -18,6 +19,8 @@ import com.gsr.myschool.front.client.web.application.inscription.event.Etablisse
 import com.gsr.myschool.front.client.web.application.inscription.popup.EtablissementFilterPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
+import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 
 import javax.validation.ConstraintViolation;
 import java.util.Set;
@@ -35,6 +38,7 @@ public class ScolariteActuellePresenter extends PresenterWidget<ScolariteActuell
 
     private final FrontRequestFactory requestFactory;
     private final EtablissementFilterPresenter etablissementFilterPresenter;
+    private final PlaceManager placeManager;
 
     private InscriptionRequest currentContext;
     private ScolariteActuelleDTOProxy currentScolarite;
@@ -44,10 +48,12 @@ public class ScolariteActuellePresenter extends PresenterWidget<ScolariteActuell
     @Inject
     public ScolariteActuellePresenter(final EventBus eventBus, final MyView view,
                                       final FrontRequestFactory requestFactory,
+                                      final PlaceManager placeManager,
                                       final EtablissementFilterPresenter etablissementFilterPresenter) {
         super(eventBus, view);
 
         this.requestFactory = requestFactory;
+        this.placeManager = placeManager;
         this.etablissementFilterPresenter = etablissementFilterPresenter;
 
         getView().setUiHandlers(this);
@@ -90,7 +96,11 @@ public class ScolariteActuellePresenter extends PresenterWidget<ScolariteActuell
                         getView().clearErrors();
                         getView().editScolariteAnterieur(currentScolarite);
 
-                        DisplayStepEvent.fire(this, event.getNextStep());
+                        if (event.getNextStep() == null) {
+                            placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
+                        } else {
+                            DisplayStepEvent.fire(this, event.getNextStep());
+                        }
                     }
                 });
             } else {

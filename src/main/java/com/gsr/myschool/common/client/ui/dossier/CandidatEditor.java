@@ -5,9 +5,9 @@ import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.github.gwtbootstrap.datepicker.client.ui.DateBoxAppended;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.RenderablePanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -78,21 +78,6 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
         bacYear.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.BAC_YEAR));
         bacSerie.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.BAC_SERIE));
 
-        birthDate.addValueChangeHandler(new ValueChangeHandler<Date>() {
-            @Override
-            public void onValueChange(ValueChangeEvent<Date> event) {
-                Date dateofbirth = event.getValue();
-
-                CalendarUtil.addMonthsToDate(dateofbirth, 192);
-
-                if (dateofbirth.after(new Date())) {
-                    setBacVisible(false);
-                } else {
-                    setBacVisible(true);
-                }
-            }
-        });
-
         $(firstname).id("firstname");
         $(lastname).id("lastname");
         $(birthDate).id("birthDate");
@@ -114,6 +99,10 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
         if (candidat.getNationality() == null) {
             nationality.setValue(getDefaultNationality());
         }
+
+        if (candidat.getBirthDate() != null) {
+            infosBac.setVisible(checkCinVisibility(candidat.getBirthDate()));
+        }
     }
 
     @Override
@@ -128,6 +117,20 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
 
     public void setBacVisible(Boolean bool) {
         infosBac.setVisible(bool);
+    }
+
+    @UiHandler("birthDate")
+    void onDateNaissanceChanged(ValueChangeEvent<Date> event) {
+        infosBac.setVisible(checkCinVisibility(event.getValue()));
+    }
+
+    private Boolean checkCinVisibility(Date dateNaissance) {
+        CalendarUtil.addMonthsToDate(dateNaissance, 192);
+        if (dateNaissance.after(new Date())) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private ValueListProxy getDefaultNationality() {
