@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2_cursus" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.1000000000000045"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="17"/>
+	<subDataset name="Table Dataset 1"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="20" splitType="Prevent">
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="-12" y="0" width="255" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Résultats de la dernière année du Lycée]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="700" splitType="Prevent">
+			<staticText>
+				<reportElement positionType="Float" x="-15" y="116" width="518" height="37"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[20....../20.......   Classe ...................... Série ....................... Lycée ............................... Ville .........................................
+20....../20.......   Classe ...................... Série ....................... Lycée ..........................-.... Ville .........................................
+20....../20.......   Classe ...................... Série ....................... Lycée ............................... Ville .........................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="-12" y="10" width="214" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cursus scolaire]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="-12" y="41" width="538" height="62"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Monsieur le Directeur,
+Le choix d'une filière (Scientifique ou Economique et Commerciale) requiert des compétences dans les matières
+principales et parce que l'orientation de nos futures générations est notre responsabilité commune, nous vous
+invitons à remplir cette page et à la remettre dans les plus brefs delais au candidat.
+Nous vous remercions pour votre collaboration.
+A partir des trois dernières années du Lycée]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="-12" y="166" width="283" height="25"/>
+				<textElement/>
+				<text><![CDATA[Effectif de la classe : .............................
+Année scolaire        : .............................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="-16" y="427" width="395" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Appréciations motivées des professeurs de la classe de Terminale]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="427" y="232" width="42" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="7" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Dernière
+note]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="391" y="232" width="35" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[1ère
+note]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="320" y="232" width="36" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Moyenne
+de l'élève]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="284" y="232" width="35" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Dernière
+note]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="173" y="202" width="147" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[1er Semestre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="320" y="202" width="149" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[2e Semestre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="247" y="232" width="36" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[1ère
+note]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="356" y="232" width="35" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Moyenne
+de la classe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="173" y="232" width="38" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Moyenne
+de l'élève]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="211" y="232" width="36" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Moyenne
+de la classe]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="-14" y="262" width="483" height="158" forecolor="#000000"/>
+			</rectangle>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="-13" y="290" width="481" height="1" forecolor="#000000"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="-13" y="331" width="481" height="1" forecolor="#000000"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="-13" y="359" width="481" height="1" forecolor="#000000"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="173" y="263" width="1" height="157" forecolor="#000000"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="283" y="262" width="1" height="158" forecolor="#000000"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="210" y="262" width="1" height="158" forecolor="#000000"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="247" y="263" width="1" height="157" forecolor="#000000"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="319" y="262" width="1" height="158" forecolor="#000000"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="356" y="262" width="1" height="158" forecolor="#000000"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="391" y="263" width="1" height="157" forecolor="#000000"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="426" y="262" width="1" height="158" forecolor="#000000"/>
+			</line>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="-14" y="202" width="187" height="60" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Disciplines]]></text>
+			</staticText>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="-13" y="389" width="481" height="1" forecolor="#000000"/>
+			</line>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="-17" y="449" width="217" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Disciplines]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="312" y="449" width="157" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Situation dans la classe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="200" y="449" width="113" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Appréciations]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="-17" y="479" width="486" height="210" forecolor="#000000"/>
+			</rectangle>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="199" y="479" width="1" height="210" forecolor="#000000"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="312" y="480" width="1" height="210" forecolor="#000000"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="-17" y="521" width="485" height="1" forecolor="#000000"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="-16" y="563" width="485" height="1" forecolor="#000000"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="-16" y="606" width="485" height="1" forecolor="#000000"/>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="-16" y="649" width="485" height="1" forecolor="#000000"/>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="-13" y="263" width="186" height="27"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Mathématiques
+Nom de l'enseignant ..........................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="-13" y="290" width="185" height="41"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Economie, ou TQG (Bac Marocain Eco et
+SGC, Bac Français ES et STG)
+
+Nom de l'enseignant ...............................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="-13" y="332" width="185" height="27"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Français
+Nom de l'enseignant ...............................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="-12" y="361" width="185" height="27"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Philosophie
+Nom de l'enseignant ...............................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="-12" y="392" width="185" height="27"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Anglais
+Nom de l'enseignant ...............................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="-16" y="479" width="215" height="42"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Mathématiques
+
+Nom de l'enseignant ..........................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="-16" y="607" width="215" height="42"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Philosophie
+
+Nom de l'enseignant .........................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="-16" y="564" width="215" height="42"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Français
+
+Nom de l'enseignant .........................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="-16" y="522" width="215" height="41"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Economie, ou TQG (Bac Marocain Eco et SGC,
+Bac Français ES et STG)
+
+Nom de l'enseignant .........................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="-16" y="650" width="215" height="39"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Anglais
+
+Nom de l'enseignant .........................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="312" y="480" width="157" height="41"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[
+
+   1er quart  2ème    3ème    4ème]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="313" y="522" width="156" height="41"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[
+
+   1er quart  2ème    3ème    4ème]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="313" y="563" width="156" height="43"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[
+
+   1er quart  2ème    3ème    4ème]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="314" y="606" width="155" height="43"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[
+
+   1er quart  2ème    3ème    4ème]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="313" y="649" width="156" height="38"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[
+
+   1er quart  2ème    3ème    4ème]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-12" y="29" width="475" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

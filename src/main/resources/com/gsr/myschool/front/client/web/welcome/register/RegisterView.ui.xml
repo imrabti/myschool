@@ -2,6 +2,7 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
 
+    <ui:with field="helpMessage" type="com.gsr.myschool.common.client.resource.message.HelpMessageBundle"/>
     <ui:with field="sharedResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
     <ui:with field="resources" type="com.gsr.myschool.front.client.resource.FrontResources"/>
 
@@ -36,7 +37,9 @@
 
             <boot:Form type="HORIZONTAL">
                 <boot:ControlGroup>
-                    <boot:ControlLabel>Email</boot:ControlLabel>
+                    <boot:Tooltip text="{helpMessage.emailHelp}" placement="TOP">
+                        <boot:ControlLabel>Email</boot:ControlLabel>
+                    </boot:Tooltip>
                     <boot:Controls>
                         <boot:TextBox ui:field="email"/>
                     </boot:Controls>
@@ -66,14 +69,18 @@
                 <boot:ControlGroup>
                     <boot:ControlLabel>Mot de passe</boot:ControlLabel>
                     <boot:Controls>
-                        <boot:PasswordTextBox ui:field="password"/>
+                        <boot:Tooltip text="{helpMessage.passwordHelp}" placement="TOP">
+                            <boot:PasswordTextBox ui:field="password" />
+                        </boot:Tooltip>
                     </boot:Controls>
                 </boot:ControlGroup>
 
                 <boot:ControlGroup>
                     <boot:ControlLabel>Confirmation mot de passe</boot:ControlLabel>
                     <boot:Controls>
-                        <boot:PasswordTextBox ui:field="passwordConfirmation"/>
+                        <boot:Tooltip text="{helpMessage.passwordHelp}" placement="TOP">
+                            <boot:PasswordTextBox ui:field="passwordConfirmation"/>
+                        </boot:Tooltip>
                     </boot:Controls>
                 </boot:ControlGroup>
             </boot:Form>
