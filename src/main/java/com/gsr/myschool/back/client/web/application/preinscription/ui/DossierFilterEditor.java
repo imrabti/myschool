@@ -20,7 +20,6 @@ import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
-import com.gsr.myschool.common.client.widget.renderer.ValueListRenderer;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 
 import java.util.ArrayList;

@@ -26,4 +26,6 @@ public interface SharedMessageBundle extends Messages {
     String noResultFound();
 
     String emptyValueList();
+
+    String allValueList();
 }

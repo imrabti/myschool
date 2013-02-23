@@ -10,6 +10,7 @@ import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
 import com.gsr.myschool.common.client.widget.RowLabelValueFactory;
 import com.gsr.myschool.common.client.widget.messages.MessageModule;
+import com.gsr.myschool.common.client.widget.renderer.ValueListRendererFactory;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 public class CommonModule extends AbstractPresenterModule {
@@ -26,5 +27,6 @@ public class CommonModule extends AbstractPresenterModule {
         requestStaticInjection(ValidatedReceiverImpl.class);
 
         install(new GinFactoryModuleBuilder().build(RowLabelValueFactory.class));
+        install(new GinFactoryModuleBuilder().build(ValueListRendererFactory.class));
     }
 }

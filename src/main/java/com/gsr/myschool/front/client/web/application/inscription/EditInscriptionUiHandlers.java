@@ -4,4 +4,6 @@ import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface EditInscriptionUiHandlers extends UiHandlers {
     void changeStep(WizardStep currentStep, WizardStep nextStep);
+
+    void saveAndExit(WizardStep currentStep);
 }

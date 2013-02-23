@@ -5,12 +5,15 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.ValidatedView;
 import com.gsr.myschool.common.client.proxy.CandidatProxy;
 import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
+import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.request.InscriptionRequest;
 import com.gsr.myschool.front.client.web.application.inscription.WizardStep;
 import com.gsr.myschool.front.client.web.application.inscription.event.ChangeStepEvent;
 import com.gsr.myschool.front.client.web.application.inscription.event.DisplayStepEvent;
 import com.gwtplatform.mvp.client.PresenterWidget;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
+import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 
 import javax.validation.ConstraintViolation;
 import java.util.Set;
@@ -24,6 +27,7 @@ public class CandidatPresenter extends PresenterWidget<CandidatPresenter.MyView>
     }
 
     private final FrontRequestFactory requestFactory;
+    private final PlaceManager placeManager;
 
     private InscriptionRequest currentContext;
     private CandidatProxy currentCandidat;
@@ -31,10 +35,12 @@ public class CandidatPresenter extends PresenterWidget<CandidatPresenter.MyView>
 
     @Inject
     public CandidatPresenter(final EventBus eventBus, final MyView view,
-                             final FrontRequestFactory requestFactory) {
+                             final FrontRequestFactory requestFactory,
+                             final PlaceManager placeManager) {
         super(eventBus, view);
 
         this.requestFactory = requestFactory;
+        this.placeManager = placeManager;
     }
 
     @Override
@@ -72,7 +78,11 @@ public class CandidatPresenter extends PresenterWidget<CandidatPresenter.MyView>
                         getView().clearErrors();
                         getView().editCandidat(currentCandidat);
 
-                        DisplayStepEvent.fire(this, event.getNextStep());
+                        if (event.getNextStep() == null) {
+                            placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
+                        } else {
+                            DisplayStepEvent.fire(this, event.getNextStep());
+                        }
                     }
                 });
             } else {

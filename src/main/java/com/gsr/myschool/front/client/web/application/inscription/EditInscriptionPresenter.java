@@ -120,6 +120,11 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
     }
 
     @Override
+    public void saveAndExit(WizardStep currentStep) {
+        ChangeStepEvent.fire(this, currentStep, null);
+    }
+
+    @Override
     protected void onBind() {
         addRegisteredHandler(DisplayStepEvent.getType(), this);
     }

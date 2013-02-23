@@ -11,10 +11,11 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.InfoParentProxy;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
+import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
-import com.gsr.myschool.common.client.widget.renderer.ValueListRenderer;
+import com.gsr.myschool.common.client.widget.renderer.ValueListRendererFactory;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
@@ -77,12 +78,13 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
     @Inject
     public ParentEditor(final Binder uiBinder, final Driver driver,
                         final ValueList valueList,
-                        final ValueListRenderer valueListRenderer) {
+                        final SharedMessageBundle messageBundle,
+                        final ValueListRendererFactory valueListRendererFactory) {
         this.driver = driver;
         this.valueList = valueList;
 
         civilite = new ValueListBox<Gender>(new EnumRenderer<Gender>());
-        nationality = new ValueListBox<ValueListProxy>(valueListRenderer);
+        nationality = new ValueListBox<ValueListProxy>(valueListRendererFactory.create(messageBundle.emptyValueList()));
         formationGsr = new ValueListBox<String>(new AbstractRenderer<String>() {
             @Override
             public String render(String object) {

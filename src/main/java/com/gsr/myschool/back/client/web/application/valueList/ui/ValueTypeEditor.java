@@ -28,9 +28,10 @@ import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
-import com.gsr.myschool.common.client.widget.renderer.ValueListRenderer;
+import com.gsr.myschool.common.client.widget.renderer.ValueListRendererFactory;
 import com.gsr.myschool.common.client.widget.renderer.ValueTypeRenderer;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
 
@@ -61,13 +62,14 @@ public class ValueTypeEditor extends Composite implements EditorView<ValueTypePr
     @Inject
     public ValueTypeEditor(final Binder uiBinder, final Driver driver,
                            final BackRequestFactory requestFactory,
-                           final ValueListRenderer valueListRenderer,
+                           final ValueListRendererFactory valueListRendererFactory,
+                           final SharedMessageBundle messageBundle,
                            final ValueTypeRenderer valueTypeRenderer) {
         this.driver = driver;
         this.requestFactory = requestFactory;
         this.code = new ValueListBox<ValueTypeCode>(new EnumRenderer<ValueTypeCode>());
         this.parent = new ValueListBox<ValueTypeProxy>(valueTypeRenderer);
-        this.regex = new ValueListBox<ValueListProxy>(valueListRenderer);
+        this.regex = new ValueListBox<ValueListProxy>(valueListRendererFactory.create(messageBundle.emptyValueList()));
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
