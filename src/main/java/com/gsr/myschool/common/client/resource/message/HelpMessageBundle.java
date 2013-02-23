@@ -3,6 +3,12 @@ package com.gsr.myschool.common.client.resource.message;
 import com.google.gwt.i18n.client.Messages;
 
 public interface HelpMessageBundle extends Messages {
+    String loginIdHelp();
+
+    String passwordHelp();
+
+    String emailHelp();
+
     String infoParentNom();
 
     String infoParentPrenom();
