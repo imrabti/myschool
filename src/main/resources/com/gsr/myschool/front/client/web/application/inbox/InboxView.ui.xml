@@ -13,8 +13,8 @@
             <div>
                 <boot:ButtonGroup>
                     <boot:Button text="Supprimer" ui:field="delete"/>
-                    <boot:Button text="Comme Lus" ui:field="read"/>
-                    <boot:Button text="Comme Non Lus" ui:field="unread"/>
+                    <boot:Button text="Marquer comme Lus" ui:field="read"/>
+                    <boot:Button text="Marquer comme Non Lus" ui:field="unread"/>
                 </boot:ButtonGroup>
             </div>
             <span style="display: block; clear: both;"/>

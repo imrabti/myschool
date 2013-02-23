@@ -100,6 +100,7 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
             niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(event.getValue().getNom()));
         } else {
             niveauEtude.setValue(null);
+            niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
         }
 
         initSecondChoce(event.getValue());
@@ -112,6 +113,7 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
             niveauEtude2.setAcceptableValues(valueList.getNiveauEtudeList(event.getValue().getNom()));
         } else {
             niveauEtude2.setValue(null);
+            niveauEtude2.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
         }
     }
 
@@ -124,7 +126,9 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
 
     private void initSecondChoce(FiliereProxy filiere) {
         if (filiere == null) {
+            filiere2.setValue(null);
             filiere2.setAcceptableValues(new ArrayList<FiliereProxy>());
+            niveauEtude2.setValue(null);
             niveauEtude2.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
             return;
         }

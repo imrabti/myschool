@@ -95,8 +95,9 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
         setTuteur(false);
 
         nationality.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.NATIONALITY));
-        formationGsr.setValue(null);
+
         formationGsr.setAcceptableValues(initListFormations());
+        formationGsr.setValue("Française");
 
         $(nom).id("nom");
         $(prenom).id("prenom");
@@ -121,6 +122,9 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
 
         civilite.setValue(Gender.MALE);
         civilite.setAcceptableValues(Arrays.asList(Gender.values()));
+
+        formationGsr.setValue("Française");
+        formationGsr.setAcceptableValues(initListFormations());
 
         if (infoParent.getNationality() == null) {
             nationality.setValue(getDefaultNationality());
@@ -153,7 +157,6 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
 
     private List<String> initListFormations() {
         ArrayList<String> formations = new ArrayList<String>();
-        formations.add("");
         formations.add("Bilingue enrichie");
         formations.add("Française");
 

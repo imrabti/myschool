@@ -82,6 +82,17 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
     @Override
     public void addFraterie(FraterieDTOProxy fraterie) {
         Long dossierId = currentDossier.getId();
+
+        if (fraterie.getScolarise()) {
+            if (fraterie.getEtablissement() == null || fraterie.getFiliere() == null) {
+                Message message = new Message.Builder(messageBundle.fraterieFaillure())
+                        .style(AlertType.ERROR).closeDelay(CloseDelay.DEFAULT).build();
+
+                MessageEvent.fire(this, message);
+                return;
+            }
+        }
+
         if (fraterie.getNiveau() != null) {
             fraterie.setNiveau(currentContext.edit(fraterie.getNiveau()));
         }
