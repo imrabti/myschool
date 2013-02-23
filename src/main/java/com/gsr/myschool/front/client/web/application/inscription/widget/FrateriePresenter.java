@@ -143,13 +143,16 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
 
     @Override
     public void selectEtablissement() {
+        etablissementFilterPresenter.setTargetStep(WizardStep.STEP_5);
         addToPopupSlot(etablissementFilterPresenter);
     }
 
     @Override
     public void onEtablissementSelected(EtablissementSelectedEvent event) {
-        getView().setEtablissement(event.getSelectedEtablissement());
-        currentEtablissement = event.getSelectedEtablissement();
+        if (event.getStep() == WizardStep.STEP_5) {
+            getView().setEtablissement(event.getSelectedEtablissement());
+            currentEtablissement = event.getSelectedEtablissement();
+        }
     }
 
     public void editData(DossierProxy dossierProxy) {

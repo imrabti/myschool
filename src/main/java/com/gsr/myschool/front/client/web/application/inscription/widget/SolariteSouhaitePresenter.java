@@ -10,6 +10,7 @@ import com.gsr.myschool.common.client.ui.dossier.NiveauScolaireEditor;
 import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
+import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.request.InscriptionRequest;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
@@ -17,6 +18,8 @@ import com.gsr.myschool.front.client.web.application.inscription.WizardStep;
 import com.gsr.myschool.front.client.web.application.inscription.event.ChangeStepEvent;
 import com.gsr.myschool.front.client.web.application.inscription.event.DisplayStepEvent;
 import com.gwtplatform.mvp.client.PresenterWidget;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
+import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 
 import javax.validation.ConstraintViolation;
 import java.util.Set;
@@ -31,6 +34,7 @@ public class SolariteSouhaitePresenter extends PresenterWidget<SolariteSouhaiteP
 
     private final FrontRequestFactory requestFactory;
     private final MessageBundle messageBundle;
+    private final PlaceManager placeManager;
 
     private InscriptionRequest currentContext;
     private DossierProxy currentDossier;
@@ -39,11 +43,13 @@ public class SolariteSouhaitePresenter extends PresenterWidget<SolariteSouhaiteP
     @Inject
     public SolariteSouhaitePresenter(final EventBus eventBus, final MyView view,
                                      final FrontRequestFactory requestFactory,
-                                     final MessageBundle messageBundle) {
+                                     final MessageBundle messageBundle,
+                                     final PlaceManager placeManager) {
         super(eventBus, view);
 
         this.requestFactory = requestFactory;
         this.messageBundle = messageBundle;
+        this.placeManager = placeManager;
     }
 
     @Override
@@ -68,11 +74,12 @@ public class SolariteSouhaitePresenter extends PresenterWidget<SolariteSouhaiteP
             }
 
             if ((NiveauScolaireEditor.MISSION.equals(currentDossier.getFiliere().getNom())
-                    || NiveauScolaireEditor.BILINGUE.equals(currentDossier.getFiliere().getNom())) && currentDossier.getNiveauEtude2() == null) {
+                    || NiveauScolaireEditor.BILINGUE.equals(currentDossier.getFiliere().getNom()))
+                    && currentDossier.getNiveauEtude2() == null) {
                 Message message = new Message.Builder(messageBundle.niveauScolaireFaillure())
                         .style(AlertType.ERROR).closeDelay(CloseDelay.DEFAULT).build();
-
                 MessageEvent.fire(this, message);
+
                 return;
             }
 
@@ -94,7 +101,11 @@ public class SolariteSouhaitePresenter extends PresenterWidget<SolariteSouhaiteP
                         getView().clearErrors();
                         getView().editDossier(currentDossier);
 
-                        DisplayStepEvent.fire(this, event.getNextStep());
+                        if (event.getNextStep() == null) {
+                            placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
+                        } else {
+                            DisplayStepEvent.fire(this, event.getNextStep());
+                        }
                     }
                 });
             } else {

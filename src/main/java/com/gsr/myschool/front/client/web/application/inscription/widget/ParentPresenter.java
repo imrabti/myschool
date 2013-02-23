@@ -12,6 +12,7 @@ import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.type.ParentType;
+import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.request.InscriptionRequest;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
@@ -19,6 +20,8 @@ import com.gsr.myschool.front.client.web.application.inscription.WizardStep;
 import com.gsr.myschool.front.client.web.application.inscription.event.ChangeStepEvent;
 import com.gsr.myschool.front.client.web.application.inscription.event.DisplayStepEvent;
 import com.gwtplatform.mvp.client.PresenterWidget;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
+import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 
 import javax.validation.ConstraintViolation;
 import java.util.List;
@@ -46,6 +49,7 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
 
     private final FrontRequestFactory requestFactory;
     private final MessageBundle messageBundle;
+    private final PlaceManager placeManager;
 
     private InscriptionRequest currentPereContext;
     private InfoParentProxy currentPere;
@@ -65,11 +69,13 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
     @Inject
     public ParentPresenter(final EventBus eventBus, final MyView view,
                            final FrontRequestFactory requestFactory,
-                           final MessageBundle messageBundle) {
+                           final MessageBundle messageBundle,
+                           final PlaceManager placeManager) {
         super(eventBus, view);
 
         this.requestFactory = requestFactory;
         this.messageBundle = messageBundle;
+        this.placeManager = placeManager;
     }
 
     @Override
@@ -178,7 +184,11 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
                     }
 
                     if (pereValid && mereValid) {
-                        DisplayStepEvent.fire(this, nextStep);
+                        if (nextStep == null) {
+                            placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
+                        } else {
+                            DisplayStepEvent.fire(this, nextStep);
+                        }
                     }
                 }
             });
@@ -211,12 +221,16 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
 
                     getView().editMere(currentMere);
 
-                    if (getView().selectedTab()  == ParentType.MERE) {
+                    if (getView().selectedTab() == ParentType.MERE) {
                         getView().clearErrors();
                     }
 
                     if (pereValid && mereValid) {
-                        DisplayStepEvent.fire(this, nextStep);
+                        if (nextStep == null) {
+                            placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
+                        } else {
+                            DisplayStepEvent.fire(this, nextStep);
+                        }
                     }
                 }
             });
@@ -249,7 +263,11 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
                     getView().clearErrors();
                     getView().editTuteur(currentTuteur);
 
-                    DisplayStepEvent.fire(this, nextStep);
+                    if (nextStep == null) {
+                        placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
+                    } else {
+                        DisplayStepEvent.fire(this, nextStep);
+                    }
                 }
             });
         } else {

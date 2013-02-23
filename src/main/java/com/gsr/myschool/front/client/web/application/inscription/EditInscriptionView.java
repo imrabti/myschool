@@ -39,6 +39,8 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
     Button next;
     @UiField
     Button finish;
+    @UiField
+    Button saveExit;
 
     private WizardStep currentStep;
 
@@ -93,26 +95,31 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
                 next.setVisible(true);
                 back.setVisible(false);
                 finish.setVisible(false);
+                saveExit.setVisible(true);
                 break;
             case STEP_2:
                 finish.setVisible(false);
                 back.setVisible(true);
                 next.setVisible(true);
+                saveExit.setVisible(true);
                 break;
             case STEP_3:
                 finish.setVisible(false);
                 back.setVisible(true);
                 next.setVisible(true);
+                saveExit.setVisible(true);
                 break;
             case STEP_4:
                 finish.setVisible(false);
                 back.setVisible(true);
                 next.setVisible(true);
+                saveExit.setVisible(true);
                 break;
             case STEP_5:
                 back.setVisible(true);
                 next.setVisible(false);
                 finish.setVisible(true);
+                saveExit.setVisible(false);
                 break;
         }
 
@@ -130,6 +137,11 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
     void onBackClicked(ClickEvent event) {
         WizardStep previous = WizardStep.value(currentStep.ordinal() - 1);
         goToStep(previous);
+    }
+
+    @UiHandler("saveExit")
+    void onSaveExitClicked(ClickEvent event) {
+        getUiHandlers().saveAndExit(currentStep);
     }
 
     @UiHandler("finish")

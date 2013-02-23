@@ -31,6 +31,8 @@ import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.front.client.web.application.ApplicationPresenter;
+import com.gsr.myschool.front.client.web.application.inscription.event.DossierSubmitEvent;
+import com.gsr.myschool.front.client.web.application.inscription.popup.ConfirmationInscriptionPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -41,10 +43,11 @@ import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView, InscriptionPresenter.MyProxy>
-        implements InscriptionUiHandlers {
+        implements InscriptionUiHandlers, DossierSubmitEvent.DossierSubmitHandler {
     public interface MyView extends View, HasUiHandlers<InscriptionUiHandlers> {
         void setData(List<DossierProxy> data);
 
@@ -62,17 +65,22 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
     private final FrontRequestFactory requestFactory;
     private final PlaceManager placeManager;
     private final MessageBundle messageBundle;
+    private final ConfirmationInscriptionPresenter confirmationInscriptionPresenter;
+
+    private DossierProxy submittedDossier;
 
     @Inject
     public InscriptionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                                 final FrontRequestFactory requestFactory,
                                 final PlaceManager placeManager,
-                                final MessageBundle messageBundle) {
+                                final MessageBundle messageBundle,
+                                final ConfirmationInscriptionPresenter confirmationInscriptionPresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
         this.placeManager = placeManager;
         this.messageBundle = messageBundle;
+        this.confirmationInscriptionPresenter = confirmationInscriptionPresenter;
 
         getView().setUiHandlers(this);
     }
@@ -122,27 +130,39 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
 
     @Override
     public void submitInscription(DossierProxy dossier) {
-        if (Window.confirm(messageBundle.inscriptionSubmitConf())) {
-            Long dossierId = dossier.getId();
-            requestFactory.inscriptionService().submitInscription(dossierId).fire(new ReceiverImpl<List<String>>() {
-                @Override
-                public void onSuccess(List<String> response) {
-                    if (response.isEmpty()) {
-                        Message message = new Message.Builder(messageBundle.inscriptionSubmitSuccess())
-                                .style(AlertType.SUCCESS).closeDelay(CloseDelay.DEFAULT).build();
-                        MessageEvent.fire(this, message);
-                        loadAllInscriptions();
-                    } else {
-                        getView().showErrors(response);
-                    }
-                }
-            });
-        }
+        submittedDossier = dossier;
+        addToPopupSlot(confirmationInscriptionPresenter);
     }
 
     @Override
     public void printInscription(DossierProxy dossier) {
-        printDossier(dossier);
+        ReportRequestBuilder requestBuilder = new ReportRequestBuilder();
+        requestBuilder.buildData(dossier.getId().toString());
+        requestBuilder.sendRequest();
+    }
+
+    @Override
+    public void onDossierSubmit(DossierSubmitEvent event) {
+        if (event.getAgreement()) {
+            if (Window.confirm(messageBundle.inscriptionSubmitConf())) {
+                Long dossierId = submittedDossier.getId();
+                requestFactory.inscriptionService().submitInscription(dossierId).fire(new ReceiverImpl<List<String>>() {
+                    @Override
+                    public void onSuccess(List<String> response) {
+                        if (response.isEmpty()) {
+                            Message message = new Message.Builder(messageBundle.inscriptionSubmitSuccess())
+                                    .style(AlertType.SUCCESS).build();
+                            MessageEvent.fire(this, message);
+                            loadAllInscriptions();
+                        } else {
+                            getView().showErrors(response);
+                        }
+                    }
+                });
+            }
+        } else {
+            getView().showErrors(Arrays.asList(new String[] {messageBundle.declarationHonneurFaillure()}));
+        }
     }
 
     @Override
@@ -151,10 +171,9 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
         getView().clearErrors();
     }
 
-    private void printDossier(DossierProxy dossier) {
-        ReportRequestBuilder requestBuilder = new ReportRequestBuilder();
-        requestBuilder.buildData(dossier.getId().toString());
-        requestBuilder.sendRequest();
+    @Override
+    protected void onBind() {
+        addRegisteredHandler(DossierSubmitEvent.getType(), this);
     }
 
     private void loadAllInscriptions() {

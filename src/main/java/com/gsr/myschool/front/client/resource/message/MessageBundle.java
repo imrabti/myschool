@@ -78,4 +78,6 @@ public interface MessageBundle extends Messages {
     String niveauScolaireFaillure();
 
     String fraterieFaillure();
+
+    String declarationHonneurFaillure();
 }

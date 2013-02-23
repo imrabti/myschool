@@ -1,8 +1,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-             xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:s='urn:import:com.gsr.myschool.common.client.widget'
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'
-             xmlns:h="urn:import:com.google.gwt.user.client.ui">
+             xmlns:g="urn:import:com.google.gwt.user.client.ui">
 
     <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
@@ -23,7 +22,7 @@
         <g:FlowPanel>
             <s:ModalHeader ui:field="modalHeader" text="Séléction d'établissement"/>
 
-            <h:HTMLPanel styleName="{style.contentWrapper}">
+            <g:HTMLPanel styleName="{style.contentWrapper}">
                 <boot:WellForm type="INLINE">
                     <boot:ControlLabel styleName="{style.marginRight}">Ville</boot:ControlLabel>
                     <boot:ValueListBox ui:field="ville" width="160px" styleName="{style.marginRight}"/>
@@ -35,11 +34,11 @@
                 </boot:WellForm>
 
                 <boot:CellTable ui:field="etablissementTable" bordered="true"/>
-            </h:HTMLPanel>
+            </g:HTMLPanel>
 
             <g:HTMLPanel styleName="{resource.sharedStyleCss.buttonContainerPopup}">
                 <boot:Button ui:field="cancel" text="Annuler"/>
-                <boot:Button ui:field="choose"  text="Séléctionner" icon="CHECK"
+                <boot:Button ui:field="choose"  text="Séléctionner" icon="CHECK" enabled="false"
                              styleName="btn btn-primary"/>
             </g:HTMLPanel>
         </g:FlowPanel>
