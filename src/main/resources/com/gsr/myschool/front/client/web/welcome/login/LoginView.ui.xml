@@ -2,6 +2,7 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
 
+    <ui:with field="helpMessage" type="com.gsr.myschool.common.client.resource.message.HelpMessageBundle"/>
     <ui:with field="sharedResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
     <ui:with field="resources" type="com.gsr.myschool.front.client.resource.FrontResources"/>
 
@@ -31,16 +32,20 @@
 
             <boot:Form type="VERTICAL">
                 <boot:ControlGroup>
-                    <boot:ControlLabel>Email</boot:ControlLabel>
+                    <boot:ControlLabel>Identifiant</boot:ControlLabel>
                     <boot:Controls>
-                        <boot:TextBox ui:field="username" width="250px"/>
+                        <boot:Tooltip text="{helpMessage.loginIdHelp}" placement="TOP">
+                            <boot:TextBox ui:field="username" width="250px"/>
+                        </boot:Tooltip>
                     </boot:Controls>
                 </boot:ControlGroup>
 
                 <boot:ControlGroup>
-                    <boot:ControlLabel>Password</boot:ControlLabel>
+                    <boot:ControlLabel>Mot de passe</boot:ControlLabel>
                     <boot:Controls>
-                        <boot:PasswordTextBox ui:field="password" width="250px"/>
+                        <boot:Tooltip text="{helpMessage.passwordHelp}" placement="TOP">
+                            <boot:PasswordTextBox ui:field="password" width="250px"/>
+                        </boot:Tooltip>
                     </boot:Controls>
                 </boot:ControlGroup>
             </boot:Form>
