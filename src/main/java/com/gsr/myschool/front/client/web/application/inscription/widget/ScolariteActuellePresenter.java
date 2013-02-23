@@ -111,12 +111,15 @@ public class ScolariteActuellePresenter extends PresenterWidget<ScolariteActuell
 
     @Override
     public void onEtablissementSelected(EtablissementSelectedEvent event) {
-        getView().setEtablissement(event.getSelectedEtablissement());
-        selectedEtablissement = event.getSelectedEtablissement();
+        if (event.getStep() == WizardStep.STEP_3) {
+            getView().setEtablissement(event.getSelectedEtablissement());
+            selectedEtablissement = event.getSelectedEtablissement();
+        }
     }
 
     @Override
     public void selectEtablissement() {
+        etablissementFilterPresenter.setTargetStep(WizardStep.STEP_3);
         addToPopupSlot(etablissementFilterPresenter);
     }
 
