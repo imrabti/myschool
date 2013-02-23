@@ -47,6 +47,7 @@ public class UserAccountEditPresenter extends PresenterWidget<UserAccountEditPre
     @Override
     public void saveAccount(UserProxy userProxy) {
         if (!userViolation) {
+            currentUser.setPasswordConfirmation(currentUser.getPassword());
             currentContext.saveUserAccount(currentUser).fire(new ValidatedReceiverImpl<Boolean>() {
                 @Override
                 public void onSuccess(Boolean response) {

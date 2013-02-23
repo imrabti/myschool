@@ -64,7 +64,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
                     niveauEtude.setValue(null);
                     niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(event.getValue().getNom()));
                 } else {
-                    niveauEtude = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
+                    niveauEtude.setValue(null);
                     niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
                 }
             }
