@@ -4,7 +4,7 @@
     <g:HTMLPanel>
         <boot:Form type="HORIZONTAL">
             <boot:ControlGroup>
-                <boot:ControlLabel>Adresse Email</boot:ControlLabel>
+                <boot:ControlLabel>Adresse email</boot:ControlLabel>
                 <boot:Controls>
                     <boot:TextBox ui:field="email" width="250px"/>
                 </boot:Controls>

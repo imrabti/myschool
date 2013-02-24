@@ -122,7 +122,7 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers>
             }
         };
         cFiliereColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        inscriptionsTable.addColumn(cFiliereColumn, "Filiere");
+        inscriptionsTable.addColumn(cFiliereColumn, "Formation");
         inscriptionsTable.setColumnWidth(cFiliereColumn, 15, Style.Unit.PCT);
 
         TextColumn<DossierProxy> cLevelColumn = new TextColumn<DossierProxy>() {
@@ -136,7 +136,7 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers>
             }
         };
         cLevelColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        inscriptionsTable.addColumn(cLevelColumn, "Niveau");
+        inscriptionsTable.addColumn(cLevelColumn, "Niveau demandé");
         inscriptionsTable.setColumnWidth(cLevelColumn, 15, Style.Unit.PCT);
 
         TextColumn<DossierProxy> createdColumn = new TextColumn<DossierProxy>() {

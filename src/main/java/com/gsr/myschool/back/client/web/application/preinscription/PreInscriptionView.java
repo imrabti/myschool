@@ -177,7 +177,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
             }
         };
         cFiliereColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        preInscriptionsTable.addColumn(cFiliereColumn, "Filiere");
+        preInscriptionsTable.addColumn(cFiliereColumn, "Formation");
         preInscriptionsTable.setColumnWidth(cFiliereColumn, 10, Style.Unit.PCT);
 
         TextColumn<DossierProxy> cLevelColumn = new TextColumn<DossierProxy>() {
@@ -191,7 +191,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
             }
         };
         cLevelColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        preInscriptionsTable.addColumn(cLevelColumn, "Niveau");
+        preInscriptionsTable.addColumn(cLevelColumn, "Niveau demandé");
         preInscriptionsTable.setColumnWidth(cLevelColumn, 15, Style.Unit.PCT);
 
         Delegate<DossierProxy> viewDetailsAction = new Delegate<DossierProxy>() {

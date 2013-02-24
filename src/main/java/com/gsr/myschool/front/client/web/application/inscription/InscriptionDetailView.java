@@ -99,7 +99,7 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
         dossierPanel.clear();
         dossierPanel.add(rowLabelValueFactory.createValueLabel("N° Dossier : ", safeDossierNum));
         dossierPanel.add(rowLabelValueFactory.createValueLabel("Date de création : ", safeDate));
-        dossierPanel.add(rowLabelValueFactory.createValueLabel("Status du dossier : ", safeDossierStatus));
+        dossierPanel.add(rowLabelValueFactory.createValueLabel("Statut du dossier : ", safeDossierStatus));
 
         if (dossier.getFiliere2() != null) {
             dossierPanel.add(rowLabelValueFactory.createHeader("Choix 1"));
@@ -107,23 +107,23 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
 
         if (dossier.getFiliere() != null) {
             SafeHtml safeFiliere = SafeHtmlUtils.fromString(dossier.getFiliere().getNom());
-            dossierPanel.add(rowLabelValueFactory.createValueLabel("Filière : ", safeFiliere));
+            dossierPanel.add(rowLabelValueFactory.createValueLabel("Formation : ", safeFiliere));
         }
 
         if (dossier.getNiveauEtude() != null) {
             SafeHtml safeNiveauEtude = SafeHtmlUtils.fromString(dossier.getNiveauEtude().getNom());
-            dossierPanel.add(rowLabelValueFactory.createValueLabel("Niveau d'étude : ", safeNiveauEtude));
+            dossierPanel.add(rowLabelValueFactory.createValueLabel("Niveau demandé : ", safeNiveauEtude));
         }
 
         if (dossier.getFiliere2() != null) {
             dossierPanel.add(rowLabelValueFactory.createHeader("Choix 2"));
             SafeHtml safeFiliere = SafeHtmlUtils.fromString(dossier.getFiliere2().getNom());
-            dossierPanel.add(rowLabelValueFactory.createValueLabel("Filière : ", safeFiliere));
+            dossierPanel.add(rowLabelValueFactory.createValueLabel("Formation : ", safeFiliere));
         }
 
         if (dossier.getNiveauEtude2() != null) {
             SafeHtml safeNiveauEtude = SafeHtmlUtils.fromString(dossier.getNiveauEtude2().getNom());
-            dossierPanel.add(rowLabelValueFactory.createValueLabel("Niveau d'étude : ", safeNiveauEtude));
+            dossierPanel.add(rowLabelValueFactory.createValueLabel("Niveau demandé : ", safeNiveauEtude));
         }
     }
 
@@ -271,7 +271,7 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
             }
         };
         classeColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        fraterieTable.addColumn(classeColumn, "Niveau");
+        fraterieTable.addColumn(classeColumn, "Niveau actuel");
         fraterieTable.setColumnWidth(classeColumn, 20, Style.Unit.PCT);
 
         TextColumn<FraterieProxy> etablissementColumn = new TextColumn<FraterieProxy>() {
@@ -324,7 +324,7 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
         }
 
         container.add(rowLabelValueFactory.createValueLabel("Email : ", safeEmail));
-        container.add(rowLabelValueFactory.createValueLabel("Téléphone maison : ", safeTelDom));
+        container.add(rowLabelValueFactory.createValueLabel("Téléphone domicile : ", safeTelDom));
 
         if (!Strings.isNullOrEmpty(infoParent.getTelGsm())) {
             SafeHtml safeTelGsm = SafeHtmlUtils.fromString(infoParent.getTelGsm());
@@ -353,7 +353,7 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
 
         if (infoParent.getParentGsr()) {
             SafeHtml safe = SafeHtmlUtils.fromString("oui");
-            container.add(rowLabelValueFactory.createValueLabel("Ancien de GSR : ", safe));
+            container.add(rowLabelValueFactory.createValueLabel("Ancien du GSR : ", safe));
         }
 
         if (!Strings.isNullOrEmpty(infoParent.getPromotionGsr())) {

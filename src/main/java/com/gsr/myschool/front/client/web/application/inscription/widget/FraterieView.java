@@ -109,7 +109,7 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
             }
         };
         classeColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        fraterieTable.addColumn(classeColumn, "Niveau");
+        fraterieTable.addColumn(classeColumn, "Niveau actuel");
         fraterieTable.setColumnWidth(classeColumn, 20, Style.Unit.PCT);
 
         TextColumn<FraterieProxy> etablissementColumn = new TextColumn<FraterieProxy>() {

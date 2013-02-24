@@ -10,7 +10,7 @@
         <boot:Form type="HORIZONTAL">
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Filière</boot:ControlLabel>
+                <boot:ControlLabel>Formation</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.niveauScolaireFiliere}" placement="RIGHT">
                         <boot:ValueListBox ui:field="filiere" width="250px"/>
@@ -20,7 +20,7 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Niveau d'etude</boot:ControlLabel>
+                <boot:ControlLabel>Niveau demandé</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.niveauScolaireNiveauEtudes}" placement="RIGHT">
                         <boot:ValueListBox ui:field="niveauEtude" width="250px"/>
@@ -33,7 +33,7 @@
         <h4 style="padding-left:50px;">Choix 2</h4>
         <boot:Form type="HORIZONTAL">
             <boot:ControlGroup>
-                <boot:ControlLabel>Filière</boot:ControlLabel>
+                <boot:ControlLabel>Formation</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.niveauScolaireFiliere}" placement="RIGHT">
                         <boot:ValueListBox ui:field="filiere2" width="250px"/>
@@ -42,7 +42,7 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Niveau d'etude</boot:ControlLabel>
+                <boot:ControlLabel>Niveau demandé</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.niveauScolaireNiveauEtudes}" placement="RIGHT">
                         <boot:ValueListBox ui:field="niveauEtude2" width="250px"/>
