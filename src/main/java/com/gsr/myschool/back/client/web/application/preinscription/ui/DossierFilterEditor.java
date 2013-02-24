@@ -32,8 +32,6 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     public interface Driver extends SimpleBeanEditorDriver<DossierFilterDTOProxy, DossierFilterEditor> {
     }
 
-    @UiField
-    CheckBox gsrFraterie;
     @UiField(provided = true)
     ValueListBox<DossierStatus> status;
     @UiField(provided = true)
@@ -46,6 +44,8 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     DateBoxAppended dateTill;
     @UiField
     CheckBox parentGsr;
+    @UiField
+    CheckBox gsrFraterie;
 
     private final Driver driver;
 
