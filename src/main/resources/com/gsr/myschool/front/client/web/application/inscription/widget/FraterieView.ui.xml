@@ -13,7 +13,7 @@
 
     <g:HTMLPanel>
         <h3 class="{clientResources.sharedStyleCss.mediumTitle}">
-            Etape 5 : Fraterie
+            Etape 5 : Fratrie
         </h3>
 
         <boot:Paragraph>

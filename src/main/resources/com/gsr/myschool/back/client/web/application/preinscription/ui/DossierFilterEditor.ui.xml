@@ -5,21 +5,21 @@
     <g:HTMLPanel>
         <boot:Form type="HORIZONTAL">
             <boot:ControlGroup>
-                <boot:ControlLabel>Status</boot:ControlLabel>
+                <boot:ControlLabel>Statut</boot:ControlLabel>
                 <boot:Controls>
                     <boot:ValueListBox ui:field="status" width="250px"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Filière</boot:ControlLabel>
+                <boot:ControlLabel>Formation</boot:ControlLabel>
                 <boot:Controls>
                     <boot:ValueListBox ui:field="filiere" width="250px"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Niveau d'études</boot:ControlLabel>
+                <boot:ControlLabel>Niveau demandé</boot:ControlLabel>
                 <boot:Controls>
                     <boot:ValueListBox ui:field="niveauEtude" width="250px"/>
                 </boot:Controls>
@@ -40,14 +40,14 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Frère ou soeur scolarisé au GSR</boot:ControlLabel>
+                <boot:ControlLabel>Fratrie au GSR</boot:ControlLabel>
                 <boot:Controls>
                     <boot:CheckBox ui:field="gsrFraterie" width="250px"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Parents scolarisés au GSR</boot:ControlLabel>
+                <boot:ControlLabel>Parents au GSR</boot:ControlLabel>
                 <boot:Controls>
                     <boot:CheckBox ui:field="parentGsr" width="250px"/>
                 </boot:Controls>

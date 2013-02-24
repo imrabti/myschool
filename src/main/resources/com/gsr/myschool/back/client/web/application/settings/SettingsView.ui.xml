@@ -7,7 +7,7 @@
     <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
         <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
             <h2>
-                <g:InlineLabel text="Paramètres Généraux"/>
+                <g:InlineLabel text="Paramètres généraux"/>
             </h2>
             <span style="display: block; clear: both;"/>
         </g:HTMLPanel>

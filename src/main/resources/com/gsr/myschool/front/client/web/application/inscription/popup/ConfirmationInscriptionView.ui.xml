@@ -21,13 +21,13 @@
     <g:PopupPanel modal="true" autoHideEnabled="false" styleName="{resource.popupStyleCss.gwtPopupPanel}"
                   glassEnabled="true">
         <g:FlowPanel>
-            <s:ModalHeader ui:field="modalHeader" text="Déclaration d'honneur"/>
+            <s:ModalHeader ui:field="modalHeader" text=""/>
 
             <g:HTMLPanel styleName="{style.contentWrapper}">
                 <boot:CheckBox ui:field="declarationHonneur" styleName="{style.checkBoxInline}"/>
                 <g:InlineLabel>
-                    Je déclare sur l'honneur que les informations reprises
-                    ci-dessus sont véridiques et complètes.
+                    J'atteste sur l'honneur l'exactitude des renseignements figurant sur le présent
+                    dossier de pré-inscription.
                 </g:InlineLabel>
             </g:HTMLPanel>
 

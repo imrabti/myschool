@@ -7,13 +7,12 @@
 
     <g:HTMLPanel>
         <h3 class="{clientResources.sharedStyleCss.mediumTitle}">
-            Etape 3 : Scolarité Actuelle de votre enfant
+            Etape 3 : Scolarité actuelle de votre enfant
         </h3>
 
         <boot:Paragraph>
-            Nous avons besoin de connaître le scolarité actuelle de votre enfant pour mieux comprendre
-            l'orientation que vous souhaitez donner au parcours scolaire de votre enfant.
-            Nous comptons donc sur vous pour remplir tous les champs demandes.
+            Afin de mieux comprendre l'orientation que vous souhaitez donner au parcours
+            scolaire de votre enfant. Veuillez compléter le formulaire ci-dessous :
         </boot:Paragraph>
 
         <s:ScolariteActuelleEditor ui:field="scolariteActuelleEditor"/>
