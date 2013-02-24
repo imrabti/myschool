@@ -17,7 +17,8 @@
 package com.gsr.myschool.common.shared.type;
 
 public enum TypeEnseignement {
-    MISSION("Mission", "Section FR", 10L), BILINGUE("Section Bilingue", "Section Bilingue", 20L);
+    MISSION("Système Français", "Formation conformes au IOF", 10L),
+    BILINGUE("Système Bilingue", "Formation Bilingue enrichie", 20L);
 
     private String label;
     private String nomFiliere;

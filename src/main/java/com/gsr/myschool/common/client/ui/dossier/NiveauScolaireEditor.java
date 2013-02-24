@@ -16,6 +16,7 @@ import com.gsr.myschool.common.client.ui.dossier.renderer.FiliereRenderer;
 import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
+import com.gsr.myschool.common.shared.type.TypeEnseignement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +30,8 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
     public interface Driver extends SimpleBeanEditorDriver<DossierProxy, NiveauScolaireEditor> {
     }
 
-    public static final String BILINGUE = "Section Bilingue";
-    public static final String MISSION = "Section FR";
+    public static final String BILINGUE = TypeEnseignement.BILINGUE.getNomFiliere();
+    public static final String MISSION = TypeEnseignement.MISSION.getNomFiliere();
     private FiliereProxy sectionFr;
     private FiliereProxy sectionBilingue;
     private List<FiliereProxy> filieres;
