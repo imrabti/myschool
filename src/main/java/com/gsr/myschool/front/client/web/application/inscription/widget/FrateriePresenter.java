@@ -83,8 +83,16 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
     public void addFraterie(FraterieDTOProxy fraterie) {
         Long dossierId = currentDossier.getId();
 
+        if (currentEtablissement != null) {
+            fraterie.setEtablissement(currentContext.edit(currentEtablissement));
+        }
+
+        if (fraterie.getNiveau() != null) {
+            fraterie.setNiveau(currentContext.edit(fraterie.getNiveau()));
+        }
+
         if (fraterie.getScolarise()) {
-            if (fraterie.getEtablissement() == null || fraterie.getFiliere() == null) {
+            if (fraterie.getEtablissement() == null || fraterie.getFiliere() == null || fraterie.getNiveau() == null) {
                 Message message = new Message.Builder(messageBundle.fraterieFaillure())
                         .style(AlertType.ERROR).closeDelay(CloseDelay.DEFAULT).build();
 
@@ -93,11 +101,10 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
             }
         }
 
-        if (fraterie.getNiveau() != null) {
-            fraterie.setNiveau(currentContext.edit(fraterie.getNiveau()));
-        }
-        if (currentEtablissement != null) {
-            fraterie.setEtablissement(currentContext.edit(currentEtablissement));
+        if (!fraterie.getScolarise()) {
+            fraterie.setNiveau(null);
+            fraterie.setFiliere(null);
+            fraterie.setEtablissement(null);
         }
 
         if (!fraterieViolation) {
@@ -113,6 +120,7 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
                 public void onSuccess(Void response) {
                     currentContext = requestFactory.inscriptionService();
                     currentFraterie = currentContext.create(FraterieDTOProxy.class);
+                    currentEtablissement = null;
                     fraterieViolation = false;
 
                     getView().editFraterie(currentFraterie);
