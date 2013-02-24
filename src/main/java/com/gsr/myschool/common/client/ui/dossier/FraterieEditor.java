@@ -92,6 +92,10 @@ public class FraterieEditor extends Composite implements EditorView<FraterieDTOP
 
         filiere.setValue(TypeEnseignement.BILINGUE);
         filiere.setAcceptableValues(Arrays.asList(TypeEnseignement.values()));
+
+        List<NiveauEtudeProxy> values = valueList.getNiveauEtudeList(TypeEnseignement.BILINGUE.getNomFiliere());
+        niveau.setValue(values.get(0));
+        niveau.setAcceptableValues(values);
     }
 
     @Override
