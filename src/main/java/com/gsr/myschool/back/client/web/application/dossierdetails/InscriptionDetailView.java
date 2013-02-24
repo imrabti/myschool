@@ -340,7 +340,7 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
             container.add(rowLabelValueFactory.createValueLabel("Ancien de GSR : ", safe));
         }
 
-        if (infoParent.getPromotionGsr() != null) {
+        if (!Strings.isNullOrEmpty(infoParent.getPromotionGsr())) {
             SafeHtml safe = SafeHtmlUtils.fromString(infoParent.getPromotionGsr().toString());
             container.add(rowLabelValueFactory.createValueLabel("Promotion : ", safe));
         }
