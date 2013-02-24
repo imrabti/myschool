@@ -17,6 +17,8 @@
                     <f:AjaxLoader ui:field="ajaxLoader"/>
 
                     <g:SimplePanel ui:field="headerDisplay"/>
+
+                    <div style="clear: both;"/>
                 </g:HTMLPanel>
             </g:north>
 
