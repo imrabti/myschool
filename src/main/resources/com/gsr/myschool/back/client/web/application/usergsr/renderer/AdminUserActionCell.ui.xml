@@ -2,7 +2,7 @@
     <div class="btn-group">
         <a href="javascript:;" class="btn" ui:field="editAccount">
             <i class="icon-edit"/>
-            <span class="">Editer</span>
+            <span class="">Modifier</span>
         </a>
         <a href="javascript:;" class="btn" ui:field="delete">
             <i class="icon-trash"/>
