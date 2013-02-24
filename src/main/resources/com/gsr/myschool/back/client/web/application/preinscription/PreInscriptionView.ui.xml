@@ -14,7 +14,7 @@
     <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
         <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
             <h2>
-                <g:InlineLabel text="Dossiers Pré-Inscriptions"/>
+                <g:InlineLabel text="Dossiers Pré-inscriptions"/>
             </h2>
             <span style="display: block; clear: both;"/>
         </g:HTMLPanel>

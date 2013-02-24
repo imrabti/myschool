@@ -211,7 +211,7 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
             }
         };
         createdColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        inscriptionsTable.addColumn(createdColumn, "Date d'inscription");
+        inscriptionsTable.addColumn(createdColumn, "Date de pré-inscription");
         inscriptionsTable.setColumnWidth(createdColumn, 20, Style.Unit.PCT);
 
         InscriptionActionCell actionsCell = actionCellFactory.create(previewAction, editAction,

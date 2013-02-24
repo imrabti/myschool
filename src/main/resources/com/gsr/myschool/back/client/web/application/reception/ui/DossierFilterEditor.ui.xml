@@ -18,14 +18,14 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Filière</boot:ControlLabel>
+                <boot:ControlLabel>Formation</boot:ControlLabel>
                 <boot:Controls>
                     <boot:ValueListBox ui:field="filiere" width="250px"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Niveau d'études</boot:ControlLabel>
+                <boot:ControlLabel>Niveau demandé</boot:ControlLabel>
                 <boot:Controls>
                     <boot:ValueListBox ui:field="niveauEtude" width="250px"/>
                 </boot:Controls>

@@ -1,0 +1,24 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+
+    <ui:style>
+    </ui:style>
+
+    <g:HTMLPanel ui:field="topPanel">
+        <boot:ButtonToolbar>
+            <boot:ButtonGroup toggle="radio">
+                <boot:Button ui:field="bold" icon="BOLD" iconSize="SMALL"/>
+                <boot:Button ui:field="italic" icon="ITALIC" iconSize="SMALL"/>
+                <boot:Button ui:field="underline" icon="UNDERLINE" iconSize="SMALL"/>
+            </boot:ButtonGroup>
+
+            <boot:ButtonGroup>
+                <boot:Button ui:field="listOl" icon="LIST_OL" iconSize="SMALL"/>
+                <boot:Button ui:field="listUl" icon="LIST_UL" iconSize="SMALL"/>
+            </boot:ButtonGroup>
+
+            <boot:Button ui:field="createLink" icon="LINK" iconSize="SMALL"/>
+        </boot:ButtonToolbar>
+    </g:HTMLPanel>
+</ui:UiBinder>

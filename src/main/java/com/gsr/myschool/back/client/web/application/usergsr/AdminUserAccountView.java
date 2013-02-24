@@ -149,7 +149,7 @@ public class AdminUserAccountView extends ViewWithUiHandlers<AdminUserAccountUiH
             }
         };
         statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        userGsrTable.addColumn(statusColumn, "Status");
+        userGsrTable.addColumn(statusColumn, "Statut");
         userGsrTable.setColumnWidth(statusColumn, 20, Style.Unit.PCT);
 
         TextColumn<AdminUserProxy> submittedColumn = new TextColumn<AdminUserProxy>() {

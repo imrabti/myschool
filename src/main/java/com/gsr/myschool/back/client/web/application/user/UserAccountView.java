@@ -149,7 +149,7 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
             }
         };
         statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        userPortalTable.addColumn(statusColumn, "Status");
+        userPortalTable.addColumn(statusColumn, "Statut");
         userPortalTable.setColumnWidth(statusColumn, 30, Style.Unit.PCT);
 
         UserAccountActionCell actionsCell = actionCellFactory.create(editAccount);

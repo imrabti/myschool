@@ -74,7 +74,7 @@
                 </boot:ControlGroup>
 
                 <boot:ControlGroup>
-                    <boot:ControlLabel>Niveau d'étude actuel</boot:ControlLabel>
+                    <boot:ControlLabel>Niveau actuel</boot:ControlLabel>
                     <boot:Controls>
                         <boot:Tooltip text="{helpMessage.fraterieNiveau}" placement="RIGHT">
                             <boot:ValueListBox ui:field="niveau" width="250px"/>
