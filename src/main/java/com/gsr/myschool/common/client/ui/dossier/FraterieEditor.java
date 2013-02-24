@@ -89,6 +89,9 @@ public class FraterieEditor extends Composite implements EditorView<FraterieDTOP
     public void edit(FraterieDTOProxy fraterie) {
         driver.edit(fraterie);
         scolariseFields.setVisible(false);
+
+        filiere.setValue(TypeEnseignement.BILINGUE);
+        filiere.setAcceptableValues(Arrays.asList(TypeEnseignement.values()));
     }
 
     @Override

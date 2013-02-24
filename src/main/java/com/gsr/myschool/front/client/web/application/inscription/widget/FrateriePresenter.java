@@ -124,6 +124,7 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
                     fraterieViolation = false;
 
                     getView().editFraterie(currentFraterie);
+                    getView().setEtablissement(currentEtablissement);
                     getView().clearErrors();
                     loadFraterie();
                 }
