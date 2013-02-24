@@ -11,6 +11,7 @@ import com.gsr.myschool.front.client.web.application.inscription.popup.Confirmat
 public class ConfirmationInscriptionPresenter extends PresenterWidget<MyView>
         implements ConfirmationInscriptionUiHandlers {
     public interface MyView extends PopupView, HasUiHandlers<ConfirmationInscriptionUiHandlers> {
+        void initConfirmation();
     }
 
     @Inject
@@ -24,5 +25,9 @@ public class ConfirmationInscriptionPresenter extends PresenterWidget<MyView>
     public void validateInscription(Boolean agreeInformations) {
         DossierSubmitEvent.fire(this, agreeInformations);
         getView().hide();
+    }
+
+    protected void onReveal() {
+        getView().initConfirmation();
     }
 }

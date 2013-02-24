@@ -1,8 +1,10 @@
 package com.gsr.myschool.front.client.web.application.inscription.popup;
 
+import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.CheckBox;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -22,6 +24,8 @@ public class ConfirmationInscriptionView extends PopupViewWithUiHandlers<Confirm
     ModalHeader modalHeader;
     @UiField
     CheckBox declarationHonneur;
+    @UiField
+    Button validate;
 
     @Inject
     public ConfirmationInscriptionView(final EventBus eventBus, final Binder uiBinder,
@@ -41,8 +45,24 @@ public class ConfirmationInscriptionView extends PopupViewWithUiHandlers<Confirm
         });
     }
 
+    @Override
+    public void initConfirmation() {
+        declarationHonneur.setValue(false);
+        validate.setEnabled(false);
+    }
+
+    @UiHandler("declarationHonneur")
+    void onDeclarationHonneurChanged(ValueChangeEvent<Boolean> event) {
+        validate.setEnabled(declarationHonneur.getValue());
+    }
+
     @UiHandler("validate")
     void onValidateClicked(ClickEvent event) {
         getUiHandlers().validateInscription(declarationHonneur.getValue());
+    }
+
+    @UiHandler("cancel")
+    void onCancelClicked(ClickEvent event) {
+        hide();
     }
 }
