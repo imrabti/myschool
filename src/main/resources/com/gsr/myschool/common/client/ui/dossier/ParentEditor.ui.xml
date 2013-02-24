@@ -6,10 +6,16 @@
     <ui:with field="helpMessage" type="com.gsr.myschool.common.client.resource.message.HelpMessageBundle"/>
     <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
+    <ui:style>
+        .bigMargin {
+            margin-left: 165px;
+        }
+    </ui:style>
+
     <g:HTMLPanel>
         <boot:Form type="HORIZONTAL">
             <boot:ControlGroup>
-                <boot:ControlLabel>Nom</boot:ControlLabel>
+                <boot:ControlLabel width="165px">Nom</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.infoParentNom}" placement="RIGHT">
                         <boot:TextBox ui:field="nom" width="250px"/>
@@ -19,7 +25,7 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Prénom</boot:ControlLabel>
+                <boot:ControlLabel width="165px">Prénom</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.infoParentPrenom}" placement="RIGHT">
                         <boot:TextBox ui:field="prenom" width="250px"/>
@@ -29,7 +35,7 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup ui:field="civiliteWrapper">
-                <boot:ControlLabel>Civilité</boot:ControlLabel>
+                <boot:ControlLabel width="165px">Civilité</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.infoParentCivilite}" placement="RIGHT">
                         <boot:ValueListBox ui:field="civilite"/>
@@ -38,7 +44,7 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup ui:field="lienParenteWrapper">
-                <boot:ControlLabel>Lien de parenté</boot:ControlLabel>
+                <boot:ControlLabel width="165px">Lien de parenté</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.infoParentLienParente}" placement="RIGHT">
                         <boot:TextBox ui:field="lientParente" width="250px"/>
@@ -48,7 +54,7 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Date de naissance</boot:ControlLabel>
+                <boot:ControlLabel width="165px">Date de naissance</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.infoParentDateNaissance}" placement="RIGHT">
                         <b2:DateBoxAppended ui:field="birthDate"/>
@@ -58,7 +64,7 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Lieu de naissance</boot:ControlLabel>
+                <boot:ControlLabel width="165px">Lieu de naissance</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.infoParentLieuNaissance}" placement="RIGHT">
                         <boot:TextBox ui:field="birthLocation" width="250px"/>
@@ -68,7 +74,7 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Nationnalité</boot:ControlLabel>
+                <boot:ControlLabel width="165px">Nationnalité</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.infoParentNationnalite}" placement="RIGHT">
                         <boot:ValueListBox ui:field="nationality" width="250px"/>
@@ -78,7 +84,7 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Fonction</boot:ControlLabel>
+                <boot:ControlLabel width="165px">Fonction</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.infoParentFonction}" placement="RIGHT">
                         <boot:TextBox ui:field="fonction" width="250px"/>
@@ -87,7 +93,7 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Institution</boot:ControlLabel>
+                <boot:ControlLabel width="165px">Institution</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.infoParentInstitution}" placement="RIGHT">
                         <boot:TextBox ui:field="institution" width="250px"/>
@@ -96,31 +102,29 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Adresse email</boot:ControlLabel>
+                <boot:ControlLabel width="165px">Adresse email</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.infoParentAdresseEmail}" placement="RIGHT">
                         <boot:InputAddOn prependText="@">
                             <boot:TextBox ui:field="email" width="228px"/>
                         </boot:InputAddOn>
                     </boot:Tooltip>
-                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Domicile</boot:ControlLabel>
+                <boot:ControlLabel width="165px">Domicile</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.infoParentTelMaison}" placement="RIGHT">
                         <boot:InputAddOn prependIcon="PHONE">
                             <boot:TextBox ui:field="telDom" width="228px"/>
                         </boot:InputAddOn>
                     </boot:Tooltip>
-                    <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Mobile GSM</boot:ControlLabel>
+                <boot:ControlLabel width="165px">Mobile GSM</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.infoParentTelMobile}" placement="RIGHT">
                         <boot:InputAddOn prependIcon="PHONE">
@@ -131,7 +135,7 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Travail</boot:ControlLabel>
+                <boot:ControlLabel width="165px">Travail</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.infoParentTelTravail}" placement="RIGHT">
                         <boot:InputAddOn prependIcon="PHONE">
@@ -142,7 +146,7 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Adresse</boot:ControlLabel>
+                <boot:ControlLabel width="165px">Adresse</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.infoParentAdresse}" placement="RIGHT">
                         <boot:TextArea ui:field="address" width="250px"/>
@@ -151,7 +155,7 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Avez-vous étudié au GSR ?</boot:ControlLabel>
+                <boot:ControlLabel width="165px">Avez-vous étudié au GSR ?</boot:ControlLabel>
                 <boot:Controls>
                     <boot:CheckBox ui:field="parentGsr" width="250px"/>
                 </boot:Controls>
@@ -159,14 +163,14 @@
             
             <g:RenderablePanel ui:field="parentGsrPanel">
                 <boot:ControlGroup>
-                    <boot:ControlLabel>Si oui, de quelle promotion aviez-vous fait partie ?</boot:ControlLabel>
+                    <boot:ControlLabel width="165px">Si oui, de quelle promotion aviez-vous fait partie ?</boot:ControlLabel>
                     <boot:Controls>
                         <boot:TextBox ui:field="promotionGsr" width="250px"/>
                     </boot:Controls>
                 </boot:ControlGroup>
     
                 <boot:ControlGroup>
-                    <boot:ControlLabel>Quelle formation aviez-vous suivie ?</boot:ControlLabel>
+                    <boot:ControlLabel width="165px">Quelle formation aviez-vous suivie ?</boot:ControlLabel>
                     <boot:Controls>
                         <boot:ValueListBox ui:field="formationGsr" width="250px"/>
                     </boot:Controls>
