@@ -3,10 +3,13 @@ package com.gsr.myschool.common.client.ui.dossier;
 import com.github.gwtbootstrap.client.ui.*;
 import com.github.gwtbootstrap.datepicker.client.ui.DateBoxAppended;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.text.shared.AbstractRenderer;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.RenderablePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.InfoParentProxy;
@@ -66,6 +69,8 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
     @UiField
     ControlGroup lienParenteWrapper;
     @UiField
+    RenderablePanel parentGsrPanel;
+    @UiField
     CheckBox parentGsr;
     @UiField
     TextBox promotionGsr;
@@ -98,8 +103,8 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
 
         nationality.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.NATIONALITY));
 
-        formationGsr.setAcceptableValues(initListFormations());
         formationGsr.setValue("Française");
+        formationGsr.setAcceptableValues(initListFormations());
 
         $(nom).id("nom");
         $(prenom).id("prenom");
@@ -115,6 +120,13 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
         $(telGsm).id("telGsm");
         $(telBureau).id("telBureau");
         $(address).id("address");
+
+        parentGsr.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<Boolean> event) {
+                parentGsrPanel.setVisible(event.getValue());
+            }
+        });
     }
 
     @Override
@@ -127,6 +139,8 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
 
         formationGsr.setValue("Française");
         formationGsr.setAcceptableValues(initListFormations());
+
+        parentGsrPanel.setVisible(parentGsr.getValue());
 
         if (infoParent.getNationality() == null) {
             nationality.setValue(getDefaultNationality());

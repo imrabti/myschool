@@ -75,7 +75,7 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
 
     @Override
     public void setEtablissement(EtablissementScolaireProxy selectedEtablissement) {
-        fraterieEditor.setEtablissementLabel(selectedEtablissement.getNom());
+        fraterieEditor.setEtablissementLabel(selectedEtablissement != null ? selectedEtablissement.getNom() : "");
     }
 
     private void initDataGrid() {
