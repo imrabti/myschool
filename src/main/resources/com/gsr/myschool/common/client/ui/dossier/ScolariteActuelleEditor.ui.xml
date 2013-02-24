@@ -38,7 +38,7 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel>Niveau etude</boot:ControlLabel>
+                <boot:ControlLabel>Niveau actuel</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.scolariteNiveauEtude}" placement="RIGHT">
                         <boot:ValueListBox ui:field="niveauEtude" width="250px"/>

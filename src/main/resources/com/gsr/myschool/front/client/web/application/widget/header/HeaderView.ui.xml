@@ -90,7 +90,7 @@
         <div id="innerHeader">
             <g:Image resource="{resources.logo}"/>
 
-            <h1>Espace Pré-Inscriptions</h1>
+            <h1>Espace Pré-inscriptions</h1>
 
             <g:HTMLPanel styleName="{style.userInfos}">
                 <div style="float: left;">
