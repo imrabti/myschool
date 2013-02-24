@@ -6,7 +6,7 @@
         </a>
         <a href="javascript:;" style="display: none;" ui:field="edit">
             <i class="icon-edit"/>
-            <span class="">Editer</span>
+            <span class="">Modifier</span>
         </a>
         <a href="javascript:;" style="display: none;" ui:field="delete">
             <i class="icon-remove"/>

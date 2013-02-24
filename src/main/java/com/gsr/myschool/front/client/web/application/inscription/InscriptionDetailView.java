@@ -357,7 +357,7 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
         }
 
         if (!Strings.isNullOrEmpty(infoParent.getPromotionGsr())) {
-            SafeHtml safe = SafeHtmlUtils.fromString(infoParent.getPromotionGsr());
+            SafeHtml safe = SafeHtmlUtils.fromString(infoParent.getPromotionGsr().toString());
             container.add(rowLabelValueFactory.createValueLabel("Promotion : ", safe));
         }
 

@@ -52,7 +52,6 @@
                     <boot:CheckBox ui:field="parentGsr" width="250px"/>
                 </boot:Controls>
             </boot:ControlGroup>
-
         </boot:Form>
     </g:HTMLPanel>
 </ui:UiBinder>
