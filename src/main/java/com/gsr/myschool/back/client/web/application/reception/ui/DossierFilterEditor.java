@@ -1,5 +1,6 @@
 package com.gsr.myschool.back.client.web.application.reception.ui;
 
+import com.github.gwtbootstrap.client.ui.CheckBox;
 import com.github.gwtbootstrap.client.ui.TextBox;
 import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.github.gwtbootstrap.datepicker.client.ui.DateBoxAppended;
@@ -39,6 +40,10 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     ValueListBox<NiveauEtudeProxy> niveauEtude;
     @UiField(provided = true)
     ValueListBox<FiliereProxy> filiere;
+    @UiField
+    CheckBox parentGsr;
+    @UiField
+    CheckBox gsrFraterie;
 
     private final Driver driver;
     private final ValueList valueList;

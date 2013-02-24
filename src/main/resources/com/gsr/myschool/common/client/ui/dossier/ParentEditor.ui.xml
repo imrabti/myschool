@@ -156,20 +156,22 @@
                     <boot:CheckBox ui:field="parentGsr" width="250px"/>
                 </boot:Controls>
             </boot:ControlGroup>
-
-            <boot:ControlGroup>
-                <boot:ControlLabel>Si oui, de quelle promotion aviez-vous fait partie ?</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:TextBox ui:field="promotionGsr" width="250px"/>
-                </boot:Controls>
-            </boot:ControlGroup>
-
-            <boot:ControlGroup>
-                <boot:ControlLabel>Quelle formation aviez-vous suivie ?</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:ValueListBox ui:field="formationGsr" width="250px"/>
-                </boot:Controls>
-            </boot:ControlGroup>
+            
+            <g:RenderablePanel ui:field="parentGsrPanel">
+                <boot:ControlGroup>
+                    <boot:ControlLabel>Si oui, de quelle promotion aviez-vous fait partie ?</boot:ControlLabel>
+                    <boot:Controls>
+                        <boot:TextBox ui:field="promotionGsr" width="250px"/>
+                    </boot:Controls>
+                </boot:ControlGroup>
+    
+                <boot:ControlGroup>
+                    <boot:ControlLabel>Quelle formation aviez-vous suivie ?</boot:ControlLabel>
+                    <boot:Controls>
+                        <boot:ValueListBox ui:field="formationGsr" width="250px"/>
+                    </boot:Controls>
+                </boot:ControlGroup>
+            </g:RenderablePanel>
         </boot:Form>
     </g:HTMLPanel>
 </ui:UiBinder>

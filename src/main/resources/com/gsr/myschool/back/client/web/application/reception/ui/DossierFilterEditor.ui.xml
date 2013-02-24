@@ -31,6 +31,19 @@
                 </boot:Controls>
             </boot:ControlGroup>
 
+            <boot:ControlGroup>
+                <boot:ControlLabel>Frère ou soeur scolarisé au GSR</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:CheckBox ui:field="gsrFraterie" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Parents scolarisés au GSR</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:CheckBox ui:field="parentGsr" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
         </boot:Form>
     </g:HTMLPanel>
 </ui:UiBinder>

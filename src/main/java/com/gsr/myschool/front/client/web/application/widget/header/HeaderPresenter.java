@@ -31,7 +31,7 @@ import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 
 public class HeaderPresenter extends PresenterWidget<HeaderPresenter.MyView> implements HeaderUiHandlers {
     public interface MyView extends View, HasUiHandlers<HeaderUiHandlers> {
-        void displayUserInfo(Boolean genre, String firstName, String lastName);
+        void displayUserInfo(Boolean genre, String civilite, String firstName, String lastName);
     }
 
     private final PlaceManager placeManager;
@@ -70,7 +70,8 @@ public class HeaderPresenter extends PresenterWidget<HeaderPresenter.MyView> imp
     protected void onReveal() {
         String firstName = currentUserProvider.get().getFirstName();
         String lastName = currentUserProvider.get().getLastName();
+        String civilite = currentUserProvider.get().getGender().toString();
         Boolean genre = currentUserProvider.get().getGender() == Gender.FEMALE;
-        getView().displayUserInfo(genre, firstName, lastName);
+        getView().displayUserInfo(genre, civilite, firstName, lastName);
     }
 }
