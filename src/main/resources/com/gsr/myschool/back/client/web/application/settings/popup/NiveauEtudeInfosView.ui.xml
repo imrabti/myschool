@@ -7,9 +7,10 @@
 
     <ui:style>
         .contentWrapper {
-            padding: 20px 20px 10px 30px;
-            min-width: 600px;
-            min-height: 400px;
+            padding: 10px;
+            width: 600px;
+            max-height: 400px;
+            overflow-y: scroll;
         }
 
         .listWrapper {
@@ -20,25 +21,15 @@
     <g:PopupPanel modal="true" autoHideEnabled="false" styleName="{resource.popupStyleCss.gwtPopupPanel}"
                   glassEnabled="true">
         <g:FlowPanel>
-            <s:ModalHeader ui:field="modalHeader" text="Détails"/>
+            <s:ModalHeader ui:field="modalHeader"/>
             <g:HTMLPanel styleName="{style.contentWrapper}">
-                <g:HTMLPanel styleName="{resource.sharedStyleCss.bigTitle}">
-                    <h2>
-                        <g:InlineLabel text="Matières d'examens"/>
-                    </h2>
-                    <span style="display: block; clear: both;"/>
-                </g:HTMLPanel>
+                <g:Label text="Matières d'examens" styleName="{resource.sharedStyleCss.mediumTitle}"/>
 
-                <div class="{style.listWrapper}">
+                <div class="{style.listWrapper}" style="margin-bottom: 10px;">
                     <cell:CellList ui:field="matiereExamenList"/>
                 </div>
 
-                <g:HTMLPanel styleName="{resource.sharedStyleCss.bigTitle}">
-                    <h2>
-                        <g:InlineLabel text="Pièces justificatives"/>
-                    </h2>
-                    <span style="display: block; clear: both;"/>
-                </g:HTMLPanel>
+                <g:Label text="Pièces justificatives" styleName="{resource.sharedStyleCss.mediumTitle}"/>
 
                 <div class="{style.listWrapper}">
                     <cell:CellList ui:field="pieceJustifList"/>

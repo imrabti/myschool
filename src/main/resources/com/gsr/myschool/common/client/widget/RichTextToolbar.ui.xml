@@ -1,10 +1,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
-
-    <ui:style>
-    </ui:style>
-
     <g:HTMLPanel ui:field="topPanel">
         <boot:ButtonToolbar>
             <boot:ButtonGroup toggle="radio">

@@ -33,6 +33,7 @@ import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
 import com.gsr.myschool.common.client.proxy.MatiereExamenProxy;
 import com.gsr.myschool.common.client.proxy.PieceJustifProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
+import com.gsr.myschool.common.client.resource.style.DetailsListStyle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
 import com.gsr.myschool.common.client.widget.ModalHeader;
 
@@ -57,14 +58,15 @@ public class NiveauEtudeInfosView extends ValidatedPopupViewImpl implements Nive
     protected NiveauEtudeInfosView(EventBus eventBus, final Binder uiBinder,
                                    final ValidationErrorPopup errorPopup,
                                    final SharedMessageBundle sharedMessageBundle,
+                                   final DetailsListStyle listStyle,
                                    final ModalHeader modalHeader) {
         super(eventBus, errorPopup);
 
         this.modalHeader = modalHeader;
         this.dataProviderMatieres = new ListDataProvider<MatiereExamenProxy>();
         this.dataProviderPieces = new ListDataProvider<PieceJustifProxy>();
-        this.matiereExamenList = new CellList(new MatiereExamenRenderer());
-        this.pieceJustifList = new CellList(new PieceJustifRenderer());
+        this.matiereExamenList = new CellList(new MatiereExamenRenderer(), listStyle);
+        this.pieceJustifList = new CellList(new PieceJustifRenderer(), listStyle);
 
         dataProviderMatieres.addDataDisplay(matiereExamenList);
         dataProviderPieces.addDataDisplay(pieceJustifList);
@@ -81,6 +83,14 @@ public class NiveauEtudeInfosView extends ValidatedPopupViewImpl implements Nive
                 hide();
             }
         });
+    }
+
+    public void setNiveauEtudeTitle(String niveauEtudeTitle) {
+        if (niveauEtudeTitle.length() > 30) {
+            modalHeader.setText(niveauEtudeTitle.substring(0, 30) + "...");
+        } else {
+            modalHeader.setText(niveauEtudeTitle);
+        }
     }
 
     @Override

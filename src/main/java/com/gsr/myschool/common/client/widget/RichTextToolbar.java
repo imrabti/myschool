@@ -14,40 +14,40 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
 public class RichTextToolbar extends Composite {
-	public interface Binder extends UiBinder<Widget, RichTextToolbar> {
-	}
+    public interface Binder extends UiBinder<Widget, RichTextToolbar> {
+    }
 
-	private class EventHandler implements ClickHandler, KeyUpHandler {
-		public void onClick(ClickEvent event) {
-			Widget sender = (Widget) event.getSource();
+    private class EventHandler implements ClickHandler, KeyUpHandler {
+        public void onClick(ClickEvent event) {
+            Widget sender = (Widget) event.getSource();
 
-			if (sender == bold) {
-				formatter.toggleBold();
-			} else if (sender == italic) {
-				formatter.toggleItalic();
-			} else if (sender == underline) {
-				formatter.toggleUnderline();
-			} else if (sender == createLink) {
-				String url = Window.prompt("Enter a link URL:", "http://");
-				if (url != null) {
-					formatter.createLink(url);
-				}
-			} else if (sender == listOl) {
-				formatter.insertOrderedList();
-			} else if (sender == listUl) {
-				formatter.insertUnorderedList();
-			} else if (sender == richText) {
-				updateStatus();
-			}
-		}
+            if (sender == bold) {
+                formatter.toggleBold();
+            } else if (sender == italic) {
+                formatter.toggleItalic();
+            } else if (sender == underline) {
+                formatter.toggleUnderline();
+            } else if (sender == createLink) {
+                String url = Window.prompt("Enter a link URL:", "http://");
+                if (url != null) {
+                    formatter.createLink(url);
+                }
+            } else if (sender == listOl) {
+                formatter.insertOrderedList();
+            } else if (sender == listUl) {
+                formatter.insertUnorderedList();
+            } else if (sender == richText) {
+                updateStatus();
+            }
+        }
 
-		public void onKeyUp(KeyUpEvent event) {
-			Widget sender = (Widget) event.getSource();
-			if (sender == richText) {
-				updateStatus();
-			}
-		}
-	}
+        public void onKeyUp(KeyUpEvent event) {
+            Widget sender = (Widget) event.getSource();
+            if (sender == richText) {
+                updateStatus();
+            }
+        }
+    }
 
     @UiField
     Button bold;
@@ -66,32 +66,32 @@ public class RichTextToolbar extends Composite {
     private RichTextArea richText;
     private RichTextArea.Formatter formatter;
 
-	@Inject
-	public RichTextToolbar(final Binder binder) {
-		handler = new EventHandler();
+    @Inject
+    public RichTextToolbar(final Binder binder) {
+        handler = new EventHandler();
 
-		initWidget(binder.createAndBindUi(this));
+        initWidget(binder.createAndBindUi(this));
 
         bold.addClickHandler(handler);
         italic.addClickHandler(handler);
 
-	}
+    }
 
-	public void initialize(RichTextArea richText) {
-		this.richText = richText;
-		this.formatter = richText.getFormatter();
+    public void initialize(RichTextArea richText) {
+        this.richText = richText;
+        this.formatter = richText.getFormatter();
 
-		if (formatter != null) {
-			richText.addKeyUpHandler(handler);
-			richText.addClickHandler(handler);
-		}
-	}
+        if (formatter != null) {
+            richText.addKeyUpHandler(handler);
+            richText.addClickHandler(handler);
+        }
+    }
 
-	private void updateStatus() {
-		if (formatter != null) {
+    private void updateStatus() {
+        if (formatter != null) {
             bold.setActive(formatter.isBold());
             italic.setActive(formatter.isItalic());
-			underline.setActive(formatter.isUnderlined());
-		}
-	}
+            underline.setActive(formatter.isUnderlined());
+        }
+    }
 }
