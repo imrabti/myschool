@@ -69,7 +69,7 @@ public class ExcelController {
             final int buffersize = 1024;
             final byte[] buffer = new byte[buffersize];
 
-            response.addHeader("Content-Disposition", "attachment; filename=test.xls");
+            response.addHeader("Content-Disposition", "attachment; filename=recherche.xls");
 
             File file = new File(fileName);
             InputStream inputStream = new FileInputStream(file);

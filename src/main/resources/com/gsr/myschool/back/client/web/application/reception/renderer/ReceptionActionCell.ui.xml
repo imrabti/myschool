@@ -5,7 +5,7 @@
             <span class="">confirmer reception</span>
         </a>
         <a href="javascript:;" class="btn" ui:field="viewDetails">
-            <i class="icon-plus"/>
+            <i class="icon-search"/>
             <span class="">consulter</span>
         </a>
     </div>
