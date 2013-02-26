@@ -16,18 +16,21 @@
 
 package com.gsr.myschool.front.client.web.welcome.widget;
 
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.SecurityUtils;
+import com.gsr.myschool.common.client.widget.messages.Message;
+import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.dto.UserCredentials;
 import com.gsr.myschool.front.client.BootstrapperImpl;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
+import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.front.client.web.welcome.popup.ForgotPasswordPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;
-import com.gwtplatform.mvp.client.proxy.PlaceManager;
 
 public class LoginPresenter extends PresenterWidget<LoginPresenter.MyView> implements LoginUiHandlers {
     public interface MyView extends View, HasUiHandlers<LoginUiHandlers> {
@@ -37,20 +40,21 @@ public class LoginPresenter extends PresenterWidget<LoginPresenter.MyView> imple
     private final FrontRequestFactory requestFactory;
     private final SecurityUtils securityUtils;
     private final BootstrapperImpl bootstrapper;
-    private final PlaceManager placeManager;
+    private final MessageBundle messageBundle;
     private final ForgotPasswordPresenter forgotPasswordPresenter;
 
     @Inject
     public LoginPresenter(final EventBus eventBus, final MyView view,
                           final FrontRequestFactory requestFactory, final SecurityUtils securityUtils,
-                          final BootstrapperImpl bootstrapper, final PlaceManager placeManager,
+                          final BootstrapperImpl bootstrapper,
+                          final MessageBundle messageBundle,
                           final ForgotPasswordPresenter forgotPasswordPresenter) {
         super(eventBus, view);
 
         this.requestFactory = requestFactory;
         this.securityUtils = securityUtils;
         this.bootstrapper = bootstrapper;
-        this.placeManager = placeManager;
+        this.messageBundle = messageBundle;
         this.forgotPasswordPresenter = forgotPasswordPresenter;
 
         getView().setUiHandlers(this);
@@ -67,6 +71,10 @@ public class LoginPresenter extends PresenterWidget<LoginPresenter.MyView> imple
                 if (authenticated) {
                     securityUtils.setCredentials(credentials.getUsername(), credentials.getPassword());
                     bootstrapper.onBootstrap();
+                } else {
+                    Message message = new Message.Builder(messageBundle.wrongLoginOrPassword())
+                            .style(AlertType.ERROR).build();
+                    MessageEvent.fire(this, message);
                 }
             }
         });

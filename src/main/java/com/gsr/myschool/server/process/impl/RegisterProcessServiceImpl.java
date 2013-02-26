@@ -74,7 +74,7 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
     public void register(User user, String link) throws Exception {
         String token = Base64.encode((new Date()).toString());
         token = token.replace("=", "E");
-        link = link + ";token=" + token;
+        link = link + ";activate=" + token;
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("gender", user.getGender().toString());

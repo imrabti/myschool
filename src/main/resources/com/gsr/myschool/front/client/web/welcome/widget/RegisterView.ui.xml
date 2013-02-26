@@ -30,7 +30,7 @@
         <h2 class="{style.registerTitle}">Nouveau Membre ?</h2>
 
         <boot:Form type="INLINE">
-            <boot:ControlGroup styleName="{style.groupWrapper}">
+            <boot:ControlGroup addStyleNames="{style.groupWrapper}">
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.emailHelp}" placement="TOP">
                         <boot:TextBox ui:field="email" placeholder="Email" width="100%" />
@@ -38,25 +38,25 @@
                 </boot:Controls>
             </boot:ControlGroup>
 
-            <boot:ControlGroup styleName="{style.groupWrapper}">
+            <boot:ControlGroup addStyleNames="{style.groupWrapper}">
                 <boot:Controls>
                     <boot:TextBox ui:field="lastName" placeholder="Nom" width="100%"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
-            <boot:ControlGroup styleName="{style.groupWrapper}">
+            <boot:ControlGroup addStyleNames="{style.groupWrapper}">
                 <boot:Controls>
                     <boot:TextBox ui:field="firstName" placeholder="Prénom" width="100%"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
-            <boot:ControlGroup styleName="{style.groupWrapper}">
+            <boot:ControlGroup addStyleNames="{style.groupWrapper}">
                 <boot:Controls>
                     <boot:ValueListBox ui:field="gender" width="100%"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
-            <boot:ControlGroup styleName="{style.groupWrapper}">
+            <boot:ControlGroup addStyleNames="{style.groupWrapper}">
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.passwordHelp}" placement="TOP">
                         <boot:PasswordTextBox ui:field="password" placeholder="Mot de passe" width="100%"/>
@@ -64,7 +64,7 @@
                 </boot:Controls>
             </boot:ControlGroup>
 
-            <boot:ControlGroup styleName="{style.groupWrapper}">
+            <boot:ControlGroup addStyleNames="{style.groupWrapper}">
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.passwordHelp}" placement="TOP">
                         <boot:PasswordTextBox ui:field="passwordConfirmation"

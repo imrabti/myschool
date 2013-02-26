@@ -23,7 +23,6 @@ import com.gsr.myschool.common.client.mvp.ValidatedView;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
 import com.gsr.myschool.common.client.util.URLUtils;
-import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.front.client.place.NameTokens;
@@ -33,8 +32,6 @@ import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.front.client.web.welcome.popup.ResendmailPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
-import com.gwtplatform.mvp.client.proxy.PlaceManager;
-import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 
 import javax.validation.ConstraintViolation;
 import java.util.Set;
@@ -45,7 +42,6 @@ public class RegisterPresenter extends PresenterWidget<RegisterPresenter.MyView>
     }
 
     private final FrontRequestFactory requestFactory;
-    private final PlaceManager placeManager;
     private final MessageBundle messageBundle;
     private final ResendmailPresenter resendmailPresenter;
 
@@ -56,13 +52,11 @@ public class RegisterPresenter extends PresenterWidget<RegisterPresenter.MyView>
     public RegisterPresenter(final EventBus eventBus, final MyView view,
                              final FrontRequestFactory requestFactory,
                              final MessageBundle messageBundle,
-                             final PlaceManager placeManager,
                              final ResendmailPresenter resendmailPresenter) {
         super(eventBus, view);
 
         this.messageBundle = messageBundle;
         this.requestFactory = requestFactory;
-        this.placeManager = placeManager;
         this.resendmailPresenter = resendmailPresenter;
 
         getView().setUiHandlers(this);
@@ -70,8 +64,8 @@ public class RegisterPresenter extends PresenterWidget<RegisterPresenter.MyView>
 
     @Override
     public void register(UserProxy user) {
-        /*if (!registerViolation) {
-            String confirmationLink = URLUtils.generateURL(NameTokens.getLogin());
+        if (!registerViolation) {
+            String confirmationLink = URLUtils.generateURL(NameTokens.getWelcome());
             currentContext.register(user, confirmationLink).fire(new ValidatedReceiverImpl<Boolean>() {
                 @Override
                 public void onValidationError(Set<ConstraintViolation<?>> violations) {
@@ -87,21 +81,16 @@ public class RegisterPresenter extends PresenterWidget<RegisterPresenter.MyView>
 
                     String messageString = aBoolean ? messageBundle.registerSuccess() : messageBundle.registerFailure();
                     AlertType alertType = aBoolean ? AlertType.SUCCESS : AlertType.ERROR;
-                    Message message = new Message.Builder(messageString)
-                            .style(alertType).closeDelay(CloseDelay.LONG).build();
+                    Message message = new Message.Builder(messageString).style(alertType).build();
                     MessageEvent.fire(this, message);
 
-                    placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
+                    currentContext = requestFactory.registrationService();
+                    getView().edit(currentContext.create(UserProxy.class));
                 }
-                });
+            });
         } else {
             currentContext.fire();
-        }*/
-    }
-
-    @Override
-    public void login() {
-        //placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
+        }
     }
 
     @Override
