@@ -1,15 +1,18 @@
 package com.gsr.myschool.front.client.web.welcome;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
+import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.front.client.web.RootPresenter;
+import com.gsr.myschool.front.client.web.welcome.event.PasswordResetEvent;
 import com.gsr.myschool.front.client.web.welcome.widget.LoginPresenter;
 import com.gsr.myschool.front.client.web.welcome.widget.RegisterPresenter;
 import com.gsr.myschool.front.client.web.welcome.widget.ResetPasswordPresenter;
@@ -20,7 +23,8 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
-public class WelcomePresenter extends Presenter<WelcomePresenter.MyView, WelcomePresenter.MyProxy> {
+public class WelcomePresenter extends Presenter<WelcomePresenter.MyView, WelcomePresenter.MyProxy>
+        implements PasswordResetEvent.PasswordResetHandler {
     public interface MyView extends View {
     }
 
@@ -73,6 +77,16 @@ public class WelcomePresenter extends Presenter<WelcomePresenter.MyView, Welcome
     }
 
     @Override
+    public void onPasswordReset(PasswordResetEvent event) {
+        setInSlot(TYPE_SetRegisterContent, registerPresenter);
+    }
+
+    @Override
+    protected void onBind() {
+        addRegisteredHandler(PasswordResetEvent.getType(), this);
+    }
+
+    @Override
     protected void onReveal() {
         setInSlot(TYPE_SetLoginContent, loginPresenter);
     }
@@ -90,6 +104,20 @@ public class WelcomePresenter extends Presenter<WelcomePresenter.MyView, Welcome
         });
     }
 
-    private void processForgotPassword(String token) {
+    private void processForgotPassword(final String token) {
+        requestFactory.registrationService().verifyForgotPassword(token).fire(new ReceiverImpl<String>() {
+            @Override
+            public void onSuccess(String response) {
+                if (Strings.isNullOrEmpty(response)) {
+                    Message message = new Message.Builder(messageBundle.forgotPasswordWrongToken())
+                            .style(AlertType.ERROR).build();
+                    MessageEvent.fire(this, message);
+                    setInSlot(TYPE_SetRegisterContent, registerPresenter);
+                } else {
+                    resetPasswordPresenter.initResetPassword(token, response);
+                    setInSlot(TYPE_SetRegisterContent, resetPasswordPresenter);
+                }
+            }
+        });
     }
 }

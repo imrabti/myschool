@@ -40,7 +40,7 @@
                                   width="140px" styleName="{style.marginRight}"/>
         </boot:Tooltip>
 
-        <boot:Button text="Se connecter" ui:field="login" styleName="btn btn-success"/>
+        <boot:Button text="Connexion" ui:field="login" styleName="btn btn-success"/>
 
         <div class="{style.forgotPassword}">
             <g:Button ui:field="forgotPassword" text="Mot de passe oublié ?"

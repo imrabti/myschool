@@ -5,16 +5,19 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.ValidatedView;
 import com.gsr.myschool.common.client.proxy.ResetPasswordDTOProxy;
-import com.gsr.myschool.common.client.widget.messages.CloseDelay;
+import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.request.RegistrationRequest;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
+import com.gsr.myschool.front.client.web.welcome.event.PasswordResetEvent;
 import com.gsr.myschool.front.client.web.welcome.widget.ResetPasswordPresenter.MyView;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
-import com.gwtplatform.mvp.client.proxy.PlaceManager;
+
+import javax.validation.ConstraintViolation;
+import java.util.Set;
 
 public class ResetPasswordPresenter extends PresenterWidget<MyView> implements ResetPasswordUiHandlers {
     public interface MyView extends ValidatedView, HasUiHandlers<ResetPasswordUiHandlers> {
@@ -23,29 +26,33 @@ public class ResetPasswordPresenter extends PresenterWidget<MyView> implements R
 
     private final FrontRequestFactory requestFactory;
     private final MessageBundle messageBundle;
-    private final PlaceManager placeManager;
 
     private RegistrationRequest currentContext;
     private ResetPasswordDTOProxy currentResetPassword;
     private Boolean resetPasswordViolation;
+    private String token;
+    private String userEmail;
 
     @Inject
     public ResetPasswordPresenter(final EventBus eventBus, final MyView view,
                                   final FrontRequestFactory requestFactory,
-                                  final MessageBundle messageBundle,
-                                  final PlaceManager placeManager) {
+                                  final MessageBundle messageBundle) {
         super(eventBus, view);
 
         this.messageBundle = messageBundle;
         this.requestFactory = requestFactory;
-        this.placeManager = placeManager;
 
         getView().setUiHandlers(this);
     }
 
+    public void initResetPassword(String token, String userEmail) {
+        this.token = token;
+        this.userEmail = userEmail;
+    }
+
     @Override
     public void saveNewPassword(ResetPasswordDTOProxy resetPassword) {
-        /*if (!resetPasswordViolation) {
+        if (!resetPasswordViolation) {
             currentContext.resetPassword(resetPassword, token, userEmail).fire(new ValidatedReceiverImpl<Boolean>() {
                 @Override
                 public void onValidationError(Set<ConstraintViolation<?>> violations) {
@@ -59,25 +66,23 @@ public class ResetPasswordPresenter extends PresenterWidget<MyView> implements R
                     String messageString = response ? messageBundle.resetPasswordSuccess()
                             : messageBundle.resetPasswordFailure();
                     AlertType alertType = response ? AlertType.SUCCESS : AlertType.ERROR;
-                    Message message = new Message.Builder(messageString)
-                            .style(alertType).closeDelay(CloseDelay.LONG).build();
+                    Message message = new Message.Builder(messageString).style(alertType).build();
                     MessageEvent.fire(this, message);
                     getView().clearErrors();
 
                     resetPasswordViolation = false;
+                    currentContext = requestFactory.registrationService();
+                    currentResetPassword = currentContext.edit(currentResetPassword);
+                    getView().edit(currentResetPassword);
 
                     if (response) {
-                        placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
-                    } else {
-                        currentContext = requestFactory.registrationService();
-                        currentResetPassword = currentContext.edit(currentResetPassword);
-                        getView().edit(currentResetPassword);
+                        PasswordResetEvent.fire(this);
                     }
                 }
             });
         } else {
             currentContext.fire();
-        }*/
+        }
     }
 
     @Override
@@ -86,12 +91,5 @@ public class ResetPasswordPresenter extends PresenterWidget<MyView> implements R
         currentResetPassword = currentContext.create(ResetPasswordDTOProxy.class);
         resetPasswordViolation = false;
         getView().edit(currentResetPassword);
-    }
-
-    private void bounceToLogin() {
-        Message message = new Message.Builder(messageBundle.forgotPasswordWrongToken())
-                .style(AlertType.ERROR).closeDelay(CloseDelay.LONG).build();
-        MessageEvent.fire(this, message);
-        //placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
     }
 }
