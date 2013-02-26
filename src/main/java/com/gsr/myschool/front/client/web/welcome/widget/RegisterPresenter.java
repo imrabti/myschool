@@ -70,7 +70,7 @@ public class RegisterPresenter extends PresenterWidget<RegisterPresenter.MyView>
 
     @Override
     public void register(UserProxy user) {
-        if (!registerViolation) {
+        /*if (!registerViolation) {
             String confirmationLink = URLUtils.generateURL(NameTokens.getLogin());
             currentContext.register(user, confirmationLink).fire(new ValidatedReceiverImpl<Boolean>() {
                 @Override
@@ -96,12 +96,12 @@ public class RegisterPresenter extends PresenterWidget<RegisterPresenter.MyView>
                 });
         } else {
             currentContext.fire();
-        }
+        }*/
     }
 
     @Override
     public void login() {
-        placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
+        //placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
     }
 
     @Override

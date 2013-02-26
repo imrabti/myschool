@@ -47,13 +47,13 @@ public class WelcomeModule extends AbstractPresenterModule {
 
         bindPresenter(WelcomePresenter.class, WelcomePresenter.MyView.class, WelcomeView.class,
                 WelcomePresenter.MyProxy.class);
-        bindPresenter(ResetPasswordPresenter.class, ResetPasswordPresenter.MyView.class, ResetPasswordView.class,
-                ResetPasswordPresenter.MyProxy.class);
 
         bindSingletonPresenterWidget(LoginPresenter.class, LoginPresenter.MyView.class,
                 LoginView.class);
         bindSingletonPresenterWidget(RegisterPresenter.class, RegisterPresenter.MyView.class,
                 RegisterView.class);
+        bindSingletonPresenterWidget(ResetPasswordPresenter.class, ResetPasswordPresenter.MyView.class,
+                ResetPasswordView.class);
         bindSingletonPresenterWidget(ForgotPasswordPresenter.class, ForgotPasswordPresenter.MyView.class,
                 ForgotPasswordView.class);
         bindSingletonPresenterWidget(ResendmailPresenter.class, ResendmailPresenter.MyView.class,

@@ -1,3 +1,10 @@
+@sprite .welcomePanel {
+    gwt-image: "rootBack";
+    background-repeat: repeat;
+    width: 100%;
+    height: 100%;
+}
+
 @sprite .rootPanel {
     gwt-image: "mainBack";
     width: 100%;

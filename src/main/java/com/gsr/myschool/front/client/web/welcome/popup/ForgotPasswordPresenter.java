@@ -47,7 +47,7 @@ public class ForgotPasswordPresenter extends PresenterWidget<MyView> implements 
 
     @Override
     public void forgotPassword(ForgotPasswordDTOProxy forgotPassword) {
-        if (!forgotPasswordViolation) {
+        /*if (!forgotPasswordViolation) {
             String passwordLink = URLUtils.generateURL(NameTokens.getResetPassword());
             currentContext.startForgotPasswordProcess(forgotPassword, passwordLink).fire(
                     new ValidatedReceiverImpl<Boolean>() {
@@ -75,7 +75,7 @@ public class ForgotPasswordPresenter extends PresenterWidget<MyView> implements 
             });
         } else {
             currentContext.fire();
-        }
+        }*/
     }
 
     @Override

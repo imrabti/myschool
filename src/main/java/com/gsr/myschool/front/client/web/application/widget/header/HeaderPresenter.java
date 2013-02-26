@@ -58,7 +58,7 @@ public class HeaderPresenter extends PresenterWidget<HeaderPresenter.MyView> imp
     @Override
     public void logout() {
         securityUtils.clearCredentials();
-        placeManager.revealPlace(new PlaceRequest(NameTokens.getLogin()));
+        placeManager.revealPlace(new PlaceRequest(NameTokens.getWelcome()));
     }
 
     @Override

@@ -19,6 +19,8 @@ package com.gsr.myschool.front.client.resource.style;
 import com.google.gwt.resources.client.CssResource;
 
 public interface FrontStyle extends CssResource {
+    String welcomePanel();
+
     String rootPanel();
 
     String msgRead();

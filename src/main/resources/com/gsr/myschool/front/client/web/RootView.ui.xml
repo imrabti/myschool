@@ -1,5 +1,8 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+    <ui:with field="frontResources" type="com.gsr.myschool.front.client.resource.FrontResources"/>
+
     <ui:style>
         .messageWrapper {
             margin-right: auto;
@@ -16,7 +19,7 @@
         </g:layer>
 
         <g:layer>
-            <g:SimpleLayoutPanel ui:field="main"/>
+            <g:SimpleLayoutPanel ui:field="main" styleName="{frontResources.frontStyleCss.welcomePanel}"/>
         </g:layer>
     </g:LayoutPanel>
 </ui:UiBinder>

@@ -45,24 +45,48 @@
         }
 
         .mainContent {
-            width: 900px;
+            width: 920px;
             margin-right: auto;
             margin-left: auto;
             margin-top: 90px;
         }
 
         .pictureWrapper {
-            width: 480px;
+            width: 500px;
             float: left;
             padding-left: 10px;
             padding-right: 30px;
             border-right: 2px solid #dddddd;
         }
 
+        .pictureWrapper div {
+            display: inline-block;
+            background-color: #FFFFFF;
+            padding: 10px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            -webkit-box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.1);
+        }
+
         .registerPanelWrapper {
             width: 300px;
             padding-left: 45px;
             float: left;
+        }
+
+        .footerWrapper {
+            margin-top: 30px;
+            padding-top: 6px;
+            width: 920px;
+            margin-right: auto;
+            margin-left: auto;
+            border-top: 1px solid #d3d3d3;
+            text-align: center;
+            font-size: 12px;
+            color: #545454;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 1);
         }
     </ui:style>
 
@@ -83,12 +107,18 @@
 
         <div class="{style.mainContent}">
             <div class="{style.pictureWrapper}">
-                <g:Image resource="{frontResources.loginPicture}"/>
+                <div>
+                    <g:Image resource="{frontResources.loginPicture}"/>
+                </div>
             </div>
 
             <g:SimplePanel ui:field="registerPanel" styleName="{style.registerPanelWrapper}"/>
 
             <div style="clear: both;"/>
+        </div>
+
+        <div class="{style.footerWrapper}">
+            Touts droits réservé <strong>GSR</strong> - 2013
         </div>
     </g:HTMLPanel>
 </ui:UiBinder>

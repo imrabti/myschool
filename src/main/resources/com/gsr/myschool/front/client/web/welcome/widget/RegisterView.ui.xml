@@ -4,14 +4,14 @@
 
     <ui:with field="helpMessage" type="com.gsr.myschool.common.client.resource.message.HelpMessageBundle"/>
     <ui:with field="sharedResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
-    <ui:with field="resources" type="com.gsr.myschool.front.client.resource.FrontResources"/>
 
     <ui:style>
         .registerTitle {
             margin-top: 0px;
             margin-bottom: 20px;
             font-size: 26px;
-            color: #333;
+            color: #545454;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 1);
         }
 
         .groupWrapper {
@@ -19,9 +19,10 @@
         }
 
         .emailNotReceived {
-            margin-top: 10px;
+            margin-top: 15px;
             padding-top: 8px;
             border-top: 1px solid #dddddd;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 1);
         }
     </ui:style>
 
