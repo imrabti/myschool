@@ -1,4 +1,4 @@
-package com.gsr.myschool.front.client.web.welcome.resetpassword;
+package com.gsr.myschool.front.client.web.welcome.widget;
 
 import com.gsr.myschool.common.client.proxy.ResetPasswordDTOProxy;
 import com.gwtplatform.mvp.client.UiHandlers;

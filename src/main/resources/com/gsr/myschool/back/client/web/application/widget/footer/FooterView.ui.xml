@@ -2,16 +2,17 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
     <ui:style>
         .footerWrapper {
-            background-color: #dddddd;
-            border-top: 4px solid #cccccc;
+            background-color: #545454;
+            border-top: 4px solid #717171;
             padding-top: 15px;
             padding-left: 10px;
-            text-shadow: 0 1px 1px rgba(255,255,255, 1);
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+            color: #FFFFFF;
             text-align: center;
         }
     </ui:style>
 
     <g:HTMLPanel styleName="{style.footerWrapper}">
-        Copyright 2013 <strong>Out Of Box</strong>. All rights reserved.
+        Touts droits réservé <strong>GSR</strong> - 2013.
     </g:HTMLPanel>
 </ui:UiBinder> 

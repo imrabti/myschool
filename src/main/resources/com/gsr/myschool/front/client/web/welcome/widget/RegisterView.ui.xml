@@ -1,0 +1,84 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+
+    <ui:with field="helpMessage" type="com.gsr.myschool.common.client.resource.message.HelpMessageBundle"/>
+    <ui:with field="sharedResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+
+    <ui:style>
+        .registerTitle {
+            margin-top: 0px;
+            margin-bottom: 20px;
+            font-size: 26px;
+            color: #545454;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 1);
+        }
+
+        .groupWrapper {
+            margin-bottom: 15px;
+        }
+
+        .emailNotReceived {
+            margin-top: 15px;
+            padding-top: 8px;
+            border-top: 1px solid #dddddd;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 1);
+        }
+    </ui:style>
+
+    <g:HTMLPanel>
+        <h2 class="{style.registerTitle}">Nouveau Membre ?</h2>
+
+        <boot:Form type="INLINE">
+            <boot:ControlGroup addStyleNames="{style.groupWrapper}">
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.emailHelp}" placement="TOP">
+                        <boot:TextBox ui:field="email" placeholder="Email" width="100%" />
+                    </boot:Tooltip>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup addStyleNames="{style.groupWrapper}">
+                <boot:Controls>
+                    <boot:TextBox ui:field="lastName" placeholder="Nom" width="100%"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup addStyleNames="{style.groupWrapper}">
+                <boot:Controls>
+                    <boot:TextBox ui:field="firstName" placeholder="Prénom" width="100%"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup addStyleNames="{style.groupWrapper}">
+                <boot:Controls>
+                    <boot:ValueListBox ui:field="gender" width="100%"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup addStyleNames="{style.groupWrapper}">
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.passwordHelp}" placement="TOP">
+                        <boot:PasswordTextBox ui:field="password" placeholder="Mot de passe" width="100%"/>
+                    </boot:Tooltip>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup addStyleNames="{style.groupWrapper}">
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.passwordHelp}" placement="TOP">
+                        <boot:PasswordTextBox ui:field="passwordConfirmation"
+                                              placeholder="Confirmation mot de passe" width="100%"/>
+                    </boot:Tooltip>
+                </boot:Controls>
+            </boot:ControlGroup>
+        </boot:Form>
+
+        <boot:Button ui:field="register" text="S'inscrire" styleName="btn btn-success" size="LARGE"/>
+
+        <div class="{style.emailNotReceived}">
+            <g:Button ui:field="resendMail" text="Email d'activation non reçus ?"
+                      styleName="{sharedResources.sharedStyleCss.linkButton}"/>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>

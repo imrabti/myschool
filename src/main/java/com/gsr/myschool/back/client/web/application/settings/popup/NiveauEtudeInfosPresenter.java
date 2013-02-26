@@ -29,7 +29,9 @@ import com.gwtplatform.mvp.client.PresenterWidget;
 import java.util.List;
 
 public class NiveauEtudeInfosPresenter extends PresenterWidget<NiveauEtudeInfosPresenter.MyView> {
-    public interface MyView extends ValidatedPopupView{
+    public interface MyView extends ValidatedPopupView {
+        void setNiveauEtudeTitle(String niveauEtudeTitle);
+
         void setDataPieceJustf(List<PieceJustifProxy> response);
 
         void setDataMatiereExamen(List<MatiereExamenProxy> response);
@@ -53,6 +55,7 @@ public class NiveauEtudeInfosPresenter extends PresenterWidget<NiveauEtudeInfosP
 
     @Override
     protected void onReveal() {
+        getView().setNiveauEtudeTitle(currentNiveauEtude.getNom());
         fillCellList();
     }
 

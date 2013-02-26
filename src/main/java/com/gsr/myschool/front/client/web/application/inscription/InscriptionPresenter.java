@@ -43,7 +43,6 @@ import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView, InscriptionPresenter.MyProxy>
@@ -144,24 +143,21 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
     @Override
     public void onDossierSubmit(DossierSubmitEvent event) {
         if (event.getAgreement()) {
-            if (Window.confirm(messageBundle.inscriptionSubmitConf())) {
-                Long dossierId = submittedDossier.getId();
-                requestFactory.inscriptionService().submitInscription(dossierId).fire(new ReceiverImpl<List<String>>() {
-                    @Override
-                    public void onSuccess(List<String> response) {
-                        if (response.isEmpty()) {
-                            Message message = new Message.Builder(messageBundle.inscriptionSubmitSuccess())
-                                    .style(AlertType.SUCCESS).build();
-                            MessageEvent.fire(this, message);
-                            loadAllInscriptions();
-                        } else {
-                            getView().showErrors(response);
-                        }
+            Long dossierId = submittedDossier.getId();
+            requestFactory.inscriptionService().submitInscription(dossierId).fire(new ReceiverImpl<List<String>>() {
+                @Override
+                public void onSuccess(List<String> response) {
+                    if (response.isEmpty()) {
+                        Message message = new Message.Builder(messageBundle.inscriptionSubmitSuccess())
+                                .style(AlertType.SUCCESS).build();
+                        MessageEvent.fire(this, message);
+                        loadAllInscriptions();
+                        getView().clearErrors();
+                    } else {
+                        getView().showErrors(response);
                     }
-                });
-            }
-        } else {
-            getView().showErrors(Arrays.asList(new String[] {messageBundle.declarationHonneurFaillure()}));
+                }
+            });
         }
     }
 

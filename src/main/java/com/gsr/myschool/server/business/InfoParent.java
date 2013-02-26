@@ -28,12 +28,10 @@ public class InfoParent implements java.io.Serializable {
     @Phone
     private String telGsm;
     @Phone
-    @NotBlank
     private String telDom;
     @Phone
     private String telBureau;
     @Email
-    @NotBlank
     private String email;
     private String address;
     private String fonction;
