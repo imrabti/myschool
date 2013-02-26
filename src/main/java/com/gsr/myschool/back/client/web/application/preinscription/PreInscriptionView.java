@@ -95,6 +95,11 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         getUiHandlers().searchWithFilter(dossierFilterEditor.get());
     }
 
+    @UiHandler("export")
+    void onExport(ClickEvent event) {
+        getUiHandlers().export(dossierFilterEditor.get());
+    }
+
     @UiHandler("initialize")
     void onInitialize(ClickEvent event) {
         getUiHandlers().init();

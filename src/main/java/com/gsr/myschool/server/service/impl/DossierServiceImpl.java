@@ -16,7 +16,6 @@
 
 package com.gsr.myschool.server.service.impl;
 
-import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
@@ -36,8 +35,8 @@ import java.util.Map;
 
 @Service
 public class DossierServiceImpl implements DossierService {
-	@Autowired
-	DossierRepos dossierRepos;
+    @Autowired
+    DossierRepos dossierRepos;
     @Autowired
     private ValidationProcessService validationProcessService;
 
@@ -52,7 +51,7 @@ public class DossierServiceImpl implements DossierService {
     @Override
     public Boolean receive(Dossier dossier) {
         Map<Dossier, Task> dossiersAndTasks = validationProcessService.getAllNonReceivedDossiers();
-        for (Dossier dossierFromProcess: dossiersAndTasks.keySet()) {
+        for (Dossier dossierFromProcess : dossiersAndTasks.keySet()) {
             if (dossier.getId() == dossierFromProcess.getId()) {
                 validationProcessService.receiveDossier(dossiersAndTasks.get(dossierFromProcess));
 
