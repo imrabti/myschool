@@ -45,7 +45,7 @@
         }
 
         .mainContent {
-            width: 1000px;
+            width: 900px;
             margin-right: auto;
             margin-left: auto;
             margin-top: 90px;
@@ -60,7 +60,7 @@
         }
 
         .registerPanelWrapper {
-            width: 400px;
+            width: 300px;
             padding-left: 45px;
             float: left;
         }

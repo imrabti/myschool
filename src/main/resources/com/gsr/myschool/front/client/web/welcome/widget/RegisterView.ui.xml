@@ -6,49 +6,61 @@
     <ui:with field="sharedResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
     <ui:with field="resources" type="com.gsr.myschool.front.client.resource.FrontResources"/>
 
+    <ui:style>
+        .registerTitle {
+            margin-top: 0px;
+            margin-bottom: 20px;
+            font-size: 26px;
+        }
+
+        .groupWrapper {
+            margin-bottom: 15px;
+        }
+    </ui:style>
+
     <g:HTMLPanel>
-        <h2>Nouveau Membre ?</h2>
+        <h2 class="{style.registerTitle}">Nouveau Membre ?</h2>
 
         <boot:Form type="INLINE">
-            <boot:ControlGroup>
+            <boot:ControlGroup styleName="{style.groupWrapper}">
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.emailHelp}" placement="TOP">
-                        <boot:TextBox ui:field="email" placeholder="Email" />
+                        <boot:TextBox ui:field="email" placeholder="Email" width="100%" />
                     </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
 
-            <boot:ControlGroup>
+            <boot:ControlGroup styleName="{style.groupWrapper}">
                 <boot:Controls>
-                    <boot:ValueListBox ui:field="gender"/>
+                    <boot:TextBox ui:field="lastName" placeholder="Nom" width="100%"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
-            <boot:ControlGroup>
+            <boot:ControlGroup styleName="{style.groupWrapper}">
                 <boot:Controls>
-                    <boot:TextBox ui:field="lastName" placeholder="Nom"/>
+                    <boot:TextBox ui:field="firstName" placeholder="Prénom" width="100%"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
-            <boot:ControlGroup>
+            <boot:ControlGroup styleName="{style.groupWrapper}">
                 <boot:Controls>
-                    <boot:TextBox ui:field="firstName" placeholder="Prénom"/>
+                    <boot:ValueListBox ui:field="gender" width="100%"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
-            <boot:ControlGroup>
+            <boot:ControlGroup styleName="{style.groupWrapper}">
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.passwordHelp}" placement="TOP">
-                        <boot:PasswordTextBox ui:field="password" placeholder="Mot de passe"/>
+                        <boot:PasswordTextBox ui:field="password" placeholder="Mot de passe" width="100%"/>
                     </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
 
-            <boot:ControlGroup>
+            <boot:ControlGroup styleName="{style.groupWrapper}">
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.passwordHelp}" placement="TOP">
                         <boot:PasswordTextBox ui:field="passwordConfirmation"
-                                              placeholder="Confirmation mot de passe"/>
+                                              placeholder="Confirmation mot de passe" width="100%"/>
                     </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
