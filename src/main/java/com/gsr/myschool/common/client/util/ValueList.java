@@ -13,7 +13,7 @@ public interface ValueList {
 
     List<EtablissementScolaireProxy> getEtablissementScolaireList();
 
-    List<NiveauEtudeProxy> getNiveauEtudeList(String filiere);
+    List<NiveauEtudeProxy> getNiveauEtudeList(Long filiere);
 
     List<NiveauEtudeProxy> getNiveauEtudeList();
 

@@ -239,7 +239,7 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
             @Override
             public String getValue(FraterieProxy object) {
                 if (object.getFiliere() == null) return "";
-                return TypeEnseignement.BILINGUE.getNomFiliere().equals(object.getFiliere().getNom()) ?
+                return TypeEnseignement.BILINGUE.getId() == object.getFiliere().getId()?
                         TypeEnseignement.BILINGUE.toString() : TypeEnseignement.MISSION.toString();
             }
         };

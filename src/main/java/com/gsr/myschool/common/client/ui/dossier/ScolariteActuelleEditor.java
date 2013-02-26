@@ -19,6 +19,7 @@ import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
 import com.gsr.myschool.common.shared.type.TypeEnseignement;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.google.gwt.query.client.GQuery.$;
@@ -62,7 +63,7 @@ public class ScolariteActuelleEditor extends Composite implements EditorView<Sco
         typeEnseignement.setAcceptableValues(Arrays.asList(TypeEnseignement.values()));
 
         $(typeEnseignement).id("typeEnseignement");
-        $(niveauEtude).id("niveauEtude");;
+        $(niveauEtude).id("niveauEtude");
     }
 
     @Override
@@ -95,7 +96,12 @@ public class ScolariteActuelleEditor extends Composite implements EditorView<Sco
 
     @UiHandler("typeEnseignement")
     void onTypeEnseignementChanged(ValueChangeEvent<TypeEnseignement> event) {
-        niveauEtude.setValue(null);
-        niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(typeEnseignement.getValue().getNomFiliere()));
+        if (event.getValue() != null) {
+            niveauEtude.setValue(null);
+            niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(typeEnseignement.getValue().getId()));
+        } else {
+            niveauEtude.setValue(null);
+            niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
+        }
     }
 }

@@ -10,6 +10,7 @@ import com.gsr.myschool.common.client.ui.dossier.NiveauScolaireEditor;
 import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
+import com.gsr.myschool.common.shared.type.TypeEnseignement;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.request.InscriptionRequest;
@@ -73,8 +74,8 @@ public class SolariteSouhaitePresenter extends PresenterWidget<SolariteSouhaiteP
                 currentDossier.setNiveauEtude2(currentContext.edit(currentDossier.getNiveauEtude2()));
             }
 
-            if ((NiveauScolaireEditor.MISSION.equals(currentDossier.getFiliere().getNom())
-                    || NiveauScolaireEditor.BILINGUE.equals(currentDossier.getFiliere().getNom()))
+            if ((TypeEnseignement.MISSION.getId() == currentDossier.getFiliere().getId()
+                    || TypeEnseignement.BILINGUE.getId() == currentDossier.getFiliere().getId())
                     && currentDossier.getNiveauEtude2() == null) {
                 Message message = new Message.Builder(messageBundle.niveauScolaireFaillure())
                         .style(AlertType.ERROR).closeDelay(CloseDelay.DEFAULT).build();

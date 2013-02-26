@@ -231,8 +231,8 @@ public class InscriptionServiceImpl implements InscriptionService {
         }
 
         if (scolariteActuelle.getTypeEnseignement() != null) {
-            String filiereNom = scolariteActuelle.getTypeEnseignement().getNomFiliere();
-            currentScolariteActuelle.setFiliere(filiereRepos.findByNom(filiereNom));
+            Long idFiliere = scolariteActuelle.getTypeEnseignement().getId();
+            currentScolariteActuelle.setFiliere(filiereRepos.findOne(idFiliere));
         } else {
             currentScolariteActuelle.setFiliere(null);
         }
@@ -301,7 +301,7 @@ public class InscriptionServiceImpl implements InscriptionService {
             fraterie.setNiveau(niveauEtudeRepos.findOne(fraterieDTO.getNiveau().getId()));
         }
         if (fraterieDTO.getFiliere() != null) {
-            fraterie.setFiliere(filiereRepos.findByNom(fraterieDTO.getFiliere().getNomFiliere()));
+            fraterie.setFiliere(filiereRepos.findOne(fraterieDTO.getFiliere().getId()));
         }
         fraterieRepos.save(fraterie);
     }

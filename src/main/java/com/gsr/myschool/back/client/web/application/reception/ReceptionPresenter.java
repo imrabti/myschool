@@ -25,6 +25,7 @@ import com.gsr.myschool.back.client.request.DossierServiceRequest;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.client.request.ExcelRequestBuilder;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
@@ -125,6 +126,21 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
                 getView().editDossierFilter(currentDossierFilter);
             }
         });
+    }
+
+    @Override
+    public void init() {
+        currentContext = requestFactory.dossierService();
+        currentDossierFilter = currentContext.create(DossierFilterDTOProxy.class);
+        getView().editDossierFilter(currentDossierFilter);
+    }
+
+    @Override
+    public void export(DossierFilterDTOProxy dossierFilter) {
+        dossierFilter.setStatus(DossierStatus.SUBMITTED);
+
+        ExcelRequestBuilder request = new ExcelRequestBuilder();
+        request.sendRequest(dossierFilter);
     }
 
     @Override
