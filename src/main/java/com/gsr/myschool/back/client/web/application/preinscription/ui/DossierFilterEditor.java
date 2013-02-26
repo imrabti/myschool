@@ -69,7 +69,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
             public void onValueChange(ValueChangeEvent<FiliereProxy> event) {
                 if(event.getValue() != null) {
                     niveauEtude.setValue(null);
-                    niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(event.getValue().getNom()));
+                    niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(event.getValue().getId()));
                 } else {
                     niveauEtude.setValue(null);
                     niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());

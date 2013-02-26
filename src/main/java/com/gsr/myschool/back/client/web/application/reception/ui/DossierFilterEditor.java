@@ -46,12 +46,10 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     CheckBox gsrFraterie;
 
     private final Driver driver;
-    private final ValueList valueList;
 
     @Inject
     public DossierFilterEditor(final Binder uiBinder, final Driver driver, final ValueList valueList) {
         this.driver = driver;
-        this.valueList = valueList;
 
         this.filiere = new ValueListBox<FiliereProxy>(new FiliereRenderer());
         this.niveauEtude = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
@@ -67,7 +65,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
             public void onValueChange(ValueChangeEvent<FiliereProxy> event) {
                 if(event.getValue() != null) {
                     niveauEtude.setValue(null);
-                    niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(event.getValue().getNom()));
+                    niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(event.getValue().getId()));
                 } else {
                     niveauEtude.setValue(null);
                     niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());

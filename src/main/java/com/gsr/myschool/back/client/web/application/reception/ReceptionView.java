@@ -79,6 +79,16 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers>
         getUiHandlers().searchWithFilter(dossierFilterEditor.get());
     }
 
+    @UiHandler("export")
+    void onExport(ClickEvent event) {
+        getUiHandlers().export(dossierFilterEditor.get());
+    }
+
+    @UiHandler("initialize")
+    void onInitialize(ClickEvent event) {
+        getUiHandlers().init();
+    }
+
     private void initDataGrid() {
         TextColumn<DossierProxy> refColumn = new TextColumn<DossierProxy>() {
             @Override

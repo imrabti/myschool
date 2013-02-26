@@ -16,7 +16,11 @@
 
 package com.gsr.myschool.back.client.web.application.preinscription;
 
+import com.google.gwt.http.client.*;
 import com.google.inject.Inject;
+import com.google.web.bindery.autobean.shared.AutoBean;
+import com.google.web.bindery.autobean.shared.AutoBeanCodex;
+import com.google.web.bindery.autobean.shared.AutoBeanUtils;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
@@ -24,8 +28,10 @@ import com.gsr.myschool.back.client.request.DossierServiceRequest;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.client.request.ExcelRequestBuilder;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
+import com.gsr.myschool.common.client.util.URLUtils;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -103,6 +109,12 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
         currentContext = requestFactory.dossierService();
         currentDossierFilter = currentContext.create(DossierFilterDTOProxy.class);
         getView().editDossierFilter(currentDossierFilter);
+    }
+
+    @Override
+    public void export(DossierFilterDTOProxy dossierFilter) {
+        ExcelRequestBuilder request = new ExcelRequestBuilder();
+        request.sendRequest(dossierFilter);
     }
 
     @Override

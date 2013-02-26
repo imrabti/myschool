@@ -17,7 +17,8 @@
 package com.gsr.myschool.common.shared.type;
 
 public enum TypeEnseignement {
-    MISSION("Système français", "Section FR", 10L), BILINGUE("Système bilingue", "Section Bilingue", 20L);
+    MISSION("Système Français", "Formation conformes au IOF", 10L),
+    BILINGUE("Système Bilingue", "Formation Bilingue enrichie", 20L);
 
     private String label;
     private String nomFiliere;
@@ -29,10 +30,10 @@ public enum TypeEnseignement {
         this.id = id;
     }
 
-    public static TypeEnseignement getByNomFilere(String nomFiliere) {
-        if (nomFiliere.equals(MISSION.getNomFiliere())) {
+    public static TypeEnseignement getById(Long id) {
+        if (id == MISSION.getId()) {
             return MISSION;
-        } else if (nomFiliere.equals(BILINGUE.getNomFiliere())) {
+        } else if (id == BILINGUE.getId()) {
             return BILINGUE;
         } else {
             return null;
@@ -42,10 +43,6 @@ public enum TypeEnseignement {
     @Override
     public String toString() {
         return label;
-    }
-
-    public String getNomFiliere() {
-        return nomFiliere;
     }
 
     public Long getId() {

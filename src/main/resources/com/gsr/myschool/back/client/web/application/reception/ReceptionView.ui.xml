@@ -23,6 +23,8 @@
             <boot:Well>
                 <s:DossierFilterEditor ui:field="dossierFilterEditor"/>
                 <boot:Button text="Rechercher" icon="SEARCH" ui:field="search" />
+                <boot:Button text="Initialiser formulaire" ui:field="initialize"/>
+                <boot:Button text="Export Excel" icon="TH_LIST" ui:field="export"/>
             </boot:Well>
 
             <div class="{style.contentWrapper}">

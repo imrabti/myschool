@@ -60,7 +60,7 @@ public class NiveauEtudeInfosTree implements TreeViewModel {
         }
         if (t instanceof FiliereProxy) {
             ListDataProvider<NiveauEtudeProxy> dataProvider = new ListDataProvider<NiveauEtudeProxy>();
-            dataProvider.setList(valueList.getNiveauEtudeList(((FiliereProxy) t).getNom()));
+            dataProvider.setList(valueList.getNiveauEtudeList(((FiliereProxy) t).getId()));
             Cell<NiveauEtudeProxy> myCell = new AbstractCell<NiveauEtudeProxy>(BrowserEvents.DBLCLICK) {
                 @Override
                 public void render(Context context, NiveauEtudeProxy value, SafeHtmlBuilder sb) {

@@ -26,4 +26,6 @@ public interface PreInscriptionUiHandlers extends UiHandlers {
     void searchWithFilter(DossierFilterDTOProxy dossierFilter);
 
     void init();
+
+    void export(DossierFilterDTOProxy dossierFilter);
 }
