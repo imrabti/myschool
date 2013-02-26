@@ -14,61 +14,39 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.web.welcome.login;
+package com.gsr.myschool.front.client.web.welcome.widget;
 
-import com.github.gwtbootstrap.client.ui.constants.AlertType;
-import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.SecurityUtils;
-import com.gsr.myschool.common.client.widget.messages.CloseDelay;
-import com.gsr.myschool.common.client.widget.messages.Message;
-import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.dto.UserCredentials;
 import com.gsr.myschool.front.client.BootstrapperImpl;
-import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
-import com.gsr.myschool.front.client.resource.message.MessageBundle;
-import com.gsr.myschool.front.client.web.RootPresenter;
 import com.gsr.myschool.front.client.web.welcome.popup.ForgotPasswordPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
-import com.gwtplatform.mvp.client.Presenter;
+import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;
-import com.gwtplatform.mvp.client.annotations.NameToken;
-import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
-import com.gwtplatform.mvp.client.proxy.PlaceRequest;
-import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
-public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresenter.MyProxy>
-        implements LoginUiHandlers {
+public class LoginPresenter extends PresenterWidget<LoginPresenter.MyView> implements LoginUiHandlers {
     public interface MyView extends View, HasUiHandlers<LoginUiHandlers> {
         void edit(UserCredentials credentials);
-
-        void displayLoginError(Boolean visible);
-    }
-
-    @ProxyStandard
-    @NameToken(NameTokens.login)
-    public interface MyProxy extends ProxyPlace<LoginPresenter> {
     }
 
     private final FrontRequestFactory requestFactory;
     private final SecurityUtils securityUtils;
     private final BootstrapperImpl bootstrapper;
     private final PlaceManager placeManager;
-    private final MessageBundle messageBundle;
     private final ForgotPasswordPresenter forgotPasswordPresenter;
 
     @Inject
-    public LoginPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
+    public LoginPresenter(final EventBus eventBus, final MyView view,
                           final FrontRequestFactory requestFactory, final SecurityUtils securityUtils,
                           final BootstrapperImpl bootstrapper, final PlaceManager placeManager,
-                          final MessageBundle messageBundle, final ForgotPasswordPresenter forgotPasswordPresenter) {
-        super(eventBus, view, proxy, RootPresenter.TYPE_SetMainContent);
+                          final ForgotPasswordPresenter forgotPasswordPresenter) {
+        super(eventBus, view);
 
-        this.messageBundle = messageBundle;
         this.requestFactory = requestFactory;
         this.securityUtils = securityUtils;
         this.bootstrapper = bootstrapper;
@@ -89,36 +67,9 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
                 if (authenticated) {
                     securityUtils.setCredentials(credentials.getUsername(), credentials.getPassword());
                     bootstrapper.onBootstrap();
-                } else {
-                    getView().displayLoginError(true);
                 }
             }
         });
-    }
-
-    @Override
-    public void prepareFromRequest(PlaceRequest placeRequest) {
-        String token = placeRequest.getParameter("token", null);
-        if (!Strings.isNullOrEmpty(token)) {
-            requestFactory.registrationService().activateAccount(token).fire(new ReceiverImpl<Boolean>() {
-                @Override
-                public void onSuccess(Boolean aBoolean) {
-                    String messageString = aBoolean ? messageBundle.activateAccountSuccess()
-                            : messageBundle.activateAccountFailure();
-                    AlertType alertType = aBoolean ? AlertType.SUCCESS : AlertType.ERROR;
-                    Message message = new Message.Builder(messageString)
-                            .style(alertType)
-                            .closeDelay(CloseDelay.NEVER)
-                            .build();
-                    MessageEvent.fire(this, message);
-                }
-            });
-        }
-    }
-
-    @Override
-    public void register() {
-        placeManager.revealPlace(new PlaceRequest(NameTokens.getRegister()));
     }
 
     @Override

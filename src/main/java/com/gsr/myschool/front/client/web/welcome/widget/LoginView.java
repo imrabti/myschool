@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.web.welcome.login;
+package com.gsr.myschool.front.client.web.welcome.widget;
 
 import com.github.gwtbootstrap.client.ui.PasswordTextBox;
 import com.github.gwtbootstrap.client.ui.TextBox;
@@ -26,12 +26,10 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
-import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.shared.dto.UserCredentials;
 
@@ -47,20 +45,14 @@ public class LoginView extends ViewWithUiHandlers<LoginUiHandlers> implements Lo
     TextBox username;
     @UiField
     PasswordTextBox password;
-    @UiField
-    @Ignore
-    Label loginError;
 
-    private final MessageBundle messageBundle;
     private final Driver driver;
 
     @Inject
-    public LoginView(final Binder uiBinder, final MessageBundle messageBundle,
-                     final UiHandlersStrategy<LoginUiHandlers> uiHandlers,
-                     final Driver driver) {
+    public LoginView(final Binder uiBinder, final Driver driver,
+                     final UiHandlersStrategy<LoginUiHandlers> uiHandlers) {
         super(uiHandlers);
 
-        this.messageBundle = messageBundle;
         this.driver = driver;
 
         initWidget(uiBinder.createAndBindUi(this));
@@ -71,7 +63,6 @@ public class LoginView extends ViewWithUiHandlers<LoginUiHandlers> implements Lo
     public void edit(UserCredentials credentials) {
         username.setFocus(true);
         driver.edit(credentials);
-        loginError.setVisible(false);
     }
 
     @Override
@@ -82,17 +73,6 @@ public class LoginView extends ViewWithUiHandlers<LoginUiHandlers> implements Lo
         } else {
             return credentials;
         }
-    }
-
-    @Override
-    public void displayLoginError(Boolean visible) {
-        loginError.setVisible(visible);
-        loginError.setText(messageBundle.wrongLoginOrPassword());
-    }
-
-    @UiHandler("register")
-    void onRegisterClicked(ClickEvent event) {
-        getUiHandlers().register();
     }
 
     @UiHandler("login")
@@ -117,10 +97,6 @@ public class LoginView extends ViewWithUiHandlers<LoginUiHandlers> implements Lo
 
         if (!Strings.isNullOrEmpty(credentials.getUsername()) && !Strings.isNullOrEmpty(credentials.getPassword())) {
             getUiHandlers().login(credentials);
-            loginError.setVisible(false);
-        } else {
-            loginError.setVisible(true);
-            loginError.setText(messageBundle.loginPasswordRequired());
         }
     }
 }

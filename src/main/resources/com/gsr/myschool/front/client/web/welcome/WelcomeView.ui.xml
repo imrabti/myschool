@@ -1,0 +1,94 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+    <ui:with field="resources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+    <ui:with field="frontResources" type="com.gsr.myschool.front.client.resource.FrontResources"/>
+
+    <ui:style>
+        .header {
+            margin-bottom: 8px;
+            padding-bottom: 5px;
+            padding-left: 120px;
+        }
+
+        .logo {
+            float: left;
+            width: 107px;
+            margin-left: -117px;
+            padding-top: 5px;
+            padding-left: 10px;
+        }
+
+        .innerHeader {
+            float: right;
+            width: 100%;
+            background-color: #1b5799;
+            padding-left: 20px;
+            -moz-border-radius-bottomleft: 8px;
+            -webkit-border-bottom-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45);
+        }
+
+        .innerHeader h1 {
+            margin-top: 10px;
+            float: left;
+            color: #FFFFFF;
+            font-size: 20px;
+            width: 200px;
+        }
+
+        .loginWrapper {
+            float: right;
+            margin-right: 20px;
+            margin-top: 8px;
+        }
+
+        .mainContent {
+            width: 1000px;
+            margin-right: auto;
+            margin-left: auto;
+            margin-top: 90px;
+        }
+
+        .pictureWrapper {
+            width: 480px;
+            float: left;
+            padding-left: 10px;
+            padding-right: 30px;
+            border-right: 2px solid #dddddd;
+        }
+
+        .registerPanelWrapper {
+            width: 400px;
+            padding-left: 45px;
+            float: left;
+        }
+    </ui:style>
+
+    <g:HTMLPanel>
+        <div class="{style.header}">
+            <div class="{style.logo}">
+                <g:Image resource="{resources.logo}"/>
+            </div>
+
+            <div class="{style.innerHeader}">
+                <h1>Déjà Un Membre ?</h1>
+
+                <g:SimplePanel ui:field="loginPanel" styleName="{style.loginWrapper}"/>
+
+                <div style="clear: both;"/>
+            </div>
+        </div>
+
+        <div class="{style.mainContent}">
+            <div class="{style.pictureWrapper}">
+                <g:Image resource="{frontResources.loginPicture}"/>
+            </div>
+
+            <g:SimplePanel ui:field="registerPanel" styleName="{style.registerPanelWrapper}"/>
+
+            <div style="clear: both;"/>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>

@@ -24,12 +24,12 @@ import com.gsr.myschool.front.client.web.welcome.resetpassword.ResetPasswordPres
 import com.gsr.myschool.front.client.web.welcome.resetpassword.ResetPasswordUiHandlers;
 import com.gsr.myschool.front.client.web.welcome.resetpassword.ResetPasswordView;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
-import com.gsr.myschool.front.client.web.welcome.login.LoginPresenter;
-import com.gsr.myschool.front.client.web.welcome.login.LoginUiHandlers;
-import com.gsr.myschool.front.client.web.welcome.login.LoginView;
-import com.gsr.myschool.front.client.web.welcome.register.RegisterPresenter;
-import com.gsr.myschool.front.client.web.welcome.register.RegisterUiHandlers;
-import com.gsr.myschool.front.client.web.welcome.register.RegisterView;
+import com.gsr.myschool.front.client.web.welcome.widget.LoginPresenter;
+import com.gsr.myschool.front.client.web.welcome.widget.LoginUiHandlers;
+import com.gsr.myschool.front.client.web.welcome.widget.LoginView;
+import com.gsr.myschool.front.client.web.welcome.widget.RegisterPresenter;
+import com.gsr.myschool.front.client.web.welcome.widget.RegisterUiHandlers;
+import com.gsr.myschool.front.client.web.welcome.widget.RegisterView;
 
 public class WelcomeModule extends AbstractPresenterModule {
     @Override
@@ -45,13 +45,15 @@ public class WelcomeModule extends AbstractPresenterModule {
         bind(new TypeLiteral<UiHandlersStrategy<ResendmailUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<ResendmailUiHandlers>>() {});
 
-        bindPresenter(LoginPresenter.class, LoginPresenter.MyView.class, LoginView.class,
-                LoginPresenter.MyProxy.class);
-        bindPresenter(RegisterPresenter.class, RegisterPresenter.MyView.class, RegisterView.class,
-                RegisterPresenter.MyProxy.class);
+        bindPresenter(WelcomePresenter.class, WelcomePresenter.MyView.class, WelcomeView.class,
+                WelcomePresenter.MyProxy.class);
         bindPresenter(ResetPasswordPresenter.class, ResetPasswordPresenter.MyView.class, ResetPasswordView.class,
                 ResetPasswordPresenter.MyProxy.class);
 
+        bindSingletonPresenterWidget(LoginPresenter.class, LoginPresenter.MyView.class,
+                LoginView.class);
+        bindSingletonPresenterWidget(RegisterPresenter.class, RegisterPresenter.MyView.class,
+                RegisterView.class);
         bindSingletonPresenterWidget(ForgotPasswordPresenter.class, ForgotPasswordPresenter.MyView.class,
                 ForgotPasswordView.class);
         bindSingletonPresenterWidget(ResendmailPresenter.class, ResendmailPresenter.MyView.class,

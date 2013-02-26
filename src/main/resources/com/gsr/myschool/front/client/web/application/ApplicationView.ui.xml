@@ -3,13 +3,9 @@
              xmlns:s='urn:import:com.gsr.myschool.front.client.web.application.widget.footer'
              xmlns:f='urn:import:com.gsr.myschool.common.client.widget'>
 
-    <ui:style>
-        .applicationWrapper {
-            background-color: #ffffff;
-        }
-    </ui:style>
+    <ui:with field="resources" type="com.gsr.myschool.front.client.resource.FrontResources"/>
 
-    <g:SimpleLayoutPanel styleName="{style.applicationWrapper}">
+    <g:SimpleLayoutPanel styleName="{resources.frontStyleCss.rootPanel}">
         <g:DockLayoutPanel unit='PX'>
             <g:north size="71">
                 <g:HTMLPanel>

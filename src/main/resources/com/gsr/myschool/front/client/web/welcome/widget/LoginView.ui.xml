@@ -1,0 +1,50 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+
+    <ui:with field="helpMessage" type="com.gsr.myschool.common.client.resource.message.HelpMessageBundle"/>
+
+    <ui:style>
+        .marginRight {
+            margin-right: 10px;
+            margin-bottom: 0px !important;
+        }
+
+        .forgotPassword {
+            margin-top: 3px;
+            padding-bottom: 3px;
+        }
+
+        .actAsLink {
+            border: none;
+            color: #98a9ca;
+            cursor: pointer;
+            background: none;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .actAsLink:hover {
+            text-decoration: underline;
+        }
+    </ui:style>
+
+    <g:HTMLPanel>
+        <boot:Tooltip text="{helpMessage.loginIdHelp}" placement="BOTTOM">
+            <boot:TextBox ui:field="username" placeholder="Identifiant"
+                          width="140px" styleName="{style.marginRight}"/>
+        </boot:Tooltip>
+
+        <boot:Tooltip text="{helpMessage.passwordHelp}" placement="BOTTOM">
+            <boot:PasswordTextBox ui:field="password" placeholder="Mot de passe"
+                                  width="140px" styleName="{style.marginRight}"/>
+        </boot:Tooltip>
+
+        <boot:Button text="Se connecter" ui:field="login" styleName="btn btn-success"/>
+
+        <div class="{style.forgotPassword}">
+            <g:Button ui:field="forgotPassword" text="Mot de passe oublié ?"
+                      styleName="{style.actAsLink}"/>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>
