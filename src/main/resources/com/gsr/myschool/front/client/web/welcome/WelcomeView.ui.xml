@@ -73,7 +73,7 @@
             </div>
 
             <div class="{style.innerHeader}">
-                <h1>Déjà Un Membre ?</h1>
+                <h1>Déjà Membre ?</h1>
 
                 <g:SimplePanel ui:field="loginPanel" styleName="{style.loginWrapper}"/>
 

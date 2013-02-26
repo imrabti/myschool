@@ -11,10 +11,17 @@
             margin-top: 0px;
             margin-bottom: 20px;
             font-size: 26px;
+            color: #333;
         }
 
         .groupWrapper {
             margin-bottom: 15px;
+        }
+
+        .emailNotReceived {
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px solid #dddddd;
         }
     </ui:style>
 
@@ -66,9 +73,11 @@
             </boot:ControlGroup>
         </boot:Form>
 
-        <g:Button ui:field="register" text="S'inscrire" styleName="btn btn-warning"/>
+        <boot:Button ui:field="register" text="S'inscrire" styleName="btn btn-success" size="LARGE"/>
 
-        <g:Button ui:field="resendMail" text="Email d'activation non reçus ?"
-                  styleName="{sharedResources.sharedStyleCss.linkButton}"/>
+        <div class="{style.emailNotReceived}">
+            <g:Button ui:field="resendMail" text="Email d'activation non reçus ?"
+                      styleName="{sharedResources.sharedStyleCss.linkButton}"/>
+        </div>
     </g:HTMLPanel>
 </ui:UiBinder>
