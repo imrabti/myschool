@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.web.welcome.register;
+package com.gsr.myschool.front.client.web.welcome.widget;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.inject.Inject;
@@ -30,28 +30,18 @@ import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.request.RegistrationRequest;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
-import com.gsr.myschool.front.client.web.RootPresenter;
 import com.gsr.myschool.front.client.web.welcome.popup.ResendmailPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
-import com.gwtplatform.mvp.client.Presenter;
-import com.gwtplatform.mvp.client.annotations.NameToken;
-import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
-import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
 import javax.validation.ConstraintViolation;
 import java.util.Set;
 
-public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, RegisterPresenter.MyProxy>
-        implements RegisterUiHandlers {
+public class RegisterPresenter extends PresenterWidget<RegisterPresenter.MyView> implements RegisterUiHandlers {
     public interface MyView extends ValidatedView, HasUiHandlers<RegisterUiHandlers> {
         void edit(UserProxy userProxy);
-    }
-
-    @ProxyStandard
-    @NameToken(NameTokens.register)
-    public interface MyProxy extends ProxyPlace<RegisterPresenter> {
     }
 
     private final FrontRequestFactory requestFactory;
@@ -63,11 +53,12 @@ public class RegisterPresenter extends Presenter<RegisterPresenter.MyView, Regis
     private Boolean registerViolation;
 
     @Inject
-    public RegisterPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
-                             final FrontRequestFactory requestFactory, final MessageBundle messageBundle,
+    public RegisterPresenter(final EventBus eventBus, final MyView view,
+                             final FrontRequestFactory requestFactory,
+                             final MessageBundle messageBundle,
                              final PlaceManager placeManager,
                              final ResendmailPresenter resendmailPresenter) {
-        super(eventBus, view, proxy, RootPresenter.TYPE_SetMainContent);
+        super(eventBus, view);
 
         this.messageBundle = messageBundle;
         this.requestFactory = requestFactory;

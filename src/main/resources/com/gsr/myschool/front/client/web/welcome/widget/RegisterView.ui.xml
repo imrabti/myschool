@@ -1,0 +1,62 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+
+    <ui:with field="helpMessage" type="com.gsr.myschool.common.client.resource.message.HelpMessageBundle"/>
+    <ui:with field="sharedResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+    <ui:with field="resources" type="com.gsr.myschool.front.client.resource.FrontResources"/>
+
+    <g:HTMLPanel>
+        <h2>Nouveau Membre ?</h2>
+
+        <boot:Form type="INLINE">
+            <boot:ControlGroup>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.emailHelp}" placement="TOP">
+                        <boot:TextBox ui:field="email" placeholder="Email" />
+                    </boot:Tooltip>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:Controls>
+                    <boot:ValueListBox ui:field="gender"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:Controls>
+                    <boot:TextBox ui:field="lastName" placeholder="Nom"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:Controls>
+                    <boot:TextBox ui:field="firstName" placeholder="Prénom"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.passwordHelp}" placement="TOP">
+                        <boot:PasswordTextBox ui:field="password" placeholder="Mot de passe"/>
+                    </boot:Tooltip>
+                </boot:Controls>
+            </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:Controls>
+                    <boot:Tooltip text="{helpMessage.passwordHelp}" placement="TOP">
+                        <boot:PasswordTextBox ui:field="passwordConfirmation"
+                                              placeholder="Confirmation mot de passe"/>
+                    </boot:Tooltip>
+                </boot:Controls>
+            </boot:ControlGroup>
+        </boot:Form>
+
+        <g:Button ui:field="register" text="S'inscrire" styleName="btn btn-warning"/>
+
+        <g:Button ui:field="resendMail" text="Email d'activation non reçus ?"
+                  styleName="{sharedResources.sharedStyleCss.linkButton}"/>
+    </g:HTMLPanel>
+</ui:UiBinder>

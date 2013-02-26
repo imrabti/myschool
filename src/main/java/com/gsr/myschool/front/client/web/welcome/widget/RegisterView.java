@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.web.welcome.register;
+package com.gsr.myschool.front.client.web.welcome.widget;
 
 import com.github.gwtbootstrap.client.ui.PasswordTextBox;
 import com.github.gwtbootstrap.client.ui.TextBox;
@@ -105,11 +105,6 @@ public class RegisterView extends ValidatedViewWithUiHandlers<RegisterUiHandlers
     @UiHandler("register")
     void onRegisterClicked(ClickEvent event) {
         processRegisterAction();
-    }
-
-    @UiHandler("signin")
-    void onSignInClicked(ClickEvent event) {
-        getUiHandlers().login();
     }
 
     @UiHandler("password")

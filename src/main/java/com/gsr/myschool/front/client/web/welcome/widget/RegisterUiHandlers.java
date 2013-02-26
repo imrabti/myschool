@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.web.welcome.register;
+package com.gsr.myschool.front.client.web.welcome.widget;
 
 import com.gwtplatform.mvp.client.UiHandlers;
 import com.gsr.myschool.common.client.proxy.UserProxy;
