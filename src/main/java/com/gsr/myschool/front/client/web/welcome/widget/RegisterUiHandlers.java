@@ -14,15 +14,13 @@
  * the License.
  */
 
-package com.gsr.myschool.front.client.web.welcome.login;
+package com.gsr.myschool.front.client.web.welcome.widget;
 
 import com.gwtplatform.mvp.client.UiHandlers;
-import com.gsr.myschool.common.shared.dto.UserCredentials;
+import com.gsr.myschool.common.client.proxy.UserProxy;
 
-public interface LoginUiHandlers extends UiHandlers {
-    void login(UserCredentials credentials);
+public interface RegisterUiHandlers extends UiHandlers {
+    void register(UserProxy user);
 
-    void register();
-
-    void forgotPassword();
+    void resendMail();
 }

@@ -1,4 +1,4 @@
-package com.gsr.myschool.front.client.web.welcome.resetpassword;
+package com.gsr.myschool.front.client.web.welcome.widget;
 
 import com.github.gwtbootstrap.client.ui.PasswordTextBox;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;

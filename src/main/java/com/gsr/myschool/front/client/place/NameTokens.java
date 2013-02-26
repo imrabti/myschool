@@ -17,25 +17,15 @@
 package com.gsr.myschool.front.client.place;
 
 public class NameTokens {
-    public static final String login = "login";
-    public static final String register = "register";
-    public static final String resetpassword = "resetpassword";
+    public static final String welcome = "welcome";
     public static final String inscription = "inscription";
     public static final String inscriptiondetail = "inscriptiondetail";
     public static final String editinscription = "editinscription";
     public static final String convocation = "convocation";
     public static final String inbox = "inbox";
 
-    public static String getLogin() {
-        return login;
-    }
-
-    public static String getRegister() {
-        return register;
-    }
-
-    public static String getResetPassword() {
-        return resetpassword;
+    public static String getWelcome() {
+        return welcome;
     }
 
     public static String getInscription() {

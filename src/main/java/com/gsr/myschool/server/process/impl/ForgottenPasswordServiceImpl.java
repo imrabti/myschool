@@ -60,7 +60,7 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordService {
         params.put("firstname",user.getFirstName());
         params.put("lastname",user.getLastName());
         params.put("email", email);
-        params.put("link", link+ ";token=" +token);
+        params.put("link", link+ ";forgot=" +token);
 
         EmailDTO emailDTO = emailService.populateEmail(EmailType.FORGOTTEN_PASSWORD,
                 email, sender, params, "", "");

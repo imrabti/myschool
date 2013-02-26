@@ -16,10 +16,23 @@
 
 package com.gsr.myschool.front.client.resource;
 
+import com.google.gwt.resources.client.ImageResource;
 import com.gsr.myschool.front.client.resource.style.FrontStyle;
 import com.google.gwt.resources.client.ClientBundle;
 
 public interface FrontResources extends ClientBundle {
     @Source("com/gsr/myschool/front/client/resource/style/frontStyle.css")
     FrontStyle frontStyleCss();
+
+    @Source("com/gsr/myschool/front/client/resource/image/mainBack.png")
+    @ImageResource.ImageOptions(repeatStyle = ImageResource.RepeatStyle.None)
+    ImageResource mainBack();
+
+    @Source("com/gsr/myschool/front/client/resource/image/rootBack.png")
+    @ImageResource.ImageOptions(repeatStyle = ImageResource.RepeatStyle.Both)
+    ImageResource rootBack();
+
+    @Source("com/gsr/myschool/front/client/resource/image/loginPicture.png")
+    @ImageResource.ImageOptions(repeatStyle = ImageResource.RepeatStyle.None)
+    ImageResource loginPicture();
 }
