@@ -81,6 +81,8 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     @Override
     public void edit(DossierFilterDTOProxy object) {
         driver.edit(object);
+        niveauEtude.setValue(null);
+        niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
     }
 
     @Override
