@@ -1,5 +1,6 @@
 package com.gsr.myschool.common.client.request;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.user.client.Window;
 
@@ -17,6 +18,10 @@ public class ReportRequestBuilder extends RequestBuilder {
     }
 
     public void sendRequest() {
-        Window.open("/resource/report?"+postData.toString(), "_blank", "");
+        if (GWT.isScript()) {
+            Window.open("resource/report?"+postData.toString(), "_blank", "");
+        } else {
+            Window.open("/resource/report?"+postData.toString(), "_blank", "");
+        }
     }
 }

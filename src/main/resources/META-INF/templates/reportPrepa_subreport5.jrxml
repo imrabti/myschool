@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2_access" pageWidth="555" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2_access" pageWidth="555" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="20" uuid="345beda5-f5ce-4251-9e5a-17ad6630a9bf">
 	<property name="ireport.zoom" value="1.2100000000000029"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="672"/>
 	<queryString language="xPath">
 		<![CDATA[":"]]>
 	</queryString>
@@ -12,10 +12,10 @@
 	<pageHeader>
 		<band height="20" splitType="Stretch">
 			<line>
-				<reportElement x="7" y="16" width="420" height="1"/>
+				<reportElement uuid="cb3bcb3d-1c89-43ca-95e6-0e7927b84df8" x="7" y="16" width="420" height="1"/>
 			</line>
 			<staticText>
-				<reportElement positionType="Float" mode="Transparent" x="6" y="0" width="214" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="5cf4a24e-48eb-4066-9985-cdff2fcc2eca" positionType="Float" mode="Transparent" x="6" y="0" width="214" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
@@ -26,14 +26,14 @@
 	<columnHeader>
 		<band height="704" splitType="Stretch">
 			<staticText>
-				<reportElement x="9" y="24" width="287" height="14" forecolor="#000000"/>
+				<reportElement uuid="b6b02dcc-68d6-4645-91e2-4f13407f98f4" x="9" y="24" width="287" height="14" forecolor="#000000"/>
 				<textElement>
 					<font size="9" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[1. Comment avez vous connu les PREPAS GSR ?]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="108" width="507" height="22" forecolor="#000000"/>
+				<reportElement uuid="b519999c-0d10-4130-b671-651e0f197371" x="9" y="108" width="507" height="22" forecolor="#000000"/>
 				<textElement>
 					<font size="9" isBold="true" isItalic="true"/>
 				</textElement>
@@ -41,7 +41,7 @@
 PREPAS GSR ?]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="188" width="507" height="25" forecolor="#000000"/>
+				<reportElement uuid="25524d9a-a470-4252-b8e4-33d7bf15361a" x="9" y="188" width="507" height="25" forecolor="#000000"/>
 				<textElement>
 					<font size="9" isBold="true" isItalic="true"/>
 				</textElement>
@@ -49,165 +49,165 @@ PREPAS GSR ?]]></text>
 particulièrement influencé votre choix ? Si oui, laquelle et pourquoi ?]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="276" width="507" height="14" forecolor="#000000"/>
+				<reportElement uuid="f63b9ff3-2c0a-43e6-bfaa-d159f9584f77" x="9" y="276" width="507" height="14" forecolor="#000000"/>
 				<textElement>
 					<font size="9" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[4. Comment les personnes, qui vous connaissent, vous perçoivent-elles ?]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="300" width="223" height="14" forecolor="#000000"/>
+				<reportElement uuid="7edac94d-6bb6-47a2-a6b9-8f7d62f729ad" x="14" y="300" width="172" height="14" forecolor="#000000"/>
 				<textElement textAlignment="Center">
 					<font size="9" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Points forts]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="247" y="301" width="223" height="14" forecolor="#000000"/>
+				<reportElement uuid="651e9ced-71f2-4ad4-bc85-429b6816b39a" x="224" y="301" width="184" height="14" forecolor="#000000"/>
 				<textElement textAlignment="Center">
 					<font size="9" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Points à améliorer]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="383" width="507" height="14" forecolor="#000000"/>
+				<reportElement uuid="facb7fd2-1198-47eb-b839-40aedaa2dae2" x="9" y="383" width="507" height="14" forecolor="#000000"/>
 				<textElement>
 					<font size="9" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[5. Quelle description de vous-même donneriez-vous à une personne qui ne vous connaît pas ?]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="438" width="507" height="14" forecolor="#000000"/>
+				<reportElement uuid="18f2ca71-b9b5-4d06-814f-2a6e663ad3a9" x="9" y="438" width="507" height="14" forecolor="#000000"/>
 				<textElement>
 					<font size="9" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[6. Quel est votre principal centre d'intérêt extra-scolaire ? Que vous apporte-t'il ?]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="495" width="507" height="14" forecolor="#000000"/>
+				<reportElement uuid="cd35ed85-5f87-473d-8255-8d390c1e3621" x="9" y="495" width="507" height="14" forecolor="#000000"/>
 				<textElement>
 					<font size="9" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[7. De quelle réalisation êtes-vous le plus fière(e) ? et pourquoi ?]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="546" width="507" height="14" forecolor="#000000"/>
+				<reportElement uuid="6031c8b5-097f-4caa-bcfa-171e3afb8dd4" x="9" y="546" width="507" height="14" forecolor="#000000"/>
 				<textElement>
 					<font size="9" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[8. Décrivez une situation d'échec que vous aviez vécue, et commentez-la]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="599" width="507" height="14" forecolor="#000000"/>
+				<reportElement uuid="38d8ca49-c737-479a-a2b5-955534af2af3" x="9" y="599" width="507" height="14" forecolor="#000000"/>
 				<textElement>
 					<font size="9" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[9. Que pensez-vous apporter aux PREPAS GSR ?]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="653" width="507" height="14" forecolor="#000000"/>
+				<reportElement uuid="2035a4ed-cfd3-4969-8937-0d00a42023a4" x="9" y="653" width="507" height="14" forecolor="#000000"/>
 				<textElement>
 					<font size="9" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[10 Comment imaginez-vous votre avenir ?]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="41" width="526" height="55"/>
+				<reportElement uuid="cd613b84-b476-45bd-a9c3-3ffe531a1133" x="9" y="41" width="526" height="55"/>
 				<textElement>
 					<font size="8" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[--------------------------------------------------------------------------------------------------------------------------------------------------------------
+				<text><![CDATA[......................................................................................................................................................................................
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------
+......................................................................................................................................................................................
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
+......................................................................................................................................................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="132" width="526" height="55"/>
+				<reportElement uuid="ec63070f-7b7e-4e23-9f3d-16019a371813" x="9" y="401" width="526" height="37"/>
 				<textElement>
 					<font size="8" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[--------------------------------------------------------------------------------------------------------------------------------------------------------------
+				<text><![CDATA[......................................................................................................................................................................................
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------
---
---------------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
+......................................................................................................................................................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="217" width="526" height="55"/>
+				<reportElement uuid="cd613b84-b476-45bd-a9c3-3ffe531a1133" x="9" y="131" width="526" height="55"/>
 				<textElement>
 					<font size="8" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[--------------------------------------------------------------------------------------------------------------------------------------------------------------
+				<text><![CDATA[......................................................................................................................................................................................
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------
+......................................................................................................................................................................................
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
+......................................................................................................................................................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="320" width="526" height="55"/>
+				<reportElement uuid="cd613b84-b476-45bd-a9c3-3ffe531a1133" x="9" y="215" width="526" height="55"/>
 				<textElement>
 					<font size="8" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[--------------------------------------------------------------------------------------------------------------------------------------------------------------
+				<text><![CDATA[......................................................................................................................................................................................
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------
+......................................................................................................................................................................................
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
+......................................................................................................................................................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="401" width="526" height="30"/>
+				<reportElement uuid="cd613b84-b476-45bd-a9c3-3ffe531a1133" x="9" y="320" width="526" height="55"/>
 				<textElement>
 					<font size="8" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[--------------------------------------------------------------------------------------------------------------------------------------------------------------
+				<text><![CDATA[......................................................................................................................................................................................
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
+......................................................................................................................................................................................
+
+......................................................................................................................................................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="457" width="526" height="30"/>
+				<reportElement uuid="ec63070f-7b7e-4e23-9f3d-16019a371813" x="9" y="455" width="526" height="37"/>
 				<textElement>
 					<font size="8" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[--------------------------------------------------------------------------------------------------------------------------------------------------------------
+				<text><![CDATA[......................................................................................................................................................................................
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
+......................................................................................................................................................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="512" width="526" height="30"/>
+				<reportElement uuid="ec63070f-7b7e-4e23-9f3d-16019a371813" x="9" y="509" width="526" height="37"/>
 				<textElement>
 					<font size="8" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[--------------------------------------------------------------------------------------------------------------------------------------------------------------
+				<text><![CDATA[......................................................................................................................................................................................
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
+......................................................................................................................................................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="564" width="526" height="30"/>
+				<reportElement uuid="ec63070f-7b7e-4e23-9f3d-16019a371813" x="9" y="560" width="526" height="37"/>
 				<textElement>
 					<font size="8" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[--------------------------------------------------------------------------------------------------------------------------------------------------------------
+				<text><![CDATA[......................................................................................................................................................................................
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
+......................................................................................................................................................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="617" width="526" height="30"/>
+				<reportElement uuid="ec63070f-7b7e-4e23-9f3d-16019a371813" x="9" y="614" width="526" height="37"/>
 				<textElement>
 					<font size="8" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[--------------------------------------------------------------------------------------------------------------------------------------------------------------
+				<text><![CDATA[......................................................................................................................................................................................
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
+......................................................................................................................................................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="669" width="526" height="30"/>
+				<reportElement uuid="ec63070f-7b7e-4e23-9f3d-16019a371813" x="9" y="665" width="526" height="37"/>
 				<textElement>
 					<font size="8" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[--------------------------------------------------------------------------------------------------------------------------------------------------------------
+				<text><![CDATA[......................................................................................................................................................................................
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
+......................................................................................................................................................................................]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
