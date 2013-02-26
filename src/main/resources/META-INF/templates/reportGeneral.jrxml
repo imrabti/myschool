@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.0000000000000306"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3ec63d48-9b12-4c17-b46d-83bb6b5284b6">
+	<property name="ireport.zoom" value="1.1000000000000338"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="484"/>
+	<property name="ireport.y" value="288"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="bdb15c68-a079-43f6-8886-845aadf128c2">
+		<field name="nom" class="java.lang.String"/>
+		<field name="prenom" class="java.lang.String"/>
+	</subDataset>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
@@ -14,10 +38,14 @@
 	<parameter name="nationalite" class="org.apache.commons.beanutils.BeanMap" isForPrompting="false"/>
 	<parameter name="bacYear" class="org.apache.commons.beanutils.BeanMap" isForPrompting="false"/>
 	<parameter name="bacSerie" class="org.apache.commons.beanutils.BeanMap" isForPrompting="false"/>
-	<parameter name="niveauEtude" class="org.apache.commons.beanutils.BeanMap"/>
-	<parameter name="filiere" class="org.apache.commons.beanutils.BeanMap"/>
-	<parameter name="fraterie" class="org.apache.commons.beanutils.BeanMap"/>
+	<parameter name="niveauEtude" class="org.apache.commons.beanutils.BeanMap" isForPrompting="false"/>
+	<parameter name="filiere" class="org.apache.commons.beanutils.BeanMap" isForPrompting="false"/>
+	<parameter name="fraterie" class="java.util.List" isForPrompting="false"/>
 	<parameter name="pieces" class="java.util.List" isForPrompting="false"/>
+	<parameter name="dateLimite" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="currentYear" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="niveauEtude2" class="org.apache.commons.beanutils.BeanMap" isForPrompting="false"/>
+	<parameter name="filiere2" class="org.apache.commons.beanutils.BeanMap" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -29,20 +57,35 @@
 		<groupFooter>
 			<band height="20">
 				<subreport>
-					<reportElement positionType="Float" x="46" y="8" width="463" height="5" isRemoveLineWhenBlank="true"/>
+					<reportElement uuid="f90ea505-126c-477c-917f-6ec14882e51b" positionType="Float" x="47" y="8" width="463" height="5" isRemoveLineWhenBlank="true">
+						<printWhenExpression><![CDATA[$P{fraterie}.size() > 0]]></printWhenExpression>
+					</reportElement>
+					<subreportParameter name="REPORT_DATA_SOURCE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{fraterie})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportGeneral_subreport3.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="21">
+				<subreport>
+					<reportElement uuid="f90ea505-126c-477c-917f-6ec14882e51b" positionType="Float" x="48" y="9" width="463" height="5" isRemoveLineWhenBlank="true"/>
 					<subreportParameter name="SUBREPORT_DIR">
 						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="dateLimite">
+						<subreportParameterExpression><![CDATA[$P{dateLimite}]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter name="REPORT_DATA_SOURCE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></subreportParameterExpression>
 					</subreportParameter>
 					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{pieces})]]></dataSourceExpression>
-					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "reportGeneral_subreport3.jasper"]]></subreportExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportGeneral_subreport4.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
-			<band height="21">
+			<band height="20">
 				<subreport>
-					<reportElement positionType="Float" x="46" y="8" width="463" height="5" isRemoveLineWhenBlank="true"/>
+					<reportElement uuid="4a813a6b-5717-42cf-9832-ea1c7efd823a" positionType="Float" x="47" y="7" width="463" height="5" isRemoveLineWhenBlank="true"/>
 					<subreportParameter name="SUBREPORT_DIR">
 						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
@@ -50,43 +93,21 @@
 						<subreportParameterExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></subreportParameterExpression>
 					</subreportParameter>
 					<dataSourceExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></dataSourceExpression>
-					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "reportGeneral_subreport5.jasper"]]></subreportExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportGeneral_subreport5.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 		</groupFooter>
 	</group>
 	<title>
 		<band height="85" splitType="Prevent">
-			<rectangle>
-				<reportElement x="147" y="22" width="263" height="60"/>
-			</rectangle>
 			<staticText>
-				<reportElement x="175" y="28" width="198" height="13"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[DOSSIER DE CANDIDATURE]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="175" y="56" width="101" height="24"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Dossier n°]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="175" y="41" width="198" height="15"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Année scolaire 2013 / 2014]]></text>
-			</staticText>
-			<image>
-				<reportElement x="19" y="4" width="81" height="66"/>
-				<imageExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"gsrlogo.png"]]></imageExpression>
-			</image>
-			<staticText>
-				<reportElement x="447" y="4" width="94" height="66"/>
+				<reportElement uuid="9831355a-c186-4442-aeb6-c39fa10fb2d4" x="439" y="7" width="70" height="66"/>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="false" isItalic="false"/>
@@ -97,12 +118,42 @@ d'identité
 
 à agrapher]]></text>
 			</staticText>
+			<image>
+				<reportElement uuid="55ce2972-75c6-4ff5-9d12-5c5a619c46ac" x="44" y="7" width="81" height="66"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"gsrlogo.png"]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement uuid="dc78f966-1f32-484b-b473-3aae35cffeae" x="140" y="7" width="273" height="66"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
 			<textField isBlankWhenNull="true">
-				<reportElement x="276" y="56" width="97" height="24"/>
+				<reportElement uuid="8f27c26d-ea24-44e4-a774-9954da2d7457" x="263" y="41" width="110" height="24"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{dossier}.get("generatedNumDossier")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{dossier}.get("generatedNumDossier")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d991b771-d096-4011-b09d-9a2efa03813a" x="175" y="13" width="198" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[DOSSIER DE CANDIDATURE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="110de9f3-84de-47f2-8c5e-e0a1fa1ff851" x="175" y="26" width="88" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Année scolaire ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0398efc5-68a3-4ed7-9175-69964de9199a" x="175" y="41" width="88" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Dossier n° : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="2f69a38b-a8ed-471e-a5d2-a89bd9b311a4" x="263" y="26" width="110" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{currentYear}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -115,242 +166,214 @@ d'identité
 	<detail>
 		<band height="680" splitType="Stretch">
 			<line>
-				<reportElement x="46" y="75" width="465" height="1"/>
+				<reportElement uuid="7ec5afac-c68f-481f-9c04-4f943d2ff44f" x="46" y="75" width="465" height="1"/>
 			</line>
 			<line>
-				<reportElement x="45" y="217" width="464" height="1"/>
+				<reportElement uuid="5036837d-d935-415d-ac4c-473cd7a63d79" x="45" y="235" width="464" height="1"/>
 			</line>
 			<staticText>
-				<reportElement x="46" y="104" width="74" height="20"/>
+				<reportElement uuid="df41a7c7-2b34-4284-812d-70053fccc444" x="46" y="104" width="74" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Né(e) le : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="46" y="59" width="464" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="7b596bd5-6fa9-490e-b147-95158fb908a7" mode="Transparent" x="46" y="59" width="464" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Candidat]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="47" y="201" width="295" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="ac3b4a16-65fd-4649-b664-75d0adf1cd94" mode="Transparent" x="47" y="215" width="295" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Candidature]]></text>
 			</staticText>
 			<line>
-				<reportElement x="46" y="266" width="464" height="1"/>
+				<reportElement uuid="538ed3c5-d325-40e6-8109-ca682382fc58" x="46" y="311" width="464" height="1"/>
 			</line>
 			<staticText>
-				<reportElement x="46" y="11" width="464" height="38"/>
+				<reportElement uuid="79ae208b-ef0e-47a7-b4b5-dc83f53b8927" x="46" y="14" width="464" height="34"/>
 				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center">
-					<paragraph lineSpacing="Fixed" lineSpacingSize="10.0"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="4.0"/>
 				</textElement>
 				<text><![CDATA[ATTENTION ! : EN AUCUN CAS CE DOCUMENT NE DOIT ETRE MODIFIE.
- TOUT DOSSIER MODIFIE SERA REFUSE.
- TOUT DOSSIER INCOMPLET SERA REFUSE. ]]></text>
+
+TOUT DOSSIER MODIFIE OU INCOMPLET SERA REFUSE.
+]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="119" y="104" width="155" height="20"/>
+				<reportElement uuid="9f2909ae-b980-4bb8-84fd-66a055470414" x="119" y="104" width="155" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{candidat}.get("birthDateStr")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{candidat}.get("birthDateStr")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="326" y="104" width="184" height="20"/>
+				<reportElement uuid="fae773d6-2d2b-4ce2-8d56-cc4612153381" x="326" y="104" width="184" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{candidat}.get("birthLocation")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{candidat}.get("birthLocation")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="275" y="104" width="52" height="20"/>
+				<reportElement uuid="fb0f4a00-0352-4b4e-932b-37d4c9d506a5" x="275" y="104" width="52" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[A : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="275" y="153" width="51" height="20"/>
+				<reportElement uuid="c7d201a5-4ac6-4793-bca8-40df7456f25d" x="275" y="153" width="51" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Email :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="122" y="153" width="152" height="20"/>
+				<reportElement uuid="30ec0fde-1cde-4de0-b1b8-a7067fb43f47" x="122" y="153" width="152" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{candidat}.get("gsm")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{candidat}.get("gsm")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="46" y="153" width="74" height="20"/>
+				<reportElement uuid="156ba0fb-1791-49a9-9e08-9ba78bfe30bc" x="46" y="153" width="74" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[GSM :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="326" y="153" width="183" height="20"/>
+				<reportElement uuid="b7def3b0-8226-43c2-9800-85e3d0cd0fb2" x="326" y="153" width="183" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{candidat}.get("email")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{candidat}.get("email")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="275" y="176" width="52" height="20"/>
+				<reportElement uuid="7a258f12-e224-4537-8ad4-d35114c87bd0" x="275" y="176" width="52" height="20">
+					<printWhenExpression><![CDATA[$P{candidat}.get("cin") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[C.N.I :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="121" y="176" width="153" height="20"/>
+				<reportElement uuid="eb0e9400-5ca6-4b84-b6cd-13b7846c07d6" x="121" y="176" width="153" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{candidat}.get("cne")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{candidat}.get("cne")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="47" y="176" width="73" height="20"/>
+				<reportElement uuid="a451c11d-a362-476a-8074-b68a62da8b1e" x="47" y="176" width="73" height="20">
+					<printWhenExpression><![CDATA[$P{candidat}.get("cne") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[C.N.E :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="327" y="176" width="183" height="20"/>
+				<reportElement uuid="00f6e024-7f1e-4217-8e94-206b370711a2" x="327" y="176" width="183" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{candidat}.get("cin")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{candidat}.get("cin")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="48" y="250" width="295" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="b6a2d961-c05c-41de-a9e9-a5f1f5479760" mode="Transparent" x="48" y="295" width="295" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Informations relatives aux parents]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="326" y="82" width="183" height="20"/>
+				<reportElement uuid="62142a21-1510-4469-86cd-3cde196afd44" x="326" y="82" width="183" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{candidat}.get("firstname")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{candidat}.get("firstname")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="275" y="82" width="51" height="20"/>
+				<reportElement uuid="eee48af7-aef4-44ae-9cd1-0f19f3f8f3e5" x="275" y="82" width="51" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Prénom : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="46" y="82" width="74" height="20"/>
+				<reportElement uuid="b83f4ff4-d7f3-4585-99d9-3ffbcf4a1109" x="46" y="82" width="74" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Nom : ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="120" y="82" width="154" height="20"/>
+				<reportElement uuid="1b31dcc5-8253-4f0c-a768-3ca3f3cdf49f" x="120" y="82" width="154" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{candidat}.get("lastname")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{candidat}.get("lastname")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="47" y="221" width="72" height="20"/>
+				<reportElement uuid="4c2dd456-9e85-498d-a71e-765b50ef7e12" x="47" y="239" width="57" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Section : ]]></text>
+				<text><![CDATA[Section (1) : ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="312" y="221" width="196" height="20"/>
+				<reportElement uuid="96ec7561-2429-4c2f-a30f-8e0525f570e6" x="312" y="239" width="196" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{niveauEtude}.get("nom")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{niveauEtude}.get("nom")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="269" y="221" width="43" height="20"/>
+				<reportElement uuid="c3bcdfc1-a7b7-4a99-b512-cec1dffb9065" x="261" y="239" width="51" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Niveau : ]]></text>
+				<text><![CDATA[Niveau (1) : ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="119" y="221" width="142" height="20"/>
+				<reportElement uuid="47491fe4-d790-4c40-8f8f-6d83ebd267bf" x="104" y="239" width="157" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{filiere}.get("nom").toString().toLowerCase()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{filiere}.get("nom").toString().toLowerCase()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="121" y="129" width="388" height="20"/>
+				<reportElement uuid="a7e50d18-77bd-4b05-becb-40696e050214" x="121" y="129" width="388" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{nationalite}.get("value").toString().toLowerCase()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{nationalite}.get("value").toString().toLowerCase()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="46" y="129" width="74" height="20"/>
+				<reportElement uuid="ef091503-73eb-49df-9921-474dbf69911a" x="46" y="129" width="74" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Nationalité : ]]></text>
 			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="48" y="579" width="295" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Frères et soeurs]]></text>
-			</staticText>
-			<line>
-				<reportElement x="46" y="595" width="464" height="1"/>
-			</line>
-			<staticText>
-				<reportElement x="47" y="601" width="464" height="55"/>
-				<textElement>
-					<font size="8" isBold="false" isItalic="false"/>
-				</textElement>
-				<text><![CDATA[Connaître l'environnement famillial de l'enfant constitue une base fondamentale dans le développement
-de sa personalité. C'est pourquoi, nous invitons nos futurs parents d'élèves à coopérer en nous fournissant
-les informations utiles concernant leur(s) enfants.
-Nous tennons à vous assurer que ces informations resteront confidentielles et ne seront utilisées que dans
-l'intérêt de votre enfant.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="46" y="656" width="76" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[Frère ou Soeur : ]]></text>
-			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="122" y="657" width="389" height="19"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{fraterie}.get("nom") + " " + $P{fraterie}.get("prenom")]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="103" y="353" width="195" height="20"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="606c5360-1402-4b42-9487-094d1719b2c7" stretchType="RelativeToTallestObject" x="103" y="398" width="195" height="20">
+					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -361,297 +384,379 @@ l'intérêt de votre enfant.]]></text>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{pere}.get("address")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{pere}.get("address")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="47" y="329" width="55" height="20"/>
+				<reportElement uuid="fd7587b3-886a-4d78-830a-998f51d26a7b" stretchType="RelativeToTallestObject" x="47" y="374" width="55" height="20">
+					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Fonction :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="297" y="432" width="70" height="20"/>
+				<reportElement uuid="016d8e50-e428-470e-8eae-9e6dbf53b2d4" stretchType="RelativeToTallestObject" x="297" y="484" width="70" height="20">
+					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Tél. GSM :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="369" y="288" width="142" height="20"/>
+				<reportElement uuid="0e1e4d75-d98a-49ab-8c68-cbdecdb020fc" stretchType="RelativeToTallestObject" x="369" y="333" width="142" height="20">
+					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{pere}.get("telBureau")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{pere}.get("telBureau")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="297" y="391" width="70" height="20"/>
+				<reportElement uuid="ade25e6e-a967-43c5-a3b2-bc4d59fcdc26" stretchType="RelativeToTallestObject" x="297" y="443" width="70" height="20">
+					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Tél. bureau :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="370" y="512" width="142" height="20"/>
+				<reportElement uuid="1ead2fda-7c1c-475e-91b2-f7cf11ce2da7" stretchType="RelativeToTallestObject" x="370" y="574" width="142" height="20">
+					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{tuteur}.get("telDom")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{tuteur}.get("telDom")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="299" y="557" width="34" height="20"/>
+				<reportElement uuid="2dfdd6a8-d5a8-46c7-a3e5-f61a9fea6ba8" stretchType="RelativeToTallestObject" x="299" y="619" width="34" height="20">
+					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Email :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="48" y="512" width="55" height="20"/>
+				<reportElement uuid="4f17fecb-ec9f-4c02-91da-3eea6fea2351" stretchType="RelativeToTallestObject" x="48" y="574" width="55" height="20">
+					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Institution :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="369" y="411" width="142" height="20"/>
+				<reportElement uuid="002952d6-b0e7-4cc1-8063-230670d3e3f5" stretchType="RelativeToTallestObject" x="369" y="463" width="142" height="20">
+					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{mere}.get("telDom")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{mere}.get("telDom")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="370" y="533" width="142" height="20"/>
+				<reportElement uuid="07635b23-4dcc-4a04-9ebf-c6d349e3c0e6" stretchType="RelativeToTallestObject" x="370" y="595" width="142" height="20">
+					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{tuteur}.get("telGsm")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{tuteur}.get("telGsm")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="370" y="492" width="142" height="20"/>
+				<reportElement uuid="4eae7d6f-1824-473a-9d85-88127a557804" stretchType="RelativeToTallestObject" x="370" y="554" width="142" height="20">
+					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{tuteur}.get("telBureau")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{tuteur}.get("telBureau")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="47" y="391" width="55" height="20"/>
+				<reportElement uuid="d51bbd32-93e0-4e2a-aa81-1032baa5f973" stretchType="RelativeToTallestObject" x="47" y="443" width="55" height="20">
+					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[M.]]></text>
+				<text><![CDATA[Nom :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="298" y="353" width="35" height="20"/>
+				<reportElement uuid="8660fa4c-bfe6-4814-80c1-ad3f1f62fa39" stretchType="RelativeToTallestObject" x="298" y="398" width="35" height="20">
+					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Email :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="47" y="272" width="55" height="14"/>
+				<reportElement uuid="29c006f4-ad22-4e26-8315-d302d8ef4736" x="47" y="317" width="55" height="14">
+					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Bottom">
 					<font size="10" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Père]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="298" y="533" width="70" height="20"/>
+				<reportElement uuid="10c17822-2e64-4971-a0e6-dacffaed4469" stretchType="RelativeToTallestObject" x="298" y="595" width="70" height="20">
+					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Tél. GSM :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="298" y="492" width="70" height="20"/>
+				<reportElement uuid="ae367867-68e3-46e4-b984-dcc8038b4d28" stretchType="RelativeToTallestObject" x="298" y="554" width="70" height="20">
+					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Tél. bureau :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="47" y="288" width="55" height="20"/>
+				<reportElement uuid="00166dbe-4a32-4fae-8e47-8f8c86622682" stretchType="RelativeToTallestObject" x="47" y="333" width="55" height="20">
+					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[M.]]></text>
+				<text><![CDATA[Nom :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="48" y="533" width="55" height="20"/>
+				<reportElement uuid="f32635ac-01b1-418b-8e5a-0384a2f2963c" stretchType="RelativeToTallestObject" x="48" y="595" width="55" height="20">
+					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Fonction :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="103" y="391" width="185" height="20"/>
+				<reportElement uuid="7411a9cf-1996-4f84-9c44-569fa9ece6fc" stretchType="RelativeToTallestObject" x="103" y="443" width="185" height="20">
+					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{mere}.get("nom")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{mere}.get("prenom").toString() + " " + $P{mere}.get("nom").toString()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="48" y="557" width="55" height="20"/>
+				<reportElement uuid="ccbf5028-d43c-4207-a51b-bdbfa3a23101" stretchType="RelativeToTallestObject" x="48" y="619" width="55" height="20">
+					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Adresse :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="297" y="329" width="70" height="20"/>
+				<reportElement uuid="2a8c4925-fc79-4130-aa80-f5afbdcf9e75" stretchType="RelativeToTallestObject" x="297" y="374" width="70" height="20">
+					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Tél. GSM :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="297" y="288" width="70" height="20"/>
+				<reportElement uuid="1ad38f3c-5bdd-41c6-954a-b093dbdf955d" stretchType="RelativeToTallestObject" x="297" y="333" width="70" height="20">
+					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Tél. bureau :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="103" y="288" width="185" height="20"/>
+				<reportElement uuid="cb342105-1b0d-4471-8349-a259cf94b8fe" stretchType="RelativeToTallestObject" x="103" y="333" width="185" height="20">
+					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{pere}.get("nom")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{pere}.get("prenom").toString() + " " + $P{pere}.get("nom").toString()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="104" y="533" width="185" height="20"/>
+				<reportElement uuid="7a1e7159-5d25-49fc-9339-1ef16c1a34eb" stretchType="RelativeToTallestObject" x="104" y="595" width="185" height="20">
+					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{tuteur}.get("fonction")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{tuteur}.get("fonction")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="103" y="329" width="185" height="20"/>
+				<reportElement uuid="c988c23b-7545-42e1-b18d-d9d65dd04e56" stretchType="RelativeToTallestObject" x="103" y="374" width="185" height="20">
+					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{pere}.get("fonction")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{pere}.get("fonction")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="47" y="411" width="55" height="20"/>
+				<reportElement uuid="07664e17-31b1-41f3-82ac-824b23e5178e" stretchType="RelativeToTallestObject" x="47" y="463" width="55" height="20">
+					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Institution :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="369" y="432" width="142" height="20"/>
+				<reportElement uuid="3dd033c9-6f7b-4196-83c3-8493c6e0fa15" stretchType="RelativeToTallestObject" x="369" y="484" width="142" height="20">
+					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{mere}.get("telGsm")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{mere}.get("telGsm")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="369" y="391" width="142" height="20"/>
+				<reportElement uuid="f6e3067c-8474-4609-9988-f47130634f23" stretchType="RelativeToTallestObject" x="369" y="443" width="142" height="20">
+					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{mere}.get("telBureau")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{mere}.get("telBureau")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="47" y="456" width="55" height="20"/>
+				<reportElement uuid="db16e2c5-5e48-469d-a1c9-c6da28405fb3" stretchType="RelativeToTallestObject" x="47" y="508" width="55" height="20">
+					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Adresse :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="47" y="377" width="55" height="12"/>
+				<reportElement uuid="7ed0ba0d-2264-409a-9197-6ad12d873091" x="47" y="429" width="55" height="14">
+					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Bottom">
 					<font size="10" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Mère]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="47" y="432" width="55" height="20"/>
+				<reportElement uuid="cec69820-2d31-4aa0-918d-2a380fd2a248" stretchType="RelativeToTallestObject" x="47" y="484" width="55" height="20">
+					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Fonction :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="103" y="411" width="185" height="20"/>
+				<reportElement uuid="eaf7f1ef-334f-4d48-bb4a-025d1b92ab18" stretchType="RelativeToTallestObject" x="103" y="463" width="185" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{mere}.get("institution")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{mere}.get("institution")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="47" y="308" width="55" height="20"/>
+				<reportElement uuid="d69e867e-c767-494a-bab3-7ed5fded0a82" stretchType="RelativeToTallestObject" x="47" y="353" width="55" height="20">
+					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Institution :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="103" y="308" width="185" height="20"/>
+				<reportElement uuid="0de70bb4-b9f1-4eb0-97a9-6fc4fac4f1f1" stretchType="RelativeToTallestObject" x="103" y="353" width="185" height="20">
+					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{pere}.get("institution")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{pere}.get("institution")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="47" y="353" width="55" height="20"/>
+				<reportElement uuid="0be0def2-0cc8-4361-a008-1fc5e332bed4" stretchType="RelativeToTallestObject" x="47" y="398" width="55" height="20">
+					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Adresse :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="369" y="329" width="142" height="20"/>
+				<reportElement uuid="9009d63f-f02c-4805-8e74-72f729c14011" stretchType="RelativeToTallestObject" x="369" y="374" width="142" height="20">
+					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{pere}.get("telGsm")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{pere}.get("telGsm")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="298" y="456" width="35" height="20"/>
+				<reportElement uuid="efa40e6b-6681-4c57-8fdc-759c868e03ae" stretchType="RelativeToTallestObject" x="298" y="508" width="35" height="20">
+					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Email :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="297" y="308" width="70" height="20"/>
+				<reportElement uuid="909e1a95-53b7-46db-adbe-14e526efa67e" stretchType="RelativeToTallestObject" x="297" y="353" width="70" height="20">
+					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Tél. domicile :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="297" y="411" width="70" height="20"/>
+				<reportElement uuid="fa5e4c3a-eb2f-4847-8320-2d6d3c63a624" stretchType="RelativeToTallestObject" x="297" y="463" width="70" height="20">
+					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Tél. domicile :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="48" y="478" width="55" height="12"/>
+				<reportElement uuid="c8689957-85fd-456c-b12b-ad84fa6ca5c8" x="48" y="540" width="55" height="14">
+					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Bottom">
 					<font size="10" isBold="true" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[Tuteur]]></text>
+				<text><![CDATA[Tuteur légal]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="369" y="308" width="142" height="20"/>
+				<reportElement uuid="afee06d2-fbd1-41dd-8684-39d41c9baf69" stretchType="RelativeToTallestObject" x="369" y="353" width="142" height="20">
+					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{pere}.get("telDom")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{pere}.get("telDom")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="333" y="353" width="178" height="20"/>
+				<reportElement uuid="18f51656-cc4d-47a5-a57e-f5c74951b137" stretchType="RelativeToTallestObject" x="333" y="398" width="178" height="20">
+					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{pere}.get("email")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{pere}.get("email")]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="104" y="557" width="194" height="20"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="7d71a11d-8ead-44ae-ac2e-d0fff4c113de" stretchType="RelativeToTallestObject" x="104" y="619" width="194" height="20">
+					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -662,17 +767,21 @@ l'intérêt de votre enfant.]]></text>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{tuteur}.get("address")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{tuteur}.get("address")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="333" y="456" width="178" height="20"/>
+				<reportElement uuid="c0eb0813-5058-4612-8f6b-b906c3d805aa" stretchType="RelativeToTallestObject" x="333" y="508" width="178" height="20">
+					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{mere}.get("email")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{mere}.get("email")]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="103" y="456" width="195" height="20"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="381427b0-088a-4f84-ad5e-8a7f337f3b81" stretchType="RelativeToTallestObject" x="103" y="508" width="195" height="20">
+					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -683,49 +792,113 @@ l'intérêt de votre enfant.]]></text>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{mere}.get("address")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{mere}.get("address")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="48" y="492" width="55" height="20"/>
+				<reportElement uuid="66ae26cc-24cf-492f-9bc3-f2de0bdaadfd" stretchType="RelativeToTallestObject" x="48" y="554" width="55" height="20">
+					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[M.]]></text>
+				<text><![CDATA[Nom :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="103" y="432" width="185" height="20"/>
+				<reportElement uuid="11e2c3a0-5cc5-4282-b506-2144b9d1f754" stretchType="RelativeToTallestObject" x="103" y="484" width="185" height="20">
+					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{mere}.get("fonction")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{mere}.get("fonction")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="104" y="492" width="185" height="20"/>
+				<reportElement uuid="35fd1253-952d-4fab-a83c-a6f40f90458b" stretchType="RelativeToTallestObject" x="104" y="554" width="185" height="20">
+					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{tuteur}.get("nom")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{tuteur}.get("prenom").toString() + " " + $P{tuteur}.get("nom").toString()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="333" y="557" width="179" height="20"/>
+				<reportElement uuid="4bbedf1d-4bd9-4eae-875c-e4129544264f" stretchType="RelativeToTallestObject" x="333" y="619" width="179" height="20">
+					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{tuteur}.get("email")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{tuteur}.get("email")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="104" y="512" width="185" height="20"/>
+				<reportElement uuid="a8134201-7e1a-497c-906f-da635d40d413" stretchType="RelativeToTallestObject" x="104" y="574" width="185" height="20">
+					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{tuteur}.get("institution")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{tuteur}.get("institution")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="298" y="512" width="70" height="20"/>
+				<reportElement uuid="fac47c7e-4f66-48be-ad78-14ce53298393" stretchType="RelativeToTallestObject" x="298" y="574" width="70" height="20">
+					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Tél. domicile :]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="538ed3c5-d325-40e6-8109-ca682382fc58" x="46" y="428" width="464" height="1">
+					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement uuid="538ed3c5-d325-40e6-8109-ca682382fc58" x="47" y="541" width="464" height="1">
+					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f053571f-d5fa-4609-89b8-ab51c038b958" x="104" y="266" width="157" height="20">
+					<printWhenExpression><![CDATA[$P{filiere2}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{filiere2}.get("nom").toString().toLowerCase()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="df1f51a1-60ee-4670-823c-61c7b6113b9b" x="312" y="266" width="196" height="20">
+					<printWhenExpression><![CDATA[$P{niveauEtude2}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{niveauEtude2}.get("nom")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="dfe6d456-f5ef-4612-805e-9f1e0fda2150" x="261" y="266" width="51" height="20">
+					<printWhenExpression><![CDATA[$P{niveauEtude2}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Niveau (2) : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2bc266df-8d27-4d77-a23d-51fa584ad683" x="47" y="266" width="56" height="20">
+					<printWhenExpression><![CDATA[$P{filiere2}.get("nom") != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Section (2) : ]]></text>
 			</staticText>
 		</band>
 	</detail>
