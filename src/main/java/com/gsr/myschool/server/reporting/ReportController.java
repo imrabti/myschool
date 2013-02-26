@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Controller
@@ -77,8 +78,14 @@ public class ReportController {
         if (dossier.getNiveauEtude() != null) {
             printableDossier.getReportParameters().put("niveauEtude", dossier.getNiveauEtude().getReportsAttributes());
         }
+        if (dossier.getNiveauEtude2() != null) {
+            printableDossier.getReportParameters().put("niveauEtude2", dossier.getNiveauEtude2().getReportsAttributes());
+        }
         if (dossier.getFiliere() != null) {
             printableDossier.getReportParameters().put("filiere", dossier.getFiliere().getReportsAttributes());
+        }
+        if (dossier.getFiliere2() != null) {
+            printableDossier.getReportParameters().put("filiere2", dossier.getFiliere2().getReportsAttributes());
         }
         if (dossier.getCandidat().getBacSerie() != null) {
             printableDossier.getReportParameters().put("bacSerie", dossier.getCandidat().getBacSerie().
@@ -87,6 +94,11 @@ public class ReportController {
         if (dossier.getCandidat().getBacYear() != null) {
             printableDossier.getReportParameters().put("bacYear", dossier.getCandidat().getBacYear().
             getReportsAttributes());
+        }
+        if (dossier.getAnneeScolaire() != null) {
+            int current = Calendar.getInstance().get(Calendar.YEAR);
+            int next = current + 1;
+            printableDossier.getReportParameters().put("currentYear", current + " / " + next);
         }
         loadInfoParents(dossier, printableDossier);
         loadFraterie(dossier, printableDossier);
@@ -106,7 +118,7 @@ public class ReportController {
     private void loadFraterie(Dossier dossier, ReportDTO printableDossier) {
         List<Fraterie> fraterieList = fraterieRepos.findByCandidatId(dossier.getCandidat().getId());
         if (fraterieList != null && fraterieList.size() > 0) {
-            printableDossier.getReportParameters().put("fraterie", fraterieList.get(0).getReportsAttributes());
+            printableDossier.getReportParameters().put("fraterie", fraterieList);
         }
     }
 
