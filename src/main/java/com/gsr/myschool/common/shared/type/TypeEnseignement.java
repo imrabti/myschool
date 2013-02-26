@@ -30,10 +30,10 @@ public enum TypeEnseignement {
         this.id = id;
     }
 
-    public static TypeEnseignement getByNomFilere(String nomFiliere) {
-        if (nomFiliere.equals(MISSION.getNomFiliere())) {
+    public static TypeEnseignement getById(Long id) {
+        if (id == MISSION.getId()) {
             return MISSION;
-        } else if (nomFiliere.equals(BILINGUE.getNomFiliere())) {
+        } else if (id == BILINGUE.getId()) {
             return BILINGUE;
         } else {
             return null;
@@ -43,10 +43,6 @@ public enum TypeEnseignement {
     @Override
     public String toString() {
         return label;
-    }
-
-    public String getNomFiliere() {
-        return nomFiliere;
     }
 
     public Long getId() {

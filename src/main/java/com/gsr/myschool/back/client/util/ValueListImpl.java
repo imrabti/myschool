@@ -22,7 +22,7 @@ public class ValueListImpl implements ValueList {
     private List<FiliereProxy> filiereList;
     private List<NiveauEtudeProxy> niveauEtudeList;
     private List<EtablissementScolaireProxy> etablissementScolaireList;
-    private Map<String, List<NiveauEtudeProxy>> niveauEtudeMap;
+    private Map<Long, List<NiveauEtudeProxy>> niveauEtudeMap;
     private Map<ValueTypeCode, List<ValueListProxy>> valueListMap;
 
     @Inject
@@ -31,7 +31,7 @@ public class ValueListImpl implements ValueList {
         this.niveauEtudeList = new ArrayList<NiveauEtudeProxy>();
         this.filiereList = new ArrayList<FiliereProxy>();
         this.etablissementScolaireList = new ArrayList<EtablissementScolaireProxy>();
-        this.niveauEtudeMap = new HashMap<String, List<NiveauEtudeProxy>>();
+        this.niveauEtudeMap = new HashMap<Long, List<NiveauEtudeProxy>>();
         this.valueListMap = new HashMap<ValueTypeCode, List<ValueListProxy>>();
     }
 
@@ -54,7 +54,7 @@ public class ValueListImpl implements ValueList {
     }
 
     @Override
-    public List<NiveauEtudeProxy> getNiveauEtudeList(String filiere) {
+    public List<NiveauEtudeProxy> getNiveauEtudeList(Long filiere) {
         if (niveauEtudeMap == null && !niveauEtudeMap.containsKey(filiere)) {
             initNiveauEtudeMap();
         }
@@ -107,12 +107,12 @@ public class ValueListImpl implements ValueList {
             @Override
             public void onSuccess(List<NiveauEtudeProxy> result) {
                 niveauEtudeList.addAll(result);
-                niveauEtudeMap = new HashMap<String, List<NiveauEtudeProxy>>();
+                niveauEtudeMap = new HashMap<Long, List<NiveauEtudeProxy>>();
                 for (NiveauEtudeProxy niveauEtude : result) {
-                    if (!niveauEtudeMap.containsKey(niveauEtude.getFiliere().getNom())) {
-                        niveauEtudeMap.put(niveauEtude.getFiliere().getNom(), new ArrayList<NiveauEtudeProxy>());
+                    if (!niveauEtudeMap.containsKey(niveauEtude.getFiliere().getId())) {
+                        niveauEtudeMap.put(niveauEtude.getFiliere().getId(), new ArrayList<NiveauEtudeProxy>());
                     }
-                    niveauEtudeMap.get(niveauEtude.getFiliere().getNom()).add(niveauEtude);
+                    niveauEtudeMap.get(niveauEtude.getFiliere().getId()).add(niveauEtude);
                 }
             }
         });

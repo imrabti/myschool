@@ -13,7 +13,6 @@ import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PopupView;
 import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gsr.myschool.front.client.web.application.inscription.popup.EtablissementFilterPresenter.MyView;
-import com.gwtplatform.mvp.client.proxy.PlaceManager;
 
 import java.util.List;
 
@@ -25,25 +24,25 @@ public class EtablissementFilterPresenter extends PresenterWidget<MyView> implem
     }
 
     private final FrontRequestFactory requestFactory;
-    private final PlaceManager placeManager;
 
     private WizardStep targetStep;
     private InscriptionRequest currentContext;
 
     @Inject
     public EtablissementFilterPresenter(final EventBus eventBus, final MyView view,
-                                        final FrontRequestFactory requestFactory,
-                                        final PlaceManager placeManager) {
+                                        final FrontRequestFactory requestFactory) {
         super(eventBus, view);
 
         this.requestFactory = requestFactory;
-        this.placeManager = placeManager;
 
         getView().setUiHandlers(this);
     }
 
     @Override
     public void search(final EtablissementFilterDTOProxy etablissementFilter) {
+        if (etablissementFilter.getVille() != null) {
+            etablissementFilter.setVille(currentContext.edit(etablissementFilter.getVille()));
+        }
         currentContext.findEtablissementByFilter(etablissementFilter).fire(
                 new ReceiverImpl<List<EtablissementScolaireProxy>>() {
             @Override

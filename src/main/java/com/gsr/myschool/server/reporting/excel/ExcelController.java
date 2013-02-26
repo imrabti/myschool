@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.server.reporting.excel;
 
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.dto.DossierExcelDTO;
 import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
 import com.gsr.myschool.server.business.Dossier;
@@ -24,14 +25,13 @@ import com.gsr.myschool.server.service.XlsExportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.OutputStream;
+import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -42,20 +42,48 @@ public class ExcelController {
     @Autowired
     private XlsExportService xlsExportService;
 
-    @RequestMapping(method = RequestMethod.POST, produces = "application/vnd.ms-excel")
+    @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public void generateExcel(@RequestBody DossierFilterDTO requestdata, HttpServletResponse response) {
         try {
             List<Dossier> dossiers = dossierService.findAllDossiersByCriteria(requestdata);
             List<DossierExcelDTO> resultDossiers = map(dossiers);
 
+            String fileName = new Date().getTime() + ".xls";
+            File file = new File(fileName);
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            xlsExportService.saveSpreadsheetRecords(DossierExcelDTO.class, resultDossiers, fileOutputStream);
+            fileOutputStream.flush();
+            fileOutputStream.close();
+
+            response.getWriter().println(fileName);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.GET, produces = "application/vnd.ms-excel")
+    @ResponseStatus(HttpStatus.OK)
+    public void generateExcel(@RequestParam String fileName, HttpServletResponse response) {
+        try {
+            final int buffersize = 1024;
+            final byte[] buffer = new byte[buffersize];
+
             response.addHeader("Content-Disposition", "attachment; filename=test.xls");
 
-            OutputStream outputStream = response.getOutputStream();
-            xlsExportService.saveSpreadsheetRecords(DossierExcelDTO.class, resultDossiers, outputStream);
+            File file = new File(fileName);
+            InputStream inputStream = new FileInputStream(file);
+            BufferedOutputStream outputStream = new BufferedOutputStream(response.getOutputStream());
+
+            int available = 0;
+            while ((available = inputStream.read(buffer)) >= 0) {
+                outputStream.write(buffer, 0, available);
+            }
 
             outputStream.flush();
             outputStream.close();
+
+            file.delete();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -63,6 +91,7 @@ public class ExcelController {
 
     private List<DossierExcelDTO> map(List<Dossier> dossiers) {
         List<DossierExcelDTO> resultDossiers = new ArrayList<DossierExcelDTO>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
         for (Dossier dossier : dossiers) {
             DossierExcelDTO d = new DossierExcelDTO();
             /* candidat */
@@ -72,7 +101,6 @@ public class ExcelController {
                 d.setEmail(dossier.getCandidat().getEmail());
                 d.setFirstname(dossier.getCandidat().getFirstname());
                 d.setLastname(dossier.getCandidat().getLastname());
-                d.setBirthDate(dossier.getCandidat().getBirthDate());
                 d.setBirthLocation(dossier.getCandidat().getBirthLocation());
                 d.setGsm(dossier.getCandidat().getGsm());
                 d.setPhone(dossier.getCandidat().getPhone());
@@ -85,23 +113,22 @@ public class ExcelController {
                 if (dossier.getCandidat().getNationality() != null) {
                     d.setNationality(dossier.getCandidat().getNationality().getLabel());
                 }
+                if (dossier.getCandidat().getBirthDate() != null) {
+                    d.setBirthDate(dateFormat.format(dossier.getCandidat().getBirthDate()));
+                }
             }
 
             /* filieres */
             if (dossier.getFiliere2() != null) {
-                d.setFiliere2description(dossier.getFiliere2().getDescription());
                 d.setFiliere2nom(dossier.getFiliere2().getNom());
             }
             if (dossier.getFiliere() != null) {
-                d.setFilieredescription(dossier.getFiliere().getDescription());
                 d.setFilierenom(dossier.getFiliere().getNom());
             }
             if (dossier.getNiveauEtude2() != null) {
-                d.setNiveauEtude2annee(dossier.getNiveauEtude2().getAnnee());
                 d.setNiveauEtude2nom(dossier.getNiveauEtude2().getNom());
             }
             if (dossier.getNiveauEtude() != null) {
-                d.setNiveauEtudeannee(dossier.getNiveauEtude().getAnnee());
                 d.setNiveauEtudenom(dossier.getNiveauEtude().getNom());
             }
 
@@ -112,10 +139,15 @@ public class ExcelController {
             if (dossier.getOwner() != null) {
                 d.setOwneremail(dossier.getOwner().getEmail());
             }
-            d.setCreateDate(dossier.getCreateDate());
-            d.setSubmitDate(dossier.getSubmitDate());
-            d.setSubmitDate(dossier.getSubmitDate());
-            d.setStatus(dossier.getStatus());
+            if (dossier.getCreateDate() != null) {
+                d.setCreateDate(dateFormat.format(dossier.getCreateDate()));
+            }
+            if (dossier.getSubmitDate() != null) {
+                d.setSubmitDate(dateFormat.format(dossier.getSubmitDate()));
+            }
+            if (dossier.getStatus() != null) {
+                d.setStatus(dossier.getStatus().toString());
+            }
 
             resultDossiers.add(d);
         }

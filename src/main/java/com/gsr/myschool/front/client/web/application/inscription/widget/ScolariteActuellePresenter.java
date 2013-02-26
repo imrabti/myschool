@@ -146,8 +146,8 @@ public class ScolariteActuellePresenter extends PresenterWidget<ScolariteActuell
         currentScolarite.setNiveauEtude(scolariteActuelle.getNiveauEtude());
 
         if (scolariteActuelle.getFiliere() != null) {
-            String nomFiliere = scolariteActuelle.getFiliere().getNom();
-            currentScolarite.setTypeEnseignement(TypeEnseignement.getByNomFilere(nomFiliere));
+            Long idFiliere = scolariteActuelle.getFiliere().getId();
+            currentScolarite.setTypeEnseignement(TypeEnseignement.getById(idFiliere));
         }
     }
 }

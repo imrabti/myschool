@@ -93,7 +93,7 @@ public class FraterieEditor extends Composite implements EditorView<FraterieDTOP
         filiere.setValue(TypeEnseignement.BILINGUE);
         filiere.setAcceptableValues(Arrays.asList(TypeEnseignement.values()));
 
-        List<NiveauEtudeProxy> values = valueList.getNiveauEtudeList(TypeEnseignement.BILINGUE.getNomFiliere());
+        List<NiveauEtudeProxy> values = valueList.getNiveauEtudeList(TypeEnseignement.BILINGUE.getId());
         niveau.setValue(values.get(0));
         niveau.setAcceptableValues(values);
     }
@@ -127,7 +127,7 @@ public class FraterieEditor extends Composite implements EditorView<FraterieDTOP
             niveau.setValue(null);
             niveau.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
         } else {
-            List<NiveauEtudeProxy> values = valueList.getNiveauEtudeList(event.getValue().getNomFiliere());
+            List<NiveauEtudeProxy> values = valueList.getNiveauEtudeList(event.getValue().getId());
             niveau.setValue(values.get(0));
             niveau.setAcceptableValues(values);
         }

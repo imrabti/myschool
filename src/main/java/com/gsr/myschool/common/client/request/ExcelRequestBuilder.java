@@ -17,6 +17,7 @@
 package com.gsr.myschool.common.client.request;
 
 import com.google.gwt.http.client.*;
+import com.google.gwt.user.client.Window;
 import com.google.web.bindery.autobean.shared.AutoBean;
 import com.google.web.bindery.autobean.shared.AutoBeanCodex;
 import com.google.web.bindery.autobean.shared.AutoBeanUtils;
@@ -36,13 +37,11 @@ public class ExcelRequestBuilder extends RequestBuilder {
         setCallback(new RequestCallback() {
             @Override
             public void onResponseReceived(Request request, Response response) {
-                response.getClass();
-                //TODO
+                Window.open("/resource/excel?fileName=" + response.getText(), "_blank", "");
             }
 
             @Override
             public void onError(Request request, Throwable exception) {
-                request.getClass();
                 //TODO
             }
         });

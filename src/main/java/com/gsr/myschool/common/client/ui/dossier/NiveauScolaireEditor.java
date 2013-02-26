@@ -30,8 +30,6 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
     public interface Driver extends SimpleBeanEditorDriver<DossierProxy, NiveauScolaireEditor> {
     }
 
-    public static final String BILINGUE = TypeEnseignement.BILINGUE.getNomFiliere();
-    public static final String MISSION = TypeEnseignement.MISSION.getNomFiliere();
     private FiliereProxy sectionFr;
     private FiliereProxy sectionBilingue;
     private List<FiliereProxy> filieres;
@@ -98,7 +96,7 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
     void onFiliereChanged(ValueChangeEvent<FiliereProxy> event) {
         if (event.getValue() != null) {
             niveauEtude.setValue(null);
-            niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(event.getValue().getNom()));
+            niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(event.getValue().getId()));
         } else {
             niveauEtude.setValue(null);
             niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
@@ -111,7 +109,7 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
     void onFiliere2Changed(ValueChangeEvent<FiliereProxy> event) {
         if (event.getValue() != null) {
             niveauEtude2.setValue(null);
-            niveauEtude2.setAcceptableValues(valueList.getNiveauEtudeList(event.getValue().getNom()));
+            niveauEtude2.setAcceptableValues(valueList.getNiveauEtudeList(event.getValue().getId()));
         } else {
             niveauEtude2.setValue(null);
             niveauEtude2.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
@@ -120,8 +118,8 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
 
     private void initFilieres(List<FiliereProxy> list) {
         for (FiliereProxy filiere : list) {
-            if (BILINGUE.equals(filiere.getNom())) sectionBilingue = filiere;
-            if (MISSION.equals(filiere.getNom())) sectionFr = filiere;
+            if (TypeEnseignement.BILINGUE.getId() == filiere.getId()) sectionBilingue = filiere;
+            if (TypeEnseignement.MISSION.getId() == filiere.getId()) sectionFr = filiere;
         }
     }
 
@@ -133,23 +131,23 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
             niveauEtude2.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
             return;
         }
-        if (BILINGUE.equals(filiere.getNom())) {
+        if (TypeEnseignement.BILINGUE.getId() == filiere.getId()) {
             filiere2.setValue(sectionFr);
             filiere2.setEnabled(false);
             niveauEtude2.setValue(null);
-            niveauEtude2.setAcceptableValues(valueList.getNiveauEtudeList(sectionFr.getNom()));
-        } else if (MISSION.equals(filiere.getNom())) {
+            niveauEtude2.setAcceptableValues(valueList.getNiveauEtudeList(sectionFr.getId()));
+        } else if (TypeEnseignement.MISSION.getId() == filiere.getId()) {
             filiere2.setValue(sectionBilingue);
             filiere2.setEnabled(false);
             niveauEtude2.setValue(null);
-            niveauEtude2.setAcceptableValues(valueList.getNiveauEtudeList(sectionBilingue.getNom()));
+            niveauEtude2.setAcceptableValues(valueList.getNiveauEtudeList(sectionBilingue.getId()));
         } else {
             ArrayList<FiliereProxy> filieres2 = new ArrayList<FiliereProxy>();
             ArrayList<FiliereProxy> toRemove = new ArrayList<FiliereProxy>();
             filieres2.addAll(filieres);
             for (FiliereProxy f : filieres2) {
-                if (BILINGUE.equals(f.getNom())) toRemove.add(f);
-                if (MISSION.equals(f.getNom())) toRemove.add(f);
+                if (TypeEnseignement.BILINGUE.getId() == f.getId()) toRemove.add(f);
+                if (TypeEnseignement.MISSION.getId() == f.getId()) toRemove.add(f);
                 if (f.getNom().equals(filiere.getNom())) toRemove.add(f);
             }
             filieres2.removeAll(toRemove);

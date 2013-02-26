@@ -16,80 +16,98 @@
 
 package com.gsr.myschool.common.shared.dto;
 
-import com.gsr.myschool.common.shared.type.DossierStatus;
+import org.adorsys.xlseasy.annotation.CellAlign;
 import org.adorsys.xlseasy.annotation.Sheet;
+import org.adorsys.xlseasy.annotation.SheetCellStyle;
 import org.adorsys.xlseasy.annotation.SheetColumn;
 
 import java.io.Serializable;
-import java.util.Date;
 
-@Sheet
+@Sheet(autoSizeColumns = true,
+        columnOrder = {"lastname", "firstname", "birthDate", "birthLocation", "phone",
+                "cin", "cne", "email", "gsm", "bacYear", "bacSerie", "nationality",
+                "filierenom", "niveauEtudenom", "filiere2nom", "niveauEtude2nom", "owneremail",
+                "createDate", "submitDate", "status", "generatedNumDossier", "anneeScolaire"})
 public class DossierExcelDTO implements Serializable {
     /* candidat */
-    @SheetColumn
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Prénom")
     private String firstname;
-    @SheetColumn
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Nom")
     private String lastname;
-    @SheetColumn
-    private Date birthDate;
-    @SheetColumn
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Date de naissance")
+    private String birthDate;
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Lieu de naissance")
     private String birthLocation;
-    @SheetColumn
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Numéro de téléphone")
     private String phone;
-    @SheetColumn
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "CIN")
     private String cin;
-    @SheetColumn
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "CNE")
     private String cne;
-    @SheetColumn
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Email")
     private String email;
-    @SheetColumn
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Téléphone GSM")
     private String gsm;
-    @SheetColumn
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Année du Bac")
     private String bacYear;
-    @SheetColumn
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Série du Bac")
     private String bacSerie;
-    @SheetColumn
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Nationalité")
     private String nationality;
 
 
     /* filiere */
-    @SheetColumn
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Choix 1 filiere")
     private String filierenom;
-    @SheetColumn
-    private String filieredescription;
 
     /* choix 1 */
-    @SheetColumn
-    private Integer niveauEtudeannee;
-    @SheetColumn
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Choix 1 Niveau d'étude")
     private String niveauEtudenom;
 
     /* filiere 2 */
-    @SheetColumn
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Choix 2 Filiere")
     private String filiere2nom;
-    @SheetColumn
-    private String filiere2description;
 
     /* choix 2 */
-    @SheetColumn
-    private Integer niveauEtude2annee;
-    @SheetColumn
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Choix 2 Niveau d'étude")
     private String niveauEtude2nom;
 
-    @SheetColumn
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Email utilisateur")
     private String owneremail;
 
-    @SheetColumn
-    private Date createDate;
-    @SheetColumn
-    private Date submitDate;
-    @SheetColumn
-    private DossierStatus status;
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Date création")
+    private String createDate;
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Date de soumission")
+    private String submitDate;
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Status dossier")
+    private String status;
 
-    @SheetColumn
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Numéro dossier")
     private String generatedNumDossier;
 
-    @SheetColumn
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Année scolaire")
     private String anneeScolaire;
 
     public String getFirstname() {
@@ -108,11 +126,11 @@ public class DossierExcelDTO implements Serializable {
         this.lastname = lastname;
     }
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -196,22 +214,6 @@ public class DossierExcelDTO implements Serializable {
         this.filierenom = filierenom;
     }
 
-    public String getFilieredescription() {
-        return filieredescription;
-    }
-
-    public void setFilieredescription(String filieredescription) {
-        this.filieredescription = filieredescription;
-    }
-
-    public Integer getNiveauEtudeannee() {
-        return niveauEtudeannee;
-    }
-
-    public void setNiveauEtudeannee(Integer niveauEtudeannee) {
-        this.niveauEtudeannee = niveauEtudeannee;
-    }
-
     public String getNiveauEtudenom() {
         return niveauEtudenom;
     }
@@ -226,22 +228,6 @@ public class DossierExcelDTO implements Serializable {
 
     public void setFiliere2nom(String filiere2nom) {
         this.filiere2nom = filiere2nom;
-    }
-
-    public String getFiliere2description() {
-        return filiere2description;
-    }
-
-    public void setFiliere2description(String filiere2description) {
-        this.filiere2description = filiere2description;
-    }
-
-    public Integer getNiveauEtude2annee() {
-        return niveauEtude2annee;
-    }
-
-    public void setNiveauEtude2annee(Integer niveauEtude2annee) {
-        this.niveauEtude2annee = niveauEtude2annee;
     }
 
     public String getNiveauEtude2nom() {
@@ -260,27 +246,27 @@ public class DossierExcelDTO implements Serializable {
         this.owneremail = owneremail;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
-    public Date getSubmitDate() {
+    public String getSubmitDate() {
         return submitDate;
     }
 
-    public void setSubmitDate(Date submitDate) {
+    public void setSubmitDate(String submitDate) {
         this.submitDate = submitDate;
     }
 
-    public DossierStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(DossierStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
