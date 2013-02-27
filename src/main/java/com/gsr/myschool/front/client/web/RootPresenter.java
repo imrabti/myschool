@@ -29,6 +29,7 @@ import com.gsr.myschool.common.client.widget.messages.MessagePresenter;
 
 public class RootPresenter extends Presenter<RootPresenter.MyView, RootPresenter.MyProxy> {
     public interface MyView extends View {
+        public void hideLoading();
     }
 
     @ProxyStandard
@@ -51,6 +52,7 @@ public class RootPresenter extends Presenter<RootPresenter.MyView, RootPresenter
 
     @Override
     protected void onReveal() {
+        getView().hideLoading();
         setInSlot(TYPE_SetMessageContent, messagePresenter);
     }
 }
