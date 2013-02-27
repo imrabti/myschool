@@ -45,14 +45,14 @@
         }
 
         .mainContent {
-            width: 920px;
+            width: 880px;
             margin-right: auto;
             margin-left: auto;
             margin-top: 90px;
         }
 
         .pictureWrapper {
-            width: 500px;
+            width: 460px;
             float: left;
             padding-left: 10px;
             padding-right: 30px;
@@ -118,7 +118,7 @@
         </div>
 
         <div class="{style.footerWrapper}">
-            Touts droits réservé <strong>GSR</strong> - 2013
+            Tous droits réservés <strong>GSR</strong> - 2013.
         </div>
     </g:HTMLPanel>
 </ui:UiBinder>

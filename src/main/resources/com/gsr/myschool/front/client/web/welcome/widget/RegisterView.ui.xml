@@ -32,8 +32,8 @@
         <boot:Form type="INLINE">
             <boot:ControlGroup addStyleNames="{style.groupWrapper}">
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.emailHelp}" placement="TOP">
-                        <boot:TextBox ui:field="email" placeholder="Email" width="100%" />
+                    <boot:Tooltip text="{helpMessage.emailHelp}" placement="BOTTOM">
+                        <boot:TextBox ui:field="email" placeholder="Identifiant" width="100%" />
                     </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>
@@ -58,7 +58,7 @@
 
             <boot:ControlGroup addStyleNames="{style.groupWrapper}">
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.passwordHelp}" placement="TOP">
+                    <boot:Tooltip text="{helpMessage.passwordHelp}" placement="BOTTOM">
                         <boot:PasswordTextBox ui:field="password" placeholder="Mot de passe" width="100%"/>
                     </boot:Tooltip>
                 </boot:Controls>
@@ -66,10 +66,8 @@
 
             <boot:ControlGroup addStyleNames="{style.groupWrapper}">
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.passwordHelp}" placement="TOP">
-                        <boot:PasswordTextBox ui:field="passwordConfirmation"
-                                              placeholder="Confirmation mot de passe" width="100%"/>
-                    </boot:Tooltip>
+                    <boot:PasswordTextBox ui:field="passwordConfirmation"
+                                          placeholder="Confirmation mot de passe" width="100%"/>
                 </boot:Controls>
             </boot:ControlGroup>
         </boot:Form>
