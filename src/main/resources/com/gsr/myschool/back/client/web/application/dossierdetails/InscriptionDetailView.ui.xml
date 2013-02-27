@@ -38,7 +38,7 @@
                 <g:HTMLPanel ui:field="candidatPanel"/>
             </boot:AccordionGroup>
 
-            <boot:AccordionGroup heading="Fraterie" defaultOpen="true">
+            <boot:AccordionGroup heading="Fratrie" defaultOpen="true">
                 <boot:CellTable ui:field="fraterieTable" bordered="true"/>
             </boot:AccordionGroup>
         </boot:Accordion>
