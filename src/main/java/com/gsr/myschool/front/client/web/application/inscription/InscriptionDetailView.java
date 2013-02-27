@@ -240,7 +240,6 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
     }
 
     private void initFraterieDataGrid() {
-
         TextColumn<FraterieProxy> nomPrenomColumn = new TextColumn<FraterieProxy>() {
             @Override
             public String getValue(FraterieProxy object) {
