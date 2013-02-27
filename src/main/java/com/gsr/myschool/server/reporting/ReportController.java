@@ -1,5 +1,6 @@
 package com.gsr.myschool.server.reporting;
 
+import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.dto.ReportDTO;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.Fraterie;
@@ -28,6 +29,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/report")
 public class ReportController {
+
+    @Value("${dateLimiteDepot}")
+    String dateLimiteMsg;
     @Autowired
     ReportService reportService;
     @Value("${reportPrepName}")
@@ -99,6 +103,9 @@ public class ReportController {
             int current = Calendar.getInstance().get(Calendar.YEAR);
             int next = current + 1;
             printableDossier.getReportParameters().put("currentYear", current + " / " + next);
+        }
+        if (!Strings.isNullOrEmpty(dateLimiteMsg)) {
+            printableDossier.getReportParameters().put("dateLimite", dateLimiteMsg);
         }
         loadInfoParents(dossier, printableDossier);
         loadFraterie(dossier, printableDossier);
