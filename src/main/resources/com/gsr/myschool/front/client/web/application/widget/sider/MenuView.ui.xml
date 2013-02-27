@@ -8,7 +8,7 @@
         }
 
         .menu {
-            min-height: 200px;
+            min-height: 96px;
         }
     </ui:style>
 
