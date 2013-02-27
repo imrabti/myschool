@@ -13,6 +13,6 @@
     </ui:style>
 
     <g:HTMLPanel styleName="{style.footerWrapper}">
-        Touts droits réservé <strong>GSR</strong> - 2013.
+        Tous droits réservés <strong>GSR</strong> - 2013.
     </g:HTMLPanel>
 </ui:UiBinder> 
