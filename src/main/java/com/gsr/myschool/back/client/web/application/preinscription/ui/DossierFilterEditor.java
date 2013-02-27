@@ -3,6 +3,7 @@ package com.gsr.myschool.back.client.web.application.preinscription.ui;
 import com.github.gwtbootstrap.client.ui.CheckBox;
 import com.github.gwtbootstrap.client.ui.TextBox;
 import com.github.gwtbootstrap.client.ui.ValueListBox;
+import com.github.gwtbootstrap.datepicker.client.ui.DateBox;
 import com.github.gwtbootstrap.datepicker.client.ui.DateBoxAppended;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -39,9 +40,9 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     @UiField(provided = true)
     ValueListBox<FiliereProxy> filiere;
     @UiField
-    DateBoxAppended dateFrom;
+    DateBox dateFrom;
     @UiField
-    DateBoxAppended dateTill;
+    DateBox dateTill;
     @UiField
     CheckBox parentGsr;
     @UiField
