@@ -1,49 +1,47 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+
+    <ui:style>
+        .row {
+            margin-bottom: 10px;
+        }
+
+        .label {
+            display: inline-block;
+            width: 120px;
+            text-align: right;
+            margin-right: 5px;
+        }
+
+        .inline {
+            display: inline-block;
+        }
+    </ui:style>
+
     <g:HTMLPanel>
-        <boot:Form type="HORIZONTAL">
-            <boot:ControlGroup>
-                <boot:ControlLabel>N° Dossier</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:TextBox ui:field="numDossier" width="250px"/>
-                </boot:Controls>
-            </boot:ControlGroup>
+        <div class="{style.row}">
+            <g:Label text="N° Dossier" styleName="{style.label}"/>
+            <boot:TextBox ui:field="numDossier" width="168px"/>
 
-            <boot:ControlGroup>
-                <boot:ControlLabel>Nom ou prénom</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:TextBox ui:field="firstnameOrlastname" width="250px"/>
-                </boot:Controls>
-            </boot:ControlGroup>
+            <g:Label text="Nom ou prénom" styleName="{style.label}"/>
+            <boot:TextBox ui:field="firstnameOrlastname" width="168px"/>
+        </div>
 
-            <boot:ControlGroup>
-                <boot:ControlLabel>Formation</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:ValueListBox ui:field="filiere" width="250px"/>
-                </boot:Controls>
-            </boot:ControlGroup>
+        <div class="{style.row}">
+            <g:Label text="Formation" styleName="{style.label}"/>
+            <boot:ValueListBox ui:field="filiere" width="180px"/>
 
-            <boot:ControlGroup>
-                <boot:ControlLabel>Niveau demandé</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:ValueListBox ui:field="niveauEtude" width="250px"/>
-                </boot:Controls>
-            </boot:ControlGroup>
+            <g:Label text="Niveau demandé" styleName="{style.label}"/>
+            <boot:ValueListBox ui:field="niveauEtude" width="180px"/>
+        </div>
 
-            <boot:ControlGroup>
-                <boot:ControlLabel>Frère ou soeur scolarisé au GSR</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:CheckBox ui:field="gsrFraterie" width="250px"/>
-                </boot:Controls>
-            </boot:ControlGroup>
+        <div class="{style.row}">
+            <g:Label text="Fratrie au GSR" styleName="{style.label}"/>
+            <boot:CheckBox ui:field="gsrFraterie" styleName="{style.inline}"/>
 
-            <boot:ControlGroup>
-                <boot:ControlLabel>Parents scolarisés au GSR</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:CheckBox ui:field="parentGsr" width="250px"/>
-                </boot:Controls>
-            </boot:ControlGroup>
-        </boot:Form>
+            <g:Label text="Parents au GSR" styleName="{style.label}"/>
+            <boot:CheckBox ui:field="parentGsr" styleName="{style.inline}"/>
+        </div>
     </g:HTMLPanel>
 </ui:UiBinder>
