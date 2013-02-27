@@ -16,6 +16,8 @@
 
 package com.gsr.myschool.back.client.web;
 
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
@@ -45,5 +47,11 @@ public class RootView extends ViewImpl implements RootPresenter.MyView {
         } else if (slot == RootPresenter.TYPE_SetMessageContent) {
             messageDisplay.setWidget(content);
         }
+    }
+
+    @Override
+    public void hideLoading() {
+        Element loading = Document.get().getElementById("loading");
+        loading.getParentElement().removeChild(loading);
     }
 }
