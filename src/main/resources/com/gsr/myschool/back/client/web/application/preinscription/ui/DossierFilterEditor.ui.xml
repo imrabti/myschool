@@ -2,56 +2,52 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'
              xmlns:b2='urn:import:com.github.gwtbootstrap.datepicker.client.ui'>
+
+    <ui:style>
+        .row {
+            margin-bottom: 10px;
+        }
+
+        .label {
+            display: inline-block;
+            width: 120px;
+            text-align: right;
+            margin-right: 5px;
+        }
+
+        .inline {
+            display: inline-block;
+        }
+    </ui:style>
+
     <g:HTMLPanel>
-        <boot:Form type="HORIZONTAL">
-            <boot:ControlGroup>
-                <boot:ControlLabel>Statut</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:ValueListBox ui:field="status" width="250px"/>
-                </boot:Controls>
-            </boot:ControlGroup>
+        <div class="{style.row}">
+            <g:Label text="Statut" styleName="{style.label}"/>
+            <boot:ValueListBox ui:field="status" width="180px"/>
+        </div>
 
-            <boot:ControlGroup>
-                <boot:ControlLabel>Formation</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:ValueListBox ui:field="filiere" width="250px"/>
-                </boot:Controls>
-            </boot:ControlGroup>
+        <div class="{style.row}">
+            <g:Label text="Formation" styleName="{style.label}"/>
+            <boot:ValueListBox ui:field="filiere" width="180px"/>
 
-            <boot:ControlGroup>
-                <boot:ControlLabel>Niveau demandé</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:ValueListBox ui:field="niveauEtude" width="250px"/>
-                </boot:Controls>
-            </boot:ControlGroup>
+            <g:Label text="Niveau demandé" styleName="{style.label}"/>
+            <boot:ValueListBox ui:field="niveauEtude" width="180px"/>
+        </div>
 
-            <boot:ControlGroup>
-                <boot:ControlLabel>Date du</boot:ControlLabel>
-                <boot:Controls>
-                    <b2:DateBoxAppended ui:field="dateFrom" format="dd/mm/yyyy"/>
-                </boot:Controls>
-            </boot:ControlGroup>
+        <div class="{style.row}">
+            <g:Label text="Date du" styleName="{style.label}"/>
+            <b2:DateBox ui:field="dateFrom" format="dd/mm/yyyy" width="168px"/>
 
-            <boot:ControlGroup>
-                <boot:ControlLabel>Date au</boot:ControlLabel>
-                <boot:Controls>
-                    <b2:DateBoxAppended ui:field="dateTill" format="dd/mm/yyyy"/>
-                </boot:Controls>
-            </boot:ControlGroup>
+            <g:Label text="Date au" styleName="{style.label}"/>
+            <b2:DateBox ui:field="dateTill" format="dd/mm/yyyy" width="168px"/>
+        </div>
 
-            <boot:ControlGroup>
-                <boot:ControlLabel>Fratrie au GSR</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:CheckBox ui:field="gsrFraterie" width="250px"/>
-                </boot:Controls>
-            </boot:ControlGroup>
+        <div class="{style.row}">
+            <g:Label text="Fratrie au GSR" styleName="{style.label}"/>
+            <boot:CheckBox ui:field="gsrFraterie" styleName="{style.inline}"/>
 
-            <boot:ControlGroup>
-                <boot:ControlLabel>Parents au GSR</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:CheckBox ui:field="parentGsr" width="250px"/>
-                </boot:Controls>
-            </boot:ControlGroup>
-        </boot:Form>
+            <g:Label text="Parents au GSR" styleName="{style.label}"/>
+            <boot:CheckBox ui:field="parentGsr" styleName="{style.inline}"/>
+        </div>
     </g:HTMLPanel>
 </ui:UiBinder>
