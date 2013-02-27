@@ -33,7 +33,7 @@
 
             <g:HTMLPanel styleName="{resource.sharedStyleCss.buttonContainerPopup}">
                 <boot:Button ui:field="cancel" text="Annuler"/>
-                <boot:Button ui:field="validate"  text="Valider" styleName="btn btn-primary"/>
+                <boot:Button ui:field="validate"  text="Valider" styleName="btn btn-success"/>
             </g:HTMLPanel>
         </g:FlowPanel>
     </g:PopupPanel>
