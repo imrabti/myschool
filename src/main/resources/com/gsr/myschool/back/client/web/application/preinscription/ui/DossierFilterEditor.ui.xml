@@ -28,14 +28,14 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Date du</boot:ControlLabel>
                 <boot:Controls>
-                    <b2:DateBoxAppended ui:field="dateFrom"/>
+                    <b2:DateBoxAppended ui:field="dateFrom" format="dd/mm/yyyy"/>
                 </boot:Controls>
             </boot:ControlGroup>
 
             <boot:ControlGroup>
                 <boot:ControlLabel>Date au</boot:ControlLabel>
                 <boot:Controls>
-                    <b2:DateBoxAppended ui:field="dateTill"/>
+                    <b2:DateBoxAppended ui:field="dateTill" format="dd/mm/yyyy"/>
                 </boot:Controls>
             </boot:ControlGroup>
 

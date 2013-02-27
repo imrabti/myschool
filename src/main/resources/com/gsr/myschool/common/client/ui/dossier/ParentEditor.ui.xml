@@ -57,7 +57,7 @@
                 <boot:ControlLabel width="165px">Date de naissance</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.infoParentDateNaissance}" placement="RIGHT">
-                        <b2:DateBoxAppended ui:field="birthDate"/>
+                        <b2:DateBoxAppended ui:field="birthDate" format="dd/mm/yyyy"/>
                     </boot:Tooltip>
                     <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
