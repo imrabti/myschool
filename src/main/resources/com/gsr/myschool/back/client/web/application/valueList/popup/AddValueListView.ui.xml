@@ -22,7 +22,7 @@
             <g:HTMLPanel styleName="{resource.sharedStyleCss.buttonContainerPopup}">
                 <boot:Button ui:field="cancel" text="Annuler"/>
                 <boot:Button ui:field="save" text="Enregistrer" icon="SAVE"
-                             styleName="btn btn-primary"/>
+                             styleName="btn btn-success"/>
             </g:HTMLPanel>
         </g:FlowPanel>
     </g:PopupPanel>

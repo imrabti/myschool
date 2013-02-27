@@ -50,7 +50,7 @@
 
         <g:HTMLPanel ui:field="submitContainer" addStyleNames="{style.noBackground}"
                      styleName="{clientResources.sharedStyleCss.buttonContainer}">
-            <boot:Button ui:field="submit"  text="Soumettre" iconPosition="RIGHT" styleName="btn btn-primary"/>
+            <boot:Button ui:field="submit"  text="Soumettre" iconPosition="RIGHT" styleName="btn btn-success"/>
         </g:HTMLPanel>
     </g:HTMLPanel>
 </ui:UiBinder>
