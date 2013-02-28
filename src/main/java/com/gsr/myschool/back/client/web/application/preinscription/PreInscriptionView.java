@@ -75,7 +75,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
 
         dataProvider.addDataDisplay(preInscriptionsTable);
-        preInscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
+        preInscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
     }
 
     @Override

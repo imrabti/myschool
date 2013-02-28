@@ -1,4 +1,4 @@
-@external navbar-inner, nav-tabs, active, nav, accordion-group, accordion-toggle, accordion-inner, error;
+@external navbar-inner, nav-tabs, active, nav, accordion-group, accordion-toggle, accordion-inner, error, errorField;
 
 body {
     font-family: "Droid Sans", Helvetica, Arial, sans-serif;
@@ -155,4 +155,12 @@ body {
     width: 12px;
     height: 10px;
     display: inline-block;
+}
+
+input.errorField {
+    background-color: #f2dede !important;
+}
+
+.tableTransparentBack {
+    background-color: rgba(255, 255, 255, 0.4);
 }

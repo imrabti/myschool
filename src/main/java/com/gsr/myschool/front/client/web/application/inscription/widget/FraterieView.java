@@ -54,7 +54,7 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
 
         dataProvider = new ListDataProvider<FraterieProxy>();
         dataProvider.addDataDisplay(fraterieTable);
-        fraterieTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
+        fraterieTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
     }
 
     @Override

@@ -8,7 +8,7 @@
     <ui:style>
         .contentWrapper {
             padding: 10px;
-            overflow-y: scroll;
+            overflow-y: auto;
             max-height: 400px;
         }
 

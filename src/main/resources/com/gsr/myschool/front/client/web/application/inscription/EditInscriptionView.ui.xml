@@ -33,7 +33,7 @@
         <g:HTMLPanel styleName="{clientResources.sharedStyleCss.buttonContainer}"
                      addStyleNames="{style.noBackground}">
             <div style="float: left;">
-                <boot:Button ui:field="saveExit" text="Enregistrer et sortir"/>
+                <boot:Button ui:field="saveExit" text="Enregistrer et sortir" styleName="btn btn-success"/>
             </div>
 
             <div style="float: right;">
