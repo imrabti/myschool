@@ -10,6 +10,7 @@ import com.gsr.myschool.common.client.proxy.FraterieProxy;
 import com.gsr.myschool.common.client.proxy.InfoParentProxy;
 import com.gsr.myschool.common.client.proxy.ScolariteActuelleProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.common.client.request.ReportRequestBuilder;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
 import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
@@ -107,6 +108,13 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> imple
                 }
             });
         }
+    }
+
+    @Override
+    public void printInscription() {
+        ReportRequestBuilder requestBuilder = new ReportRequestBuilder();
+        requestBuilder.buildData(currentDossier.getId().toString());
+        requestBuilder.sendRequest();
     }
 
     private void loadInfoParent() {

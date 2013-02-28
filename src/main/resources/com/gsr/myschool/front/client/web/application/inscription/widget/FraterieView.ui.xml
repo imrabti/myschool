@@ -9,6 +9,10 @@
         .tableWrapper {
             margin-top: 12px;
         }
+
+        .enhancedWell {
+            background-color: rgba(245, 245, 245, 0.6);
+        }
     </ui:style>
 
     <g:HTMLPanel>
@@ -20,7 +24,7 @@
             Cette étape est optionnelle
         </boot:Paragraph>
 
-        <boot:Well>
+        <boot:Well addStyleNames="{style.enhancedWell}">
             <s:FraterieEditor ui:field="fraterieEditor"/>
             <boot:Button text="Ajouter" icon="PLUS" ui:field="addFraterie"/>
         </boot:Well>

@@ -8,12 +8,6 @@
         .accordionWrapper {
             margin-top: 12px;
         }
-
-        .noBackground {
-            background: none;
-            margin-left: 15px;
-            margin-right: 15px;
-        }
     </ui:style>
 
     <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
@@ -21,12 +15,16 @@
             <h2>
                 <g:InlineLabel ui:field="dossierTitle"/>
             </h2>
+            <div>
+                <boot:Button ui:field="submit" text="Soumettre" icon="SHARE"/>
+                <boot:Button ui:field="print" text="Imprimer" icon="PRINT"/>
+            </div>
             <span style="display: block; clear: both;"/>
         </g:HTMLPanel>
 
         <boot:Accordion styleName="{style.accordionWrapper}">
             <g:HTML ui:field="errors" styleName="{clientResources.sharedStyleCss.errorBox}"/>
-            
+
             <boot:AccordionGroup heading="Informations Dossier" defaultOpen="true">
                 <g:HTMLPanel ui:field="dossierPanel"/>
             </boot:AccordionGroup>
@@ -47,10 +45,5 @@
                 <boot:CellTable ui:field="fraterieTable" bordered="true"/>
             </boot:AccordionGroup>
         </boot:Accordion>
-
-        <g:HTMLPanel ui:field="submitContainer" addStyleNames="{style.noBackground}"
-                     styleName="{clientResources.sharedStyleCss.buttonContainer}">
-            <boot:Button ui:field="submit"  text="Soumettre" iconPosition="RIGHT" styleName="btn btn-success"/>
-        </g:HTMLPanel>
     </g:HTMLPanel>
 </ui:UiBinder>
