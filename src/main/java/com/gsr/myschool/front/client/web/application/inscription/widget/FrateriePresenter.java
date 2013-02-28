@@ -40,6 +40,8 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
         void editFraterie(FraterieDTOProxy fraterie);
 
         void setEtablissement(EtablissementScolaireProxy selectedEtablissement);
+
+        Boolean checkFraterie();
     }
 
     private final FrontRequestFactory requestFactory;
@@ -72,6 +74,12 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
     @Override
     public void onChangeStep(ChangeStepEvent event) {
         if (event.getCurrentStep() == WizardStep.STEP_5) {
+            if (!getView().checkFraterie()) {
+                Message message = new Message.Builder(messageBundle.fraterieFaillure())
+                        .style(AlertType.ERROR).build();
+                MessageEvent.fire(this, message);
+                return;
+            }
             Message message = new Message.Builder(messageBundle.newInscriptionSuccess())
                     .style(AlertType.SUCCESS).build();
             MessageEvent.fire(this, message);

@@ -21,10 +21,9 @@
         </h3>
 
         <boot:Paragraph>
-            Cette étape est optionnelle
+            <boot:CheckBox ui:field="isFraterie" text="Le candidat a-t-il des frères ou des soeurs ?"/>
         </boot:Paragraph>
-
-        <boot:Well addStyleNames="{style.enhancedWell}">
+        <boot:Well addStyleNames="{style.enhancedWell}" ui:field="fraterieFields">
             <s:FraterieEditor ui:field="fraterieEditor"/>
             <boot:Button text="Ajouter" icon="PLUS" ui:field="addFraterie"/>
         </boot:Well>

@@ -1,16 +1,22 @@
 package com.gsr.myschool.front.client.web.application.inscription.widget;
 
+import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.CellTable;
+import com.github.gwtbootstrap.client.ui.CheckBox;
+import com.github.gwtbootstrap.client.ui.Well;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.cell.client.ActionCell;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.RenderablePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
@@ -36,6 +42,10 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
     FraterieEditor fraterieEditor;
     @UiField
     CellTable<FraterieProxy> fraterieTable;
+    @UiField
+    CheckBox isFraterie;
+    @UiField
+    Well fraterieFields;
 
     private final ListDataProvider<FraterieProxy> dataProvider;
 
@@ -55,12 +65,28 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
         dataProvider = new ListDataProvider<FraterieProxy>();
         dataProvider.addDataDisplay(fraterieTable);
         fraterieTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
+
+        setFraterieVisible(dataProvider.getList().size() > 0);
+        isFraterie.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<Boolean> event) {
+                setFraterieVisible(event.getValue());
+            }
+        });
+    }
+
+    @Override
+    public Boolean checkFraterie() {
+        return isFraterie.getValue() ? dataProvider.getList().size() > 0 : true;
     }
 
     @Override
     public void setData(List<FraterieProxy> data) {
         dataProvider.getList().clear();
         dataProvider.getList().addAll(data);
+
+        isFraterie.setValue(dataProvider.getList().size() > 0);
+        setFraterieVisible(dataProvider.getList().size() > 0);
     }
 
     @Override
@@ -93,7 +119,7 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
             @Override
             public String getValue(FraterieProxy object) {
                 if (object.getFiliere() == null) return "";
-                return TypeEnseignement.BILINGUE.getId() == object.getFiliere().getId()?
+                return TypeEnseignement.BILINGUE.getId() == object.getFiliere().getId() ?
                         TypeEnseignement.BILINGUE.toString() : TypeEnseignement.MISSION.toString();
             }
         };
@@ -144,5 +170,10 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
     @UiHandler("addFraterie")
     void onAddFraterie(ClickEvent event) {
         getUiHandlers().addFraterie(fraterieEditor.get());
+    }
+
+    private void setFraterieVisible(boolean b) {
+        fraterieFields.setVisible(b);
+        fraterieTable.setVisible(b);
     }
 }
