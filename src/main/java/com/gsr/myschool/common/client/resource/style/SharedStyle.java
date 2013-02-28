@@ -20,4 +20,6 @@ public interface SharedStyle extends CssResource {
     String errorBox();
 
     String requiredField();
+
+    String tableTransparentBack();
 }

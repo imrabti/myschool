@@ -80,7 +80,7 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
         dataProvider.addDataDisplay(userPortalTable);
         dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
 
-        userPortalTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
+        userPortalTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
     }
 
     @Override

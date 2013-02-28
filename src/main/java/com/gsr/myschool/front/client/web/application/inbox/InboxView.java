@@ -70,8 +70,7 @@ public class InboxView extends ViewWithUiHandlers<InboxUiHandlers> implements In
 
         dataProvider.addDataDisplay(inboxTable);
         inboxTable.setSelectionModel(multipleSelectionModel);
-        inboxTable.setEmptyListWidget(new EmptyResult(sharedMessageBundle.noResultFound(),
-                AlertType.INFO));
+        inboxTable.setEmptyListWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
     }
 
     @Override

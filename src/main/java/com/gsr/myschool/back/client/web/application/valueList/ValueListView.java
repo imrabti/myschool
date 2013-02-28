@@ -82,8 +82,7 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
         dataProvider.addDataDisplay(valueListTable);
         this.valueListSelectionModel = new SingleSelectionModel<ValueListProxy>();
         valueListTable.setSelectionModel(valueListSelectionModel);
-        valueListTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(),
-                AlertType.INFO));
+        valueListTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
     }
 
     @Override
