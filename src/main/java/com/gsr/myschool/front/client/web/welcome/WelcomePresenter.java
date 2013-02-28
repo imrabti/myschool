@@ -102,6 +102,8 @@ public class WelcomePresenter extends Presenter<WelcomePresenter.MyView, Welcome
                 MessageEvent.fire(this, message);
             }
         });
+
+        setInSlot(TYPE_SetRegisterContent, registerPresenter);
     }
 
     private void processForgotPassword(final String token) {
