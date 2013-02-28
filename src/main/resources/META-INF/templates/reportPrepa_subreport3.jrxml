@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2_access" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a04defb6-f55e-4cbc-9c65-0e256da52914">
 	<property name="ireport.zoom" value="1.2100000000000029"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="627"/>
+	<property name="ireport.y" value="610"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -26,6 +26,7 @@
 	<subDataset name="Table Dataset 2" uuid="80908a9d-6169-4a89-bff0-6d126dead33d">
 		<field name="nom" class="java.lang.String"/>
 	</subDataset>
+	<parameter name="dateLimite" class="java.lang.String" isForPrompting="false"/>
 	<queryString language="xPath">
 		<![CDATA[":"]]>
 	</queryString>
@@ -181,6 +182,13 @@ Signature du candidat :]]></text>
 87 & 89 Avenue 2 Mars
 Casablanca]]></text>
 			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="67aa0bb9-b2a5-4460-b7f0-d5aaadb469a6" x="12" y="27" width="498" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dateLimite}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>

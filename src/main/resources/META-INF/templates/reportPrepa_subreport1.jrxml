@@ -54,7 +54,7 @@
 	<columnHeader>
 		<band height="80" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="5cfcd992-440d-42e0-bece-e30762018485" x="5" y="7" width="503" height="56"/>
+				<reportElement uuid="5cfcd992-440d-42e0-bece-e30762018485" x="4" y="9" width="503" height="56"/>
 				<textElement>
 					<font size="8" isBold="false" isItalic="false"/>
 				</textElement>
@@ -68,38 +68,52 @@ l'intérêt de votre enfant.]]></text>
 	<detail>
 		<band height="590" splitType="Prevent">
 			<componentElement>
-				<reportElement uuid="f64ff34d-95b0-41d8-a744-212e054fb434" key="table" style="table" x="2" y="10" width="250" height="28"/>
+				<reportElement uuid="f64ff34d-95b0-41d8-a744-212e054fb434" key="table" style="table" mode="Opaque" x="2" y="10" width="250" height="28"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Table Dataset 1" uuid="1a38ddb8-27f1-4c81-b604-33c321a7983f">
 						<dataSourceExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column width="164" uuid="a1ee33ab-da14-4a96-8e4a-b9af47e77403">
+					<jr:column width="221" uuid="a1ee33ab-da14-4a96-8e4a-b9af47e77403">
 						<jr:columnHeader style="table_CH" height="15" rowSpan="1">
 							<staticText>
-								<reportElement uuid="75111e4f-ebab-47b8-8e86-4988e78365cc" mode="Opaque" x="0" y="0" width="164" height="15"/>
+								<reportElement uuid="75111e4f-ebab-47b8-8e86-4988e78365cc" mode="Opaque" x="0" y="0" width="221" height="15"/>
+								<box>
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
 								<textElement/>
 								<text><![CDATA[Nom]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement uuid="3264b85d-4774-4916-a295-8ca1b563d006" x="0" y="0" width="164" height="20"/>
+								<reportElement uuid="3264b85d-4774-4916-a295-8ca1b563d006" x="0" y="0" width="221" height="20"/>
 								<textElement/>
 								<textFieldExpression><![CDATA[$F{nom}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="288" uuid="04610b9e-b9e4-484e-858e-6141f06325ed">
+					<jr:column width="233" uuid="04610b9e-b9e4-484e-858e-6141f06325ed">
 						<jr:columnHeader style="table_CH" height="15" rowSpan="1">
 							<staticText>
-								<reportElement uuid="bf85c9f9-e187-4537-be5b-430384f7ef5a" mode="Opaque" x="0" y="0" width="288" height="15"/>
+								<reportElement uuid="bf85c9f9-e187-4537-be5b-430384f7ef5a" mode="Opaque" x="0" y="0" width="233" height="15"/>
+								<box>
+									<pen lineWidth="0.5"/>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
 								<textElement/>
 								<text><![CDATA[Prénom]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement uuid="f9b308af-814f-45f5-8cc2-00cc8b1696d2" x="0" y="0" width="288" height="20"/>
+								<reportElement uuid="f9b308af-814f-45f5-8cc2-00cc8b1696d2" x="0" y="0" width="233" height="20"/>
 								<textElement/>
 								<textFieldExpression><![CDATA[$F{prenom}]]></textFieldExpression>
 							</textField>
