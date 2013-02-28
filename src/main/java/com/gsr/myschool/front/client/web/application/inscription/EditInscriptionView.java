@@ -1,21 +1,16 @@
 package com.gsr.myschool.front.client.web.application.inscription;
 
 import com.github.gwtbootstrap.client.ui.Button;
-import com.github.gwtbootstrap.client.ui.TabPanel;
-import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
-
-import static com.google.gwt.query.client.GQuery.$;
 
 public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHandlers>
         implements EditInscriptionPresenter.MyView {
