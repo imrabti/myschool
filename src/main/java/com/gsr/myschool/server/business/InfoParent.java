@@ -11,6 +11,7 @@ import com.gsr.myschool.server.validator.NotBlank;
 import com.gsr.myschool.server.validator.Phone;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 import java.util.Map;
 
@@ -51,6 +52,7 @@ public class InfoParent implements java.io.Serializable {
     private ValueList nationality;
     private String lientParente;
     private Boolean parentGsr;
+    @Pattern(regexp = "[0-9]{4}")
     private String promotionGsr;
     private String formationGsr;
 

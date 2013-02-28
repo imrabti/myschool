@@ -123,6 +123,7 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
         $(telGsm).id("telGsm");
         $(telBureau).id("telBureau");
         $(address).id("address");
+        $(promotionGsr).id("promotionGsr");
 
         parentGsr.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
             @Override
