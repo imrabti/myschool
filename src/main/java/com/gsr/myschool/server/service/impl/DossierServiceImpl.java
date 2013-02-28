@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.server.service.impl;
 
+import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
@@ -97,6 +98,10 @@ public class DossierServiceImpl implements DossierService {
 
         if (filter.getParentGsr()) {
             spec = spec.and(DossierSpec.isParentGsr(filter.getParentGsr()));
+        }
+
+        if (!Strings.isNullOrEmpty(filter.getNumDossier())) {
+            spec = spec.and(DossierSpec.numDossierLike(filter.getNumDossier()));
         }
 
         return dossierRepos.findAll(spec);
