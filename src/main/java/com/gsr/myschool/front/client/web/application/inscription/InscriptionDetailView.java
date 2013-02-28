@@ -87,7 +87,7 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
         fraterieDataProvider = new ListDataProvider<FraterieProxy>();
 
         fraterieDataProvider.addDataDisplay(fraterieTable);
-        fraterieTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
+        fraterieTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
     }
 
     @Override

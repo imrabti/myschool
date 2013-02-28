@@ -70,10 +70,8 @@ public class NiveauEtudeInfosView extends ValidatedPopupViewImpl implements Nive
 
         dataProviderMatieres.addDataDisplay(matiereExamenList);
         dataProviderPieces.addDataDisplay(pieceJustifList);
-        pieceJustifList.setEmptyListWidget(new EmptyResult(sharedMessageBundle.noResultFound(),
-                AlertType.INFO));
-        matiereExamenList.setEmptyListWidget(new EmptyResult(sharedMessageBundle.noResultFound(),
-                AlertType.INFO));
+        pieceJustifList.setEmptyListWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
+        matiereExamenList.setEmptyListWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
 
         initWidget(uiBinder.createAndBindUi(this));
 

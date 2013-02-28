@@ -53,7 +53,7 @@ public class UserInscriptionListView extends ValidatedPopupViewImplWithUiHandler
         dataProvider.addDataDisplay(userInscriptionsTable);
         dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
 
-        userInscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
+        userInscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
 
         modalHeader.addCloseHandler(new ClickHandler() {
             @Override
