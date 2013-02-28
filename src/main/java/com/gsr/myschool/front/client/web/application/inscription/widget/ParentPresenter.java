@@ -9,6 +9,7 @@ import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.InfoParentProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
+import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.type.ParentType;
@@ -155,6 +156,18 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
     }
 
     private void processPere(final WizardStep nextStep) {
+        if (currentPere.getParentGsr() &&
+                (Strings.isNullOrEmpty(currentPere.getFormationGsr())
+                        || Strings.isNullOrEmpty(currentPere.getPromotionGsr()))) {
+
+            Message message = new Message.Builder(messageBundle.parentGsrFaillure())
+                    .style(AlertType.ERROR)
+                    .closeDelay(CloseDelay.DEFAULT)
+                    .build();
+            MessageEvent.fire(this, message);
+            return;
+        }
+
         if (!pereViolation) {
             if (currentPere.getNationality() != null) {
                 currentPere.setNationality(currentPereContext.edit(currentPere.getNationality()));
@@ -198,6 +211,18 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
     }
 
     private void processMere(final WizardStep nextStep) {
+        if (currentMere.getParentGsr() &&
+                (Strings.isNullOrEmpty(currentMere.getFormationGsr())
+                        || Strings.isNullOrEmpty(currentMere.getPromotionGsr()))) {
+
+            Message message = new Message.Builder(messageBundle.parentGsrFaillure())
+                    .style(AlertType.ERROR)
+                    .closeDelay(CloseDelay.DEFAULT)
+                    .build();
+            MessageEvent.fire(this, message);
+            return;
+        }
+
         if (!mereViolation) {
             if (currentMere.getNationality() != null) {
                 currentMere.setNationality(currentMereContext.edit(currentMere.getNationality()));
@@ -240,6 +265,18 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
     }
 
     private void processTuteur(final WizardStep nextStep) {
+        if (currentTuteur.getParentGsr() &&
+                (Strings.isNullOrEmpty(currentTuteur.getFormationGsr())
+                        || Strings.isNullOrEmpty(currentTuteur.getPromotionGsr()))) {
+
+            Message message = new Message.Builder(messageBundle.parentGsrFaillure())
+                    .style(AlertType.ERROR)
+                    .closeDelay(CloseDelay.DEFAULT)
+                    .build();
+            MessageEvent.fire(this, message);
+            return;
+        }
+
         if (!tuteurViolation) {
             if (currentTuteur.getNationality() != null) {
                 currentTuteur.setNationality(currentTuteurContext.edit(currentTuteur.getNationality()));

@@ -57,7 +57,7 @@
                 <boot:ControlLabel width="165px">Date de naissance</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.infoParentDateNaissance}" placement="RIGHT">
-                        <b2:DateBoxAppended ui:field="birthDate" format="dd/mm/yyyy"/>
+                        <b2:DateBox ui:field="birthDate" format="dd/mm/yyyy" endDate="01/01/1999" startView="DECADE"/>
                     </boot:Tooltip>
                     <span class="{resource.sharedStyleCss.requiredField}"/>
                 </boot:Controls>
@@ -163,9 +163,10 @@
             
             <g:RenderablePanel ui:field="parentGsrPanel">
                 <boot:ControlGroup>
-                    <boot:ControlLabel width="165px">Si oui, de quelle promotion aviez-vous fait partie ?</boot:ControlLabel>
+                    <boot:ControlLabel width="165px">Si oui, de quelle promotion aviez-vous fait partie (année) ?</boot:ControlLabel>
                     <boot:Controls>
-                        <boot:TextBox ui:field="promotionGsr" width="250px"/>
+                        <boot:TextBox ui:field="promotionGsr" width="250px" placeholder="1998" maxLength="4"/>
+                        <span class="{resource.sharedStyleCss.requiredField}"/>
                     </boot:Controls>
                 </boot:ControlGroup>
     
@@ -173,6 +174,7 @@
                     <boot:ControlLabel width="165px">Quelle formation aviez-vous suivie ?</boot:ControlLabel>
                     <boot:Controls>
                         <boot:ValueListBox ui:field="formationGsr" width="250px"/>
+                        <span class="{resource.sharedStyleCss.requiredField}"/>
                     </boot:Controls>
                 </boot:ControlGroup>
             </g:RenderablePanel>
