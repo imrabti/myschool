@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.common.client.request;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.http.client.*;
 import com.google.gwt.user.client.Window;
 import com.google.web.bindery.autobean.shared.AutoBean;
@@ -37,12 +38,15 @@ public class ExcelRequestBuilder extends RequestBuilder {
         setCallback(new RequestCallback() {
             @Override
             public void onResponseReceived(Request request, Response response) {
-                Window.open("/resource/excel?fileName=" + response.getText(), "_blank", "");
+                if (GWT.isScript()) {
+                    Window.open("resource/excel?fileName=" + response.getText(), "_blank", "");
+                } else {
+                    Window.open("/resource/excel?fileName=" + response.getText(), "_blank", "");
+                }
             }
 
             @Override
             public void onError(Request request, Throwable exception) {
-                //TODO
             }
         });
         try {
