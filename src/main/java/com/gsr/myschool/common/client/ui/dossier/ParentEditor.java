@@ -109,7 +109,6 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
         formationGsr.setValue("Française");
         formationGsr.setAcceptableValues(initListFormations());
 
-
         $(nom).id("nom");
         $(prenom).id("prenom");
         $(civilite).id("civilite");
