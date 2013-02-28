@@ -1,6 +1,7 @@
 package com.gsr.myschool.common.client.ui.dossier;
 
 import com.github.gwtbootstrap.client.ui.*;
+import com.github.gwtbootstrap.datepicker.client.ui.DateBox;
 import com.github.gwtbootstrap.datepicker.client.ui.DateBoxAppended;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -22,9 +23,11 @@ import com.gsr.myschool.common.client.widget.renderer.ValueListRendererFactory;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
+import org.apache.commons.lang.time.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static com.google.gwt.query.client.GQuery.$;
@@ -45,7 +48,7 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
     @UiField
     TextBox lientParente;
     @UiField
-    DateBoxAppended birthDate;
+    DateBox birthDate;
     @UiField
     TextBox birthLocation;
     @UiField(provided = true)
