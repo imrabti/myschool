@@ -21,7 +21,7 @@
         .innerHeader {
             float: right;
             width: 100%;
-            background-color: #eaf2ff;
+            background-color: #1b5799;
             padding-left: 20px;
             -moz-border-radius-bottomleft: 8px;
             -webkit-border-bottom-left-radius: 8px;
@@ -31,7 +31,7 @@
         .innerHeader h1 {
             margin-top: 15px;
             float: left;
-            color: #545454;
+            color: #FFFFFF;
             font-size: 20px;
         }
 
@@ -58,7 +58,7 @@
         }
 
         .innerHeader ul li a:hover {
-            color: #f9a428;
+            color: #51a351;
         }
 
         .usernameStyle {
@@ -74,12 +74,12 @@
         }
 
         .settingsStyle:hover {
-            color: #f9a428;
+            text-decoration: underline;
         }
 
         .userInfos {
             float: right;
-            background-color: #1b5799;
+            background-color: #4891e2;
             color: white;
             padding-top: 10px;
             padding-bottom: 10px;

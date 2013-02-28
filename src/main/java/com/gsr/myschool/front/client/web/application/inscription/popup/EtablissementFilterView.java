@@ -89,7 +89,7 @@ public class EtablissementFilterView extends PopupViewWithUiHandlers<Etablisseme
         ville.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.CITY));
         type.setAcceptableValues(Arrays.asList(EtablissementType.values()));
         dataProvider.addDataDisplay(etablissementTable);
-        etablissementTable.setEmptyTableWidget(new EmptyResult(messageBundle.noResultFound(), AlertType.INFO));
+        etablissementTable.setEmptyTableWidget(new EmptyResult(messageBundle.noResultFound(), AlertType.WARNING));
         etablissementTable.setSelectionModel(selectionModel);
 
         modalHeader.addCloseHandler(new ClickHandler() {

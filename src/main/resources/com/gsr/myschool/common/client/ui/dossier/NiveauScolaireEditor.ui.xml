@@ -5,11 +5,16 @@
     <ui:with field="helpMessage" type="com.gsr.myschool.common.client.resource.message.HelpMessageBundle"/>
     <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
-    <g:HTMLPanel>
-        <h4 style="padding-left:50px;">Choix 1</h4>
-        <boot:Form type="HORIZONTAL">
+    <ui:style>
+        .smallMargin {
+            margin-bottom: 10px !important;
+        }
+    </ui:style>
 
-            <boot:ControlGroup>
+    <g:HTMLPanel>
+        <h4 style="padding-left:98px;">Choix 1</h4>
+        <boot:Form type="HORIZONTAL">
+            <boot:ControlGroup addStyleNames="{style.smallMargin}">
                 <boot:ControlLabel>Formation</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.niveauScolaireFiliere}" placement="RIGHT">
@@ -30,9 +35,9 @@
             </boot:ControlGroup>
         </boot:Form>
 
-        <h4 style="padding-left:50px;">Choix 2</h4>
+        <h4 style="padding-left:98px; margin-top: 10px;">Choix 2</h4>
         <boot:Form type="HORIZONTAL">
-            <boot:ControlGroup>
+            <boot:ControlGroup addStyleNames="{style.smallMargin}">
                 <boot:ControlLabel>Formation</boot:ControlLabel>
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.niveauScolaireFiliere}" placement="RIGHT">

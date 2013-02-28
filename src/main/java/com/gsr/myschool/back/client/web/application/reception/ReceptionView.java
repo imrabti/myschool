@@ -59,7 +59,7 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers>
         dataProvider.addDataDisplay(inscriptionsTable);
 
         dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
-        inscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
+        inscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
     }
 
     @Override

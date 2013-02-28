@@ -75,7 +75,7 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers>
             }
         });
         valueTypeTable.setSelectionModel(valueTypeSelectionModel);
-        valueTypeTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
+        valueTypeTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
     }
 
     @Override

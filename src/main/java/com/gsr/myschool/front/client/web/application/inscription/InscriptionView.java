@@ -79,7 +79,7 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         dataProvider = new ListDataProvider<DossierProxy>();
         dataProvider.addDataDisplay(inscriptionsTable);
         dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
-        inscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.INFO));
+        inscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
     }
 
     @Override

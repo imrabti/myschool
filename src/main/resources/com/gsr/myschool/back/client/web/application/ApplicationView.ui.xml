@@ -11,7 +11,7 @@
 
     <g:SimpleLayoutPanel styleName="{style.applicationWrapper}">
         <g:DockLayoutPanel unit='PX'>
-            <g:north size="71">
+            <g:north size="66">
                 <g:HTMLPanel>
                     <!-- Ajax Loader displayer -->
                     <f:AjaxLoader ui:field="ajaxLoader"/>

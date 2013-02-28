@@ -16,15 +16,13 @@
             <boot:ControlGroup>
                 <boot:ControlLabel>Etablissement scolaire</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.scolariteEtablissement}" placement="RIGHT">
-                        <boot:InputAddOn>
-                            <boot:TextBox ui:field="etablissementLabel" width="250px" enabled="false"/>
-                            <boot:appendWidget>
-                                <g:Label ui:field="selectEtablissement"
-                                         styleName="icon-search {style.actAsButton}"/>
-                            </boot:appendWidget>
-                        </boot:InputAddOn>
-                    </boot:Tooltip>
+                    <boot:InputAddOn>
+                        <boot:TextBox ui:field="etablissementLabel" width="250px" enabled="false"/>
+                        <boot:appendWidget>
+                            <g:Label ui:field="selectEtablissement"
+                                     styleName="icon-search {style.actAsButton}"/>
+                        </boot:appendWidget>
+                    </boot:InputAddOn>
                 </boot:Controls>
             </boot:ControlGroup>
 
