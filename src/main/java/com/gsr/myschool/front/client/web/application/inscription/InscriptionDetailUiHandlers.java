@@ -4,4 +4,6 @@ import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface InscriptionDetailUiHandlers extends UiHandlers {
     void submitInscription();
+
+    void printInscription();
 }

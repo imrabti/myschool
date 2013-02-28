@@ -89,6 +89,7 @@ public class WelcomePresenter extends Presenter<WelcomePresenter.MyView, Welcome
     @Override
     protected void onReveal() {
         setInSlot(TYPE_SetLoginContent, loginPresenter);
+        setInSlot(TYPE_SetRegisterContent, registerPresenter);
     }
 
     private void processAccountActivation(String token) {

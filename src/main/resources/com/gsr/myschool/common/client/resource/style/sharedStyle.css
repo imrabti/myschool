@@ -1,4 +1,4 @@
-@external navbar-inner, nav-tabs, nav, accordion-group, accordion-toggle, accordion-inner, error;
+@external navbar-inner, nav-tabs, active, nav, accordion-group, accordion-toggle, accordion-inner, error;
 
 body {
     font-family: "Droid Sans", Helvetica, Arial, sans-serif;
@@ -14,6 +14,9 @@ body {
     padding-top: 20px;
     padding-bottom: 20px;
     min-height: 200px;
+}
+.nav-tabs>.active>a, .nav-tabs>.active>a:hover {
+    background-color: rgba(255, 255, 255, 0.4);
 }
 
 .nav {

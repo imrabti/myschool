@@ -1,5 +1,6 @@
 package com.gsr.myschool.front.client.web.application.inscription;
 
+import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.common.base.Objects;
@@ -56,7 +57,9 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
     @UiField
     HTMLPanel candidatPanel;
     @UiField
-    HTMLPanel submitContainer;
+    Button submit;
+    @UiField
+    Button print;
     @UiField
     HTML errors;
     @UiField
@@ -90,7 +93,8 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
     @Override
     public void setDossier(DossierProxy dossier) {
         dossierTitle.setText(messageBundle.inscriptionDetailTitle(dossier.getGeneratedNumDossier()));
-        submitContainer.setVisible(dossier.getStatus() == DossierStatus.CREATED);
+        submit.setVisible(dossier.getStatus() == DossierStatus.CREATED);
+        print.setVisible(dossier.getStatus() != DossierStatus.CREATED);
 
         SafeHtml safeDate = SafeHtmlUtils.fromString(dateFormat.format(dossier.getCreateDate()));
         SafeHtml safeDossierNum = SafeHtmlUtils.fromString(dossier.getGeneratedNumDossier());
@@ -237,6 +241,11 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
     @UiHandler("submit")
     void onSubmitClicked(ClickEvent event) {
         getUiHandlers().submitInscription();
+    }
+
+    @UiHandler("print")
+    void onPrintClicked(ClickEvent event) {
+        getUiHandlers().printInscription();
     }
 
     private void initFraterieDataGrid() {

@@ -20,7 +20,7 @@
     font-size: 15px;
     color: #555555;
     background-image: none;
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.4);
     padding: 8px 10px 6px 10px;
     border: 1px solid #ddd;
     border-bottom: none;
