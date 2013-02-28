@@ -80,4 +80,6 @@ public interface MessageBundle extends Messages {
     String fraterieFaillure();
 
     String declarationHonneurFaillure();
+
+    String parentGsrFaillure();
 }
