@@ -18,27 +18,17 @@
             <span style="display: block; clear: both;"/>
         </g:HTMLPanel>
 
-        <boot:TabPanel ui:field="steps" tabPosition="left">
-            <boot:Tab heading="Etape 1" active="true">
-                <g:SimplePanel ui:field="step1"/>
-            </boot:Tab>
+        <g:DeckPanel ui:field="steps">
+            <g:SimplePanel ui:field="step1"/>
 
-            <boot:Tab heading="Etape 2">
-                <g:SimplePanel ui:field="step2"/>
-            </boot:Tab>
+            <g:SimplePanel ui:field="step2"/>
 
-            <boot:Tab heading="Etape 3">
-                <g:SimplePanel ui:field="step3"/>
-            </boot:Tab>
+            <g:SimplePanel ui:field="step3"/>
 
-            <boot:Tab heading="Etape 4">
-                <g:SimplePanel ui:field="step4"/>
-            </boot:Tab>
+            <g:SimplePanel ui:field="step4"/>
 
-            <boot:Tab heading="Etape 5">
-                <g:SimplePanel ui:field="step5"/>
-            </boot:Tab>
-        </boot:TabPanel>
+            <g:SimplePanel ui:field="step5"/>
+        </g:DeckPanel>
 
         <g:HTMLPanel styleName="{clientResources.sharedStyleCss.buttonContainer}"
                      addStyleNames="{style.noBackground}">

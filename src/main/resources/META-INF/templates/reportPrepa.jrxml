@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df3b1ff5-7117-466e-88f6-7c91f881aee1">
 	<property name="ireport.zoom" value="1.1000000000000338"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="319"/>
+	<property name="ireport.y" value="731"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
@@ -21,6 +21,7 @@
 	<parameter name="dateLimite" class="java.lang.String"/>
 	<parameter name="filiere2" class="org.apache.commons.beanutils.BeanMap" isForPrompting="false"/>
 	<parameter name="niveauEtude2" class="org.apache.commons.beanutils.BeanMap" isForPrompting="false"/>
+	<parameter name="fraterie" class="java.util.List"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -32,7 +33,19 @@
 		<groupFooter>
 			<band height="24">
 				<subreport>
-					<reportElement uuid="3043b39c-51cf-46d2-b9a5-02257df3d88e" positionType="Float" x="47" y="10" width="464" height="6" isRemoveLineWhenBlank="true"/>
+					<reportElement uuid="f90ea505-126c-477c-917f-6ec14882e51b" positionType="Float" stretchType="RelativeToBandHeight" x="50" y="5" width="463" height="16">
+						<printWhenExpression><![CDATA[$P{fraterie}.size() > 0]]></printWhenExpression>
+					</reportElement>
+					<subreportParameter name="REPORT_DATA_SOURCE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{fraterie})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportPrepa_subreport1.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="18">
+				<subreport>
+					<reportElement uuid="3043b39c-51cf-46d2-b9a5-02257df3d88e" positionType="Float" x="48" y="6" width="464" height="6" isRemoveLineWhenBlank="true"/>
 					<subreportParameter name="SUBREPORT_DIR">
 						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
@@ -45,12 +58,15 @@
 			</band>
 			<band height="18">
 				<subreport>
-					<reportElement uuid="c13853ad-bebc-4d9d-939c-e033ab175c9c" positionType="Float" x="47" y="5" width="463" height="5" isRemoveLineWhenBlank="true"/>
+					<reportElement uuid="c13853ad-bebc-4d9d-939c-e033ab175c9c" positionType="Float" x="48" y="7" width="463" height="5" isRemoveLineWhenBlank="true"/>
 					<subreportParameter name="SUBREPORT_DIR">
 						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter name="pieces">
 						<subreportParameterExpression><![CDATA[$P{pieces}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="dateLimite">
+						<subreportParameterExpression><![CDATA[$P{dateLimite}]]></subreportParameterExpression>
 					</subreportParameter>
 					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{pieces})]]></dataSourceExpression>
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportPrepa_subreport3.jasper"]]></subreportExpression>
@@ -58,7 +74,7 @@
 			</band>
 			<band height="18">
 				<subreport>
-					<reportElement uuid="bb3f79dd-6832-4d58-b3ec-c992b34823d1" positionType="Float" x="47" y="8" width="463" height="5" isRemoveLineWhenBlank="true"/>
+					<reportElement uuid="bb3f79dd-6832-4d58-b3ec-c992b34823d1" positionType="Float" x="47" y="6" width="463" height="5" isRemoveLineWhenBlank="true"/>
 					<subreportParameter name="SUBREPORT_DIR">
 						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
@@ -70,7 +86,7 @@
 			</band>
 			<band height="18">
 				<subreport>
-					<reportElement uuid="d6710526-7933-4e42-94ac-79e61f2eaea7" positionType="Float" x="47" y="6" width="463" height="5" isRemoveLineWhenBlank="true"/>
+					<reportElement uuid="d6710526-7933-4e42-94ac-79e61f2eaea7" positionType="Float" x="47" y="7" width="463" height="5" isRemoveLineWhenBlank="true"/>
 					<subreportParameter name="SUBREPORT_DIR">
 						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
