@@ -165,6 +165,7 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
                     .closeDelay(CloseDelay.DEFAULT)
                     .build();
             MessageEvent.fire(this, message);
+            pereValid = false;
             return;
         }
 
@@ -220,6 +221,7 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
                     .closeDelay(CloseDelay.DEFAULT)
                     .build();
             MessageEvent.fire(this, message);
+            mereValid = false;
             return;
         }
 
