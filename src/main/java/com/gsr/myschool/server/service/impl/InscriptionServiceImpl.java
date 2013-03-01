@@ -81,7 +81,14 @@ public class InscriptionServiceImpl implements InscriptionService {
     @Override
     @Transactional(readOnly = true)
     public Dossier findDossierById(Long id) {
-        return dossierRepos.findOne(id);
+        Dossier dossier = dossierRepos.findOne(id);
+        Long loggedInOwner = securityContextProvider.getCurrentUser().getId();
+
+        if (dossier.getOwner().getId() == loggedInOwner) {
+            return dossierRepos.findOne(id);
+        } else {
+            return null;
+        }
     }
 
     @Override

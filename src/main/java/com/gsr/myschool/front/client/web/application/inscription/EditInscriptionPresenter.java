@@ -23,6 +23,7 @@ import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
@@ -45,6 +46,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
     public static final Object TYPE_Step_5_Content = new Object();
 
     private final FrontRequestFactory requestFactory;
+    private final PlaceManager placeManager;
     private final ParentPresenter parentPresenter;
     private final CandidatPresenter candidatPresenter;
     private final FrateriePresenter frateriePresenter;
@@ -56,6 +58,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
     @Inject
     public EditInscriptionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                                     final FrontRequestFactory requestFactory,
+                                    final PlaceManager placeManager,
                                     final ParentPresenter parentPresenter,
                                     final CandidatPresenter candidatPresenter,
                                     final FrateriePresenter frateriePresenter,
@@ -64,6 +67,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
+        this.placeManager = placeManager;
         this.parentPresenter = parentPresenter;
         this.candidatPresenter = candidatPresenter;
         this.frateriePresenter = frateriePresenter;
@@ -79,10 +83,14 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
         requestFactory.inscriptionService().findDossierById(dossierId).fire(new ReceiverImpl<DossierProxy>() {
             @Override
             public void onSuccess(DossierProxy result) {
-                currentDossier = result;
-                parentPresenter.editData(currentDossier);
-                candidatPresenter.editData(currentDossier.getCandidat());
-                frateriePresenter.editData(currentDossier);
+                if (result != null) {
+                    currentDossier = result;
+                    parentPresenter.editData(currentDossier);
+                    candidatPresenter.editData(currentDossier.getCandidat());
+                    frateriePresenter.editData(currentDossier);
+                } else {
+                    placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
+                }
             }
         });
     }
