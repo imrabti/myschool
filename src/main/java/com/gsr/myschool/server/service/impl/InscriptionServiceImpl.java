@@ -4,6 +4,7 @@ import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.dto.EtablissementFilterDTO;
 import com.gsr.myschool.common.shared.dto.FraterieDTO;
 import com.gsr.myschool.common.shared.dto.ScolariteActuelleDTO;
+import com.gsr.myschool.common.shared.exception.UnAuthorizedException;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.ParentType;
@@ -80,14 +81,14 @@ public class InscriptionServiceImpl implements InscriptionService {
 
     @Override
     @Transactional(readOnly = true)
-    public Dossier findDossierById(Long id) {
+    public Dossier findDossierById(Long id) throws UnAuthorizedException {
         Dossier dossier = dossierRepos.findOne(id);
         Long loggedInOwner = securityContextProvider.getCurrentUser().getId();
 
-        if (dossier.getOwner().getId() == loggedInOwner) {
-            return dossierRepos.findOne(id);
+        if (dossier == null || dossier.getOwner().getId() != loggedInOwner) {
+            throw new UnAuthorizedException();
         } else {
-            return null;
+            return dossier;
         }
     }
 

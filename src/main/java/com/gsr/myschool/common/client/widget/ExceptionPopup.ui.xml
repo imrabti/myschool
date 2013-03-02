@@ -1,0 +1,56 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+
+    <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+
+    <ui:style>
+        .contentWrapper {
+            padding: 20px;
+        }
+
+        .imageWrapper {
+            float: left;
+            margin-right: 20px;
+        }
+
+        .serverErrorWrapper {
+            float: left;
+            width: 360px;
+        }
+
+        .serverErrorWrapper h2 {
+            font-size: 22px;
+            color: #777777;
+            margin: 0;
+            padding: 0;
+        }
+
+        .buttonContainer {
+            margin-top: 10px;
+            text-align: right;
+        }
+    </ui:style>
+
+    <g:HTMLPanel styleName="{style.contentWrapper}">
+        <div>
+            <div class="{style.imageWrapper}">
+                <g:Image resource="{resource.serverDown}"/>
+            </div>
+
+            <div class="{style.serverErrorWrapper}">
+                <h2>
+                    Erreur système
+                </h2>
+                <g:Label ui:field="message"/>
+            </div>
+
+            <div style="clear: both;"/>
+        </div>
+
+        <div class="{style.buttonContainer}">
+            <boot:Button ui:field="reload"  text="Recharger" icon="REFRESH"
+                         styleName="btn btn-warning"/>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>

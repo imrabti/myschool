@@ -28,4 +28,8 @@ public interface SharedMessageBundle extends Messages {
     String emptyValueList();
 
     String allValueList();
+
+    String unAuthorized();
+
+    String serverDown();
 }
