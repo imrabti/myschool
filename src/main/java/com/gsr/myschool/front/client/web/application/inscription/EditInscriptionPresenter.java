@@ -11,6 +11,7 @@ import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.exception.UnAuthorizedException;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.web.application.ApplicationPresenter;
@@ -92,7 +93,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
         requestFactory.inscriptionService().findDossierById(dossierId).fire(new ReceiverImpl<DossierProxy>() {
             @Override
             public void onSuccess(DossierProxy result) {
-                if (result != null) {
+                if (result != null && result.getStatus() == DossierStatus.CREATED) {
                     currentDossier = result;
                     parentPresenter.editData(currentDossier);
                     candidatPresenter.editData(currentDossier.getCandidat());
