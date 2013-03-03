@@ -19,6 +19,8 @@ package com.gsr.myschool.back.client.web;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+import com.gsr.myschool.common.client.event.ServerDownEvent;
+import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.ContentSlot;
@@ -27,9 +29,12 @@ import com.gwtplatform.mvp.client.proxy.Proxy;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
 import com.gsr.myschool.common.client.widget.messages.MessagePresenter;
 
-public class RootPresenter extends Presenter<RootPresenter.MyView, RootPresenter.MyProxy> {
+public class RootPresenter extends Presenter<RootPresenter.MyView, RootPresenter.MyProxy>
+        implements ServerDownEvent.ServerDownHandler {
     public interface MyView extends View {
-        public void hideLoading();
+        void hideLoading();
+
+        void showErrorPopup(String message);
     }
 
     @ProxyStandard
@@ -40,14 +45,27 @@ public class RootPresenter extends Presenter<RootPresenter.MyView, RootPresenter
     public static final GwtEvent.Type<RevealContentHandler<?>> TYPE_SetMainContent = new GwtEvent.Type<RevealContentHandler<?>>();
     public static final Object TYPE_SetMessageContent = new Object();
 
+    private final SharedMessageBundle messageBundle;
     private final MessagePresenter messagePresenter;
 
     @Inject
     public RootPresenter(final EventBus eventBus, final MyView view,
-                         final MyProxy proxy, final MessagePresenter messagePresenter) {
+                         final MyProxy proxy, final MessagePresenter messagePresenter,
+                         final SharedMessageBundle messageBundle) {
         super(eventBus, view, proxy, RevealType.RootLayout);
 
         this.messagePresenter = messagePresenter;
+        this.messageBundle = messageBundle;
+    }
+
+    @Override
+    public void onServerDown(ServerDownEvent event) {
+        getView().showErrorPopup(messageBundle.serverDown());
+    }
+
+    @Override
+    protected void onBind() {
+        addRegisteredHandler(ServerDownEvent.getType(), this);
     }
 
     @Override

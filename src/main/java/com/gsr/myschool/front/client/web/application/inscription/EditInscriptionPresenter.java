@@ -1,10 +1,17 @@
 package com.gsr.myschool.front.client.web.application.inscription;
 
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
+import com.gsr.myschool.common.client.widget.messages.Message;
+import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
+import com.gsr.myschool.common.shared.exception.UnAuthorizedException;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.web.application.ApplicationPresenter;
@@ -23,6 +30,7 @@ import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
@@ -45,6 +53,8 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
     public static final Object TYPE_Step_5_Content = new Object();
 
     private final FrontRequestFactory requestFactory;
+    private final PlaceManager placeManager;
+    private final SharedMessageBundle messageBundle;
     private final ParentPresenter parentPresenter;
     private final CandidatPresenter candidatPresenter;
     private final FrateriePresenter frateriePresenter;
@@ -56,6 +66,8 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
     @Inject
     public EditInscriptionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                                     final FrontRequestFactory requestFactory,
+                                    final PlaceManager placeManager,
+                                    final SharedMessageBundle messageBundle,
                                     final ParentPresenter parentPresenter,
                                     final CandidatPresenter candidatPresenter,
                                     final FrateriePresenter frateriePresenter,
@@ -64,6 +76,8 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
+        this.placeManager = placeManager;
+        this.messageBundle = messageBundle;
         this.parentPresenter = parentPresenter;
         this.candidatPresenter = candidatPresenter;
         this.frateriePresenter = frateriePresenter;
@@ -79,10 +93,24 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
         requestFactory.inscriptionService().findDossierById(dossierId).fire(new ReceiverImpl<DossierProxy>() {
             @Override
             public void onSuccess(DossierProxy result) {
-                currentDossier = result;
-                parentPresenter.editData(currentDossier);
-                candidatPresenter.editData(currentDossier.getCandidat());
-                frateriePresenter.editData(currentDossier);
+                if (result != null && result.getStatus() == DossierStatus.CREATED) {
+                    currentDossier = result;
+                    parentPresenter.editData(currentDossier);
+                    candidatPresenter.editData(currentDossier.getCandidat());
+                    frateriePresenter.editData(currentDossier);
+                } else {
+                    placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
+                }
+            }
+
+            @Override
+            public void onException(String type) {
+                if (type.equals(UnAuthorizedException.class.getName())) {
+                    Message message = new Message.Builder(messageBundle.unAuthorized())
+                            .style(AlertType.ERROR).build();
+                    MessageEvent.fire(this, message);
+                    placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
+                }
             }
         });
     }

@@ -25,6 +25,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ViewImpl;
+import com.gsr.myschool.common.client.widget.ExceptionPopup;
 
 public class RootView extends ViewImpl implements RootPresenter.MyView {
     public interface Binder extends UiBinder<Widget, RootView> {
@@ -35,8 +36,13 @@ public class RootView extends ViewImpl implements RootPresenter.MyView {
     @UiField
     SimplePanel messageDisplay;
 
+    private final ExceptionPopup exceptionPopup;
+
     @Inject
-    public RootView(final Binder uiBinder) {
+    public RootView(final Binder uiBinder,
+                    final ExceptionPopup exceptionPopup) {
+        this.exceptionPopup = exceptionPopup;
+
         initWidget(uiBinder.createAndBindUi(this));
     }
 
@@ -53,5 +59,12 @@ public class RootView extends ViewImpl implements RootPresenter.MyView {
     public void hideLoading() {
         Element loading = Document.get().getElementById("loading");
         loading.getParentElement().removeChild(loading);
+    }
+
+    @Override
+    public void showErrorPopup(String message) {
+        exceptionPopup.setMessage(message);
+        exceptionPopup.show();
+        exceptionPopup.center();
     }
 }

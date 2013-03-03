@@ -3,6 +3,7 @@ package com.gsr.myschool.server.service;
 import com.gsr.myschool.common.shared.dto.EtablissementFilterDTO;
 import com.gsr.myschool.common.shared.dto.FraterieDTO;
 import com.gsr.myschool.common.shared.dto.ScolariteActuelleDTO;
+import com.gsr.myschool.common.shared.exception.UnAuthorizedException;
 import com.gsr.myschool.server.business.*;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 public interface InscriptionService {
     List<Dossier> findAllDossiers();
 
-    Dossier findDossierById(Long dossierId);
+    Dossier findDossierById(Long dossierId) throws UnAuthorizedException;
 
     Dossier createNewInscription();
 

@@ -8,13 +8,14 @@ import com.gsr.myschool.common.client.proxy.CandidatProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.FraterieProxy;
 import com.gsr.myschool.common.client.proxy.InfoParentProxy;
-import com.gsr.myschool.common.client.proxy.ScolariteActuelleProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.request.ReportRequestBuilder;
+import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
 import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
+import com.gsr.myschool.common.shared.exception.UnAuthorizedException;
 import com.gsr.myschool.common.shared.type.ParentType;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
@@ -28,6 +29,7 @@ import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
@@ -57,18 +59,24 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> imple
     }
 
     private final FrontRequestFactory requestFactory;
+    private final PlaceManager placeManager;
     private final MessageBundle messageBundle;
+    private final SharedMessageBundle sharedMessageBundle;
 
     private DossierProxy currentDossier;
 
     @Inject
     public InscriptionDetailPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                                       final FrontRequestFactory requestFactory,
-                                      final MessageBundle messageBundle) {
+                                      final PlaceManager placeManager,
+                                      final MessageBundle messageBundle,
+                                      final SharedMessageBundle sharedMessageBundle) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
+        this.placeManager = placeManager;
         this.messageBundle = messageBundle;
+        this.sharedMessageBundle = sharedMessageBundle;
 
         getView().setUiHandlers(this);
     }
@@ -86,6 +94,16 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> imple
 
                 loadInfoParent();
                 loadFraterie();
+            }
+
+            @Override
+            public void onException(String type) {
+                if (type.equals(UnAuthorizedException.class.getName())) {
+                    Message message = new Message.Builder(sharedMessageBundle.unAuthorized())
+                            .style(AlertType.ERROR).build();
+                    MessageEvent.fire(this, message);
+                    placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
+                }
             }
         });
     }
