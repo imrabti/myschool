@@ -1,6 +1,7 @@
 package com.gsr.myschool.server.reporting;
 
 import com.google.common.base.Strings;
+import com.gsr.myschool.common.shared.dto.FraterieReportDTO;
 import com.gsr.myschool.common.shared.dto.ReportDTO;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.Fraterie;
@@ -124,9 +125,12 @@ public class ReportController {
 
     private void loadFraterie(Dossier dossier, ReportDTO printableDossier) {
         List<Fraterie> fraterieList = fraterieRepos.findByCandidatId(dossier.getCandidat().getId());
-        if (fraterieList != null && fraterieList.size() > 0) {
-            printableDossier.getReportParameters().put("fraterie", fraterieList);
+        List<FraterieReportDTO> fraterieReportDTOs = new ArrayList<FraterieReportDTO>();
+        for (Fraterie fraterie : fraterieList) {
+            FraterieReportDTO fReportDTO = new FraterieReportDTO(fraterie);
+            fraterieReportDTOs.add(fReportDTO);
         }
+        printableDossier.getReportParameters().put("fraterie", fraterieReportDTOs);
     }
 
     private void loadInfoParents(Dossier dossier, ReportDTO printableDossier) {

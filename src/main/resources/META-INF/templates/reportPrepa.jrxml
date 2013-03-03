@@ -33,11 +33,11 @@
 		<groupFooter>
 			<band height="24">
 				<subreport>
-					<reportElement uuid="f90ea505-126c-477c-917f-6ec14882e51b" positionType="Float" stretchType="RelativeToBandHeight" x="50" y="5" width="463" height="16">
+					<reportElement uuid="f90ea505-126c-477c-917f-6ec14882e51b" positionType="Float" stretchType="RelativeToBandHeight" x="49" y="8" width="461" height="8">
 						<printWhenExpression><![CDATA[$P{fraterie}.size() > 0]]></printWhenExpression>
 					</reportElement>
-					<subreportParameter name="REPORT_DATA_SOURCE">
-						<subreportParameterExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></subreportParameterExpression>
+					<subreportParameter name="fraterie">
+						<subreportParameterExpression><![CDATA[$P{fraterie}]]></subreportParameterExpression>
 					</subreportParameter>
 					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{fraterie})]]></dataSourceExpression>
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportPrepa_subreport1.jasper"]]></subreportExpression>

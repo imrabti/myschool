@@ -27,7 +27,7 @@
 		<field name="nom" class="java.lang.String"/>
 		<field name="prenom" class="java.lang.String"/>
 	</subDataset>
-	<parameter name="dateLimite" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="fraterie" class="java.util.List" isForPrompting="false"/>
 	<queryString language="xPath">
 		<![CDATA[":"]]>
 	</queryString>
@@ -52,9 +52,9 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="80" splitType="Stretch">
+		<band height="670" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="5cfcd992-440d-42e0-bece-e30762018485" x="4" y="9" width="503" height="56"/>
+				<reportElement uuid="5cfcd992-440d-42e0-bece-e30762018485" x="5" y="10" width="503" height="56"/>
 				<textElement>
 					<font size="8" isBold="false" isItalic="false"/>
 				</textElement>
@@ -63,58 +63,104 @@ C'est pourquoi, nous invitons nos futurs parents d'élèves à coopérer en nous
 leur(s) enfants. Nous tennons à vous assurer que ces informations resteront confidentielles et ne seront utilisées que dans
 l'intérêt de votre enfant.]]></text>
 			</staticText>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="590" splitType="Prevent">
 			<componentElement>
-				<reportElement uuid="f64ff34d-95b0-41d8-a744-212e054fb434" key="table" style="table" mode="Opaque" x="2" y="10" width="250" height="28"/>
+				<reportElement uuid="f64ff34d-95b0-41d8-a744-212e054fb434" key="table" style="table" mode="Transparent" x="5" y="66" width="250" height="28" forecolor="#999999"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Table Dataset 1" uuid="1a38ddb8-27f1-4c81-b604-33c321a7983f">
-						<dataSourceExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></dataSourceExpression>
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{fraterie})]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column width="221" uuid="a1ee33ab-da14-4a96-8e4a-b9af47e77403">
 						<jr:columnHeader style="table_CH" height="15" rowSpan="1">
+							<box>
+								<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+								<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+								<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+								<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+								<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
+							</box>
 							<staticText>
 								<reportElement uuid="75111e4f-ebab-47b8-8e86-4988e78365cc" mode="Opaque" x="0" y="0" width="221" height="15"/>
 								<box>
-									<pen lineWidth="0.5"/>
-									<topPen lineWidth="0.5"/>
-									<leftPen lineWidth="0.5"/>
-									<bottomPen lineWidth="0.5"/>
-									<rightPen lineWidth="0.5"/>
+									<pen lineWidth="0.5" lineColor="#CCCCCC"/>
+									<topPen lineWidth="0.5" lineColor="#CCCCCC"/>
+									<leftPen lineWidth="0.5" lineColor="#CCCCCC"/>
+									<bottomPen lineWidth="0.5" lineColor="#CCCCCC"/>
+									<rightPen lineWidth="0.5" lineColor="#CCCCCC"/>
 								</box>
-								<textElement/>
-								<text><![CDATA[Nom]]></text>
+								<textElement verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[NOM]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table_TD" height="20" rowSpan="1">
-							<textField>
-								<reportElement uuid="3264b85d-4774-4916-a295-8ca1b563d006" x="0" y="0" width="221" height="20"/>
-								<textElement/>
+						<jr:detailCell style="table_TD" height="15" rowSpan="1">
+							<box>
+								<pen lineWidth="0.0"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textField isBlankWhenNull="true">
+								<reportElement uuid="3264b85d-4774-4916-a295-8ca1b563d006" x="0" y="0" width="221" height="15"/>
+								<box>
+									<pen lineWidth="0.25" lineColor="#CCCCCC"/>
+									<topPen lineWidth="0.25" lineColor="#CCCCCC"/>
+									<leftPen lineWidth="0.25" lineColor="#CCCCCC"/>
+									<bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
+									<rightPen lineWidth="0.25" lineColor="#CCCCCC"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{nom}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="233" uuid="04610b9e-b9e4-484e-858e-6141f06325ed">
 						<jr:columnHeader style="table_CH" height="15" rowSpan="1">
+							<box>
+								<pen lineWidth="0.0" lineColor="#D4D0C8"/>
+								<topPen lineWidth="0.0" lineColor="#D4D0C8"/>
+								<leftPen lineWidth="0.0" lineColor="#D4D0C8"/>
+								<bottomPen lineWidth="0.0" lineColor="#D4D0C8"/>
+								<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
+							</box>
 							<staticText>
 								<reportElement uuid="bf85c9f9-e187-4537-be5b-430384f7ef5a" mode="Opaque" x="0" y="0" width="233" height="15"/>
 								<box>
-									<pen lineWidth="0.5"/>
-									<topPen lineWidth="0.5"/>
-									<leftPen lineWidth="0.5"/>
-									<bottomPen lineWidth="0.5"/>
-									<rightPen lineWidth="0.5"/>
+									<pen lineWidth="0.5" lineColor="#CCCCCC"/>
+									<topPen lineWidth="0.5" lineColor="#CCCCCC"/>
+									<leftPen lineWidth="0.5" lineColor="#CCCCCC"/>
+									<bottomPen lineWidth="0.5" lineColor="#CCCCCC"/>
+									<rightPen lineWidth="0.5" lineColor="#CCCCCC"/>
 								</box>
-								<textElement/>
-								<text><![CDATA[Prénom]]></text>
+								<textElement verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[PRENOM]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table_TD" height="20" rowSpan="1">
-							<textField>
-								<reportElement uuid="f9b308af-814f-45f5-8cc2-00cc8b1696d2" x="0" y="0" width="233" height="20"/>
-								<textElement/>
+						<jr:detailCell style="table_TD" height="15" rowSpan="1">
+							<box>
+								<pen lineWidth="0.0"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textField isBlankWhenNull="true">
+								<reportElement uuid="f9b308af-814f-45f5-8cc2-00cc8b1696d2" mode="Transparent" x="0" y="0" width="233" height="15"/>
+								<box>
+									<pen lineWidth="0.25" lineColor="#CCCCCC"/>
+									<topPen lineWidth="0.25" lineColor="#CCCCCC"/>
+									<leftPen lineWidth="0.25" lineColor="#CCCCCC"/>
+									<bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
+									<rightPen lineWidth="0.25" lineColor="#CCCCCC"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{prenom}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -122,6 +168,9 @@ l'intérêt de votre enfant.]]></text>
 				</jr:table>
 			</componentElement>
 		</band>
+	</columnHeader>
+	<detail>
+		<band splitType="Prevent"/>
 	</detail>
 	<columnFooter>
 		<band height="20" splitType="Stretch"/>
