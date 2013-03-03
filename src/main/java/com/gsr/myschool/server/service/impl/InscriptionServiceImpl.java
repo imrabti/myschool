@@ -101,7 +101,7 @@ public class InscriptionServiceImpl implements InscriptionService {
         scolariteActuelleRepos.save(scolariteActuelle);
 
         User user = securityContextProvider.getCurrentUser();
-        String currentAnneeScolaire = DateUtils.currentYear() + "-" + DateUtils.currentYear() + 1;
+        String currentAnneeScolaire = DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1);
 
         Dossier dossier = new Dossier();
         dossier.setGeneratedNumDossier("GSR_" + DateUtils.currentYear() + "_" + UUIDGenerator.generateUUID());
