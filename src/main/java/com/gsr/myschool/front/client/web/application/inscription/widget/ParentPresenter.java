@@ -169,6 +169,11 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
             return;
         }
 
+        if (!currentPere.getParentGsr()) {
+            currentPere.setPromotionGsr(null);
+            currentPere.setFormationGsr(null);
+        }
+
         if (!pereViolation) {
             if (currentPere.getNationality() != null) {
                 currentPere.setNationality(currentPereContext.edit(currentPere.getNationality()));
@@ -225,6 +230,11 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
             return;
         }
 
+        if (!currentMere.getParentGsr()) {
+            currentMere.setPromotionGsr(null);
+            currentMere.setFormationGsr(null);
+        }
+
         if (!mereViolation) {
             if (currentMere.getNationality() != null) {
                 currentMere.setNationality(currentMereContext.edit(currentMere.getNationality()));
@@ -277,6 +287,11 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
                     .build();
             MessageEvent.fire(this, message);
             return;
+        }
+
+        if (!currentTuteur.getParentGsr()) {
+            currentTuteur.setPromotionGsr(null);
+            currentTuteur.setFormationGsr(null);
         }
 
         if (!tuteurViolation) {
