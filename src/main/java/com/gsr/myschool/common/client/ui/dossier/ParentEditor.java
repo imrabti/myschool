@@ -2,7 +2,6 @@ package com.gsr.myschool.common.client.ui.dossier;
 
 import com.github.gwtbootstrap.client.ui.*;
 import com.github.gwtbootstrap.datepicker.client.ui.DateBox;
-import com.github.gwtbootstrap.datepicker.client.ui.DateBoxAppended;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -15,6 +14,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.InfoParentProxy;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
+import com.gsr.myschool.common.client.resource.message.HelpMessageBundle;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
@@ -22,12 +22,11 @@ import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
 import com.gsr.myschool.common.client.widget.renderer.ValueListRendererFactory;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.type.Gender;
+import com.gsr.myschool.common.shared.type.ParentType;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
-import org.apache.commons.lang.time.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import static com.google.gwt.query.client.GQuery.$;
@@ -79,17 +78,44 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
     TextBox promotionGsr;
     @UiField(provided = true)
     ValueListBox<String> formationGsr;
+    @UiField
+    Tooltip infoParentAdresse;
+    @UiField
+    Tooltip infoParentTelTravail;
+    @UiField
+    Tooltip infoParentTelMobile;
+    @UiField
+    Tooltip infoParentTelMaison;
+    @UiField
+    Tooltip infoParentAdresseEmail;
+    @UiField
+    Tooltip infoParentInstitution;
+    @UiField
+    Tooltip infoParentFonction;
+    @UiField
+    Tooltip infoParentNationnalite;
+    @UiField
+    Tooltip infoParentLieuNaissance;
+    @UiField
+    Tooltip infoParentDateNaissance;
+    @UiField
+    Tooltip infoParentPrenom;
+    @UiField
+    Tooltip infoParentNom;
 
     private final Driver driver;
     private final ValueList valueList;
+    private final HelpMessageBundle helpMessageBundle;
 
     @Inject
     public ParentEditor(final Binder uiBinder, final Driver driver,
                         final ValueList valueList,
                         final SharedMessageBundle messageBundle,
-                        final ValueListRendererFactory valueListRendererFactory) {
+                        final ValueListRendererFactory valueListRendererFactory,
+                        final HelpMessageBundle helpMessageBundle) {
         this.driver = driver;
         this.valueList = valueList;
+        this.helpMessageBundle = helpMessageBundle;
 
         civilite = new ValueListBox<Gender>(new EnumRenderer<Gender>());
         nationality = new ValueListBox<ValueListProxy>(valueListRendererFactory.create(messageBundle.emptyValueList()));
@@ -163,6 +189,27 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
     public void setTuteur(Boolean tuteur) {
         civiliteWrapper.setVisible(tuteur);
         lienParenteWrapper.setVisible(tuteur);
+    }
+
+    public void setType(ParentType parentType) {
+        String type = "";
+
+        if (parentType == ParentType.PERE) type = "du père";
+        if (parentType == ParentType.MERE) type = "de la mère";
+        if (parentType == ParentType.TUTEUR) type = "du tuteur";
+
+        infoParentNom.setText(helpMessageBundle.infoParentNom(type));
+        infoParentPrenom.setText(helpMessageBundle.infoParentPrenom(type));
+        infoParentAdresse.setText(helpMessageBundle.infoParentAdresse(type));
+        infoParentTelTravail.setText(helpMessageBundle.infoParentTelTravail(type));
+        infoParentTelMobile.setText(helpMessageBundle.infoParentTelMobile(type));
+        infoParentTelMaison.setText(helpMessageBundle.infoParentTelMaison(type));
+        infoParentAdresseEmail.setText(helpMessageBundle.infoParentAdresseEmail(type));
+        infoParentInstitution.setText(helpMessageBundle.infoParentInstitution(type));
+        infoParentFonction.setText(helpMessageBundle.infoParentFonction(type));
+        infoParentNationnalite.setText(helpMessageBundle.infoParentNationnalite(type));
+        infoParentLieuNaissance.setText(helpMessageBundle.infoParentLieuNaissance(type));
+        infoParentDateNaissance.setText(helpMessageBundle.infoParentDateNaissance(type));
     }
 
     private ValueListProxy getDefaultNationality() {
