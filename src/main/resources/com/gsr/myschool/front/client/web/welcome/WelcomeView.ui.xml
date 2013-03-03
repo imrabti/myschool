@@ -21,7 +21,7 @@
 
         .innerHeader {
             float: right;
-            width: 100%;
+            width: 98%;
             background-color: #1b5799;
             padding-left: 20px;
             -moz-border-radius-bottomleft: 8px;
