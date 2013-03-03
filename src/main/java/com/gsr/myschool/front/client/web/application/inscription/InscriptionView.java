@@ -23,18 +23,18 @@ import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.ui.Widget;
-import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
@@ -176,6 +176,7 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         TextColumn<DossierProxy> anneeScolaireColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
+                if (object.getAnneeScolaire() == null) return "";
                 return object.getAnneeScolaire().getLabel();
             }
         };

@@ -135,6 +135,13 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> imple
         requestBuilder.sendRequest();
     }
 
+    @Override
+    public void editInscription() {
+        PlaceRequest placeRequest = new PlaceRequest(NameTokens.getEditInscription());
+        placeRequest = placeRequest.with("id", currentDossier.getId().toString());
+        placeManager.revealPlace(placeRequest);
+    }
+
     private void loadInfoParent() {
         Long dossierId = currentDossier.getId();
         requestFactory.inscriptionService().findInfoParentByDossierId(dossierId).fire(

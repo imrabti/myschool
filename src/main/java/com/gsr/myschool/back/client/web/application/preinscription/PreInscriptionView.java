@@ -120,7 +120,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         TextColumn<DossierProxy> dateColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
-                if (object.getCandidat() == null) return "";
+                if (object.getCandidat().getBirthDate() == null) return "";
                 return dateFormat.format(object.getCandidat().getBirthDate());
             }
         };

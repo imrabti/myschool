@@ -27,7 +27,7 @@
     </ui:style>
 
     <g:HTMLPanel>
-        <h2 class="{style.registerTitle}">Nouveau Membre ?</h2>
+        <h2 class="{style.registerTitle}">Nouveau Compte</h2>
 
         <boot:Form type="INLINE">
             <boot:ControlGroup addStyleNames="{style.groupWrapper}">

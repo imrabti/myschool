@@ -57,29 +57,29 @@
                 </boot:Controls>
             </boot:ControlGroup>
 
-            <boot:ControlGroup>
-                <boot:ControlLabel>Adresse email</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.candidatAdresseEmail}" placement="RIGHT">
-                        <boot:InputAddOn prependText="@">
-                            <boot:TextBox ui:field="email" width="230px"/>
-                        </boot:InputAddOn>
-                    </boot:Tooltip>
-                </boot:Controls>
-            </boot:ControlGroup>
-
-            <boot:ControlGroup>
-                <boot:ControlLabel>Téléphone</boot:ControlLabel>
-                <boot:Controls>
-                    <boot:Tooltip text="{helpMessage.candidatTelephone}" placement="RIGHT">
-                        <boot:InputAddOn prependIcon="PHONE">
-                            <boot:TextBox ui:field="phone" width="230px"/>
-                        </boot:InputAddOn>
-                    </boot:Tooltip>
-                </boot:Controls>
-            </boot:ControlGroup>
-
             <g:RenderablePanel ui:field="infosBac">
+                <boot:ControlGroup>
+                    <boot:ControlLabel>Adresse email</boot:ControlLabel>
+                    <boot:Controls>
+                        <boot:Tooltip text="{helpMessage.candidatAdresseEmail}" placement="RIGHT">
+                            <boot:InputAddOn prependText="@">
+                                <boot:TextBox ui:field="email" width="230px"/>
+                            </boot:InputAddOn>
+                        </boot:Tooltip>
+                    </boot:Controls>
+                </boot:ControlGroup>
+
+                <boot:ControlGroup>
+                    <boot:ControlLabel>Téléphone</boot:ControlLabel>
+                    <boot:Controls>
+                        <boot:Tooltip text="{helpMessage.candidatTelephone}" placement="RIGHT">
+                            <boot:InputAddOn prependIcon="PHONE">
+                                <boot:TextBox ui:field="phone" width="230px"/>
+                            </boot:InputAddOn>
+                        </boot:Tooltip>
+                    </boot:Controls>
+                </boot:ControlGroup>
+
                 <boot:ControlGroup>
                     <boot:ControlLabel>CIN</boot:ControlLabel>
                     <boot:Controls>

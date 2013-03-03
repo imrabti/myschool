@@ -6,4 +6,6 @@ public interface InscriptionDetailUiHandlers extends UiHandlers {
     void submitInscription();
 
     void printInscription();
+
+    void editInscription();
 }
