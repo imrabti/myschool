@@ -16,7 +16,8 @@
                 <g:InlineLabel ui:field="dossierTitle"/>
             </h2>
             <div>
-                <boot:Button ui:field="submit" text="Soumettre" icon="SHARE"/>
+                <boot:Button ui:field="edit" text="Modifier" icon="EDIT"/>
+                <boot:Button ui:field="submit" text="Valider" icon="SHARE" type="SUCCESS"/>
                 <boot:Button ui:field="print" text="Imprimer" icon="PRINT"/>
             </div>
             <span style="display: block; clear: both;"/>
