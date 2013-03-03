@@ -8,6 +8,12 @@
         .tableWrapper {
             margin-top: 12px;
         }
+
+        .desc {
+            padding-right: 5px;
+            vertical-align: bottom;
+            font-size: 90%;
+        }
     </ui:style>
 
     <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
@@ -15,7 +21,9 @@
             <h2>
                 <g:InlineLabel text="Mes pré-inscriptions"/>
             </h2>
+
             <div>
+                <span style="{style.desc}">Cliquer ici pour démarrer une Nouvelle préinscription</span>
                 <boot:Button ui:field="add" text="Nouvelle pré-inscription" icon="PLUS"/>
             </div>
             <span style="display: block; clear: both;"/>

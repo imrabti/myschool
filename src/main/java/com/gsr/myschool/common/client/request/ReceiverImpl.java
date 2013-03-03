@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.common.client.request;
 
+import com.google.common.base.Strings;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HasHandlers;
 import com.google.inject.Inject;
@@ -36,10 +37,11 @@ public abstract class ReceiverImpl<T> extends Receiver<T> implements HasHandlers
     }
 
     public void onFailure(ServerFailure error) {
-        if (SERVER_DOWN.equals(error.getMessage().trim())) {
-            eventBus.fireEvent(new ServerDownEvent());
+        if (!Strings.isNullOrEmpty(error.getMessage())) {
+            if (SERVER_DOWN.equals(error.getMessage().trim())) {
+                eventBus.fireEvent(new ServerDownEvent());
+            }
         }
-
         onException(error.getExceptionType());
     }
 

@@ -59,6 +59,8 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
     @UiField
     Button submit;
     @UiField
+    Button edit;
+    @UiField
     Button print;
     @UiField
     HTML errors;
@@ -94,6 +96,7 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
     public void setDossier(DossierProxy dossier) {
         dossierTitle.setText(messageBundle.inscriptionDetailTitle(dossier.getGeneratedNumDossier()));
         submit.setVisible(dossier.getStatus() == DossierStatus.CREATED);
+        edit.setVisible(dossier.getStatus() == DossierStatus.CREATED);
         print.setVisible(dossier.getStatus() != DossierStatus.CREATED);
 
         SafeHtml safeDate = SafeHtmlUtils.fromString(dateFormat.format(dossier.getCreateDate()));
@@ -246,6 +249,11 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
     @UiHandler("print")
     void onPrintClicked(ClickEvent event) {
         getUiHandlers().printInscription();
+    }
+
+    @UiHandler("edit")
+    void onEditClicked(ClickEvent event) {
+        getUiHandlers().editInscription();
     }
 
     private void initFraterieDataGrid() {

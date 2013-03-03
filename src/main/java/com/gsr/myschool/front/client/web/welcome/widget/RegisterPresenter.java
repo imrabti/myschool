@@ -23,6 +23,7 @@ import com.gsr.myschool.common.client.mvp.ValidatedView;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
 import com.gsr.myschool.common.client.util.URLUtils;
+import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.front.client.place.NameTokens;
@@ -81,7 +82,8 @@ public class RegisterPresenter extends PresenterWidget<RegisterPresenter.MyView>
 
                     String messageString = aBoolean ? messageBundle.registerSuccess() : messageBundle.registerFailure();
                     AlertType alertType = aBoolean ? AlertType.SUCCESS : AlertType.ERROR;
-                    Message message = new Message.Builder(messageString).style(alertType).build();
+                    CloseDelay delay = aBoolean ? CloseDelay.NEVER : CloseDelay.DEFAULT;
+                    Message message = new Message.Builder(messageString).style(alertType).closeDelay(delay).build();
                     MessageEvent.fire(this, message);
 
                     currentContext = requestFactory.registrationService();
