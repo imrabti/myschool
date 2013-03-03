@@ -21,13 +21,28 @@ import com.google.gwt.event.shared.HasHandlers;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.requestfactory.shared.Receiver;
+import com.google.web.bindery.requestfactory.shared.ServerFailure;
+import com.gsr.myschool.common.client.event.ServerDownEvent;
 
 public abstract class ReceiverImpl<T> extends Receiver<T> implements HasHandlers {
+    private static final String SERVER_DOWN = "Server Error 0";
+
     @Inject
     protected static EventBus eventBus;
 
     @Override
     public void fireEvent(GwtEvent<?> event) {
         eventBus.fireEvent(event);
+    }
+
+    public void onFailure(ServerFailure error) {
+        if (SERVER_DOWN.equals(error.getMessage().trim())) {
+            eventBus.fireEvent(new ServerDownEvent());
+        }
+
+        onException(error.getExceptionType());
+    }
+
+    public void onException(String type) {
     }
 }
