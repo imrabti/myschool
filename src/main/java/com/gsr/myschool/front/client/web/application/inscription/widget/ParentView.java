@@ -52,6 +52,9 @@ public class ParentView extends ValidatedViewImpl implements ParentPresenter.MyV
         tabs.setAcceptableValues(Arrays.asList(ParentType.values()));
 
         tuteurEditor.setTuteur(true);
+        this.pereEditor.setType(ParentType.PERE);
+        this.tuteurEditor.setType(ParentType.TUTEUR);
+        this.mereEditor.setType(ParentType.MERE);
     }
 
     @Override
