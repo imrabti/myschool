@@ -9,31 +9,31 @@ public interface HelpMessageBundle extends Messages {
 
     String emailHelp();
 
-    String infoParentNom();
+    String infoParentNom(String parent);
 
-    String infoParentPrenom();
+    String infoParentPrenom(String parent);
 
     String infoParentLienParente();
 
-    String infoParentFonction();
+    String infoParentFonction(String parent);
 
-    String infoParentInstitution();
+    String infoParentInstitution(String parent);
 
-    String infoParentAdresseEmail();
+    String infoParentAdresseEmail(String parent);
 
-    String infoParentTelMaison();
+    String infoParentTelMaison(String parent);
 
-    String infoParentTelTravail();
+    String infoParentTelTravail(String parent);
 
-    String infoParentTelMobile();
+    String infoParentTelMobile(String parent);
 
-    String infoParentAdresse();
+    String infoParentAdresse(String parent);
 
-    String infoParentDateNaissance();
+    String infoParentDateNaissance(String parent);
 
-    String infoParentLieuNaissance();
+    String infoParentLieuNaissance(String parent);
 
-    String infoParentNationnalite();
+    String infoParentNationnalite(String parent);
 
     String infoParentCivilite();
 
