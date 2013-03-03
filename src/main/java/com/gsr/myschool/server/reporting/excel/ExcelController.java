@@ -41,6 +41,7 @@ public class ExcelController {
     private DossierService dossierService;
     @Autowired
     private XlsExportService xlsExportService;
+    private static String TMP_FOLDER_PATH = "classpath:/META-INF/tmp/";
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
@@ -50,7 +51,12 @@ public class ExcelController {
             List<DossierExcelDTO> resultDossiers = map(dossiers);
 
             String fileName = new Date().getTime() + ".xls";
-            File file = new File(fileName);
+            File file = new File(TMP_FOLDER_PATH + fileName);
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            file.createNewFile();
+
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             xlsExportService.saveSpreadsheetRecords(DossierExcelDTO.class, resultDossiers, fileOutputStream);
             fileOutputStream.flush();
@@ -71,7 +77,7 @@ public class ExcelController {
 
             response.addHeader("Content-Disposition", "attachment; filename=recherche.xls");
 
-            File file = new File(fileName);
+            File file = new File(TMP_FOLDER_PATH + fileName);
             InputStream inputStream = new FileInputStream(file);
             BufferedOutputStream outputStream = new BufferedOutputStream(response.getOutputStream());
 
