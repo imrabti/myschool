@@ -1,5 +1,7 @@
 package com.gsr.myschool.front.client.web.application.inscription.popup;
 
+import com.google.gwt.event.shared.HasHandlers;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.front.client.web.application.inscription.event.DossierSubmitEvent;
@@ -14,6 +16,8 @@ public class ConfirmationInscriptionPresenter extends PresenterWidget<MyView>
         void initConfirmation();
     }
 
+    private HasHandlers source;
+
     @Inject
     public ConfirmationInscriptionPresenter(final EventBus eventBus, final MyView view) {
         super(eventBus, view);
@@ -23,8 +27,12 @@ public class ConfirmationInscriptionPresenter extends PresenterWidget<MyView>
 
     @Override
     public void validateInscription(Boolean agreeInformations) {
-        DossierSubmitEvent.fire(this, agreeInformations);
+        DossierSubmitEvent.fire(source, agreeInformations);
         getView().hide();
+    }
+
+    public void setSource(HasHandlers source) {
+        this.source = source;
     }
 
     protected void onReveal() {
