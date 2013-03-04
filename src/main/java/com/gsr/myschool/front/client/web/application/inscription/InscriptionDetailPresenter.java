@@ -23,6 +23,8 @@ import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.front.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.front.client.web.application.inscription.InscriptionDetailPresenter.MyView;
 import com.gsr.myschool.front.client.web.application.inscription.InscriptionDetailPresenter.MyProxy;
+import com.gsr.myschool.front.client.web.application.inscription.event.DossierSubmitEvent;
+import com.gsr.myschool.front.client.web.application.inscription.popup.ConfirmationInscriptionPresenter;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -37,7 +39,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> implements InscriptionDetailUiHandlers {
+public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy>
+        implements InscriptionDetailUiHandlers, DossierSubmitEvent.DossierSubmitHandler {
     public interface MyView extends View, HasUiHandlers<InscriptionDetailUiHandlers> {
         void setDossier(DossierProxy dossier);
 
@@ -62,6 +65,7 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> imple
     private final PlaceManager placeManager;
     private final MessageBundle messageBundle;
     private final SharedMessageBundle sharedMessageBundle;
+    private final ConfirmationInscriptionPresenter confirmationInscriptionPresenter;
 
     private DossierProxy currentDossier;
 
@@ -70,15 +74,23 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> imple
                                       final FrontRequestFactory requestFactory,
                                       final PlaceManager placeManager,
                                       final MessageBundle messageBundle,
-                                      final SharedMessageBundle sharedMessageBundle) {
+                                      final SharedMessageBundle sharedMessageBundle,
+                                      final ConfirmationInscriptionPresenter confirmationInscriptionPresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
         this.placeManager = placeManager;
         this.messageBundle = messageBundle;
         this.sharedMessageBundle = sharedMessageBundle;
+        this.confirmationInscriptionPresenter = confirmationInscriptionPresenter;
 
+        confirmationInscriptionPresenter.setSource(this);
         getView().setUiHandlers(this);
+    }
+
+    @Override
+    public void onBind() {
+        addRegisteredHandler(DossierSubmitEvent.getSecondType(), this);
     }
 
     @Override
@@ -109,8 +121,8 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> imple
     }
 
     @Override
-    public void submitInscription() {
-        if (Window.confirm(messageBundle.inscriptionSubmitConf())) {
+    public void onDossierSubmit(DossierSubmitEvent event) {
+        if (event.getAgreement()) {
             Long dossierId = currentDossier.getId();
             requestFactory.inscriptionService().submitInscription(dossierId).fire(new ReceiverImpl<List<String>>() {
                 @Override
@@ -126,6 +138,11 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy> imple
                 }
             });
         }
+    }
+
+    @Override
+    public void submitInscription() {
+        addToPopupSlot(confirmationInscriptionPresenter);
     }
 
     @Override

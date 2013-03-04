@@ -9,10 +9,10 @@
             margin-top: 12px;
         }
 
-        .desc {
-            padding-right: 5px;
+        .description {
+            padding-right: 10px;
             vertical-align: bottom;
-            font-size: 90%;
+            font-size: 0.9em;
         }
     </ui:style>
 
@@ -23,7 +23,7 @@
             </h2>
 
             <div>
-                <span style="{style.desc}">Cliquer ici pour démarrer une Nouvelle préinscription</span>
+                <span class="{style.description}">Cliquer ici pour démarrer une Nouvelle préinscription</span>
                 <boot:Button ui:field="add" text="Nouvelle pré-inscription" icon="PLUS"/>
             </div>
             <span style="display: block; clear: both;"/>
