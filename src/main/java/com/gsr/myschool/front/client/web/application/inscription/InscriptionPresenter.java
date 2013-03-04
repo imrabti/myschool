@@ -81,6 +81,7 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
         this.messageBundle = messageBundle;
         this.confirmationInscriptionPresenter = confirmationInscriptionPresenter;
 
+        confirmationInscriptionPresenter.setSource(this);
         getView().setUiHandlers(this);
     }
 
