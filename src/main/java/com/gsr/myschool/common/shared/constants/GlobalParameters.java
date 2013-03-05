@@ -17,5 +17,5 @@ public class GlobalParameters {
     public static final Long BAC_ECO = 7l;
 
 
-    List<Long> NE_toute_petite_section_ids = Arrays.asList( new Long[]{49L,50L});
+    public static final List<Long> NE_toute_petite_section_ids = Arrays.asList( new Long[]{49L,50L});
 }

@@ -16,6 +16,7 @@ import com.gsr.myschool.common.client.ui.dossier.renderer.FiliereRenderer;
 import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.type.TypeEnseignement;
 
 import java.util.ArrayList;
@@ -33,7 +34,6 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
     private FiliereProxy sectionFr;
     private FiliereProxy sectionBilingue;
     private List<FiliereProxy> filieres;
-
 
     @UiField(provided = true)
     ValueListBox<FiliereProxy> filiere;
@@ -96,7 +96,13 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
     void onFiliereChanged(ValueChangeEvent<FiliereProxy> event) {
         if (event.getValue() != null) {
             niveauEtude.setValue(null);
-            niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(event.getValue().getId()));
+            List<NiveauEtudeProxy> toShow = new ArrayList<NiveauEtudeProxy>();
+            for (NiveauEtudeProxy niveauEtude : valueList.getNiveauEtudeList(event.getValue().getId())) {
+                if (!GlobalParameters.NE_toute_petite_section_ids.contains(niveauEtude.getId())) {
+                    toShow.add(niveauEtude);
+                }
+            }
+            niveauEtude.setAcceptableValues(toShow);
         } else {
             niveauEtude.setValue(null);
             niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
@@ -109,7 +115,13 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
     void onFiliere2Changed(ValueChangeEvent<FiliereProxy> event) {
         if (event.getValue() != null) {
             niveauEtude2.setValue(null);
-            niveauEtude2.setAcceptableValues(valueList.getNiveauEtudeList(event.getValue().getId()));
+            List<NiveauEtudeProxy> toShow = new ArrayList<NiveauEtudeProxy>();
+            for (NiveauEtudeProxy niveauEtude : valueList.getNiveauEtudeList(event.getValue().getId())) {
+                if (!GlobalParameters.NE_toute_petite_section_ids.contains(niveauEtude.getId())) {
+                    toShow.add(niveauEtude);
+                }
+            }
+            niveauEtude2.setAcceptableValues(toShow);
         } else {
             niveauEtude2.setValue(null);
             niveauEtude2.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
