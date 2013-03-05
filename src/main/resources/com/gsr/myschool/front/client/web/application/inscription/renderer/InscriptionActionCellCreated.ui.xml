@@ -18,7 +18,7 @@
         </a>
         <a href="javascript:;" class="btn btn-mini btn-success" ui:field="submit">
             <i class="icon-share"/>
-            <span class="">Soumettre</span>
+            <span class="">Valider</span>
         </a>
     </div>
 </ui:UiBinder>

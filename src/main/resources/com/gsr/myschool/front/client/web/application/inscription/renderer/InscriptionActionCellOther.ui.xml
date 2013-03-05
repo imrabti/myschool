@@ -14,7 +14,7 @@
         </a>
         <a href="javascript:;" style="display: none;" ui:field="submit">
             <i class="icon-share"/>
-            <span class="">Soumettre</span>
+            <span class="">Valider</span>
         </a>
         <a href="javascript:;" class="btn btn-mini" ui:field="print">
             <i class="icon-print"/>
