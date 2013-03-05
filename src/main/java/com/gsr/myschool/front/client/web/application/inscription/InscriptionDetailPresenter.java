@@ -128,7 +128,7 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy>
                 public void onSuccess(List<String> response) {
                     if (response.isEmpty()) {
                         Message message = new Message.Builder(messageBundle.inscriptionSubmitSuccess())
-                                .style(AlertType.SUCCESS).closeDelay(CloseDelay.DEFAULT).build();
+                                .style(AlertType.SUCCESS).closeDelay(CloseDelay.NEVER).build();
                         MessageEvent.fire(this, message);
                         getView().clearErrors();
                     } else {
