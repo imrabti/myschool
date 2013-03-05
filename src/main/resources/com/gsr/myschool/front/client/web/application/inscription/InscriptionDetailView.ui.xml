@@ -24,8 +24,6 @@
         </g:HTMLPanel>
 
         <boot:Accordion styleName="{style.accordionWrapper}">
-            <g:HTML ui:field="errors" styleName="{clientResources.sharedStyleCss.errorBox}"/>
-
             <boot:AccordionGroup heading="Informations Dossier" defaultOpen="true">
                 <g:HTMLPanel ui:field="dossierPanel"/>
             </boot:AccordionGroup>
@@ -43,7 +41,8 @@
             </boot:AccordionGroup>
 
             <boot:AccordionGroup heading="Fratrie" defaultOpen="true">
-                <boot:CellTable ui:field="fraterieTable" bordered="true"/>
+                <boot:CellTable ui:field="fraterieTable" bordered="true"
+                                addStyleNames="{clientResources.sharedStyleCss.tableTransparentBack}"/>
             </boot:AccordionGroup>
         </boot:Accordion>
     </g:HTMLPanel>

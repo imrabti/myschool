@@ -63,8 +63,6 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
     @UiField
     Button print;
     @UiField
-    HTML errors;
-    @UiField
     CellTable<FraterieProxy> fraterieTable;
 
     private final DateTimeFormat dateFormat;
@@ -218,27 +216,6 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
     public void setFraterie(List<FraterieProxy> data) {
         fraterieDataProvider.getList().clear();
         fraterieDataProvider.getList().addAll(data);
-    }
-
-    @Override
-    public void showErrors(List<String> errorsList) {
-        errors.setVisible(true);
-        StringBuilder builder = new StringBuilder();
-        builder.append("<ul>");
-        for (String violation : errorsList) {
-            builder.append("<li class=\"error\">");
-            builder.append(violation);
-            builder.append("</li>");
-        }
-        builder.append("</ul>");
-        errors.setHTML(builder.toString());
-        errors.getElement().scrollIntoView();
-    }
-
-    @Override
-    public void clearErrors() {
-        errors.setHTML("");
-        errors.setVisible(false);
     }
 
     @UiHandler("submit")
