@@ -196,7 +196,7 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
 
         if (parentType == ParentType.PERE) type = "du père";
         if (parentType == ParentType.MERE) type = "de la mère";
-        if (parentType == ParentType.TUTEUR) type = "du tuteur";
+        if (parentType == ParentType.TUTEUR) type = "du tuteur légal";
 
         infoParentNom.setText(helpMessageBundle.infoParentNom(type));
         infoParentPrenom.setText(helpMessageBundle.infoParentPrenom(type));
