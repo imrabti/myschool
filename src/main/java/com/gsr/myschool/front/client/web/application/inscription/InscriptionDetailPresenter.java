@@ -84,7 +84,6 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy>
         this.sharedMessageBundle = sharedMessageBundle;
         this.confirmationInscriptionPresenter = confirmationInscriptionPresenter;
 
-        confirmationInscriptionPresenter.setSource(this);
         getView().setUiHandlers(this);
     }
 
@@ -142,6 +141,7 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy>
 
     @Override
     public void submitInscription() {
+        confirmationInscriptionPresenter.setSource(this);
         addToPopupSlot(confirmationInscriptionPresenter);
     }
 

@@ -131,6 +131,7 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
     @Override
     public void submitInscription(DossierProxy dossier) {
         submittedDossier = dossier;
+        confirmationInscriptionPresenter.setSource(this);
         addToPopupSlot(confirmationInscriptionPresenter);
     }
 
