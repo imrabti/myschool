@@ -62,7 +62,7 @@ public class InscriptionServiceImpl implements InscriptionService {
     @Transactional(readOnly = true)
     public List<Dossier> findAllDossiers() {
         Long id = securityContextProvider.getCurrentUser().getId();
-        return dossierRepos.findByOwnerId(id);
+        return dossierRepos.findByOwnerIdOrderByIdDesc(id);
     }
 
     @Override
