@@ -159,7 +159,7 @@ public class EtablissementFilterView extends PopupViewWithUiHandlers<Etablisseme
         };
         nomColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         etablissementTable.addColumn(nomColumn, "Nom");
-        etablissementTable.setColumnWidth(nomColumn, 180, Style.Unit.PX);
+        etablissementTable.setColumnWidth(nomColumn, 200, Style.Unit.PX);
 
 
         TextColumn<EtablissementScolaireProxy> villeColumn = new TextColumn<EtablissementScolaireProxy>() {

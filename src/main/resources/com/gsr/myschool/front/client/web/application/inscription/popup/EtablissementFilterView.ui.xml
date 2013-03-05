@@ -10,6 +10,7 @@
             padding: 10px;
             overflow-y: auto;
             max-height: 400px;
+            width: 540px;
         }
 
         .marginRight {

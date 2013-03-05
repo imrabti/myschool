@@ -28,7 +28,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
@@ -50,8 +49,6 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
 
     @UiField
     CellTable<DossierProxy> inscriptionsTable;
-    @UiField
-    HTML errors;
 
     private final DateTimeFormat dateFormat;
     private final ListDataProvider<DossierProxy> dataProvider;
@@ -87,27 +84,6 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         inscriptionsTable.setPageSize(data.size());
         dataProvider.getList().clear();
         dataProvider.getList().addAll(data);
-    }
-
-    @Override
-    public void showErrors(List<String> violations) {
-        errors.setVisible(true);
-        StringBuilder builder = new StringBuilder();
-        builder.append("<ul>");
-        for (String violation : violations) {
-            builder.append("<li class=\"error\">");
-            builder.append(violation);
-            builder.append("</li>");
-        }
-        builder.append("</ul>");
-        errors.setHTML(builder.toString());
-        errors.getElement().scrollIntoView();
-    }
-
-    @Override
-    public void clearErrors() {
-        errors.setHTML("");
-        errors.setVisible(false);
     }
 
     @UiHandler("add")
