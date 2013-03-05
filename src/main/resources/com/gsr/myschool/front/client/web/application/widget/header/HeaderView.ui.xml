@@ -20,7 +20,7 @@
 
         .innerHeader {
             float: right;
-            width: 98%;
+            width: 96%;
             background-color: #1b5799;
             padding-left: 20px;
             -moz-border-radius-bottomleft: 8px;
