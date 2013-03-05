@@ -14,6 +14,7 @@ import com.gwtplatform.mvp.client.PopupView;
 import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gsr.myschool.front.client.web.application.inscription.popup.EtablissementFilterPresenter.MyView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EtablissementFilterPresenter extends PresenterWidget<MyView> implements EtablissementFilterUiHandlers {
@@ -69,5 +70,6 @@ public class EtablissementFilterPresenter extends PresenterWidget<MyView> implem
     protected void onReveal() {
         currentContext = requestFactory.inscriptionService();
         getView().edit(currentContext.create(EtablissementFilterDTOProxy.class));
+        getView().setData(new ArrayList<EtablissementScolaireProxy>());
     }
 }
