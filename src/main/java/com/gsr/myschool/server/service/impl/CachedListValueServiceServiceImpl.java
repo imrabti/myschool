@@ -11,6 +11,8 @@ import com.gsr.myschool.server.service.CachedListValueService;
 import com.gsr.myschool.server.service.ValueListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,6 +49,7 @@ public class CachedListValueServiceServiceImpl implements CachedListValueService
     @Override
     @Cacheable("niveauEtude")
     public List<NiveauEtude> findAllNiveauEtude() {
+        niveauEtudeRepos.findAll(new Sort(new Order("annee")));
         return niveauEtudeRepos.findAll();
     }
 

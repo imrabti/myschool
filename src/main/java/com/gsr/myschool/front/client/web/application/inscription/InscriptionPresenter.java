@@ -49,10 +49,6 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
         implements InscriptionUiHandlers, DossierSubmitEvent.DossierSubmitHandler {
     public interface MyView extends View, HasUiHandlers<InscriptionUiHandlers> {
         void setData(List<DossierProxy> data);
-
-        void showErrors(List<String> errors);
-
-        void clearErrors();
     }
 
     @ProxyStandard
@@ -153,9 +149,12 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
                                 .style(AlertType.SUCCESS).build();
                         MessageEvent.fire(this, message);
                         loadAllInscriptions();
-                        getView().clearErrors();
                     } else {
-                        getView().showErrors(response);
+                        for (String error : response) {
+                            Message message = new Message.Builder(error).style(AlertType.ERROR)
+                                    .closeDelay(CloseDelay.NEVER).build();
+                            MessageEvent.fire(this, message);
+                        }
                     }
                 }
             });
@@ -165,7 +164,6 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
     @Override
     protected void onReveal() {
         loadAllInscriptions();
-        getView().clearErrors();
     }
 
     @Override
