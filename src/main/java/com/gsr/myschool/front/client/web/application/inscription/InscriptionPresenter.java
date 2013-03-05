@@ -81,7 +81,6 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
         this.messageBundle = messageBundle;
         this.confirmationInscriptionPresenter = confirmationInscriptionPresenter;
 
-        confirmationInscriptionPresenter.setSource(this);
         getView().setUiHandlers(this);
     }
 
@@ -131,6 +130,7 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
     @Override
     public void submitInscription(DossierProxy dossier) {
         submittedDossier = dossier;
+        confirmationInscriptionPresenter.setSource(this);
         addToPopupSlot(confirmationInscriptionPresenter);
     }
 
