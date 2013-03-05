@@ -23,5 +23,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.List;
 
 public interface DossierRepos extends JpaRepository<Dossier, Long>, JpaSpecificationExecutor {
-    List<Dossier> findByOwnerId(Long userId);
+    List<Dossier> findByOwnerIdOrderByIdDesc(Long userId);
+
 }
