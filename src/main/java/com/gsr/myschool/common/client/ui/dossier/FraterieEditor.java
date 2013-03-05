@@ -90,11 +90,11 @@ public class FraterieEditor extends Composite implements EditorView<FraterieDTOP
         driver.edit(fraterie);
         scolariseFields.setVisible(false);
 
-        filiere.setValue(TypeEnseignement.BILINGUE);
+        filiere.setValue(null);
         filiere.setAcceptableValues(Arrays.asList(TypeEnseignement.values()));
 
         List<NiveauEtudeProxy> values = valueList.getNiveauEtudeList(TypeEnseignement.BILINGUE.getId());
-        niveau.setValue(values.get(0));
+        niveau.setValue(null);
         niveau.setAcceptableValues(values);
     }
 
@@ -128,7 +128,7 @@ public class FraterieEditor extends Composite implements EditorView<FraterieDTOP
             niveau.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
         } else {
             List<NiveauEtudeProxy> values = valueList.getNiveauEtudeList(event.getValue().getId());
-            niveau.setValue(values.get(0));
+            niveau.setValue(null);
             niveau.setAcceptableValues(values);
         }
     }
