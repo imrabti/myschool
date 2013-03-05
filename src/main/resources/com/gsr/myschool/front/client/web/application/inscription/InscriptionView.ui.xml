@@ -8,12 +8,6 @@
         .tableWrapper {
             margin-top: 12px;
         }
-
-        .description {
-            padding-right: 10px;
-            vertical-align: bottom;
-            font-size: 0.9em;
-        }
     </ui:style>
 
     <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
@@ -23,8 +17,9 @@
             </h2>
 
             <div>
-                <span class="{style.description}">Cliquer ici pour démarrer une nouvelle pré-inscription</span>
-                <boot:Button ui:field="add" text="Nouvelle pré-inscription" icon="PLUS"/>
+                <boot:Tooltip text="Cliquer ici pour démarrer une nouvelle pré-inscription" placement="LEFT">
+                    <boot:Button ui:field="add" text="Créer une nouvelle pré-inscription" icon="PLUS"/>
+                </boot:Tooltip>
             </div>
             <span style="display: block; clear: both;"/>
         </g:HTMLPanel>

@@ -86,7 +86,7 @@ public class EtablissementFilterView extends PopupViewWithUiHandlers<Etablisseme
         driver.initialize(this);
         initCellTable();
 
-        ville.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.CITY));
+        ville.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.CITY, true));
         type.setAcceptableValues(Arrays.asList(EtablissementType.values()));
         dataProvider.addDataDisplay(etablissementTable);
         etablissementTable.setEmptyTableWidget(new EmptyResult(messageBundle.noResultFound(), AlertType.WARNING));

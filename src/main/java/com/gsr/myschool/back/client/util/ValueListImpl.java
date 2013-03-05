@@ -12,6 +12,8 @@ import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,11 +75,29 @@ public class ValueListImpl implements ValueList {
 
     @Override
     public List<ValueListProxy> getValueListByCode(ValueTypeCode valueTypeCode) {
+        return getValueListByCode(valueTypeCode, true);
+    }
+
+    @Override
+    public List<ValueListProxy> getValueListByCode(ValueTypeCode valueTypeCode, final Boolean asc) {
         if (valueListMap == null && !valueListMap.containsKey(valueTypeCode)) {
             initValueListMap();
         }
 
-        return Objects.firstNonNull(valueListMap.get(valueTypeCode), new ArrayList<ValueListProxy>());
+        List<ValueListProxy> data = Objects.firstNonNull(valueListMap.get(valueTypeCode),
+                new ArrayList<ValueListProxy>());
+        Collections.sort(data, new Comparator<ValueListProxy>() {
+            @Override
+            public int compare(ValueListProxy o1, ValueListProxy o2) {
+                if (asc) {
+                    return o1.getValue().compareTo(o2.getValue());
+                } else {
+                    return o2.getValue().compareTo(o1.getValue());
+                }
+            }
+        });
+
+        return data;
     }
 
     @Override

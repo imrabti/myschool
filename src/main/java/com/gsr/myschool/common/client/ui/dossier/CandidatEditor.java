@@ -76,9 +76,9 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
 
-        nationality.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.NATIONALITY));
-        bacYear.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.BAC_YEAR));
-        bacSerie.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.BAC_SERIE));
+        nationality.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.NATIONALITY, true));
+        bacYear.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.BAC_YEAR, false));
+        bacSerie.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.BAC_SERIE, true));
 
         $(firstname).id("firstname");
         $(lastname).id("lastname");
@@ -136,7 +136,7 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
     }
 
     private ValueListProxy getDefaultNationality() {
-        for (ValueListProxy nationalityFromList : valueList.getValueListByCode(ValueTypeCode.NATIONALITY)) {
+        for (ValueListProxy nationalityFromList : valueList.getValueListByCode(ValueTypeCode.NATIONALITY, true)) {
             if (GlobalParameters.DEFAULT_NATIONALITY.equals(nationalityFromList.getValue())) {
                 return nationalityFromList;
             }

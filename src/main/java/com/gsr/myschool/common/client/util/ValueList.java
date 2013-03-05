@@ -19,6 +19,8 @@ public interface ValueList {
 
     List<ValueListProxy> getValueListByCode(ValueTypeCode valueTypeCode);
 
+    List<ValueListProxy> getValueListByCode(ValueTypeCode valueTypeCode, Boolean asc);
+
     void initFiliereList();
 
     void initEtablissementScolaireList();
