@@ -23,6 +23,7 @@ import com.gsr.myschool.common.client.widget.renderer.ValueListRendererFactory;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.ParentType;
+import com.gsr.myschool.common.shared.type.TypeEnseignement;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
 
 import java.util.ArrayList;
@@ -132,7 +133,7 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
 
         nationality.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.NATIONALITY));
 
-        formationGsr.setValue("Française");
+        formationGsr.setValue("");
         formationGsr.setAcceptableValues(initListFormations());
 
         $(nom).id("nom");
@@ -149,6 +150,7 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
         $(telGsm).id("telGsm");
         $(telBureau).id("telBureau");
         $(address).id("address");
+        $(promotionGsr).id("promotionGsr");
 
         parentGsr.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
             @Override
@@ -166,7 +168,6 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
         civilite.setValue(Gender.MALE);
         civilite.setAcceptableValues(Arrays.asList(Gender.values()));
 
-        formationGsr.setValue("Française");
         formationGsr.setAcceptableValues(initListFormations());
 
         parentGsrPanel.setVisible(parentGsr.getValue());
@@ -223,6 +224,7 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
 
     private List<String> initListFormations() {
         ArrayList<String> formations = new ArrayList<String>();
+        formations.add("");
         formations.add("Bilingue enrichie");
         formations.add("Française");
 
