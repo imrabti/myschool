@@ -1,5 +1,8 @@
 package com.gsr.myschool.common.shared.constants;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class GlobalParameters {
     public static final String DATE_FORMAT = "dd/MM/yyyy";
     public static final Integer REFRESH_PERIODE = 60000;
@@ -12,4 +15,7 @@ public class GlobalParameters {
     public static final Long BAC_SGT_ECO = 46l;
     public static final Long BAC_AUTRES = 47l;
     public static final Long BAC_ECO = 7l;
+
+
+    List<Long> NE_toute_petite_section_ids = Arrays.asList( new Long[]{49L,50L});
 }
