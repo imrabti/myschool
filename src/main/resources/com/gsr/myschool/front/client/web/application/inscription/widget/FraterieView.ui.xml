@@ -29,7 +29,8 @@
         </boot:Well>
 
         <div class="{style.tableWrapper}">
-            <boot:CellTable ui:field="fraterieTable" bordered="true"/>
+            <boot:CellTable ui:field="fraterieTable" bordered="true"
+                            addStyleNames="{clientResources.sharedStyleCss.tableTransparentBack}"/>
         </div>
     </g:HTMLPanel>
 </ui:UiBinder>

@@ -49,10 +49,6 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy>
         void setCandidat(CandidatProxy candidat);
 
         void setFraterie(List<FraterieProxy> fraterieList);
-
-        void showErrors(List<String> errors);
-
-        void clearErrors();
     }
 
     @ProxyStandard
@@ -101,7 +97,6 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy>
                 currentDossier = result;
                 getView().setDossier(currentDossier);
                 getView().setCandidat(currentDossier.getCandidat());
-                getView().clearErrors();
 
                 loadInfoParent();
                 loadFraterie();
@@ -130,9 +125,12 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy>
                         Message message = new Message.Builder(messageBundle.inscriptionSubmitSuccess())
                                 .style(AlertType.SUCCESS).closeDelay(CloseDelay.DEFAULT).build();
                         MessageEvent.fire(this, message);
-                        getView().clearErrors();
                     } else {
-                        getView().showErrors(response);
+                        for (String error : response) {
+                            Message message = new Message.Builder(error).style(AlertType.ERROR)
+                                    .closeDelay(CloseDelay.NEVER).build();
+                            MessageEvent.fire(this, message);
+                        }
                     }
                 }
             });

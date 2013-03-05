@@ -22,6 +22,7 @@ import com.gsr.myschool.server.repos.ValueListRepos;
 import com.gsr.myschool.server.repos.ValueTypeRepos;
 import com.gsr.myschool.server.service.ValueListService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,7 +53,7 @@ public class ValueListServiceImpl implements ValueListService {
     @Override
     @Transactional(readOnly = true)
     public List<ValueList> findAll() {
-        return valueListRepos.findAll();
+        return valueListRepos.findAll(new Sort(new Sort.Order("value")));
     }
 
     @Override
