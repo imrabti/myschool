@@ -17,7 +17,7 @@
             </h2>
             <div>
                 <boot:Button ui:field="edit" text="Modifier" icon="EDIT"/>
-                <boot:Button ui:field="submit" text="Valider" icon="SHARE" type="SUCCESS"/>
+                <boot:Button ui:field="submit" text="Valider" icon="SHARE" styleName="btn btn-success"/>
                 <boot:Button ui:field="print" text="Imprimer" icon="PRINT"/>
             </div>
             <span style="display: block; clear: both;"/>

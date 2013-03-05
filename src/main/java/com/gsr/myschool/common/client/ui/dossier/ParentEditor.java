@@ -130,7 +130,7 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
         driver.initialize(this);
         setTuteur(false);
 
-        nationality.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.NATIONALITY));
+        nationality.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.NATIONALITY, true));
 
         formationGsr.setValue("Française");
         formationGsr.setAcceptableValues(initListFormations());
@@ -213,7 +213,7 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
     }
 
     private ValueListProxy getDefaultNationality() {
-        for (ValueListProxy nationalityFromList : valueList.getValueListByCode(ValueTypeCode.NATIONALITY)) {
+        for (ValueListProxy nationalityFromList : valueList.getValueListByCode(ValueTypeCode.NATIONALITY, true)) {
             if (GlobalParameters.DEFAULT_NATIONALITY.equals(nationalityFromList.getValue())) {
                 return nationalityFromList;
             }
