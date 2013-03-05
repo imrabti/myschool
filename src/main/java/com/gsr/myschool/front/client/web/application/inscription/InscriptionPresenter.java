@@ -146,7 +146,7 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
                 public void onSuccess(List<String> response) {
                     if (response.isEmpty()) {
                         Message message = new Message.Builder(messageBundle.inscriptionSubmitSuccess())
-                                .style(AlertType.SUCCESS).build();
+                                .style(AlertType.SUCCESS).closeDelay(CloseDelay.NEVER).build();
                         MessageEvent.fire(this, message);
                         loadAllInscriptions();
                     } else {
