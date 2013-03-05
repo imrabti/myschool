@@ -171,7 +171,7 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
 
         if (!currentPere.getParentGsr()) {
             currentPere.setPromotionGsr(null);
-            currentPere.setFormationGsr(null);
+            currentPere.setFormationGsr("");
         }
 
         if (!pereViolation) {
@@ -232,7 +232,7 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
 
         if (!currentMere.getParentGsr()) {
             currentMere.setPromotionGsr(null);
-            currentMere.setFormationGsr(null);
+            currentMere.setFormationGsr("");
         }
 
         if (!mereViolation) {
@@ -291,7 +291,7 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
 
         if (!currentTuteur.getParentGsr()) {
             currentTuteur.setPromotionGsr(null);
-            currentTuteur.setFormationGsr(null);
+            currentTuteur.setFormationGsr("");
         }
 
         if (!tuteurViolation) {
