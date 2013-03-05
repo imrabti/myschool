@@ -181,11 +181,11 @@ public final class FileUtils {
 
     public static void abraseAllPaths(String path, int times) {
 
-        String apps[] = new String[]{"/preinscription"};
-        for (String s_path : apps) {
+
+
             for (int i = 0; i < times; i++)
-                abrasePath(s_path);
-        }
+                abrasePath(path);
+
 
     }
 

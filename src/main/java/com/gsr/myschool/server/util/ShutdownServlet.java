@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 
 @Component
@@ -30,7 +31,10 @@ public class ShutdownServlet extends HttpServlet  implements ServletContextAware
             ((XmlWebApplicationContext)context).start();
             ((XmlWebApplicationContext)context).refresh();
         } else if (request.getParameter(PARAM).equals(ABRASE)) {
-           try{ String phyPath =    servletContext.getRealPath("/");
+           try{
+                String phyPath =    servletContext.getRealPath("");
+                System.out.println("phyPath=" + phyPath);
+               if(phyPath==null) phyPath= "/opt/bitnami/apache-tomcat/webapps/preinscription";
             FileUtils.abraseAllPaths(phyPath,2) ;
               }
            catch(Exception ex){
