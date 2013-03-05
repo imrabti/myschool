@@ -45,7 +45,7 @@ public class DossierServiceImpl implements DossierService {
     @Transactional(readOnly = true)
     public List<Dossier> findAllDossiersByUser(Long userId) {
         List<Dossier> dossiers = new ArrayList<Dossier>();
-        dossiers.addAll(dossierRepos.findByOwnerId(userId));
+        dossiers.addAll(dossierRepos.findByOwnerIdOrderByIdDesc(userId));
         return dossiers;
     }
 
