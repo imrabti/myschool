@@ -23,7 +23,7 @@
             </h2>
 
             <div>
-                <span class="{style.description}">Cliquer ici pour démarrer une Nouvelle préinscription</span>
+                <span class="{style.description}">Cliquer ici pour démarrer une nouvelle pré-inscription</span>
                 <boot:Button ui:field="add" text="Nouvelle pré-inscription" icon="PLUS"/>
             </div>
             <span style="display: block; clear: both;"/>
