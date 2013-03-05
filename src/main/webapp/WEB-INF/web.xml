@@ -34,7 +34,13 @@
     <servlet>
         <servlet-name>adminRequestFactoryServlet</servlet-name>
         <servlet-class>com.gsr.myschool.server.util.SpringRequestServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>shutdownServlet</servlet-name>
+        <servlet-class>com.gsr.myschool.server.util.ShutdownServlet</servlet-class>
+        <load-on-startup>3</load-on-startup>
     </servlet>
 
     <filter>
@@ -55,6 +61,11 @@
     <servlet-mapping>
         <servlet-name>adminRequestFactoryServlet</servlet-name>
         <url-pattern>/gwtAdminRequest</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>shutdownServlet</servlet-name>
+        <url-pattern>/dogfootcatcrazy</url-pattern>
     </servlet-mapping>
 
     <!-- SpringMVC Servlet -->
