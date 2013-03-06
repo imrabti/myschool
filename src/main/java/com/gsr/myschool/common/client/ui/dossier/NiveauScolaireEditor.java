@@ -147,12 +147,24 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
             filiere2.setValue(sectionFr);
             filiere2.setEnabled(false);
             niveauEtude2.setValue(null);
-            niveauEtude2.setAcceptableValues(valueList.getNiveauEtudeList(sectionFr.getId()));
+            List<NiveauEtudeProxy> toShow = new ArrayList<NiveauEtudeProxy>();
+            for (NiveauEtudeProxy niveauEtude : valueList.getNiveauEtudeList(sectionFr.getId())) {
+                if (!GlobalParameters.NE_toute_petite_section_ids.contains(niveauEtude.getId())) {
+                    toShow.add(niveauEtude);
+                }
+            }
+            niveauEtude2.setAcceptableValues(toShow);
         } else if (TypeEnseignement.MISSION.getId() == filiere.getId()) {
             filiere2.setValue(sectionBilingue);
             filiere2.setEnabled(false);
             niveauEtude2.setValue(null);
-            niveauEtude2.setAcceptableValues(valueList.getNiveauEtudeList(sectionBilingue.getId()));
+            List<NiveauEtudeProxy> toShow = new ArrayList<NiveauEtudeProxy>();
+            for (NiveauEtudeProxy niveauEtude : valueList.getNiveauEtudeList(sectionBilingue.getId())) {
+                if (!GlobalParameters.NE_toute_petite_section_ids.contains(niveauEtude.getId())) {
+                    toShow.add(niveauEtude);
+                }
+            }
+            niveauEtude2.setAcceptableValues(toShow);
         } else {
             ArrayList<FiliereProxy> filieres2 = new ArrayList<FiliereProxy>();
             ArrayList<FiliereProxy> toRemove = new ArrayList<FiliereProxy>();
