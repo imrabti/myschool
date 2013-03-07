@@ -18,8 +18,8 @@ package com.gsr.myschool.common.client.widget.messages;
 
 public enum CloseDelay {
     NEVER(0),
-    DEFAULT(5000),
-    LONG(20000);
+    DEFAULT(20000),
+    LONG(40000);
 
     private int delay;
 
