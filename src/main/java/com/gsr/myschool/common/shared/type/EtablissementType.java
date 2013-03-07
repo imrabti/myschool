@@ -3,9 +3,7 @@ package com.gsr.myschool.common.shared.type;
 public enum EtablissementType {
     PUBLIQUE("Public"),
     PRIVE("Privé"),
-    HOMOLOGUE("Homologué"),
-    AEFE("AEFE"),
-    OSUI("OSUI");
+    HOMOLOGUE("Système français");
 
     private String label;
 
