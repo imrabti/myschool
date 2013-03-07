@@ -81,7 +81,7 @@ public class FrateriePresenter extends PresenterWidget<FrateriePresenter.MyView>
                 return;
             }
             Message message = new Message.Builder(messageBundle.newInscriptionSuccess())
-                    .style(AlertType.SUCCESS).build();
+                    .style(AlertType.SUCCESS).closeDelay(CloseDelay.NEVER).build();
             MessageEvent.fire(this, message);
             placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
         }
