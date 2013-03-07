@@ -49,8 +49,7 @@ public class CachedListValueServiceServiceImpl implements CachedListValueService
     @Override
     @Cacheable("niveauEtude")
     public List<NiveauEtude> findAllNiveauEtude() {
-        niveauEtudeRepos.findAll(new Sort(new Order("annee")));
-        return niveauEtudeRepos.findAll();
+        return  niveauEtudeRepos.findAll(new Sort(new Order("annee")));
     }
 
     @Override
