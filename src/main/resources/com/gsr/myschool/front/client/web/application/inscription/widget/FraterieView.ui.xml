@@ -21,6 +21,9 @@
         </h3>
 
         <boot:Paragraph>
+            Cette étape est optionnelle pour les classes préparatoires aux grandes écoles (CPGE).
+        </boot:Paragraph>
+        <boot:Paragraph>
             <boot:CheckBox ui:field="isFraterie" text="Le candidat a-t-il des frères ou des soeurs ?"/>
         </boot:Paragraph>
         <boot:Well addStyleNames="{style.enhancedWell}" ui:field="fraterieFields">
