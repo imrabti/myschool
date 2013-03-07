@@ -162,7 +162,7 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
 
             Message message = new Message.Builder(messageBundle.parentGsrFaillure())
                     .style(AlertType.ERROR)
-                    .closeDelay(CloseDelay.DEFAULT)
+                    .closeDelay(CloseDelay.LONG)
                     .build();
             MessageEvent.fire(this, message);
             pereValid = false;
@@ -223,7 +223,7 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
 
             Message message = new Message.Builder(messageBundle.parentGsrFaillure())
                     .style(AlertType.ERROR)
-                    .closeDelay(CloseDelay.DEFAULT)
+                    .closeDelay(CloseDelay.LONG)
                     .build();
             MessageEvent.fire(this, message);
             mereValid = false;
@@ -283,7 +283,7 @@ public class ParentPresenter extends PresenterWidget<ParentPresenter.MyView>
 
             Message message = new Message.Builder(messageBundle.parentGsrFaillure())
                     .style(AlertType.ERROR)
-                    .closeDelay(CloseDelay.DEFAULT)
+                    .closeDelay(CloseDelay.LONG)
                     .build();
             MessageEvent.fire(this, message);
             return;
