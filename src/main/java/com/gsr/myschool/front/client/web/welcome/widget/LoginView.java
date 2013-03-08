@@ -63,6 +63,8 @@ public class LoginView extends ViewWithUiHandlers<LoginUiHandlers> implements Lo
     public void edit(UserCredentials credentials) {
         username.setFocus(true);
         driver.edit(credentials);
+
+        initPlaceHolder();
     }
 
     @Override
@@ -99,4 +101,9 @@ public class LoginView extends ViewWithUiHandlers<LoginUiHandlers> implements Lo
             getUiHandlers().login(credentials);
         }
     }
+
+    @Override
+    public native void initPlaceHolder() /*-{
+        $wnd.$('input, textarea').placeholder();
+    }-*/;
 }
