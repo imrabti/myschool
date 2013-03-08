@@ -35,6 +35,8 @@ import com.gwtplatform.mvp.client.View;
 public class LoginPresenter extends PresenterWidget<LoginPresenter.MyView> implements LoginUiHandlers {
     public interface MyView extends View, HasUiHandlers<LoginUiHandlers> {
         void edit(UserCredentials credentials);
+
+        void initPlaceHolder();
     }
 
     private final FrontRequestFactory requestFactory;
@@ -75,6 +77,7 @@ public class LoginPresenter extends PresenterWidget<LoginPresenter.MyView> imple
                     Message message = new Message.Builder(messageBundle.wrongLoginOrPassword())
                             .style(AlertType.ERROR).build();
                     MessageEvent.fire(this, message);
+                    getView().initPlaceHolder();
                 }
             }
         });
