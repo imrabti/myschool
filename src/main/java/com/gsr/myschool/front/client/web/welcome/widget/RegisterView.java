@@ -90,6 +90,8 @@ public class RegisterView extends ValidatedViewWithUiHandlers<RegisterUiHandlers
 
         gender.setValue(Gender.MALE);
         gender.setAcceptableValues(Arrays.asList(Gender.values()));
+
+        initPlaceHolder();
     }
 
     @Override
@@ -123,4 +125,8 @@ public class RegisterView extends ValidatedViewWithUiHandlers<RegisterUiHandlers
         UserProxy user = get();
         getUiHandlers().register(user);
     }
+
+    public native void initPlaceHolder() /*-{
+        $wnd.$('input, textarea').placeholder();
+    }-*/;
 }

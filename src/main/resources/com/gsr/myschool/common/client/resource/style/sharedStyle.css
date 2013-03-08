@@ -1,4 +1,5 @@
-@external navbar-inner, nav-tabs, active, nav, accordion-group, accordion-toggle, accordion-inner, error, errorField;
+@external navbar-inner, nav-tabs, active, nav, accordion-group, accordion-toggle, accordion-inner;
+@external error, errorField, placeholder;
 
 body {
     font-family: "Droid Sans", Helvetica, Arial, sans-serif;
@@ -163,4 +164,8 @@ input.errorField {
 
 .tableTransparentBack {
     background-color: rgba(255, 255, 255, 0.4);
+}
+
+.placeholder {
+    color: #aeaeae !important;
 }

@@ -10,6 +10,7 @@ import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.ParentType;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
 import com.gsr.myschool.server.business.*;
+import com.gsr.myschool.server.business.core.Filiere;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.valuelist.ValueList;
 import com.gsr.myschool.server.process.ValidationProcessService;
@@ -331,13 +332,27 @@ public class InscriptionServiceImpl implements InscriptionService {
         if (!validator.validate(dossier).isEmpty()) {
             errors.add(messageBean.getMessage("missingDossierInfo"));
         } else {
+            Filiere filiere = dossier.getFiliere();
             NiveauEtude niveauEtude = dossier.getNiveauEtude();
-            if (niveauEtude.getId() == GlobalParameters.PETITE_SECTION) {
+
+            if (filiere.getId() == GlobalParameters.SECTION_FRANCAISE &&
+                    (niveauEtude.getId() == GlobalParameters.PETITE_SECTION ||
+                            niveauEtude.getId() == GlobalParameters.MOYENNE_SECTION ||
+                            niveauEtude.getId() == GlobalParameters.GRANDE_SECTION)) {
                 Integer validBirthYear = DateUtils.currentYear() - niveauEtude.getAnnee();
                 Integer birthYear = DateUtils.getYear(dossier.getCandidat().getBirthDate());
 
                 if (birthYear.compareTo(validBirthYear) != 0) {
-                    errors.add(messageBean.getMessage("petiteSectionAge"));
+                    String message = "";
+                    if (niveauEtude.getId() == GlobalParameters.PETITE_SECTION) {
+                        message = messageBean.getMessage("petiteSectionAge");
+                    } else if (niveauEtude.getId() == GlobalParameters.MOYENNE_SECTION) {
+                        message = messageBean.getMessage("moyenneSectionAge");
+                    } else if (niveauEtude.getId() == GlobalParameters.GRANDE_SECTION) {
+                        message = messageBean.getMessage("grandeSectionAge");
+                    }
+
+                    errors.add(message.replaceAll("#year", validBirthYear.toString()));
                 }
             } else if (niveauEtude.getAnnee() == null) {
                 if (dossier.getCandidat().getBacSerie() == null

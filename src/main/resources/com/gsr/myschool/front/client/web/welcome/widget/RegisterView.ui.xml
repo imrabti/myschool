@@ -33,7 +33,7 @@
             <boot:ControlGroup addStyleNames="{style.groupWrapper}">
                 <boot:Controls>
                     <boot:Tooltip text="{helpMessage.emailHelp}" placement="BOTTOM">
-                        <boot:TextBox ui:field="email" placeholder="Identifiant" width="100%" />
+                        <boot:TextBox ui:field="email" placeholder="Identifiant" width="100%"/>
                     </boot:Tooltip>
                 </boot:Controls>
             </boot:ControlGroup>

@@ -40,6 +40,8 @@ import java.util.Set;
 public class RegisterPresenter extends PresenterWidget<RegisterPresenter.MyView> implements RegisterUiHandlers {
     public interface MyView extends ValidatedView, HasUiHandlers<RegisterUiHandlers> {
         void edit(UserProxy userProxy);
+
+        void initPlaceHolder();
     }
 
     private final FrontRequestFactory requestFactory;
@@ -73,6 +75,7 @@ public class RegisterPresenter extends PresenterWidget<RegisterPresenter.MyView>
                     registerViolation = true;
                     getView().clearErrors();
                     getView().showErrors(violations);
+                    getView().initPlaceHolder();
                 }
 
                 @Override
