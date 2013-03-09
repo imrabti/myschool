@@ -5,14 +5,12 @@ import com.gsr.myschool.common.shared.dto.EtablissementFilterDTO;
 import com.gsr.myschool.common.shared.dto.FraterieDTO;
 import com.gsr.myschool.common.shared.dto.ScolariteActuelleDTO;
 import com.gsr.myschool.common.shared.exception.UnAuthorizedException;
-import com.gsr.myschool.common.shared.type.DossierStatus;
-import com.gsr.myschool.common.shared.type.Gender;
-import com.gsr.myschool.common.shared.type.ParentType;
-import com.gsr.myschool.common.shared.type.ValueTypeCode;
+import com.gsr.myschool.common.shared.type.*;
 import com.gsr.myschool.server.business.*;
 import com.gsr.myschool.server.business.core.Filiere;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.valuelist.ValueList;
+import com.gsr.myschool.common.shared.exception.InscriptionClosedException;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.*;
 import com.gsr.myschool.server.repos.spec.EtablissementScolaireSpec;
@@ -58,6 +56,8 @@ public class InscriptionServiceImpl implements InscriptionService {
     private Validator validator;
     @Autowired
     private I18nMessageBean messageBean;
+    @Autowired
+    private SettingsRepos settingsRepos;
 
     @Override
     @Transactional(readOnly = true)
@@ -84,7 +84,10 @@ public class InscriptionServiceImpl implements InscriptionService {
     }
 
     @Override
-    public Dossier createNewInscription() {
+    public Dossier createNewInscription() throws InscriptionClosedException {
+        Settings status = settingsRepos.findOne(SettingsKey.STATUS);
+        if (!GlobalParameters.APP_STATUS_OPENED.equals(status.getValue())) throw new InscriptionClosedException();
+
         Candidat candidat = new Candidat();
         candidatRepos.save(candidat);
 
@@ -313,7 +316,10 @@ public class InscriptionServiceImpl implements InscriptionService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<String> submitInscription(Long dossierId) {
+    public List<String> submitInscription(Long dossierId) throws InscriptionClosedException {
+        Settings status = settingsRepos.findOne(SettingsKey.STATUS);
+        if (!GlobalParameters.APP_STATUS_OPENED.equals(status.getValue())) throw new InscriptionClosedException();
+
         Set<String> validationErrors = new HashSet<String>();
 
         validatedDossier(dossierId, validationErrors);
@@ -325,6 +331,17 @@ public class InscriptionServiceImpl implements InscriptionService {
         }
 
         return new ArrayList<String>(validationErrors);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Boolean statusInscriptionOpened() {
+        Settings setting = settingsRepos.findOne(SettingsKey.STATUS);
+        if (GlobalParameters.APP_STATUS_OPENED.equals(setting.getValue())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void validatedDossier(Long dossierId, Set<String> errors) {

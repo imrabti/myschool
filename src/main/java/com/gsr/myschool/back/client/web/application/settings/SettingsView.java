@@ -16,9 +16,12 @@
 
 package com.gsr.myschool.back.client.web.application.settings;
 
+import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.cell.client.ActionCell;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
@@ -36,8 +39,10 @@ public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> impleme
 
     @UiField(provided = true)
     CellTree myTree;
-
-    private final ListDataProvider<FiliereProxy> dataProvider;
+    @UiField
+    Button activate;
+    @UiField
+    Button desactivate;
 
     @Inject
     public SettingsView(final Binder uiBinder, final ValueList valueList,
@@ -45,10 +50,24 @@ public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> impleme
             final NiveauEtudeInfosTreeFactory niveauEtudeInfosTreeFactory) {
         super(uiHandlers);
 
-        this.dataProvider = new ListDataProvider<FiliereProxy>();
         myTree = new CellTree(niveauEtudeInfosTreeFactory.create(valueList, setupShowDetails()), null);
 
         initWidget(uiBinder.createAndBindUi(this));
+    }
+
+    public void setActivate(Boolean bool) {
+        activate.setEnabled(!bool);
+        desactivate.setEnabled(bool);
+    }
+
+    @UiHandler("activate")
+    void onActivateClicked(ClickEvent event) {
+        getUiHandlers().activateInscriptions();
+    }
+
+    @UiHandler("desactivate")
+    void onDesactivateClicked(ClickEvent event) {
+        getUiHandlers().desactivateInscriptions();
     }
 
     private ActionCell.Delegate<NiveauEtudeProxy> setupShowDetails(){
