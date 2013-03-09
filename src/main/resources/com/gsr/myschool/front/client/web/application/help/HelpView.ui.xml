@@ -1,0 +1,87 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'
+             xmlns:boo="urn:import:com.github.gwtbootstrap.client.ui">
+
+    <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+
+    <ui:style>
+        .contentWrapper {
+            margin-top: 12px;
+        }
+
+        .list {
+            padding-left: 15px;
+        }
+    </ui:style>
+
+    <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
+        <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
+            <h2>
+                <g:InlineLabel text="Aide"/>
+            </h2>
+            <span style="display: block; clear: both;"/>
+        </g:HTMLPanel>
+
+        <g:HTMLPanel styleName="{style.contentWrapper}">
+            <boot:Paragraph>
+                Le processus d’inscription démarre chaque année du <strong>15 mars au 15 avril</strong>.
+            </boot:Paragraph>
+
+            <boot:Paragraph>
+                Toutes les préinscriptions se font en ligne et aucune dérogation n’est possible.
+                Cinq étapes essentielles résument cette préinscription en ligne :
+            </boot:Paragraph>
+
+            <boot:Paragraph>
+                <strong>Etape 1:</strong> Informations relatives aux parents ou tuteur légal<br/>
+                <strong>Etape 2:</strong> Informations relatives à votre enfant<br/>
+                <strong>Etape 3:</strong> Scolarité Actuelle de votre enfant<br/>
+                <strong>Etape 4:</strong> Scolarité Souhaitée pour votre enfant<br/>
+                <strong>Etape 5:</strong> Fratrie
+            </boot:Paragraph>
+
+            <boot:Paragraph>
+                Nous vous informons que la demande de préinscription de votre enfant sera traitée selon
+                sa date de naissance (voir mode de sélection des élèves) et selon les places disponibles.
+                Nous prenons en considération la fratrie nouvellement inscrites et le statut d’ancien
+                GSRien d’un des parents.
+            </boot:Paragraph>
+
+            <boot:Paragraph>
+                Grâce aux informations que vous aurez fournis, vous aurez ainsi
+                la possibilité de suivre en ligne les étapes à travers lesquels passent
+                le dossier de préinscription de votre enfant.
+            </boot:Paragraph>
+
+            <boot:Paragraph>
+                Enfin, lors de l’évaluation des candidats, nous prenons en compte un certain nombre d’éléments :
+            </boot:Paragraph>
+
+            <div class="{style.list}">
+                <boot:Paragraph>
+                    <strong>1. </strong>La mesure dans laquelle un élève s’épanouirait dans un environnement
+                    enrichi par le bilinguisme.
+                </boot:Paragraph>
+
+                <boot:Paragraph>
+                    <strong>2. </strong>Le respect de la diversité culturelle de l’école,
+                </boot:Paragraph>
+
+                <boot:Paragraph>
+                    <strong>3. </strong>L’engagement des parents envers l’éducation et les programmes de l’école,
+                    et cela qu’il s’agisse d’un élève déjà inscrit auparavant, d’un enfant d’expatriés venant
+                    s’installer à Casablanca, d’une fratrie, d’un enfant d’ancien élève, d’un professeur, d’un membre
+                    de notre personnel administratif ou de tout autre cas qui pourrait contribuer
+                    à enrichir la vie du GSR.
+                </boot:Paragraph>
+            </div>
+
+            <boot:Paragraph>
+                Il n’est pas possible de dire lequel de ces critères revêt le plus d’importance ou pèsera
+                le plus dans la décision finale. Nous sommes conscients que chaque enfant est unique.
+                Néanmoins, il est évident que l‘admission d’un élève au GSR prend en compte ces différents éléments.
+            </boot:Paragraph>
+        </g:HTMLPanel>
+    </g:HTMLPanel>
+</ui:UiBinder>

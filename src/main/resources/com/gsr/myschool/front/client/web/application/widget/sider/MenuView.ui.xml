@@ -20,7 +20,7 @@
             <boot:NavWidget ui:field="inbox" icon="INBOX" text="Boîte de réception">
                 <boot:Badge ui:field="messagesCount"/>
             </boot:NavWidget>
-            <boot:NavLink icon="QUESTION_SIGN">Aide</boot:NavLink>
+            <boot:NavLink ui:field="help" icon="QUESTION_SIGN">Aide</boot:NavLink>
         </boot:WellNavList>
     </g:HTMLPanel>
 </ui:UiBinder>

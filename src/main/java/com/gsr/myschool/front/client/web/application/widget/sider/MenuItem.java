@@ -1,6 +1,6 @@
 package com.gsr.myschool.front.client.web.application.widget.sider;
 
 public enum MenuItem {
-    INSCRIPTION, CONVOCATION, INBOX;
+    INSCRIPTION, CONVOCATION, INBOX, HELP;
 }
 

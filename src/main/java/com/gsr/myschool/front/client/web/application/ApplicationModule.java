@@ -20,6 +20,7 @@ import com.google.inject.TypeLiteral;
 import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.front.client.web.application.convocation.ConvocationModule;
+import com.gsr.myschool.front.client.web.application.help.HelpModule;
 import com.gsr.myschool.front.client.web.application.inbox.InboxModule;
 import com.gsr.myschool.front.client.web.application.inscription.InscriptionModule;
 import com.gsr.myschool.front.client.web.application.popup.AccountSettingsPresenter;
@@ -39,6 +40,7 @@ public class ApplicationModule extends AbstractPresenterModule {
         install(new InscriptionModule());
         install(new ConvocationModule());
         install(new InboxModule());
+        install(new HelpModule());
 
         bind(new TypeLiteral<UiHandlersStrategy<HeaderUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<HeaderUiHandlers>>() {});
