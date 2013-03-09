@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df3b1ff5-7117-466e-88f6-7c91f881aee1">
 	<property name="ireport.zoom" value="1.1000000000000338"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="731"/>
+	<property name="ireport.y" value="746"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
@@ -31,11 +31,20 @@
 			<band/>
 		</groupHeader>
 		<groupFooter>
-			<band height="24">
+			<band height="50">
+				<image scaleImage="FillFrame">
+					<reportElement uuid="55ce2972-75c6-4ff5-9d12-5c5a619c46ac" x="33" y="3" width="494" height="45"/>
+					<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"footer_prepas.jpg"]]></imageExpression>
+				</image>
+			</band>
+			<band height="18">
 				<subreport>
-					<reportElement uuid="f90ea505-126c-477c-917f-6ec14882e51b" positionType="Float" stretchType="RelativeToBandHeight" x="49" y="8" width="461" height="8">
+					<reportElement uuid="f90ea505-126c-477c-917f-6ec14882e51b" positionType="Float" stretchType="RelativeToBandHeight" x="47" y="5" width="461" height="8">
 						<printWhenExpression><![CDATA[$P{fraterie}.size() > 0]]></printWhenExpression>
 					</reportElement>
+					<subreportParameter name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
 					<subreportParameter name="fraterie">
 						<subreportParameterExpression><![CDATA[$P{fraterie}]]></subreportParameterExpression>
 					</subreportParameter>
@@ -45,7 +54,20 @@
 			</band>
 			<band height="18">
 				<subreport>
-					<reportElement uuid="3043b39c-51cf-46d2-b9a5-02257df3d88e" positionType="Float" x="48" y="6" width="464" height="6" isRemoveLineWhenBlank="true"/>
+					<reportElement uuid="d6710526-7933-4e42-94ac-79e61f2eaea7" positionType="Float" x="46" y="6" width="463" height="5" isRemoveLineWhenBlank="true"/>
+					<subreportParameter name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="REPORT_DATA_SOURCE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportPrepa_subreport5.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="18">
+				<subreport>
+					<reportElement uuid="3043b39c-51cf-46d2-b9a5-02257df3d88e" positionType="Float" x="45" y="7" width="464" height="6" isRemoveLineWhenBlank="true"/>
 					<subreportParameter name="SUBREPORT_DIR">
 						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
@@ -58,23 +80,7 @@
 			</band>
 			<band height="18">
 				<subreport>
-					<reportElement uuid="c13853ad-bebc-4d9d-939c-e033ab175c9c" positionType="Float" x="48" y="7" width="463" height="5" isRemoveLineWhenBlank="true"/>
-					<subreportParameter name="SUBREPORT_DIR">
-						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter name="pieces">
-						<subreportParameterExpression><![CDATA[$P{pieces}]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter name="dateLimite">
-						<subreportParameterExpression><![CDATA[$P{dateLimite}]]></subreportParameterExpression>
-					</subreportParameter>
-					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{pieces})]]></dataSourceExpression>
-					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportPrepa_subreport3.jasper"]]></subreportExpression>
-				</subreport>
-			</band>
-			<band height="18">
-				<subreport>
-					<reportElement uuid="bb3f79dd-6832-4d58-b3ec-c992b34823d1" positionType="Float" x="47" y="6" width="463" height="5" isRemoveLineWhenBlank="true"/>
+					<reportElement uuid="bb3f79dd-6832-4d58-b3ec-c992b34823d1" positionType="Float" x="45" y="7" width="463" height="5" isRemoveLineWhenBlank="true"/>
 					<subreportParameter name="SUBREPORT_DIR">
 						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
@@ -86,75 +92,41 @@
 			</band>
 			<band height="18">
 				<subreport>
-					<reportElement uuid="d6710526-7933-4e42-94ac-79e61f2eaea7" positionType="Float" x="47" y="7" width="463" height="5" isRemoveLineWhenBlank="true"/>
+					<reportElement uuid="c13853ad-bebc-4d9d-939c-e033ab175c9c" positionType="Float" x="45" y="7" width="463" height="5" isRemoveLineWhenBlank="true"/>
 					<subreportParameter name="SUBREPORT_DIR">
 						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="dateLimite">
+						<subreportParameterExpression><![CDATA[$P{dateLimite}]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter name="REPORT_DATA_SOURCE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></subreportParameterExpression>
 					</subreportParameter>
-					<dataSourceExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></dataSourceExpression>
-					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportPrepa_subreport5.jasper"]]></subreportExpression>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{pieces})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportPrepa_subreport3.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 		</groupFooter>
 	</group>
 	<title>
-		<band height="85" splitType="Prevent">
-			<rectangle>
-				<reportElement uuid="dc78f966-1f32-484b-b473-3aae35cffeae" x="129" y="6" width="273" height="66"/>
-				<graphicElement>
-					<pen lineWidth="0.5"/>
-				</graphicElement>
-			</rectangle>
-			<staticText>
-				<reportElement uuid="d991b771-d096-4011-b09d-9a2efa03813a" x="164" y="12" width="198" height="13"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[DOSSIER DE CANDIDATURE]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="0398efc5-68a3-4ed7-9175-69964de9199a" x="164" y="40" width="88" height="24"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Dossier n° : ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="110de9f3-84de-47f2-8c5e-e0a1fa1ff851" x="164" y="25" width="88" height="15"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Année scolaire ]]></text>
-			</staticText>
-			<image>
-				<reportElement uuid="55ce2972-75c6-4ff5-9d12-5c5a619c46ac" x="33" y="6" width="81" height="66"/>
-				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"gsrlogo.png"]]></imageExpression>
+		<band height="102" splitType="Prevent">
+			<image scaleImage="FillFrame">
+				<reportElement uuid="55ce2972-75c6-4ff5-9d12-5c5a619c46ac" x="33" y="0" width="494" height="102"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"header_gsr.jpg"]]></imageExpression>
 			</image>
-			<staticText>
-				<reportElement uuid="9831355a-c186-4442-aeb6-c39fa10fb2d4" x="428" y="6" width="70" height="66"/>
-				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="false" isItalic="false"/>
-				</textElement>
-				<text><![CDATA[Photo
-
-d'identité
-
-à agrapher]]></text>
-			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="8f27c26d-ea24-44e4-a774-9954da2d7457" x="252" y="40" width="110" height="24"/>
+				<reportElement uuid="2f69a38b-a8ed-471e-a5d2-a89bd9b311a4" x="277" y="26" width="110" height="15"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8"/>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{currentYear}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="8f27c26d-ea24-44e4-a774-9954da2d7457" x="277" y="41" width="110" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dossier}.get("generatedNumDossier")]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="2f69a38b-a8ed-471e-a5d2-a89bd9b311a4" x="252" y="25" width="110" height="15"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{currentYear}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -165,36 +137,36 @@ d'identité
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="675" splitType="Stretch">
+		<band height="630" splitType="Stretch">
 			<line>
-				<reportElement uuid="9b0628e4-0a15-487e-bc63-9df9efd628a6" x="33" y="90" width="495" height="1"/>
+				<reportElement uuid="9b0628e4-0a15-487e-bc63-9df9efd628a6" x="33" y="28" width="495" height="1"/>
 			</line>
 			<line>
-				<reportElement uuid="fb5e493d-60ff-4962-883c-bb1b3299ae86" x="33" y="249" width="495" height="1"/>
+				<reportElement uuid="fb5e493d-60ff-4962-883c-bb1b3299ae86" x="33" y="187" width="495" height="1"/>
 			</line>
 			<staticText>
-				<reportElement uuid="2b4846a6-990e-4a92-92c9-78476710c372" stretchType="RelativeToTallestObject" x="39" y="119" width="52" height="20"/>
+				<reportElement uuid="2b4846a6-990e-4a92-92c9-78476710c372" stretchType="RelativeToTallestObject" x="39" y="57" width="52" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Né(e) le : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0cd9a602-c619-44a8-a518-87bd782f2dd8" mode="Transparent" x="33" y="73" width="494" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="0cd9a602-c619-44a8-a518-87bd782f2dd8" mode="Transparent" x="33" y="11" width="494" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Candidat]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="28e4ea55-ed3d-4687-9f9e-89da252b78bb" mode="Transparent" x="35" y="232" width="492" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="28e4ea55-ed3d-4687-9f9e-89da252b78bb" mode="Transparent" x="35" y="170" width="492" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Candidature]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="aecce0f8-30f0-4d86-90fe-b132b9249200" x="35" y="339" width="55" height="20">
+				<reportElement uuid="aecce0f8-30f0-4d86-90fe-b132b9249200" x="35" y="277" width="55" height="20">
 					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Bottom">
@@ -203,7 +175,7 @@ d'identité
 				<text><![CDATA[Père]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="92f9f034-b4da-46e9-80a3-c65ab1249108" stretchType="RelativeToTallestObject" x="35" y="361" width="55" height="20">
+				<reportElement uuid="92f9f034-b4da-46e9-80a3-c65ab1249108" stretchType="RelativeToTallestObject" x="35" y="299" width="55" height="20">
 					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -212,7 +184,7 @@ d'identité
 				<text><![CDATA[Nom :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="25bc8cd3-6d5f-45a5-a8a8-778bc41e4301" stretchType="RelativeToTallestObject" x="35" y="381" width="55" height="20">
+				<reportElement uuid="25bc8cd3-6d5f-45a5-a8a8-778bc41e4301" stretchType="RelativeToTallestObject" x="35" y="319" width="55" height="20">
 					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -221,7 +193,7 @@ d'identité
 				<text><![CDATA[Institution :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="99b029e0-bda0-4820-a1ea-7c032b179a87" stretchType="RelativeToTallestObject" x="35" y="402" width="55" height="20">
+				<reportElement uuid="99b029e0-bda0-4820-a1ea-7c032b179a87" stretchType="RelativeToTallestObject" x="35" y="340" width="55" height="20">
 					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -230,7 +202,7 @@ d'identité
 				<text><![CDATA[Fonction :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="af992ffb-87d1-41f1-9c6a-b75639fd3738" stretchType="RelativeToTallestObject" x="35" y="426" width="55" height="20">
+				<reportElement uuid="af992ffb-87d1-41f1-9c6a-b75639fd3738" stretchType="RelativeToTallestObject" x="35" y="364" width="55" height="20">
 					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -239,7 +211,7 @@ d'identité
 				<text><![CDATA[Adresse :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d58367f5-fbd8-4f03-b863-ddcaee17dcaf" stretchType="RelativeToTallestObject" x="285" y="361" width="70" height="20">
+				<reportElement uuid="d58367f5-fbd8-4f03-b863-ddcaee17dcaf" stretchType="RelativeToTallestObject" x="285" y="299" width="70" height="20">
 					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -248,7 +220,7 @@ d'identité
 				<text><![CDATA[Tél. bureau :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="7be43a02-405a-484a-bbb6-9b38ad2c35b5" stretchType="RelativeToTallestObject" x="285" y="381" width="70" height="20">
+				<reportElement uuid="7be43a02-405a-484a-bbb6-9b38ad2c35b5" stretchType="RelativeToTallestObject" x="285" y="319" width="70" height="20">
 					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -257,7 +229,7 @@ d'identité
 				<text><![CDATA[Tél. domicile :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="44819bb3-233c-4ee6-9392-113fccedb187" stretchType="RelativeToTallestObject" x="285" y="402" width="70" height="20">
+				<reportElement uuid="44819bb3-233c-4ee6-9392-113fccedb187" stretchType="RelativeToTallestObject" x="285" y="340" width="70" height="20">
 					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -266,17 +238,17 @@ d'identité
 				<text><![CDATA[Tél. GSM :]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="5c55d69c-207c-4bdf-ac3b-51033ba0aebc" x="33" y="337" width="495" height="1"/>
+				<reportElement uuid="5c55d69c-207c-4bdf-ac3b-51033ba0aebc" x="33" y="275" width="495" height="1"/>
 			</line>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="b46192f8-4520-4bca-8c3f-9fcbaccb857c" stretchType="RelativeToTallestObject" x="90" y="119" width="186" height="20"/>
+				<reportElement uuid="b46192f8-4520-4bca-8c3f-9fcbaccb857c" stretchType="RelativeToTallestObject" x="90" y="57" width="186" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{candidat}.get("birthDateStr")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="85668093-c159-42fd-a6db-9223e7fcef18" stretchType="RelativeToTallestObject" x="91" y="361" width="185" height="20">
+				<reportElement uuid="85668093-c159-42fd-a6db-9223e7fcef18" stretchType="RelativeToTallestObject" x="91" y="299" width="185" height="20">
 					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -285,7 +257,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{pere}.get("prenom").toString() + " " + $P{pere}.get("nom").toString()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="a0ef1598-bb84-4065-835e-717f97c6fd7c" stretchType="RelativeToTallestObject" x="91" y="381" width="185" height="20">
+				<reportElement uuid="a0ef1598-bb84-4065-835e-717f97c6fd7c" stretchType="RelativeToTallestObject" x="91" y="319" width="185" height="20">
 					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -294,7 +266,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{pere}.get("institution")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="a181bd8c-8bfa-49a7-926d-e2dc84101b10" stretchType="RelativeToTallestObject" x="91" y="402" width="185" height="20">
+				<reportElement uuid="a181bd8c-8bfa-49a7-926d-e2dc84101b10" stretchType="RelativeToTallestObject" x="91" y="340" width="185" height="20">
 					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -303,7 +275,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{pere}.get("fonction")]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="44e8c0cb-90c4-41cf-9395-d89483882ae8" stretchType="RelativeToTallestObject" x="91" y="426" width="195" height="20">
+				<reportElement uuid="44e8c0cb-90c4-41cf-9395-d89483882ae8" stretchType="RelativeToTallestObject" x="91" y="364" width="195" height="20">
 					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -319,7 +291,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{pere}.get("address")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="e784ad71-e1ab-4e35-ab9c-94af3b6bb054" stretchType="RelativeToTallestObject" x="357" y="361" width="170" height="20">
+				<reportElement uuid="e784ad71-e1ab-4e35-ab9c-94af3b6bb054" stretchType="RelativeToTallestObject" x="357" y="299" width="170" height="20">
 					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -328,7 +300,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{pere}.get("telBureau")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="8eb68c05-da35-499c-a65a-1dca70fb417a" stretchType="RelativeToTallestObject" x="357" y="381" width="170" height="20">
+				<reportElement uuid="8eb68c05-da35-499c-a65a-1dca70fb417a" stretchType="RelativeToTallestObject" x="357" y="319" width="170" height="20">
 					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -337,7 +309,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{pere}.get("telDom")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="2806ac3e-1d77-4aaa-8d47-b291685aeea1" stretchType="RelativeToTallestObject" x="357" y="402" width="170" height="20">
+				<reportElement uuid="2806ac3e-1d77-4aaa-8d47-b291685aeea1" stretchType="RelativeToTallestObject" x="357" y="340" width="170" height="20">
 					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -346,98 +318,98 @@ d'identité
 				<textFieldExpression><![CDATA[$P{pere}.get("telGsm")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="b1e6db09-870b-41b8-bc00-f62f5fa409f9" stretchType="RelativeToTallestObject" x="344" y="119" width="183" height="20"/>
+				<reportElement uuid="b1e6db09-870b-41b8-bc00-f62f5fa409f9" stretchType="RelativeToTallestObject" x="344" y="57" width="183" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{candidat}.get("birthLocation")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="0e9eda97-4ea4-4f17-a69a-43bd2aea0183" stretchType="RelativeToTallestObject" x="276" y="119" width="68" height="20"/>
+				<reportElement uuid="0e9eda97-4ea4-4f17-a69a-43bd2aea0183" stretchType="RelativeToTallestObject" x="276" y="57" width="68" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[A : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="3a90d653-03a5-4f21-99ee-f17325f8eeec" stretchType="RelativeToTallestObject" x="277" y="164" width="67" height="20"/>
+				<reportElement uuid="3a90d653-03a5-4f21-99ee-f17325f8eeec" stretchType="RelativeToTallestObject" x="277" y="102" width="67" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Email :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="2d4240dc-1deb-48f2-aa0e-0380f6ce60ca" stretchType="RelativeToTallestObject" x="91" y="164" width="185" height="20"/>
+				<reportElement uuid="2d4240dc-1deb-48f2-aa0e-0380f6ce60ca" stretchType="RelativeToTallestObject" x="91" y="102" width="185" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{candidat}.get("gsm")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="5e5f4406-d952-47c4-a2c4-7fe6b24acbc6" stretchType="RelativeToTallestObject" x="40" y="164" width="51" height="20"/>
+				<reportElement uuid="5e5f4406-d952-47c4-a2c4-7fe6b24acbc6" stretchType="RelativeToTallestObject" x="40" y="102" width="51" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[GSM :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="88ef1372-2cdf-4f1e-a18a-a0505c9fec67" stretchType="RelativeToTallestObject" x="344" y="164" width="183" height="20"/>
+				<reportElement uuid="88ef1372-2cdf-4f1e-a18a-a0505c9fec67" stretchType="RelativeToTallestObject" x="344" y="102" width="183" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{candidat}.get("email")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="f0ef0124-209c-4250-be70-ffb6b01a3fa9" stretchType="RelativeToTallestObject" x="276" y="186" width="68" height="20"/>
+				<reportElement uuid="f0ef0124-209c-4250-be70-ffb6b01a3fa9" stretchType="RelativeToTallestObject" x="276" y="124" width="68" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[C.N.I :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="da33694f-4b8f-4e85-96e9-04c3b27369d6" stretchType="RelativeToTallestObject" x="90" y="186" width="186" height="20"/>
+				<reportElement uuid="da33694f-4b8f-4e85-96e9-04c3b27369d6" stretchType="RelativeToTallestObject" x="90" y="124" width="186" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{candidat}.get("cne")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="de925439-045c-4a79-9e5f-dd71cdd394e1" stretchType="RelativeToTallestObject" x="39" y="186" width="52" height="20"/>
+				<reportElement uuid="de925439-045c-4a79-9e5f-dd71cdd394e1" stretchType="RelativeToTallestObject" x="39" y="124" width="52" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[C.N.E :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="569a91cc-1363-4d06-8d1d-0e0c780fc201" stretchType="RelativeToTallestObject" x="344" y="186" width="183" height="20"/>
+				<reportElement uuid="569a91cc-1363-4d06-8d1d-0e0c780fc201" stretchType="RelativeToTallestObject" x="344" y="124" width="183" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{candidat}.get("cin")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="3b289026-0a3a-460f-89c6-c5261952b37c" stretchType="RelativeToTallestObject" x="39" y="209" width="142" height="20"/>
+				<reportElement uuid="3b289026-0a3a-460f-89c6-c5261952b37c" stretchType="RelativeToTallestObject" x="39" y="147" width="142" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Série et année du Baccalauréat :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="9892d9f0-9c86-44bd-8af9-0450b776c07f" stretchType="RelativeToTallestObject" x="181" y="209" width="346" height="20"/>
+				<reportElement uuid="9892d9f0-9c86-44bd-8af9-0450b776c07f" stretchType="RelativeToTallestObject" x="181" y="147" width="346" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{bacSerie}.get("value")+" - "+$P{bacYear}.get("value")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="14cfe829-72bc-4682-8aaf-cecd0b2b101c" mode="Transparent" x="35" y="320" width="492" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="14cfe829-72bc-4682-8aaf-cecd0b2b101c" mode="Transparent" x="35" y="258" width="492" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Informations relatives aux parents]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="bdc6470b-95c3-4a9a-91ba-8b33e7b46177" stretchType="RelativeToTallestObject" x="286" y="426" width="35" height="20">
+				<reportElement uuid="bdc6470b-95c3-4a9a-91ba-8b33e7b46177" stretchType="RelativeToTallestObject" x="286" y="364" width="35" height="20">
 					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -446,7 +418,7 @@ d'identité
 				<text><![CDATA[Email :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="f453b9be-a70c-45a9-97c3-0c4d2e9aa6cb" stretchType="RelativeToTallestObject" x="321" y="426" width="206" height="20">
+				<reportElement uuid="f453b9be-a70c-45a9-97c3-0c4d2e9aa6cb" stretchType="RelativeToTallestObject" x="321" y="364" width="206" height="20">
 					<printWhenExpression><![CDATA[$P{pere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -455,77 +427,77 @@ d'identité
 				<textFieldExpression><![CDATA[$P{pere}.get("email")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="5ad812c5-4afb-415f-910f-87e05f7d4168" stretchType="RelativeToTallestObject" x="345" y="97" width="182" height="20"/>
+				<reportElement uuid="5ad812c5-4afb-415f-910f-87e05f7d4168" stretchType="RelativeToTallestObject" x="345" y="35" width="182" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{candidat}.get("firstname")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="ae889c03-4a2d-4d84-8b47-f654ced08157" stretchType="RelativeToTallestObject" x="277" y="97" width="67" height="20"/>
+				<reportElement uuid="ae889c03-4a2d-4d84-8b47-f654ced08157" stretchType="RelativeToTallestObject" x="277" y="35" width="67" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Prénom : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="aa6094cc-b2e9-488c-a907-45b91139acca" stretchType="RelativeToTallestObject" x="40" y="97" width="51" height="20"/>
+				<reportElement uuid="aa6094cc-b2e9-488c-a907-45b91139acca" stretchType="RelativeToTallestObject" x="40" y="35" width="51" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Nom : ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="4a28be7e-1462-40ab-9cc2-f7cdcb7a28b7" stretchType="RelativeToTallestObject" x="91" y="97" width="185" height="20"/>
+				<reportElement uuid="4a28be7e-1462-40ab-9cc2-f7cdcb7a28b7" stretchType="RelativeToTallestObject" x="91" y="35" width="185" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{candidat}.get("lastname")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="2bc266df-8d27-4d77-a23d-51fa584ad683" x="36" y="254" width="54" height="24"/>
+				<reportElement uuid="2bc266df-8d27-4d77-a23d-51fa584ad683" x="36" y="192" width="54" height="24"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Filière (1) : ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="df1f51a1-60ee-4670-823c-61c7b6113b9b" x="311" y="254" width="216" height="24"/>
+				<reportElement uuid="df1f51a1-60ee-4670-823c-61c7b6113b9b" x="311" y="192" width="216" height="24"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{niveauEtude}.get("nom")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="dfe6d456-f5ef-4612-805e-9f1e0fda2150" x="258" y="254" width="53" height="24"/>
+				<reportElement uuid="dfe6d456-f5ef-4612-805e-9f1e0fda2150" x="258" y="192" width="53" height="24"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Option (1) : ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="f053571f-d5fa-4609-89b8-ab51c038b958" x="91" y="254" width="167" height="24"/>
+				<reportElement uuid="f053571f-d5fa-4609-89b8-ab51c038b958" x="91" y="192" width="167" height="24"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{filiere}.get("nom").toString().toLowerCase()]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement uuid="de696785-e2de-45dd-89d2-2697d1cae512" x="91" y="141" width="436" height="20"/>
+				<reportElement uuid="de696785-e2de-45dd-89d2-2697d1cae512" x="91" y="79" width="436" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nationalite}.get("value").toString().toLowerCase()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="6c361d9e-ee75-4b76-b7c6-6f9879050d0b" stretchType="RelativeToTallestObject" x="39" y="141" width="52" height="20"/>
+				<reportElement uuid="6c361d9e-ee75-4b76-b7c6-6f9879050d0b" stretchType="RelativeToTallestObject" x="39" y="79" width="52" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Nationalité : ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="160f2cb2-9571-4172-9c67-5b8f1e4553ff" stretchType="RelativeToTallestObject" x="357" y="513" width="170" height="20">
+				<reportElement uuid="160f2cb2-9571-4172-9c67-5b8f1e4553ff" stretchType="RelativeToTallestObject" x="357" y="451" width="170" height="20">
 					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -534,7 +506,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{mere}.get("telGsm")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="726ddeb3-edc6-4231-b43a-5292021c1cb5" stretchType="RelativeToTallestObject" x="286" y="537" width="35" height="20">
+				<reportElement uuid="726ddeb3-edc6-4231-b43a-5292021c1cb5" stretchType="RelativeToTallestObject" x="286" y="475" width="35" height="20">
 					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -543,7 +515,7 @@ d'identité
 				<text><![CDATA[Email :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="7d263126-f5be-449c-9387-9702f36aa741" stretchType="RelativeToTallestObject" x="91" y="537" width="195" height="20">
+				<reportElement uuid="7d263126-f5be-449c-9387-9702f36aa741" stretchType="RelativeToTallestObject" x="91" y="475" width="195" height="20">
 					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -559,7 +531,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{mere}.get("address")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="85ffeb4e-6d96-4f2c-8d05-f3d3058864de" stretchType="RelativeToTallestObject" x="321" y="537" width="206" height="20">
+				<reportElement uuid="85ffeb4e-6d96-4f2c-8d05-f3d3058864de" stretchType="RelativeToTallestObject" x="321" y="475" width="206" height="20">
 					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -568,7 +540,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{mere}.get("email")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="42cd4ca8-afef-4671-854f-bc26c939bf22" stretchType="RelativeToTallestObject" x="91" y="472" width="185" height="20">
+				<reportElement uuid="42cd4ca8-afef-4671-854f-bc26c939bf22" stretchType="RelativeToTallestObject" x="91" y="410" width="185" height="20">
 					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -577,7 +549,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{mere}.get("prenom").toString() + " " + $P{mere}.get("nom").toString()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="38e3e690-90ad-4e3a-bcd7-c92f499fe793" stretchType="RelativeToTallestObject" x="91" y="513" width="185" height="20">
+				<reportElement uuid="38e3e690-90ad-4e3a-bcd7-c92f499fe793" stretchType="RelativeToTallestObject" x="91" y="451" width="185" height="20">
 					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -586,7 +558,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{mere}.get("fonction")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="a96af7d1-8b74-4c3b-b9e0-41451293d034" stretchType="RelativeToTallestObject" x="357" y="492" width="170" height="20">
+				<reportElement uuid="a96af7d1-8b74-4c3b-b9e0-41451293d034" stretchType="RelativeToTallestObject" x="357" y="430" width="170" height="20">
 					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -595,7 +567,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{mere}.get("telDom")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="657f5add-873d-44f4-a5d4-59019b60af4c" stretchType="RelativeToTallestObject" x="285" y="472" width="70" height="20">
+				<reportElement uuid="657f5add-873d-44f4-a5d4-59019b60af4c" stretchType="RelativeToTallestObject" x="285" y="410" width="70" height="20">
 					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -604,7 +576,7 @@ d'identité
 				<text><![CDATA[Tél. bureau :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="79420808-1221-4a97-8e4d-522b8fe18d93" stretchType="RelativeToTallestObject" x="35" y="513" width="55" height="20">
+				<reportElement uuid="79420808-1221-4a97-8e4d-522b8fe18d93" stretchType="RelativeToTallestObject" x="35" y="451" width="55" height="20">
 					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -613,7 +585,7 @@ d'identité
 				<text><![CDATA[Fonction :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9c6a1abe-75f1-4866-b537-dc09bc4656f0" stretchType="RelativeToTallestObject" x="285" y="492" width="70" height="20">
+				<reportElement uuid="9c6a1abe-75f1-4866-b537-dc09bc4656f0" stretchType="RelativeToTallestObject" x="285" y="430" width="70" height="20">
 					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -622,7 +594,7 @@ d'identité
 				<text><![CDATA[Tél. domicile :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1b70a42d-1126-4f61-94c5-c70c8397c1de" stretchType="RelativeToTallestObject" x="35" y="537" width="55" height="20">
+				<reportElement uuid="1b70a42d-1126-4f61-94c5-c70c8397c1de" stretchType="RelativeToTallestObject" x="35" y="475" width="55" height="20">
 					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -631,7 +603,7 @@ d'identité
 				<text><![CDATA[Adresse :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b3a88b60-a651-420f-84a4-cd858d6626e9" stretchType="RelativeToTallestObject" x="285" y="513" width="70" height="20">
+				<reportElement uuid="b3a88b60-a651-420f-84a4-cd858d6626e9" stretchType="RelativeToTallestObject" x="285" y="451" width="70" height="20">
 					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -640,7 +612,7 @@ d'identité
 				<text><![CDATA[Tél. GSM :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ce088734-aad1-44a1-a263-60b2006aef08" stretchType="RelativeToTallestObject" x="35" y="492" width="55" height="20">
+				<reportElement uuid="ce088734-aad1-44a1-a263-60b2006aef08" stretchType="RelativeToTallestObject" x="35" y="430" width="55" height="20">
 					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -649,7 +621,7 @@ d'identité
 				<text><![CDATA[Institution :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="1373a655-dcf1-474b-a7f7-7cd1115f611c" stretchType="RelativeToTallestObject" x="91" y="492" width="185" height="20">
+				<reportElement uuid="1373a655-dcf1-474b-a7f7-7cd1115f611c" stretchType="RelativeToTallestObject" x="91" y="430" width="185" height="20">
 					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -658,7 +630,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{mere}.get("institution")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="78c025cd-8c2b-4113-a93a-e0b745b2d733" stretchType="RelativeToTallestObject" x="357" y="472" width="170" height="20">
+				<reportElement uuid="78c025cd-8c2b-4113-a93a-e0b745b2d733" stretchType="RelativeToTallestObject" x="357" y="410" width="170" height="20">
 					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -667,7 +639,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{mere}.get("telBureau")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="b4a74640-2eb4-4d1a-b08c-64117cc2039e" x="35" y="450" width="55" height="20">
+				<reportElement uuid="b4a74640-2eb4-4d1a-b08c-64117cc2039e" x="35" y="388" width="55" height="20">
 					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Bottom">
@@ -676,7 +648,7 @@ d'identité
 				<text><![CDATA[Mère]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a2b6e183-6e32-4304-b1e9-c037fbe8a993" stretchType="RelativeToTallestObject" x="35" y="472" width="55" height="20">
+				<reportElement uuid="a2b6e183-6e32-4304-b1e9-c037fbe8a993" stretchType="RelativeToTallestObject" x="35" y="410" width="55" height="20">
 					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -685,7 +657,7 @@ d'identité
 				<text><![CDATA[Nom :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="84f4b287-ab11-4a9a-9e60-866aeb438525" stretchType="RelativeToTallestObject" x="358" y="601" width="170" height="20">
+				<reportElement uuid="84f4b287-ab11-4a9a-9e60-866aeb438525" stretchType="RelativeToTallestObject" x="358" y="539" width="170" height="20">
 					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -694,7 +666,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{tuteur}.get("telDom")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="118ddb9e-1c19-4e4d-96c6-1bf222f33cf5" stretchType="RelativeToTallestObject" x="286" y="601" width="70" height="20">
+				<reportElement uuid="118ddb9e-1c19-4e4d-96c6-1bf222f33cf5" stretchType="RelativeToTallestObject" x="286" y="539" width="70" height="20">
 					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -703,7 +675,7 @@ d'identité
 				<text><![CDATA[Tél. domicile :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="16ac4d92-482c-49d6-a849-9b90304442ad" stretchType="RelativeToTallestObject" x="92" y="646" width="194" height="20">
+				<reportElement uuid="16ac4d92-482c-49d6-a849-9b90304442ad" stretchType="RelativeToTallestObject" x="92" y="584" width="194" height="20">
 					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -719,7 +691,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{tuteur}.get("address")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="85505ba9-22de-41a9-be98-81af8cf4f323" stretchType="RelativeToTallestObject" x="36" y="646" width="55" height="20">
+				<reportElement uuid="85505ba9-22de-41a9-be98-81af8cf4f323" stretchType="RelativeToTallestObject" x="36" y="584" width="55" height="20">
 					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -728,7 +700,7 @@ d'identité
 				<text><![CDATA[Adresse :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e678ae5a-ae04-4104-a6d4-268ad7931bde" stretchType="RelativeToTallestObject" x="36" y="601" width="55" height="20">
+				<reportElement uuid="e678ae5a-ae04-4104-a6d4-268ad7931bde" stretchType="RelativeToTallestObject" x="36" y="539" width="55" height="20">
 					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -737,7 +709,7 @@ d'identité
 				<text><![CDATA[Institution :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="fb68bf7f-3944-4ffb-8fab-a5ae07d32efe" stretchType="RelativeToTallestObject" x="92" y="601" width="185" height="20">
+				<reportElement uuid="fb68bf7f-3944-4ffb-8fab-a5ae07d32efe" stretchType="RelativeToTallestObject" x="92" y="539" width="185" height="20">
 					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -746,7 +718,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{tuteur}.get("institution")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="02150dfa-1836-4a9b-867f-2f77056932fa" stretchType="RelativeToTallestObject" x="286" y="581" width="70" height="20">
+				<reportElement uuid="02150dfa-1836-4a9b-867f-2f77056932fa" stretchType="RelativeToTallestObject" x="286" y="519" width="70" height="20">
 					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -755,7 +727,7 @@ d'identité
 				<text><![CDATA[Tél. bureau :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c90553a9-118b-4ab6-82c3-a67fe9b4280e" stretchType="RelativeToTallestObject" x="286" y="622" width="70" height="20">
+				<reportElement uuid="c90553a9-118b-4ab6-82c3-a67fe9b4280e" stretchType="RelativeToTallestObject" x="286" y="560" width="70" height="20">
 					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -764,7 +736,7 @@ d'identité
 				<text><![CDATA[Tél. GSM :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="22e5c802-ce33-4ebb-a4ee-b97cc3204c7f" stretchType="RelativeToTallestObject" x="36" y="622" width="55" height="20">
+				<reportElement uuid="22e5c802-ce33-4ebb-a4ee-b97cc3204c7f" stretchType="RelativeToTallestObject" x="36" y="560" width="55" height="20">
 					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -773,7 +745,7 @@ d'identité
 				<text><![CDATA[Fonction :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="6cff4e29-fe86-4060-80a8-5135a0962893" stretchType="RelativeToTallestObject" x="92" y="622" width="185" height="20">
+				<reportElement uuid="6cff4e29-fe86-4060-80a8-5135a0962893" stretchType="RelativeToTallestObject" x="92" y="560" width="185" height="20">
 					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -782,7 +754,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{tuteur}.get("fonction")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="66708c1d-385c-49a6-b890-6278a3f6d42e" stretchType="RelativeToTallestObject" x="358" y="581" width="170" height="20">
+				<reportElement uuid="66708c1d-385c-49a6-b890-6278a3f6d42e" stretchType="RelativeToTallestObject" x="358" y="519" width="170" height="20">
 					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -791,7 +763,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{tuteur}.get("telBureau")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="0641c7fc-1b2d-4671-9bd4-61b3a0f13665" x="36" y="559" width="118" height="20">
+				<reportElement uuid="0641c7fc-1b2d-4671-9bd4-61b3a0f13665" x="36" y="497" width="118" height="20">
 					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Bottom">
@@ -800,7 +772,7 @@ d'identité
 				<text><![CDATA[Tuteur légal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f9aabbf0-7357-452d-811a-fec8a758ec9c" stretchType="RelativeToTallestObject" x="287" y="646" width="34" height="20">
+				<reportElement uuid="f9aabbf0-7357-452d-811a-fec8a758ec9c" stretchType="RelativeToTallestObject" x="287" y="584" width="34" height="20">
 					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -809,7 +781,7 @@ d'identité
 				<text><![CDATA[Email :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="4ce6158d-0e50-40b5-9428-299aa208395a" stretchType="RelativeToTallestObject" x="36" y="581" width="55" height="20">
+				<reportElement uuid="4ce6158d-0e50-40b5-9428-299aa208395a" stretchType="RelativeToTallestObject" x="36" y="519" width="55" height="20">
 					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -818,7 +790,7 @@ d'identité
 				<text><![CDATA[Nom :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="334dc7b0-728f-4695-aa6b-711894ebe772" stretchType="RelativeToTallestObject" x="358" y="622" width="170" height="20">
+				<reportElement uuid="334dc7b0-728f-4695-aa6b-711894ebe772" stretchType="RelativeToTallestObject" x="358" y="560" width="170" height="20">
 					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -827,7 +799,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{tuteur}.get("telGsm")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="44f4fb70-8c14-4ee2-b08d-07e35362c49f" stretchType="RelativeToTallestObject" x="321" y="646" width="207" height="20">
+				<reportElement uuid="44f4fb70-8c14-4ee2-b08d-07e35362c49f" stretchType="RelativeToTallestObject" x="321" y="584" width="207" height="20">
 					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -836,7 +808,7 @@ d'identité
 				<textFieldExpression><![CDATA[$P{tuteur}.get("email")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="a43cf596-15f6-4858-9b7a-4a0512c8cd6d" stretchType="RelativeToTallestObject" x="92" y="581" width="185" height="20">
+				<reportElement uuid="a43cf596-15f6-4858-9b7a-4a0512c8cd6d" stretchType="RelativeToTallestObject" x="92" y="519" width="185" height="20">
 					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -844,25 +816,8 @@ d'identité
 				</textElement>
 				<textFieldExpression><![CDATA[$P{tuteur}.get("prenom").toString() + " " + $P{tuteur}.get("nom").toString()]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement uuid="79ae208b-ef0e-47a7-b4b5-dc83f53b8927" x="33" y="16" width="494" height="34"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center">
-					<paragraph lineSpacing="Fixed" lineSpacingSize="4.0"/>
-				</textElement>
-				<text><![CDATA[ATTENTION ! : EN AUCUN CAS CE DOCUMENT NE DOIT ETRE MODIFIE.
-
-TOUT DOSSIER MODIFIE OU INCOMPLET SERA REFUSE.
-]]></text>
-			</staticText>
 			<line>
-				<reportElement uuid="5c55d69c-207c-4bdf-ac3b-51033ba0aebc" x="33" y="453" width="495" height="1">
+				<reportElement uuid="5c55d69c-207c-4bdf-ac3b-51033ba0aebc" x="33" y="391" width="495" height="1">
 					<printWhenExpression><![CDATA[$P{mere}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<graphicElement>
@@ -870,7 +825,7 @@ TOUT DOSSIER MODIFIE OU INCOMPLET SERA REFUSE.
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="5c55d69c-207c-4bdf-ac3b-51033ba0aebc" x="33" y="562" width="495" height="1">
+				<reportElement uuid="5c55d69c-207c-4bdf-ac3b-51033ba0aebc" x="33" y="500" width="495" height="1">
 					<printWhenExpression><![CDATA[$P{tuteur}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<graphicElement>
@@ -878,7 +833,7 @@ TOUT DOSSIER MODIFIE OU INCOMPLET SERA REFUSE.
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement uuid="2bc266df-8d27-4d77-a23d-51fa584ad683" x="36" y="290" width="54" height="24">
+				<reportElement uuid="2bc266df-8d27-4d77-a23d-51fa584ad683" x="36" y="228" width="54" height="24">
 					<printWhenExpression><![CDATA[$P{filiere2}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -887,7 +842,7 @@ TOUT DOSSIER MODIFIE OU INCOMPLET SERA REFUSE.
 				<text><![CDATA[Filière (2) : ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="f053571f-d5fa-4609-89b8-ab51c038b958" x="91" y="290" width="167" height="24">
+				<reportElement uuid="f053571f-d5fa-4609-89b8-ab51c038b958" x="91" y="228" width="167" height="24">
 					<printWhenExpression><![CDATA[$P{filiere2}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -896,7 +851,7 @@ TOUT DOSSIER MODIFIE OU INCOMPLET SERA REFUSE.
 				<textFieldExpression><![CDATA[$P{filiere2}.get("nom").toString().toLowerCase()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="dfe6d456-f5ef-4612-805e-9f1e0fda2150" x="258" y="290" width="53" height="24">
+				<reportElement uuid="dfe6d456-f5ef-4612-805e-9f1e0fda2150" x="258" y="228" width="53" height="24">
 					<printWhenExpression><![CDATA[$P{niveauEtude2}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -905,13 +860,20 @@ TOUT DOSSIER MODIFIE OU INCOMPLET SERA REFUSE.
 				<text><![CDATA[Option (2) : ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="df1f51a1-60ee-4670-823c-61c7b6113b9b" x="311" y="290" width="216" height="24">
+				<reportElement uuid="df1f51a1-60ee-4670-823c-61c7b6113b9b" x="311" y="228" width="216" height="24">
 					<printWhenExpression><![CDATA[$P{niveauEtude2}.get("nom") != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{niveauEtude2}.get("nom")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4767852f-753c-4c92-b5c2-578d347bb587" x="428" y="610" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

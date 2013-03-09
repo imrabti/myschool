@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2_cursus" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="81c229e0-d0ac-4ca8-ae29-8f42d84b91fc">
-	<property name="ireport.zoom" value="1.7715610000000082"/>
+	<property name="ireport.zoom" value="1.1000000000000048"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<subDataset name="Table Dataset 1" uuid="a8f52c6d-8907-48bb-8aef-d8a1ed8a63db"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -16,7 +19,7 @@
 	<pageHeader>
 		<band height="20" splitType="Prevent">
 			<staticText>
-				<reportElement uuid="03c9f441-85ef-4f50-95ef-4479fda7850b" positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="-12" y="0" width="255" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="03c9f441-85ef-4f50-95ef-4479fda7850b" positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="-30" y="0" width="255" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
@@ -25,9 +28,9 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="700" splitType="Prevent">
+		<band height="669" splitType="Prevent">
 			<staticText>
-				<reportElement uuid="a73f72a1-9541-47d1-8f9f-c3d35ff368e7" positionType="Float" x="-15" y="116" width="518" height="37"/>
+				<reportElement uuid="a73f72a1-9541-47d1-8f9f-c3d35ff368e7" positionType="Float" x="-33" y="102" width="518" height="37"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -36,14 +39,14 @@
 20....../20.......   Classe ...................... Série ....................... Lycée ............................... Ville ............................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="5f129b18-9c89-48c9-a34c-65dfd3401d6a" positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="-12" y="10" width="214" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="5f129b18-9c89-48c9-a34c-65dfd3401d6a" positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="-30" y="10" width="214" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cursus scolaire]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a1b25a67-bfd9-4039-8253-bf089e174f1d" positionType="Float" x="-12" y="41" width="538" height="62"/>
+				<reportElement uuid="a1b25a67-bfd9-4039-8253-bf089e174f1d" positionType="Float" x="-30" y="36" width="538" height="62"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -55,20 +58,20 @@ Nous vous remercions pour votre collaboration.
 A partir des trois dernières années du Lycée]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="831eb353-1e00-4efd-b824-5acc8923c895" stretchType="RelativeToTallestObject" x="-12" y="166" width="283" height="25"/>
+				<reportElement uuid="831eb353-1e00-4efd-b824-5acc8923c895" stretchType="RelativeToTallestObject" x="-30" y="147" width="283" height="28"/>
 				<textElement/>
 				<text><![CDATA[Effectif de la classe : .............................
 Année scolaire        : .............................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="7b4635d8-4806-4978-947b-c091272a64d4" positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="-16" y="427" width="395" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="7b4635d8-4806-4978-947b-c091272a64d4" positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="-34" y="402" width="395" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Appréciations motivées des professeurs de la classe de Terminale]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c9cf4c4e-050a-4698-bba1-83373d786e45" stretchType="RelativeToTallestObject" mode="Transparent" x="427" y="232" width="42" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="c9cf4c4e-050a-4698-bba1-83373d786e45" stretchType="RelativeToTallestObject" mode="Transparent" x="409" y="209" width="42" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -83,7 +86,7 @@ Année scolaire        : .............................]]></text>
 note]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e667b286-17ab-4c18-8710-c54199937580" stretchType="RelativeToTallestObject" mode="Transparent" x="391" y="232" width="36" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="e667b286-17ab-4c18-8710-c54199937580" stretchType="RelativeToTallestObject" mode="Transparent" x="373" y="209" width="36" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -98,7 +101,7 @@ note]]></text>
 note]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="fe8c4007-a2ca-4dfb-87ef-5108bbe700e5" stretchType="RelativeToTallestObject" mode="Transparent" x="320" y="232" width="36" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="fe8c4007-a2ca-4dfb-87ef-5108bbe700e5" stretchType="RelativeToTallestObject" mode="Transparent" x="302" y="209" width="36" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -113,7 +116,7 @@ note]]></text>
 de l'élève]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="14225450-6662-44cf-a74b-9aeb7fcb1516" stretchType="RelativeToTallestObject" mode="Transparent" x="283" y="232" width="37" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="14225450-6662-44cf-a74b-9aeb7fcb1516" stretchType="RelativeToTallestObject" mode="Transparent" x="265" y="209" width="37" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -128,7 +131,7 @@ de l'élève]]></text>
 note]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0fd06902-c1b5-4b67-b432-241eb16ad002" stretchType="RelativeToTallestObject" mode="Transparent" x="173" y="202" width="147" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="0fd06902-c1b5-4b67-b432-241eb16ad002" stretchType="RelativeToTallestObject" mode="Transparent" x="155" y="179" width="147" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -142,7 +145,7 @@ note]]></text>
 				<text><![CDATA[1er Semestre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b7da194e-f9f4-4f18-bc30-696a67a699e3" stretchType="RelativeToTallestObject" mode="Transparent" x="320" y="202" width="149" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="b7da194e-f9f4-4f18-bc30-696a67a699e3" stretchType="RelativeToTallestObject" mode="Transparent" x="302" y="179" width="149" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -156,7 +159,7 @@ note]]></text>
 				<text><![CDATA[2e Semestre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="af86f2d5-c616-47ee-9940-b054710ec5e3" stretchType="RelativeToTallestObject" mode="Transparent" x="247" y="232" width="36" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="af86f2d5-c616-47ee-9940-b054710ec5e3" stretchType="RelativeToTallestObject" mode="Transparent" x="229" y="209" width="36" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -171,7 +174,7 @@ note]]></text>
 note]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b363531f-0159-4f9e-a764-433d47254a0f" stretchType="RelativeToTallestObject" mode="Transparent" x="356" y="232" width="35" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="b363531f-0159-4f9e-a764-433d47254a0f" stretchType="RelativeToTallestObject" mode="Transparent" x="338" y="209" width="35" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -186,7 +189,7 @@ note]]></text>
 de la classe]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="449a627a-d411-4e47-af31-6433bcbf19dc" stretchType="RelativeToTallestObject" mode="Transparent" x="173" y="232" width="38" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="449a627a-d411-4e47-af31-6433bcbf19dc" stretchType="RelativeToTallestObject" mode="Transparent" x="155" y="209" width="38" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -201,7 +204,7 @@ de la classe]]></text>
 de l'élève]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="4452f034-fcd6-4c29-a368-96f602d8df70" stretchType="RelativeToTallestObject" mode="Transparent" x="211" y="232" width="36" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="4452f034-fcd6-4c29-a368-96f602d8df70" stretchType="RelativeToTallestObject" mode="Transparent" x="193" y="209" width="36" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -216,79 +219,79 @@ de l'élève]]></text>
 de la classe]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement uuid="d3efb915-8508-47f8-a833-e024b0dad546" stretchType="RelativeToTallestObject" x="-14" y="262" width="483" height="158" forecolor="#000000"/>
+				<reportElement uuid="d3efb915-8508-47f8-a833-e024b0dad546" stretchType="RelativeToTallestObject" x="-32" y="239" width="483" height="158" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</rectangle>
 			<line>
-				<reportElement uuid="f68cd521-16bf-4279-9fda-9ee2eeb399d4" stretchType="RelativeToTallestObject" mode="Transparent" x="-13" y="290" width="481" height="1" forecolor="#000000"/>
+				<reportElement uuid="f68cd521-16bf-4279-9fda-9ee2eeb399d4" stretchType="RelativeToTallestObject" mode="Transparent" x="-31" y="267" width="481" height="1" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="bf2c70bf-491e-49b9-991f-2e4a77a26889" stretchType="RelativeToTallestObject" mode="Transparent" x="-13" y="331" width="481" height="1" forecolor="#000000"/>
+				<reportElement uuid="bf2c70bf-491e-49b9-991f-2e4a77a26889" stretchType="RelativeToTallestObject" mode="Transparent" x="-31" y="308" width="481" height="1" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="f9196573-e267-4a19-8731-78b3fe36e976" stretchType="RelativeToTallestObject" mode="Transparent" x="-13" y="359" width="481" height="1" forecolor="#000000"/>
+				<reportElement uuid="f9196573-e267-4a19-8731-78b3fe36e976" stretchType="RelativeToTallestObject" mode="Transparent" x="-31" y="336" width="481" height="1" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="3ff324cf-0762-4917-91cb-af66b85650e6" stretchType="RelativeToTallestObject" mode="Transparent" x="173" y="263" width="1" height="157" forecolor="#000000"/>
+				<reportElement uuid="3ff324cf-0762-4917-91cb-af66b85650e6" stretchType="RelativeToTallestObject" mode="Transparent" x="155" y="240" width="1" height="157" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="fc27d35c-0ae0-41d9-aa38-5c9e16dc987b" stretchType="RelativeToTallestObject" mode="Transparent" x="283" y="262" width="1" height="158" forecolor="#000000"/>
+				<reportElement uuid="fc27d35c-0ae0-41d9-aa38-5c9e16dc987b" stretchType="RelativeToTallestObject" mode="Transparent" x="265" y="239" width="1" height="158" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="ec295c71-640b-4cd1-807f-aaa5d129505d" stretchType="RelativeToTallestObject" mode="Transparent" x="211" y="262" width="1" height="158" forecolor="#000000"/>
+				<reportElement uuid="ec295c71-640b-4cd1-807f-aaa5d129505d" stretchType="RelativeToTallestObject" mode="Transparent" x="193" y="239" width="1" height="158" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="87d938b0-a45e-4264-9dfb-1668e1cd73ca" stretchType="RelativeToTallestObject" mode="Transparent" x="246" y="263" width="1" height="157" forecolor="#000000"/>
+				<reportElement uuid="87d938b0-a45e-4264-9dfb-1668e1cd73ca" stretchType="RelativeToTallestObject" mode="Transparent" x="228" y="240" width="1" height="157" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="137901e9-1e29-4d32-b50c-3758638c034d" stretchType="RelativeToTallestObject" mode="Transparent" x="320" y="262" width="1" height="158" forecolor="#000000"/>
+				<reportElement uuid="137901e9-1e29-4d32-b50c-3758638c034d" stretchType="RelativeToTallestObject" mode="Transparent" x="302" y="239" width="1" height="158" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="aad5dbca-7bfc-4c78-8689-29eacc4718c6" stretchType="RelativeToTallestObject" mode="Transparent" x="355" y="262" width="1" height="158" forecolor="#000000"/>
+				<reportElement uuid="aad5dbca-7bfc-4c78-8689-29eacc4718c6" stretchType="RelativeToTallestObject" mode="Transparent" x="337" y="239" width="1" height="158" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="150c01ee-2015-4f92-94a5-062b7b573304" stretchType="RelativeToTallestObject" mode="Transparent" x="391" y="263" width="1" height="157" forecolor="#000000"/>
+				<reportElement uuid="150c01ee-2015-4f92-94a5-062b7b573304" stretchType="RelativeToTallestObject" mode="Transparent" x="373" y="240" width="1" height="157" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="4014c4a7-7f0e-4c55-88a5-8d8a4ecd53b6" stretchType="RelativeToTallestObject" mode="Transparent" x="426" y="262" width="1" height="158" forecolor="#000000"/>
+				<reportElement uuid="4014c4a7-7f0e-4c55-88a5-8d8a4ecd53b6" stretchType="RelativeToTallestObject" mode="Transparent" x="408" y="239" width="1" height="158" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement uuid="a385b0ce-17bb-4d13-8c2e-111b4d265a60" stretchType="RelativeToTallestObject" mode="Transparent" x="-14" y="202" width="187" height="60" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="a385b0ce-17bb-4d13-8c2e-111b4d265a60" stretchType="RelativeToTallestObject" mode="Transparent" x="-32" y="179" width="187" height="60" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -302,13 +305,13 @@ de la classe]]></text>
 				<text><![CDATA[Disciplines]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="df12c9d7-e920-4cc0-9047-3104e236f4f4" stretchType="RelativeToTallestObject" mode="Transparent" x="-13" y="389" width="481" height="1" forecolor="#000000"/>
+				<reportElement uuid="df12c9d7-e920-4cc0-9047-3104e236f4f4" stretchType="RelativeToTallestObject" mode="Transparent" x="-31" y="366" width="481" height="1" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement uuid="9474c412-62d7-492a-ad39-3935b2e01d0c" stretchType="RelativeToTallestObject" mode="Transparent" x="-17" y="449" width="217" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="9474c412-62d7-492a-ad39-3935b2e01d0c" stretchType="RelativeToTallestObject" mode="Transparent" x="-35" y="426" width="217" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -322,7 +325,7 @@ de la classe]]></text>
 				<text><![CDATA[Disciplines]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="44bfcdac-e90c-4858-b9f1-293cfa5373f0" stretchType="RelativeToTallestObject" mode="Transparent" x="312" y="449" width="157" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="44bfcdac-e90c-4858-b9f1-293cfa5373f0" stretchType="RelativeToTallestObject" mode="Transparent" x="294" y="426" width="157" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -336,7 +339,7 @@ de la classe]]></text>
 				<text><![CDATA[Situation dans la classe]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="8cb0330b-451b-422e-91f9-c53b66e81e20" stretchType="RelativeToTallestObject" mode="Transparent" x="200" y="449" width="112" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="8cb0330b-451b-422e-91f9-c53b66e81e20" stretchType="RelativeToTallestObject" mode="Transparent" x="182" y="426" width="112" height="30" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -350,49 +353,49 @@ de la classe]]></text>
 				<text><![CDATA[Appréciations]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement uuid="53fa995c-758b-4b05-ac2c-863f57bfbf03" stretchType="RelativeToTallestObject" mode="Transparent" x="-17" y="479" width="486" height="210" forecolor="#000000"/>
+				<reportElement uuid="53fa995c-758b-4b05-ac2c-863f57bfbf03" stretchType="RelativeToTallestObject" mode="Transparent" x="-35" y="456" width="486" height="210" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</rectangle>
 			<line>
-				<reportElement uuid="3dceacab-41ce-4d49-89ee-ac1ec7c0feb4" stretchType="RelativeToTallestObject" mode="Transparent" x="200" y="479" width="1" height="210" forecolor="#000000"/>
+				<reportElement uuid="3dceacab-41ce-4d49-89ee-ac1ec7c0feb4" stretchType="RelativeToTallestObject" mode="Transparent" x="182" y="456" width="1" height="210" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="242e5357-2d7d-44b0-bf05-4275d217e0d8" stretchType="RelativeToTallestObject" mode="Transparent" x="312" y="480" width="1" height="210" forecolor="#000000"/>
+				<reportElement uuid="242e5357-2d7d-44b0-bf05-4275d217e0d8" stretchType="RelativeToTallestObject" mode="Transparent" x="294" y="457" width="1" height="210" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="0ff5c8cc-1d2a-4679-ba5d-ba18e8b6cec7" stretchType="RelativeToTallestObject" mode="Transparent" x="-17" y="521" width="485" height="1" forecolor="#000000"/>
+				<reportElement uuid="0ff5c8cc-1d2a-4679-ba5d-ba18e8b6cec7" stretchType="RelativeToTallestObject" mode="Transparent" x="-35" y="498" width="485" height="1" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="fb0f3bb1-90f6-47d6-a358-c1ad212bebfb" stretchType="RelativeToTallestObject" mode="Transparent" x="-16" y="563" width="485" height="1" forecolor="#000000"/>
+				<reportElement uuid="fb0f3bb1-90f6-47d6-a358-c1ad212bebfb" stretchType="RelativeToTallestObject" mode="Transparent" x="-34" y="540" width="485" height="1" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="f2562314-dfae-40f5-8d96-a3482e34a7e1" stretchType="RelativeToTallestObject" mode="Transparent" x="-16" y="606" width="485" height="1" forecolor="#000000"/>
+				<reportElement uuid="f2562314-dfae-40f5-8d96-a3482e34a7e1" stretchType="RelativeToTallestObject" mode="Transparent" x="-34" y="583" width="485" height="1" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="abf844d8-66b5-4c82-b70f-d695ff9895e4" stretchType="RelativeToTallestObject" mode="Transparent" x="-16" y="649" width="485" height="1" forecolor="#000000"/>
+				<reportElement uuid="abf844d8-66b5-4c82-b70f-d695ff9895e4" stretchType="RelativeToTallestObject" mode="Transparent" x="-34" y="626" width="485" height="1" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement uuid="c39db3c6-dcd1-4917-8618-4fc4e64d405e" positionType="Float" stretchType="RelativeToTallestObject" x="-13" y="263" width="186" height="27"/>
+				<reportElement uuid="c39db3c6-dcd1-4917-8618-4fc4e64d405e" positionType="Float" stretchType="RelativeToTallestObject" x="-31" y="240" width="186" height="27"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -400,7 +403,7 @@ de la classe]]></text>
 Nom de l'enseignant ..........................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="28cffdb6-e898-4044-89a5-665b266817a9" positionType="Float" stretchType="RelativeToTallestObject" x="-13" y="290" width="185" height="41"/>
+				<reportElement uuid="28cffdb6-e898-4044-89a5-665b266817a9" positionType="Float" stretchType="RelativeToTallestObject" x="-31" y="267" width="185" height="41"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -410,7 +413,7 @@ SGC, Bac Français ES et STG)
 Nom de l'enseignant ...............................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e5f1f1a0-02dc-48f2-9460-22d6ec93fffb" positionType="Float" stretchType="RelativeToTallestObject" x="-13" y="332" width="185" height="27"/>
+				<reportElement uuid="e5f1f1a0-02dc-48f2-9460-22d6ec93fffb" positionType="Float" stretchType="RelativeToTallestObject" x="-31" y="309" width="185" height="27"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -418,7 +421,7 @@ Nom de l'enseignant ...............................]]></text>
 Nom de l'enseignant ...............................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1506e039-4e06-4b6d-bbe5-4c4face6dfb2" positionType="Float" stretchType="RelativeToTallestObject" x="-12" y="361" width="185" height="27"/>
+				<reportElement uuid="1506e039-4e06-4b6d-bbe5-4c4face6dfb2" positionType="Float" stretchType="RelativeToTallestObject" x="-30" y="338" width="185" height="27"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -426,7 +429,7 @@ Nom de l'enseignant ...............................]]></text>
 Nom de l'enseignant ...............................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="15030a67-ecb6-45da-9834-fa5761dd13be" positionType="Float" stretchType="RelativeToTallestObject" x="-12" y="392" width="185" height="27"/>
+				<reportElement uuid="15030a67-ecb6-45da-9834-fa5761dd13be" positionType="Float" stretchType="RelativeToTallestObject" x="-30" y="369" width="185" height="27"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -434,7 +437,7 @@ Nom de l'enseignant ...............................]]></text>
 Nom de l'enseignant ...............................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="079ed0b3-dab5-4e1c-9ef6-d53d81fd31db" positionType="Float" stretchType="RelativeToTallestObject" x="-16" y="479" width="215" height="42"/>
+				<reportElement uuid="079ed0b3-dab5-4e1c-9ef6-d53d81fd31db" positionType="Float" stretchType="RelativeToTallestObject" x="-34" y="456" width="215" height="42"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -443,7 +446,7 @@ Nom de l'enseignant ...............................]]></text>
 Nom de l'enseignant ..........................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ad303cb8-2973-4516-b08c-66aab0ce15cb" positionType="Float" stretchType="RelativeToTallestObject" x="-16" y="607" width="215" height="42"/>
+				<reportElement uuid="ad303cb8-2973-4516-b08c-66aab0ce15cb" positionType="Float" stretchType="RelativeToTallestObject" x="-34" y="584" width="215" height="42"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -452,7 +455,7 @@ Nom de l'enseignant ..........................................]]></text>
 Nom de l'enseignant .........................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="dc9b72b1-be03-442a-a447-37cc0dbf677b" positionType="Float" stretchType="RelativeToTallestObject" x="-16" y="564" width="215" height="42"/>
+				<reportElement uuid="dc9b72b1-be03-442a-a447-37cc0dbf677b" positionType="Float" stretchType="RelativeToTallestObject" x="-34" y="541" width="215" height="42"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -461,7 +464,7 @@ Nom de l'enseignant .........................................]]></text>
 Nom de l'enseignant .........................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="bd3180f5-9e06-4f23-9337-295f84819a2a" positionType="Float" stretchType="RelativeToTallestObject" x="-16" y="522" width="215" height="41"/>
+				<reportElement uuid="bd3180f5-9e06-4f23-9337-295f84819a2a" positionType="Float" stretchType="RelativeToTallestObject" x="-34" y="499" width="215" height="41"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -471,7 +474,7 @@ Bac Français ES et STG)
 Nom de l'enseignant .........................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="61c00606-6d02-4dae-8330-a827030f0ebb" positionType="Float" stretchType="RelativeToTallestObject" x="-16" y="650" width="215" height="39"/>
+				<reportElement uuid="61c00606-6d02-4dae-8330-a827030f0ebb" positionType="Float" stretchType="RelativeToTallestObject" x="-34" y="627" width="215" height="39"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -480,7 +483,7 @@ Nom de l'enseignant .........................................]]></text>
 Nom de l'enseignant .........................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="4f2affad-6b78-4c9c-a53d-86b2639a0b04" positionType="Float" stretchType="RelativeToTallestObject" x="312" y="480" width="157" height="41"/>
+				<reportElement uuid="4f2affad-6b78-4c9c-a53d-86b2639a0b04" positionType="Float" stretchType="RelativeToTallestObject" x="294" y="457" width="157" height="41"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -489,7 +492,7 @@ Nom de l'enseignant .........................................]]></text>
    1er quart  2ème    3ème    4ème]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="14d52bf8-4cbd-4daa-8bea-fdef044ed992" positionType="Float" stretchType="RelativeToTallestObject" x="313" y="522" width="156" height="41"/>
+				<reportElement uuid="14d52bf8-4cbd-4daa-8bea-fdef044ed992" positionType="Float" stretchType="RelativeToTallestObject" x="295" y="499" width="156" height="41"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -498,7 +501,7 @@ Nom de l'enseignant .........................................]]></text>
    1er quart  2ème    3ème    4ème]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="7323875f-3c87-4333-83f2-c92318f0d362" positionType="Float" stretchType="RelativeToTallestObject" x="313" y="563" width="156" height="43"/>
+				<reportElement uuid="7323875f-3c87-4333-83f2-c92318f0d362" positionType="Float" stretchType="RelativeToTallestObject" x="295" y="540" width="156" height="43"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -507,7 +510,7 @@ Nom de l'enseignant .........................................]]></text>
    1er quart  2ème    3ème    4ème]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d09281f1-9df4-4f65-9cef-5e45d0d41f3f" positionType="Float" stretchType="RelativeToTallestObject" x="314" y="606" width="155" height="43"/>
+				<reportElement uuid="d09281f1-9df4-4f65-9cef-5e45d0d41f3f" positionType="Float" stretchType="RelativeToTallestObject" x="296" y="583" width="155" height="43"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -516,7 +519,7 @@ Nom de l'enseignant .........................................]]></text>
    1er quart  2ème    3ème    4ème]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="699229d3-2654-4a0e-b918-70b50aaf3dd2" positionType="Float" stretchType="RelativeToTallestObject" x="313" y="649" width="156" height="38"/>
+				<reportElement uuid="699229d3-2654-4a0e-b918-70b50aaf3dd2" positionType="Float" stretchType="RelativeToTallestObject" x="295" y="626" width="156" height="38"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -525,7 +528,7 @@ Nom de l'enseignant .........................................]]></text>
    1er quart  2ème    3ème    4ème]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="675f442e-659e-411b-88e3-038821bfcc16" x="-12" y="29" width="475" height="1"/>
+				<reportElement uuid="675f442e-659e-411b-88e3-038821bfcc16" x="-30" y="29" width="475" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
@@ -539,7 +542,19 @@ Nom de l'enseignant .........................................]]></text>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band splitType="Stretch"/>
+		<band height="65" splitType="Stretch">
+			<textField>
+				<reportElement uuid="4767852f-753c-4c92-b5c2-578d347bb587" x="337" y="0" width="119" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[4]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="55ce2972-75c6-4ff5-9d12-5c5a619c46ac" x="-38" y="20" width="494" height="45"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"footer_prepas.jpg"]]></imageExpression>
+			</image>
+		</band>
 	</pageFooter>
 	<summary>
 		<band splitType="Stretch"/>
