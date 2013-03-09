@@ -21,6 +21,8 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
     @UiField
     NavLink convocation;
     @UiField
+    NavLink help;
+    @UiField
     NavWidget inbox;
     @UiField
     Badge messagesCount;
@@ -47,6 +49,9 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
                 break;
             case INBOX:
                 inbox.setActive(true);
+                break;
+            case HELP:
+                help.setActive(true);
                 break;
         }
     }
@@ -84,9 +89,18 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         getUiHandlers().onMenuChanged(currentMenu);
     }
 
+    @UiHandler("help")
+    void onHelpClicked(ClickEvent event) {
+        clearActive();
+        help.setActive(true);
+        currentMenu = MenuItem.HELP;
+        getUiHandlers().onMenuChanged(currentMenu);
+    }
+
     private void clearActive() {
         inscription.setActive(false);
         convocation.setActive(false);
         inbox.setActive(false);
+        help.setActive(false);
     }
 }
