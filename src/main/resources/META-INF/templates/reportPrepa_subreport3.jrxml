@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2_access" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a04defb6-f55e-4cbc-9c65-0e256da52914">
-	<property name="ireport.zoom" value="1.2100000000000029"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2_selection" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a04defb6-f55e-4cbc-9c65-0e256da52914">
+	<property name="ireport.zoom" value="1.1000000000000025"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="610"/>
+	<property name="ireport.y" value="192"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -27,6 +27,9 @@
 		<field name="nom" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="dateLimite" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
 	<queryString language="xPath">
 		<![CDATA[":"]]>
 	</queryString>
@@ -51,91 +54,18 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="395" splitType="Prevent">
-			<staticText>
-				<reportElement uuid="f4472573-7017-4871-9521-237daa5c9bd0" x="12" y="9" width="260" height="14" forecolor="#000000"/>
-				<textElement>
-					<font isBold="true" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[Admission en 1ère année des classes prépas]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="974c7749-20b2-400e-8f1c-1828b60b2302" x="12" y="292" width="260" height="14" forecolor="#000000"/>
-				<textElement>
-					<font isBold="true" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[Admission en 2ème année des classes prépas]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="101a952c-1143-4229-8218-00a350960b0c" x="12" y="33" width="260" height="14" forecolor="#000000"/>
-				<textElement>
-					<font isBold="true" isItalic="false"/>
-				</textElement>
-				<text><![CDATA[1. Etre titulaire d'un baccalauréat :]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="8d4e6760-a756-4cfb-a011-84741d27bd93" x="12" y="140" width="260" height="25" forecolor="#000000"/>
-				<textElement>
-					<font isBold="true" isItalic="false"/>
-				</textElement>
-				<text><![CDATA[2. Etude de dossier;
-3. Concours d'accès.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="6f475eb3-14b9-4ae5-bd59-d2f895799750" x="12" y="54" width="498" height="77"/>
-				<textElement>
-					<font isBold="false" isItalic="false"/>
-				</textElement>
-				<text><![CDATA[Pour les PREPAS Economiques et Commerciales, option Scientifique 'ECS', vous devez être
-titulaire d'un Baccalauréat Marocain, Sc.Maths, Sc.Ex. ou d'un Baccalauréat Français série S.
-
-Pour les PREPAS Economiques et Commerciales, option Technologique 'ECT', vous devez être
-titulaire d'un Baccalauréat Marocain, Sc.Maths, Sc.Ex., Sc.Eco. ou Sc.de Gestion Comptable ou
-d'un Baccalauréat Français, série S, ES ou STG.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="e14aac2a-8722-4eb3-983b-e8f14f8ebe2b" x="12" y="170" width="498" height="107"/>
-				<textElement>
-					<font isBold="false" isItalic="false"/>
-				</textElement>
-				<text><![CDATA[Epreuves écrites: voir dates précisées via notre site web www.gsr.ac.ma
-Epreuves orales: uniquement pour les admissibles, voir dates précisées via notre site web
-www.gsr.ac.ma après les épreuves écrites;
-
-Les candidats sont évalués dans les disciplines fondamentales:
-
-ECS                 Maths, Français,et Culture Générale
-ECT                 Bac (Eco, SGC, Es et STG) économie, Maths, Français et Culture Générale.
-                       Bac (Autres) Maths, Français, et Culture Générale ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="6aa3cb0a-5008-4ab2-9622-abb0e7d155c0" x="12" y="324" width="498" height="39" forecolor="#000000"/>
-				<textElement>
-					<font isBold="true" isItalic="false"/>
-				</textElement>
-				<text><![CDATA[1. Avoir réussi une première année prépas dans un autre établissement;
-2. Etude de dossier;
-3. Test écrit et oral.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="e6d9a9cd-72ca-4338-8e55-bae5f2e4ef8c" x="12" y="378" width="260" height="14" forecolor="#000000"/>
-				<textElement>
-					<font isBold="true" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[Pièces à fournir :]]></text>
-			</staticText>
-		</band>
+		<band splitType="Prevent"/>
 	</columnHeader>
 	<detail>
-		<band height="100" splitType="Prevent">
+		<band height="600" splitType="Prevent">
 			<componentElement>
-				<reportElement uuid="0582f672-f807-4a9e-b413-fae9941b0f5f" key="table" style="table_TD" stretchType="RelativeToBandHeight" mode="Transparent" x="9" y="12" width="263" height="20"/>
+				<reportElement uuid="0582f672-f807-4a9e-b413-fae9941b0f5f" key="table" style="table_TD" stretchType="RelativeToBandHeight" mode="Transparent" x="9" y="362" width="263" height="20"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Table Dataset 2" uuid="cde64998-d0be-4583-9722-90826d011277">
 						<dataSourceExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column width="498" uuid="82746334-917f-4a3b-86c8-9473a6801f37">
-						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table_TD" height="21" rowSpan="1">
 							<box bottomPadding="0">
 								<pen lineWidth="0.0"/>
 								<topPen lineWidth="0.0"/>
@@ -161,38 +91,121 @@ ECT                 Bac (Eco, SGC, Es et STG) économie, Maths, Français et Cul
 					</jr:column>
 				</jr:table>
 			</componentElement>
-		</band>
-	</detail>
-	<columnFooter>
-		<band height="185" splitType="Prevent">
 			<staticText>
-				<reportElement uuid="cb81bd93-9159-4728-a538-b5dc0755b6c2" x="12" y="60" width="498" height="42"/>
+				<reportElement uuid="cb81bd93-9159-4728-a538-b5dc0755b6c2" x="12" y="499" width="498" height="42"/>
 				<textElement textAlignment="Left"/>
 				<text><![CDATA[Fait .....................................................................................  le: ................./................/................
 
 Signature du candidat :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ee13e39e-2396-4337-8512-8f93c7df5a8b" x="264" y="106" width="245" height="59" forecolor="#000000"/>
+				<reportElement uuid="ee13e39e-2396-4337-8512-8f93c7df5a8b" x="223" y="541" width="287" height="59" forecolor="#000000"/>
 				<textElement textAlignment="Left">
 					<font isBold="true" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[Dossier de candidature à retourner à :
-(Avec les pièces à fournir)
+				<text><![CDATA[Dossier de candidature à envoyer
+(Avec les pièces à fournir) à l'adresse postale
 87 & 89 Avenue 2 Mars
 Casablanca]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="67aa0bb9-b2a5-4460-b7f0-d5aaadb469a6" x="12" y="27" width="498" height="20"/>
+				<reportElement uuid="67aa0bb9-b2a5-4460-b7f0-d5aaadb469a6" x="12" y="477" width="498" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dateLimite}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement uuid="101a952c-1143-4229-8218-00a350960b0c" x="9" y="28" width="260" height="14" forecolor="#000000"/>
+				<textElement>
+					<font isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[1. Etre titulaire d'un baccalauréat :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8d4e6760-a756-4cfb-a011-84741d27bd93" x="9" y="129" width="260" height="25" forecolor="#000000"/>
+				<textElement>
+					<font isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[2. Etude de dossier;
+3. Concours d'accès.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f4472573-7017-4871-9521-237daa5c9bd0" x="9" y="10" width="260" height="14" forecolor="#000000"/>
+				<textElement>
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Admission en 1ère année des classes prépas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="974c7749-20b2-400e-8f1c-1828b60b2302" x="9" y="272" width="260" height="14" forecolor="#000000"/>
+				<textElement>
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Admission en 2ème année des classes prépas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6f475eb3-14b9-4ae5-bd59-d2f895799750" x="9" y="47" width="498" height="77"/>
+				<textElement>
+					<font isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Pour les PREPAS Economiques et Commerciales, option Scientifique 'ECS', vous devez être
+titulaire d'un Baccalauréat Marocain, Sc.Maths, Sc.Ex. ou d'un Baccalauréat Français série S.
+
+Pour les PREPAS Economiques et Commerciales, option Technologique 'ECT', vous devez être
+titulaire d'un Baccalauréat Marocain, Sc.Maths, Sc.Ex., Sc.Eco. ou Sc.de Gestion Comptable ou
+d'un Baccalauréat Français, série S, ES ou STG.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e14aac2a-8722-4eb3-983b-e8f14f8ebe2b" x="9" y="157" width="498" height="107"/>
+				<textElement>
+					<font isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Epreuves écrites: voir dates précisées via notre site web www.gsr.ac.ma
+Epreuves orales: uniquement pour les admissibles, voir dates précisées via notre site web
+www.gsr.ac.ma après les épreuves écrites;
+
+Les candidats sont évalués dans les disciplines fondamentales:
+
+ECS                 Maths, Français,et Culture Générale
+ECT                 Bac (Eco, SGC, Es et STG) économie, Maths, Français et Culture Générale.
+                       Bac (Autres) Maths, Français, et Culture Générale ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e6d9a9cd-72ca-4338-8e55-bae5f2e4ef8c" x="9" y="339" width="260" height="14" forecolor="#000000"/>
+				<textElement>
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Pièces à fournir :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6aa3cb0a-5008-4ab2-9622-abb0e7d155c0" x="9" y="289" width="498" height="39" forecolor="#000000"/>
+				<textElement>
+					<font isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[1. Avoir réussi une première année prépas dans un autre établissement;
+2. Etude de dossier;
+3. Test écrit et oral.]]></text>
+			</staticText>
 		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Prevent"/>
 	</columnFooter>
 	<pageFooter>
-		<band splitType="Stretch"/>
+		<band height="65" splitType="Stretch">
+			<textField>
+				<reportElement uuid="4767852f-753c-4c92-b5c2-578d347bb587" x="337" y="0" width="119" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[6]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="55ce2972-75c6-4ff5-9d12-5c5a619c46ac" x="-38" y="20" width="494" height="45"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"footer_prepas.jpg"]]></imageExpression>
+			</image>
+		</band>
 	</pageFooter>
 	<summary>
 		<band splitType="Stretch"/>
