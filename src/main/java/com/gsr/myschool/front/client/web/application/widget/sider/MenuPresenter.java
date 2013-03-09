@@ -61,6 +61,9 @@ public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> impleme
             case INBOX:
                 placeManager.revealPlace(new PlaceRequest(NameTokens.getInbox()));
                 break;
+            case HELP:
+                placeManager.revealPlace(new PlaceRequest(NameTokens.getHelp()));
+                break;
         }
     }
 

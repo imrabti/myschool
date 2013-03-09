@@ -23,6 +23,7 @@ public class NameTokens {
     public static final String editinscription = "editinscription";
     public static final String convocation = "convocation";
     public static final String inbox = "inbox";
+    public static final String help = "help";
 
     public static String getWelcome() {
         return welcome;
@@ -46,5 +47,9 @@ public class NameTokens {
 
     public static String getInbox() {
         return inbox;
+    }
+
+    public static String getHelp() {
+        return help;
     }
 }
