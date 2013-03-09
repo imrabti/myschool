@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.front.client.web.application.inscription;
 
+import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.common.base.Strings;
@@ -49,6 +50,8 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
 
     @UiField
     CellTable<DossierProxy> inscriptionsTable;
+    @UiField
+    Button add;
 
     private final DateTimeFormat dateFormat;
     private final ListDataProvider<DossierProxy> dataProvider;
@@ -59,6 +62,8 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
     private Delegate<DossierProxy> deleteAction;
     private Delegate<DossierProxy> submitAction;
     private Delegate<DossierProxy> printAction;
+
+    private InscriptionActionCell actionsCell;
 
     @Inject
     public InscriptionView(final Binder uiBinder,
@@ -84,6 +89,12 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         inscriptionsTable.setPageSize(data.size());
         dataProvider.getList().clear();
         dataProvider.getList().addAll(data);
+    }
+
+    @Override
+    public void setInscriptionStatusOpened(Boolean opened) {
+        add.setEnabled(opened);
+        actionsCell.setInscriptionOpened(opened);
     }
 
     @UiHandler("add")
@@ -191,7 +202,7 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
         inscriptionsTable.addColumn(createdColumn, "Date de pré-inscription");
         inscriptionsTable.setColumnWidth(createdColumn, 20, Style.Unit.PCT);
 
-        InscriptionActionCell actionsCell = actionCellFactory.create(previewAction, editAction,
+        actionsCell = actionCellFactory.create(previewAction, editAction,
                 deleteAction, submitAction, printAction);
         Column<DossierProxy, DossierProxy> actionsColumn = new Column<DossierProxy, DossierProxy>(actionsCell) {
             @Override

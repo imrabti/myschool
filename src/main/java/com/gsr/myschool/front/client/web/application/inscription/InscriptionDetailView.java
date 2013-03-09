@@ -14,7 +14,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
@@ -88,6 +87,12 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
 
         fraterieDataProvider.addDataDisplay(fraterieTable);
         fraterieTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
+    }
+
+    @Override
+    public void setStatusInscription(Boolean opened) {
+        submit.setEnabled(opened);
+        edit.setEnabled(opened);
     }
 
     @Override
@@ -248,7 +253,7 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
             @Override
             public String getValue(FraterieProxy object) {
                 if (object.getFiliere() == null) return "";
-                return TypeEnseignement.BILINGUE.getId() == object.getFiliere().getId()?
+                return TypeEnseignement.BILINGUE.getId() == object.getFiliere().getId() ?
                         TypeEnseignement.BILINGUE.toString() : TypeEnseignement.MISSION.toString();
             }
         };

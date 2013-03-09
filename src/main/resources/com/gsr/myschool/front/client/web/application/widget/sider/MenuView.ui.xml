@@ -18,8 +18,9 @@
             <boot:NavLink ui:field="inscription" icon="EDIT">Mes pré-inscriptions</boot:NavLink>
             <boot:NavLink ui:field="convocation" icon="ENVELOPE_ALT" visible="false">Mes convocations</boot:NavLink>
             <boot:NavWidget ui:field="inbox" icon="INBOX" text="Boîte de réception">
-                <boot:Badge ui:field="messagesCount" />
+                <boot:Badge ui:field="messagesCount"/>
             </boot:NavWidget>
+            <boot:NavLink icon="QUESTION_SIGN">Aide</boot:NavLink>
         </boot:WellNavList>
     </g:HTMLPanel>
 </ui:UiBinder>

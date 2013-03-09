@@ -14,15 +14,11 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.application.settings;
+package com.gsr.myschool.server.repos;
 
-import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
-import com.gwtplatform.mvp.client.UiHandlers;
+import com.gsr.myschool.common.shared.type.SettingsKey;
+import com.gsr.myschool.server.business.Settings;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SettingsUiHandlers extends UiHandlers {
-    void showDetails(NiveauEtudeProxy object);
-
-    void desactivateInscriptions();
-
-    void activateInscriptions();
+public interface SettingsRepos extends JpaRepository<Settings, SettingsKey> {
 }

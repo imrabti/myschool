@@ -33,6 +33,7 @@ import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.front.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.front.client.web.application.inscription.event.DossierSubmitEvent;
 import com.gsr.myschool.front.client.web.application.inscription.popup.ConfirmationInscriptionPresenter;
+import com.gsr.myschool.common.shared.exception.InscriptionClosedException;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -49,6 +50,8 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
         implements InscriptionUiHandlers, DossierSubmitEvent.DossierSubmitHandler {
     public interface MyView extends View, HasUiHandlers<InscriptionUiHandlers> {
         void setData(List<DossierProxy> data);
+
+        void setInscriptionStatusOpened(Boolean opened);
     }
 
     @ProxyStandard
@@ -88,6 +91,14 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
                 PlaceRequest placeRequest = new PlaceRequest(NameTokens.getEditInscription());
                 placeRequest = placeRequest.with("id", newDossier.getId().toString());
                 placeManager.revealPlace(placeRequest);
+            }
+            @Override
+            public void onException(String type) {
+                if (InscriptionClosedException.class.getName().equals(type)) {
+                    Message message = new Message.Builder(messageBundle.inscriptionClosed())
+                            .style(AlertType.ERROR).closeDelay(CloseDelay.NEVER).build();
+                    MessageEvent.fire(this, message);
+                }
             }
         });
     }
@@ -157,12 +168,27 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
                         }
                     }
                 }
+
+                @Override
+                public void onException(String type) {
+                    if (InscriptionClosedException.class.getName().equals(type)) {
+                        Message message = new Message.Builder(messageBundle.inscriptionClosed())
+                                .style(AlertType.ERROR).closeDelay(CloseDelay.NEVER).build();
+                        MessageEvent.fire(this, message);
+                    }
+                }
             });
         }
     }
 
     @Override
     protected void onReveal() {
+        requestFactory.inscriptionService().statusInscriptionOpened().fire(new ReceiverImpl<Boolean>() {
+            @Override
+            public void onSuccess(Boolean response) {
+                getView().setInscriptionStatusOpened(response);
+            }
+        });
         loadAllInscriptions();
     }
 

@@ -16,24 +16,16 @@
 
 package com.gsr.myschool.back.client.request;
 
-import com.google.web.bindery.requestfactory.shared.RequestFactory;
+import com.google.web.bindery.requestfactory.shared.Request;
+import com.google.web.bindery.requestfactory.shared.RequestContext;
+import com.google.web.bindery.requestfactory.shared.Service;
+import com.gsr.myschool.common.shared.type.SettingsKey;
+import com.gsr.myschool.server.service.impl.SettingServiceImpl;
+import com.gsr.myschool.server.util.SpringServiceLocator;
 
-public interface BackRequestFactory extends RequestFactory {
-    AuthenticationRequest adminAuthenticationService();
+@Service(value = SettingServiceImpl.class, locator = SpringServiceLocator.class)
+public interface SettingsRequest extends RequestContext {
+    Request<Void> updateSettings(SettingsKey key, String value);
 
-    ValueTypeServiceRequest valueTypeServiceRequest();
-
-    ValueListServiceRequest valueListServiceRequest();
-
-    DossierServiceRequest dossierService();
-
-    UserServiceRequest userService();
-
-    CachedListValueRequest cachedListValueService();
-
-    InscriptionRequest inscriptionService();
-
-    NiveauEtudeRequest niveauEtudeService();
-
-    SettingsRequest settingsService();
+    Request<String> getSetting(SettingsKey key);
 }
