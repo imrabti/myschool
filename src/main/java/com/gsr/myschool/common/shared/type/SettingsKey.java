@@ -14,15 +14,8 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.application.settings;
+package com.gsr.myschool.common.shared.type;
 
-import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
-import com.gwtplatform.mvp.client.UiHandlers;
-
-public interface SettingsUiHandlers extends UiHandlers {
-    void showDetails(NiveauEtudeProxy object);
-
-    void desactivateInscriptions();
-
-    void activateInscriptions();
+public enum SettingsKey {
+    STATUS;
 }

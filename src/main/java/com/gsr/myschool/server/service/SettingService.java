@@ -14,15 +14,12 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.application.settings;
+package com.gsr.myschool.server.service;
 
-import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
-import com.gwtplatform.mvp.client.UiHandlers;
+import com.gsr.myschool.common.shared.type.SettingsKey;
 
-public interface SettingsUiHandlers extends UiHandlers {
-    void showDetails(NiveauEtudeProxy object);
+public interface SettingService {
+    void updateSettings(SettingsKey key, String value);
 
-    void desactivateInscriptions();
-
-    void activateInscriptions();
+    String getSetting(SettingsKey key);
 }

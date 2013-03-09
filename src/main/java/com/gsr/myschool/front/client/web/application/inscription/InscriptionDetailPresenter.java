@@ -1,7 +1,6 @@
 package com.gsr.myschool.front.client.web.application.inscription;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
-import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.proxy.CandidatProxy;
@@ -25,6 +24,7 @@ import com.gsr.myschool.front.client.web.application.inscription.InscriptionDeta
 import com.gsr.myschool.front.client.web.application.inscription.InscriptionDetailPresenter.MyProxy;
 import com.gsr.myschool.front.client.web.application.inscription.event.DossierSubmitEvent;
 import com.gsr.myschool.front.client.web.application.inscription.popup.ConfirmationInscriptionPresenter;
+import com.gsr.myschool.common.shared.exception.InscriptionClosedException;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -49,6 +49,8 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy>
         void setCandidat(CandidatProxy candidat);
 
         void setFraterie(List<FraterieProxy> fraterieList);
+
+        void setStatusInscription(Boolean opened);
     }
 
     @ProxyStandard
@@ -94,6 +96,8 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy>
         requestFactory.inscriptionService().findDossierById(dossierId).fire(new ReceiverImpl<DossierProxy>() {
             @Override
             public void onSuccess(DossierProxy result) {
+                getStatusInscription();
+
                 currentDossier = result;
                 getView().setDossier(currentDossier);
                 getView().setCandidat(currentDossier.getCandidat());
@@ -131,6 +135,15 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy>
                                     .closeDelay(CloseDelay.NEVER).build();
                             MessageEvent.fire(this, message);
                         }
+                    }
+                }
+
+                @Override
+                public void onException(String type) {
+                    if (InscriptionClosedException.class.getName().equals(type)) {
+                        Message message = new Message.Builder(messageBundle.inscriptionClosed())
+                                .style(AlertType.ERROR).closeDelay(CloseDelay.NEVER).build();
+                        MessageEvent.fire(this, message);
                     }
                 }
             });
@@ -180,6 +193,15 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy>
             @Override
             public void onSuccess(List<FraterieProxy> result) {
                 getView().setFraterie(result);
+            }
+        });
+    }
+
+    private void getStatusInscription() {
+        requestFactory.inscriptionService().statusInscriptionOpened().fire(new ReceiverImpl<Boolean>() {
+            @Override
+            public void onSuccess(Boolean response) {
+                getView().setStatusInscription(response);
             }
         });
     }

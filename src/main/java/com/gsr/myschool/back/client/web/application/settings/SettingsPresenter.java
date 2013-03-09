@@ -16,15 +16,22 @@
 
 package com.gsr.myschool.back.client.web.application.settings;
 
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
+import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.back.client.web.application.settings.popup.NiveauEtudeInfosPresenter;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
+import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
+import com.gsr.myschool.common.client.widget.messages.CloseDelay;
+import com.gsr.myschool.common.client.widget.messages.Message;
+import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
+import com.gsr.myschool.common.shared.type.SettingsKey;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -37,6 +44,7 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, SettingsPresenter.MyProxy>
         implements SettingsUiHandlers {
     public interface MyView extends View, HasUiHandlers<SettingsUiHandlers> {
+        void setActivate(Boolean bool);
     }
 
     private final NiveauEtudeInfosPresenter niveauEtudeInfosPresenter;
@@ -49,15 +57,18 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
     }
 
     private final BackRequestFactory requestFactory;
+    private final MessageBundle messageBundle;
 
     @Inject
     public SettingsPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                              final BackRequestFactory requestFactory,
-                             final NiveauEtudeInfosPresenter niveauEtudeInfosPresenter) {
+                             final NiveauEtudeInfosPresenter niveauEtudeInfosPresenter,
+                             final MessageBundle messageBundle) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
         this.niveauEtudeInfosPresenter = niveauEtudeInfosPresenter;
+        this.messageBundle = messageBundle;
 
         getView().setUiHandlers(this);
     }
@@ -66,5 +77,47 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
     public void showDetails(NiveauEtudeProxy value) {
         niveauEtudeInfosPresenter.setCurrentNiveauEtude(value);
         addToPopupSlot(niveauEtudeInfosPresenter);
+    }
+
+    @Override
+    public void desactivateInscriptions() {
+        requestFactory.settingsService().updateSettings(SettingsKey.STATUS, GlobalParameters.APP_STATUS_CLOSED)
+                .fire(new ReceiverImpl<Void>() {
+                    @Override
+                    public void onSuccess(Void response) {
+                        Message message = new Message.Builder(messageBundle.closeInscriptionSuccess())
+                                .style(AlertType.SUCCESS)
+                                .closeDelay(CloseDelay.DEFAULT)
+                                .build();
+                        MessageEvent.fire(this, message);
+                        getView().setActivate(false);
+                    }
+                });
+    }
+
+    @Override
+    public void activateInscriptions() {
+        requestFactory.settingsService().updateSettings(SettingsKey.STATUS, GlobalParameters.APP_STATUS_OPENED)
+                .fire(new ReceiverImpl<Void>() {
+                    @Override
+                    public void onSuccess(Void response) {
+                        Message message = new Message.Builder(messageBundle.openInscriptionSuccess())
+                                .style(AlertType.SUCCESS)
+                                .closeDelay(CloseDelay.DEFAULT)
+                                .build();
+                        MessageEvent.fire(this, message);
+                        getView().setActivate(true);
+                    }
+                });
+    }
+
+    @Override
+    public void onReveal() {
+        requestFactory.settingsService().getSetting(SettingsKey.STATUS).fire(new ReceiverImpl<String>() {
+            @Override
+            public void onSuccess(String response) {
+                getView().setActivate(GlobalParameters.APP_STATUS_OPENED.equals(response));
+            }
+        });
     }
 }

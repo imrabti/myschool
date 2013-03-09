@@ -94,4 +94,8 @@ public interface MessageBundle extends Messages {
     String deleteConfirmation();
 
     String inscriptionDetailTitle(String dossierNum);
+
+    String openInscriptionSuccess();
+
+    String closeInscriptionSuccess();
 }

@@ -46,4 +46,6 @@ public interface InscriptionRequest extends RequestContext {
     Request<Void> deleteFraterie(Long fraterieId);
 
     Request<List<String>> submitInscription(Long dossierId);
+
+    Request<Boolean> statusInscriptionOpened();
 }

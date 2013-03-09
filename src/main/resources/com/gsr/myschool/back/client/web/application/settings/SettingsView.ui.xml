@@ -1,6 +1,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:cell='urn:import:com.google.gwt.user.cellview.client'>
+             xmlns:cell='urn:import:com.google.gwt.user.cellview.client'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
 
     <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
@@ -9,6 +10,10 @@
             <h2>
                 <g:InlineLabel text="Paramètres généraux"/>
             </h2>
+            <boot:ButtonGroup>
+                <boot:Button ui:field="activate">Ouvrir les pré-inscriptions</boot:Button>
+                <boot:Button ui:field="desactivate">Fermer les pré-inscriptions</boot:Button>
+            </boot:ButtonGroup>
             <span style="display: block; clear: both;"/>
         </g:HTMLPanel>
 

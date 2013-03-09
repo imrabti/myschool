@@ -1,5 +1,6 @@
 package com.gsr.myschool.server.service.impl;
 
+import com.gsr.myschool.common.shared.exception.InscriptionClosedException;
 import com.gsr.myschool.server.service.InscriptionService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +21,7 @@ public class InscriptionServiceImplTest {
     private InscriptionService inscriptionService;
 
     @Test
-    public void testCreateNewInscription() {
+    public void testCreateNewInscription() throws InscriptionClosedException {
         inscriptionService.createNewInscription();
     }
 }

@@ -82,4 +82,6 @@ public interface MessageBundle extends Messages {
     String declarationHonneurFaillure();
 
     String parentGsrFaillure();
+
+    String inscriptionClosed();
 }

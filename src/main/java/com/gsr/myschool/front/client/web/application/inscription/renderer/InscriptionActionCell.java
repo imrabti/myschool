@@ -37,9 +37,17 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
         void onBrowserEvent(InscriptionActionCell o, NativeEvent e, Element p);
     }
 
+    @UiTemplate("InscriptionActionCellInscriptionClosed.ui.xml")
+    public interface RendererInscriptionClosed extends UiRenderer {
+        void render(SafeHtmlBuilder sb);
+
+        void onBrowserEvent(InscriptionActionCell o, NativeEvent e, Element p);
+    }
+
     private final RendererCreated uiRendererCreated;
     private final RendererSubmitted uiRendererSubmitted;
     private final RendererOther uiRendererOther;
+    private final RendererInscriptionClosed rendererInscriptionClosed;
 
     private Delegate<DossierProxy> preview;
     private Delegate<DossierProxy> edit;
@@ -48,11 +56,13 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
     private Delegate<DossierProxy> print;
 
     private DossierProxy selectedObject;
+    private Boolean inscriptionOpened = true;
 
     @Inject
     public InscriptionActionCell(final RendererCreated uiRendererCreated,
                                  final RendererSubmitted uiRendererSubmitted,
                                  final RendererOther uiRendererOther,
+                                 final RendererInscriptionClosed rendererInscriptionClosed,
                                  @Assisted("preview") Delegate<DossierProxy> preview,
                                  @Assisted("edit") Delegate<DossierProxy> edit,
                                  @Assisted("delete") Delegate<DossierProxy> delete,
@@ -63,6 +73,7 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
         this.uiRendererCreated = uiRendererCreated;
         this.uiRendererSubmitted = uiRendererSubmitted;
         this.uiRendererOther = uiRendererOther;
+        this.rendererInscriptionClosed = rendererInscriptionClosed;
         this.preview = preview;
         this.edit = edit;
         this.delete = delete;
@@ -74,10 +85,16 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
     public void onBrowserEvent(Context context, Element parent, DossierProxy value, NativeEvent event,
                                ValueUpdater<DossierProxy> valueUpdater) {
         selectedObject = value;
+
         switch (selectedObject.getStatus()) {
             case CREATED:
-                uiRendererCreated.onBrowserEvent(this, event, parent);
-                break;
+                if (inscriptionOpened) {
+                    uiRendererCreated.onBrowserEvent(this, event, parent);
+                    break;
+                } else {
+                    rendererInscriptionClosed.onBrowserEvent(this, event, parent);
+                    break;
+                }
             case SUBMITTED:
                 uiRendererSubmitted.onBrowserEvent(this, event, parent);
                 break;
@@ -91,8 +108,13 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
     public void render(Context context, DossierProxy value, SafeHtmlBuilder builder) {
         switch (value.getStatus()) {
             case CREATED:
-                uiRendererCreated.render(builder);
-                break;
+                if (inscriptionOpened) {
+                    uiRendererCreated.render(builder);
+                    break;
+                } else {
+                    rendererInscriptionClosed.render(builder);
+                    break;
+                }
             case SUBMITTED:
                 uiRendererSubmitted.render(builder);
                 break;
@@ -102,6 +124,10 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
         }
     }
 
+    public void setInscriptionOpened(Boolean opened) {
+        this.inscriptionOpened = opened;
+    }
+
     @UiHandler({"preview"})
     void onPreviewClicked(ClickEvent event) {
         preview.execute(selectedObject);
@@ -109,17 +135,23 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
 
     @UiHandler({"edit"})
     void onEditClicked(ClickEvent event) {
-        edit.execute(selectedObject);
+        if (inscriptionOpened) {
+            edit.execute(selectedObject);
+        }
     }
 
     @UiHandler({"delete"})
     void onDeleteClicked(ClickEvent event) {
-        delete.execute(selectedObject);
+        if (inscriptionOpened) {
+            delete.execute(selectedObject);
+        }
     }
 
     @UiHandler({"submit"})
     void onSubmitClicked(ClickEvent event) {
-        submit.execute(selectedObject);
+        if (inscriptionOpened) {
+            submit.execute(selectedObject);
+        }
     }
 
     @UiHandler({"print"})
