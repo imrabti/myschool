@@ -3,6 +3,7 @@ package com.gsr.myschool.server.reporting;
 import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.dto.FraterieReportDTO;
 import com.gsr.myschool.common.shared.dto.ReportDTO;
+import com.gsr.myschool.common.shared.type.SettingsKey;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.Fraterie;
 import com.gsr.myschool.server.business.InfoParent;
@@ -12,6 +13,7 @@ import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.repos.FraterieRepos;
 import com.gsr.myschool.server.repos.InfoParentRepos;
 import com.gsr.myschool.server.repos.PieceJustifDuNERepos;
+import com.gsr.myschool.server.service.SettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -30,11 +32,11 @@ import java.util.List;
 @Controller
 @RequestMapping("/report")
 public class ReportController {
-
-    @Value("${dateLimiteDepot}")
     String dateLimiteMsg;
     @Autowired
     ReportService reportService;
+    @Autowired
+    SettingService settingService;
     @Value("${reportPrepName}")
     String reportPrepName;
     @Value("${reportSecName}")
@@ -105,6 +107,7 @@ public class ReportController {
             int next = current + 1;
             printableDossier.getReportParameters().put("currentYear", current + " / " + next);
         }
+        dateLimiteMsg = settingService.getSetting(SettingsKey.DATE_LIMITE);
         if (!Strings.isNullOrEmpty(dateLimiteMsg)) {
             printableDossier.getReportParameters().put("dateLimite", dateLimiteMsg);
         }

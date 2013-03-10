@@ -17,5 +17,5 @@
 package com.gsr.myschool.common.shared.type;
 
 public enum SettingsKey {
-    STATUS;
+    STATUS, DATE_LIMITE;
 }
