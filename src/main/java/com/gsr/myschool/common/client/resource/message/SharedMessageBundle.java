@@ -32,4 +32,6 @@ public interface SharedMessageBundle extends Messages {
     String unAuthorized();
 
     String serverDown();
+
+    String inscriptionClosed();
 }
