@@ -2,11 +2,12 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2_cursus" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="81c229e0-d0ac-4ca8-ae29-8f42d84b91fc">
 	<property name="ireport.zoom" value="1.1000000000000048"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="618"/>
 	<subDataset name="Table Dataset 1" uuid="a8f52c6d-8907-48bb-8aef-d8a1ed8a63db"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
+	<parameter name="fraterie" class="java.util.List" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -543,12 +544,12 @@ Nom de l'enseignant .........................................]]></text>
 	</columnFooter>
 	<pageFooter>
 		<band height="65" splitType="Stretch">
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="4767852f-753c-4c92-b5c2-578d347bb587" x="337" y="0" width="119" height="20"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[4]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($P{fraterie}.size() > 0) ? new java.lang.String("4") : new java.lang.String("3")]]></textFieldExpression>
 			</textField>
 			<image scaleImage="FillFrame">
 				<reportElement uuid="55ce2972-75c6-4ff5-9d12-5c5a619c46ac" x="-38" y="20" width="494" height="45"/>
