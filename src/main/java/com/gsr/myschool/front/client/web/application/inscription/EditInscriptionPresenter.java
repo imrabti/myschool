@@ -1,7 +1,6 @@
 package com.gsr.myschool.front.client.web.application.inscription;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
-import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
@@ -10,6 +9,7 @@ import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
+import com.gsr.myschool.common.shared.exception.InscriptionClosedException;
 import com.gsr.myschool.common.shared.exception.UnAuthorizedException;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.front.client.place.NameTokens;
@@ -19,11 +19,7 @@ import com.gsr.myschool.front.client.web.application.inscription.EditInscription
 import com.gsr.myschool.front.client.web.application.inscription.EditInscriptionPresenter.MyView;
 import com.gsr.myschool.front.client.web.application.inscription.event.ChangeStepEvent;
 import com.gsr.myschool.front.client.web.application.inscription.event.DisplayStepEvent;
-import com.gsr.myschool.front.client.web.application.inscription.widget.CandidatPresenter;
-import com.gsr.myschool.front.client.web.application.inscription.widget.FrateriePresenter;
-import com.gsr.myschool.front.client.web.application.inscription.widget.SolariteSouhaitePresenter;
-import com.gsr.myschool.front.client.web.application.inscription.widget.ParentPresenter;
-import com.gsr.myschool.front.client.web.application.inscription.widget.ScolariteActuellePresenter;
+import com.gsr.myschool.front.client.web.application.inscription.widget.*;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -89,8 +85,8 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
 
     @Override
     public void prepareFromRequest(PlaceRequest placeRequest) {
-        Long dossierId = Long .parseLong(placeRequest.getParameter("id", null));
-        requestFactory.inscriptionService().findDossierById(dossierId).fire(new ReceiverImpl<DossierProxy>() {
+        Long dossierId = Long.parseLong(placeRequest.getParameter("id", null));
+        requestFactory.inscriptionService().findDossierByIdToEdit(dossierId).fire(new ReceiverImpl<DossierProxy>() {
             @Override
             public void onSuccess(DossierProxy result) {
                 if (result != null && result.getStatus() == DossierStatus.CREATED) {
@@ -107,6 +103,11 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
             public void onException(String type) {
                 if (type.equals(UnAuthorizedException.class.getName())) {
                     Message message = new Message.Builder(messageBundle.unAuthorized())
+                            .style(AlertType.ERROR).build();
+                    MessageEvent.fire(this, message);
+                    placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
+                } else if (type.equals(InscriptionClosedException.class.getName())) {
+                    Message message = new Message.Builder(messageBundle.inscriptionClosed())
                             .style(AlertType.ERROR).build();
                     MessageEvent.fire(this, message);
                     placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));

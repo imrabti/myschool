@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.front.client.web.application.inscription;
 
+import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
@@ -52,6 +53,8 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
     CellTable<DossierProxy> inscriptionsTable;
     @UiField
     Button add;
+    @UiField
+    Alert closedInscriptions;
 
     private final DateTimeFormat dateFormat;
     private final ListDataProvider<DossierProxy> dataProvider;
@@ -95,6 +98,7 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
     public void setInscriptionStatusOpened(Boolean opened) {
         add.setEnabled(opened);
         actionsCell.setInscriptionOpened(opened);
+        closedInscriptions.setVisible(!opened);
     }
 
     @UiHandler("add")
