@@ -15,4 +15,6 @@ public interface CachedListValueService {
     List<NiveauEtude> findAllNiveauEtude();
 
     List<ValueList> findAllValueList();
+
+    List<String> findAllNumDossier();
 }
