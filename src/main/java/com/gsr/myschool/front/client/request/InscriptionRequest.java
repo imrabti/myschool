@@ -23,6 +23,8 @@ public interface InscriptionRequest extends RequestContext {
 
     Request<DossierProxy> findDossierById(Long dossierId);
 
+    Request<DossierProxy> findDossierByIdToEdit(Long dossierId);
+
     Request<DossierProxy> createNewInscription();
 
     Request<Void> deleteInscription(Long dossierId);

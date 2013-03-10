@@ -144,6 +144,8 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy>
                         Message message = new Message.Builder(messageBundle.inscriptionClosed())
                                 .style(AlertType.ERROR).closeDelay(CloseDelay.NEVER).build();
                         MessageEvent.fire(this, message);
+
+                        getStatusInscription();
                     }
                 }
             });

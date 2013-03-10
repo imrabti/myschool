@@ -98,6 +98,8 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
                     Message message = new Message.Builder(messageBundle.inscriptionClosed())
                             .style(AlertType.ERROR).closeDelay(CloseDelay.NEVER).build();
                     MessageEvent.fire(this, message);
+                    checkStatusInscriptions();
+                    loadAllInscriptions();
                 }
             }
         });
@@ -175,6 +177,8 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
                         Message message = new Message.Builder(messageBundle.inscriptionClosed())
                                 .style(AlertType.ERROR).closeDelay(CloseDelay.NEVER).build();
                         MessageEvent.fire(this, message);
+                        checkStatusInscriptions();
+                        loadAllInscriptions();
                     }
                 }
             });
@@ -183,12 +187,7 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
 
     @Override
     protected void onReveal() {
-        requestFactory.inscriptionService().statusInscriptionOpened().fire(new ReceiverImpl<Boolean>() {
-            @Override
-            public void onSuccess(Boolean response) {
-                getView().setInscriptionStatusOpened(response);
-            }
-        });
+        checkStatusInscriptions();
         loadAllInscriptions();
     }
 
@@ -202,6 +201,15 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
             @Override
             public void onSuccess(List<DossierProxy> result) {
                 getView().setData(result);
+            }
+        });
+    }
+
+    private void checkStatusInscriptions() {
+        requestFactory.inscriptionService().statusInscriptionOpened().fire(new ReceiverImpl<Boolean>() {
+            @Override
+            public void onSuccess(Boolean response) {
+                getView().setInscriptionStatusOpened(response);
             }
         });
     }
