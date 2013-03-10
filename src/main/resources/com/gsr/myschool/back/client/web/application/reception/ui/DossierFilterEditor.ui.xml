@@ -22,7 +22,7 @@
     <g:HTMLPanel>
         <div class="{style.row}">
             <g:Label text="N° Dossier" styleName="{style.label}"/>
-            <boot:TextBox ui:field="numDossier" width="168px"/>
+            <g:SuggestBox ui:field="numDossier" width="168px"/>
 
             <g:Label text="Nom ou prénom" styleName="{style.label}"/>
             <boot:TextBox ui:field="firstnameOrlastname" width="168px"/>

@@ -27,6 +27,7 @@ import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.resource.AdminResources;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.security.CurrentUserProvider;
+import com.gsr.myschool.back.client.util.SuggestionListFactory;
 import com.gsr.myschool.back.client.util.ValueListImpl;
 import com.gsr.myschool.back.client.web.RootModule;
 import com.gsr.myschool.common.client.CommonModule;
@@ -50,6 +51,7 @@ public class ClientModule extends AbstractPresenterModule {
         bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.login);
         bindConstant().annotatedWith(RequestUrl.class).to("gwtAdminRequest");
 
+        bind(SuggestionListFactory.class).in(Singleton.class);
         bind(AdminResources.class).in(Singleton.class);
         bind(MessageBundle.class).in(Singleton.class);
         bind(SecurityUtils.class).in(Singleton.class);

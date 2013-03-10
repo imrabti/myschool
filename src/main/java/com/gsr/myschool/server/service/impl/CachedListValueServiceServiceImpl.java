@@ -4,6 +4,7 @@ import com.gsr.myschool.server.business.EtablissementScolaire;
 import com.gsr.myschool.server.business.core.Filiere;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.valuelist.ValueList;
+import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.repos.EtablissementScolaireRepos;
 import com.gsr.myschool.server.repos.FiliereRepos;
 import com.gsr.myschool.server.repos.NiveauEtudeRepos;
@@ -29,6 +30,8 @@ public class CachedListValueServiceServiceImpl implements CachedListValueService
     private EtablissementScolaireRepos etablissementScolaireRepos;
     @Autowired
     private ValueListService valueListService;
+    @Autowired
+    private DossierRepos dossierRepos;
 
     @Override
     @Cacheable("filiere")
@@ -56,5 +59,10 @@ public class CachedListValueServiceServiceImpl implements CachedListValueService
     @Cacheable("valueList")
     public List<ValueList> findAllValueList() {
         return valueListService.findAll();
+    }
+
+    @Override
+    public List<String> findAllNumDossier() {
+        return dossierRepos.findAllNumDossier();
     }
 }
