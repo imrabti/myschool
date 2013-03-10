@@ -2,10 +2,11 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2_access" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="71289505-fad8-449c-9ce1-4a8ec6d43ef2">
 	<property name="ireport.zoom" value="1.1000000000000025"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="240"/>
+	<property name="ireport.y" value="547"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
+	<parameter name="fraterie" class="java.util.List" isForPrompting="false"/>
 	<queryString language="xPath">
 		<![CDATA[":"]]>
 	</queryString>
@@ -92,12 +93,12 @@
 	</columnFooter>
 	<pageFooter>
 		<band height="65">
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="4767852f-753c-4c92-b5c2-578d347bb587" x="356" y="0" width="100" height="20"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[3]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($P{fraterie}.size() > 0) ? new java.lang.String("3") : new java.lang.String("2")]]></textFieldExpression>
 			</textField>
 			<image scaleImage="FillFrame">
 				<reportElement uuid="55ce2972-75c6-4ff5-9d12-5c5a619c46ac" x="-38" y="20" width="494" height="45"/>
