@@ -19,13 +19,14 @@ package com.gsr.myschool.server.business;
 import com.gsr.myschool.common.shared.type.SettingsKey;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 
 @Entity
 public class Settings implements java.io.Serializable {
     @Id
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private SettingsKey setting;
     private String value;
 
