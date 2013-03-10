@@ -17,8 +17,6 @@ public interface SharedStyle extends CssResource {
 
     String linkButton();
 
-    String errorBox();
-
     String requiredField();
 
     String tableTransparentBack();

@@ -21,7 +21,6 @@
         }
 
         .inbox_date {
-            width: 20%;
             float: right;
             font-size: 80%;
         }

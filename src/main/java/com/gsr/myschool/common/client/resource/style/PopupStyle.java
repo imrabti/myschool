@@ -6,6 +6,7 @@ public interface PopupStyle extends CssResource {
     @ClassName("gwt-PopupPanel")
     String gwtPopupPanel();
 
+    String dropShadowPopup();
+
     String popupBody();
 }
-

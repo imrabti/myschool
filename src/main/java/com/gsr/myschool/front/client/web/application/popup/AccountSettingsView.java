@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
+import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.PasswordDTOProxy;
 import com.gsr.myschool.common.client.proxy.UserProxy;

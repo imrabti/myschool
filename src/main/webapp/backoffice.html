@@ -50,6 +50,13 @@
             -webkit-animation: spinoff .8s infinite linear;
         }
 
+        .loadingText {
+            text-align: center;
+            font-size: 14px;
+            color: rgba(124, 183, 47, 0.9);
+            font-weight: bold;
+        }
+
         @-moz-keyframes spin {
             0% { -moz-transform:rotate(0deg); }
             100% { -moz-transform:rotate(360deg); }
@@ -85,6 +92,9 @@
 <div id="loading" style="margin-top: 20px;">
     <div class="ball"></div>
     <div class="ball1"></div>
+    <div class="loadingText">
+        Chargement...
+    </div>
 </div>
 </body>
 </html>

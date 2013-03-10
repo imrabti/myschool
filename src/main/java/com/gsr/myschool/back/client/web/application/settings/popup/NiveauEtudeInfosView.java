@@ -29,7 +29,7 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.web.application.settings.renderer.MatiereExamenRenderer;
 import com.gsr.myschool.back.client.web.application.settings.renderer.PieceJustifRenderer;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImpl;
-import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
+import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
 import com.gsr.myschool.common.client.proxy.MatiereExamenProxy;
 import com.gsr.myschool.common.client.proxy.PieceJustifProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;

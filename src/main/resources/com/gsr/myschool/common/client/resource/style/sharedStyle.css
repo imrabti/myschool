@@ -136,21 +136,6 @@ body {
     text-decoration: underline;
 }
 
-.errorBox {
-    background-position: 10px center;
-    padding: 10px;
-    padding-left: 20px;
-    padding-bottom: 0px;
-    border: 1px solid #a70f1a;
-    margin-bottom: 10px;
-}
-
-.errorBox .error {
-    margin-bottom: 10px;
-    font-size: 14px;
-    color: #7e0a12;
-}
-
 @sprite .requiredField {
     gwt-image: "required";
     width: 12px;

@@ -18,6 +18,7 @@ package com.gsr.myschool.common.client.mvp;
 
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public class ValidatedPopupViewImplWithUiHandlers<H extends UiHandlers> extends ValidatedPopupViewImpl
