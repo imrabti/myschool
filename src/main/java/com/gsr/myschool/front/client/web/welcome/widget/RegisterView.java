@@ -29,7 +29,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ValidatedViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
+import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.util.EditorView;

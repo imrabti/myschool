@@ -84,4 +84,6 @@ public interface MessageBundle extends Messages {
     String parentGsrFaillure();
 
     String inscriptionClosed();
+
+    String inboxDateMessage(String date);
 }

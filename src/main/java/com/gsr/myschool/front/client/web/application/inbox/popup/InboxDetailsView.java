@@ -21,17 +21,17 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
+import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.InboxProxy;
 import com.gsr.myschool.common.client.widget.ModalHeader;
+import com.gsr.myschool.front.client.resource.message.MessageBundle;
 
 public class InboxDetailsView extends ValidatedPopupViewImplWithUiHandlers<InboxDetailsUiHandlers>
         implements InboxDetailsPresenter.MyView {
@@ -43,19 +43,20 @@ public class InboxDetailsView extends ValidatedPopupViewImplWithUiHandlers<Inbox
     @UiField
     HTML content;
     @UiField
-    Label subject;
-    @UiField
     Label date;
 
+    private final MessageBundle messages;
     private final DateTimeFormat dateFormat;
 
     @Inject
     protected InboxDetailsView(EventBus eventBus, final Binder uiBinder,
                                final ValidationErrorPopup errorPopup,
                                final ModalHeader modalHeader,
+                               final MessageBundle messages,
                                final UiHandlersStrategy<InboxDetailsUiHandlers> uiHandlers) {
         super(eventBus, errorPopup, uiHandlers);
 
+        this.messages = messages;
         this.modalHeader = modalHeader;
 
         initWidget(uiBinder.createAndBindUi(this));
@@ -71,15 +72,9 @@ public class InboxDetailsView extends ValidatedPopupViewImplWithUiHandlers<Inbox
         dateFormat = DateTimeFormat.getFormat("dd/MM/yyyy 'à' hh:mm");
     }
 
-    @UiHandler("cancel")
-    void onCancelClicked(ClickEvent event) {
-        getUiHandlers().readComplete();
-        hide();
-    }
-
     public void setDatas(InboxProxy value){
         content.setHTML(value.getContent());
-        subject.setText(value.getSubject());
-        date.setText(dateFormat.format(value.getMsgDate()));
+        modalHeader.setText(value.getSubject());
+        date.setText(messages.inboxDateMessage(dateFormat.format(value.getMsgDate())));
     }
 }

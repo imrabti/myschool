@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.gsr.myschool.common.client.mvp;
+package com.gsr.myschool.common.client.widget;
 
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;

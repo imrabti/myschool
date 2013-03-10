@@ -15,7 +15,7 @@ import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.ValidationErrorPopup;
+import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
