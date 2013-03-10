@@ -19,10 +19,13 @@ package com.gsr.myschool.server.repos;
 import com.gsr.myschool.server.business.Dossier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
 public interface DossierRepos extends JpaRepository<Dossier, Long>, JpaSpecificationExecutor {
-    List<Dossier> findByOwnerIdOrderByIdDesc(Long userId);
+    @Query("select d.generatedNumDossier from Dossier d")
+    List<String> findAllNumDossier();
 
+    List<Dossier> findByOwnerIdOrderByIdDesc(Long userId);
 }
