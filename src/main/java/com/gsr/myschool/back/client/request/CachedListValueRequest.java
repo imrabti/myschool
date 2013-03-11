@@ -21,4 +21,6 @@ public interface CachedListValueRequest extends RequestContext {
     Request<List<NiveauEtudeProxy>> findAllNiveauEtude();
 
     Request<List<ValueListProxy>> findAllValueList();
+
+    Request<List<String>> findAllNumDossier();
 }
