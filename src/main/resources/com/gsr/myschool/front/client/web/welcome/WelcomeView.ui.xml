@@ -108,7 +108,7 @@
         <div class="{style.mainContent}">
             <div class="{style.pictureWrapper}">
                 <div>
-                    <g:Image resource="{frontResources.loginPicture}"/>
+                    <img src="{frontResources.loginPicture.getSafeUri}" style="display: block;"/>
                 </div>
             </div>
 
