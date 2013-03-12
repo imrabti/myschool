@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df3b1ff5-7117-466e-88f6-7c91f881aee1">
 	<property name="ireport.zoom" value="1.1000000000000338"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="740"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
@@ -31,11 +31,18 @@
 			<band/>
 		</groupHeader>
 		<groupFooter>
-			<band height="50">
+			<band height="70">
 				<image scaleImage="FillFrame">
 					<reportElement uuid="55ce2972-75c6-4ff5-9d12-5c5a619c46ac" x="33" y="2" width="494" height="45"/>
 					<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"footer_prepas.jpg"]]></imageExpression>
 				</image>
+				<textField>
+					<reportElement uuid="4767852f-753c-4c92-b5c2-578d347bb587" x="231" y="48" width="100" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
 			</band>
 			<band height="18">
 				<subreport>
@@ -152,7 +159,7 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="622" splitType="Stretch">
+		<band height="605" splitType="Stretch">
 			<line>
 				<reportElement uuid="9b0628e4-0a15-487e-bc63-9df9efd628a6" x="33" y="24" width="495" height="1"/>
 			</line>
@@ -882,13 +889,6 @@
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{niveauEtude2}.get("nom")]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="4767852f-753c-4c92-b5c2-578d347bb587" x="428" y="601" width="100" height="20"/>
-				<textElement textAlignment="Right" verticalAlignment="Bottom">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
