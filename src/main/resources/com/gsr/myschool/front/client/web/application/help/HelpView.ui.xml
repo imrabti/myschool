@@ -1,7 +1,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'
-             xmlns:boo="urn:import:com.github.gwtbootstrap.client.ui">
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
 
     <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
@@ -49,13 +48,13 @@
             <boot:Paragraph>
                 Nous vous informons que la demande de préinscription de votre enfant sera traitée selon
                 sa date de naissance (voir mode de sélection des élèves) et selon les places disponibles.
-                Nous prenons en considération la fratrie nouvellement inscrites et le statut d’ancien
+                Nous prenons en considération la fratrie nouvellement inscrite et le statut d’ancien
                 GSRien d’un des parents.
             </boot:Paragraph>
 
             <boot:Paragraph>
-                Grâce aux informations que vous aurez fournis, vous aurez ainsi
-                la possibilité de suivre en ligne les étapes à travers lesquels passent
+                Grâce aux informations déjà fournies, vous aurez ainsi
+                la possibilité de suivre en ligne les étapes à travers lesquelles passent
                 le dossier de préinscription de votre enfant.
             </boot:Paragraph>
 
