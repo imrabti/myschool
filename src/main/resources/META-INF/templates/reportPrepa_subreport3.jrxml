@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2_selection" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a04defb6-f55e-4cbc-9c65-0e256da52914">
 	<property name="ireport.zoom" value="1.1000000000000025"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="549"/>
+	<property name="ireport.y" value="413"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -183,13 +183,6 @@ Signature du candidat :]]></text>
 87 & 89 Avenue 2 Mars
 Casablanca]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="67aa0bb9-b2a5-4460-b7f0-d5aaadb469a6" x="10" y="4" width="498" height="20"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{dateLimite}]]></textFieldExpression>
-			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>
