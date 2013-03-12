@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2_access" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="538305d2-c740-4515-ae3c-a6cd7c8331a8">
 	<property name="ireport.zoom" value="1.1000000000000025"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="602"/>
+	<property name="ireport.y" value="604"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -93,7 +93,7 @@ l'intérêt de votre enfant.]]></text>
 									<bottomPen lineWidth="0.5" lineColor="#CCCCCC"/>
 									<rightPen lineWidth="0.5" lineColor="#CCCCCC"/>
 								</box>
-								<textElement verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="8" isBold="true"/>
 								</textElement>
 								<text><![CDATA[NOM]]></text>
@@ -116,7 +116,7 @@ l'intérêt de votre enfant.]]></text>
 									<bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
 									<rightPen lineWidth="0.25" lineColor="#CCCCCC"/>
 								</box>
-								<textElement verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="8"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{nom}]]></textFieldExpression>
@@ -141,7 +141,7 @@ l'intérêt de votre enfant.]]></text>
 									<bottomPen lineWidth="0.5" lineColor="#CCCCCC"/>
 									<rightPen lineWidth="0.5" lineColor="#CCCCCC"/>
 								</box>
-								<textElement verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="8" isBold="true"/>
 								</textElement>
 								<text><![CDATA[PRENOM]]></text>
@@ -164,7 +164,7 @@ l'intérêt de votre enfant.]]></text>
 									<bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
 									<rightPen lineWidth="0.25" lineColor="#CCCCCC"/>
 								</box>
-								<textElement verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="8"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{prenom}]]></textFieldExpression>
@@ -183,17 +183,17 @@ l'intérêt de votre enfant.]]></text>
 	</columnFooter>
 	<pageFooter>
 		<band height="65">
+			<image scaleImage="FillFrame">
+				<reportElement uuid="55ce2972-75c6-4ff5-9d12-5c5a619c46ac" x="-38" y="2" width="494" height="45"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"footer_gsr.jpg"]]></imageExpression>
+			</image>
 			<textField>
-				<reportElement uuid="4767852f-753c-4c92-b5c2-578d347bb587" x="356" y="-1" width="100" height="20"/>
-				<textElement textAlignment="Right" verticalAlignment="Bottom">
+				<reportElement uuid="4767852f-753c-4c92-b5c2-578d347bb587" x="160" y="47" width="100" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[2]]></textFieldExpression>
 			</textField>
-			<image scaleImage="FillFrame">
-				<reportElement uuid="55ce2972-75c6-4ff5-9d12-5c5a619c46ac" x="-38" y="19" width="494" height="45"/>
-				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"footer_gsr.jpg"]]></imageExpression>
-			</image>
 		</band>
 	</pageFooter>
 	<summary>
