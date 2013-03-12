@@ -9,6 +9,7 @@
         .contentWrapper {
             padding: 10px;
             padding-top: 25px;
+            width: 460px;
         }
 
         .smallMargin {
@@ -22,6 +23,11 @@
             <s:ModalHeader ui:field="modalHeader" text="Email non reçus ?"/>
 
             <g:HTMLPanel styleName="{style.contentWrapper}">
+                <boot:Paragraph>
+                    Avant d'envoyer une nouvelle demande de code d'activation, veuillez vérifier votre dossier
+                    de courrier indésirable (SPAM).
+                </boot:Paragraph>
+
                 <boot:Form type="HORIZONTAL">
                     <boot:ControlGroup>
                         <boot:ControlLabel width="100px">Adresse email</boot:ControlLabel>
