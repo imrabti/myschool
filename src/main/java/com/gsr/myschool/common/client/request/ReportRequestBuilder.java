@@ -19,7 +19,7 @@ public class ReportRequestBuilder extends RequestBuilder {
 
     public void sendRequest() {
         if (GWT.isScript()) {
-            Window.open("resource/report?"+postData.toString(), "_blank", "");
+            Window.open("/preinscription/resource/report?"+postData.toString(), "_blank", "");
         } else {
             Window.open("/resource/report?"+postData.toString(), "_blank", "");
         }

@@ -55,11 +55,18 @@
 			<band/>
 		</groupHeader>
 		<groupFooter>
-			<band height="50">
+			<band height="70">
 				<image scaleImage="FillFrame">
 					<reportElement uuid="55ce2972-75c6-4ff5-9d12-5c5a619c46ac" x="32" y="3" width="494" height="45"/>
 					<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"footer_gsr.jpg"]]></imageExpression>
 				</image>
+				<textField>
+					<reportElement uuid="4767852f-753c-4c92-b5c2-578d347bb587" x="233" y="48" width="100" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
 			</band>
 			<band height="21">
 				<subreport>
@@ -95,17 +102,17 @@
 			<band height="20">
 				<subreport>
 					<reportElement uuid="f90ea505-126c-477c-917f-6ec14882e51b" positionType="Float" x="46" y="8" width="463" height="5" isRemoveLineWhenBlank="true"/>
-					<subreportParameter name="fraterie">
-						<subreportParameterExpression><![CDATA[$P{fraterie}]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter name="dateLimite">
-						<subreportParameterExpression><![CDATA[$P{dateLimite}]]></subreportParameterExpression>
-					</subreportParameter>
 					<subreportParameter name="SUBREPORT_DIR">
 						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter name="pieces">
 						<subreportParameterExpression><![CDATA[$P{pieces}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="fraterie">
+						<subreportParameterExpression><![CDATA[$P{fraterie}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="dateLimite">
+						<subreportParameterExpression><![CDATA[$P{dateLimite}]]></subreportParameterExpression>
 					</subreportParameter>
 					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{pieces})]]></dataSourceExpression>
 					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportGeneral_subreport4.jasper"]]></subreportExpression>
@@ -142,7 +149,7 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="610" splitType="Stretch">
+		<band height="592" splitType="Stretch">
 			<line>
 				<reportElement uuid="7ec5afac-c68f-481f-9c04-4f943d2ff44f" x="46" y="25" width="465" height="1"/>
 			</line>
@@ -861,13 +868,6 @@
 				</textElement>
 				<text><![CDATA[Section (2) : ]]></text>
 			</staticText>
-			<textField>
-				<reportElement uuid="4767852f-753c-4c92-b5c2-578d347bb587" x="426" y="589" width="100" height="20"/>
-				<textElement textAlignment="Right" verticalAlignment="Bottom">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
 		</band>
 	</detail>
 </jasperReport>
