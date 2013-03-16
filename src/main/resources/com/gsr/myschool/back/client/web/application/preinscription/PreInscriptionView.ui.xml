@@ -29,6 +29,7 @@
 
             <div class="{style.contentWrapper}">
                 <boot:CellTable ui:field="preInscriptionsTable" bordered="true"/>
+                <boot:SimplePager ui:field="pager" location="LEFT"/>
             </div>
         </div>
     </g:HTMLPanel>

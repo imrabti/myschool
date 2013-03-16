@@ -16,22 +16,19 @@
 
 package com.gsr.myschool.back.client.web.application.preinscription;
 
-import com.google.gwt.http.client.*;
+import com.google.gwt.view.client.HasData;
 import com.google.inject.Inject;
-import com.google.web.bindery.autobean.shared.AutoBean;
-import com.google.web.bindery.autobean.shared.AutoBeanCodex;
-import com.google.web.bindery.autobean.shared.AutoBeanUtils;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.DossierServiceRequest;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
+import com.gsr.myschool.common.client.proxy.DataPageProxy;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.request.ExcelRequestBuilder;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
-import com.gsr.myschool.common.client.util.URLUtils;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -49,7 +46,13 @@ import java.util.List;
 public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.MyView, PreInscriptionPresenter.MyProxy>
         implements PreInscriptionUiHandlers {
     public interface MyView extends View, HasUiHandlers<PreInscriptionUiHandlers> {
-        void setData(List<DossierProxy> data);
+        void initDataProvider();
+
+        void setDossierCount(Integer result);
+
+        void displayDossiers(int offset, List<DossierProxy> cars);
+
+        HasData<DossierProxy> getDossiersDisplay();
 
         void editDossierFilter(DossierFilterDTOProxy dossierFilter);
     }
@@ -84,6 +87,10 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
         PlaceRequest placeRequest = new PlaceRequest(NameTokens.getInscriptiondetail());
         placeRequest = placeRequest.with("id", dossier.getId().toString());
         placeManager.revealPlace(placeRequest);
+    }
+
+    @Override
+    public void fetchData(final int offset, int limit) {
     }
 
     @Override
@@ -122,5 +129,16 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
         currentContext = requestFactory.dossierService();
         currentDossierFilter = currentContext.create(DossierFilterDTOProxy.class);
         getView().editDossierFilter(currentDossierFilter);
+
+        getView().initDataProvider();
+        loadDossiersCounts();
+
+    }
+
+    private void loadDossiersCounts() {
+        DataPageProxy page = currentContext.create(DataPageProxy.class);
+        page.setPageNumber(0);
+        page.setLength(GlobalParameters.PAGE_SIZE);
+
     }
 }

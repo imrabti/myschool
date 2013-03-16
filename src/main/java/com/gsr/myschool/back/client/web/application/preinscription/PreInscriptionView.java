@@ -17,6 +17,7 @@
 package com.gsr.myschool.back.client.web.application.preinscription;
 
 import com.github.gwtbootstrap.client.ui.CellTable;
+import com.github.gwtbootstrap.client.ui.SimplePager;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.dom.client.Style;
@@ -29,7 +30,10 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.AsyncDataProvider;
+import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.Range;
 import com.google.inject.Inject;
 import com.gsr.myschool.back.client.web.application.preinscription.renderer.PreInscriptionActionCell;
 import com.gsr.myschool.back.client.web.application.preinscription.renderer.PreInscriptionActionCellFactory;
@@ -53,10 +57,13 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
     DossierFilterEditor dossierFilterEditor;
     @UiField
     CellTable<DossierProxy> preInscriptionsTable;
+    @UiField(provided = true)
+    SimplePager pager;
 
     private final DateTimeFormat dateFormat;
-    private final ListDataProvider<DossierProxy> dataProvider;
     private final PreInscriptionActionCellFactory actionCellFactory;
+
+    private AsyncDataProvider<DossierProxy> dataProvider;
 
     @Inject
     public PreInscriptionView(final Binder uiBinder, final SharedMessageBundle sharedMessageBundle,
@@ -71,18 +78,36 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         initWidget(uiBinder.createAndBindUi(this));
         initDataGrid();
 
-        dataProvider = new ListDataProvider<DossierProxy>();
         dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
-
-        dataProvider.addDataDisplay(preInscriptionsTable);
         preInscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
     }
 
     @Override
-    public void setData(List<DossierProxy> data) {
-        preInscriptionsTable.setPageSize(data.size());
-        dataProvider.getList().clear();
-        dataProvider.getList().addAll(data);
+    public void initDataProvider() {
+        dataProvider = new AsyncDataProvider<DossierProxy>() {
+            @Override
+            protected void onRangeChanged(HasData<DossierProxy> display) {
+                Range range = display.getVisibleRange();
+                getUiHandlers().fetchData(range.getStart(), range.getLength());
+            }
+        };
+
+        dataProvider.addDataDisplay(preInscriptionsTable);
+    }
+
+    @Override
+    public void setDossierCount(Integer result) {
+        dataProvider.updateRowCount(result, true);
+    }
+
+    @Override
+    public void displayDossiers(int offset, List<DossierProxy> cars) {
+        dataProvider.updateRowData(offset, cars);
+    }
+
+    @Override
+    public HasData<DossierProxy> getDossiersDisplay() {
+        return preInscriptionsTable;
     }
 
     @Override
@@ -106,6 +131,10 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
     }
 
     private void initDataGrid() {
+        pager = new SimplePager(SimplePager.TextLocation.LEFT);
+        pager.setDisplay(preInscriptionsTable);
+        pager.setPageSize(GlobalParameters.PAGE_SIZE);
+
         TextColumn<DossierProxy> nomColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
