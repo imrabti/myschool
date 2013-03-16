@@ -23,10 +23,12 @@ import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.service.DossierService;
 import com.gsr.myschool.server.service.XlsExportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -41,17 +43,17 @@ public class ExcelController {
     private DossierService dossierService;
     @Autowired
     private XlsExportService xlsExportService;
-    private static String TMP_FOLDER_PATH = "classpath:/META-INF/tmp/";
+    private static String TMP_FOLDER_PATH = "/tmp/";
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public void generateExcel(@RequestBody DossierFilterDTO requestdata, HttpServletResponse response) {
+    public void generateExcel(@RequestBody DossierFilterDTO requestdata, HttpServletRequest request, HttpServletResponse response) {
         try {
             List<Dossier> dossiers = dossierService.findAllDossiersByCriteria(requestdata);
             List<DossierExcelDTO> resultDossiers = map(dossiers);
 
             String fileName = new Date().getTime() + ".xls";
-            File file = new File(TMP_FOLDER_PATH + fileName);
+            File file = new File(request.getSession().getServletContext().getRealPath("/") + TMP_FOLDER_PATH + fileName);
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }
@@ -70,14 +72,14 @@ public class ExcelController {
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/vnd.ms-excel")
     @ResponseStatus(HttpStatus.OK)
-    public void generateExcel(@RequestParam String fileName, HttpServletResponse response) {
+    public void generateExcel(@RequestParam String fileName, HttpServletRequest request, HttpServletResponse response) {
         try {
             final int buffersize = 1024;
             final byte[] buffer = new byte[buffersize];
 
             response.addHeader("Content-Disposition", "attachment; filename=recherche.xls");
 
-            File file = new File(TMP_FOLDER_PATH + fileName);
+            File file = new File(request.getSession().getServletContext().getRealPath("/") + TMP_FOLDER_PATH + fileName);
             InputStream inputStream = new FileInputStream(file);
             BufferedOutputStream outputStream = new BufferedOutputStream(response.getOutputStream());
 
