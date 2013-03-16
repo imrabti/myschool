@@ -21,6 +21,8 @@ import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface ReceptionUiHandlers extends UiHandlers {
+    void fetchData(Integer offset, Integer limit);
+
     void receive(DossierProxy dossier);
 
     void searchWithFilter(DossierFilterDTOProxy dossierFilter);

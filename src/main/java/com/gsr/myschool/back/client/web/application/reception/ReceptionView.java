@@ -1,6 +1,7 @@
 package com.gsr.myschool.back.client.web.application.reception;
 
 import com.github.gwtbootstrap.client.ui.CellTable;
+import com.github.gwtbootstrap.client.ui.SimplePager;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.dom.client.Style;
@@ -13,7 +14,9 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.AsyncDataProvider;
+import com.google.gwt.view.client.HasData;
+import com.google.gwt.view.client.Range;
 import com.google.inject.Inject;
 import com.gsr.myschool.back.client.web.application.reception.renderer.ReceptionActionCell;
 import com.gsr.myschool.back.client.web.application.reception.renderer.ReceptionActionCellFactory;
@@ -28,8 +31,7 @@ import com.gsr.myschool.common.shared.constants.GlobalParameters;
 
 import java.util.List;
 
-public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers>
-        implements ReceptionPresenter.MyView {
+public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers> implements ReceptionPresenter.MyView {
     public interface Binder extends UiBinder<Widget, ReceptionView> {
     }
 
@@ -37,10 +39,13 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers>
     DossierFilterEditor dossierFilterEditor;
     @UiField
     CellTable<DossierProxy> inscriptionsTable;
+    @UiField(provided = true)
+    SimplePager pager;
 
     private final DateTimeFormat dateFormat;
-    private final ListDataProvider<DossierProxy> dataProvider;
     private final ReceptionActionCellFactory actionCellFactory;
+
+    private AsyncDataProvider<DossierProxy> dataProvider;
 
     @Inject
     public ReceptionView(final Binder uiBinder, final SharedMessageBundle sharedMessageBundle,
@@ -51,22 +56,39 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers>
 
         this.actionCellFactory = actionCellFactory;
         this.dossierFilterEditor = dossierProxyEditor;
+        this.pager = new SimplePager(SimplePager.TextLocation.LEFT);
 
         initWidget(uiBinder.createAndBindUi(this));
         initDataGrid();
 
-        dataProvider = new ListDataProvider<DossierProxy>();
-        dataProvider.addDataDisplay(inscriptionsTable);
+        pager.setDisplay(inscriptionsTable);
+        pager.setPageSize(GlobalParameters.PAGE_SIZE);
 
         dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
         inscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
     }
 
     @Override
-    public void setData(List<DossierProxy> data) {
-        inscriptionsTable.setPageSize(data.size());
-        dataProvider.getList().clear();
-        dataProvider.getList().addAll(data);
+    public void initDataProvider() {
+        dataProvider = new AsyncDataProvider<DossierProxy>() {
+            @Override
+            protected void onRangeChanged(HasData<DossierProxy> display) {
+                Range range = display.getVisibleRange();
+                getUiHandlers().fetchData(range.getStart(), range.getLength());
+            }
+        };
+
+        dataProvider.addDataDisplay(inscriptionsTable);
+    }
+
+    @Override
+    public void setDossierCount(Integer result) {
+        dataProvider.updateRowCount(result, true);
+    }
+
+    @Override
+    public void displayDossiers(Integer offset, List<DossierProxy> cars) {
+        dataProvider.updateRowData(offset, cars);
     }
 
     @Override

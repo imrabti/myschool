@@ -18,6 +18,7 @@ package com.gsr.myschool.server.service.impl;
 
 import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
+import com.gsr.myschool.common.shared.dto.PagedDossiers;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.process.ValidationProcessService;
@@ -26,28 +27,21 @@ import com.gsr.myschool.server.repos.spec.DossierSpec;
 import com.gsr.myschool.server.service.DossierService;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class DossierServiceImpl implements DossierService {
     @Autowired
-    DossierRepos dossierRepos;
+    private DossierRepos dossierRepos;
     @Autowired
     private ValidationProcessService validationProcessService;
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Dossier> findAllDossiersByUser(Long userId) {
-        List<Dossier> dossiers = new ArrayList<Dossier>();
-        dossiers.addAll(dossierRepos.findByOwnerIdOrderByIdDesc(userId));
-        return dossiers;
-    }
 
     @Override
     public Boolean receive(Dossier dossier) {
@@ -68,7 +62,7 @@ public class DossierServiceImpl implements DossierService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Dossier> findAllDossiersByCriteria(DossierFilterDTO filter) {
+    public PagedDossiers findAllDossiersByCriteria(DossierFilterDTO filter, Integer pageNumber, Integer length) {
         Specifications spec = Specifications.where(DossierSpec.firstnameLike(filter.getFirstnameOrlastname()))
                 .or(DossierSpec.lastnameLike(filter.getFirstnameOrlastname()));
 
@@ -96,7 +90,7 @@ public class DossierServiceImpl implements DossierService {
             spec = spec.and(DossierSpec.isGsrFraterie(filter.getGsrFraterie()));
         }
 
-        if (filter.getParentGsr()) {
+        if (filter.getParentGsr() != null && filter.getGsrFraterie() != false) {
             spec = spec.and(DossierSpec.isParentGsr(filter.getParentGsr()));
         }
 
@@ -104,6 +98,15 @@ public class DossierServiceImpl implements DossierService {
             spec = spec.and(DossierSpec.numDossierLike(filter.getNumDossier()));
         }
 
-        return dossierRepos.findAll(spec);
+        if (pageNumber != null && length != null) {
+            PageRequest page = new PageRequest(pageNumber, length);
+            Page resultPage = dossierRepos.findAll(spec, page);
+
+            return new PagedDossiers(resultPage.getContent(), (int) resultPage.getTotalElements());
+        } else {
+            List<Dossier> result = dossierRepos.findAll(spec);
+
+            return  new PagedDossiers(result, result.size());
+        }
     }
 }

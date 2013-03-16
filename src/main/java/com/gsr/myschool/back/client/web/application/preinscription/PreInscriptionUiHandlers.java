@@ -21,7 +21,7 @@ import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface PreInscriptionUiHandlers extends UiHandlers {
-    void fetchData(int offset, int limit);
+    void fetchData(Integer offset, Integer limit);
 
     void viewDetails(DossierProxy dossier);
 

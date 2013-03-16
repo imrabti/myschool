@@ -62,8 +62,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
 
     private final DateTimeFormat dateFormat;
     private final PreInscriptionActionCellFactory actionCellFactory;
-
-    private AsyncDataProvider<DossierProxy> dataProvider;
+    private final AsyncDataProvider<DossierProxy> dataProvider;
 
     @Inject
     public PreInscriptionView(final Binder uiBinder, final SharedMessageBundle sharedMessageBundle,
@@ -74,25 +73,23 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
 
         this.dossierFilterEditor = dossierFilterEditor;
         this.actionCellFactory = actionCellFactory;
+        this.dataProvider = setupDataProvider();
+        this.pager = new SimplePager(SimplePager.TextLocation.RIGHT);
         
         initWidget(uiBinder.createAndBindUi(this));
         initDataGrid();
+
+        dataProvider.addDataDisplay(preInscriptionsTable);
+        pager.setDisplay(preInscriptionsTable);
+        pager.setPageSize(GlobalParameters.PAGE_SIZE);
 
         dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
         preInscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
     }
 
     @Override
-    public void initDataProvider() {
-        dataProvider = new AsyncDataProvider<DossierProxy>() {
-            @Override
-            protected void onRangeChanged(HasData<DossierProxy> display) {
-                Range range = display.getVisibleRange();
-                getUiHandlers().fetchData(range.getStart(), range.getLength());
-            }
-        };
-
-        dataProvider.addDataDisplay(preInscriptionsTable);
+    public void reloadData() {
+        preInscriptionsTable.setVisibleRangeAndClearData(preInscriptionsTable.getVisibleRange(), true);
     }
 
     @Override
@@ -101,13 +98,8 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
     }
 
     @Override
-    public void displayDossiers(int offset, List<DossierProxy> cars) {
+    public void displayDossiers(Integer offset, List<DossierProxy> cars) {
         dataProvider.updateRowData(offset, cars);
-    }
-
-    @Override
-    public HasData<DossierProxy> getDossiersDisplay() {
-        return preInscriptionsTable;
     }
 
     @Override
@@ -130,11 +122,19 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         getUiHandlers().init();
     }
 
-    private void initDataGrid() {
-        pager = new SimplePager(SimplePager.TextLocation.LEFT);
-        pager.setDisplay(preInscriptionsTable);
-        pager.setPageSize(GlobalParameters.PAGE_SIZE);
+    private AsyncDataProvider<DossierProxy> setupDataProvider() {
+        return new AsyncDataProvider<DossierProxy>() {
+            @Override
+            protected void onRangeChanged(HasData<DossierProxy> display) {
+                Range range = display.getVisibleRange();
+                if (getUiHandlers() != null) {
+                    getUiHandlers().fetchData(range.getStart(), range.getLength());
+                }
+            }
+        };
+    }
 
+    private void initDataGrid() {
         TextColumn<DossierProxy> nomColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {

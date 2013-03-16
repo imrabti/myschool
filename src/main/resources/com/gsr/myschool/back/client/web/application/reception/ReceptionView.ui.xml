@@ -29,6 +29,7 @@
 
             <div class="{style.contentWrapper}">
                 <boot:CellTable ui:field="inscriptionsTable" bordered="true"/>
+                <boot:SimplePager ui:field="pager"/>
             </div>
         </div>
     </g:HTMLPanel>
