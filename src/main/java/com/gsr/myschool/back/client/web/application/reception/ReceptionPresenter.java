@@ -50,7 +50,7 @@ import java.util.List;
 public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, ReceptionPresenter.MyProxy>
         implements ReceptionUiHandlers {
     public interface MyView extends View, HasUiHandlers<ReceptionUiHandlers> {
-        void initDataProvider();
+        void reloadData();
 
         void setDossierCount(Integer result);
 
@@ -103,7 +103,7 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
                 AlertType alertType = response ? AlertType.SUCCESS : AlertType.ERROR;
                 Message message = new Message.Builder(messageString).style(alertType).build();
                 MessageEvent.fire(this, message);
-                searchWithFilter(dossierFilter);
+                loadDossiersCounts();
             }
         });
     }
@@ -115,10 +115,11 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
                 .fire(new ReceiverImpl<PagedDossiersProxy>() {
             @Override
             public void onSuccess(PagedDossiersProxy result) {
-                getView().displayDossiers(offset, result.getDossiers());
-
                 currentContext = requestFactory.dossierService();
                 dossierFilter = currentContext.edit(dossierFilter);
+
+                getView().displayDossiers(offset, result.getDossiers());
+                getView().editDossierFilter(dossierFilter);
             }
         });
     }
@@ -138,6 +139,7 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
     public void init() {
         currentContext = requestFactory.dossierService();
         dossierFilter = currentContext.create(DossierFilterDTOProxy.class);
+        dossierFilter.setStatus(DossierStatus.SUBMITTED);
 
         getView().editDossierFilter(dossierFilter);
         loadDossiersCounts();
@@ -158,7 +160,6 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
         dossierFilter.setStatus(DossierStatus.SUBMITTED);
 
         getView().editDossierFilter(dossierFilter);
-        getView().initDataProvider();
         loadDossiersCounts();
     }
 
@@ -167,10 +168,12 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
                 .fire(new ReceiverImpl<PagedDossiersProxy>() {
             @Override
             public void onSuccess(PagedDossiersProxy result) {
-                getView().setDossierCount(result.getTotalElements());
-
                 currentContext = requestFactory.dossierService();
                 dossierFilter = currentContext.edit(dossierFilter);
+
+                getView().setDossierCount(result.getTotalElements());
+                getView().editDossierFilter(dossierFilter);
+                getView().reloadData();
             }
         });
     }

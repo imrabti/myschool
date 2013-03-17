@@ -44,8 +44,7 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers> imple
 
     private final DateTimeFormat dateFormat;
     private final ReceptionActionCellFactory actionCellFactory;
-
-    private AsyncDataProvider<DossierProxy> dataProvider;
+    private final AsyncDataProvider<DossierProxy> dataProvider;
 
     @Inject
     public ReceptionView(final Binder uiBinder, final SharedMessageBundle sharedMessageBundle,
@@ -56,11 +55,13 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers> imple
 
         this.actionCellFactory = actionCellFactory;
         this.dossierFilterEditor = dossierProxyEditor;
-        this.pager = new SimplePager(SimplePager.TextLocation.LEFT);
+        this.dataProvider = setupDataProvider();
+        this.pager = new SimplePager(SimplePager.TextLocation.RIGHT);
 
         initWidget(uiBinder.createAndBindUi(this));
         initDataGrid();
 
+        dataProvider.addDataDisplay(inscriptionsTable);
         pager.setDisplay(inscriptionsTable);
         pager.setPageSize(GlobalParameters.PAGE_SIZE);
 
@@ -69,16 +70,8 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers> imple
     }
 
     @Override
-    public void initDataProvider() {
-        dataProvider = new AsyncDataProvider<DossierProxy>() {
-            @Override
-            protected void onRangeChanged(HasData<DossierProxy> display) {
-                Range range = display.getVisibleRange();
-                getUiHandlers().fetchData(range.getStart(), range.getLength());
-            }
-        };
-
-        dataProvider.addDataDisplay(inscriptionsTable);
+    public void reloadData() {
+        inscriptionsTable.setVisibleRangeAndClearData(inscriptionsTable.getVisibleRange(), true);
     }
 
     @Override
@@ -109,6 +102,18 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers> imple
     @UiHandler("initialize")
     void onInitialize(ClickEvent event) {
         getUiHandlers().init();
+    }
+
+    private AsyncDataProvider<DossierProxy> setupDataProvider() {
+        return new AsyncDataProvider<DossierProxy>() {
+            @Override
+            protected void onRangeChanged(HasData<DossierProxy> display) {
+                Range range = display.getVisibleRange();
+                if (getUiHandlers() != null) {
+                    getUiHandlers().fetchData(range.getStart(), range.getLength());
+                }
+            }
+        };
     }
 
     private void initDataGrid() {
