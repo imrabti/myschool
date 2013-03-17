@@ -44,6 +44,7 @@ import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
+import com.gsr.myschool.common.client.widget.LoadingIndicator;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 
 import java.util.List;
@@ -67,6 +68,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
     @Inject
     public PreInscriptionView(final Binder uiBinder, final SharedMessageBundle sharedMessageBundle,
                               final DossierFilterEditor dossierFilterEditor,
+                              final LoadingIndicator loadingIndicator,
                               final UiHandlersStrategy<PreInscriptionUiHandlers> uiHandlers,
                               final PreInscriptionActionCellFactory actionCellFactory) {
         super(uiHandlers);
@@ -84,6 +86,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         pager.setPageSize(GlobalParameters.PAGE_SIZE);
 
         dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
+        preInscriptionsTable.setLoadingIndicator(loadingIndicator);
         preInscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
     }
 

@@ -27,6 +27,7 @@ import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
+import com.gsr.myschool.common.client.widget.LoadingIndicator;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 
 import java.util.List;
@@ -49,6 +50,7 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers> imple
     @Inject
     public ReceptionView(final Binder uiBinder, final SharedMessageBundle sharedMessageBundle,
                          final DossierFilterEditor dossierProxyEditor,
+                         final LoadingIndicator loadingIndicator,
                          final UiHandlersStrategy<ReceptionUiHandlers> uiHandlers,
                          final ReceptionActionCellFactory actionCellFactory) {
         super(uiHandlers);
@@ -66,6 +68,7 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers> imple
         pager.setPageSize(GlobalParameters.PAGE_SIZE);
 
         dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
+        inscriptionsTable.setLoadingIndicator(loadingIndicator);
         inscriptionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
     }
 
