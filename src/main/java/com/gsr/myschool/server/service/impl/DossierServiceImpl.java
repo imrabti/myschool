@@ -90,7 +90,7 @@ public class DossierServiceImpl implements DossierService {
             spec = spec.and(DossierSpec.isGsrFraterie(filter.getGsrFraterie()));
         }
 
-        if (filter.getParentGsr() != null && filter.getGsrFraterie() != false) {
+        if (filter.getParentGsr() != null && filter.getParentGsr() != false) {
             spec = spec.and(DossierSpec.isParentGsr(filter.getParentGsr()));
         }
 
