@@ -29,7 +29,6 @@ import java.util.List;
 public class DossierServiceTest {
     @Autowired
     private DossierService dossierService;
-
     @Autowired
     private DossierRepos dossierRepos;
 
@@ -38,7 +37,7 @@ public class DossierServiceTest {
         DossierFilterDTO dossierFilter = new DossierFilterDTO();
         dossierFilter.setNumDossier("FH");
         dossierFilter.setStatus(DossierStatus.SUBMITTED);
-        List<Dossier> dossiers = dossierService.findAllDossiersByCriteria (dossierFilter);
+        List<Dossier> dossiers = dossierService.findAllDossiersByCriteria(dossierFilter, null, null).getDossiers();
         Assert.assertEquals(dossiers.size(), 1);
     }
 }

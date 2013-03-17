@@ -49,6 +49,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     CheckBox gsrFraterie;
 
     private final Driver driver;
+    private final ValueList valueList;
     private final SuggestionListFactory suggestionList;
 
     @Inject
@@ -56,6 +57,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
                                final ValueList valueList, final SharedResources resources,
                                final SuggestionListFactory suggestionList) {
         this.driver = driver;
+        this.valueList = valueList;
         this.suggestionList = suggestionList;
 
         this.filiere = new ValueListBox<FiliereProxy>(new FiliereRenderer());
@@ -91,7 +93,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
 
         numDossier.setFocus(true);
         driver.edit(object);
-        niveauEtude.setValue(null);
+        filiere.setAcceptableValues(valueList.getFiliereList());
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
     }
 

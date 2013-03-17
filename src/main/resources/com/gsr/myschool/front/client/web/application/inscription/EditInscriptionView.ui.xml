@@ -39,7 +39,7 @@
             <div style="float: right;">
                 <boot:Button ui:field="back" text="Précedent" icon="CHEVRON_LEFT"/>
                 <boot:Button ui:field="next"  text="Suivant" icon="CHEVRON_RIGHT" iconPosition="RIGHT"/>
-                <boot:Button ui:field="finish" text="Enregistrer et Quiter" icon="OK" styleName="btn btn-success"/>
+                <boot:Button ui:field="finish" text="Enregistrer et Quitter" icon="OK" styleName="btn btn-success"/>
             </div>
 
             <div style="clear: both;"/>

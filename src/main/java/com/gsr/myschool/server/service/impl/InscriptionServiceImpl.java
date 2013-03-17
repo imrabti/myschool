@@ -76,7 +76,7 @@ public class InscriptionServiceImpl implements InscriptionService {
 
         Long loggedInOwner = securityContextProvider.getCurrentUser().getId();
 
-        if (dossier == null || dossier.getOwner().getId() != loggedInOwner) {
+        if (dossier == null || dossier.getOwner().getId().longValue() != loggedInOwner.longValue()) {
             throw new UnAuthorizedException();
         } else {
             return dossier;
@@ -96,7 +96,7 @@ public class InscriptionServiceImpl implements InscriptionService {
 
         Long loggedInOwner = securityContextProvider.getCurrentUser().getId();
 
-        if (dossier == null || dossier.getOwner().getId() != loggedInOwner) {
+        if (dossier == null || dossier.getOwner().getId().longValue() != loggedInOwner.longValue()) {
             throw new UnAuthorizedException();
         } else {
             return dossier;
