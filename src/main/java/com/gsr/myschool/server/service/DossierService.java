@@ -17,6 +17,7 @@
 package com.gsr.myschool.server.service;
 
 import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
+import com.gsr.myschool.common.shared.dto.PiecejustifDTO;
 import com.gsr.myschool.server.business.Dossier;
 
 import java.util.List;
@@ -27,4 +28,6 @@ public interface DossierService {
     List<Dossier> findAllDossiersByCriteria(DossierFilterDTO filter);
 
     Boolean receive(Dossier dossier);
+
+    Boolean verify(Long dossierId, List<PiecejustifDTO> piecejustifDTOs);
 }

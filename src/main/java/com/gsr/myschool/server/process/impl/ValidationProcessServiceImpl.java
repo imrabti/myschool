@@ -17,20 +17,20 @@
 package com.gsr.myschool.server.process.impl;
 
 import com.gsr.myschool.common.shared.dto.EmailDTO;
+import com.gsr.myschool.common.shared.dto.PiecejustifDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
+import com.gsr.myschool.common.shared.type.EmailType;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.DossierRepos;
+import com.gsr.myschool.server.service.EmailService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ValidationProcessServiceImpl implements ValidationProcessService {
@@ -57,6 +57,8 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     private TaskService taskService;
     @Autowired
     private DossierRepos dossierRepos;
+    @Autowired
+    private EmailService emailService;
 
     @Override
     public void startProcess(Dossier dossier) {
@@ -86,25 +88,59 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     }
 
     @Override
-    public void receiveDossier(Task task) {
-        taskService.complete(task.getId());
+    public void receiveDossier(Task task, List<PiecejustifDTO> piecejustifDTOs) {
+        // Initialise process variables
+        Map<String, Object> processParams = new HashMap<String, Object>();
+        processParams.put("piecejustifs", piecejustifDTOs);
+
+        taskService.complete(task.getId(), processParams);
     }
 
     @Override
-    public Map<Task, Dossier> getAllReceivedDossiers() {
+    public Map<Dossier, Task> getAllReceivedDossiers() {
         List<Task> taskList = taskService.createTaskQuery().taskDefinitionKey(ValidationTask.VALIDATION.getValue()).list();
-        Map<Task, Dossier> dossierMap = new HashMap<Task, Dossier>();
+        Map<Dossier, Task> dossierMap = new HashMap<Dossier, Task>();
         for (Task task : taskList) {
-            dossierMap.put(task, (Dossier) runtimeService.getVariable(task.getExecutionId(), "dossier"));
+            dossierMap.put((Dossier) runtimeService.getVariable(task.getExecutionId(), "dossier"), task);
         }
         return dossierMap;
     }
 
     @Override
-    public void rejectDossier(Task task) {
+    public List<PiecejustifDTO> getPiecejustifFromProcess(Dossier dossier) {
+        List<Task> taskList = taskService.createTaskQuery().taskDefinitionKey(ValidationTask.VALIDATION.getValue()).list();
+        for (Task task : taskList) {
+            if (((Dossier) runtimeService.getVariable(task.getExecutionId(), "dossier")).getId().longValue() == dossier.getId().longValue()) {
+                return (List<PiecejustifDTO>) runtimeService.getVariable(task.getExecutionId(), "piecejustifs");
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void rejectDossier(Task task, List<PiecejustifDTO> pieceNonavailable) {
+        EmailDTO email = (EmailDTO) runtimeService.getVariable(task.getExecutionId(), "email");
+        Map<String, Object> params = new HashMap<String, Object>();
+
+        List<String> pieces = new ArrayList<String>();
+        for (PiecejustifDTO piece : pieceNonavailable) {
+            if (piece.getAvailable() == null || !piece.getAvailable()) {
+                pieces.add(piece.getNom());
+            }
+        }
+
+        params.put("pieceNonavailable", pieces);
+
+        try {
+            email = emailService.populateEmail(EmailType.DOSSIER_INCOMPLETE, email.getTo(), email.getFrom(), params, "", "");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         // Initialise process variables
         Map<String, Object> processParams = new HashMap<String, Object>();
         processParams.put("dossierComplet", false);
+        processParams.put("email", email);
 
         taskService.complete(task.getId(), processParams);
     }

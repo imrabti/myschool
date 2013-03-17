@@ -176,8 +176,8 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
             safeBirthDate = SafeHtmlUtils.fromString(dateFormat.format(candidat.getBirthDate()));
         }
 
-        candidatPanel.add(rowLabelValueFactory.createValueLabel("Nom : ", safeFirstName));
-        candidatPanel.add(rowLabelValueFactory.createValueLabel("Prénom : ", safeLastName));
+        candidatPanel.add(rowLabelValueFactory.createValueLabel("Nom : ", safeLastName));
+        candidatPanel.add(rowLabelValueFactory.createValueLabel("Prénom : ", safeFirstName));
         candidatPanel.add(rowLabelValueFactory.createValueLabel("Date de naissance : ", safeBirthDate));
         candidatPanel.add(rowLabelValueFactory.createValueLabel("Lieu de naissance : ", safeBirthLocation));
 

@@ -21,12 +21,12 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     private EmailTemplateRepos emailTemplateRepos;
 
-    public EmailDTO populateEmail(EmailType code, String to, String from, Map<String, String> params, String cc,
+    public EmailDTO populateEmail(EmailType code, String to, String from, Map<String, Object> params, String cc,
                                   String bcc) throws Exception {
         velocityEngine.init();
         VelocityContext context = new VelocityContext();
 
-        Iterator<String> itValue = params.values().iterator();
+        Iterator<Object> itValue = params.values().iterator();
         Iterator<String> itKey = params.keySet().iterator();
 
         while (itValue.hasNext()) {
