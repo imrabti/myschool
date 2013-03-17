@@ -49,7 +49,7 @@ public class ExcelController {
     @ResponseStatus(HttpStatus.OK)
     public void generateExcel(@RequestBody DossierFilterDTO requestdata, HttpServletRequest request, HttpServletResponse response) {
         try {
-            List<Dossier> dossiers = dossierService.findAllDossiersByCriteria(requestdata);
+            List<Dossier> dossiers = dossierService.findAllDossiersByCriteria(requestdata, null, null).getDossiers();
             List<DossierExcelDTO> resultDossiers = map(dossiers);
 
             String fileName = new Date().getTime() + ".xls";

@@ -21,16 +21,13 @@ import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.client.proxy.PagedDossiersProxy;
 import com.gsr.myschool.server.service.impl.DossierServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
 
-import java.util.List;
-
 @Service(value = DossierServiceImpl.class, locator = SpringServiceLocator.class)
 public interface DossierServiceRequest extends RequestContext {
-    Request<List<DossierProxy>> findAllDossiersByUser(Long id);
-
-    Request<List<DossierProxy>> findAllDossiersByCriteria(DossierFilterDTOProxy filter);
+    Request<PagedDossiersProxy> findAllDossiersByCriteria(DossierFilterDTOProxy filter, Integer page, Integer length);
 
     Request<Boolean> receive(DossierProxy dossier);
 }

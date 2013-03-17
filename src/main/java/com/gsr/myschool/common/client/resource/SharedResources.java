@@ -27,4 +27,7 @@ public interface SharedResources extends ClientBundle {
     @Source("com/gsr/myschool/common/client/resource/image/serverDown.png")
     @ImageResource.ImageOptions(repeatStyle = ImageResource.RepeatStyle.None)
     ImageResource serverDown();
+
+    @Source("com/gsr/myschool/common/client/resource/image/loading.gif")
+    ImageResource loading();
 }
