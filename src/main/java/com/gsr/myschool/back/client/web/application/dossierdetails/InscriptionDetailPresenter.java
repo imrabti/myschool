@@ -50,6 +50,8 @@ public class InscriptionDetailPresenter extends Presenter<InscriptionDetailPrese
 
         void setCandidat(CandidatProxy candidat);
 
+        void setScolariteActuelle(ScolariteActuelleProxy scolariteActuelle);
+
         void setFraterie(List<FraterieProxy> fraterieList);
     }
 
@@ -83,6 +85,7 @@ public class InscriptionDetailPresenter extends Presenter<InscriptionDetailPrese
                 currentDossier = result;
                 getView().setDossier(currentDossier);
                 getView().setCandidat(currentDossier.getCandidat());
+                getView().setScolariteActuelle(currentDossier.getScolariteActuelle());
 
                 loadInfoParent();
                 loadFraterie();

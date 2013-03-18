@@ -40,6 +40,10 @@
                 <g:HTMLPanel ui:field="candidatPanel"/>
             </boot:AccordionGroup>
 
+            <boot:AccordionGroup heading="Scolarité Actuelle" defaultOpen="true">
+                <g:HTMLPanel ui:field="scolariteActuellePanel"/>
+            </boot:AccordionGroup>
+
             <boot:AccordionGroup heading="Fratrie" defaultOpen="true">
                 <boot:CellTable ui:field="fraterieTable" bordered="true"
                                 addStyleNames="{clientResources.sharedStyleCss.tableTransparentBack}"/>

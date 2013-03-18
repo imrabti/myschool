@@ -5,6 +5,10 @@
     <ui:with field="frontResources" type="com.gsr.myschool.front.client.resource.FrontResources"/>
 
     <ui:style>
+        .globalWrapper {
+            overflow-y: auto;
+        }
+
         .header {
             margin-bottom: 8px;
             padding-bottom: 5px;
@@ -90,7 +94,7 @@
         }
     </ui:style>
 
-    <g:HTMLPanel>
+    <g:HTMLPanel styleName="{style.globalWrapper}">
         <div class="{style.header}">
             <div class="{style.logo}">
                 <g:Image resource="{resources.logo}"/>
