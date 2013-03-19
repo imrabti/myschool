@@ -8,6 +8,7 @@
     <ui:style>
         .contentWrapper {
             margin-top: 12px;
+            margin-bottom: 12px;
         }
     </ui:style>
 
@@ -29,6 +30,7 @@
 
             <div class="{style.contentWrapper}">
                 <boot:CellTable ui:field="inscriptionsTable" bordered="true"/>
+                <boot:SimplePager ui:field="pager"/>
             </div>
         </div>
     </g:HTMLPanel>

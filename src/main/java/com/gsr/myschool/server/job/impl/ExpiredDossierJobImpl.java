@@ -53,7 +53,7 @@ public class ExpiredDossierJobImpl implements Worker {
         DossierFilterDTO filter = new DossierFilterDTO();
         filter.setStatus(DossierStatus.CREATED);
 
-        List<Dossier> dossiers = dossierService.findAllDossiersByCriteria(filter);
+        List<Dossier> dossiers = dossierService.findAllDossiersByCriteria(filter, null, null).getDossiers();
 
         for (Dossier dossier : dossiers) {
             if (dossier.getCreateDate() != null) {
