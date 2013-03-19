@@ -21,7 +21,7 @@
                 <g:InlineLabel text="Aide"/>
             </h2>
             <div>
-                <boot:Tooltip text="Cliquer ici pour apprendre comment utiliser l'application" placement="LEFT">
+                <boot:Tooltip text="Cliquer ici pour visualiser le tutoriel de la création d'un dossier de pré-inscription" placement="LEFT">
                     <boot:Button ui:field="tutorial" text="Tutoriel d'utilisation" icon="FILM"/>
                 </boot:Tooltip>
             </div>
