@@ -69,6 +69,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
     public PreInscriptionView(final Binder uiBinder, final SharedMessageBundle sharedMessageBundle,
                               final DossierFilterEditor dossierFilterEditor,
                               final LoadingIndicator loadingIndicator,
+                              final SimplePager.Resources pagerResources,
                               final UiHandlersStrategy<PreInscriptionUiHandlers> uiHandlers,
                               final PreInscriptionActionCellFactory actionCellFactory) {
         super(uiHandlers);
@@ -76,7 +77,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
         this.dossierFilterEditor = dossierFilterEditor;
         this.actionCellFactory = actionCellFactory;
         this.dataProvider = setupDataProvider();
-        this.pager = new SimplePager(SimplePager.TextLocation.RIGHT);
+        this.pager = new SimplePager(SimplePager.TextLocation.RIGHT, pagerResources, false, 0, true);
         
         initWidget(uiBinder.createAndBindUi(this));
         initDataGrid();

@@ -51,6 +51,7 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers> imple
     public ReceptionView(final Binder uiBinder, final SharedMessageBundle sharedMessageBundle,
                          final DossierFilterEditor dossierProxyEditor,
                          final LoadingIndicator loadingIndicator,
+                         final SimplePager.Resources pagerResources,
                          final UiHandlersStrategy<ReceptionUiHandlers> uiHandlers,
                          final ReceptionActionCellFactory actionCellFactory) {
         super(uiHandlers);
@@ -58,7 +59,7 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers> imple
         this.actionCellFactory = actionCellFactory;
         this.dossierFilterEditor = dossierProxyEditor;
         this.dataProvider = setupDataProvider();
-        this.pager = new SimplePager(SimplePager.TextLocation.RIGHT);
+        this.pager = new SimplePager(SimplePager.TextLocation.RIGHT, pagerResources, false, 0, true);
 
         initWidget(uiBinder.createAndBindUi(this));
         initDataGrid();

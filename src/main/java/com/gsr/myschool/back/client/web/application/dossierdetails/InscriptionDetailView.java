@@ -68,6 +68,8 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
     @UiField
     HTMLPanel candidatPanel;
     @UiField
+    HTMLPanel scolariteActuellePanel;
+    @UiField
     CellTable<FraterieProxy> fraterieTable;
 
     private final DateTimeFormat dateFormat;
@@ -216,6 +218,28 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
         if (candidat.getBacYear() != null) {
             SafeHtml safeBacYear = SafeHtmlUtils.fromString(candidat.getBacYear().getLabel());
             candidatPanel.add(rowLabelValueFactory.createValueLabel("Année du baccalauréat : ", safeBacYear));
+        }
+    }
+
+    @Override
+    public void setScolariteActuelle(ScolariteActuelleProxy scolariteActuelle) {
+        scolariteActuellePanel.clear();
+
+        if (scolariteActuelle != null) {
+            if (scolariteActuelle.getEtablissement() != null) {
+                SafeHtml safeEtablissement = SafeHtmlUtils.fromString(scolariteActuelle.getEtablissement().getNom());
+                scolariteActuellePanel.add(rowLabelValueFactory.createValueLabel("Etablissement : ", safeEtablissement));
+            }
+
+            if (scolariteActuelle.getFiliere() != null) {
+                SafeHtml safeFiliere = SafeHtmlUtils.fromString(scolariteActuelle.getFiliere().getNom());
+                scolariteActuellePanel.add(rowLabelValueFactory.createValueLabel("Formation : ", safeFiliere));
+            }
+
+            if (scolariteActuelle.getNiveauEtude() != null) {
+                SafeHtml safeNiveauEtude = SafeHtmlUtils.fromString(scolariteActuelle.getNiveauEtude().getNom());
+                scolariteActuellePanel.add(rowLabelValueFactory.createValueLabel("Niveau demandé : ", safeNiveauEtude));
+            }
         }
     }
 
