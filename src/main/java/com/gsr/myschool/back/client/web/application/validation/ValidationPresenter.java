@@ -20,6 +20,7 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
+import com.gsr.myschool.back.client.web.application.validation.popup.PiecesJustificatifPresenter;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -43,10 +44,20 @@ public class ValidationPresenter extends Presenter<ValidationPresenter.MyView, V
     public interface MyProxy extends ProxyPlace<ValidationPresenter> {
     }
 
+    private final PiecesJustificatifPresenter piecesJustificatifPresenter;
+
     @Inject
-    public ValidationPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy) {
+    public ValidationPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
+                               final PiecesJustificatifPresenter piecesJustificatifPresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
+        this.piecesJustificatifPresenter = piecesJustificatifPresenter;
+
         getView().setUiHandlers(this);
+    }
+
+    @Override
+    public void verify() {
+        addToPopupSlot(piecesJustificatifPresenter);
     }
 }

@@ -9,6 +9,7 @@
                 <h2>
                     <g:InlineLabel text="Validation des dossiers"/>
                 </h2>
+                <g:Button ui:field="verify"/>
                 <div style="clear: both;"/>
             </g:HTMLPanel>
         </g:layer>

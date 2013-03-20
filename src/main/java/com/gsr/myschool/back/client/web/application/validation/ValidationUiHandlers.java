@@ -19,4 +19,5 @@ package com.gsr.myschool.back.client.web.application.validation;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface ValidationUiHandlers extends UiHandlers {
+    void verify();
 }
