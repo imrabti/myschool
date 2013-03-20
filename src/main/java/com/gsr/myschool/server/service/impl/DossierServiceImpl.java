@@ -18,12 +18,15 @@ package com.gsr.myschool.server.service.impl;
 
 import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
+import com.gsr.myschool.common.shared.dto.PiecejustifDTO;
 import com.gsr.myschool.common.shared.dto.PagedDossiers;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.business.core.PieceJustif;
 import com.gsr.myschool.server.business.core.PieceJustifDuNE;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.DossierRepos;
+import com.gsr.myschool.server.repos.PieceJustifRepos;
 import com.gsr.myschool.server.repos.PieceJustifDuNERepos;
 import com.gsr.myschool.server.repos.spec.DossierSpec;
 import com.gsr.myschool.server.service.DossierService;
@@ -35,6 +38,7 @@ import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +46,8 @@ import java.util.Map;
 public class DossierServiceImpl implements DossierService {
     @Autowired
     private DossierRepos dossierRepos;
+    @Autowired
+    private PieceJustifRepos pieceJustifRepos;
     @Autowired
     private PieceJustifDuNERepos pieceJustifDuNERepos;
     @Autowired
@@ -51,15 +57,67 @@ public class DossierServiceImpl implements DossierService {
     public Boolean receive(Dossier dossier) {
         Map<Dossier, Task> dossiersAndTasks = validationProcessService.getAllNonReceivedDossiers();
         for (Dossier dossierFromProcess : dossiersAndTasks.keySet()) {
-            if (dossier.getId() == dossierFromProcess.getId()) {
-                validationProcessService.receiveDossier(dossiersAndTasks.get(dossierFromProcess));
-
+            if (dossier.getId().longValue() == dossierFromProcess.getId().longValue()) {
                 Dossier receivedDossier = dossierRepos.findOne(dossier.getId());
+
+                // NiveauEtude always not null
+                List<PieceJustif> pieceJustifs = pieceJustifRepos.findByNiveauEtude(
+                        receivedDossier.getNiveauEtude().getId());
+
+                // create piecejustif DTOs
+                List<PiecejustifDTO> piecejustifDTOs = new ArrayList<PiecejustifDTO>();
+                for (PieceJustif pieceJustif : pieceJustifs) {
+                    piecejustifDTOs.add(PiecejustifDTO.mapper(pieceJustif));
+                }
+
+                validationProcessService.receiveDossier(dossiersAndTasks.get(dossierFromProcess), piecejustifDTOs);
+
                 receivedDossier.setStatus(DossierStatus.RECEIVED);
                 dossierRepos.save(receivedDossier);
 
                 break;
             }
+        }
+        return true;
+    }
+
+    @Override
+    public List<PiecejustifDTO> getPiecejustifFromProcess(Dossier dossier) {
+        return validationProcessService.getPiecejustifFromProcess(dossier);
+    }
+
+    @Override
+    public Boolean verify(Long dossierId, List<PiecejustifDTO> piecejustifDTOs) {
+        Task task = null;
+        Map<Dossier, Task> dossiersAndTasks = validationProcessService.getAllReceivedDossiers();
+        for (Dossier dossierFromProcess : dossiersAndTasks.keySet()) {
+            if (dossierId.longValue() == dossierFromProcess.getId().longValue()) {
+                task = dossiersAndTasks.get(dossierFromProcess);
+                break;
+            }
+        }
+
+        List<PiecejustifDTO> pieceNonavailable = new ArrayList<PiecejustifDTO>();
+        for (PiecejustifDTO piece : piecejustifDTOs) {
+            if (piece.getAvailable() == null || !piece.getAvailable()) {
+                pieceNonavailable.add(piece);
+            }
+        }
+
+        if (pieceNonavailable.isEmpty()) {
+            // piece all existing
+            validationProcessService.acceptDossier(task);
+
+            Dossier verifiedDossier = dossierRepos.findOne(dossierId);
+            verifiedDossier.setStatus(DossierStatus.ACCEPTED_FOR_STUDY);
+            dossierRepos.save(verifiedDossier);
+        } else {
+            // there is at least one piece not available
+            validationProcessService.rejectDossier(task, piecejustifDTOs);
+
+            Dossier verifiedDossier = dossierRepos.findOne(dossierId);
+            verifiedDossier.setStatus(DossierStatus.STANDBY);
+            dossierRepos.save(verifiedDossier);
         }
         return true;
     }
@@ -73,7 +131,7 @@ public class DossierServiceImpl implements DossierService {
     @Override
     @Transactional(readOnly = true)
     public PagedDossiers findAllDossiersByCriteria(DossierFilterDTO filter, Integer pageNumber, Integer length) {
-        Specifications spec = Specifications.where(DossierSpec.firstnameLike(filter.getFirstnameOrlastname()))
+        Specifications<Dossier> spec = Specifications.where(DossierSpec.firstnameLike(filter.getFirstnameOrlastname()))
                 .or(DossierSpec.lastnameLike(filter.getFirstnameOrlastname()));
 
         if (filter.getStatus() != null) {
@@ -96,11 +154,11 @@ public class DossierServiceImpl implements DossierService {
             spec = spec.and(DossierSpec.niveauEtudeEqual(filter.getNiveauEtude()));
         }
 
-        if (filter.getGsrFraterie() != null && filter.getGsrFraterie() != false) {
+        if (filter.getGsrFraterie() != null && filter.getGsrFraterie()) {
             spec = spec.and(DossierSpec.isGsrFraterie(filter.getGsrFraterie()));
         }
 
-        if (filter.getParentGsr() != null && filter.getParentGsr() != false) {
+        if (filter.getParentGsr() != null && filter.getParentGsr()) {
             spec = spec.and(DossierSpec.isParentGsr(filter.getParentGsr()));
         }
 
