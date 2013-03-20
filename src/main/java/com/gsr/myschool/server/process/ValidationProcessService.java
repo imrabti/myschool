@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.server.process;
 
+import com.gsr.myschool.common.shared.dto.PiecejustifDTO;
 import com.gsr.myschool.server.business.Dossier;
 import org.activiti.engine.task.Task;
 
@@ -42,8 +43,9 @@ public interface ValidationProcessService {
      * Finish the Task
      *
      * @param task
+     * @param piecejustifDTOs
      */
-    void receiveDossier(Task task);
+    void receiveDossier(Task task, List<PiecejustifDTO> piecejustifDTOs);
 
     /**
      * Returns the list of the Dossier that had been received,
@@ -51,7 +53,7 @@ public interface ValidationProcessService {
      *
      * @return
      */
-    Map<Task, Dossier> getAllReceivedDossiers();
+    Map<Dossier, Task> getAllReceivedDossiers();
 
     /**
      * Finish the validation of the Dossier task after checking the arrival
@@ -60,8 +62,9 @@ public interface ValidationProcessService {
      * with the rest of files needed
      *
      * @param task
+     * @param pieceNonavailable
      */
-    void rejectDossier(Task task);
+    void rejectDossier(Task task, List<PiecejustifDTO> pieceNonavailable);
 
     /**
      * Finish the validation of the Dossier task after checking the arrival
@@ -78,4 +81,6 @@ public interface ValidationProcessService {
     void acceptAnalysedDossier(Dossier dossier);
 
     List<Dossier> getAllAnalysedDossiers();
+
+    List<PiecejustifDTO> getPiecejustifFromProcess(Dossier dossier);
 }

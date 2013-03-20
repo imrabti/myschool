@@ -6,6 +6,6 @@ import com.gsr.myschool.common.shared.type.EmailType;
 import java.util.Map;
 
 public interface EmailService {
-    EmailDTO populateEmail(EmailType code, String to, String from, Map<String, String> params, String cc,
+    EmailDTO populateEmail(EmailType code, String to, String from, Map<String, Object> params, String cc,
                                   String bcc) throws Exception;
 }

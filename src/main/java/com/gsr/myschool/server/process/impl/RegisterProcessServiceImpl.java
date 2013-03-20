@@ -54,7 +54,7 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
     public void register(User user) throws Exception {
         String token = Base64.encode((new Date()).toString());
 
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("gender", user.getGender().toString());
         params.put("lastname", user.getLastName());
         params.put("firstname", user.getFirstName());
@@ -76,7 +76,7 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
         token = token.replace("=", "E");
         link = link + ";activate=" + token;
 
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("gender", user.getGender().toString());
         params.put("lastname", user.getLastName());
         params.put("firstname", user.getFirstName());
