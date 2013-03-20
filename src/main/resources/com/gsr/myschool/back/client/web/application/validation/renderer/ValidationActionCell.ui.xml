@@ -1,0 +1,12 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'>
+    <div class="btn-group">
+        <a href="javascript:;" class="btn" ui:field="viewDetails">
+            <i class="icon-search"/>
+            <span class="">consulter</span>
+        </a>
+        <a href="javascript:;" class="btn btn-success" ui:field="verify">
+            <i class="icon-ok"/>
+            <span class="">vérifier pièces</span>
+        </a>
+    </div>
+</ui:UiBinder>

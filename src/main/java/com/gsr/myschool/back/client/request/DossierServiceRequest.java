@@ -30,4 +30,6 @@ public interface DossierServiceRequest extends RequestContext {
     Request<PagedDossiersProxy> findAllDossiersByCriteria(DossierFilterDTOProxy filter, Integer page, Integer length);
 
     Request<Boolean> receive(DossierProxy dossier);
+
+    Request<Integer> findPiecesByNiveauEtude(Long level);
 }
