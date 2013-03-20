@@ -7,6 +7,7 @@ import com.gsr.myschool.common.client.proxy.CandidatProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.FraterieProxy;
 import com.gsr.myschool.common.client.proxy.InfoParentProxy;
+import com.gsr.myschool.common.client.proxy.ScolariteActuelleProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.request.ReportRequestBuilder;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
@@ -47,6 +48,8 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy>
         void setResponsable(Map<ParentType, InfoParentProxy> infoParents);
 
         void setCandidat(CandidatProxy candidat);
+
+        void setScolariteActuelle(ScolariteActuelleProxy scolariteActuelle);
 
         void setFraterie(List<FraterieProxy> fraterieList);
 
@@ -101,6 +104,7 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy>
                 currentDossier = result;
                 getView().setDossier(currentDossier);
                 getView().setCandidat(currentDossier.getCandidat());
+                getView().setScolariteActuelle(currentDossier.getScolariteActuelle());
 
                 loadInfoParent();
                 loadFraterie();

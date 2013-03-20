@@ -26,6 +26,7 @@ import com.gsr.myschool.common.client.proxy.CandidatProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.FraterieProxy;
 import com.gsr.myschool.common.client.proxy.InfoParentProxy;
+import com.gsr.myschool.common.client.proxy.ScolariteActuelleProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
 import com.gsr.myschool.common.client.widget.RowLabelValueFactory;
@@ -55,6 +56,8 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
     HTMLPanel tuteurPanel;
     @UiField
     HTMLPanel candidatPanel;
+    @UiField
+    HTMLPanel scolariteActuellePanel;
     @UiField
     Button submit;
     @UiField
@@ -214,6 +217,28 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
         if (candidat.getBacYear() != null) {
             SafeHtml safeBacYear = SafeHtmlUtils.fromString(candidat.getBacYear().getLabel());
             candidatPanel.add(rowLabelValueFactory.createValueLabel("Année du baccalauréat : ", safeBacYear));
+        }
+    }
+
+    @Override
+    public void setScolariteActuelle(ScolariteActuelleProxy scolariteActuelle) {
+        scolariteActuellePanel.clear();
+
+        if (scolariteActuelle != null) {
+            if (scolariteActuelle.getEtablissement() != null) {
+                SafeHtml safeEtablissement = SafeHtmlUtils.fromString(scolariteActuelle.getEtablissement().getNom());
+                scolariteActuellePanel.add(rowLabelValueFactory.createValueLabel("Etablissement : ", safeEtablissement));
+            }
+
+            if (scolariteActuelle.getFiliere() != null) {
+                SafeHtml safeFiliere = SafeHtmlUtils.fromString(scolariteActuelle.getFiliere().getNom());
+                scolariteActuellePanel.add(rowLabelValueFactory.createValueLabel("Formation : ", safeFiliere));
+            }
+
+            if (scolariteActuelle.getNiveauEtude() != null) {
+                SafeHtml safeNiveauEtude = SafeHtmlUtils.fromString(scolariteActuelle.getNiveauEtude().getNom());
+                scolariteActuellePanel.add(rowLabelValueFactory.createValueLabel("Niveau demandé : ", safeNiveauEtude));
+            }
         }
     }
 
