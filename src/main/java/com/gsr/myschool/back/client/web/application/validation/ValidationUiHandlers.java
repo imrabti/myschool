@@ -16,8 +16,25 @@
 
 package com.gsr.myschool.back.client.web.application.validation;
 
+import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
+import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface ValidationUiHandlers extends UiHandlers {
-    void verify();
+    void fetchData(Integer offset, Integer limit);
+
+    void verify(DossierProxy dossier);
+
+    // TODO: Add pieces DTO as parameter
+    void confirmVerify(DossierProxy dossier);
+
+    void searchWithFilter(DossierFilterDTOProxy dossierFilter);
+
+    void viewDetails(DossierProxy dossier);
+
+    void init();
+
+    void export(DossierFilterDTOProxy dossierFilter);
+
+    String getCurrentRatio(DossierProxy dossier);
 }

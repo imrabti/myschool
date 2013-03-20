@@ -24,4 +24,6 @@ public interface DossierService {
     PagedDossiers findAllDossiersByCriteria(DossierFilterDTO filter, Integer page, Integer length);
 
     Boolean receive(Dossier dossier);
+
+    Integer findPiecesByNiveauEtude(Long level);
 }
