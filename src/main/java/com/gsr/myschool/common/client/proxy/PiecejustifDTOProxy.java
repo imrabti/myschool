@@ -14,22 +14,27 @@
  * the License.
  */
 
-package com.gsr.myschool.server.service;
+package com.gsr.myschool.common.client.proxy;
 
-import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
+import com.google.web.bindery.requestfactory.shared.ProxyFor;
+import com.google.web.bindery.requestfactory.shared.ValueProxy;
 import com.gsr.myschool.common.shared.dto.PiecejustifDTO;
-import com.gsr.myschool.server.business.Dossier;
 
-import java.util.List;
+@ProxyFor(PiecejustifDTO.class)
+public interface PiecejustifDTOProxy extends ValueProxy {
+    Long getId();
 
-public interface DossierService {
-    List<Dossier> findAllDossiersByUser(Long userId);
+    void setId(Long newId);
 
-    List<Dossier> findAllDossiersByCriteria(DossierFilterDTO filter);
+    String getNom();
 
-    Boolean receive(Dossier dossier);
+    void setNom(String newNom);
 
-    Boolean verify(Long dossierId, List<PiecejustifDTO> piecejustifDTOs);
+    Boolean getAvailable();
 
-    List<PiecejustifDTO> getPiecejustifFromProcess(Dossier dossier);
+    void setAvailable(Boolean available);
+
+    String getMotif();
+
+    void setMotif(String motif);
 }

@@ -23,6 +23,7 @@ import java.io.Serializable;
 public class PiecejustifDTO implements Serializable {
     private Long id;
     private String nom;
+    private String motif;
     private Boolean available;
 
     public Long getId() {
@@ -39,6 +40,14 @@ public class PiecejustifDTO implements Serializable {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public String getMotif() {
+        return motif;
+    }
+
+    public void setMotif(String motif) {
+        this.motif = motif;
     }
 
     public Boolean getAvailable() {

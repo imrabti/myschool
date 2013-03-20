@@ -21,6 +21,10 @@ import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.client.proxy.PiecejustifDTOProxy;
+import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
+import com.gsr.myschool.common.shared.dto.PiecejustifDTO;
+import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.service.impl.DossierServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
 
@@ -33,4 +37,8 @@ public interface DossierServiceRequest extends RequestContext {
     Request<List<DossierProxy>> findAllDossiersByCriteria(DossierFilterDTOProxy filter);
 
     Request<Boolean> receive(DossierProxy dossier);
+
+    Request<Boolean> verify(Long dossierId, List<PiecejustifDTOProxy> piecejustifDTOs);
+
+    Request<List<PiecejustifDTOProxy>> getPiecejustifFromProcess(Dossier dossier);
 }

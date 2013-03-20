@@ -82,6 +82,7 @@ public class DossierServiceImpl implements DossierService {
         return true;
     }
 
+    @Override
     public List<PiecejustifDTO> getPiecejustifFromProcess(Dossier dossier) {
         return validationProcessService.getPiecejustifFromProcess(dossier);
     }
