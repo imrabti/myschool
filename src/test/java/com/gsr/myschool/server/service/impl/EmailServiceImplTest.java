@@ -15,7 +15,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -38,7 +40,7 @@ public class EmailServiceImplTest {
     public void populatedb() {
         email.setId(1L);
         email.setCode(EmailType.ACTIVATION);
-        email.setMessage("hello $key1, how is your $key2 and $key");
+        email.setMessage("hello $key1, how is your $key2 and $key and #foreach ($test in $testlist) <li>$test</li> #end");
         email.setSubject("this a subject");
     }
 
@@ -51,10 +53,16 @@ public class EmailServiceImplTest {
         String from = "test@gmail.com";
         String cc = "";
         String bcc = "";
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("key1", "valeur1");
         params.put("key2", "valeur2");
         params.put("key3", "valeur3");
+        List<String> testlist = new ArrayList<String>();
+        testlist.add("test1");
+        testlist.add("test2");
+        testlist.add("test3");
+
+        params.put("testlist",testlist);
 
         // populate the mail template and return a mailDTO
         EmailDTO result = emailService.populateEmail(EmailType.ACTIVATION, to, from, params, cc, bcc);

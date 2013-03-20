@@ -23,7 +23,6 @@ import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.service.DossierService;
 import com.gsr.myschool.server.service.XlsExportService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -87,6 +86,8 @@ public class ExcelController {
             while ((available = inputStream.read(buffer)) >= 0) {
                 outputStream.write(buffer, 0, available);
             }
+
+            inputStream.close();
 
             outputStream.flush();
             outputStream.close();
