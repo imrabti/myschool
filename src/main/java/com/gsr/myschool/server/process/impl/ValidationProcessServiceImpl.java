@@ -20,9 +20,13 @@ import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.common.shared.dto.PiecejustifDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.EmailType;
+import com.gsr.myschool.common.shared.type.InboxMessageStatus;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.business.InboxMessage;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.DossierRepos;
+import com.gsr.myschool.server.repos.InboxMessageRepos;
+import com.gsr.myschool.server.repos.UserRepos;
 import com.gsr.myschool.server.service.EmailService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -59,6 +63,10 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     private DossierRepos dossierRepos;
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private InboxMessageRepos inboxMessageRepos;
+    @Autowired
+    private UserRepos userRepos;
 
     @Override
     public void startProcess(Dossier dossier) {
@@ -136,6 +144,14 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        InboxMessage message = new InboxMessage();
+        message.setParentUser(userRepos.findByEmail(email.getTo()));
+        message.setSubject(email.getSubject());
+        message.setContent(email.getMessage());
+        message.setMsgDate(new Date());
+        message.setMsgStatus(InboxMessageStatus.UNREAD);
+        inboxMessageRepos.save(message);
 
         // Initialise process variables
         Map<String, Object> processParams = new HashMap<String, Object>();

@@ -50,7 +50,7 @@ public class RegisterProcessNestedServiceImpl implements RegisterProcessNestedSe
     @Override
     public EmailDTO getRelanceMail(Long id, String link, EmailDTO email) throws Exception {
         User user = userRepos.findOne(id);
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("gender", user.getGender().toString());
         params.put("lastname", user.getLastName());
         params.put("firstname", user.getFirstName());
@@ -63,7 +63,7 @@ public class RegisterProcessNestedServiceImpl implements RegisterProcessNestedSe
     @Override
     public EmailDTO getActivationMail(Long id, EmailDTO email) throws Exception {
         User user = userRepos.findOne(id);
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("gender", user.getGender().toString());
         params.put("lastname", user.getLastName());
         params.put("firstname", user.getFirstName());

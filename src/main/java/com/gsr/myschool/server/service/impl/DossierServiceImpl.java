@@ -38,6 +38,7 @@ import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -130,7 +131,7 @@ public class DossierServiceImpl implements DossierService {
     @Override
     @Transactional(readOnly = true)
     public PagedDossiers findAllDossiersByCriteria(DossierFilterDTO filter, Integer pageNumber, Integer length) {
-        Specifications spec = Specifications.where(DossierSpec.firstnameLike(filter.getFirstnameOrlastname()))
+        Specifications<Dossier> spec = Specifications.where(DossierSpec.firstnameLike(filter.getFirstnameOrlastname()))
                 .or(DossierSpec.lastnameLike(filter.getFirstnameOrlastname()));
 
         if (filter.getStatus() != null) {
