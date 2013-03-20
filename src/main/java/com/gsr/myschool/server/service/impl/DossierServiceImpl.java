@@ -21,8 +21,10 @@ import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
 import com.gsr.myschool.common.shared.dto.PagedDossiers;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.business.core.PieceJustifDuNE;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.DossierRepos;
+import com.gsr.myschool.server.repos.PieceJustifDuNERepos;
 import com.gsr.myschool.server.repos.spec.DossierSpec;
 import com.gsr.myschool.server.service.DossierService;
 import org.activiti.engine.task.Task;
@@ -41,6 +43,8 @@ public class DossierServiceImpl implements DossierService {
     @Autowired
     private DossierRepos dossierRepos;
     @Autowired
+    private PieceJustifDuNERepos pieceJustifDuNERepos;
+    @Autowired
     private ValidationProcessService validationProcessService;
 
     @Override
@@ -58,6 +62,12 @@ public class DossierServiceImpl implements DossierService {
             }
         }
         return true;
+    }
+
+    @Override
+    public Integer findPiecesByNiveauEtude(Long level) {
+        List<PieceJustifDuNE> piecesList = pieceJustifDuNERepos.findByNiveauEtudeId(level);
+        return piecesList.size();
     }
 
     @Override
