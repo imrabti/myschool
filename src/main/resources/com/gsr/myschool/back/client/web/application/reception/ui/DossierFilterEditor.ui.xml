@@ -37,6 +37,9 @@
         </div>
 
         <div class="{style.row}">
+            <g:Label text="Statut dossier" styleName="{style.label}"/>
+            <boot:ValueListBox ui:field="status" width="180px"/>
+
             <g:Label text="Fratrie au GSR" styleName="{style.label}"/>
             <boot:CheckBox ui:field="gsrFraterie" styleName="{style.inline}"/>
 

@@ -177,4 +177,54 @@ public class DossierServiceImpl implements DossierService {
             return  new PagedDossiers(result, result.size());
         }
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public PagedDossiers findAllDossiersForRecByCriteria(DossierFilterDTO filter, Integer pageNumber, Integer length) {
+        Specifications<Dossier> spec = Specifications.where(DossierSpec.firstnameLike(filter.getFirstnameOrlastname()))
+                .or(DossierSpec.lastnameLike(filter.getFirstnameOrlastname()));
+
+        if (filter.getStatus() != null) {
+            spec = spec.and(DossierSpec.dossierStatusIs(filter.getStatus()));
+        }
+
+        if (filter.getDateTill() != null) {
+            spec = spec.and(DossierSpec.dossierCreatedLower(filter.getDateTill()));
+        }
+
+        if (filter.getDateFrom() != null) {
+            spec = spec.and(DossierSpec.dossierCreatedGreater(filter.getDateFrom()));
+        }
+
+        if (filter.getFiliere() != null) {
+            spec = spec.and(DossierSpec.filiereEqual(filter.getFiliere()));
+        }
+
+        if (filter.getNiveauEtude() != null) {
+            spec = spec.and(DossierSpec.niveauEtudeEqual(filter.getNiveauEtude()));
+        }
+
+        if (filter.getGsrFraterie() != null && filter.getGsrFraterie()) {
+            spec = spec.and(DossierSpec.isGsrFraterie(filter.getGsrFraterie()));
+        }
+
+        if (filter.getParentGsr() != null && filter.getParentGsr()) {
+            spec = spec.and(DossierSpec.isParentGsr(filter.getParentGsr()));
+        }
+
+        if (!Strings.isNullOrEmpty(filter.getNumDossier())) {
+            spec = spec.and(DossierSpec.numDossierLike(filter.getNumDossier()));
+        }
+
+        if (pageNumber != null && length != null) {
+            PageRequest page = new PageRequest(pageNumber, length);
+            Page resultPage = dossierRepos.findAll(spec, page);
+
+            return new PagedDossiers(resultPage.getContent(), (int) resultPage.getTotalElements());
+        } else {
+            List<Dossier> result = dossierRepos.findAll(spec);
+
+            return  new PagedDossiers(result, result.size());
+        }
+    }
 }

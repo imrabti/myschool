@@ -26,6 +26,8 @@ import java.util.List;
 public interface DossierService {
     PagedDossiers findAllDossiersByCriteria(DossierFilterDTO filter, Integer page, Integer length);
 
+    PagedDossiers findAllDossiersForRecByCriteria(DossierFilterDTO filter, Integer page, Integer length);
+
     Boolean receive(Dossier dossier);
 
     Boolean verify(Long dossierId, List<PiecejustifDTO> piecejustifDTOs);
