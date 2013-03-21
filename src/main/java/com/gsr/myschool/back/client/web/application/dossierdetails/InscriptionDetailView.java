@@ -43,7 +43,6 @@ import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
 import com.gsr.myschool.common.client.widget.RowLabelValueFactory;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
-import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.ParentType;
 import com.gsr.myschool.common.shared.type.TypeEnseignement;
 
@@ -180,8 +179,8 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
             safeBirthDate = SafeHtmlUtils.fromString(dateFormat.format(candidat.getBirthDate()));
         }
 
-        candidatPanel.add(rowLabelValueFactory.createValueLabel("Nom : ", safeFirstName));
-        candidatPanel.add(rowLabelValueFactory.createValueLabel("Prénom : ", safeLastName));
+        candidatPanel.add(rowLabelValueFactory.createValueLabel("Nom : ", safeLastName));
+        candidatPanel.add(rowLabelValueFactory.createValueLabel("Prénom : ", safeFirstName));
         candidatPanel.add(rowLabelValueFactory.createValueLabel("Date de naissance : ", safeBirthDate));
         candidatPanel.add(rowLabelValueFactory.createValueLabel("Lieu de naissance : ", safeBirthLocation));
 
@@ -264,7 +263,7 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
             @Override
             public String getValue(FraterieProxy object) {
                 if (object.getFiliere() == null) return "";
-                return TypeEnseignement.BILINGUE.getId() == object.getFiliere().getId()?
+                return TypeEnseignement.BILINGUE.getId() == object.getFiliere().getId() ?
                         TypeEnseignement.BILINGUE.toString() : TypeEnseignement.MISSION.toString();
             }
         };
