@@ -8,15 +8,16 @@
     <ui:style>
         .contentWrapper {
             width: 500px;
-            max-height: 400px;
+            height: 400px;
             overflow-y: auto;
+            padding-top: 10px;
         }
     </ui:style>
 
     <g:PopupPanel modal="true" autoHideEnabled="false" styleName="{resource.popupStyleCss.gwtPopupPanel}"
                   glassEnabled="true">
         <g:FlowPanel>
-            <s:ModalHeader ui:field="modalHeader" text="Pièces justificatif"/>
+            <s:ModalHeader ui:field="modalHeader" text="Pièces justificatives"/>
 
             <g:HTMLPanel ui:field="piecesPanel" styleName="{style.contentWrapper}"/>
 

@@ -11,6 +11,7 @@ import com.gwtplatform.mvp.client.PopupView;
 import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gsr.myschool.back.client.web.application.validation.popup.PiecesJustificatifPresenter.MyView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PiecesJustificatifPresenter extends PresenterWidget<MyView> implements PiecesJustificatifUiHandlers {
@@ -39,7 +40,20 @@ public class PiecesJustificatifPresenter extends PresenterWidget<MyView> impleme
 
     @Override
     public void checkPieces(List<PiecejustifDTOProxy> pieces) {
-        // TODO call the backend service in here...
+        Long dossierId = currentDossier.getId();
+        List<String> notChecked = new ArrayList<String>();
+        for (PiecejustifDTOProxy piece : pieces) {
+            if (!piece.getAvailable()) {
+                notChecked.add(piece.getId() + "#" + piece.getMotif());
+            }
+        }
+
+        requestFactory.dossierService().verify(dossierId, pieces).fire(new ReceiverImpl<Boolean>() {
+            @Override
+            public void onSuccess(Boolean response) {
+                getView().hide();
+            }
+        });
     }
 
     @Override

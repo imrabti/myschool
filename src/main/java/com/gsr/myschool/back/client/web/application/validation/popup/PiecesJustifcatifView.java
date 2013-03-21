@@ -53,6 +53,7 @@ public class PiecesJustifcatifView extends PopupViewWithUiHandlers<PiecesJustifi
         });
     }
 
+    @Override
     public void editPieces(List<PiecejustifDTOProxy> data) {
         editors.clear();
         piecesPanel.clear();

@@ -8,10 +8,28 @@
 
         .valueContainer {
             float: left;
-            width: 450px;
+            width: 430px;
             padding-top: 5px;
             padding-bottom: 5px;
             padding-right: 10px;
+        }
+
+        .coolCheckbox {
+            background: none;
+            border: none;
+        }
+
+        .nameStyle {
+            font-size: 15px;
+            color: #545454;
+        }
+
+        .motifInput {
+            border: none !important;
+            border-bottom: 1px solid #999999 !important;
+            width: 430px !important;
+            box-shadow: none !important;
+            border-radius: 0px !important;
         }
 
         .clear {
@@ -21,12 +39,12 @@
 
     <g:HTMLPanel>
         <div class="{style.checkContainer}">
-            <g:ToggleButton ui:field="available"/>
+            <g:ToggleButton ui:field="available" styleName="{style.coolCheckbox}"/>
         </div>
 
         <div class="{style.valueContainer}">
-            <g:Label ui:field="nom"/>
-            <g:TextBox ui:field="motif"/>
+            <g:Label ui:field="nom" styleName="{style.nameStyle}"/>
+            <g:TextBox ui:field="motif" addStyleNames="{style.motifInput}"/>
         </div>
 
         <div class="{style.clear}"/>
