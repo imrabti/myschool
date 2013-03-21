@@ -1,6 +1,5 @@
 package com.gsr.myschool.back.client.web.application.validation.popup.ui;
 
-import com.google.gwt.dom.client.Style;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;

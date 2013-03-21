@@ -39,6 +39,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -80,12 +81,12 @@ public class DossierServiceImpl implements DossierService {
     }
 
     @Override
-    public List<PiecejustifDTO> getPiecejustifFromProcess(Dossier dossier) {
+    public List<PiecejustifDTO> getPieceJustifFromProcess(Dossier dossier) {
         return validationProcessService.getPiecejustifFromProcess(dossier);
     }
 
     @Override
-    public Boolean verify(Long dossierId, List<PiecejustifDTO> piecejustifDTOs) {
+    public Boolean verify(Long dossierId, List<String> notChecked) {
         Task task = null;
         Map<Dossier, Task> dossiersAndTasks = validationProcessService.getAllReceivedDossiers();
         for (Dossier dossierFromProcess : dossiersAndTasks.keySet()) {
@@ -95,14 +96,16 @@ public class DossierServiceImpl implements DossierService {
             }
         }
 
-        List<PiecejustifDTO> pieceNonavailable = new ArrayList<PiecejustifDTO>();
-        for (PiecejustifDTO piece : piecejustifDTOs) {
-            if (piece.getAvailable() == null || !piece.getAvailable()) {
-                pieceNonavailable.add(piece);
-            }
+        Map<Long, PiecejustifDTO> pieceNotAvailable = new HashMap<Long, PiecejustifDTO>();
+        for (String motif : notChecked) {
+            Long pieceId = Long.parseLong(motif.split("#")[0]);
+            PiecejustifDTO piece = PiecejustifDTO.mapper(pieceJustifRepos.findOne(pieceId));
+            piece.setMotif(motif.split("#")[1]);
+            piece.setAvailable(false);
+            pieceNotAvailable.put(pieceId, piece);
         }
 
-        if (pieceNonavailable.isEmpty()) {
+        if (pieceNotAvailable.isEmpty()) {
             // piece all existing
             validationProcessService.acceptDossier(task);
 
@@ -110,6 +113,18 @@ public class DossierServiceImpl implements DossierService {
             verifiedDossier.setStatus(DossierStatus.ACCEPTED_FOR_STUDY);
             dossierRepos.save(verifiedDossier);
         } else {
+            Dossier dossier = dossierRepos.findOne(dossierId);
+            List<PiecejustifDTO> piecejustifDTOs = validationProcessService.getPiecejustifFromProcess(dossier);
+            for (PiecejustifDTO piece : piecejustifDTOs) {
+                if (pieceNotAvailable.containsKey(piece.getId())) {
+                    piece.setAvailable(false);
+                    piece.setMotif(pieceNotAvailable.get(piece.getId()).getMotif());
+                } else {
+                    piece.setAvailable(true);
+                    piece.setMotif("");
+                }
+            }
+
             // there is at least one piece not available
             validationProcessService.rejectDossier(task, piecejustifDTOs);
 

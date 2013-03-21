@@ -3,6 +3,7 @@ package com.gsr.myschool.back.client.web.application.validation.popup;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
+import com.gsr.myschool.back.client.request.DossierServiceRequest;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.PiecejustifDTOProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
@@ -48,7 +49,7 @@ public class PiecesJustificatifPresenter extends PresenterWidget<MyView> impleme
             }
         }
 
-        requestFactory.dossierService().verify(dossierId, pieces).fire(new ReceiverImpl<Boolean>() {
+        requestFactory.dossierService().verify(dossierId, notChecked).fire(new ReceiverImpl<Boolean>() {
             @Override
             public void onSuccess(Boolean response) {
                 getView().hide();
@@ -58,11 +59,16 @@ public class PiecesJustificatifPresenter extends PresenterWidget<MyView> impleme
 
     @Override
     protected void onReveal() {
-        requestFactory.dossierService().getPiecejustifFromProcess(currentDossier)
+        requestFactory.dossierService().getPieceJustifFromProcess(currentDossier)
                 .fire(new ReceiverImpl<List<PiecejustifDTOProxy>>() {
             @Override
             public void onSuccess(List<PiecejustifDTOProxy> result) {
-                pieces = result;
+                pieces = new ArrayList<PiecejustifDTOProxy>();
+                for (PiecejustifDTOProxy piece : result) {
+                    DossierServiceRequest context = requestFactory.dossierService();
+                    pieces.add(context.edit(piece));
+                }
+
                 getView().editPieces(pieces);
             }
         });
