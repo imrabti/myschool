@@ -1,0 +1,52 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <ui:style>
+        .checkContainer {
+            float: left;
+            padding: 10px;
+        }
+
+        .valueContainer {
+            float: left;
+            width: 430px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-right: 10px;
+        }
+
+        .coolCheckbox {
+            background: none;
+            border: none;
+        }
+
+        .nameStyle {
+            font-size: 15px;
+            color: #545454;
+        }
+
+        .motifInput {
+            border: none !important;
+            border-bottom: 1px solid #999999 !important;
+            width: 430px !important;
+            box-shadow: none !important;
+            border-radius: 0px !important;
+        }
+
+        .clear {
+            clear: both;
+        }
+    </ui:style>
+
+    <g:HTMLPanel>
+        <div class="{style.checkContainer}">
+            <g:ToggleButton ui:field="available" styleName="{style.coolCheckbox}"/>
+        </div>
+
+        <div class="{style.valueContainer}">
+            <g:Label ui:field="nom" styleName="{style.nameStyle}"/>
+            <g:TextBox ui:field="motif" addStyleNames="{style.motifInput}"/>
+        </div>
+
+        <div class="{style.clear}"/>
+    </g:HTMLPanel>
+</ui:UiBinder>

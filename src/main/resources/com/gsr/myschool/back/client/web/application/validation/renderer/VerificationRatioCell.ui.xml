@@ -1,7 +1,0 @@
-<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'>
-    <ui:with field='ratio' type='java.lang.String'/>
-
-    <div style="text-align: center;">
-        <ui:text from="{ratio}"/>
-    </div>
-</ui:UiBinder>
