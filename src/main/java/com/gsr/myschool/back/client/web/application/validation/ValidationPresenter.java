@@ -22,6 +22,7 @@ import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.DossierServiceRequest;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
+import com.gsr.myschool.back.client.web.application.validation.event.VerificationCompletedEvent;
 import com.gsr.myschool.back.client.web.application.validation.popup.PiecesJustificatifPresenter;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
@@ -47,7 +48,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ValidationPresenter extends Presenter<ValidationPresenter.MyView, ValidationPresenter.MyProxy>
-        implements ValidationUiHandlers {
+        implements ValidationUiHandlers, VerificationCompletedEvent.VerificationCompletedHandler {
     public interface MyView extends View, HasUiHandlers<ValidationUiHandlers> {
         void reloadData();
 
@@ -71,7 +72,6 @@ public class ValidationPresenter extends Presenter<ValidationPresenter.MyView, V
 
     private DossierServiceRequest currentContext;
     private DossierFilterDTOProxy dossierFilter;
-    private Map<Long, Integer> dossierPiecesMap;
 
     @Inject
     public ValidationPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
@@ -82,10 +82,14 @@ public class ValidationPresenter extends Presenter<ValidationPresenter.MyView, V
 
         this.requestFactory = requestFactory;
         this.placeManager = placeManager;
-        this.dossierPiecesMap = new HashMap<Long, Integer>();
         this.piecesJustificatifPresenter = piecesJustificatifPresenter;
 
         getView().setUiHandlers(this);
+    }
+
+    @Override
+    public void onVerificationCompleted(VerificationCompletedEvent event) {
+        loadDossiersCounts();
     }
 
     @Override
@@ -106,15 +110,15 @@ public class ValidationPresenter extends Presenter<ValidationPresenter.MyView, V
         Integer pageNumber = (offset / limit) + (offset % limit);
         currentContext.findAllDossiersByCriteria(dossierFilter, pageNumber, limit)
                 .fire(new ReceiverImpl<PagedDossiersProxy>() {
-            @Override
-            public void onSuccess(PagedDossiersProxy result) {
-                currentContext = requestFactory.dossierService();
-                dossierFilter = currentContext.edit(dossierFilter);
+                    @Override
+                    public void onSuccess(PagedDossiersProxy result) {
+                        currentContext = requestFactory.dossierService();
+                        dossierFilter = currentContext.edit(dossierFilter);
 
-                getView().displayDossiers(offset, result.getDossiers());
-                getView().editDossierFilter(dossierFilter);
-            }
-        });
+                        getView().displayDossiers(offset, result.getDossiers());
+                        getView().editDossierFilter(dossierFilter);
+                    }
+                });
     }
 
     @Override
@@ -156,18 +160,23 @@ public class ValidationPresenter extends Presenter<ValidationPresenter.MyView, V
         loadDossiersCounts();
     }
 
+    @Override
+    protected void onBind() {
+        addRegisteredHandler(VerificationCompletedEvent.getType(), this);
+    }
+
     private void loadDossiersCounts() {
         currentContext.findAllDossiersByCriteria(dossierFilter, 0, GlobalParameters.PAGE_SIZE)
                 .fire(new ReceiverImpl<PagedDossiersProxy>() {
-            @Override
-            public void onSuccess(PagedDossiersProxy result) {
-                currentContext = requestFactory.dossierService();
-                dossierFilter = currentContext.edit(dossierFilter);
+                    @Override
+                    public void onSuccess(PagedDossiersProxy result) {
+                        currentContext = requestFactory.dossierService();
+                        dossierFilter = currentContext.edit(dossierFilter);
 
-                getView().setDossierCount(result.getTotalElements());
-                getView().editDossierFilter(dossierFilter);
-                getView().reloadData();
-            }
-        });
+                        getView().setDossierCount(result.getTotalElements());
+                        getView().editDossierFilter(dossierFilter);
+                        getView().reloadData();
+                    }
+                });
     }
 }
