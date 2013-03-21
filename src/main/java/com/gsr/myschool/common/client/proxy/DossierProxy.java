@@ -88,12 +88,4 @@ public interface DossierProxy extends ValueProxy {
     ScolariteActuelleProxy getScolariteActuelle();
 
     void setScolariteActuelle(ScolariteActuelleProxy scolariteActuelle);
-
-    Integer getRecievedPieces();
-
-    void setRecievedPieces(Integer recievedPieces);
-
-    Integer getTotalPieces();
-
-    void setTotalPieces(Integer totalPieces);
 }

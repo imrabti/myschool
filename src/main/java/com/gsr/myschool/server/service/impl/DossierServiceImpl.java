@@ -176,28 +176,12 @@ public class DossierServiceImpl implements DossierService {
         if (pageNumber != null && length != null) {
             PageRequest page = new PageRequest(pageNumber, length);
             Page resultPage = dossierRepos.findAll(spec, page);
-            calculateRecievedPieces(resultPage.getContent());
 
             return new PagedDossiers(resultPage.getContent(), (int) resultPage.getTotalElements());
         } else {
             List<Dossier> result = dossierRepos.findAll(spec);
-            calculateRecievedPieces(result);
 
             return  new PagedDossiers(result, result.size());
         }
-    }
-
-    private void calculateRecievedPieces(List<Dossier> dossiers) {
-         for (Dossier dossier : dossiers) {
-             List<PiecejustifDTO> pieces = validationProcessService.getPiecejustifFromProcess(dossier);
-             dossier.setTotalPieces(pieces.size());
-
-             Integer received = pieces.size();
-             for (PiecejustifDTO piece : pieces) {
-                 if (!piece.getAvailable()) {}
-                 received = received - 1;
-             }
-             dossier.setRecievedPieces(received);
-         }
     }
 }

@@ -196,16 +196,6 @@ public class ValidationView extends ViewWithUiHandlers<ValidationUiHandlers> imp
         inscriptionsTable.addColumn(createdColumn, "Date du dossier");
         inscriptionsTable.setColumnWidth(createdColumn, 20, Style.Unit.PCT);
 
-        TextColumn<DossierProxy> piecesRecuColumn = new TextColumn<DossierProxy>() {
-            @Override
-            public String getValue(DossierProxy object) {
-                return object.getRecievedPieces() + " / " + object.getTotalPieces();
-            }
-        };
-        piecesRecuColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-        inscriptionsTable.addColumn(piecesRecuColumn, "Vérifié");
-        inscriptionsTable.setColumnWidth(piecesRecuColumn, 5, Style.Unit.PCT);
-
         ActionCell.Delegate<DossierProxy> verifyAction = new ActionCell.Delegate<DossierProxy>() {
             @Override
             public void execute(DossierProxy dossier) {
