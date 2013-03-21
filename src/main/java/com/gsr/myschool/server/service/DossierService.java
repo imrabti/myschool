@@ -31,6 +31,4 @@ public interface DossierService {
     Boolean verify(Long dossierId, List<PiecejustifDTO> piecejustifDTOs);
 
     List<PiecejustifDTO> getPiecejustifFromProcess(Dossier dossier);
-
-    Integer findPiecesByNiveauEtude(Long level);
 }

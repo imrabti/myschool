@@ -13,7 +13,7 @@ import com.gsr.myschool.back.client.web.application.validation.popup.ui.PieceJus
 import com.gsr.myschool.back.client.web.application.validation.popup.ui.PieceJustificatifEditorFactory;
 import com.gsr.myschool.common.client.mvp.PopupViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
-import com.gsr.myschool.common.client.proxy.PieceJustifProxy;
+import com.gsr.myschool.common.client.proxy.PiecejustifDTOProxy;
 import com.gsr.myschool.common.client.widget.ModalHeader;
 
 import java.util.ArrayList;
@@ -53,20 +53,21 @@ public class PiecesJustifcatifView extends PopupViewWithUiHandlers<PiecesJustifi
         });
     }
 
-    public void editPieces(List<PieceJustifProxy> data) {
+    public void editPieces(List<PiecejustifDTOProxy> data) {
         editors.clear();
         piecesPanel.clear();
 
-        for (PieceJustifProxy piece : data) {
+        for (PiecejustifDTOProxy piece : data) {
             PieceJustificatifEditor editor = pieceJustificatifFactory.create();
             editors.add(editor);
+            piecesPanel.add(editor);
             editor.edit(piece);
         }
     }
 
     @UiHandler("validate")
     void onValidateClicked(ClickEvent event) {
-        List<PieceJustifProxy> pieces = new ArrayList<PieceJustifProxy>();
+        List<PiecejustifDTOProxy> pieces = new ArrayList<PiecejustifDTOProxy>();
         for (PieceJustificatifEditor editor : editors) {
             pieces.add(editor.get());
         }

@@ -122,7 +122,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
                 return (List<PiecejustifDTO>) runtimeService.getVariable(task.getExecutionId(), "piecejustifs");
             }
         }
-        return null;
+        return new ArrayList<PiecejustifDTO>();
     }
 
     @Override

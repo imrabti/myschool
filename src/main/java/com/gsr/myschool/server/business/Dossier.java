@@ -44,6 +44,10 @@ public class Dossier implements java.io.Serializable {
     private ValueList anneeScolaire;
     @ManyToOne
     private ScolariteActuelle scolariteActuelle;
+    @Transient
+    private Integer recievedPieces;
+    @Transient
+    private Integer totalPieces;
 
     public Long getId() {
         return id;
@@ -175,5 +179,21 @@ public class Dossier implements java.io.Serializable {
 
     public Map getReportsAttributes() {
         return BeanMapper.beanToMap(this);
+    }
+
+    public Integer getRecievedPieces() {
+        return recievedPieces;
+    }
+
+    public void setRecievedPieces(Integer recievedPieces) {
+        this.recievedPieces = recievedPieces;
+    }
+
+    public Integer getTotalPieces() {
+        return totalPieces;
+    }
+
+    public void setTotalPieces(Integer totalPieces) {
+        this.totalPieces = totalPieces;
     }
 }

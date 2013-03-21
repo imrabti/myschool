@@ -1,6 +1,12 @@
 package com.gsr.myschool.back.client.web.application.validation;
 
+import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
 import com.google.inject.TypeLiteral;
+import com.gsr.myschool.back.client.web.application.validation.popup.PiecesJustifcatifView;
+import com.gsr.myschool.back.client.web.application.validation.popup.PiecesJustificatifPresenter;
+import com.gsr.myschool.back.client.web.application.validation.popup.PiecesJustificatifUiHandlers;
+import com.gsr.myschool.back.client.web.application.validation.popup.ui.PieceJustificatifEditorFactory;
+import com.gsr.myschool.back.client.web.application.validation.renderer.ValidationActionCellFactory;
 import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
@@ -20,7 +26,6 @@ public class ValidationModule extends AbstractPresenterModule {
                 PiecesJustifcatifView.class);
 
         install(new GinFactoryModuleBuilder().build(ValidationActionCellFactory.class));
-        install(new GinFactoryModuleBuilder().build(VerificationRatioCellFactory.class));
         install(new GinFactoryModuleBuilder().build(PieceJustificatifEditorFactory.class));
     }
 }

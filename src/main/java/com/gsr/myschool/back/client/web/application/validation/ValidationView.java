@@ -36,8 +36,6 @@ import com.google.gwt.view.client.Range;
 import com.google.inject.Inject;
 import com.gsr.myschool.back.client.web.application.validation.renderer.ValidationActionCell;
 import com.gsr.myschool.back.client.web.application.validation.renderer.ValidationActionCellFactory;
-import com.gsr.myschool.back.client.web.application.validation.renderer.VerificationRatioCell;
-import com.gsr.myschool.back.client.web.application.validation.renderer.VerificationRatioCellFactory;
 import com.gsr.myschool.back.client.web.application.validation.ui.DossierFilterEditor;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
@@ -63,21 +61,18 @@ public class ValidationView extends ViewWithUiHandlers<ValidationUiHandlers> imp
 
     private final DateTimeFormat dateFormat;
     private final ValidationActionCellFactory actionCellFactory;
-    private final VerificationRatioCellFactory ratioCellFactory;
     private final AsyncDataProvider<DossierProxy> dataProvider;
 
     @Inject
     public ValidationView(final Binder uiBinder,final SharedMessageBundle sharedMessageBundle,
-            final DossierFilterEditor dossierProxyEditor,
-            final LoadingIndicator loadingIndicator,
-            final SimplePager.Resources pagerResources,
-            final UiHandlersStrategy<ValidationUiHandlers> uiHandlers,
-            final ValidationActionCellFactory actionCellFactory,
-            final VerificationRatioCellFactory ratioCellFactory) {
+                          final DossierFilterEditor dossierProxyEditor,
+                          final LoadingIndicator loadingIndicator,
+                          final SimplePager.Resources pagerResources,
+                          final UiHandlersStrategy<ValidationUiHandlers> uiHandlers,
+                          final ValidationActionCellFactory actionCellFactory) {
         super(uiHandlers);
 
         this.actionCellFactory = actionCellFactory;
-        this.ratioCellFactory = ratioCellFactory;
         this.dossierFilterEditor = dossierProxyEditor;
         this.dataProvider = setupDataProvider();
         this.pager = new SimplePager(SimplePager.TextLocation.RIGHT, pagerResources, false, 0, true);
@@ -201,18 +196,15 @@ public class ValidationView extends ViewWithUiHandlers<ValidationUiHandlers> imp
         inscriptionsTable.addColumn(createdColumn, "Date du dossier");
         inscriptionsTable.setColumnWidth(createdColumn, 20, Style.Unit.PCT);
 
-        VerificationRatioCell ratioCell = ratioCellFactory.create();
-        Column<DossierProxy, String> ratioColumn = new
-                Column<DossierProxy, String>(ratioCell) {
-                    @Override
-                    public String getValue(DossierProxy object) {
-                        return getUiHandlers().getCurrentRatio(object);
-                    }
-                };
-
-        ratioColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-        inscriptionsTable.addColumn(ratioColumn, "%Vérifié");
-        inscriptionsTable.setColumnWidth(ratioColumn, 5, Style.Unit.PCT);
+        TextColumn<DossierProxy> piecesRecuColumn = new TextColumn<DossierProxy>() {
+            @Override
+            public String getValue(DossierProxy object) {
+                return object.getRecievedPieces() + " / " + object.getTotalPieces();
+            }
+        };
+        piecesRecuColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+        inscriptionsTable.addColumn(piecesRecuColumn, "Vérifié");
+        inscriptionsTable.setColumnWidth(piecesRecuColumn, 5, Style.Unit.PCT);
 
         ActionCell.Delegate<DossierProxy> verifyAction = new ActionCell.Delegate<DossierProxy>() {
             @Override
