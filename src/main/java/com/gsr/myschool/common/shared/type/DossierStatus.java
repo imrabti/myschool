@@ -1,5 +1,8 @@
 package com.gsr.myschool.common.shared.type;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum DossierStatus {
     CREATED("Créé"),
     SUBMITTED("Soumis"),
@@ -20,5 +23,12 @@ public enum DossierStatus {
     @Override
     public String toString() {
         return label;
+    }
+
+    public static List receptionValues() {
+        List<DossierStatus> receptionStatus = new ArrayList<DossierStatus>();
+        receptionStatus.add(SUBMITTED);
+        receptionStatus.add(STANDBY);
+        return receptionStatus;
     }
 }

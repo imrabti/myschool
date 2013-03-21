@@ -126,7 +126,7 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
 
     @Override
     public void searchWithFilter(DossierFilterDTOProxy filter) {
-        dossierFilter.setStatus(DossierStatus.SUBMITTED);
+        dossierFilter.getStatus();
         dossierFilter.setFiliere(dossierFilter.getFiliere() != null ?
                 currentContext.edit(dossierFilter.getFiliere()) : null);
         dossierFilter.setNiveauEtude(dossierFilter.getNiveauEtude() != null ?
@@ -147,7 +147,7 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
 
     @Override
     public void export(DossierFilterDTOProxy dossierFilter) {
-        dossierFilter.setStatus(DossierStatus.SUBMITTED);
+        dossierFilter.getStatus();
 
         ExcelRequestBuilder request = new ExcelRequestBuilder();
         request.sendRequest(dossierFilter);
@@ -164,7 +164,7 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
     }
 
     private void loadDossiersCounts() {
-        currentContext.findAllDossiersByCriteria(dossierFilter, 0, GlobalParameters.PAGE_SIZE)
+        currentContext.findAllDossiersForRecByCriteria(dossierFilter, 0, GlobalParameters.PAGE_SIZE)
                 .fire(new ReceiverImpl<PagedDossiersProxy>() {
             @Override
             public void onSuccess(PagedDossiersProxy result) {
