@@ -33,22 +33,22 @@ public class ValueListModule extends AbstractPresenterModule {
     protected void configure() {
         bind(new TypeLiteral<UiHandlersStrategy<AddValueTypeUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<AddValueTypeUiHandlers>>() {});
-
         bind(new TypeLiteral<UiHandlersStrategy<ValueTypeUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<ValueTypeUiHandlers>>() {});
-
         bind(new TypeLiteral<UiHandlersStrategy<AddValueListUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<AddValueListUiHandlers>>() {});
-
         bind(new TypeLiteral<UiHandlersStrategy<ValueListUiHandlers>>(){})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<ValueListUiHandlers>>(){});
 
         bindPresenter(ValueListPresenter.class, ValueListPresenter.MyView.class, ValueListView.class,
                 ValueListPresenter.MyProxy.class);
 
-        bindPresenterWidget(ValueTypePresenter.class, ValueTypePresenter.MyView.class, ValueTypeView.class);
-        bindPresenterWidget(AddValueListPresenter.class, AddValueListPresenter.MyView.class, AddValueListView.class);
-        bindPresenterWidget(AddValueTypePresenter.class, AddValueTypePresenter.MyView.class, AddValueTypeView.class);
+        bindSingletonPresenterWidget(ValueTypePresenter.class, ValueTypePresenter.MyView.class,
+                ValueTypeView.class);
+        bindSingletonPresenterWidget(AddValueListPresenter.class, AddValueListPresenter.MyView.class,
+                AddValueListView.class);
+        bindSingletonPresenterWidget(AddValueTypePresenter.class, AddValueTypePresenter.MyView.class,
+                AddValueTypeView.class);
 
         install(new GinFactoryModuleBuilder().build(ValueListActionCellFactory.class));
         install(new GinFactoryModuleBuilder().build(ValueTypeActionCellFactory.class));

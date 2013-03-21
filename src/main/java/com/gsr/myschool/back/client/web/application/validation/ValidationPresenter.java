@@ -22,12 +22,13 @@ import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.DossierServiceRequest;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
+import com.gsr.myschool.back.client.web.application.validation.event.VerificationCompletedEvent;
+import com.gsr.myschool.back.client.web.application.validation.popup.PiecesJustificatifPresenter;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.PagedDossiersProxy;
 import com.gsr.myschool.common.client.request.ExcelRequestBuilder;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
-import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.type.DossierStatus;
@@ -47,7 +48,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ValidationPresenter extends Presenter<ValidationPresenter.MyView, ValidationPresenter.MyProxy>
-        implements ValidationUiHandlers {
+        implements ValidationUiHandlers, VerificationCompletedEvent.VerificationCompletedHandler {
     public interface MyView extends View, HasUiHandlers<ValidationUiHandlers> {
         void reloadData();
 
@@ -66,26 +67,29 @@ public class ValidationPresenter extends Presenter<ValidationPresenter.MyView, V
     }
 
     private final BackRequestFactory requestFactory;
-    private final SharedMessageBundle messageBundle;
     private final PlaceManager placeManager;
+    private final PiecesJustificatifPresenter piecesJustificatifPresenter;
 
     private DossierServiceRequest currentContext;
     private DossierFilterDTOProxy dossierFilter;
-    private Map<Long, Integer> dossierPiecesMap;
 
     @Inject
     public ValidationPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
-            final BackRequestFactory requestFactory,
-            final PlaceManager placeManager,
-            final SharedMessageBundle messageBundle) {
+                               final BackRequestFactory requestFactory,
+                               final PlaceManager placeManager,
+                               final PiecesJustificatifPresenter piecesJustificatifPresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
-        this.messageBundle = messageBundle;
         this.placeManager = placeManager;
-        this.dossierPiecesMap = new HashMap<Long, Integer>();
+        this.piecesJustificatifPresenter = piecesJustificatifPresenter;
 
         getView().setUiHandlers(this);
+    }
+
+    @Override
+    public void onVerificationCompleted(VerificationCompletedEvent event) {
+        loadDossiersCounts();
     }
 
     @Override
@@ -97,12 +101,8 @@ public class ValidationPresenter extends Presenter<ValidationPresenter.MyView, V
 
     @Override
     public void verify(DossierProxy dossier) {
-        // TODO: Open the verification popup for applicant folder
-    }
-
-    @Override
-    public void confirmVerify(DossierProxy dossier) {
-        // TODO: call the validation service
+        piecesJustificatifPresenter.setCurrentDossier(dossier);
+        addToPopupSlot(piecesJustificatifPresenter);
     }
 
     @Override
@@ -151,12 +151,6 @@ public class ValidationPresenter extends Presenter<ValidationPresenter.MyView, V
     }
 
     @Override
-    public String getCurrentRatio(DossierProxy dossier) {
-        String verified = "0/"; // TODO evaluate this using process
-        return verified + dossierPiecesMap.get(dossier.getId()).toString();
-    }
-
-    @Override
     protected void onReveal() {
         currentContext = requestFactory.dossierService();
         dossierFilter = currentContext.create(DossierFilterDTOProxy.class);
@@ -164,6 +158,11 @@ public class ValidationPresenter extends Presenter<ValidationPresenter.MyView, V
 
         getView().editDossierFilter(dossierFilter);
         loadDossiersCounts();
+    }
+
+    @Override
+    protected void onBind() {
+        addRegisteredHandler(VerificationCompletedEvent.getType(), this);
     }
 
     private void loadDossiersCounts() {
@@ -174,24 +173,9 @@ public class ValidationPresenter extends Presenter<ValidationPresenter.MyView, V
                         currentContext = requestFactory.dossierService();
                         dossierFilter = currentContext.edit(dossierFilter);
 
-                        for (DossierProxy dossierProxy : result.getDossiers()) {
-                            loadPieces(dossierProxy);
-                        }
-
                         getView().setDossierCount(result.getTotalElements());
                         getView().editDossierFilter(dossierFilter);
                         getView().reloadData();
-                    }
-                });
-    }
-
-    private void loadPieces(final DossierProxy dossier) {
-        dossierPiecesMap.clear();
-        requestFactory.dossierService().findPiecesByNiveauEtude(dossier.getNiveauEtude().getId())
-                .fire(new ReceiverImpl<Integer>() {
-                    @Override
-                    public void onSuccess(Integer response) {
-                        dossierPiecesMap.put(dossier.getId(), response);
                     }
                 });
     }

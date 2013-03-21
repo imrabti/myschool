@@ -85,7 +85,7 @@ public interface DossierProxy extends ValueProxy {
 
     void setAnneeScolaire(ValueListProxy anneeScolaire);
 
-    public ScolariteActuelleProxy getScolariteActuelle();
+    ScolariteActuelleProxy getScolariteActuelle();
 
-    public void setScolariteActuelle(ScolariteActuelleProxy scolariteActuelle);
+    void setScolariteActuelle(ScolariteActuelleProxy scolariteActuelle);
 }
