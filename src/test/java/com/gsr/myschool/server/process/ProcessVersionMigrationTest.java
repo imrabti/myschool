@@ -60,7 +60,7 @@ public class ProcessVersionMigrationTest {
             } catch (Exception e) {
                 logger.debug("Execution ID : " + exec.getId() + "Process Instance :" + exec.getProcessInstanceId());
                 try {
-                    runtimeService.deleteProcessInstance(exec.getProcessInstanceId(), "no dossier found");
+                   // runtimeService.deleteProcessInstance(exec.getProcessInstanceId(), "no dossier found");
                 } catch (Exception e1) {
                     logger.debug("Execution ID : " + exec.getId() + "Process Instance :" + exec.getProcessInstanceId());
 

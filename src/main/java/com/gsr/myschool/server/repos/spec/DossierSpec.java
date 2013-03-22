@@ -63,7 +63,7 @@ public class DossierSpec {
             @Override
             public Predicate toPredicate(Root<Dossier> dossierRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 String likePattern = Strings.isNullOrEmpty(name) ? "%" : "%" + name + "%";
-                return cb.like(dossierRoot.<Candidat>get("candidat").<String>get("lastname"), likePattern);
+                return cb.like(dossierRoot.<Candidat>get("candidat").<String>get("firstname"), likePattern);
             }
         };
     }
