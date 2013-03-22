@@ -29,19 +29,8 @@ public class SchedulerService {
     @Qualifier("expiredDossierJob")
     private Worker worker;
 
-
-    @Autowired
-    @Qualifier("patchedProcessJob")
-    private Worker workerProcess;
-
-
     @Scheduled(cron="0 0 0 * * ?")
     public void doSchedule() {
         worker.work();
-    }
-
-    @Scheduled(cron="0 0 5 * * ?")
-    public void patchTheDamnProcess() {
-        workerProcess.work();
     }
 }

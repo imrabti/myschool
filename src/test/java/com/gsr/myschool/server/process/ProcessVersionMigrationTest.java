@@ -16,7 +16,9 @@
 
 package com.gsr.myschool.server.process;
 
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.repos.DossierRepos;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -47,10 +49,14 @@ public class ProcessVersionMigrationTest {
     ProcessEngineConfigurationImpl processEngineConfiguration;
     @Autowired
     TaskService taskService;
+    @Autowired
+    DossierRepos dossierRepos;
+    @Autowired
+    ValidationProcessService dossierService;
 
     private Log logger = LogFactory.getLog("Log");
 
-    @Test
+    // @Test
     public void myTest() throws Exception {
         List<Execution> list = runtimeService.createExecutionQuery().processDefinitionKey("validation").list();
         for (Execution exec : list) {
@@ -80,5 +86,15 @@ public class ProcessVersionMigrationTest {
 //
 //           // processEngineConfiguration.getCommandExecutorTxRequired().execute(new SetProcessDefinitionVersionCmd(exec.getId(), 2));
 //        }
+    }
+
+    @Test
+    public void myOtherTest() {
+        List<Dossier> list = dossierRepos.findAll();
+        for (Dossier dossier : list) {
+            if (dossier.getStatus() == DossierStatus.SUBMITTED) {
+                dossierService.startProcess(dossier);
+            }
+        }
     }
 }

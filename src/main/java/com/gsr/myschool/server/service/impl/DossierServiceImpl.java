@@ -65,9 +65,9 @@ public class DossierServiceImpl implements DossierService {
             for (PieceJustif pieceJustif : pieceJustifs) {
                 piecejustifDTOs.add(PiecejustifDTO.mapper(pieceJustif));
             }
-            validationProcessService.receiveDossier(task, piecejustifDTOs);
+            validationProcessService.receiveDossier(task, receivedDossier, piecejustifDTOs);
         } else {
-            validationProcessService.receiveDossier(task);
+            validationProcessService.receiveDossier(task, receivedDossier);
         }
 
         receivedDossier.setStatus(DossierStatus.RECEIVED);
@@ -95,10 +95,11 @@ public class DossierServiceImpl implements DossierService {
         }
 
         if (pieceNotAvailable.isEmpty()) {
-            // piece all existing
-            validationProcessService.acceptDossier(task);
-
             Dossier verifiedDossier = dossierRepos.findOne(dossierId);
+
+            // piece all existing
+            validationProcessService.acceptDossier(task, verifiedDossier);
+
             verifiedDossier.setStatus(DossierStatus.ACCEPTED_FOR_STUDY);
             dossierRepos.save(verifiedDossier);
         } else {
@@ -114,10 +115,11 @@ public class DossierServiceImpl implements DossierService {
                 }
             }
 
-            // there is at least one piece not available
-            validationProcessService.rejectDossier(task, piecejustifDTOs);
-
             Dossier verifiedDossier = dossierRepos.findOne(dossierId);
+
+            // there is at least one piece not available
+            validationProcessService.rejectDossier(task, verifiedDossier, piecejustifDTOs);
+
             verifiedDossier.setStatus(DossierStatus.STANDBY);
             dossierRepos.save(verifiedDossier);
         }
