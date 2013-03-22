@@ -48,6 +48,8 @@ public class ValidationProcessNestedServiceImpl implements ValidationProcessNest
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("gender", dossier.getOwner().getGender().toString());
         params.put("lastname", dossier.getOwner().getLastName());
+        params.put("nomEnfant", dossier.getCandidat().getLastname());
+        params.put("prenomEnfant", dossier.getCandidat().getFirstname());
         params.put("firstname", dossier.getOwner().getFirstName());
         params.put("refdossier", dossier.getGeneratedNumDossier());
 
