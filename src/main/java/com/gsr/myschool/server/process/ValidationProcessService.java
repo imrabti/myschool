@@ -44,16 +44,18 @@ public interface ValidationProcessService {
      * This method is called when the Dossier is on Submitted state
      *
      * @param task
-     * @param piecejustifDTOs
+     * @param dossier
      */
-    void receiveDossier(Task task, List<PiecejustifDTO> piecejustifDTOs);
+    void receiveDossier(Task task, Dossier dossier);
 
     /**
      * Finish the Task, this method is called when the Dossier is on
      * Standby state waiting for a missing paper
      * @param task
+     * @param receivedDossier
+     * @param piecejustifDTOs
      */
-    void receiveDossier(Task task);
+    void receiveDossier(Task task, Dossier receivedDossier, List<PiecejustifDTO> piecejustifDTOs);
 
     /**
      * Load list of required papers to gather for this kind of dossier
@@ -77,17 +79,19 @@ public interface ValidationProcessService {
      * with the rest of files needed
      *
      * @param task
+     * @param verifiedDossier
      * @param pieceNonavailable
      */
-    void rejectDossier(Task task, List<PiecejustifDTO> pieceNonavailable);
+    void rejectDossier(Task task, Dossier verifiedDossier, List<PiecejustifDTO> pieceNonavailable);
 
     /**
      * Finish the validation of the Dossier task after checking the arrival
      * of all files required to this apply the folder with a ACCEPTED_FOR_ANALYSE status
      *
      * @param task
+     * @param verifiedDossier
      */
-    void acceptDossier(Task task);
+    void acceptDossier(Task task, Dossier verifiedDossier);
 
     List<Dossier> getAllNonAnalysedDossiers();
 

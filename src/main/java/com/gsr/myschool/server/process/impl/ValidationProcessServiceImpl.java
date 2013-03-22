@@ -33,6 +33,7 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -66,25 +67,22 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     private EmailService emailService;
     @Autowired
     private InboxMessageRepos inboxMessageRepos;
-    @Autowired
-    private UserRepos userRepos;
+    @Value("${mailserver.sender}")
+    private String sender;
 
     @Override
     public void startProcess(Dossier dossier) {
         // treatment on Dossier
         dossier.setSubmitDate(new Date());
         dossier.setStatus(DossierStatus.SUBMITTED);
-        dossier = dossierRepos.save(dossier);
+        dossierRepos.save(dossier);
 
         // Initialise process variables
         Map<String, Object> processParams = new HashMap<String, Object>();
-        processParams.put("dossierId",dossier.getId());
-        processParams.put("email", new EmailDTO());
-        processParams.put("dossier", dossier);
         processParams.put("dueDate", "");
 
         // start process by key
-        runtimeService.startProcessInstanceById("validation", dossier.getId().toString(), processParams);
+        runtimeService.startProcessInstanceByKey("validation", dossier.getId().toString(), processParams);
     }
 
     @Override
@@ -96,12 +94,61 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     }
 
     @Override
-    public void receiveDossier(Task task) {
+    public void receiveDossier(Task task, Dossier dossier) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("gender", dossier.getOwner().getGender().toString());
+        params.put("lastname", dossier.getOwner().getLastName());
+        params.put("nomEnfant", dossier.getCandidat().getLastname());
+        params.put("prenomEnfant", dossier.getCandidat().getFirstname());
+        params.put("firstname", dossier.getOwner().getFirstName());
+        params.put("refdossier", dossier.getGeneratedNumDossier());
+
+        try {
+            EmailDTO email = emailService.populateEmail(EmailType.DOSSIER_RECEIVED,
+                    dossier.getOwner().getEmail(), sender, params, "", "");
+            emailService.send(email);
+
+            InboxMessage message = new InboxMessage();
+            message.setParentUser(dossier.getOwner());
+            message.setSubject(email.getSubject());
+            message.setContent(email.getMessage());
+            message.setMsgDate(new Date());
+            message.setMsgStatus(InboxMessageStatus.UNREAD);
+            inboxMessageRepos.save(message);
+        } catch (Exception e) {
+
+        }
+
         taskService.complete(task.getId());
     }
 
     @Override
-    public void receiveDossier(Task task, List<PiecejustifDTO> piecejustifDTOs) {
+    public void receiveDossier(Task task, Dossier dossier, List<PiecejustifDTO> piecejustifDTOs) {
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("gender", dossier.getOwner().getGender().toString());
+        params.put("lastname", dossier.getOwner().getLastName());
+        params.put("nomEnfant", dossier.getCandidat().getLastname());
+        params.put("prenomEnfant", dossier.getCandidat().getFirstname());
+        params.put("firstname", dossier.getOwner().getFirstName());
+        params.put("refdossier", dossier.getGeneratedNumDossier());
+
+        try {
+            EmailDTO email = emailService.populateEmail(EmailType.DOSSIER_RECEIVED,
+                    dossier.getOwner().getEmail(), sender, params, "", "");
+            emailService.send(email);
+
+            InboxMessage message = new InboxMessage();
+            message.setParentUser(dossier.getOwner());
+            message.setSubject(email.getSubject());
+            message.setContent(email.getMessage());
+            message.setMsgDate(new Date());
+            message.setMsgStatus(InboxMessageStatus.UNREAD);
+            inboxMessageRepos.save(message);
+        } catch (Exception e) {
+
+        }
+
         // Initialise process variables
         Map<String, Object> processParams = new HashMap<String, Object>();
         processParams.put("piecejustifs", piecejustifDTOs);
@@ -127,9 +174,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     }
 
     @Override
-    public void rejectDossier(Task task, List<PiecejustifDTO> pieceNonavailable) {
-        EmailDTO email = (EmailDTO) runtimeService.getVariable(task.getExecutionId(), "email");
-        Dossier dossier = (Dossier) runtimeService.getVariable(task.getExecutionId(), "dossier");
+    public void rejectDossier(Task task, Dossier dossier, List<PiecejustifDTO> pieceNonavailable) {
         Map<String, Object> params = new HashMap<String, Object>();
 
         List<String> pieces = new ArrayList<String>();
@@ -149,39 +194,33 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
         params.put("pieceNonavailable", pieces);
 
         try {
-            email = emailService.populateEmail(EmailType.DOSSIER_INCOMPLETE, email.getTo(), email.getFrom(),
+            EmailDTO email = emailService.populateEmail(EmailType.DOSSIER_INCOMPLETE,
+                    dossier.getOwner().getEmail(), sender,
                     params, "", "");
+            emailService.send(email);
+
+            InboxMessage message = new InboxMessage();
+            message.setParentUser(dossier.getOwner());
+            message.setSubject(email.getSubject());
+            message.setContent(email.getMessage());
+            message.setMsgDate(new Date());
+            message.setMsgStatus(InboxMessageStatus.UNREAD);
+            inboxMessageRepos.save(message);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        InboxMessage message = new InboxMessage();
-        message.setParentUser(userRepos.findByEmail(email.getTo()));
-        message.setSubject(email.getSubject());
-        message.setContent(email.getMessage());
-        message.setMsgDate(new Date());
-        message.setMsgStatus(InboxMessageStatus.UNREAD);
-        inboxMessageRepos.save(message);
 
         // Initialise process variables
         Map<String, Object> processParams = new HashMap<String, Object>();
         processParams.put("dossierComplet", false);
         processParams.put("piecejustifs", pieceNonavailable);
-        processParams.put("email", email);
 
         taskService.complete(task.getId(), processParams);
     }
 
     @Override
-    public void acceptDossier(Task task) {
-        // Initialise process variables
-        Map<String, Object> processParams = new HashMap<String, Object>();
-        processParams.put("dossierComplet", true);
-        taskService.complete(task.getId(), processParams);
-
-        EmailDTO email = (EmailDTO) runtimeService.getVariable(task.getExecutionId(), "email");
-        Dossier dossier = (Dossier) runtimeService.getVariable(task.getExecutionId(), "dossier");
-
+    public void acceptDossier(Task task, Dossier dossier) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("gender", dossier.getOwner().getGender().toString());
         params.put("lastname", dossier.getOwner().getLastName());
@@ -190,20 +229,26 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
         params.put("prenomEnfant", dossier.getCandidat().getFirstname());
         params.put("refdossier", dossier.getGeneratedNumDossier());
         try {
-            email = emailService.populateEmail(EmailType.DOSSIER_COMPLETE, email.getTo(), email.getFrom(),
+            EmailDTO email = emailService.populateEmail(EmailType.DOSSIER_COMPLETE,
+                    dossier.getOwner().getEmail(), sender,
                     params, "", "");
             emailService.send(email);
+
+            InboxMessage message = new InboxMessage();
+            message.setParentUser(dossier.getOwner());
+            message.setSubject(email.getSubject());
+            message.setContent(email.getMessage());
+            message.setMsgDate(new Date());
+            message.setMsgStatus(InboxMessageStatus.UNREAD);
+            inboxMessageRepos.save(message);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        InboxMessage message = new InboxMessage();
-        message.setParentUser(userRepos.findByEmail(email.getTo()));
-        message.setSubject(email.getSubject());
-        message.setContent(email.getMessage());
-        message.setMsgDate(new Date());
-        message.setMsgStatus(InboxMessageStatus.UNREAD);
-        inboxMessageRepos.save(message);
+        // Initialise process variables
+        Map<String, Object> processParams = new HashMap<String, Object>();
+        processParams.put("dossierComplet", true);
+        taskService.complete(task.getId(), processParams);
     }
 
     @Override
