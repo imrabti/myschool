@@ -82,13 +82,13 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
         processParams.put("dueDate", "");
 
         // start process by key
-        runtimeService.startProcessInstanceByKey("validation", processParams);
+        runtimeService.startProcessInstanceById("validation", dossier.getId().toString(), processParams);
     }
 
     @Override
     public Task getDossierToReceive(Long dossierId) {
         return taskService.createTaskQuery()
-                .processVariableValueEquals("dossierId", dossierId)
+                .processInstanceBusinessKey(dossierId.toString())
                 .taskDefinitionKey(ValidationTask.RECEPTION.getValue())
                 .singleResult();
     }
@@ -159,15 +159,15 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     @Override
     public Task getDossierToValidate(Long dossierId) {
         return taskService.createTaskQuery()
-                .processVariableValueEquals("dossierId", dossierId)
+                .processInstanceBusinessKey(dossierId.toString())
                 .taskDefinitionKey(ValidationTask.VALIDATION.getValue())
                 .singleResult();
     }
 
     @Override
-    public List<PiecejustifDTO> getPieceJustifFromProcess(Dossier dossier) {
+    public List<PiecejustifDTO> getPieceJustifFromProcess(Long dossierId) {
         Task task = taskService.createTaskQuery()
-                .processVariableValueEquals("dossierId", dossier.getId())
+                .processInstanceBusinessKey(dossierId.toString())
                 .taskDefinitionKey(ValidationTask.VALIDATION.getValue())
                 .singleResult();
         return (List<PiecejustifDTO>) runtimeService.getVariable(task.getExecutionId(), "piecejustifs");

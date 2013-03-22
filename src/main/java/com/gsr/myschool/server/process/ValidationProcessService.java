@@ -59,10 +59,10 @@ public interface ValidationProcessService {
 
     /**
      * Load list of required papers to gather for this kind of dossier
-     * @param dossier
+     * @param dossierId
      * @return
      */
-    List<PiecejustifDTO> getPieceJustifFromProcess(Dossier dossier);
+    List<PiecejustifDTO> getPieceJustifFromProcess(Long dossierId);
 
     /**
      * Returns the Dossier that had been received and ready to be validated,

@@ -78,7 +78,7 @@ public class DossierServiceImpl implements DossierService {
 
     @Override
     public List<PiecejustifDTO> getPieceJustifFromProcess(Dossier dossier) {
-        return validationProcessService.getPieceJustifFromProcess(dossier);
+        return validationProcessService.getPieceJustifFromProcess(dossier.getId());
     }
 
     @Override
@@ -104,7 +104,7 @@ public class DossierServiceImpl implements DossierService {
             dossierRepos.save(verifiedDossier);
         } else {
             Dossier dossier = dossierRepos.findOne(dossierId);
-            List<PiecejustifDTO> piecejustifDTOs = validationProcessService.getPieceJustifFromProcess(dossier);
+            List<PiecejustifDTO> piecejustifDTOs = validationProcessService.getPieceJustifFromProcess(dossier.getId());
             for (PiecejustifDTO piece : piecejustifDTOs) {
                 if (pieceNotAvailable.containsKey(piece.getId())) {
                     piece.setAvailable(false);
