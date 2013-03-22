@@ -109,7 +109,7 @@
                     <runTarget>myproject.html</runTarget>
 
                     <testTimeOut>180</testTimeOut>
-                    <localWorkers>2</localWorkers>
+                    <localWorkers>4</localWorkers>
                     <extraJvmArgs>-Xmx512m -XX:MaxPermSize=512m</extraJvmArgs>
 
                     <compileReport>true</compileReport>
