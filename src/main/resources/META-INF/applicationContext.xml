@@ -31,6 +31,25 @@
 
     <!-- Activates @Scheduled and @Async annotations for scheduling -->
     <task:annotation-driven/>
+    <task:executor id="executorWithPoolSizeRange"
+                   pool-size="5-25"
+                   queue-capacity="100"/>
+
+    <!-- Spring Mail configuration -->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="${mailserver.host}"/>
+        <property name="port" value="${mailserver.port}" />
+        <property name="protocol" value="smtps" />
+        <property name="username" value="${mailserver.username}"/>
+        <property name="password" value="${mailserver.password}"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtps.auth">true</prop>
+                <prop key="mail.smtps.starttls.enable">true</prop>
+                <prop key="mail.smtps.debug">true</prop>
+            </props>
+        </property>
+    </bean>
 
     <!-- EntityManager Transaction manager -->
     <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
