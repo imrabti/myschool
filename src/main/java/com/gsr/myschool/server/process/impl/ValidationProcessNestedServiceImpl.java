@@ -18,12 +18,10 @@ package com.gsr.myschool.server.process.impl;
 
 import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.common.shared.type.EmailType;
-import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.InboxMessageStatus;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.InboxMessage;
 import com.gsr.myschool.server.process.ValidationProcessNestedService;
-import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.repos.InboxMessageRepos;
 import com.gsr.myschool.server.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;

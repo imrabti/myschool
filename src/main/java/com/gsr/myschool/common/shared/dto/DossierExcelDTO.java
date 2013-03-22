@@ -27,7 +27,8 @@ import java.io.Serializable;
         columnOrder = {"lastname", "firstname", "birthDate", "birthLocation", "phone",
                 "cin", "cne", "email", "gsm", "bacYear", "bacSerie", "nationality",
                 "filierenom", "niveauEtudenom", "filiere2nom", "niveauEtude2nom", "owneremail",
-                "createDate", "submitDate", "status", "generatedNumDossier", "anneeScolaire"})
+                "createDate", "submitDate", "status", "generatedNumDossier", "anneeScolaire",
+                "niveauEtudeActuel", "formationActuel", "etablissementActuel"})
 public class DossierExcelDTO implements Serializable {
     /* candidat */
     @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
@@ -67,6 +68,16 @@ public class DossierExcelDTO implements Serializable {
             columnName = "Nationalité")
     private String nationality;
 
+    /* scolarité actuelle */
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Etablissement scolaire(Etape3)")
+    private String etablissementActuel;
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Niveau actuel (Etape3)")
+    private String niveauEtudeActuel;
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Type d'enseignement (Etape3)")
+    private String formationActuel;
 
     /* filiere */
     @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
@@ -284,5 +295,29 @@ public class DossierExcelDTO implements Serializable {
 
     public void setAnneeScolaire(String anneeScolaire) {
         this.anneeScolaire = anneeScolaire;
+    }
+
+    public String getEtablissementActuel() {
+        return etablissementActuel;
+    }
+
+    public void setEtablissementActuel(String etablissementActuel) {
+        this.etablissementActuel = etablissementActuel;
+    }
+
+    public String getNiveauEtudeActuel() {
+        return niveauEtudeActuel;
+    }
+
+    public void setNiveauEtudeActuel(String niveauEtudeActuel) {
+        this.niveauEtudeActuel = niveauEtudeActuel;
+    }
+
+    public String getFormationActuel() {
+        return formationActuel;
+    }
+
+    public void setFormationActuel(String formationActuel) {
+        this.formationActuel = formationActuel;
     }
 }
