@@ -59,9 +59,16 @@ public class ProcessVersionMigrationTest {
                 runtimeService.setVariable(exec.getId(), "dossierId", d.getId());
             } catch (Exception e) {
                 logger.debug("Execution ID : " + exec.getId() + "Process Instance :" + exec.getProcessInstanceId());
-                runtimeService.deleteProcessInstance(exec.getProcessInstanceId(), "no dossier found");
-            }
-        }
+
+                   try{
+                      runtimeService.deleteProcessInstance(exec.getProcessInstanceId(), "no dossier found");
+                   } catch (Exception e1) {
+                       logger.debug(e1.getMessage());
+                   }
+
+                   }
+             }
+        logger.debug("FINSHED MIGRATION");
 //        runtimeService.startProcessInstanceByKey("validation","1");
 
 //        JdbcTemplate template = new JdbcTemplate(dataSource);
