@@ -66,7 +66,7 @@ public class ProcessVersionMigrationTest {
             } catch (Exception e) {
                 logger.debug("Execution ID : " + exec.getId() + "Process Instance :" + exec.getProcessInstanceId());
                 try {
-                    runtimeService.deleteProcessInstance(exec.getProcessInstanceId(), "no dossier found");
+                   // runtimeService.deleteProcessInstance(exec.getProcessInstanceId(), "no dossier found");
                 } catch (Exception e1) {
                     logger.debug("Execution ID : " + exec.getId() + "Process Instance :" + exec.getProcessInstanceId());
 
@@ -90,10 +90,23 @@ public class ProcessVersionMigrationTest {
 
     @Test
     public void myOtherTest() {
+
+        List<Execution> listE = runtimeService.createExecutionQuery().processDefinitionKey("validation").list();
+        for (Execution exec : listE) {
+            try{
+               runtimeService.deleteProcessInstance(exec.getProcessInstanceId(), "Changing to major code");
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
         List<Dossier> list = dossierRepos.findAll();
         for (Dossier dossier : list) {
             if (dossier.getStatus() == DossierStatus.SUBMITTED) {
+                try{
                 dossierService.startProcess(dossier);
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
             }
         }
     }
