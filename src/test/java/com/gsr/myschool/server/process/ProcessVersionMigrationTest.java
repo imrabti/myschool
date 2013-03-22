@@ -59,8 +59,14 @@ public class ProcessVersionMigrationTest {
                 runtimeService.setVariable(exec.getId(), "dossierId", d.getId());
             } catch (Exception e) {
                 logger.debug("Execution ID : " + exec.getId() + "Process Instance :" + exec.getProcessInstanceId());
-                runtimeService.deleteProcessInstance(exec.getProcessInstanceId(), "no dossier found");
+                try {
+                    runtimeService.deleteProcessInstance(exec.getProcessInstanceId(), "no dossier found");
+                } catch (Exception e1) {
+                    logger.debug("Execution ID : " + exec.getId() + "Process Instance :" + exec.getProcessInstanceId());
+
+                }
             }
+            logger.debug("FIN");
         }
 //        runtimeService.startProcessInstanceByKey("validation","1");
 
@@ -71,7 +77,6 @@ public class ProcessVersionMigrationTest {
 //        for (Execution exec : list) {
 //            Dossier d = (Dossier) runtimeService.getVariable(exec.getId(), "dossier");
 //            runtimeService.setVariable(exec.getId(), "dossierId", d.getId());
-
 //
 //           // processEngineConfiguration.getCommandExecutorTxRequired().execute(new SetProcessDefinitionVersionCmd(exec.getId(), 2));
 //        }
