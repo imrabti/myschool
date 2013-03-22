@@ -24,6 +24,9 @@
         <div class="{style.row}">
             <g:Label text="Statut" styleName="{style.label}"/>
             <boot:ValueListBox ui:field="status" width="180px"/>
+
+            <g:Label text="Nom ou prénom" styleName="{style.label}"/>
+            <boot:TextBox ui:field="firstnameOrlastname" width="168px"/>
         </div>
 
         <div class="{style.row}">
