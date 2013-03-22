@@ -7,7 +7,7 @@ public class GlobalParameters {
     public static final String DATE_FORMAT = "dd/MM/yyyy";
     public static final String DEFAULT_NATIONALITY = "MAROCAINE";
     public static final Integer REFRESH_PERIODE = 60000;
-    public static final Integer PAGE_SIZE = 10;
+    public static final Integer PAGE_SIZE = 40;
 
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
     public static final String ROLE_OPERATOR = "ROLE_OPERATOR";
