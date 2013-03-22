@@ -8,8 +8,14 @@ import com.gsr.myschool.server.service.EmailService;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.io.StringWriter;
 import java.util.Iterator;
 import java.util.Map;
@@ -20,7 +26,10 @@ public class EmailServiceImpl implements EmailService {
     private VelocityEngine velocityEngine;
     @Autowired
     private EmailTemplateRepos emailTemplateRepos;
+    @Autowired
+    private JavaMailSender mailSender;
 
+    @Override
     public EmailDTO populateEmail(EmailType code, String to, String from, Map<String, Object> params, String cc,
                                   String bcc) throws Exception {
         velocityEngine.init();
@@ -49,5 +58,19 @@ public class EmailServiceImpl implements EmailService {
         resultMail.setMessage(message);
 
         return resultMail;
+    }
+
+    @Override
+    @Async
+    public void send(final EmailDTO mail) throws Exception {
+        mailSender.send(new MimeMessagePreparator() {
+            public void prepare(MimeMessage mimeMessage) throws MessagingException {
+                MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
+                message.setFrom(mail.getFrom());
+                message.setTo(mail.getTo());
+                message.setSubject(mail.getSubject());
+                message.setText(mail.getMessage(), true);
+            }
+        });
     }
 }

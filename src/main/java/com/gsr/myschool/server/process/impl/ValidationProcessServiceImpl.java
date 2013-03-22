@@ -88,18 +88,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     }
 
     @Override
-    @Deprecated
-    public Map<Dossier, Task> getAllNonReceivedDossiers() {
-        List<Task> taskList = taskService.createTaskQuery().taskDefinitionKey(ValidationTask.RECEPTION.getValue()).list();
-        Map<Dossier, Task> dossierMap = new HashMap<Dossier, Task>();
-        for (Task task : taskList) {
-            dossierMap.put((Dossier) runtimeService.getVariable(task.getExecutionId(), "dossier"), task);
-        }
-        return dossierMap;
-    }
-
-    @Override
-    public Task getAllNonReceivedDossiers(Long dossierId) {
+    public Task getDossierToReceive(Long dossierId) {
         return taskService.createTaskQuery()
                 .processVariableValueEquals("dossierId", dossierId)
                 .taskDefinitionKey(ValidationTask.RECEPTION.getValue())
@@ -121,18 +110,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     }
 
     @Override
-    @Deprecated
-    public Map<Dossier, Task> getAllReceivedDossiers() {
-        List<Task> taskList = taskService.createTaskQuery().taskDefinitionKey(ValidationTask.VALIDATION.getValue()).list();
-        Map<Dossier, Task> dossierMap = new HashMap<Dossier, Task>();
-        for (Task task : taskList) {
-            dossierMap.put((Dossier) runtimeService.getVariable(task.getExecutionId(), "dossier"), task);
-        }
-        return dossierMap;
-    }
-
-    @Override
-    public Task getAllReceivedDossiers(Long dossierId) {
+    public Task getDossierToValidate(Long dossierId) {
         return taskService.createTaskQuery()
                 .processVariableValueEquals("dossierId", dossierId)
                 .taskDefinitionKey(ValidationTask.VALIDATION.getValue())
@@ -140,7 +118,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     }
 
     @Override
-    public List<PiecejustifDTO> getPiecejustifFromProcess(Dossier dossier) {
+    public List<PiecejustifDTO> getPieceJustifFromProcess(Dossier dossier) {
         Task task = taskService.createTaskQuery()
                 .processVariableValueEquals("dossierId", dossier.getId())
                 .taskDefinitionKey(ValidationTask.VALIDATION.getValue())
@@ -171,7 +149,8 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
         params.put("pieceNonavailable", pieces);
 
         try {
-            email = emailService.populateEmail(EmailType.DOSSIER_INCOMPLETE, email.getTo(), email.getFrom(), params, "", "");
+            email = emailService.populateEmail(EmailType.DOSSIER_INCOMPLETE, email.getTo(), email.getFrom(),
+                    params, "", "");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -198,8 +177,33 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
         // Initialise process variables
         Map<String, Object> processParams = new HashMap<String, Object>();
         processParams.put("dossierComplet", true);
-
         taskService.complete(task.getId(), processParams);
+
+        EmailDTO email = (EmailDTO) runtimeService.getVariable(task.getExecutionId(), "email");
+        Dossier dossier = (Dossier) runtimeService.getVariable(task.getExecutionId(), "dossier");
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("gender", dossier.getOwner().getGender().toString());
+        params.put("lastname", dossier.getOwner().getLastName());
+        params.put("firstname", dossier.getOwner().getFirstName());
+        params.put("nomEnfant", dossier.getCandidat().getLastname());
+        params.put("prenomEnfant", dossier.getCandidat().getFirstname());
+        params.put("refdossier", dossier.getGeneratedNumDossier());
+        try {
+            email = emailService.populateEmail(EmailType.DOSSIER_COMPLETE, email.getTo(), email.getFrom(),
+                    params, "", "");
+            emailService.send(email);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        InboxMessage message = new InboxMessage();
+        message.setParentUser(userRepos.findByEmail(email.getTo()));
+        message.setSubject(email.getSubject());
+        message.setContent(email.getMessage());
+        message.setMsgDate(new Date());
+        message.setMsgStatus(InboxMessageStatus.UNREAD);
+        inboxMessageRepos.save(message);
     }
 
     @Override

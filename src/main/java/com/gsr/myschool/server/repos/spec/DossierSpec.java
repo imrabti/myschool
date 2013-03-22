@@ -40,15 +40,6 @@ public class DossierSpec {
         };
     }
 
-    public static Specification<Dossier> dossierCreatedEqual(final Date date) {
-        return new Specification<Dossier>() {
-            @Override
-            public Predicate toPredicate(Root<Dossier> dossierRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                return cb.greaterThanOrEqualTo(dossierRoot.<Date>get("createDate"), date);
-            }
-        };
-    }
-
     public static Specification<Dossier> dossierCreatedGreater(final Date date) {
         return new Specification<Dossier>() {
             @Override
@@ -115,15 +106,6 @@ public class DossierSpec {
             @Override
             public Predicate toPredicate(Root<Dossier> dossierRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 return cb.equal(dossierRoot.<NiveauEtude>get("niveauEtude").<Long>get("id"), niveauEtude.getId());
-            }
-        };
-    }
-
-    public static Specification<Dossier> idIn(final List<Long> id) {
-        return new Specification<Dossier>() {
-            @Override
-            public Predicate toPredicate(Root<Dossier> dossierRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                return cb.and(dossierRoot.<Long>get("id").in(id));
             }
         };
     }
