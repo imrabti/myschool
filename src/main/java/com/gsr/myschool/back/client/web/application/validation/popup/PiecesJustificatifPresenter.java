@@ -83,10 +83,10 @@ public class PiecesJustificatifPresenter extends PresenterWidget<MyView> impleme
     @Override
     protected void onReveal() {
         List<LabelValue> candidatDetails = new ArrayList<LabelValue>();
-        candidatDetails.add(new LabelValue("Nom", currentDossier.getCandidat().getLastname()));
-        candidatDetails.add(new LabelValue("Prénom", currentDossier.getCandidat().getFirstname()));
-        candidatDetails.add(new LabelValue("Date de naissance", dateFormat.format(currentDossier.getCandidat().getBirthDate())));
-        candidatDetails.add(new LabelValue("Nationnalité", currentDossier.getCandidat().getNationality().getLabel()));
+        candidatDetails.add(new LabelValue("Nom prénom", currentDossier.getCandidat().getLastname() +
+                " " + currentDossier.getCandidat().getFirstname()));
+        candidatDetails.add(new LabelValue("Filière", currentDossier.getFiliere().getNom()));
+        candidatDetails.add(new LabelValue("Niveau demandé", currentDossier.getNiveauEtude().getNom()));
         getView().displayDossierDetails(currentDossier, candidatDetails);
 
         requestFactory.dossierService().getPieceJustifFromProcess(currentDossier)
