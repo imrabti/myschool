@@ -52,6 +52,7 @@ public class PieceJustificatifEditor extends Composite implements EditorView<Pie
     @Override
     public void edit(PiecejustifDTOProxy object) {
         driver.edit(object);
+        verifyIfChecked();
     }
 
     @Override
@@ -66,6 +67,10 @@ public class PieceJustificatifEditor extends Composite implements EditorView<Pie
 
     @UiHandler("available")
     void onAvailableClicked(ClickEvent event) {
+        verifyIfChecked();
+    }
+
+    private void verifyIfChecked() {
         if (available.getValue()) {
             $(nom).css("text-decoration", "line-through");
             $(nom).css("color", "#999999");
