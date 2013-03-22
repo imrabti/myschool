@@ -17,21 +17,19 @@
 package com.gsr.myschool.server.process;
 
 import com.gsr.myschool.server.business.Dossier;
-import com.gsr.myschool.server.repos.DossierRepos;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.runtime.Execution;
-import org.activiti.engine.runtime.ExecutionQuery;
-import org.activiti.engine.task.Task;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -49,24 +47,38 @@ public class ProcessVersionMigrationTest {
     ProcessEngineConfigurationImpl processEngineConfiguration;
     @Autowired
     TaskService taskService;
-    @Autowired
-    DossierRepos dossierRepos;
+
+    private Log logger = LogFactory.getLog("Log");
 
     @Test
     public void myTest() throws Exception {
+        List<Execution> list = runtimeService.createExecutionQuery().processDefinitionKey("validation").list();
+        for (Execution exec : list) {
+            try {
+                Dossier d = (Dossier) runtimeService.getVariable(exec.getId(), "dossier");
+                runtimeService.setVariable(exec.getId(), "dossierId", d.getId());
+            } catch (Exception e) {
+                logger.debug("Execution ID : " + exec.getId() + "Process Instance :" + exec.getProcessInstanceId());
+                try {
+                    runtimeService.deleteProcessInstance(exec.getProcessInstanceId(), "no dossier found");
+                } catch (Exception e1) {
+                    logger.debug("Execution ID : " + exec.getId() + "Process Instance :" + exec.getProcessInstanceId());
+
+                }
+            }
+            logger.debug("FIN");
+        }
 //        runtimeService.startProcessInstanceByKey("validation","1");
 
 //        JdbcTemplate template = new JdbcTemplate(dataSource);
-        List<Execution> list = runtimeService.createExecutionQuery().processDefinitionKey("validation").list();
+//        List<Execution> list = runtimeService.createExecutionQuery().processDefinitionKey("validation").list();
 //        Execution w = runtimeService.createExecutionQuery().processVariableValueEquals("dossierId", 2L).singleResult();
 //        Task t = taskService.createTaskQuery().processVariableValueEquals("dossierId", 2L).taskDefinitionKey("validationTask").singleResult();
-        for (Execution exec : list) {
-            Dossier d = (Dossier) runtimeService.getVariable(exec.getId(), "dossier");
-
-            dossierRepos.findOne(d.getId());
-            runtimeService.setVariable(exec.getId(), "dossierId", d.getId());
-
+//        for (Execution exec : list) {
+//            Dossier d = (Dossier) runtimeService.getVariable(exec.getId(), "dossier");
+//            runtimeService.setVariable(exec.getId(), "dossierId", d.getId());
+//
 //           // processEngineConfiguration.getCommandExecutorTxRequired().execute(new SetProcessDefinitionVersionCmd(exec.getId(), 2));
-        }
+//        }
     }
 }

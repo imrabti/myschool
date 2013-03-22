@@ -1,0 +1,4 @@
+myschool
+========
+
+School online inscription
