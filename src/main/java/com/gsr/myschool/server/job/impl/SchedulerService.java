@@ -40,7 +40,7 @@ public class SchedulerService {
         worker.work();
     }
 
-    @Scheduled(cron="0 0 4 * * ?")
+    @Scheduled(cron="0 0 5 * * ?")
     public void patchTheDamnProcess() {
         workerProcess.work();
     }

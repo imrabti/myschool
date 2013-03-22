@@ -74,10 +74,11 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
         // treatment on Dossier
         dossier.setSubmitDate(new Date());
         dossier.setStatus(DossierStatus.SUBMITTED);
-        dossierRepos.save(dossier);
+        dossier = dossierRepos.save(dossier);
 
         // Initialise process variables
         Map<String, Object> processParams = new HashMap<String, Object>();
+        processParams.put("dossierId",dossier.getId());
         processParams.put("email", new EmailDTO());
         processParams.put("dossier", dossier);
         processParams.put("dueDate", "");
