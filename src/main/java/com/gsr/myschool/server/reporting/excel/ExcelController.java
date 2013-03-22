@@ -125,6 +125,20 @@ public class ExcelController {
                 if (dossier.getCandidat().getBirthDate() != null) {
                     d.setBirthDate(dateFormat.format(dossier.getCandidat().getBirthDate()));
                 }
+
+            }
+
+            /* Scolarite actuelle */
+            if (dossier.getScolariteActuelle() != null) {
+                if (dossier.getScolariteActuelle().getEtablissement() != null) {
+                    d.setEtablissementActuel(dossier.getScolariteActuelle().getEtablissement().getNom());
+                }
+                if (dossier.getScolariteActuelle().getFiliere() != null) {
+                    d.setEtablissementActuel(dossier.getScolariteActuelle().getFiliere().getNom());
+                }
+                if (dossier.getScolariteActuelle().getNiveauEtude() != null) {
+                    d.setEtablissementActuel(dossier.getScolariteActuelle().getNiveauEtude().getNom());
+                }
             }
 
             /* filieres */
