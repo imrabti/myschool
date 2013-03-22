@@ -33,7 +33,7 @@ public class MySchoolBack implements EntryPoint {
 
         GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
             public void onUncaughtException(Throwable e) {
-                log.log(Level.SEVERE, e.getMessage(), e);
+                log.log(Level.INFO, e.getMessage(), e);
             }
         });
     }
