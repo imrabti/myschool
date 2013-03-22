@@ -187,6 +187,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
         // Initialise process variables
         Map<String, Object> processParams = new HashMap<String, Object>();
         processParams.put("dossierComplet", false);
+        processParams.put("piecejustifs", pieceNonavailable);
         processParams.put("email", email);
 
         taskService.complete(task.getId(), processParams);

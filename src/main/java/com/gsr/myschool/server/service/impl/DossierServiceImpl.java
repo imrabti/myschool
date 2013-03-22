@@ -18,16 +18,14 @@ package com.gsr.myschool.server.service.impl;
 
 import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
-import com.gsr.myschool.common.shared.dto.PiecejustifDTO;
 import com.gsr.myschool.common.shared.dto.PagedDossiers;
+import com.gsr.myschool.common.shared.dto.PiecejustifDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.core.PieceJustif;
-import com.gsr.myschool.server.business.core.PieceJustifDuNE;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.repos.PieceJustifRepos;
-import com.gsr.myschool.server.repos.PieceJustifDuNERepos;
 import com.gsr.myschool.server.repos.spec.DossierSpec;
 import com.gsr.myschool.server.service.DossierService;
 import org.activiti.engine.task.Task;
@@ -49,8 +47,6 @@ public class DossierServiceImpl implements DossierService {
     private DossierRepos dossierRepos;
     @Autowired
     private PieceJustifRepos pieceJustifRepos;
-    @Autowired
-    private PieceJustifDuNERepos pieceJustifDuNERepos;
     @Autowired
     private ValidationProcessService validationProcessService;
 
@@ -81,7 +77,7 @@ public class DossierServiceImpl implements DossierService {
     }
 
     @Override
-    public List<PiecejustifDTO> getPiecejustifFromProcess(Dossier dossier) {
+    public List<PiecejustifDTO> getPieceJustifFromProcess(Dossier dossier) {
         return validationProcessService.getPiecejustifFromProcess(dossier);
     }
 
@@ -174,7 +170,7 @@ public class DossierServiceImpl implements DossierService {
         } else {
             List<Dossier> result = dossierRepos.findAll(spec);
 
-            return  new PagedDossiers(result, result.size());
+            return new PagedDossiers(result, result.size());
         }
     }
 
@@ -224,7 +220,7 @@ public class DossierServiceImpl implements DossierService {
         } else {
             List<Dossier> result = dossierRepos.findAll(spec);
 
-            return  new PagedDossiers(result, result.size());
+            return new PagedDossiers(result, result.size());
         }
     }
 }
