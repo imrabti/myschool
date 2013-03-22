@@ -191,6 +191,17 @@ public class ReceptionView extends ViewWithUiHandlers<ReceptionUiHandlers> imple
         inscriptionsTable.addColumn(createdColumn, "Date du dossier");
         inscriptionsTable.setColumnWidth(createdColumn, 20, Style.Unit.PCT);
 
+        TextColumn<DossierProxy> statusColumn = new TextColumn<DossierProxy>() {
+            @Override
+            public String getValue(DossierProxy object) {
+                if (object.getStatus() == null) return "";
+                return object.getStatus().toString();
+            }
+        };
+        statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        inscriptionsTable.addColumn(statusColumn, "Statut");
+        inscriptionsTable.setColumnWidth(statusColumn, 10, Style.Unit.PCT);
+
         Delegate<DossierProxy> receiveAction = new Delegate<DossierProxy>() {
             @Override
             public void execute(DossierProxy dossier) {
