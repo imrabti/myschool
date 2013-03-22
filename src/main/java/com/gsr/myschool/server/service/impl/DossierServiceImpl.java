@@ -18,16 +18,16 @@ package com.gsr.myschool.server.service.impl;
 
 import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
-import com.gsr.myschool.common.shared.dto.PiecejustifDTO;
 import com.gsr.myschool.common.shared.dto.PagedDossiers;
+import com.gsr.myschool.common.shared.dto.PiecejustifDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.core.PieceJustif;
 import com.gsr.myschool.server.business.core.PieceJustifDuNE;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.DossierRepos;
-import com.gsr.myschool.server.repos.PieceJustifRepos;
 import com.gsr.myschool.server.repos.PieceJustifDuNERepos;
+import com.gsr.myschool.server.repos.PieceJustifRepos;
 import com.gsr.myschool.server.repos.spec.DossierSpec;
 import com.gsr.myschool.server.service.DossierService;
 import org.activiti.engine.task.Task;
@@ -55,29 +55,27 @@ public class DossierServiceImpl implements DossierService {
 
     @Override
     public Boolean receive(Dossier dossier) {
-        Map<Dossier, Task> dossiersAndTasks = validationProcessService.getAllNonReceivedDossiers();
-        for (Dossier dossierFromProcess : dossiersAndTasks.keySet()) {
-            if (dossier.getId().longValue() == dossierFromProcess.getId().longValue()) {
-                Dossier receivedDossier = dossierRepos.findOne(dossier.getId());
+        Task task = validationProcessService.getAllNonReceivedDossiers(dossier.getId());
+        Dossier receivedDossier = dossierRepos.findOne(dossier.getId());
 
-                // NiveauEtude always not null
-                List<PieceJustif> pieceJustifs = pieceJustifRepos.findByNiveauEtude(
-                        receivedDossier.getNiveauEtude().getId());
+        if (receivedDossier.getStatus() != DossierStatus.STANDBY) {
+            // NiveauEtude always not null
+            List<PieceJustif> pieceJustifs = pieceJustifRepos.findByNiveauEtude(
+                    receivedDossier.getNiveauEtude().getId());
 
-                // create piecejustif DTOs
-                List<PiecejustifDTO> piecejustifDTOs = new ArrayList<PiecejustifDTO>();
-                for (PieceJustif pieceJustif : pieceJustifs) {
-                    piecejustifDTOs.add(PiecejustifDTO.mapper(pieceJustif));
-                }
-
-                validationProcessService.receiveDossier(dossiersAndTasks.get(dossierFromProcess), piecejustifDTOs);
-
-                receivedDossier.setStatus(DossierStatus.RECEIVED);
-                dossierRepos.save(receivedDossier);
-
-                break;
+            // create piecejustif DTOs
+            List<PiecejustifDTO> piecejustifDTOs = new ArrayList<PiecejustifDTO>();
+            for (PieceJustif pieceJustif : pieceJustifs) {
+                piecejustifDTOs.add(PiecejustifDTO.mapper(pieceJustif));
             }
+            validationProcessService.receiveDossier(task, piecejustifDTOs);
+        } else {
+            validationProcessService.receiveDossier(task);
         }
+
+        receivedDossier.setStatus(DossierStatus.RECEIVED);
+        dossierRepos.save(receivedDossier);
+
         return true;
     }
 
@@ -88,14 +86,7 @@ public class DossierServiceImpl implements DossierService {
 
     @Override
     public Boolean verify(Long dossierId, List<PiecejustifDTO> piecejustifDTOs) {
-        Task task = null;
-        Map<Dossier, Task> dossiersAndTasks = validationProcessService.getAllReceivedDossiers();
-        for (Dossier dossierFromProcess : dossiersAndTasks.keySet()) {
-            if (dossierId.longValue() == dossierFromProcess.getId().longValue()) {
-                task = dossiersAndTasks.get(dossierFromProcess);
-                break;
-            }
-        }
+        Task task = validationProcessService.getAllReceivedDossiers(dossierId);
 
         List<PiecejustifDTO> pieceNonavailable = new ArrayList<PiecejustifDTO>();
         for (PiecejustifDTO piece : piecejustifDTOs) {
@@ -174,7 +165,7 @@ public class DossierServiceImpl implements DossierService {
         } else {
             List<Dossier> result = dossierRepos.findAll(spec);
 
-            return  new PagedDossiers(result, result.size());
+            return new PagedDossiers(result, result.size());
         }
     }
 }

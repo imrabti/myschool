@@ -83,4 +83,10 @@ public interface ValidationProcessService {
     List<Dossier> getAllAnalysedDossiers();
 
     List<PiecejustifDTO> getPiecejustifFromProcess(Dossier dossier);
+
+    void receiveDossier(Task task);
+
+    Task getAllNonReceivedDossiers(Long dossierId);
+
+    Task getAllReceivedDossiers(Long dossierId);
 }

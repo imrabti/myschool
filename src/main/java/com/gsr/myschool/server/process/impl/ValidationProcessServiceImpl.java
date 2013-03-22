@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.server.process.impl;
 
+import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.common.shared.dto.PiecejustifDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
@@ -86,6 +87,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     }
 
     @Override
+    @Deprecated
     public Map<Dossier, Task> getAllNonReceivedDossiers() {
         List<Task> taskList = taskService.createTaskQuery().taskDefinitionKey(ValidationTask.RECEPTION.getValue()).list();
         Map<Dossier, Task> dossierMap = new HashMap<Dossier, Task>();
@@ -93,6 +95,19 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
             dossierMap.put((Dossier) runtimeService.getVariable(task.getExecutionId(), "dossier"), task);
         }
         return dossierMap;
+    }
+
+    @Override
+    public Task getAllNonReceivedDossiers(Long dossierId) {
+        return taskService.createTaskQuery()
+                .processVariableValueEquals("dossierId", dossierId)
+                .taskDefinitionKey(ValidationTask.RECEPTION.getValue())
+                .singleResult();
+    }
+
+    @Override
+    public void receiveDossier(Task task) {
+        taskService.complete(task.getId());
     }
 
     @Override
@@ -105,6 +120,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     }
 
     @Override
+    @Deprecated
     public Map<Dossier, Task> getAllReceivedDossiers() {
         List<Task> taskList = taskService.createTaskQuery().taskDefinitionKey(ValidationTask.VALIDATION.getValue()).list();
         Map<Dossier, Task> dossierMap = new HashMap<Dossier, Task>();
@@ -115,28 +131,42 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     }
 
     @Override
+    public Task getAllReceivedDossiers(Long dossierId) {
+        return taskService.createTaskQuery()
+                .processVariableValueEquals("dossierId", dossierId)
+                .taskDefinitionKey(ValidationTask.VALIDATION.getValue())
+                .singleResult();
+    }
+
+    @Override
     public List<PiecejustifDTO> getPiecejustifFromProcess(Dossier dossier) {
-        List<Task> taskList = taskService.createTaskQuery().taskDefinitionKey(ValidationTask.VALIDATION.getValue()).list();
-        for (Task task : taskList) {
-            if (((Dossier) runtimeService.getVariable(task.getExecutionId(), "dossier")).getId().longValue() == dossier.getId().longValue()) {
-                return (List<PiecejustifDTO>) runtimeService.getVariable(task.getExecutionId(), "piecejustifs");
-            }
-        }
-        return null;
+        Task task = taskService.createTaskQuery()
+                .processVariableValueEquals("dossierId", dossier.getId())
+                .taskDefinitionKey(ValidationTask.VALIDATION.getValue())
+                .singleResult();
+        return (List<PiecejustifDTO>) runtimeService.getVariable(task.getExecutionId(), "piecejustifs");
     }
 
     @Override
     public void rejectDossier(Task task, List<PiecejustifDTO> pieceNonavailable) {
         EmailDTO email = (EmailDTO) runtimeService.getVariable(task.getExecutionId(), "email");
+        Dossier dossier = (Dossier) runtimeService.getVariable(task.getExecutionId(), "dossier");
         Map<String, Object> params = new HashMap<String, Object>();
 
         List<String> pieces = new ArrayList<String>();
         for (PiecejustifDTO piece : pieceNonavailable) {
             if (piece.getAvailable() == null || !piece.getAvailable()) {
-                pieces.add(piece.getNom());
+                pieces.add(Strings.isNullOrEmpty(piece.getMotif()) ?
+                        piece.getNom() : piece.getNom() + " : " + piece.getMotif());
             }
         }
 
+        params.put("gender", dossier.getOwner().getGender().toString());
+        params.put("lastname", dossier.getOwner().getLastName());
+        params.put("firstname", dossier.getOwner().getFirstName());
+        params.put("nomEnfant", dossier.getCandidat().getLastname());
+        params.put("prenomEnfant", dossier.getCandidat().getFirstname());
+        params.put("refdossier", dossier.getGeneratedNumDossier());
         params.put("pieceNonavailable", pieces);
 
         try {
