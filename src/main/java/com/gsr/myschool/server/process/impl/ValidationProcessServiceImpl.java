@@ -82,7 +82,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
         processParams.put("dueDate", "");
 
         // start process by key
-        runtimeService.startProcessInstanceById("validation", dossier.getId().toString(), processParams);
+        runtimeService.startProcessInstanceByKey("validation", dossier.getId().toString(), processParams);
     }
 
     @Override
