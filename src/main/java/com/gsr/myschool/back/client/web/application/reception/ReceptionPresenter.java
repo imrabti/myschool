@@ -164,7 +164,7 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
     }
 
     private void loadDossiersCounts() {
-        currentContext.findAllDossiersForRecByCriteria(dossierFilter, 0, GlobalParameters.PAGE_SIZE)
+        currentContext.findAllDossiersByCriteria(dossierFilter, 0, GlobalParameters.PAGE_SIZE)
                 .fire(new ReceiverImpl<PagedDossiersProxy>() {
             @Override
             public void onSuccess(PagedDossiersProxy result) {

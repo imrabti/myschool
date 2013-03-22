@@ -17,6 +17,7 @@
 package com.gsr.myschool.server.process;
 
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.repos.DossierRepos;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -47,9 +48,9 @@ public class ProcessVersionMigrationTest {
     @Autowired
     ProcessEngineConfigurationImpl processEngineConfiguration;
     @Autowired
-    DataSource dataSource;
-    @Autowired
     TaskService taskService;
+    @Autowired
+    DossierRepos dossierRepos;
 
     @Test
     public void myTest() throws Exception {
@@ -57,13 +58,14 @@ public class ProcessVersionMigrationTest {
 
 //        JdbcTemplate template = new JdbcTemplate(dataSource);
         List<Execution> list = runtimeService.createExecutionQuery().processDefinitionKey("validation").list();
-        Execution w = runtimeService.createExecutionQuery().processVariableValueEquals("dossierId", 2L).singleResult();
-        Task t = taskService.createTaskQuery().processVariableValueEquals("dossierId", 2L).taskDefinitionKey("validationTask").singleResult();
+//        Execution w = runtimeService.createExecutionQuery().processVariableValueEquals("dossierId", 2L).singleResult();
+//        Task t = taskService.createTaskQuery().processVariableValueEquals("dossierId", 2L).taskDefinitionKey("validationTask").singleResult();
         for (Execution exec : list) {
-//            Dossier d = (Dossier) runtimeService.getVariable(exec.getId(), "dossier");
-//            runtimeService.setVariable(exec.getId(), "dossierId", d.getId());
+            Dossier d = (Dossier) runtimeService.getVariable(exec.getId(), "dossier");
 
-//
+            dossierRepos.findOne(d.getId());
+            runtimeService.setVariable(exec.getId(), "dossierId", d.getId());
+
 //           // processEngineConfiguration.getCommandExecutorTxRequired().execute(new SetProcessDefinitionVersionCmd(exec.getId(), 2));
         }
     }

@@ -33,14 +33,15 @@ public interface ValidationProcessService {
     void startProcess(Dossier dossier);
 
     /**
-     * Returns all the Dossier not received yet
+     * Returns The direct dossier to be receive
      *
      * @return
      */
-    Map<Dossier, Task> getAllNonReceivedDossiers();
+    Task getDossierToReceive(Long dossierId);
 
     /**
-     * Finish the Task
+     * Finish the Task with required paper attached to this Dossier
+     * This method is called when the Dossier is on Submitted state
      *
      * @param task
      * @param piecejustifDTOs
@@ -48,12 +49,26 @@ public interface ValidationProcessService {
     void receiveDossier(Task task, List<PiecejustifDTO> piecejustifDTOs);
 
     /**
-     * Returns the list of the Dossier that had been received,
+     * Finish the Task, this method is called when the Dossier is on
+     * Standby state waiting for a missing paper
+     * @param task
+     */
+    void receiveDossier(Task task);
+
+    /**
+     * Load list of required papers to gather for this kind of dossier
+     * @param dossier
+     * @return
+     */
+    List<PiecejustifDTO> getPieceJustifFromProcess(Dossier dossier);
+
+    /**
+     * Returns the Dossier that had been received and ready to be validated,
      * the user should validate the arrival of all the files to proceed with an analyse
      *
      * @return
      */
-    Map<Dossier, Task> getAllReceivedDossiers();
+    Task getDossierToValidate(Long dossierId);
 
     /**
      * Finish the validation of the Dossier task after checking the arrival
@@ -81,12 +96,4 @@ public interface ValidationProcessService {
     void acceptAnalysedDossier(Dossier dossier);
 
     List<Dossier> getAllAnalysedDossiers();
-
-    List<PiecejustifDTO> getPiecejustifFromProcess(Dossier dossier);
-
-    void receiveDossier(Task task);
-
-    Task getAllNonReceivedDossiers(Long dossierId);
-
-    Task getAllReceivedDossiers(Long dossierId);
 }
