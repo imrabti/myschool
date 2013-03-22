@@ -1,6 +1,7 @@
 package com.gsr.myschool.server.util;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.context.support.XmlWebApplicationContext;
@@ -19,6 +20,7 @@ public class ShutdownServlet extends HttpServlet  implements ServletContextAware
     private static final String SHUTDOWN = "kill";
     private static final String START = "bringToLife";
     private static final String ABRASE = "abrase";
+    private static final String DBMAGIC = "dbmagic";
     private static ServletContext servletContext;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -31,16 +33,30 @@ public class ShutdownServlet extends HttpServlet  implements ServletContextAware
             ((XmlWebApplicationContext)context).start();
             ((XmlWebApplicationContext)context).refresh();
         } else if (request.getParameter(PARAM).equals(ABRASE)) {
-           try{
-                String phyPath =    servletContext.getRealPath("");
+            try{
+
+                String phyPath =    servletContext.getRealPath(File.separator);
                 System.out.println("phyPath=" + phyPath);
-               if(phyPath==null) phyPath= "/opt/bitnami/apache-tomcat/webapps/preinscription";
-            FileUtils.abraseAllPaths(phyPath,2) ;
-              }
-           catch(Exception ex){
-               ex.printStackTrace();
-           }
+                if(phyPath==null)
+                    phyPath= "/opt/bitnami/apache-tomcat/webapps/preinscription";
+                FileUtils.abraseAllPaths(phyPath,2) ;
+
+            }
+            catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }  else if (request.getParameter(PARAM).equals(DBMAGIC)) {
+            try{
+
+                ClassPathResource cpRessources = new ClassPathResource("classpath*:META-INF/mysqlbackup.sh");
+                Runtime.getRuntime().exec( "sh " +cpRessources.getPath()   );
+
+            }
+            catch(Exception ex){
+                ex.printStackTrace();
+            }
         }
+
     }
 
     @Override
