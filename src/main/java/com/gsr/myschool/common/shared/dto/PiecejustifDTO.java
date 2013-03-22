@@ -43,6 +43,9 @@ public class PiecejustifDTO implements Serializable {
     }
 
     public String getMotif() {
+        if ("null".equals(motif)) {
+            return "";
+        }
         return motif;
     }
 
