@@ -38,8 +38,12 @@ public class PatchedProcessJobImpl implements Worker {
     public void work() {
         List<Execution> list = runtimeService.createExecutionQuery().processDefinitionKey("validation").list();
         for (Execution exec : list) {
-            Dossier d = (Dossier) runtimeService.getVariable(exec.getId(), "dossier");
-            runtimeService.setVariable(exec.getId(), "dossierId", d.getId());
+            try {
+                Dossier d = (Dossier) runtimeService.getVariable(exec.getId(), "dossier");
+                runtimeService.setVariable(exec.getId(), "dossierId", d.getId());
+            } catch (Exception e) {
+                logger.debug("Execution ID : " + exec.getId() + "Process Instance :" + exec.getProcessInstanceId());
+            }
         }
     }
 }
