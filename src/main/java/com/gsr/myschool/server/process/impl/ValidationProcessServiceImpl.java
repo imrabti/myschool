@@ -27,7 +27,6 @@ import com.gsr.myschool.server.business.InboxMessage;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.repos.InboxMessageRepos;
-import com.gsr.myschool.server.repos.UserRepos;
 import com.gsr.myschool.server.service.EmailService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -104,7 +103,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
         params.put("refdossier", dossier.getGeneratedNumDossier());
 
         try {
-            EmailDTO email = emailService.populateEmail(EmailType.DOSSIER_RECEIVED,
+            EmailDTO email = emailService.populateEmail(EmailType.PIECES_RECEIVED,
                     dossier.getOwner().getEmail(), sender, params, "", "");
             emailService.send(email);
 
@@ -116,7 +115,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
             message.setMsgStatus(InboxMessageStatus.UNREAD);
             inboxMessageRepos.save(message);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
         taskService.complete(task.getId());
@@ -146,7 +145,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
             message.setMsgStatus(InboxMessageStatus.UNREAD);
             inboxMessageRepos.save(message);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
         // Initialise process variables
