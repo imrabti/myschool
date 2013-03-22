@@ -30,4 +30,10 @@ public interface SharedResources extends ClientBundle {
 
     @Source("com/gsr/myschool/common/client/resource/image/loading.gif")
     ImageResource loading();
+
+    @Source("com/gsr/myschool/common/client/resource/image/checked.png")
+    ImageResource checked();
+
+    @Source("com/gsr/myschool/common/client/resource/image/notChecked.png")
+    ImageResource notChecked();
 }

@@ -43,9 +43,6 @@ public class NiveauEtudeInfosView extends ValidatedPopupViewImpl implements Nive
     public interface Binder extends UiBinder<PopupPanel, NiveauEtudeInfosView> {
     }
 
-    private final ListDataProvider<PieceJustifProxy> dataProviderPieces;
-    private final ListDataProvider<MatiereExamenProxy> dataProviderMatieres;
-
     @UiField(provided = true)
     ModalHeader modalHeader;
 
@@ -53,6 +50,9 @@ public class NiveauEtudeInfosView extends ValidatedPopupViewImpl implements Nive
     CellList<MatiereExamenProxy> matiereExamenList;
     @UiField(provided = true)
     CellList<PieceJustifProxy> pieceJustifList;
+
+    private final ListDataProvider<PieceJustifProxy> dataProviderPieces;
+    private final ListDataProvider<MatiereExamenProxy> dataProviderMatieres;
 
     @Inject
     protected NiveauEtudeInfosView(EventBus eventBus, final Binder uiBinder,

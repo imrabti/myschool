@@ -31,6 +31,15 @@ public class DossierSpec {
         };
     }
 
+    public static Specification<Dossier> dossierRestrictedStatusAre(final List<DossierStatus> dossierStatus) {
+        return new Specification<Dossier>() {
+            @Override
+            public Predicate toPredicate(Root<Dossier> dossierRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return dossierRoot.<DossierStatus>get("status").in(dossierStatus);
+            }
+        };
+    }
+
     public static Specification<Dossier> dossierCreatedEqual(final Date date) {
         return new Specification<Dossier>() {
             @Override

@@ -25,9 +25,6 @@ public interface ValidationUiHandlers extends UiHandlers {
 
     void verify(DossierProxy dossier);
 
-    // TODO: Add pieces DTO as parameter
-    void confirmVerify(DossierProxy dossier);
-
     void searchWithFilter(DossierFilterDTOProxy dossierFilter);
 
     void viewDetails(DossierProxy dossier);
@@ -35,6 +32,4 @@ public interface ValidationUiHandlers extends UiHandlers {
     void init();
 
     void export(DossierFilterDTOProxy dossierFilter);
-
-    String getCurrentRatio(DossierProxy dossier);
 }

@@ -49,7 +49,7 @@ public class InboxDetailsView extends ValidatedPopupViewImplWithUiHandlers<Inbox
     private final DateTimeFormat dateFormat;
 
     @Inject
-    protected InboxDetailsView(EventBus eventBus, final Binder uiBinder,
+    protected InboxDetailsView(final EventBus eventBus, final Binder uiBinder,
                                final ValidationErrorPopup errorPopup,
                                final ModalHeader modalHeader,
                                final MessageBundle messages,

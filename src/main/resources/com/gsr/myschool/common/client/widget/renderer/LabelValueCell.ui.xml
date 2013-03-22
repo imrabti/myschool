@@ -1,0 +1,31 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'>
+    <ui:with field='label' type='java.lang.String'/>
+    <ui:with field='value' type='java.lang.String'/>
+
+    <ui:style>
+        .label {
+            font-size: 12px;
+            font-weight: bold;
+            float: left;
+            width: 120px;
+        }
+
+        .value {
+            font-size: 12px;
+            float: left;
+            font-weight: normal;
+        }
+    </ui:style>
+
+    <div>
+        <div class="{style.label}">
+            <ui:text from="{label}"/>
+        </div>
+
+        <div class="{style.value}">
+            <ui:text from="{value}"/>
+        </div>
+
+        <div style="clear: both;"/>
+    </div>
+</ui:UiBinder>

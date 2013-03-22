@@ -18,16 +18,16 @@ package com.gsr.myschool.server.service.impl;
 
 import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
-import com.gsr.myschool.common.shared.dto.PagedDossiers;
 import com.gsr.myschool.common.shared.dto.PiecejustifDTO;
+import com.gsr.myschool.common.shared.dto.PagedDossiers;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.core.PieceJustif;
 import com.gsr.myschool.server.business.core.PieceJustifDuNE;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.DossierRepos;
-import com.gsr.myschool.server.repos.PieceJustifDuNERepos;
 import com.gsr.myschool.server.repos.PieceJustifRepos;
+import com.gsr.myschool.server.repos.PieceJustifDuNERepos;
 import com.gsr.myschool.server.repos.spec.DossierSpec;
 import com.gsr.myschool.server.service.DossierService;
 import org.activiti.engine.task.Task;
@@ -39,6 +39,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -85,17 +86,19 @@ public class DossierServiceImpl implements DossierService {
     }
 
     @Override
-    public Boolean verify(Long dossierId, List<PiecejustifDTO> piecejustifDTOs) {
+    public Boolean verify(Long dossierId, List<String> notChecked) {
         Task task = validationProcessService.getAllReceivedDossiers(dossierId);
 
-        List<PiecejustifDTO> pieceNonavailable = new ArrayList<PiecejustifDTO>();
-        for (PiecejustifDTO piece : piecejustifDTOs) {
-            if (piece.getAvailable() == null || !piece.getAvailable()) {
-                pieceNonavailable.add(piece);
-            }
+        Map<Long, PiecejustifDTO> pieceNotAvailable = new HashMap<Long, PiecejustifDTO>();
+        for (String motif : notChecked) {
+            Long pieceId = Long.parseLong(motif.split("#")[0]);
+            PiecejustifDTO piece = PiecejustifDTO.mapper(pieceJustifRepos.findOne(pieceId));
+            piece.setMotif(motif.split("#")[1]);
+            piece.setAvailable(false);
+            pieceNotAvailable.put(pieceId, piece);
         }
 
-        if (pieceNonavailable.isEmpty()) {
+        if (pieceNotAvailable.isEmpty()) {
             // piece all existing
             validationProcessService.acceptDossier(task);
 
@@ -103,6 +106,18 @@ public class DossierServiceImpl implements DossierService {
             verifiedDossier.setStatus(DossierStatus.ACCEPTED_FOR_STUDY);
             dossierRepos.save(verifiedDossier);
         } else {
+            Dossier dossier = dossierRepos.findOne(dossierId);
+            List<PiecejustifDTO> piecejustifDTOs = validationProcessService.getPiecejustifFromProcess(dossier);
+            for (PiecejustifDTO piece : piecejustifDTOs) {
+                if (pieceNotAvailable.containsKey(piece.getId())) {
+                    piece.setAvailable(false);
+                    piece.setMotif(pieceNotAvailable.get(piece.getId()).getMotif());
+                } else {
+                    piece.setAvailable(true);
+                    piece.setMotif("");
+                }
+            }
+
             // there is at least one piece not available
             validationProcessService.rejectDossier(task, piecejustifDTOs);
 
@@ -111,12 +126,6 @@ public class DossierServiceImpl implements DossierService {
             dossierRepos.save(verifiedDossier);
         }
         return true;
-    }
-
-    @Override
-    public Integer findPiecesByNiveauEtude(Long level) {
-        List<PieceJustifDuNE> piecesList = pieceJustifDuNERepos.findByNiveauEtudeId(level);
-        return piecesList.size();
     }
 
     @Override
@@ -165,7 +174,57 @@ public class DossierServiceImpl implements DossierService {
         } else {
             List<Dossier> result = dossierRepos.findAll(spec);
 
-            return new PagedDossiers(result, result.size());
+            return  new PagedDossiers(result, result.size());
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public PagedDossiers findAllDossiersForRecByCriteria(DossierFilterDTO filter, Integer pageNumber, Integer length) {
+        Specifications<Dossier> spec = Specifications.where(DossierSpec.firstnameLike(filter.getFirstnameOrlastname()))
+                .or(DossierSpec.lastnameLike(filter.getFirstnameOrlastname()));
+
+        if (filter.getStatus() != null) {
+            spec = spec.and(DossierSpec.dossierStatusIs(filter.getStatus()));
+        }
+
+        if (filter.getDateTill() != null) {
+            spec = spec.and(DossierSpec.dossierCreatedLower(filter.getDateTill()));
+        }
+
+        if (filter.getDateFrom() != null) {
+            spec = spec.and(DossierSpec.dossierCreatedGreater(filter.getDateFrom()));
+        }
+
+        if (filter.getFiliere() != null) {
+            spec = spec.and(DossierSpec.filiereEqual(filter.getFiliere()));
+        }
+
+        if (filter.getNiveauEtude() != null) {
+            spec = spec.and(DossierSpec.niveauEtudeEqual(filter.getNiveauEtude()));
+        }
+
+        if (filter.getGsrFraterie() != null && filter.getGsrFraterie()) {
+            spec = spec.and(DossierSpec.isGsrFraterie(filter.getGsrFraterie()));
+        }
+
+        if (filter.getParentGsr() != null && filter.getParentGsr()) {
+            spec = spec.and(DossierSpec.isParentGsr(filter.getParentGsr()));
+        }
+
+        if (!Strings.isNullOrEmpty(filter.getNumDossier())) {
+            spec = spec.and(DossierSpec.numDossierLike(filter.getNumDossier()));
+        }
+
+        if (pageNumber != null && length != null) {
+            PageRequest page = new PageRequest(pageNumber, length);
+            Page resultPage = dossierRepos.findAll(spec, page);
+
+            return new PagedDossiers(resultPage.getContent(), (int) resultPage.getTotalElements());
+        } else {
+            List<Dossier> result = dossierRepos.findAll(spec);
+
+            return  new PagedDossiers(result, result.size());
         }
     }
 }
