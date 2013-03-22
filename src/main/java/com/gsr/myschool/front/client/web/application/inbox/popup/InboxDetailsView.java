@@ -69,7 +69,7 @@ public class InboxDetailsView extends ValidatedPopupViewImplWithUiHandlers<Inbox
             }
         });
 
-        dateFormat = DateTimeFormat.getFormat("dd/MM/yyyy 'à' hh:mm");
+        dateFormat = DateTimeFormat.getFormat("dd/MM/yyyy 'à' HH:mm");
     }
 
     public void setDatas(InboxProxy value){
