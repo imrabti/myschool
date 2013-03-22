@@ -190,7 +190,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
         params.put("prenomEnfant", dossier.getCandidat().getFirstname());
         params.put("refdossier", dossier.getGeneratedNumDossier());
         try {
-            email = emailService.populateEmail(EmailType.DOSSIER_INCOMPLETE, email.getTo(), email.getFrom(),
+            email = emailService.populateEmail(EmailType.DOSSIER_COMPLETE, email.getTo(), email.getFrom(),
                     params, "", "");
             emailService.send(email);
         } catch (Exception e) {
