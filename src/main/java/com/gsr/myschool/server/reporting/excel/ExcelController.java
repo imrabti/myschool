@@ -134,10 +134,10 @@ public class ExcelController {
                     d.setEtablissementActuel(dossier.getScolariteActuelle().getEtablissement().getNom());
                 }
                 if (dossier.getScolariteActuelle().getFiliere() != null) {
-                    d.setEtablissementActuel(dossier.getScolariteActuelle().getFiliere().getNom());
+                    d.setFormationActuel(dossier.getScolariteActuelle().getFiliere().getNom());
                 }
                 if (dossier.getScolariteActuelle().getNiveauEtude() != null) {
-                    d.setEtablissementActuel(dossier.getScolariteActuelle().getNiveauEtude().getNom());
+                    d.setNiveauEtudeActuel(dossier.getScolariteActuelle().getNiveauEtude().getNom());
                 }
             }
 
