@@ -24,7 +24,6 @@
         <servlet-api.version>2.5</servlet-api.version>
         <javax.validation.version>1.0.0.GA</javax.validation.version>
         <servlet-api.version>2.5</servlet-api.version>
-        <cloudfoundry.version>0.8.1</cloudfoundry.version>
         
         <!-- spring -->
         <hibernate.version>4.1.9.Final</hibernate.version>
@@ -40,7 +39,7 @@
         <mysql.version>5.1.22</mysql.version>
         <xalan.version>2.7.1</xalan.version>
         <json.version>20090211</json.version>
-        <activiti.version>5.11</activiti.version>
+        <activiti.version>5.12</activiti.version>
         <jsoup.version>1.7.2</jsoup.version>
         
         <!-- testing -->
@@ -237,12 +236,10 @@
             <artifactId>gwt-bootstrap</artifactId>
             <version>${gwt-bootstrap.version}</version>
         </dependency>
-
-        <!-- Cloudfoundry runtime -->
         <dependency>
-            <groupId>org.cloudfoundry</groupId>
-            <artifactId>cloudfoundry-runtime</artifactId>
-            <version>${cloudfoundry.version}</version>
+            <groupId>com.github.branflake2267</groupId>
+            <artifactId>gwt-maps-api</artifactId>
+            <version>3.10.0-alpha-7-SNAPSHOT</version>
         </dependency>
 
         <!-- DI dependencies -->
