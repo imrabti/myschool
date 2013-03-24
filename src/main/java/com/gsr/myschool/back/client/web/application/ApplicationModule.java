@@ -17,6 +17,7 @@
 package com.gsr.myschool.back.client.web.application;
 
 import com.google.inject.TypeLiteral;
+import com.gsr.myschool.back.client.web.application.confirmationTest.ConfirmationTestModule;
 import com.gsr.myschool.back.client.web.application.dossierdetails.DossierDetailsModule;
 import com.gsr.myschool.back.client.web.application.preinscription.PreInscriptionModule;
 import com.gsr.myschool.back.client.web.application.reception.ReceptionModule;
@@ -46,6 +47,7 @@ public class ApplicationModule extends AbstractPresenterModule {
         install(new ReceptionModule());
         install(new PreInscriptionModule());
         install(new DossierDetailsModule());
+        install(new ConfirmationTestModule());
 
         bind(new TypeLiteral<UiHandlersStrategy<ApplicationUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<ApplicationUiHandlers>>() {});
