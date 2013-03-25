@@ -44,6 +44,8 @@ public class Dossier implements java.io.Serializable {
     private ValueList anneeScolaire;
     @ManyToOne
     private ScolariteActuelle scolariteActuelle;
+    @Column(length = 455)
+    private String motifRefus;
 
     public Long getId() {
         return id;
@@ -171,6 +173,14 @@ public class Dossier implements java.io.Serializable {
 
     public void setNiveauEtude2(NiveauEtude niveauEtude2) {
         this.niveauEtude2 = niveauEtude2;
+    }
+
+    public String getMotifRefus() {
+        return motifRefus;
+    }
+
+    public void setMotifRefus(String motifRefus) {
+        this.motifRefus = motifRefus;
     }
 
     public Map getReportsAttributes() {
