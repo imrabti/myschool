@@ -14,6 +14,7 @@ public class DossierSession implements java.io.Serializable {
     private AdminUser assignedBy;
     @ManyToOne
     private Dossier dossier;
+    @ManyToOne
     private SessionExamen sessionExamen;
     private Date dateAffectation;
     private String generatedConvocationPDFPath;
