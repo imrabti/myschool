@@ -251,18 +251,35 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     }
 
     @Override
-    public List<Dossier> getAllNonAnalysedDossiers() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public Task getDossierToAnalyse(Long dossierId) {
+        return taskService.createTaskQuery()
+                .processInstanceBusinessKey(dossierId.toString())
+                .taskDefinitionKey(ValidationTask.ANALYSE.getValue())
+                .singleResult();
     }
 
     @Override
-    public void rejectAnalysedDossier(Dossier dossier) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public Task getDossierToReAccept(Long dossierId) {
+        return taskService.createTaskQuery()
+                .processInstanceBusinessKey(dossierId.toString())
+                .taskDefinitionKey(ValidationTask.CHANGER_STATE.getValue())
+                .singleResult();
     }
 
     @Override
-    public void acceptAnalysedDossier(Dossier dossier) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void rejectAnalysedDossier(Task task, Dossier dossier) {
+        // Initialise process variables
+        Map<String, Object> processParams = new HashMap<String, Object>();
+        processParams.put("accepte", false);
+        taskService.complete(task.getId(), processParams);
+    }
+
+    @Override
+    public void acceptAnalysedDossier(Task task, Dossier dossier) {
+        // Initialise process variables
+        Map<String, Object> processParams = new HashMap<String, Object>();
+        processParams.put("accepte", true);
+        taskService.complete(task.getId(), processParams);
     }
 
     @Override
