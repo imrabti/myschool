@@ -9,8 +9,6 @@ public class SessionExamen implements java.io.Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date dateSession;
-    @ManyToOne
-    private NiveauEtude niveauEtude;
 
     public Long getId() {
         return id;
@@ -18,14 +16,6 @@ public class SessionExamen implements java.io.Serializable {
 
     public void setId(Long newId) {
         this.id = newId;
-    }
-
-    public NiveauEtude getNiveauEtude() {
-        return niveauEtude;
-    }
-
-    public void setNiveauEtude(NiveauEtude newNiveauEtude) {
-        this.niveauEtude = newNiveauEtude;
     }
 
     public Date getDateSession() {

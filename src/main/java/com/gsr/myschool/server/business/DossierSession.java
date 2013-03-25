@@ -1,5 +1,7 @@
 package com.gsr.myschool.server.business;
 
+import com.gsr.myschool.server.business.core.SessionExamen;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,6 +14,7 @@ public class DossierSession implements java.io.Serializable {
     private AdminUser assignedBy;
     @ManyToOne
     private Dossier dossier;
+    private SessionExamen sessionExamen;
     private Date dateAffectation;
     private String generatedConvocationPDFPath;
 
@@ -37,6 +40,14 @@ public class DossierSession implements java.io.Serializable {
 
     public void setDossier(Dossier newDossier) {
         this.dossier = newDossier;
+    }
+
+    public SessionExamen getSessionExamen() {
+        return sessionExamen;
+    }
+
+    public void setSessionExamen(SessionExamen sessionExamen) {
+        this.sessionExamen = sessionExamen;
     }
 
     public Date getDateAffectation() {
