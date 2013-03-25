@@ -9,6 +9,10 @@ public class SessionExamen implements java.io.Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date dateSession;
+    private Double longitude;
+    private Double latitude;
+    private String adresse;
+    private String nom;
 
     public Long getId() {
         return id;
@@ -24,5 +28,37 @@ public class SessionExamen implements java.io.Serializable {
 
     public void setDateSession(Date newDateSession) {
         this.dateSession = newDateSession;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 }
