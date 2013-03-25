@@ -1,6 +1,67 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-    <g:HTMLPanel>
-        This is session view...
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+
+    <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+
+    <ui:style>
+        .container {
+            padding-right: 500px;
+            margin-top: -20px;
+        }
+
+        .left {
+            width: 100%;
+            float: left;
+        }
+
+        .right {
+            width: 500px;
+            float: right;
+            margin-right: -500px;
+        }
+
+        .contentWrapper {
+            margin-top: 12px;
+        }
+    </ui:style>
+
+    <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
+        <div class="{style.container}">
+            <div class="{style.right}">
+                <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
+                    <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
+                        <h2>
+                            <g:InlineLabel text="Niveau d'étude"/>
+                        </h2>
+                        <div>
+                            <boot:Button ui:field="attachNiveauEtude" text="Ajouter un niveau d'étude" icon="PLUS"/>
+                        </div>
+                        <span style="display: block; clear: both;"/>
+                    </g:HTMLPanel>
+
+                    <div class="{style.contentWrapper}">
+                        Here the table of attached niveau etudes
+                    </div>
+                </g:HTMLPanel>
+            </div>
+            <div class="{style.left}">
+                <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
+                    <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
+                        <h2>
+                            <g:InlineLabel text="Sessions"/>
+                        </h2>
+                        <div>
+                            <boot:Button ui:field="newSession" text="Ajouter une session" icon="PLUS"/>
+                        </div>
+                        <span style="display: block; clear: both;"/>
+                    </g:HTMLPanel>
+
+                    <div class="{style.contentWrapper}">
+                        Here the table of session
+                    </div>
+                </g:HTMLPanel>
+            </div>
+        </div>
     </g:HTMLPanel>
 </ui:UiBinder>
