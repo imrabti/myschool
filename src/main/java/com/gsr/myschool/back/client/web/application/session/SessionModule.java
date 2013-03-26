@@ -1,5 +1,6 @@
 package com.gsr.myschool.back.client.web.application.session;
 
+import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
 import com.google.inject.TypeLiteral;
 import com.gsr.myschool.back.client.web.application.session.popup.EditNiveauEtudeTimePresenter;
 import com.gsr.myschool.back.client.web.application.session.popup.EditNiveauEtudeTimeUiHandlers;
@@ -7,6 +8,7 @@ import com.gsr.myschool.back.client.web.application.session.popup.EditNiveauEtud
 import com.gsr.myschool.back.client.web.application.session.popup.EditSessionPresenter;
 import com.gsr.myschool.back.client.web.application.session.popup.EditSessionUiHandlers;
 import com.gsr.myschool.back.client.web.application.session.popup.EditSessionView;
+import com.gsr.myschool.back.client.web.application.session.renderer.SessionActionCellFactory;
 import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
@@ -28,5 +30,7 @@ public class SessionModule extends AbstractPresenterModule {
                 EditSessionView.class);
         bindSingletonPresenterWidget(EditNiveauEtudeTimePresenter.class, EditNiveauEtudeTimePresenter.MyView.class,
                 EditNiveauEtudeTimeView.class);
+
+        install(new GinFactoryModuleBuilder().build(SessionActionCellFactory.class));
     }
 }

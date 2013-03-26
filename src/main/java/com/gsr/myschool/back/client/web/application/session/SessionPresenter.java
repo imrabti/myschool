@@ -51,6 +51,26 @@ public class SessionPresenter extends Presenter<MyView, MyProxy> implements Sess
     }
 
     @Override
+    public void updateSession(SessionExamenProxy session) {
+        // TODO : Update a session
+    }
+
+    @Override
+    public void closeSession(SessionExamenProxy session) {
+        // TODO : Close a session
+    }
+
+    @Override
+    public void cancelSession(SessionExamenProxy session) {
+        // TODO : Cancel a session
+    }
+
+    @Override
+    public void removeSession(SessionExamenProxy session) {
+        // TODO : Remove a session
+    }
+
+    @Override
     protected void onReveal() {
         loadSession();
     }

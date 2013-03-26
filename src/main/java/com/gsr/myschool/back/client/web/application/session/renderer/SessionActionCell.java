@@ -13,7 +13,6 @@ import com.google.gwt.uibinder.client.UiRenderer;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
 
 public class SessionActionCell extends AbstractCell<SessionExamenProxy> {
@@ -47,8 +46,7 @@ public class SessionActionCell extends AbstractCell<SessionExamenProxy> {
     private Delegate<SessionExamenProxy> cancel;
     private Delegate<SessionExamenProxy> remove;
 
-    private DossierProxy selectedObject;
-    private Boolean inscriptionOpened = true;
+    private SessionExamenProxy selectedObject;
 
     @Inject
     public SessionActionCell(final RendererOpen uiRendererOpen,
@@ -70,80 +68,55 @@ public class SessionActionCell extends AbstractCell<SessionExamenProxy> {
     }
 
     @Override
-    public void onBrowserEvent(Context context, Element parent, DossierProxy value, NativeEvent event,
-                               ValueUpdater<DossierProxy> valueUpdater) {
+    public void onBrowserEvent(Context context, Element parent, SessionExamenProxy value, NativeEvent event,
+                               ValueUpdater<SessionExamenProxy> valueUpdater) {
         selectedObject = value;
 
         switch (selectedObject.getStatus()) {
-            case CREATED:
-                if (inscriptionOpened) {
-                    uiRendererCreated.onBrowserEvent(this, event, parent);
-                    break;
-                } else {
-                    rendererInscriptionClosed.onBrowserEvent(this, event, parent);
-                    break;
-                }
-            case SUBMITTED:
-                uiRendererSubmitted.onBrowserEvent(this, event, parent);
+            case OPEN:
+                uiRendererOpen.onBrowserEvent(this, event, parent);
                 break;
-            default:
-                uiRendererOther.onBrowserEvent(this, event, parent);
+            case CANCELED:
+                uiRendererCanceled.onBrowserEvent(this, event, parent);
+                break;
+            case CLOSED:
+                uiRendererClosed.onBrowserEvent(this, event, parent);
                 break;
         }
     }
 
     @Override
-    public void render(Context context, DossierProxy value, SafeHtmlBuilder builder) {
+    public void render(Context context, SessionExamenProxy value, SafeHtmlBuilder builder) {
         switch (value.getStatus()) {
-            case CREATED:
-                if (inscriptionOpened) {
-                    uiRendererCreated.render(builder);
-                    break;
-                } else {
-                    rendererInscriptionClosed.render(builder);
-                    break;
-                }
-            case SUBMITTED:
-                uiRendererSubmitted.render(builder);
+            case OPEN:
+                uiRendererOpen.render(builder);
                 break;
-            default:
-                uiRendererOther.render(builder);
+            case CANCELED:
+                uiRendererCanceled.render(builder);
+                break;
+            case CLOSED:
+                uiRendererClosed.render(builder);
                 break;
         }
     }
 
-    public void setInscriptionOpened(Boolean opened) {
-        this.inscriptionOpened = opened;
+    @UiHandler({"update"})
+    void onUpdateClicked(ClickEvent event) {
+        update.execute(selectedObject);
     }
 
-    @UiHandler({"preview"})
-    void onPreviewClicked(ClickEvent event) {
-        preview.execute(selectedObject);
+    @UiHandler({"close"})
+    void onCloseClicked(ClickEvent event) {
+        close.execute(selectedObject);
     }
 
-    @UiHandler({"edit"})
-    void onEditClicked(ClickEvent event) {
-        if (inscriptionOpened) {
-            edit.execute(selectedObject);
-        }
+    @UiHandler({"cancel"})
+    void onCancelClicked(ClickEvent event) {
+        cancel.execute(selectedObject);
     }
 
-    @UiHandler({"delete"})
-    void onDeleteClicked(ClickEvent event) {
-        if (inscriptionOpened) {
-            delete.execute(selectedObject);
-        }
-    }
-
-    @UiHandler({"submit"})
-    void onSubmitClicked(ClickEvent event) {
-        if (inscriptionOpened) {
-            submit.execute(selectedObject);
-        }
-    }
-
-    @UiHandler({"print"})
-    void onPrintClicked(ClickEvent event) {
-        print.execute(selectedObject);
+    @UiHandler({"remove"})
+    void onRemoveClicked(ClickEvent event) {
+        remove.execute(selectedObject);
     }
 }
