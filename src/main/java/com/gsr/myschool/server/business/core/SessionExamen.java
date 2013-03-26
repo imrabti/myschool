@@ -15,7 +15,11 @@ public class SessionExamen implements java.io.Serializable {
     private Double longitude;
     private Double latitude;
     private String adresse;
+    private String telephone;
     private String nom;
+    private String debutTest;
+    private String welcomKids;
+    private String gatherKids;
     @ManyToOne
     private ValueList anneeScolaire;
     @Enumerated
@@ -61,12 +65,44 @@ public class SessionExamen implements java.io.Serializable {
         this.adresse = adresse;
     }
 
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
     public String getNom() {
         return nom;
     }
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public String getDebutTest() {
+        return debutTest;
+    }
+
+    public void setDebutTest(String debutTest) {
+        this.debutTest = debutTest;
+    }
+
+    public String getWelcomKids() {
+        return welcomKids;
+    }
+
+    public void setWelcomKids(String welcomKids) {
+        this.welcomKids = welcomKids;
+    }
+
+    public String getGatherKids() {
+        return gatherKids;
+    }
+
+    public void setGatherKids(String gatherKids) {
+        this.gatherKids = gatherKids;
     }
 
     public ValueList getAnneeScolaire() {

@@ -29,9 +29,25 @@ public interface SessionExamenProxy extends ValueProxy {
 
     void setAdresse(String adresse);
 
+    String getTelephone();
+
+    void setTelephone(String telephone);
+
     String getNom();
 
     void setNom(String nom);
+
+    String getDebutTest();
+
+    void setDebutTest(String debutTest);
+
+    String getWelcomKids();
+
+    void setWelcomKids(String welcomKids);
+
+    String getGatherKids();
+
+    void setGatherKids(String gatherKids);
 
     SessionStatus getStatus();
 

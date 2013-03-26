@@ -165,5 +165,6 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         userGsr.setActive(false);
         userPortal.setActive(false);
         generalSettings.setActive(false);
+        session.setActive(false);
     }
 }

@@ -40,6 +40,12 @@ public class SessionServiceImpl implements SessionService {
         oldSession.setNom(sessionExamen.getNom());
         oldSession.setLatitude(sessionExamen.getLatitude());
         oldSession.setLongitude(sessionExamen.getLongitude());
+        oldSession.setStatus(sessionExamen.getStatus());
+        oldSession.setDebutTest(sessionExamen.getDebutTest());
+        oldSession.setWelcomKids(sessionExamen.getWelcomKids());
+        oldSession.setGatherKids(sessionExamen.getGatherKids());
+        oldSession.setTelephone(sessionExamen.getTelephone());
+        sessionExamenRepos.save(oldSession);
     }
 
     @Override

@@ -44,4 +44,8 @@ public interface MessageBundle extends Messages {
     String openInscriptionSuccess();
 
     String closeInscriptionSuccess();
+
+    String sessionSavedSuccess();
+
+    String sessionUpdatedSuccess();
 }
