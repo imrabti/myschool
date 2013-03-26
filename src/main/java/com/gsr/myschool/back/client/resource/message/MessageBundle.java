@@ -33,60 +33,6 @@ public interface MessageBundle extends Messages {
 
     String addValueListSuccess();
 
-    @Key("labels.name")
-    String labelsName();
-
-    @Key("labels.parent")
-    String labelsParent();
-
-    @Key("labels.regex")
-    String labelsRegex();
-
-    @Key("labels.age")
-    String labelsAge();
-
-    @Key("labels.from")
-    String labelsFrom();
-
-    @Key("labels.definition")
-    String labelsDefinition();
-
-    @Key("labels.refField")
-    String labelsRefField();
-
-    @Key("labels.value")
-    String labelsValue();
-
-    @Key("labels.javaType")
-    String labelsJavaType();
-
-    @Key("buttons.save")
-    String buttonsSave();
-
-    @Key("buttons.delete")
-    String buttonsDelete();
-
-    @Key("buttons.modify")
-    String buttonsModify();
-
-    @Key("menus.valueList.listDefLov")
-    String menusSettingsListDefLov();
-
-    @Key("menus.valueList.addDefLov")
-    String menusSettingsAddDefLov();
-
-    @Key("menus.valueList.listLOV")
-    String menusSettingsListLOV();
-
-    @Key("menus.valueList.addLOV")
-    String menusSettingsAddLOV();
-
-    @Key("labels.systemDefLov")
-    String labelsSystemDefLov();
-
-    @Key("labels.label")
-    String labelsLabel();
-
     String deleteValueTypeSuccess();
 
     String addValueTypeSuccess();
@@ -98,4 +44,8 @@ public interface MessageBundle extends Messages {
     String openInscriptionSuccess();
 
     String closeInscriptionSuccess();
+
+    String sessionSavedSuccess();
+
+    String sessionUpdatedSuccess();
 }

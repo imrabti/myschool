@@ -29,7 +29,7 @@ import com.gsr.myschool.server.util.SpringServiceLocator;
 import java.util.List;
 
 @Service(value = DossierServiceImpl.class, locator = SpringServiceLocator.class)
-public interface DossierServiceRequest extends RequestContext {
+public interface DossierRequest extends RequestContext {
     Request<PagedDossiersProxy> findAllDossiersByCriteria(DossierFilterDTOProxy filter, Integer page, Integer length);
 
     Request<Boolean> receive(DossierProxy dossier);

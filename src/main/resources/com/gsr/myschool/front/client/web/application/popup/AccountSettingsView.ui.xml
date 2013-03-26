@@ -2,8 +2,7 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:s='urn:import:com.gsr.myschool.common.client.widget'
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'
-             xmlns:p='urn:import:com.gsr.myschool.common.client.ui.user'
-             xmlns:h="urn:import:com.google.gwt.user.client.ui">
+             xmlns:p='urn:import:com.gsr.myschool.common.client.ui.user'>
 
     <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
@@ -24,7 +23,7 @@
         <g:FlowPanel>
             <s:ModalHeader ui:field="modalHeader" text="Paramètres de votre compte"/>
 
-            <h:HTMLPanel styleName="{style.tabPanelWrapper}">
+            <g:HTMLPanel styleName="{style.tabPanelWrapper}">
                 <boot:TabPanel ui:field="tabs" tabPosition="left">
                     <boot:Tab heading="Infomations générales" active="true">
                         <g:HTMLPanel styleName="{style.contentWrapper}">
@@ -37,7 +36,7 @@
                         </g:HTMLPanel>
                     </boot:Tab>
                 </boot:TabPanel>
-            </h:HTMLPanel>
+            </g:HTMLPanel>
 
             <g:HTMLPanel styleName="{resource.sharedStyleCss.buttonContainerPopup}">
                 <boot:Button ui:field="cancel" text="Annuler"/>
