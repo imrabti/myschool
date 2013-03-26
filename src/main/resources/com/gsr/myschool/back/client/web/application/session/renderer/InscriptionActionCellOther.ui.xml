@@ -1,0 +1,24 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'>
+    <div class="btn-group">
+        <a href="javascript:;" class="btn btn-mini" ui:field="preview">
+            <i class="icon-search"/>
+            <span class="">Détails</span>
+        </a>
+        <a href="javascript:;" style="display: none;" class="btn btn-mini" ui:field="edit">
+            <i class="icon-edit"/>
+            <span class="">Modifier</span>
+        </a>
+        <a href="javascript:;" style="display: none;" ui:field="delete">
+            <i class="icon-remove"/>
+            <span class="">Supprimer</span>
+        </a>
+        <a href="javascript:;" style="display: none;" ui:field="submit">
+            <i class="icon-share"/>
+            <span class="">Valider</span>
+        </a>
+        <a href="javascript:;" class="btn btn-mini" ui:field="print">
+            <i class="icon-print"/>
+            <span class="">Imprimer</span>
+        </a>
+    </div>
+</ui:UiBinder>
