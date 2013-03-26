@@ -1,5 +1,8 @@
 package com.gsr.myschool.server.business.core;
 
+import com.gsr.myschool.common.shared.type.SessionStatus;
+import com.gsr.myschool.server.business.valuelist.ValueList;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,6 +16,10 @@ public class SessionExamen implements java.io.Serializable {
     private Double latitude;
     private String adresse;
     private String nom;
+    @ManyToOne
+    private ValueList anneeScolaire;
+    @Enumerated
+    private SessionStatus status;
 
     public Long getId() {
         return id;
@@ -60,5 +67,21 @@ public class SessionExamen implements java.io.Serializable {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public ValueList getAnneeScolaire() {
+        return anneeScolaire;
+    }
+
+    public void setAnneeScolaire(ValueList anneeScolaire) {
+        this.anneeScolaire = anneeScolaire;
+    }
+
+    public SessionStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(SessionStatus status) {
+        this.status = status;
     }
 }

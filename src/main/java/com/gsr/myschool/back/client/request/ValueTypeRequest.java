@@ -10,7 +10,7 @@ import com.gsr.myschool.server.util.SpringServiceLocator;
 import java.util.List;
 
 @Service(value = ValueTypeServiceImpl.class, locator = SpringServiceLocator.class)
-public interface ValueTypeServiceRequest extends RequestContext {
+public interface ValueTypeRequest extends RequestContext {
     Request<Void> updateValueType(ValueTypeProxy valueType);
 
     Request<List<ValueTypeProxy>> findAll();

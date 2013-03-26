@@ -4,7 +4,7 @@ import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
-import com.gsr.myschool.back.client.request.UserServiceRequest;
+import com.gsr.myschool.back.client.request.UserRequest;
 import com.gsr.myschool.back.client.web.application.usergsr.event.AdminUserChangedEvent;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupView;
 import com.gsr.myschool.common.client.proxy.AdminUserProxy;
@@ -28,7 +28,7 @@ public class AdminUserAccountEditPresenter extends PresenterWidget<AdminUserAcco
     private final SharedMessageBundle messageBundle;
     private final BackRequestFactory requestFactory;
 
-    private UserServiceRequest currentContext;
+    private UserRequest currentContext;
     private AdminUserProxy currentUser;
     private Boolean userViolation;
 

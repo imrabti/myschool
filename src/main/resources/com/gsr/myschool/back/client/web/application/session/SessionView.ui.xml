@@ -58,7 +58,7 @@
                     </g:HTMLPanel>
 
                     <div class="{style.contentWrapper}">
-                        Here the table of session
+                        <boot:CellTable ui:field="sessionsTable" bordered="true"/>
                     </div>
                 </g:HTMLPanel>
             </div>

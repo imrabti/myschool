@@ -20,7 +20,7 @@ import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
-import com.gsr.myschool.back.client.request.ValueListServiceRequest;
+import com.gsr.myschool.back.client.request.ValueListRequest;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.web.application.valueList.event.ValueListChangedEvent;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupView;
@@ -48,7 +48,7 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
     private final MessageBundle messageBundle;
 
     private ValueListProxy currentValueList;
-    private ValueListServiceRequest currentContext;
+    private ValueListRequest currentContext;
     private Boolean valueListViolation;
 
     @Inject

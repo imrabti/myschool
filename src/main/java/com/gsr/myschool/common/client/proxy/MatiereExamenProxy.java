@@ -29,12 +29,4 @@ public interface MatiereExamenProxy extends ValueProxy {
     public String getNom();
 
     public void setNom(String newNom);
-
-    public ValueListProxy getDe();
-
-    public void setDe(ValueListProxy de);
-
-    public ValueListProxy getA();
-
-    public void setA(ValueListProxy a);
 }

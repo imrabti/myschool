@@ -20,7 +20,7 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
-import com.gsr.myschool.back.client.request.DossierServiceRequest;
+import com.gsr.myschool.back.client.request.DossierRequest;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.back.client.web.application.validation.event.VerificationCompletedEvent;
 import com.gsr.myschool.back.client.web.application.validation.popup.PiecesJustificatifPresenter;
@@ -43,9 +43,7 @@ import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ValidationPresenter extends Presenter<ValidationPresenter.MyView, ValidationPresenter.MyProxy>
         implements ValidationUiHandlers, VerificationCompletedEvent.VerificationCompletedHandler {
@@ -70,7 +68,7 @@ public class ValidationPresenter extends Presenter<ValidationPresenter.MyView, V
     private final PlaceManager placeManager;
     private final PiecesJustificatifPresenter piecesJustificatifPresenter;
 
-    private DossierServiceRequest currentContext;
+    private DossierRequest currentContext;
     private DossierFilterDTOProxy dossierFilter;
 
     @Inject

@@ -20,7 +20,7 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
-import com.gsr.myschool.back.client.request.DossierServiceRequest;
+import com.gsr.myschool.back.client.request.DossierRequest;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
@@ -64,7 +64,7 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
     private final BackRequestFactory requestFactory;
     private final PlaceManager placeManager;
 
-    private DossierServiceRequest currentContext;
+    private DossierRequest currentContext;
     private DossierFilterDTOProxy dossierFilter;
 
     @Inject
