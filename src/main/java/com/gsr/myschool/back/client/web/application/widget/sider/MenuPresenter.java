@@ -50,6 +50,10 @@ public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> impleme
                 break;
             case GENERAL_SETTINGS :
                 placeManager.revealPlace(new PlaceRequest(NameTokens.getGeneralSettings()));
+                break;
+            case SESSION:
+                placeManager.revealPlace(new PlaceRequest(NameTokens.getSession()));
+                break;
         }
     }
 
@@ -64,10 +68,16 @@ public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> impleme
             currentMenu = MenuItem.RECEPTION;
         } else if (currentPlace.matchesNameToken(NameTokens.getValidation())) {
             currentMenu = MenuItem.VALIDATION;
-        }  else if (currentPlace.matchesNameToken(NameTokens.getValueList())) {
+        } else if (currentPlace.matchesNameToken(NameTokens.getValueList())) {
             currentMenu = MenuItem.VALUE_LIST;
-        }  else if (currentPlace.matchesNameToken(NameTokens.getGeneralSettings())) {
+        } else if (currentPlace.matchesNameToken(NameTokens.getGeneralSettings())) {
             currentMenu = MenuItem.GENERAL_SETTINGS;
+        } else if (currentPlace.matchesNameToken(NameTokens.getSession())) {
+            currentMenu = MenuItem.SESSION;
+        } else if (currentPlace.matchesNameToken(NameTokens.getUserGsr())) {
+            currentMenu = MenuItem.USERS_GSR;
+        } else if (currentPlace.matchesNameToken(NameTokens.getUserPortal())) {
+            currentMenu = MenuItem.USERS_PORTAL;
         }
 
         getView().setupMenuSecurity();

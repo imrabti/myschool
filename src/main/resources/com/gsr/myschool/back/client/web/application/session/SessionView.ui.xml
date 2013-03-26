@@ -6,7 +6,7 @@
 
     <ui:style>
         .container {
-            padding-right: 300px;
+            padding-right: 500px;
             margin-top: -20px;
         }
 
@@ -16,9 +16,9 @@
         }
 
         .right {
-            width: 300px;
+            width: 500px;
             float: right;
-            margin-right: -300px;
+            margin-right: -500px;
         }
 
         .contentWrapper {
@@ -29,22 +29,36 @@
     <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
         <div class="{style.container}">
             <div class="{style.right}">
-                <g:SimplePanel ui:field="valueTypeDisplay"/>
-            </div>
-            <div class="{style.left}">
                 <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
                     <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
                         <h2>
-                            <g:InlineLabel text="Liste de valeurs"/>
+                            <g:InlineLabel text="Niveau d'étude"/>
                         </h2>
                         <div>
-                            <boot:Button ui:field="addValueList" text="Ajouter une valeur" icon="PLUS"/>
+                            <boot:Button ui:field="attachNiveauEtude" text="Ajouter un niveau d'étude" icon="PLUS"/>
                         </div>
                         <span style="display: block; clear: both;"/>
                     </g:HTMLPanel>
 
                     <div class="{style.contentWrapper}">
-                        <boot:CellTable ui:field="valueListTable" bordered="true"/>
+                        Here the table of attached niveau etudes
+                    </div>
+                </g:HTMLPanel>
+            </div>
+            <div class="{style.left}">
+                <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
+                    <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
+                        <h2>
+                            <g:InlineLabel text="Sessions"/>
+                        </h2>
+                        <div>
+                            <boot:Button ui:field="newSession" text="Ajouter une session" icon="PLUS"/>
+                        </div>
+                        <span style="display: block; clear: both;"/>
+                    </g:HTMLPanel>
+
+                    <div class="{style.contentWrapper}">
+                        <boot:CellTable ui:field="sessionsTable" bordered="true"/>
                     </div>
                 </g:HTMLPanel>
             </div>
