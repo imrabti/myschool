@@ -5,5 +5,6 @@ import com.google.inject.assistedinject.Assisted;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 
 public interface PreInscriptionActionCellFactory {
-    PreInscriptionActionCell create(@Assisted("viewDetails") Delegate<DossierProxy> viewDetails);
+    PreInscriptionActionCell create(@Assisted("viewDetails") Delegate<DossierProxy> viewDetails,
+            @Assisted("print") Delegate<DossierProxy> print);
 }

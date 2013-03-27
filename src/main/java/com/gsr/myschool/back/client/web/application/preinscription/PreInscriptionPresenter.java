@@ -27,6 +27,7 @@ import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.PagedDossiersProxy;
 import com.gsr.myschool.common.client.request.ExcelRequestBuilder;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.common.client.request.ReportRequestBuilder;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -110,6 +111,13 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
                 currentContext.edit(dossierFilter.getNiveauEtude()) : null);
 
         loadDossiersCounts();
+    }
+
+    @Override
+    public void printInscription(DossierProxy dossier) {
+        ReportRequestBuilder requestBuilder = new ReportRequestBuilder();
+        requestBuilder.buildData(dossier.getId().toString());
+        requestBuilder.sendRequest();
     }
 
     @Override
