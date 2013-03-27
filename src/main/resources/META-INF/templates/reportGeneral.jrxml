@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3ec63d48-9b12-4c17-b46d-83bb6b5284b6">
 	<property name="ireport.zoom" value="1.1000000000000338"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="714"/>
+	<property name="ireport.y" value="186"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -48,6 +48,7 @@
 	<parameter name="filiere2" class="org.apache.commons.beanutils.BeanMap" isForPrompting="false"/>
 	<parameter name="scoEts" class="org.apache.commons.beanutils.BeanMap" isForPrompting="false"/>
 	<parameter name="scoLev" class="org.apache.commons.beanutils.BeanMap" isForPrompting="false"/>
+	<parameter name="scoFil" class="org.apache.commons.beanutils.BeanMap" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -979,25 +980,25 @@
 				<text><![CDATA[Formation Gsr :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f0ef0124-209c-4250-be70-ffb6b01a3fa9" stretchType="RelativeToTallestObject" x="275" y="143" width="52" height="20"/>
+				<reportElement uuid="f0ef0124-209c-4250-be70-ffb6b01a3fa9" stretchType="RelativeToTallestObject" x="233" y="143" width="49" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Niveau :]]></text>
+				<text><![CDATA[Formation :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="eb0e9400-5ca6-4b84-b6cd-13b7846c07d6" x="141" y="143" width="133" height="20"/>
+				<reportElement uuid="eb0e9400-5ca6-4b84-b6cd-13b7846c07d6" x="141" y="143" width="92" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{scoEts}.get("nom")]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="00f6e024-7f1e-4217-8e94-206b370711a2" x="327" y="143" width="183" height="20"/>
+				<reportElement uuid="00f6e024-7f1e-4217-8e94-206b370711a2" x="282" y="143" width="228" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{scoLev}.get("nom")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{scoFil}.get("nom") + new java.lang.String(" - ") +$P{scoLev}.get("nom")]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="a451c11d-a362-476a-8074-b68a62da8b1e" x="47" y="143" width="94" height="20">

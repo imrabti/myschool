@@ -106,8 +106,13 @@ public class ReportController {
             printableDossier.getReportParameters().put("scoEts", dossier.getScolariteActuelle().getEtablissement().
                     getReportsAttributes());
         }
-        if (dossier.getScolariteActuelle() != null && null != dossier.getScolariteActuelle().getNiveauEtude()) {
+        if (dossier.getScolariteActuelle() != null && null != dossier.getScolariteActuelle().getNiveauEtude() &&
+                dossier.getScolariteActuelle().getFiliere() != null) {
             printableDossier.getReportParameters().put("scoLev", dossier.getScolariteActuelle().getNiveauEtude().
+                    getReportsAttributes());
+        }
+        if (dossier.getScolariteActuelle() != null && null != dossier.getScolariteActuelle().getFiliere()) {
+            printableDossier.getReportParameters().put("scoFil", dossier.getScolariteActuelle().getFiliere().
                     getReportsAttributes());
         }
         if (dossier.getAnneeScolaire() != null) {
