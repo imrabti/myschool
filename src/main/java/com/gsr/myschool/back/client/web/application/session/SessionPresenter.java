@@ -65,7 +65,8 @@ public class SessionPresenter extends Presenter<MyView, MyProxy> implements Sess
 
     @Override
     public void updateSession(SessionExamenProxy session) {
-        // TODO : Update a session
+        editSessionPresenter.setCurrentSession(session);
+        addToPopupSlot(editSessionPresenter);
     }
 
     @Override
@@ -86,6 +87,11 @@ public class SessionPresenter extends Presenter<MyView, MyProxy> implements Sess
     @Override
     protected void onReveal() {
         loadSession();
+    }
+
+    @Override
+    protected void onBind() {
+        addRegisteredHandler(SessionChangedEvent.getType(), this);
     }
 
     private void loadSession() {

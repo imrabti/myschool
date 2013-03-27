@@ -118,7 +118,11 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
         TextColumn<SessionExamenProxy> dateColumn = new TextColumn<SessionExamenProxy>() {
             @Override
             public String getValue(SessionExamenProxy object) {
-                return dateFormat.format(object.getDateSession());
+                if (object.getDateSession() == null) {
+                    return "";
+                } else {
+                    return dateFormat.format(object.getDateSession());
+                }
             }
         };
         sessionsTable.addColumn(dateColumn, "Date session");
