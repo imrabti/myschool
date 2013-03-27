@@ -102,11 +102,11 @@ public class ReportController {
             printableDossier.getReportParameters().put("bacYear", dossier.getCandidat().getBacYear().
             getReportsAttributes());
         }
-        if (dossier.getScolariteActuelle() != null) {
+        if (dossier.getScolariteActuelle() != null && null != dossier.getScolariteActuelle().getEtablissement()) {
             printableDossier.getReportParameters().put("scoEts", dossier.getScolariteActuelle().getEtablissement().
                     getReportsAttributes());
         }
-        if (dossier.getScolariteActuelle() != null) {
+        if (dossier.getScolariteActuelle() != null && null != dossier.getScolariteActuelle().getNiveauEtude()) {
             printableDossier.getReportParameters().put("scoLev", dossier.getScolariteActuelle().getNiveauEtude().
                     getReportsAttributes());
         }
