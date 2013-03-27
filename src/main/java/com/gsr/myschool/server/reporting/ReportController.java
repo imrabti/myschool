@@ -102,6 +102,14 @@ public class ReportController {
             printableDossier.getReportParameters().put("bacYear", dossier.getCandidat().getBacYear().
             getReportsAttributes());
         }
+        if (dossier.getScolariteActuelle() != null) {
+            printableDossier.getReportParameters().put("scoEts", dossier.getScolariteActuelle().getEtablissement().
+                    getReportsAttributes());
+        }
+        if (dossier.getScolariteActuelle() != null) {
+            printableDossier.getReportParameters().put("scoLev", dossier.getScolariteActuelle().getNiveauEtude().
+                    getReportsAttributes());
+        }
         if (dossier.getAnneeScolaire() != null) {
             int current = Calendar.getInstance().get(Calendar.YEAR);
             int next = current + 1;

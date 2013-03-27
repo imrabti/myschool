@@ -2,8 +2,10 @@ package com.gsr.myschool.server.business;
 
 import com.gsr.myschool.common.shared.type.EtablissementType;
 import com.gsr.myschool.server.business.valuelist.ValueList;
+import com.gsr.myschool.server.util.BeanMapper;
 
 import javax.persistence.*;
+import java.util.Map;
 
 @Entity
 public class EtablissementScolaire implements java.io.Serializable {
@@ -55,5 +57,9 @@ public class EtablissementScolaire implements java.io.Serializable {
 
     public void setGsr(Boolean gsr) {
         this.gsr = gsr;
+    }
+
+    public Map getReportsAttributes() {
+        return BeanMapper.beanToMap(this);
     }
 }
