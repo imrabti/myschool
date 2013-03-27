@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportMSGS" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4c574922-4b99-490d-ae3f-1b12f7827f23">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<parameter name="date" class="java.lang.String"/>
+	<parameter name="dateTest" class="java.lang.String"/>
+	<parameter name="heureAccueilDebut" class="java.lang.String"/>
+	<parameter name="heureAccueilFin" class="java.lang.String"/>
+	<parameter name="heureDebut" class="java.lang.String"/>
+	<parameter name="heureRecuperation" class="java.lang.String"/>
+	<parameter name="niveauEtude" class="java.lang.String"/>
+	<parameter name="section" class="java.lang.String"/>
+	<parameter name="adresse" class="java.lang.String"/>
+	<parameter name="phone" class="java.lang.String"/>
+	<parameter name="nomParent" class="java.lang.String"/>
+	<parameter name="heureEpreuveFin" class="java.lang.String"/>
+	<parameter name="heureEpreuveDebut" class="java.lang.String"/>
+	<parameter name="prenomEnfant" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="644" splitType="Stretch">
+			<image>
+				<reportElement uuid="e81b6025-2acb-4471-87d4-120fbaed85f7" x="0" y="0" width="77" height="60"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"gsrlogo.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="418caa72-058d-4616-ad42-92ddc3260878" x="384" y="75" width="130" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ba510252-afc9-4453-a2c9-225ff6f6854b" x="287" y="110" width="227" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Madame, Monsieur "+$P{nomParent}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="167" width="393" height="30"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Nous vous invitons à présenter votre enfant "+$P{prenomEnfant}+" le : "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="201" width="393" height="16"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dateTest}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="221" width="393" height="16"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Accueil de "+$P{heureAccueilDebut}+" à "+$P{heureAccueilFin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="241" width="393" height="16"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Début des épreuves à "+$P{heureDebut}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="261" width="393" height="16"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Récupération des enfants à "+$P{heureRecuperation}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="281" width="393" height="31"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Afin de passer le test-concours d’admission en "+$P{niveauEtude}+" - "+$P{section}+" selon le calendrier ci-après :"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="33e0c2da-6b4f-4896-baf4-851c4453facb" x="77" y="432" width="393" height="36"/>
+				<textElement textAlignment="Justified" markup="none">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Nous vous prions d’agréer, Madame, Monsieur, l’expression de nos salutations les meilleures.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="55b4582b-0ecd-4dd2-8852-9255dc3b4037" x="77" y="487" width="393" height="54"/>
+				<textElement markup="none">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NB : Votre enfant devra présenter cette convocation le jour du test.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0dfee8f0-2b42-4aa9-b91a-13fefdf59481" x="328" y="571" width="186" height="20"/>
+				<textElement textAlignment="Right" markup="none">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[La Direction]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="76b79e9b-8d5a-4186-96a1-5e80bb33a12a" x="313" y="349" width="157" height="60"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="76b79e9b-8d5a-4186-96a1-5e80bb33a12a" x="77" y="330" width="109" height="20"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="76b79e9b-8d5a-4186-96a1-5e80bb33a12a" x="313" y="330" width="157" height="19"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="76b79e9b-8d5a-4186-96a1-5e80bb33a12a" x="77" y="349" width="109" height="30"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="76b79e9b-8d5a-4186-96a1-5e80bb33a12a" x="186" y="349" width="127" height="60"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="76b79e9b-8d5a-4186-96a1-5e80bb33a12a" x="186" y="330" width="127" height="19"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="76b79e9b-8d5a-4186-96a1-5e80bb33a12a" x="77" y="379" width="109" height="30"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="77" y="330" width="109" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[EPREUVES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="186" y="330" width="127" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Horaires]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="313" y="330" width="157" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[LIEU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="77" y="349" width="109" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mathématiques]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="77" y="379" width="109" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Français]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="313" y="349" width="157" height="44"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{adresse}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="313" y="393" width="157" height="16"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{phone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="37c00228-99e2-4903-8e26-eee9890423a1" x="187" y="350" width="126" height="59"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["de "+$P{heureEpreuveDebut}+" à "+$P{heureEpreuveFin}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
