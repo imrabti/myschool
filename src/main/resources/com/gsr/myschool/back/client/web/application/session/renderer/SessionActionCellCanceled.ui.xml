@@ -8,11 +8,11 @@
             <i class="icon-lock"/>
             <span class="">Clôturer</span>
         </a>
-        <a href="javascript:;" style="display: none;" ui:field="cancel">
+        <a href="javascript:;" style="display: none;" class="btn btn-mini" ui:field="cancel">
             <i class="icon-remove-sign"/>
             <span class="">Annuler</span>
         </a>
-        <a href="javascript:;" style="display: none;" ui:field="remove">
+        <a href="javascript:;" style="display: none;" class="btn btn-mini" ui:field="remove">
             <i class="icon-remove"/>
             <span class="">Supprimer</span>
         </a>
