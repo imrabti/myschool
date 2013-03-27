@@ -242,7 +242,7 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
 
             if (scolariteActuelle.getNiveauEtude() != null) {
                 SafeHtml safeNiveauEtude = SafeHtmlUtils.fromString(scolariteActuelle.getNiveauEtude().getNom());
-                scolariteActuellePanel.add(rowLabelValueFactory.createValueLabel("Niveau demandé actuel : ", safeNiveauEtude));
+                scolariteActuellePanel.add(rowLabelValueFactory.createValueLabel("Niveau actuel : ", safeNiveauEtude));
             }
         }
     }
