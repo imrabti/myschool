@@ -28,7 +28,7 @@ import com.gsr.myschool.server.util.SpringServiceLocator;
 import java.util.List;
 
 @Service(value = UserManagementServiceImpl.class, locator = SpringServiceLocator.class)
-public interface UserServiceRequest extends RequestContext {
+public interface UserRequest extends RequestContext {
     Request<List<AdminUserProxy>> findAllAdminUser();
 
 	Request<List<UserProxy>> findAllPortalUser();

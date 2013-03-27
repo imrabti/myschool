@@ -11,7 +11,7 @@ import com.gsr.myschool.server.util.SpringServiceLocator;
 import java.util.List;
 
 @Service(value = ValueListServiceImpl.class, locator = SpringServiceLocator.class)
-public interface ValueListServiceRequest extends RequestContext {
+public interface ValueListRequest extends RequestContext {
     Request<Void> addValueList(ValueListProxy valueList);
 
     Request<Void> deleteValueList(Long id);

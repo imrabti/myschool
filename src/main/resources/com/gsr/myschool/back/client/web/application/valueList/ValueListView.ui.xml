@@ -3,6 +3,7 @@
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
 
     <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+
     <ui:style>
         .container {
             padding-right: 300px;
@@ -49,5 +50,4 @@
             </div>
         </div>
     </g:HTMLPanel>
-
 </ui:UiBinder>

@@ -123,7 +123,6 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
 
     @Override
     public void receiveDossier(Task task, Dossier dossier, List<PiecejustifDTO> piecejustifDTOs) {
-
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("gender", dossier.getOwner().getGender().toString());
         params.put("lastname", dossier.getOwner().getLastName());
