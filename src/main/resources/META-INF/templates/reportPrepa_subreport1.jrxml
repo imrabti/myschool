@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2_fraterie" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="538305d2-c740-4515-ae3c-a6cd7c8331a8">
 	<property name="ireport.zoom" value="1.1000000000000025"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="1311"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -38,13 +38,25 @@
 		<![CDATA[":"]]>
 	</queryString>
 	<background>
-		<band splitType="Stretch"/>
+		<band height="740" splitType="Stretch">
+			<textField>
+				<reportElement uuid="4767852f-753c-4c92-b5c2-578d347bb587" x="149" y="720" width="100" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[2]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="55ce2972-75c6-4ff5-9d12-5c5a619c46ac" x="-45" y="675" width="494" height="45"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"footer_prepas.jpg"]]></imageExpression>
+			</image>
+		</band>
 	</background>
 	<title>
 		<band splitType="Stretch"/>
 	</title>
 	<pageHeader>
-		<band height="20" splitType="Stretch">
+		<band height="20" splitType="Prevent">
 			<staticText>
 				<reportElement uuid="e9f3f84c-b0d8-423d-b8bb-f3bf7f04f5bb" mode="Transparent" x="-13" y="0" width="295" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -58,7 +70,7 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="630" splitType="Stretch">
+		<band height="68" splitType="Prevent">
 			<staticText>
 				<reportElement uuid="5cfcd992-440d-42e0-bece-e30762018485" x="-10" y="10" width="503" height="56"/>
 				<textElement>
@@ -69,8 +81,12 @@ C'est pourquoi, nous invitons nos futurs parents d'élèves à coopérer en nous
 leur(s) enfants. Nous tennons à vous assurer que ces informations resteront confidentielles et ne seront utilisées que dans
 l'intérêt de votre enfant.]]></text>
 			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="450" splitType="Stretch">
 			<componentElement>
-				<reportElement uuid="f64ff34d-95b0-41d8-a744-212e054fb434" key="table" style="table" mode="Transparent" x="-10" y="66" width="250" height="28" forecolor="#999999"/>
+				<reportElement uuid="f64ff34d-95b0-41d8-a744-212e054fb434" key="table" style="table" mode="Transparent" x="-10" y="0" width="250" height="28" forecolor="#999999"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Table Dataset 1" uuid="1a38ddb8-27f1-4c81-b604-33c321a7983f">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{fraterie})]]></dataSourceExpression>
@@ -85,7 +101,7 @@ l'intérêt de votre enfant.]]></text>
 								<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 							</box>
 							<staticText>
-								<reportElement uuid="75111e4f-ebab-47b8-8e86-4988e78365cc" mode="Opaque" x="0" y="0" width="92" height="16"/>
+								<reportElement uuid="75111e4f-ebab-47b8-8e86-4988e78365cc" mode="Opaque" x="0" y="0" width="92" height="16" backcolor="#D4D0C8"/>
 								<box>
 									<pen lineWidth="0.5" lineColor="#CCCCCC"/>
 									<topPen lineWidth="0.5" lineColor="#CCCCCC"/>
@@ -133,7 +149,7 @@ l'intérêt de votre enfant.]]></text>
 								<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 							</box>
 							<staticText>
-								<reportElement uuid="bf85c9f9-e187-4537-be5b-430384f7ef5a" mode="Opaque" x="0" y="0" width="67" height="16"/>
+								<reportElement uuid="bf85c9f9-e187-4537-be5b-430384f7ef5a" mode="Opaque" x="0" y="0" width="67" height="16" backcolor="#D4D0C8"/>
 								<box>
 									<pen lineWidth="0.5" lineColor="#CCCCCC"/>
 									<topPen lineWidth="0.5" lineColor="#CCCCCC"/>
@@ -174,7 +190,7 @@ l'intérêt de votre enfant.]]></text>
 					<jr:column width="90" uuid="c5919e38-c4a4-4c91-b26b-e30acee383e0">
 						<jr:columnHeader height="16" rowSpan="1">
 							<staticText>
-								<reportElement uuid="75111e4f-ebab-47b8-8e86-4988e78365cc" mode="Opaque" x="0" y="0" width="90" height="16"/>
+								<reportElement uuid="75111e4f-ebab-47b8-8e86-4988e78365cc" mode="Opaque" x="0" y="0" width="90" height="16" backcolor="#D4D0C8"/>
 								<box>
 									<pen lineWidth="0.5" lineColor="#CCCCCC"/>
 									<topPen lineWidth="0.5" lineColor="#CCCCCC"/>
@@ -208,7 +224,7 @@ l'intérêt de votre enfant.]]></text>
 					<jr:column width="90" uuid="aa1bed42-914d-4a6d-aa4e-e697a2685511">
 						<jr:columnHeader height="16" rowSpan="1">
 							<staticText>
-								<reportElement uuid="75111e4f-ebab-47b8-8e86-4988e78365cc" mode="Opaque" x="0" y="0" width="90" height="16"/>
+								<reportElement uuid="75111e4f-ebab-47b8-8e86-4988e78365cc" mode="Opaque" x="0" y="0" width="90" height="16" backcolor="#D4D0C8"/>
 								<box>
 									<pen lineWidth="0.5" lineColor="#CCCCCC"/>
 									<topPen lineWidth="0.5" lineColor="#CCCCCC"/>
@@ -242,7 +258,7 @@ l'intérêt de votre enfant.]]></text>
 					<jr:column width="90" uuid="6f571330-9312-4661-9841-f9b312b28e32">
 						<jr:columnHeader height="16" rowSpan="1">
 							<staticText>
-								<reportElement uuid="75111e4f-ebab-47b8-8e86-4988e78365cc" mode="Opaque" x="0" y="0" width="90" height="16"/>
+								<reportElement uuid="75111e4f-ebab-47b8-8e86-4988e78365cc" mode="Opaque" x="0" y="0" width="90" height="16" backcolor="#D4D0C8"/>
 								<box>
 									<pen lineWidth="0.5" lineColor="#CCCCCC"/>
 									<topPen lineWidth="0.5" lineColor="#CCCCCC"/>
@@ -276,29 +292,14 @@ l'intérêt de votre enfant.]]></text>
 				</jr:table>
 			</componentElement>
 		</band>
-	</columnHeader>
-	<detail>
-		<band splitType="Prevent"/>
 	</detail>
 	<columnFooter>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="65">
-			<image scaleImage="FillFrame">
-				<reportElement uuid="55ce2972-75c6-4ff5-9d12-5c5a619c46ac" x="-38" y="1" width="494" height="45"/>
-				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"footer_prepas.jpg"]]></imageExpression>
-			</image>
-			<textField>
-				<reportElement uuid="4767852f-753c-4c92-b5c2-578d347bb587" x="156" y="46" width="100" height="19"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[2]]></textFieldExpression>
-			</textField>
-		</band>
+		<band/>
 	</pageFooter>
 	<summary>
-		<band splitType="Stretch"/>
+		<band/>
 	</summary>
 </jasperReport>
