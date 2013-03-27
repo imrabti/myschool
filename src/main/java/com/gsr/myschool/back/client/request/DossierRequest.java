@@ -37,4 +37,8 @@ public interface DossierRequest extends RequestContext {
     Request<Boolean> verify(Long dossierId, List<String> notChecked);
 
     Request<List<PiecejustifDTOProxy>> getPieceJustifFromProcess(DossierProxy dossier);
+
+    Request<Boolean> rejectDossier(DossierProxy dossier);
+
+    Request<Boolean> acceptDossier(DossierProxy dossier);
 }
