@@ -63,6 +63,7 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
     private final DateTimeFormat dateFormat;
     private final PreInscriptionActionCellFactory actionCellFactory;
     private final AsyncDataProvider<DossierProxy> dataProvider;
+    private Delegate<DossierProxy> printAction;
 
     @Inject
     public PreInscriptionView(final Binder uiBinder, final SharedMessageBundle sharedMessageBundle,
@@ -237,7 +238,15 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
                 getUiHandlers().viewDetails(dossier);
             }
         };
-        PreInscriptionActionCell actionsCell = actionCellFactory.create(viewDetailsAction);
+
+        printAction = new Delegate<DossierProxy>() {
+            @Override
+            public void execute(DossierProxy inscription) {
+                getUiHandlers().printInscription(inscription);
+            }
+        };
+
+        PreInscriptionActionCell actionsCell = actionCellFactory.create(viewDetailsAction, printAction);
         Column<DossierProxy, DossierProxy> actionsColumn = new
                 Column<DossierProxy, DossierProxy>(actionsCell) {
             @Override

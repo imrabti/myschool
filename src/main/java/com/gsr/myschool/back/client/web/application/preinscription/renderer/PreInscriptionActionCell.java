@@ -13,6 +13,7 @@ import com.google.gwt.uibinder.client.UiRenderer;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 
 public class PreInscriptionActionCell extends AbstractCell<DossierProxy> {
     public interface Renderer extends UiRenderer {
@@ -24,16 +25,19 @@ public class PreInscriptionActionCell extends AbstractCell<DossierProxy> {
     private final Renderer uiRenderer;
 
     private Delegate<DossierProxy> viewDetails;
+    private Delegate<DossierProxy> print;
 
     private DossierProxy selectedObject;
 
     @Inject
     public PreInscriptionActionCell(final Renderer uiRenderer,
-            @Assisted("viewDetails") Delegate<DossierProxy> viewDetails) {
+            @Assisted("viewDetails") Delegate<DossierProxy> viewDetails,
+            @Assisted("print") Delegate<DossierProxy> print) {
         super(BrowserEvents.CLICK);
 
         this.uiRenderer = uiRenderer;
         this.viewDetails = viewDetails;
+        this.print = print;
     }
 
     @Override
@@ -51,5 +55,12 @@ public class PreInscriptionActionCell extends AbstractCell<DossierProxy> {
     @UiHandler({"viewDetails"})
     void onPreviewClicked(ClickEvent event) {
         viewDetails.execute(selectedObject);
+    }
+
+    @UiHandler({"print"})
+    void onPrintClicked(ClickEvent event) {
+        if (!selectedObject.getStatus().equals(DossierStatus.CREATED)) {
+            print.execute(selectedObject);
+        }
     }
 }

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2_access" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="538305d2-c740-4515-ae3c-a6cd7c8331a8">
 	<property name="ireport.zoom" value="1.1000000000000025"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="604"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -29,6 +29,9 @@
 		</queryString>
 		<field name="nom" class="java.lang.String"/>
 		<field name="prenom" class="java.lang.String"/>
+		<field name="etablissement" class="java.lang.String"/>
+		<field name="filiere" class="java.lang.String"/>
+		<field name="niveau" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="fraterie" class="java.util.List" isForPrompting="false"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
@@ -75,7 +78,7 @@ l'intérêt de votre enfant.]]></text>
 					<datasetRun subDataset="Table Dataset 1" uuid="1a38ddb8-27f1-4c81-b604-33c321a7983f">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{fraterie})]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column width="164" uuid="a1ee33ab-da14-4a96-8e4a-b9af47e77403">
+					<jr:column width="96" uuid="a1ee33ab-da14-4a96-8e4a-b9af47e77403">
 						<jr:columnHeader style="table_CH" height="15" rowSpan="1">
 							<box>
 								<pen lineWidth="0.0" lineColor="#CCCCCC"/>
@@ -85,7 +88,7 @@ l'intérêt de votre enfant.]]></text>
 								<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 							</box>
 							<staticText>
-								<reportElement uuid="75111e4f-ebab-47b8-8e86-4988e78365cc" mode="Opaque" x="0" y="0" width="164" height="15"/>
+								<reportElement uuid="75111e4f-ebab-47b8-8e86-4988e78365cc" mode="Opaque" x="0" y="0" width="96" height="15"/>
 								<box>
 									<pen lineWidth="0.5" lineColor="#CCCCCC"/>
 									<topPen lineWidth="0.5" lineColor="#CCCCCC"/>
@@ -99,7 +102,7 @@ l'intérêt de votre enfant.]]></text>
 								<text><![CDATA[NOM]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table_TD" height="15" rowSpan="1">
+						<jr:detailCell style="table_TD" height="19" rowSpan="1">
 							<box>
 								<pen lineWidth="0.0"/>
 								<topPen lineWidth="0.0"/>
@@ -107,8 +110,8 @@ l'intérêt de votre enfant.]]></text>
 								<bottomPen lineWidth="0.0"/>
 								<rightPen lineWidth="0.0"/>
 							</box>
-							<textField isBlankWhenNull="true">
-								<reportElement uuid="3264b85d-4774-4916-a295-8ca1b563d006" x="0" y="0" width="164" height="15"/>
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="3264b85d-4774-4916-a295-8ca1b563d006" x="0" y="0" width="96" height="19"/>
 								<box>
 									<pen lineWidth="0.25" lineColor="#CCCCCC"/>
 									<topPen lineWidth="0.25" lineColor="#CCCCCC"/>
@@ -123,7 +126,7 @@ l'intérêt de votre enfant.]]></text>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="288" uuid="04610b9e-b9e4-484e-858e-6141f06325ed">
+					<jr:column width="100" uuid="04610b9e-b9e4-484e-858e-6141f06325ed">
 						<jr:columnHeader style="table_CH" height="15" rowSpan="1">
 							<box>
 								<pen lineWidth="0.0" lineColor="#D4D0C8"/>
@@ -133,7 +136,7 @@ l'intérêt de votre enfant.]]></text>
 								<rightPen lineWidth="0.0" lineColor="#D4D0C8"/>
 							</box>
 							<staticText>
-								<reportElement uuid="bf85c9f9-e187-4537-be5b-430384f7ef5a" mode="Opaque" x="0" y="0" width="288" height="15"/>
+								<reportElement uuid="bf85c9f9-e187-4537-be5b-430384f7ef5a" mode="Opaque" x="0" y="0" width="100" height="15"/>
 								<box>
 									<pen lineWidth="0.5" lineColor="#CCCCCC"/>
 									<topPen lineWidth="0.5" lineColor="#CCCCCC"/>
@@ -147,7 +150,7 @@ l'intérêt de votre enfant.]]></text>
 								<text><![CDATA[PRENOM]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table_TD" height="15" rowSpan="1">
+						<jr:detailCell style="table_TD" height="19" rowSpan="1">
 							<box>
 								<pen lineWidth="0.0"/>
 								<topPen lineWidth="0.0"/>
@@ -155,8 +158,8 @@ l'intérêt de votre enfant.]]></text>
 								<bottomPen lineWidth="0.0"/>
 								<rightPen lineWidth="0.0"/>
 							</box>
-							<textField isBlankWhenNull="true">
-								<reportElement uuid="f9b308af-814f-45f5-8cc2-00cc8b1696d2" x="0" y="0" width="288" height="15"/>
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="f9b308af-814f-45f5-8cc2-00cc8b1696d2" x="0" y="0" width="100" height="19"/>
 								<box>
 									<pen lineWidth="0.25" lineColor="#CCCCCC"/>
 									<topPen lineWidth="0.25" lineColor="#CCCCCC"/>
@@ -168,6 +171,108 @@ l'intérêt de votre enfant.]]></text>
 									<font size="8"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{prenom}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="1aa54e9a-bece-4b62-ac4f-db090ea2021b">
+						<jr:columnHeader height="15" rowSpan="1">
+							<staticText>
+								<reportElement uuid="bf85c9f9-e187-4537-be5b-430384f7ef5a" mode="Opaque" x="0" y="0" width="90" height="15"/>
+								<box>
+									<pen lineWidth="0.5" lineColor="#CCCCCC"/>
+									<topPen lineWidth="0.5" lineColor="#CCCCCC"/>
+									<leftPen lineWidth="0.5" lineColor="#CCCCCC"/>
+									<bottomPen lineWidth="0.5" lineColor="#CCCCCC"/>
+									<rightPen lineWidth="0.5" lineColor="#CCCCCC"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[ETABLISSEMENT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="19" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="3264b85d-4774-4916-a295-8ca1b563d006" x="0" y="0" width="90" height="19"/>
+								<box>
+									<pen lineWidth="0.25" lineColor="#CCCCCC"/>
+									<topPen lineWidth="0.25" lineColor="#CCCCCC"/>
+									<leftPen lineWidth="0.25" lineColor="#CCCCCC"/>
+									<bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
+									<rightPen lineWidth="0.25" lineColor="#CCCCCC"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{etablissement}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="017ed620-726e-4487-820b-e84e7f576cb9">
+						<jr:columnHeader height="15" rowSpan="1">
+							<staticText>
+								<reportElement uuid="bf85c9f9-e187-4537-be5b-430384f7ef5a" mode="Opaque" x="0" y="0" width="90" height="15"/>
+								<box>
+									<pen lineWidth="0.5" lineColor="#CCCCCC"/>
+									<topPen lineWidth="0.5" lineColor="#CCCCCC"/>
+									<leftPen lineWidth="0.5" lineColor="#CCCCCC"/>
+									<bottomPen lineWidth="0.5" lineColor="#CCCCCC"/>
+									<rightPen lineWidth="0.5" lineColor="#CCCCCC"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[FILIERE]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="19" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="3264b85d-4774-4916-a295-8ca1b563d006" x="0" y="0" width="90" height="19"/>
+								<box>
+									<pen lineWidth="0.25" lineColor="#CCCCCC"/>
+									<topPen lineWidth="0.25" lineColor="#CCCCCC"/>
+									<leftPen lineWidth="0.25" lineColor="#CCCCCC"/>
+									<bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
+									<rightPen lineWidth="0.25" lineColor="#CCCCCC"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{filiere}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="a7a4d534-188f-479c-8e1e-514991eb6708">
+						<jr:columnHeader height="15" rowSpan="1">
+							<staticText>
+								<reportElement uuid="bf85c9f9-e187-4537-be5b-430384f7ef5a" mode="Opaque" x="0" y="0" width="90" height="15"/>
+								<box>
+									<pen lineWidth="0.5" lineColor="#CCCCCC"/>
+									<topPen lineWidth="0.5" lineColor="#CCCCCC"/>
+									<leftPen lineWidth="0.5" lineColor="#CCCCCC"/>
+									<bottomPen lineWidth="0.5" lineColor="#CCCCCC"/>
+									<rightPen lineWidth="0.5" lineColor="#CCCCCC"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[NIVEAU]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="19" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="3264b85d-4774-4916-a295-8ca1b563d006" x="0" y="0" width="90" height="19"/>
+								<box>
+									<pen lineWidth="0.25" lineColor="#CCCCCC"/>
+									<topPen lineWidth="0.25" lineColor="#CCCCCC"/>
+									<leftPen lineWidth="0.25" lineColor="#CCCCCC"/>
+									<bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
+									<rightPen lineWidth="0.25" lineColor="#CCCCCC"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{niveau}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
