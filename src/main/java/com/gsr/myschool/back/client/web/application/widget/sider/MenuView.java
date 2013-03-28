@@ -34,6 +34,8 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
     @UiField
     NavLink generalSettings;
     @UiField
+    NavLink session;
+    @UiField
     NavHeader settingsHeader;
 
     private final SecurityUtils securityUtils;
@@ -60,6 +62,7 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         userGsr.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
         valueList.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
         generalSettings.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
+        session.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
         settingsHeader.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
     }
 
@@ -89,6 +92,9 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
                 break;
             case VALUE_LIST:
                 valueList.setActive(true);
+                break;
+            case SESSION:
+                session.setActive(true);
                 break;
         }
     }
@@ -157,13 +163,23 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         getUiHandlers().onMenuChanged(currentMenu);
     }
 
+    @UiHandler("session")
+    void onGeneralSessionClicked(ClickEvent event) {
+        clearActive();
+        session.setActive(true);
+        currentMenu = MenuItem.SESSION;
+        getUiHandlers().onMenuChanged(currentMenu);
+    }
+
     private void clearActive() {
         preInscription.setActive(false);
         reception.setActive(false);
         validation.setActive(false);
+        confirmation.setActive(false);
         valueList.setActive(false);
         userGsr.setActive(false);
         userPortal.setActive(false);
         generalSettings.setActive(false);
+        session.setActive(false);
     }
 }

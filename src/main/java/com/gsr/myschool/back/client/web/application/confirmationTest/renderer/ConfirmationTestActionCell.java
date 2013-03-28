@@ -10,18 +10,28 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiRenderer;
+import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 
 public class ConfirmationTestActionCell extends AbstractCell<DossierProxy> {
-    public interface Renderer extends UiRenderer {
+    @UiTemplate("ConfirmationTestDefaultActionCell.ui.xml")
+    public interface RendererDefault extends UiRenderer {
         void render(SafeHtmlBuilder sb);
 
         void onBrowserEvent(ConfirmationTestActionCell o, NativeEvent e, Element p);
     }
 
-    private final Renderer uiRenderer;
+    @UiTemplate("ConfirmationTestRejectedActionCell.ui.xml")
+    public interface RendererRejected extends UiRenderer {
+        void render(SafeHtmlBuilder sb, String reason);
+
+        void onBrowserEvent(ConfirmationTestActionCell o, NativeEvent e, Element p);
+    }
+
+    private final RendererDefault rendererDefault;
+    private final RendererRejected rendererRejected;
 
     private Delegate<DossierProxy> accept;
     private Delegate<DossierProxy> deny;
@@ -30,13 +40,15 @@ public class ConfirmationTestActionCell extends AbstractCell<DossierProxy> {
     private DossierProxy selectedObject;
 
     @Inject
-    public ConfirmationTestActionCell(final Renderer uiRenderer,
+    public ConfirmationTestActionCell(final RendererDefault rendererDefault,
+            final RendererRejected rendererRejected,
 			@Assisted("accept") Delegate<DossierProxy> accept,
             @Assisted("deny") Delegate<DossierProxy> deny,
 			@Assisted("viewDetails") Delegate<DossierProxy> viewDetails) {
         super(BrowserEvents.CLICK);
 
-        this.uiRenderer = uiRenderer;
+        this.rendererDefault = rendererDefault;
+        this.rendererRejected = rendererRejected;
         this.accept = accept;
         this.deny = deny;
         this.viewDetails = viewDetails;
@@ -46,12 +58,33 @@ public class ConfirmationTestActionCell extends AbstractCell<DossierProxy> {
     public void onBrowserEvent(Context context, Element parent, DossierProxy value, NativeEvent event,
                                ValueUpdater<DossierProxy> valueUpdater) {
         selectedObject = value;
-        uiRenderer.onBrowserEvent(this, event, parent);
+
+        switch (selectedObject.getStatus()) {
+            case ACCEPTED_FOR_STUDY:
+                rendererDefault.onBrowserEvent(this, event, parent);
+                break;
+            case NOT_ACCEPTED_FOR_TEST:
+                rendererRejected.onBrowserEvent(this, event, parent);
+                break;
+            default:
+                rendererDefault.onBrowserEvent(this, event, parent);
+                break;
+        }
     }
 
     @Override
     public void render(Context context, DossierProxy value, SafeHtmlBuilder builder) {
-        uiRenderer.render(builder);
+        switch (value.getStatus()) {
+            case ACCEPTED_FOR_STUDY:
+                rendererDefault.render(builder);
+                break;
+            case NOT_ACCEPTED_FOR_TEST:
+                rendererRejected.render(builder, value.getMotifRefus());
+                break;
+            default:
+                rendererDefault.render(builder);
+                break;
+        }
     }
 
     @UiHandler({"accept"})

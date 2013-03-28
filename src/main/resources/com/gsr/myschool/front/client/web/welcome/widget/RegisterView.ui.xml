@@ -75,7 +75,7 @@
         <boot:Button ui:field="register" text="S'inscrire" styleName="btn btn-success" size="LARGE"/>
 
         <div class="{style.emailNotReceived}">
-            <g:Button ui:field="resendMail" text="Email d'activation non reçus ?"
+            <g:Button ui:field="resendMail" text="Email d'activation non reçu ?"
                       styleName="{sharedResources.sharedStyleCss.linkButton}"/>
         </div>
     </g:HTMLPanel>

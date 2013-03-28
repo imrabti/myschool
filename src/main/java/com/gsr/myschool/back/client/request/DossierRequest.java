@@ -29,7 +29,7 @@ import com.gsr.myschool.server.util.SpringServiceLocator;
 import java.util.List;
 
 @Service(value = DossierServiceImpl.class, locator = SpringServiceLocator.class)
-public interface DossierServiceRequest extends RequestContext {
+public interface DossierRequest extends RequestContext {
     Request<PagedDossiersProxy> findAllDossiersByCriteria(DossierFilterDTOProxy filter, Integer page, Integer length);
 
     Request<Boolean> receive(DossierProxy dossier);
@@ -37,4 +37,8 @@ public interface DossierServiceRequest extends RequestContext {
     Request<Boolean> verify(Long dossierId, List<String> notChecked);
 
     Request<List<PiecejustifDTOProxy>> getPieceJustifFromProcess(DossierProxy dossier);
+
+    Request<Boolean> rejectDossier(DossierProxy dossier);
+
+    Request<Boolean> acceptDossier(DossierProxy dossier);
 }

@@ -20,13 +20,14 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
-import com.gsr.myschool.back.client.request.DossierServiceRequest;
+import com.gsr.myschool.back.client.request.DossierRequest;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.PagedDossiersProxy;
 import com.gsr.myschool.common.client.request.ExcelRequestBuilder;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.common.client.request.ReportRequestBuilder;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -64,7 +65,7 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
     private final BackRequestFactory requestFactory;
     private final PlaceManager placeManager;
 
-    private DossierServiceRequest currentContext;
+    private DossierRequest currentContext;
     private DossierFilterDTOProxy dossierFilter;
 
     @Inject
@@ -110,6 +111,13 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
                 currentContext.edit(dossierFilter.getNiveauEtude()) : null);
 
         loadDossiersCounts();
+    }
+
+    @Override
+    public void printInscription(DossierProxy dossier) {
+        ReportRequestBuilder requestBuilder = new ReportRequestBuilder();
+        requestBuilder.buildData(dossier.getId().toString());
+        requestBuilder.sendRequest();
     }
 
     @Override

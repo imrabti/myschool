@@ -347,7 +347,9 @@ public class InscriptionServiceImpl implements InscriptionService {
 
         if (validationErrors.isEmpty()) {
             Dossier dossier = dossierRepos.findOne(dossierId);
-            validationProcessService.startProcess(dossier);
+            if (dossier.getStatus() == DossierStatus.CREATED) {
+                validationProcessService.startProcess(dossier);
+            }
         }
 
         return new ArrayList<String>(validationErrors);

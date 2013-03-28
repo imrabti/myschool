@@ -21,6 +21,7 @@ import com.gsr.myschool.back.client.web.application.confirmationTest.Confirmatio
 import com.gsr.myschool.back.client.web.application.dossierdetails.DossierDetailsModule;
 import com.gsr.myschool.back.client.web.application.preinscription.PreInscriptionModule;
 import com.gsr.myschool.back.client.web.application.reception.ReceptionModule;
+import com.gsr.myschool.back.client.web.application.session.SessionModule;
 import com.gsr.myschool.back.client.web.application.settings.SettingsModule;
 import com.gsr.myschool.back.client.web.application.user.UserManagementModule;
 import com.gsr.myschool.back.client.web.application.usergsr.AdminAccountModule;
@@ -47,6 +48,7 @@ public class ApplicationModule extends AbstractPresenterModule {
         install(new ReceptionModule());
         install(new PreInscriptionModule());
         install(new DossierDetailsModule());
+        install(new SessionModule());
         install(new ConfirmationTestModule());
 
         bind(new TypeLiteral<UiHandlersStrategy<ApplicationUiHandlers>>() {})

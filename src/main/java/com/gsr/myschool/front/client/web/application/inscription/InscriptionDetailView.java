@@ -227,17 +227,22 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
         if (scolariteActuelle != null) {
             if (scolariteActuelle.getEtablissement() != null) {
                 SafeHtml safeEtablissement = SafeHtmlUtils.fromString(scolariteActuelle.getEtablissement().getNom());
-                scolariteActuellePanel.add(rowLabelValueFactory.createValueLabel("Etablissement : ", safeEtablissement));
+                scolariteActuellePanel.add(rowLabelValueFactory.createValueLabel("Etablissement actuel : ", safeEtablissement));
+            }
+
+            if (scolariteActuelle.getEtablissement() != null) {
+                SafeHtml safeType = SafeHtmlUtils.fromString(scolariteActuelle.getEtablissement().getType().toString());
+                scolariteActuellePanel.add(rowLabelValueFactory.createValueLabel("Type etablissement actuel : ", safeType));
             }
 
             if (scolariteActuelle.getFiliere() != null) {
                 SafeHtml safeFiliere = SafeHtmlUtils.fromString(scolariteActuelle.getFiliere().getNom());
-                scolariteActuellePanel.add(rowLabelValueFactory.createValueLabel("Formation : ", safeFiliere));
+                scolariteActuellePanel.add(rowLabelValueFactory.createValueLabel("Formation actuelle : ", safeFiliere));
             }
 
             if (scolariteActuelle.getNiveauEtude() != null) {
                 SafeHtml safeNiveauEtude = SafeHtmlUtils.fromString(scolariteActuelle.getNiveauEtude().getNom());
-                scolariteActuellePanel.add(rowLabelValueFactory.createValueLabel("Niveau demandé : ", safeNiveauEtude));
+                scolariteActuellePanel.add(rowLabelValueFactory.createValueLabel("Niveau actuel : ", safeNiveauEtude));
             }
         }
     }

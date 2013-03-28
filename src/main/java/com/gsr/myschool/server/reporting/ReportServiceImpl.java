@@ -30,6 +30,18 @@ public class ReportServiceImpl implements ReportService, ResourceLoaderAware {
     }
 
     @Override
+    public void generatePdfIntoFolder(ReportDTO reportDTO, String filename) throws Exception {
+        Resource resource = getResource("classpath:/META-INF/templates/" +
+                reportDTO.getReportName() + ".jasper");
+        reportDTO.getReportParameters().put("SUBREPORT_DIR", resource.getFile().getParent()+"/");
+
+        JREmptyDataSource emptyDataSource = new JREmptyDataSource();
+        JasperPrint jasperPrint = JasperFillManager.fillReport(resource.getInputStream(),
+                reportDTO.getReportParameters(), emptyDataSource);
+        JasperExportManager.exportReportToPdfFile(jasperPrint, "D:\\PDFGSR\\"+filename+"_v2.pdf");
+    }
+
+    @Override
     public void setResourceLoader(ResourceLoader resourceLoader) {
         this.resourceLoader = resourceLoader;
     }

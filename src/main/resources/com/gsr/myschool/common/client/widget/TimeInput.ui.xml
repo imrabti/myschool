@@ -1,0 +1,9 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <g:HTMLPanel>
+        <g:ListBox ui:field="hour" width="50px"/>
+        <g:InlineLabel text="H"/>
+        <g:ListBox ui:field="minute" width="50px"/>
+        <g:InlineLabel text="M"/>
+    </g:HTMLPanel>
+</ui:UiBinder>

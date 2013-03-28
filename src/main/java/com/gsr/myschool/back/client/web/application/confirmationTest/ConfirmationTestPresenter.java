@@ -21,9 +21,10 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
-import com.gsr.myschool.back.client.request.DossierServiceRequest;
+import com.gsr.myschool.back.client.request.DossierRequest;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.back.client.web.application.confirmationTest.popup.DenyForTestPresenter;
+import com.gsr.myschool.back.client.web.application.validation.event.RejectCompletedEvent;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.PagedDossiersProxy;
@@ -49,7 +50,7 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import java.util.List;
 
 public class ConfirmationTestPresenter extends Presenter<ConfirmationTestPresenter.MyView, ConfirmationTestPresenter.MyProxy>
-        implements ConfirmationTestUiHandlers {
+        implements ConfirmationTestUiHandlers, RejectCompletedEvent.RejectCompletedHandler {
     public interface MyView extends View, HasUiHandlers<ConfirmationTestUiHandlers> {
         void reloadData();
 
@@ -72,7 +73,7 @@ public class ConfirmationTestPresenter extends Presenter<ConfirmationTestPresent
     private final PlaceManager placeManager;
     private final DenyForTestPresenter denyForTestPresenter;
 
-    private DossierServiceRequest currentContext;
+    private DossierRequest currentContext;
     private DossierFilterDTOProxy dossierFilter;
 
     @Inject
@@ -106,7 +107,7 @@ public class ConfirmationTestPresenter extends Presenter<ConfirmationTestPresent
 
     @Override
     public void accept(DossierProxy dossier) {
-        requestFactory.dossierService().receive(dossier).fire(new ReceiverImpl<Boolean>() {
+        requestFactory.dossierService().acceptDossier(dossier).fire(new ReceiverImpl<Boolean>() {
             @Override
             public void onSuccess(Boolean response) {
                 String messageString = response ? messageBundle.operationSuccess() : messageBundle.operationFailure();
@@ -119,7 +120,8 @@ public class ConfirmationTestPresenter extends Presenter<ConfirmationTestPresent
     }
 
     @Override
-    public void deny(DossierProxy dossier, String reason) {
+    public void onRejectCompleted(RejectCompletedEvent event) {
+        loadDossiersCounts();
     }
 
     @Override
@@ -165,6 +167,11 @@ public class ConfirmationTestPresenter extends Presenter<ConfirmationTestPresent
 
         ExcelRequestBuilder request = new ExcelRequestBuilder();
         request.sendRequest(dossierFilter);
+    }
+
+    @Override
+    protected void onBind() {
+        addRegisteredHandler(RejectCompletedEvent.getType(), this);
     }
 
     @Override

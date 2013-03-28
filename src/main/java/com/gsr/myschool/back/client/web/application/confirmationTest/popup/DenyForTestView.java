@@ -43,6 +43,11 @@ public class DenyForTestView extends ValidatedPopupViewImplWithUiHandlers<DenyFo
         });
     }
 
+    @Override
+    public void resetReason() {
+        reason.setText("");
+    }
+
     @UiHandler("cancel")
     void onCancelClicked(ClickEvent event) {
         hide();
@@ -50,6 +55,7 @@ public class DenyForTestView extends ValidatedPopupViewImplWithUiHandlers<DenyFo
 
     @UiHandler("save")
     void onSaveClicked(ClickEvent event) {
-        getUiHandlers().saveReason(reason.getText());
+        getUiHandlers().setDenyReason(reason.getText());
+        hide();
     }
 }

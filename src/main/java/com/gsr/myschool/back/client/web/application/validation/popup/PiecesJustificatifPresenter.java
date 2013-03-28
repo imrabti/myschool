@@ -5,7 +5,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
-import com.gsr.myschool.back.client.request.DossierServiceRequest;
+import com.gsr.myschool.back.client.request.DossierRequest;
 import com.gsr.myschool.back.client.web.application.validation.event.VerificationCompletedEvent;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.PiecejustifDTOProxy;
@@ -96,7 +96,7 @@ public class PiecesJustificatifPresenter extends PresenterWidget<MyView> impleme
                     public void onSuccess(List<PiecejustifDTOProxy> result) {
                         pieces = new ArrayList<PiecejustifDTOProxy>();
                         for (PiecejustifDTOProxy piece : result) {
-                            DossierServiceRequest context = requestFactory.dossierService();
+                            DossierRequest context = requestFactory.dossierService();
                             pieces.add(context.edit(piece));
                         }
 

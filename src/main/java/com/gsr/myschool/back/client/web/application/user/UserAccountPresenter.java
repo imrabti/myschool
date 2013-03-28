@@ -20,7 +20,7 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
-import com.gsr.myschool.back.client.request.UserServiceRequest;
+import com.gsr.myschool.back.client.request.UserRequest;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.back.client.web.application.user.event.UserAccountChangedEvent;
 import com.gsr.myschool.back.client.web.application.user.popup.UserAccountEditPresenter;
@@ -58,7 +58,7 @@ public class UserAccountPresenter extends Presenter<UserAccountPresenter.MyView,
     private final BackRequestFactory requestFactory;
     private final UserAccountEditPresenter userAccountEditPresenter;
 
-    private UserServiceRequest currentContext;
+    private UserRequest currentContext;
     private UserFilterDTOProxy currentUserFilter;
 
     @Inject

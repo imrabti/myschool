@@ -127,6 +127,39 @@ public class DossierServiceImpl implements DossierService {
     }
 
     @Override
+    public Boolean rejectDossier(Dossier dossier) {
+        Task task = validationProcessService.getDossierToAnalyse(dossier.getId());
+        Dossier analyzedDossier = dossierRepos.findOne(dossier.getId());
+
+        analyzedDossier.setStatus(DossierStatus.NOT_ACCEPTED_FOR_TEST);
+        analyzedDossier.setMotifRefus(dossier.getMotifRefus());
+
+        dossierRepos.save(analyzedDossier);
+        validationProcessService.rejectAnalysedDossier(task, dossier);
+        return true;
+    }
+
+    @Override
+    public Boolean acceptDossier(Dossier dossier) {
+        Dossier analyzedDossier = dossierRepos.findOne(dossier.getId());
+
+        if (analyzedDossier.getStatus() == DossierStatus.NOT_ACCEPTED_FOR_TEST) {
+            Task task = validationProcessService.getDossierToReAccept(dossier.getId());
+            analyzedDossier.setStatus(DossierStatus.ACCEPTED_FOR_TEST);
+
+            validationProcessService.acceptAnalysedDossier(task, dossier);
+        } else {
+            Task task = validationProcessService.getDossierToAnalyse(dossier.getId());
+            analyzedDossier.setStatus(DossierStatus.ACCEPTED_FOR_TEST);
+
+            validationProcessService.acceptAnalysedDossier(task, dossier);
+        }
+
+        dossierRepos.save(analyzedDossier);
+        return true;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public PagedDossiers findAllDossiersByCriteria(DossierFilterDTO filter, Integer pageNumber, Integer length) {
         Specifications<Dossier> spec = Specifications.where(DossierSpec.firstnameLike(filter.getFirstnameOrlastname()))

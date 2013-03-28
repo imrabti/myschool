@@ -8,7 +8,8 @@ public enum MenuItem {
     USERS_GSR("USERS_GSR"),
     USERS_PORTAL("USERS_PORTAL"),
     VALUE_LIST("VALUE_LIST"),
-    GENERAL_SETTINGS("GENRAL SETTINGS");
+    GENERAL_SETTINGS("GENERAL SETTINGS"),
+    SESSION("SESSION");
 
     private String label;
 

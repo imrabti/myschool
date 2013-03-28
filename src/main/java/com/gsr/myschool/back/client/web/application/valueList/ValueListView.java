@@ -58,19 +58,17 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
     private Delegate<ValueListProxy> deleteAction;
     private Delegate<ValueListProxy> modifyAction;
 
-    private final MessageBundle messageBundle;
     private final SingleSelectionModel<ValueListProxy> valueListSelectionModel;
     private final ListDataProvider<ValueListProxy> dataProvider;
     private final ValueListActionCellFactory actionCellFactory;
 
     @Inject
-    public ValueListView(final Binder uiBinder, final MessageBundle messageBundle,
+    public ValueListView(final Binder uiBinder,
                          final UiHandlersStrategy<ValueListUiHandlers> uiHandlers,
                          final SharedMessageBundle sharedMessageBundle,
                          final ValueListActionCellFactory actionCellFactory) {
         super(uiHandlers);
 
-        this.messageBundle = messageBundle;
         this.actionCellFactory = actionCellFactory;
 
         initWidget(uiBinder.createAndBindUi(this));

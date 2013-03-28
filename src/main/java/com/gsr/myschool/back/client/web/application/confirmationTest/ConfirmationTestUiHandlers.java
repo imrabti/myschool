@@ -25,8 +25,6 @@ public interface ConfirmationTestUiHandlers extends UiHandlers {
 
     void accept(DossierProxy dossier);
 
-    void deny(DossierProxy dossier, String reason);
-
     void searchWithFilter(DossierFilterDTOProxy dossierFilter);
 
     void viewDetails(DossierProxy dossier);

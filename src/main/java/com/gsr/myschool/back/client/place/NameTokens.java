@@ -27,6 +27,7 @@ public class NameTokens {
     public static final String valueList = "valuelist";
     public static final String generalSettings = "generalSettings";
     public static final String inscriptiondetail = "inscriptionDetails";
+    public static final String session = "session";
 
     public static String getLogin() {
         return login;
@@ -66,5 +67,9 @@ public class NameTokens {
 
     public static String getInscriptiondetail() {
         return inscriptiondetail;
+    }
+
+    public static String getSession() {
+        return session;
     }
 }
