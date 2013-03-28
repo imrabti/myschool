@@ -77,6 +77,10 @@ public interface DossierProxy extends ValueProxy {
 
     void setNote(String note);
 
+    String getMotifRefus();
+
+    void setMotifRefus(String motifRefus);
+
     Date getRdvEntretien();
 
     void setRdvEntretien(Date rdvEntretien);

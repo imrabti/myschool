@@ -69,7 +69,7 @@ public class ReportController {
         }
     }
 
-    private ReportDTO buildReportDto(Dossier dossier) {
+    public ReportDTO buildReportDto(Dossier dossier) {
         ReportDTO printableDossier = new ReportDTO("");
         if (dossier.getFiliere() != null && dossier.getFiliere().getId() >= 30) {
             printableDossier.setReportName("reportPrepa");
