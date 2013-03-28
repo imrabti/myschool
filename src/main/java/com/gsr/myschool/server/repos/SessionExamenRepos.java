@@ -2,9 +2,17 @@ package com.gsr.myschool.server.repos;
 
 import com.gsr.myschool.server.business.core.SessionExamen;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface SessionExamenRepos extends JpaRepository<SessionExamen, Long> {
     List<SessionExamen> findByAnneeScolaireId(Long id);
+
+    @Query("select s from SessionExamen s, SessionNiveauEtude sn " +
+            "where s.id = sn.sessionExamen.id " +
+            "and s.anneeScolaire.id = :anneeId " +
+            "and sn.niveauEtude.id = :id")
+    List<SessionExamen> findByNiveauEtude(@Param("anneeId") Long anneeId, @Param("id") Long id);
 }

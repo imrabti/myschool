@@ -1,27 +1,45 @@
 package com.gsr.myschool.server.service.impl;
 
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.SessionStatus;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
+import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.business.DossierSession;
+import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.core.SessionExamen;
 import com.gsr.myschool.server.business.valuelist.ValueList;
+import com.gsr.myschool.server.repos.DossierRepos;
+import com.gsr.myschool.server.repos.DossierSessionRepos;
 import com.gsr.myschool.server.repos.SessionExamenRepos;
 import com.gsr.myschool.server.repos.ValueListRepos;
+import com.gsr.myschool.server.security.SecurityContextProvider;
 import com.gsr.myschool.server.service.SessionService;
 import com.gsr.myschool.server.util.DateUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
 @Transactional
 public class SessionServiceImpl implements SessionService {
+    private Log log = LogFactory.getLog(this.getClass());
+
     @Autowired
     private ValueListRepos valueListRepos;
     @Autowired
     private SessionExamenRepos sessionExamenRepos;
+    @Autowired
+    private DossierSessionRepos dossierSessionRepos;
+    @Autowired
+    private SecurityContextProvider securityContextProvider;
+    @Autowired
+    private DossierRepos dossierRepos;
 
     @Override
     public void createNewSession(SessionExamen sessionExamen) {
@@ -29,6 +47,7 @@ public class SessionServiceImpl implements SessionService {
         sessionExamen.setAnneeScolaire(valueListRepos.findByValueAndValueTypeCode(currentAnneeScolaire,
                 ValueTypeCode.SCHOOL_YEAR));
         sessionExamen.setStatus(SessionStatus.OPEN);
+        sessionExamen.setCandidates(0);
         sessionExamenRepos.save(sessionExamen);
     }
 
@@ -59,6 +78,49 @@ public class SessionServiceImpl implements SessionService {
             return sessionExamenRepos.findByAnneeScolaireId(currentAnnee.getId());
         } else {
             return new ArrayList<SessionExamen>();
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<SessionExamen> findSessionByNE(NiveauEtude niveau) {
+        String currentAnneeScolaire = DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1);
+        ValueList currentAnnee = valueListRepos.findByValueAndValueTypeCode(currentAnneeScolaire,
+                ValueTypeCode.SCHOOL_YEAR);
+
+        if (currentAnnee != null && niveau != null) {
+            return sessionExamenRepos.findByNiveauEtude(currentAnnee.getId(), niveau.getId());
+        } else {
+            return new ArrayList<SessionExamen>();
+        }
+    }
+
+    @Override
+    public Boolean affecter(Dossier dossier, SessionExamen session) {
+        DossierSession exist = dossierSessionRepos.findByDossierIdAndSessionExamenId(dossier.getId(), session.getId());
+        if (exist != null) {
+            return false;
+        }
+        Dossier affectedDossier = dossierRepos.findOne(dossier.getId());
+        affectedDossier.setStatus(DossierStatus.INVITED_TO_TEST);
+
+        SessionExamen examen = sessionExamenRepos.findOne(session.getId());
+        examen.setCandidates(examen.getCandidates() + 1);
+
+        DossierSession dossierSession = new DossierSession();
+        dossierSession.setDateAffectation(new Date());
+        dossierSession.setAssignedBy(securityContextProvider.getCurrentAdmin());
+        dossierSession.setDossier(affectedDossier);
+        dossierSession.setSessionExamen(examen);
+
+        try {
+            dossierRepos.save(affectedDossier);
+            sessionExamenRepos.save(examen);
+            dossierSessionRepos.save(dossierSession);
+            return true;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return false;
         }
     }
 }

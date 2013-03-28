@@ -52,4 +52,8 @@ public interface SessionExamenProxy extends ValueProxy {
     SessionStatus getStatus();
 
     void setStatus(SessionStatus status);
+
+    Integer getCandidates();
+
+    void setCandidates(Integer number);
 }

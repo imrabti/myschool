@@ -3,6 +3,8 @@ package com.gsr.myschool.back.client.request;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
+import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
 import com.gsr.myschool.server.service.impl.SessionServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
@@ -16,4 +18,8 @@ public interface SessionRequest extends RequestContext {
     Request<Void> updateSession(SessionExamenProxy sessionExamen);
 
     Request<List<SessionExamenProxy>> findAllSessions();
+
+    Request<List<SessionExamenProxy>> findSessionByNE(NiveauEtudeProxy niveau);
+
+    Request<Boolean> affecter(DossierProxy dossier, SessionExamenProxy session);
 }

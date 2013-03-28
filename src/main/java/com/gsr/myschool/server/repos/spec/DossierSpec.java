@@ -8,6 +8,7 @@ import com.gsr.myschool.server.business.core.NiveauEtude;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -106,6 +107,17 @@ public class DossierSpec {
             @Override
             public Predicate toPredicate(Root<Dossier> dossierRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 return cb.equal(dossierRoot.<NiveauEtude>get("niveauEtude").<Long>get("id"), niveauEtude.getId());
+            }
+        };
+    }
+
+    public static Specification<Dossier> statusIn(final List<DossierStatus> statusList) {
+        return  new Specification<Dossier>() {
+            @Override
+            public Predicate toPredicate(Root<Dossier> dossierRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
+//               List<Integer> ordinalList = new ArrayList<Integer>();
+//               for (DossierStatus status : statusList) ordinalList.add(status.ordinal());
+                return dossierRoot.<DossierStatus>get("status").in(statusList);
             }
         };
     }

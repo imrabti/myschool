@@ -54,6 +54,9 @@ public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> impleme
             case SESSION:
                 placeManager.revealPlace(new PlaceRequest(NameTokens.getSession()));
                 break;
+            case AFFECTATION:
+                placeManager.revealPlace(new PlaceRequest(NameTokens.getAffectation()));
+                break;
         }
     }
 
@@ -78,6 +81,8 @@ public class MenuPresenter extends PresenterWidget<MenuPresenter.MyView> impleme
             currentMenu = MenuItem.USERS_GSR;
         } else if (currentPlace.matchesNameToken(NameTokens.getUserPortal())) {
             currentMenu = MenuItem.USERS_PORTAL;
+        } else if (currentPlace.matchesNameToken(NameTokens.getAffectation())) {
+            currentMenu = MenuItem.AFFECTATION;
         }
 
         getView().setupMenuSecurity();

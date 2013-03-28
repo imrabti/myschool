@@ -6,6 +6,7 @@ import com.gsr.myschool.server.business.core.NiveauEtude;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class DossierFilterDTO implements Serializable {
     private String numDossier;
@@ -17,6 +18,7 @@ public class DossierFilterDTO implements Serializable {
     private NiveauEtude niveauEtude;
     private String firstnameOrlastname;
     private Boolean parentGsr;
+    private List<DossierStatus> statusList;
 
     public String getNumDossier() {
         return numDossier;
@@ -88,5 +90,13 @@ public class DossierFilterDTO implements Serializable {
 
     public void setParentGsr(Boolean parentGsr) {
         this.parentGsr = parentGsr;
+    }
+
+    public List<DossierStatus> getStatusList() {
+        return statusList;
+    }
+
+    public void setStatusList(List<DossierStatus> statusList) {
+        this.statusList = statusList;
     }
 }

@@ -6,6 +6,7 @@ import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 
 import java.util.Date;
+import java.util.List;
 
 @ProxyFor(DossierFilterDTO.class)
 public interface DossierFilterDTOProxy extends ValueProxy {
@@ -44,4 +45,8 @@ public interface DossierFilterDTOProxy extends ValueProxy {
     public Boolean getParentGsr();
 
     public void setParentGsr(Boolean parentGsr);
+
+    List<DossierStatus> getStatusList();
+
+    void setStatusList(List<DossierStatus> statusList);
 }

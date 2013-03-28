@@ -31,4 +31,11 @@ public enum DossierStatus {
         receptionStatus.add(STANDBY);
         return receptionStatus;
     }
+
+    public static List affectationValues() {
+        List<DossierStatus> receptionStatus = new ArrayList<DossierStatus>();
+        receptionStatus.add(ACCEPTED_FOR_TEST);
+        receptionStatus.add(INVITED_TO_TEST);
+        return receptionStatus;
+    }
 }

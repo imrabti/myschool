@@ -35,9 +35,14 @@ public class DossierServiceTest {
     @Test
     public void testLoadDossierBySpec() {
         DossierFilterDTO dossierFilter = new DossierFilterDTO();
-        dossierFilter.setNumDossier("FH");
-        dossierFilter.setStatus(DossierStatus.SUBMITTED);
-        List<Dossier> dossiers = dossierService.findAllDossiersByCriteria(dossierFilter, null, null).getDossiers();
-        Assert.assertEquals(dossiers.size(), 1);
+        List<DossierStatus> list = new ArrayList<DossierStatus>();
+        list.add(DossierStatus.CREATED);
+        list.add(DossierStatus.ACCEPTED_FOR_TEST);
+        list.add(DossierStatus.STANDBY);
+
+        dossierFilter.setStatusList(list);
+
+        Integer total = dossierService.findAllDossiersByCriteria(dossierFilter, null, null).getTotalElements();
+        Integer test = total;
     }
 }
