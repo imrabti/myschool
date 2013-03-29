@@ -26,46 +26,76 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiRenderer;
+import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 
 public class AffectationActionCell extends AbstractCell<DossierProxy> {
-    public interface Renderer extends UiRenderer {
+    @UiTemplate("AffectationActionCellNotAffected.ui.xml")
+    public interface RendererNotAffectedDossier extends UiRenderer {
         void render(SafeHtmlBuilder sb);
 
         void onBrowserEvent(AffectationActionCell o, NativeEvent e, Element p);
     }
 
-    private final Renderer uiRenderer;
+    @UiTemplate("AffectationActionCellAffected.ui.xml")
+    public interface RendererAffectedDossier extends UiRenderer {
+        void render(SafeHtmlBuilder sb);
+
+        void onBrowserEvent(AffectationActionCell o, NativeEvent e, Element p);
+    }
+
+    private final RendererAffectedDossier affectedRenderer;
+    private final RendererNotAffectedDossier notAffectedRenderer;
 
     private ActionCell.Delegate<DossierProxy> viewDetails;
-    private ActionCell.Delegate<DossierProxy> print;
+    private ActionCell.Delegate<DossierProxy> affecter;
+    private ActionCell.Delegate<DossierProxy> desaffecter;
 
     private DossierProxy selectedObject;
 
     @Inject
-    public AffectationActionCell(final Renderer uiRenderer,
-                                    @Assisted("viewDetails") ActionCell.Delegate<DossierProxy> viewDetails,
-                                    @Assisted("print") ActionCell.Delegate<DossierProxy> print) {
+    public AffectationActionCell(final RendererAffectedDossier affectedRenderer,
+                                 final RendererNotAffectedDossier notAffectedRenderer,
+                                 @Assisted("viewDetails") ActionCell.Delegate<DossierProxy> viewDetails,
+                                 @Assisted("affecter") ActionCell.Delegate<DossierProxy> affecter,
+                                 @Assisted("desaffecter") ActionCell.Delegate<DossierProxy> desaffecter) {
         super(BrowserEvents.CLICK);
 
-        this.uiRenderer = uiRenderer;
+        this.affectedRenderer = affectedRenderer;
+        this.notAffectedRenderer = notAffectedRenderer;
         this.viewDetails = viewDetails;
-        this.print = print;
+        this.affecter = affecter;
+        this.desaffecter = desaffecter;
     }
 
     @Override
     public void onBrowserEvent(Context context, Element parent, DossierProxy value, NativeEvent event,
                                ValueUpdater<DossierProxy> valueUpdater) {
         selectedObject = value;
-        uiRenderer.onBrowserEvent(this, event, parent);
+        switch (selectedObject.getStatus()) {
+            case INVITED_TO_TEST:
+                affectedRenderer.onBrowserEvent(this, event, parent);
+                break;
+            case ACCEPTED_FOR_TEST:
+                notAffectedRenderer.onBrowserEvent(this, event, parent);
+                break;
+        }
     }
 
     @Override
     public void render(Context context, DossierProxy value, SafeHtmlBuilder builder) {
-        uiRenderer.render(builder);
+        selectedObject = value;
+        switch (selectedObject.getStatus()) {
+            case INVITED_TO_TEST:
+                affectedRenderer.render(builder);
+                break;
+            case ACCEPTED_FOR_TEST:
+                notAffectedRenderer.render(builder);
+                break;
+        }
     }
 
     @UiHandler({"viewDetails"})
@@ -73,10 +103,15 @@ public class AffectationActionCell extends AbstractCell<DossierProxy> {
         viewDetails.execute(selectedObject);
     }
 
-    @UiHandler({"print"})
-    void onPrintClicked(ClickEvent event) {
-        if (!selectedObject.getStatus().equals(DossierStatus.CREATED)) {
-            print.execute(selectedObject);
+    @UiHandler({"affecter"})
+    void onAffecterClicked(ClickEvent event) {
+        affecter.execute(selectedObject);
+    }
+
+    @UiHandler({"desaffecter"})
+    void onDesafecterClicked(ClickEvent event) {
+        if (selectedObject.getStatus() == DossierStatus.INVITED_TO_TEST) {
+            desaffecter.execute(selectedObject);
         }
     }
 }

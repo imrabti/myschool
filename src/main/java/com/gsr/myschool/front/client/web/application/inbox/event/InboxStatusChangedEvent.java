@@ -58,5 +58,4 @@ public class InboxStatusChangedEvent extends GwtEvent<InboxStatusChangedEvent.In
     protected void dispatch(InboxStatusChangedHandler handler) {
         handler.onInboxStatusChanged(this);
     }
-
 }

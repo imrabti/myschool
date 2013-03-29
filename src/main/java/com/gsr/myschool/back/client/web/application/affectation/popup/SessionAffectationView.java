@@ -12,6 +12,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
@@ -21,6 +22,7 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.resource.style.CellTableStyle;
 import com.gsr.myschool.common.client.mvp.PopupViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
@@ -40,6 +42,8 @@ public class SessionAffectationView extends PopupViewWithUiHandlers<SessionAffec
     CellTable<SessionExamenProxy> etablissementTable;
     @UiField
     Button choose;
+    @UiField
+    Label subtitle;
 
     private final ListDataProvider<SessionExamenProxy> dataProvider;
     private final SingleSelectionModel<SessionExamenProxy> selectionModel;
@@ -85,11 +89,17 @@ public class SessionAffectationView extends PopupViewWithUiHandlers<SessionAffec
     }
 
     @Override
-    public void setData(List<SessionExamenProxy> data) {
+    public void setData(List<SessionExamenProxy> data, DossierProxy currentDossier) {
         dataProvider.getList().clear();
         dataProvider.getList().addAll(data);
         etablissementTable.setPageSize(data.size());
         center();
+
+        if (currentDossier != null && currentDossier.getNiveauEtude() != null) {
+            modalHeader.setText("Dossier N° " + currentDossier.getGeneratedNumDossier());
+            subtitle.setText("Liste des sessions ouvertes pour le Niveau d'étude "
+                    + currentDossier.getNiveauEtude().getNom());
+        }
     }
 
     @UiHandler("choose")
@@ -112,20 +122,19 @@ public class SessionAffectationView extends PopupViewWithUiHandlers<SessionAffec
             }
         };
         nomColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        etablissementTable.addColumn(nomColumn, "Nom");
+        etablissementTable.addColumn(nomColumn, "Session");
         etablissementTable.setColumnWidth(nomColumn, 25, Style.Unit.PCT);
 
-        TextColumn<SessionExamenProxy> statusColumn = new TextColumn<SessionExamenProxy>() {
+        TextColumn<SessionExamenProxy> dateColumn = new TextColumn<SessionExamenProxy>() {
             @Override
             public String getValue(SessionExamenProxy object) {
-                if (object.getStatus() != null) {
-                    return object.getStatus().toString();
-                } else return "";
+                if (object.getDateSession() == null) return "";
+                return dateFormat.format(object.getDateSession());
             }
         };
-        statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        etablissementTable.addColumn(statusColumn, "Statut");
-        etablissementTable.setColumnWidth(statusColumn, 20, Style.Unit.PCT);
+        dateColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        etablissementTable.addColumn(dateColumn, "Date session");
+        etablissementTable.setColumnWidth(dateColumn, 25, Style.Unit.PCT);
 
         TextColumn<SessionExamenProxy> adressColumn = new TextColumn<SessionExamenProxy>() {
             @Override
@@ -137,16 +146,15 @@ public class SessionAffectationView extends PopupViewWithUiHandlers<SessionAffec
         etablissementTable.addColumn(adressColumn, "Adresse");
         etablissementTable.setColumnWidth(adressColumn, 30, Style.Unit.PCT);
 
-        TextColumn<SessionExamenProxy> dateColumn = new TextColumn<SessionExamenProxy>() {
+        TextColumn<SessionExamenProxy> numberColumn = new TextColumn<SessionExamenProxy>() {
             @Override
             public String getValue(SessionExamenProxy object) {
-                if (object.getDateSession() != null) {
-                    return dateFormat.format(object.getDateSession());
-                } else return "";
+                if (object.getCandidates() == null) return "";
+                return object.getCandidates().toString();
             }
         };
-        dateColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        etablissementTable.addColumn(dateColumn, "Date session");
-        etablissementTable.setColumnWidth(dateColumn, 25, Style.Unit.PCT);
+        adressColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        etablissementTable.addColumn(numberColumn, "Nombre de candidats affectés");
+        etablissementTable.setColumnWidth(numberColumn, 20, Style.Unit.PCT);
     }
 }

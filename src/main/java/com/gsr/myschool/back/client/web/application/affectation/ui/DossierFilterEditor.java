@@ -17,14 +17,17 @@ import com.gsr.myschool.back.client.util.SuggestionListFactory;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.FiliereProxy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
+import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
 import com.gsr.myschool.common.client.resource.SharedResources;
 import com.gsr.myschool.common.client.ui.dossier.renderer.FiliereRenderer;
 import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
+import com.gsr.myschool.common.client.ui.dossier.renderer.SessionExamenRenderer;
 import com.gsr.myschool.common.client.util.CallbackImpl;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
 import com.gsr.myschool.common.shared.type.DossierStatus;
+import com.gsr.myschool.server.business.core.SessionExamen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +49,8 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     ValueListBox<FiliereProxy> filiere;
     @UiField(provided = true)
     ValueListBox<DossierStatus> status;
+    @UiField(provided = true)
+    ValueListBox<SessionExamenProxy> session;
     @UiField
     CheckBox parentGsr;
     @UiField
@@ -66,6 +71,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         this.filiere = new ValueListBox<FiliereProxy>(new FiliereRenderer());
         this.niveauEtude = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
         this.status = new ValueListBox<DossierStatus>(new EnumRenderer<DossierStatus>());
+        this.session = new ValueListBox<SessionExamenProxy>(new SessionExamenRenderer());
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
@@ -76,6 +82,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
 
         filiere.setAcceptableValues(valueList.getFiliereList());
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
+        session.setAcceptableValues(valueList.getSessionsList());
 
         filiere.addValueChangeHandler(new ValueChangeHandler<FiliereProxy>() {
             @Override
@@ -102,7 +109,10 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         if (object.getStatus() == null) {
             status.setValue(DossierStatus.ACCEPTED_FOR_TEST);
         }
+        status.setValue(null);
         status.setAcceptableValues(DossierStatus.affectationValues());
+        session.setValue(null);
+        session.setAcceptableValues(valueList.getSessionsList());
     }
 
     @Override
@@ -113,6 +123,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         } else {
             dossierFilter.setNiveauEtude(niveauEtude.getValue());
             dossierFilter.setFiliere(filiere.getValue());
+            dossierFilter.setSession(session.getValue());
             return dossierFilter;
         }
     }

@@ -1,5 +1,6 @@
 package com.gsr.myschool.server.repos;
 
+import com.gsr.myschool.common.shared.type.SessionStatus;
 import com.gsr.myschool.server.business.core.SessionExamen;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +16,6 @@ public interface SessionExamenRepos extends JpaRepository<SessionExamen, Long> {
             "and s.anneeScolaire.id = :anneeId " +
             "and sn.niveauEtude.id = :id")
     List<SessionExamen> findByNiveauEtude(@Param("anneeId") Long anneeId, @Param("id") Long id);
+
+    List<SessionExamen> findByAnneeScolaireIdAndStatus(Long id, SessionStatus status);
 }

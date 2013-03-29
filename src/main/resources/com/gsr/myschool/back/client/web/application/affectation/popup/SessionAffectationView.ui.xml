@@ -12,20 +12,25 @@
             max-height: 400px;
             width: 540px;
         }
+
+        .wrapper {
+            padding: 10px;
+        }
     </ui:style>
 
     <g:PopupPanel modal="true" autoHideEnabled="false" styleName="{resource.popupStyleCss.gwtPopupPanel}"
                   glassEnabled="true">
         <g:FlowPanel>
-            <s:ModalHeader ui:field="modalHeader" text="Séléction d'établissement"/>
+            <s:ModalHeader ui:field="modalHeader" text="Sessions ouvertes"/>
 
             <g:HTMLPanel styleName="{style.contentWrapper}">
+                <g:Label ui:field="subtitle" styleName="{style.wrapper}"/>
                 <boot:CellTable ui:field="etablissementTable" bordered="true"/>
             </g:HTMLPanel>
 
             <g:HTMLPanel styleName="{resource.sharedStyleCss.buttonContainerPopup}">
                 <boot:Button ui:field="cancel" text="Annuler"/>
-                <boot:Button ui:field="choose"  text="Séléctionner" icon="CHECK" enabled="false"
+                <boot:Button ui:field="choose" text="Affecter" icon="CHECK" enabled="false"
                              styleName="btn btn-success"/>
             </g:HTMLPanel>
         </g:FlowPanel>

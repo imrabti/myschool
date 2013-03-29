@@ -63,7 +63,6 @@ public class AffectationView extends ViewWithUiHandlers<AffectationUiHandlers>
     private final DateTimeFormat dateFormat;
     private final AffectationActionCellFactory actionCellFactory;
     private final AsyncDataProvider<DossierProxy> dataProvider;
-    private Delegate<DossierProxy> affectAction;
 
     @Inject
     public AffectationView(final Binder uiBinder, final SharedMessageBundle sharedMessageBundle,
@@ -78,7 +77,7 @@ public class AffectationView extends ViewWithUiHandlers<AffectationUiHandlers>
         this.actionCellFactory = actionCellFactory;
         this.dataProvider = setupDataProvider();
         this.pager = new SimplePager(SimplePager.TextLocation.RIGHT, pagerResources, false, 0, true);
-        
+
         initWidget(uiBinder.createAndBindUi(this));
         initDataGrid();
 
@@ -139,6 +138,16 @@ public class AffectationView extends ViewWithUiHandlers<AffectationUiHandlers>
     }
 
     private void initDataGrid() {
+        TextColumn<DossierProxy> refColumn = new TextColumn<DossierProxy>() {
+            @Override
+            public String getValue(DossierProxy object) {
+                return object.getGeneratedNumDossier();
+            }
+        };
+        refColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+        preInscriptionsTable.addColumn(refColumn, "N° Dossier");
+        preInscriptionsTable.setColumnWidth(refColumn, 10, Style.Unit.PCT);
+
         TextColumn<DossierProxy> nomColumn = new TextColumn<DossierProxy>() {
             @Override
             public String getValue(DossierProxy object) {
@@ -160,49 +169,6 @@ public class AffectationView extends ViewWithUiHandlers<AffectationUiHandlers>
         dateColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         preInscriptionsTable.addColumn(dateColumn, "Date de naissance");
         preInscriptionsTable.setColumnWidth(dateColumn, 10, Style.Unit.PCT);
-
-        TextColumn<DossierProxy> refColumn = new TextColumn<DossierProxy>() {
-            @Override
-            public String getValue(DossierProxy object) {
-                return object.getGeneratedNumDossier();
-            }
-        };
-        refColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-        preInscriptionsTable.addColumn(refColumn, "N° Dossier");
-        preInscriptionsTable.setColumnWidth(refColumn, 10, Style.Unit.PCT);
-
-        TextColumn<DossierProxy> statusColumn = new TextColumn<DossierProxy>() {
-            @Override
-            public String getValue(DossierProxy object) {
-                if (object.getStatus() == null) return "";
-                return object.getStatus().toString();
-            }
-        };
-        statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        preInscriptionsTable.addColumn(statusColumn, "Statut");
-        preInscriptionsTable.setColumnWidth(statusColumn, 10, Style.Unit.PCT);
-
-        TextColumn<DossierProxy> anneeScolaireColumn = new TextColumn<DossierProxy>() {
-            @Override
-            public String getValue(DossierProxy object) {
-                if (object.getAnneeScolaire() == null) return "";
-                return object.getAnneeScolaire().getLabel();
-            }
-        };
-        statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        preInscriptionsTable.addColumn(anneeScolaireColumn, "Année scolaire");
-        preInscriptionsTable.setColumnWidth(anneeScolaireColumn, 10, Style.Unit.PCT);
-
-        TextColumn<DossierProxy> createdColumn = new TextColumn<DossierProxy>() {
-            @Override
-            public String getValue(DossierProxy object) {
-                if (object.getCreateDate() == null) return "";
-                return dateFormat.format(object.getCreateDate());
-            }
-        };
-        createdColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-        preInscriptionsTable.addColumn(createdColumn, "Date de création");
-        preInscriptionsTable.setColumnWidth(createdColumn, 10, Style.Unit.PCT);
 
         TextColumn<DossierProxy> cFiliereColumn = new TextColumn<DossierProxy>() {
             @Override
@@ -232,6 +198,17 @@ public class AffectationView extends ViewWithUiHandlers<AffectationUiHandlers>
         preInscriptionsTable.addColumn(cLevelColumn, "Niveau demandé");
         preInscriptionsTable.setColumnWidth(cLevelColumn, 15, Style.Unit.PCT);
 
+        TextColumn<DossierProxy> statusColumn = new TextColumn<DossierProxy>() {
+            @Override
+            public String getValue(DossierProxy object) {
+                if (object.getStatus() == null) return "";
+                return object.getStatus().toString();
+            }
+        };
+        statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        preInscriptionsTable.addColumn(statusColumn, "Statut");
+        preInscriptionsTable.setColumnWidth(statusColumn, 10, Style.Unit.PCT);
+
         Delegate<DossierProxy> viewDetailsAction = new Delegate<DossierProxy>() {
             @Override
             public void execute(DossierProxy dossier) {
@@ -239,23 +216,30 @@ public class AffectationView extends ViewWithUiHandlers<AffectationUiHandlers>
             }
         };
 
-        affectAction = new Delegate<DossierProxy>() {
+        Delegate<DossierProxy> affectAction = new Delegate<DossierProxy>() {
             @Override
             public void execute(DossierProxy inscription) {
                 getUiHandlers().affecter(inscription);
             }
         };
 
-        AffectationActionCell actionsCell = actionCellFactory.create(viewDetailsAction, affectAction);
-        Column<DossierProxy, DossierProxy> actionsColumn = new
-                Column<DossierProxy, DossierProxy>(actionsCell) {
+        Delegate<DossierProxy> desaffectAction = new Delegate<DossierProxy>() {
             @Override
-            public DossierProxy getValue(DossierProxy object) {
-                return object;
+            public void execute(DossierProxy inscription) {
+                getUiHandlers().desaffecter(inscription);
             }
         };
+
+        AffectationActionCell actionsCell = actionCellFactory.create(viewDetailsAction, affectAction, desaffectAction);
+        Column<DossierProxy, DossierProxy> actionsColumn = new
+                Column<DossierProxy, DossierProxy>(actionsCell) {
+                    @Override
+                    public DossierProxy getValue(DossierProxy object) {
+                        return object;
+                    }
+                };
         actionsColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-        preInscriptionsTable.addColumn(actionsColumn, "Détails");
+        preInscriptionsTable.addColumn(actionsColumn, "Action");
         preInscriptionsTable.setColumnWidth(actionsColumn, 10, Style.Unit.PCT);
     }
 }

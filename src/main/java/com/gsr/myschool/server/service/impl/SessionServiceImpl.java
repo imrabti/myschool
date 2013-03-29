@@ -83,6 +83,20 @@ public class SessionServiceImpl implements SessionService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<SessionExamen> findAllOpenedSessions() {
+        String currentAnneeScolaire = DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1);
+        ValueList currentAnnee = valueListRepos.findByValueAndValueTypeCode(currentAnneeScolaire,
+                ValueTypeCode.SCHOOL_YEAR);
+
+        if (currentAnnee != null) {
+            return sessionExamenRepos.findByAnneeScolaireIdAndStatus(currentAnnee.getId(), SessionStatus.OPEN);
+        } else {
+            return new ArrayList<SessionExamen>();
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<SessionExamen> findSessionByNE(NiveauEtude niveau) {
         String currentAnneeScolaire = DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1);
         ValueList currentAnnee = valueListRepos.findByValueAndValueTypeCode(currentAnneeScolaire,
@@ -97,10 +111,16 @@ public class SessionServiceImpl implements SessionService {
 
     @Override
     public Boolean affecter(Dossier dossier, SessionExamen session) {
-        DossierSession exist = dossierSessionRepos.findByDossierIdAndSessionExamenId(dossier.getId(), session.getId());
-        if (exist != null) {
+        DossierSession sameexist = dossierSessionRepos.findByDossierIdAndSessionExamenId(dossier.getId(), session.getId());
+        if (sameexist != null) {
             return false;
         }
+
+        DossierSession exist = dossierSessionRepos.findByDossierId(dossier.getId());
+        if (exist != null) {
+            dossierSessionRepos.delete(exist);
+        }
+
         Dossier affectedDossier = dossierRepos.findOne(dossier.getId());
         affectedDossier.setStatus(DossierStatus.INVITED_TO_TEST);
 
@@ -117,6 +137,29 @@ public class SessionServiceImpl implements SessionService {
             dossierRepos.save(affectedDossier);
             sessionExamenRepos.save(examen);
             dossierSessionRepos.save(dossierSession);
+            return true;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean desaffecter(Dossier dossier) {
+        DossierSession exist = dossierSessionRepos.findByDossierId(dossier.getId());
+        if (exist == null || exist.getSessionExamen() == null || exist.getDossier() == null) {
+            return false;
+        }
+        Dossier affectedDossier = dossierRepos.findOne(dossier.getId());
+        affectedDossier.setStatus(DossierStatus.ACCEPTED_FOR_TEST);
+
+        SessionExamen examen = sessionExamenRepos.findOne(exist.getSessionExamen().getId());
+        examen.setCandidates(examen.getCandidates() - 1);
+
+        try {
+            dossierRepos.save(affectedDossier);
+            sessionExamenRepos.save(examen);
+            dossierSessionRepos.delete(exist);
             return true;
         } catch (Exception e) {
             log.error(e.getMessage());

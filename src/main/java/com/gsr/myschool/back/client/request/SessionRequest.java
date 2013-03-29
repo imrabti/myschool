@@ -21,5 +21,9 @@ public interface SessionRequest extends RequestContext {
 
     Request<List<SessionExamenProxy>> findSessionByNE(NiveauEtudeProxy niveau);
 
+    Request<List<SessionExamenProxy>> findAllOpenedSessions();
+
     Request<Boolean> affecter(DossierProxy dossier, SessionExamenProxy session);
+
+    Request<Boolean> desaffecter(DossierProxy dossier);
 }

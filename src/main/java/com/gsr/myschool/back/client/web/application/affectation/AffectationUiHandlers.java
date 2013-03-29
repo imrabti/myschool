@@ -32,4 +32,6 @@ public interface AffectationUiHandlers extends UiHandlers {
     void export(DossierFilterDTOProxy dossierFilter);
 
     void affecter(DossierProxy inscription);
+
+    void desaffecter(DossierProxy inscription);
 }

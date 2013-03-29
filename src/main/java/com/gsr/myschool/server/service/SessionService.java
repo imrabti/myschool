@@ -18,4 +18,9 @@ public interface SessionService {
     List<SessionExamen> findSessionByNE(NiveauEtude niveau);
 
     Boolean affecter(Dossier dossier, SessionExamen session);
+
+    Boolean desaffecter(Dossier dossier);
+
+    @Transactional(readOnly = true)
+    List<SessionExamen> findAllOpenedSessions();
 }

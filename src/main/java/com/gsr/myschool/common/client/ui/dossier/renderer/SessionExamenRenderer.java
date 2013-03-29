@@ -14,13 +14,18 @@
  * the License.
  */
 
-package com.gsr.myschool.server.repos;
+package com.gsr.myschool.common.client.ui.dossier.renderer;
 
-import com.gsr.myschool.server.business.DossierSession;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.google.gwt.text.shared.AbstractRenderer;
+import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
 
-public interface DossierSessionRepos extends JpaRepository<DossierSession, Long> {
-    DossierSession findByDossierIdAndSessionExamenId(Long dossierId, Long sessionId);
-
-    DossierSession findByDossierId(Long dossierId);
+public class SessionExamenRenderer extends AbstractRenderer<SessionExamenProxy> {
+    @Override
+    public String render(SessionExamenProxy value) {
+        if (value == null) {
+            return "";
+        } else {
+            return value.getNom();
+        }
+    }
 }

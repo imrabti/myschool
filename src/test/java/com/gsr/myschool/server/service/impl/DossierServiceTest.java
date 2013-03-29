@@ -38,11 +38,13 @@ public class DossierServiceTest {
         List<DossierStatus> list = new ArrayList<DossierStatus>();
         list.add(DossierStatus.CREATED);
         list.add(DossierStatus.ACCEPTED_FOR_TEST);
-        list.add(DossierStatus.STANDBY);
+        list.add(DossierStatus.INVITED_TO_TEST);
 
         dossierFilter.setStatusList(list);
 
-        Integer total = dossierService.findAllDossiersByCriteria(dossierFilter, null, null).getTotalElements();
+        List<Dossier> result = dossierRepos.findAll(DossierSpec.statusIn(list));
+
+        Integer total = dossierService.findAllDossiersByCriteria(dossierFilter, null, null).getDossiers().size();
         Integer test = total;
     }
 }
