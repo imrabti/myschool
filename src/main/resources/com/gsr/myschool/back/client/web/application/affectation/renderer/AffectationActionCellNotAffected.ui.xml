@@ -8,7 +8,7 @@
             <i class="icon-remove"/>
             <span class="">Annuler affectation</span>
         </a>
-        <a href="javascript:;" class="btn" ui:field="affecter">
+        <a href="javascript:;" class="btn btn-success" ui:field="affecter">
             <i class="icon-pushpin"/>
             <span class="">Affecter</span>
         </a>

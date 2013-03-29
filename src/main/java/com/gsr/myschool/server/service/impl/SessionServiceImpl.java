@@ -103,7 +103,7 @@ public class SessionServiceImpl implements SessionService {
                 ValueTypeCode.SCHOOL_YEAR);
 
         if (currentAnnee != null && niveau != null) {
-            return sessionExamenRepos.findByNiveauEtude(currentAnnee.getId(), niveau.getId());
+            return sessionExamenRepos.findByNiveauEtude(currentAnnee.getId(), niveau.getId(), SessionStatus.OPEN);
         } else {
             return new ArrayList<SessionExamen>();
         }
