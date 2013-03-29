@@ -36,6 +36,8 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
     @UiField
     NavLink session;
     @UiField
+    NavLink affectation;
+    @UiField
     NavHeader settingsHeader;
 
     private final SecurityUtils securityUtils;
@@ -63,6 +65,7 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         valueList.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
         generalSettings.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
         session.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
+        affectation.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
         settingsHeader.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
     }
 
@@ -95,6 +98,9 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
                 break;
             case SESSION:
                 session.setActive(true);
+                break;
+            case AFFECTATION:
+                affectation.setActive(true);
                 break;
         }
     }
@@ -171,6 +177,14 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         getUiHandlers().onMenuChanged(currentMenu);
     }
 
+    @UiHandler("affectation")
+    void onAffectationClicked(ClickEvent event) {
+        clearActive();
+        affectation.setActive(true);
+        currentMenu = MenuItem.AFFECTATION;
+        getUiHandlers().onMenuChanged(currentMenu);
+    }
+
     private void clearActive() {
         preInscription.setActive(false);
         reception.setActive(false);
@@ -181,5 +195,6 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         userPortal.setActive(false);
         generalSettings.setActive(false);
         session.setActive(false);
+        affectation.setActive(false);
     }
 }

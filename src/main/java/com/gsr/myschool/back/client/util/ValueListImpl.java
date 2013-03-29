@@ -4,10 +4,8 @@ import com.google.common.base.Objects;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
-import com.gsr.myschool.common.client.proxy.EtablissementScolaireProxy;
-import com.gsr.myschool.common.client.proxy.FiliereProxy;
-import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
-import com.gsr.myschool.common.client.proxy.ValueListProxy;
+import com.gsr.myschool.common.client.proxy.*;
+import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
 
@@ -26,6 +24,7 @@ public class ValueListImpl implements ValueList {
     private List<EtablissementScolaireProxy> etablissementScolaireList;
     private Map<Long, List<NiveauEtudeProxy>> niveauEtudeMap;
     private Map<ValueTypeCode, List<ValueListProxy>> valueListMap;
+    private List<SessionExamenProxy> listSessions;
 
     @Inject
     public ValueListImpl(final BackRequestFactory requestFactory) {
@@ -35,6 +34,7 @@ public class ValueListImpl implements ValueList {
         this.etablissementScolaireList = new ArrayList<EtablissementScolaireProxy>();
         this.niveauEtudeMap = new HashMap<Long, List<NiveauEtudeProxy>>();
         this.valueListMap = new HashMap<ValueTypeCode, List<ValueListProxy>>();
+        this.listSessions = new ArrayList<SessionExamenProxy>();
     }
 
     @Override
@@ -71,6 +71,17 @@ public class ValueListImpl implements ValueList {
         }
 
         return niveauEtudeList;
+    }
+
+    @Override
+    public List<SessionExamenProxy> getSessionsList() {
+        requestFactory.sessionService().findAllOpenedSessions().fire(new ReceiverImpl<List<SessionExamenProxy>>() {
+            @Override
+            public void onSuccess(List<SessionExamenProxy> sessionExamenProxies) {
+                listSessions = sessionExamenProxies;
+            }
+        });
+        return listSessions;
     }
 
     @Override

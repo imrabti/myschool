@@ -38,4 +38,11 @@ public enum DossierStatus {
         receptionStatus.add(NOT_ACCEPTED_FOR_TEST);
         return receptionStatus;
     }
+
+    public static List affectationValues() {
+        List<DossierStatus> receptionStatus = new ArrayList<DossierStatus>();
+        receptionStatus.add(ACCEPTED_FOR_TEST);
+        receptionStatus.add(INVITED_TO_TEST);
+        return receptionStatus;
+    }
 }
