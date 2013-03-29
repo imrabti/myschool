@@ -21,7 +21,6 @@ import com.gsr.myschool.server.business.Dossier;
 import org.activiti.engine.task.Task;
 
 import java.util.List;
-import java.util.Map;
 
 public interface ValidationProcessService {
     /**

@@ -69,7 +69,7 @@ public class ReportController {
         }
     }
 
-    private ReportDTO buildReportDto(Dossier dossier) {
+    public ReportDTO buildReportDto(Dossier dossier) {
         ReportDTO printableDossier = new ReportDTO("");
         if (dossier.getFiliere() != null && dossier.getFiliere().getId() >= 30) {
             printableDossier.setReportName("reportPrepa");
@@ -102,12 +102,17 @@ public class ReportController {
             printableDossier.getReportParameters().put("bacYear", dossier.getCandidat().getBacYear().
             getReportsAttributes());
         }
-        if (dossier.getScolariteActuelle() != null) {
+        if (dossier.getScolariteActuelle() != null && null != dossier.getScolariteActuelle().getEtablissement()) {
             printableDossier.getReportParameters().put("scoEts", dossier.getScolariteActuelle().getEtablissement().
                     getReportsAttributes());
         }
-        if (dossier.getScolariteActuelle() != null) {
+        if (dossier.getScolariteActuelle() != null && null != dossier.getScolariteActuelle().getNiveauEtude() &&
+                dossier.getScolariteActuelle().getFiliere() != null) {
             printableDossier.getReportParameters().put("scoLev", dossier.getScolariteActuelle().getNiveauEtude().
+                    getReportsAttributes());
+        }
+        if (dossier.getScolariteActuelle() != null && null != dossier.getScolariteActuelle().getFiliere()) {
+            printableDossier.getReportParameters().put("scoFil", dossier.getScolariteActuelle().getFiliere().
                     getReportsAttributes());
         }
         if (dossier.getAnneeScolaire() != null) {

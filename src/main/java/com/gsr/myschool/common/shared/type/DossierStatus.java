@@ -32,6 +32,13 @@ public enum DossierStatus {
         return receptionStatus;
     }
 
+    public static List confirmationTestValues() {
+        List<DossierStatus> receptionStatus = new ArrayList<DossierStatus>();
+        receptionStatus.add(ACCEPTED_FOR_STUDY);
+        receptionStatus.add(NOT_ACCEPTED_FOR_TEST);
+        return receptionStatus;
+    }
+
     public static List affectationValues() {
         List<DossierStatus> receptionStatus = new ArrayList<DossierStatus>();
         receptionStatus.add(ACCEPTED_FOR_TEST);

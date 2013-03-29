@@ -18,7 +18,11 @@ package com.gsr.myschool.server.service.impl;
 
 
 import com.gsr.myschool.common.shared.dto.ReportDTO;
+import com.gsr.myschool.common.shared.type.DossierStatus;
+import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.reporting.ReportController;
 import com.gsr.myschool.server.reporting.ReportService;
+import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.shared.dto.JasperTestDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,8 +45,12 @@ import java.util.Map;
 public class JasperTest {
     @Autowired
     ReportService reportService;
+    @Autowired
+    DossierRepos dossierRepos;
+    @Autowired
+    ReportController reportController;
 
-    @Test
+    /*@Test
     public void test() {
         ReportDTO dto = new ReportDTO("reportSeconde");
         Map<String, Object> myMap = new HashMap<String, Object>();
@@ -67,6 +75,28 @@ public class JasperTest {
             out.close();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }*/
+
+    @Test
+    public void printAllDossiersInFolder() {
+        for (Dossier dossier : dossierRepos.findAll()) {
+            if (!dossier.getStatus().equals(DossierStatus.CREATED)) {
+                ReportDTO dto = new ReportDTO(dossier.getGeneratedNumDossier());
+                if (dossier.getFiliere() != null && dossier.getFiliere().getId() >= 30) {
+                    dto.setReportName("reportPrepa");
+                } else {
+                    dto.setReportName("reportGeneral");
+                }
+                dto = reportController.buildReportDto(dossier);
+                try {
+                    reportService.generatePdfIntoFolder(dto, dossier.getGeneratedNumDossier());
+                } catch (Exception e) {
+
+                    System.err.println(" ERROR IN DOSSIER NUM = " + dossier.getGeneratedNumDossier() );
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

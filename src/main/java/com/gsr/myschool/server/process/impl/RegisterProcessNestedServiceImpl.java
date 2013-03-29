@@ -18,14 +18,16 @@ package com.gsr.myschool.server.process.impl;
 
 import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.common.shared.type.EmailType;
-import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.InboxMessageStatus;
 import com.gsr.myschool.server.business.InboxMessage;
 import com.gsr.myschool.server.business.User;
+import com.gsr.myschool.server.exception.ServiceException;
 import com.gsr.myschool.server.process.RegisterProcessNestedService;
 import com.gsr.myschool.server.repos.InboxMessageRepos;
 import com.gsr.myschool.server.repos.UserRepos;
 import com.gsr.myschool.server.service.EmailService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,8 @@ import java.util.Map;
 
 @Service
 public class RegisterProcessNestedServiceImpl implements RegisterProcessNestedService {
+    private static Log log = LogFactory.getLog(RegisterProcessNestedServiceImpl.class);
+
     @Autowired
     private UserRepos userRepos;
     @Autowired
@@ -48,16 +52,22 @@ public class RegisterProcessNestedServiceImpl implements RegisterProcessNestedSe
     }
 
     @Override
-    public EmailDTO getRelanceMail(Long id, String link, EmailDTO email) throws Exception {
-        User user = userRepos.findOne(id);
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("gender", user.getGender().toString());
-        params.put("lastname", user.getLastName());
-        params.put("firstname", user.getFirstName());
-        params.put("link", link);
+    public EmailDTO getRelanceMail(Long id, String link, EmailDTO email) throws Exception, ServiceException {
 
-        email = emailService.populateEmail(EmailType.RELANCE, email.getTo(), email.getFrom(), params, "", "");
+        User user = userRepos.findOne(id);
+        if (user != null) {
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("gender", user.getGender().toString());
+            params.put("lastname", user.getLastName());
+            params.put("firstname", user.getFirstName());
+            params.put("link", link);
+            email = emailService.populateEmail(EmailType.RELANCE, email.getTo(), email.getFrom(), params, "", "");
+        } else {
+            log.debug("No user with ID " + id + " Found");
+        }
+
         return email;
+
     }
 
     @Override

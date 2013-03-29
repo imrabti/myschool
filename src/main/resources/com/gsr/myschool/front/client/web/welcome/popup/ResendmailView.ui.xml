@@ -20,7 +20,7 @@
     <g:PopupPanel modal="true" autoHideEnabled="false" styleName="{resource.popupStyleCss.gwtPopupPanel}"
                   glassEnabled="true">
         <g:FlowPanel>
-            <s:ModalHeader ui:field="modalHeader" text="Email non reçus ?"/>
+            <s:ModalHeader ui:field="modalHeader" text="Email non reçu ?"/>
 
             <g:HTMLPanel styleName="{style.contentWrapper}">
                 <boot:Paragraph>
