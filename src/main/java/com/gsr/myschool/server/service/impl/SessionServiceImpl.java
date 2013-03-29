@@ -68,7 +68,7 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public void attacheToSession(Long sessionId, NiveauEtude niveauEtude) {
+    public void attacheToSession(Long sessionId, Long niveauEtudeId) {
         // TODO load all attached matiere and add them...
     }
 

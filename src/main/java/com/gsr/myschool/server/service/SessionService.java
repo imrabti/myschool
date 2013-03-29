@@ -11,7 +11,7 @@ public interface SessionService {
 
     void updateSession(SessionExamen sessionExamen);
 
-    void attacheToSession(Long sessionId, NiveauEtude niveauEtude);
+    void attacheToSession(Long sessionId, Long niveauEtudeId);
 
     List<SessionExamen> findAllSessions();
 

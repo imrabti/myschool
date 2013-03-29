@@ -17,6 +17,8 @@ public interface SessionRequest extends RequestContext {
 
     Request<Void> updateSession(SessionExamenProxy sessionExamen);
 
+    Request<Void> attacheToSession(Long sessionId, Long niveauEtudeId);
+
     Request<List<SessionExamenProxy>> findAllSessions();
 
     Request<List<SessionExamenProxy>> findSessionByNE(NiveauEtudeProxy niveau);

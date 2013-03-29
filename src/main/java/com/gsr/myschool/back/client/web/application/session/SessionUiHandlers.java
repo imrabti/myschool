@@ -8,6 +8,8 @@ public interface SessionUiHandlers extends UiHandlers {
 
     void newSession();
 
+    void attachNiveauEtude();
+
     void openSession(SessionExamenProxy session);
 
     void updateSession(SessionExamenProxy session);

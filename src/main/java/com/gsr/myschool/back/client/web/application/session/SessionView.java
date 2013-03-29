@@ -89,6 +89,11 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
         getUiHandlers().newSession();
     }
 
+    @UiHandler("attachNiveauEtude")
+    void onAttacheNiveauEtude(ClickEvent event) {
+        getUiHandlers().attachNiveauEtude();
+    }
+
     private void initActions() {
         openAction = new Delegate<SessionExamenProxy>() {
             @Override

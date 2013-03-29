@@ -8,6 +8,9 @@ import com.gsr.myschool.back.client.web.application.session.popup.EditNiveauEtud
 import com.gsr.myschool.back.client.web.application.session.popup.EditSessionPresenter;
 import com.gsr.myschool.back.client.web.application.session.popup.EditSessionUiHandlers;
 import com.gsr.myschool.back.client.web.application.session.popup.EditSessionView;
+import com.gsr.myschool.back.client.web.application.session.popup.NewNiveauEtudePresenter;
+import com.gsr.myschool.back.client.web.application.session.popup.NewNiveauEtudeUiHandlers;
+import com.gsr.myschool.back.client.web.application.session.popup.NewNiveauEtudeView;
 import com.gsr.myschool.back.client.web.application.session.renderer.SessionActionCellFactory;
 import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
@@ -22,6 +25,8 @@ public class SessionModule extends AbstractPresenterModule {
                 .to(new TypeLiteral<SetterUiHandlersStrategy<EditSessionUiHandlers>>() {});
         bind(new TypeLiteral<UiHandlersStrategy<EditNiveauEtudeTimeUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<EditNiveauEtudeTimeUiHandlers>>() {});
+        bind(new TypeLiteral<UiHandlersStrategy<NewNiveauEtudeUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<NewNiveauEtudeUiHandlers>>() {});
 
         bindPresenter(SessionPresenter.class, SessionPresenter.MyView.class, SessionView.class,
                 SessionPresenter.MyProxy.class);
@@ -30,6 +35,8 @@ public class SessionModule extends AbstractPresenterModule {
                 EditSessionView.class);
         bindSingletonPresenterWidget(EditNiveauEtudeTimePresenter.class, EditNiveauEtudeTimePresenter.MyView.class,
                 EditNiveauEtudeTimeView.class);
+        bindSingletonPresenterWidget(NewNiveauEtudePresenter.class, NewNiveauEtudePresenter.MyView.class,
+                NewNiveauEtudeView.class);
 
         install(new GinFactoryModuleBuilder().build(SessionActionCellFactory.class));
     }
