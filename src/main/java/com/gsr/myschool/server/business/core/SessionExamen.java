@@ -24,6 +24,7 @@ public class SessionExamen implements java.io.Serializable {
     private ValueList anneeScolaire;
     @Enumerated
     private SessionStatus status;
+    private Integer candidates;
 
     public Long getId() {
         return id;
@@ -119,5 +120,13 @@ public class SessionExamen implements java.io.Serializable {
 
     public void setStatus(SessionStatus status) {
         this.status = status;
+    }
+
+    public Integer getCandidates() {
+        return candidates;
+    }
+
+    public void setCandidates(Integer candidates) {
+        this.candidates = candidates;
     }
 }

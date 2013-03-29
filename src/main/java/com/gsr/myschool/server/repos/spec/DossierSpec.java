@@ -5,6 +5,7 @@ import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.*;
 import com.gsr.myschool.server.business.core.Filiere;
 import com.gsr.myschool.server.business.core.NiveauEtude;
+import com.gsr.myschool.server.business.core.SessionExamen;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;
@@ -106,6 +107,29 @@ public class DossierSpec {
             @Override
             public Predicate toPredicate(Root<Dossier> dossierRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 return cb.equal(dossierRoot.<NiveauEtude>get("niveauEtude").<Long>get("id"), niveauEtude.getId());
+            }
+        };
+    }
+
+    public static Specification<Dossier> statusIn(final List<DossierStatus> statusList) {
+        return new Specification<Dossier>() {
+            @Override
+            public Predicate toPredicate(Root<Dossier> dossierRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return dossierRoot.<DossierStatus>get("status").in(statusList);
+            }
+        };
+    }
+
+    public static Specification<Dossier> sessionEqual(final SessionExamen session) {
+        return new Specification<Dossier>() {
+            @Override
+            public Predicate toPredicate(Root<Dossier> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                final Subquery<Long> sessionQuery = query.subquery(Long.class);
+                final Root<DossierSession> dossierSessionRoot = sessionQuery.from(DossierSession.class);
+                sessionQuery.select(dossierSessionRoot.<Dossier>get("dossier").<Long>get("id"));
+                sessionQuery.where(cb.equal(dossierSessionRoot.<SessionExamen>get("sessionExamen").<Long>get("id"), session.getId()));
+
+                return cb.in(root.<Long>get("id")).value(sessionQuery);
             }
         };
     }

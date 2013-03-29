@@ -6,42 +6,51 @@ import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 
 import java.util.Date;
+import java.util.List;
 
 @ProxyFor(DossierFilterDTO.class)
 public interface DossierFilterDTOProxy extends ValueProxy {
-    public String getNumDossier();
+    String getNumDossier();
 
-    public void setNumDossier(String numDossier);
+    void setNumDossier(String numDossier);
 
-    public Boolean getGsrFraterie();
+    Boolean getGsrFraterie();
 
-    public void setGsrFraterie(Boolean gsrFraterie);
+    void setGsrFraterie(Boolean gsrFraterie);
 
-    public DossierStatus getStatus();
+    DossierStatus getStatus();
 
-    public void setStatus(DossierStatus status);
+    void setStatus(DossierStatus status);
 
-    public Date getDateTill();
+    Date getDateTill();
 
-    public void setDateTill(Date till);
+    void setDateTill(Date till);
 
-    public Date getDateFrom();
+    Date getDateFrom();
 
-    public void setDateFrom(Date from);
+    void setDateFrom(Date from);
 
-    public String getFirstnameOrlastname();
+    String getFirstnameOrlastname();
 
-    public void setFirstnameOrlastname(String firstnameOrlastname);
+    void setFirstnameOrlastname(String firstnameOrlastname);
 
-    public NiveauEtudeProxy getNiveauEtude();
+    NiveauEtudeProxy getNiveauEtude();
 
-    public void setNiveauEtude(NiveauEtudeProxy niveauEtude);
+    void setNiveauEtude(NiveauEtudeProxy niveauEtude);
 
-    public FiliereProxy getFiliere();
+    FiliereProxy getFiliere();
 
-    public void setFiliere(FiliereProxy filiere);
+    void setFiliere(FiliereProxy filiere);
 
-    public Boolean getParentGsr();
+    Boolean getParentGsr();
 
-    public void setParentGsr(Boolean parentGsr);
+    void setParentGsr(Boolean parentGsr);
+
+    List<DossierStatus> getStatusList();
+
+    void setStatusList(List<DossierStatus> statusList);
+
+    SessionExamenProxy getSession();
+
+    void setSession(SessionExamenProxy session);
 }
