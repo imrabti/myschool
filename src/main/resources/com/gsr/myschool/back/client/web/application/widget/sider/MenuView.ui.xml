@@ -18,9 +18,10 @@
             <boot:NavLink ui:field="preInscription" icon="CLOUD">Pré-inscriptions</boot:NavLink>
             <boot:NavLink ui:field="reception" icon="FOLDER_OPEN">Reception des dossiers</boot:NavLink>
             <boot:NavLink ui:field="validation" icon="CHECK" visible="false">Validation des dossiers</boot:NavLink>
-            <boot:NavHeader ui:field="settingsHeader">Paramètrage</boot:NavHeader>
+            <boot:NavLink ui:field="confirmation" icon="ENVELOPE" visible="false">Confirmation pour test</boot:NavLink>
             <boot:NavLink ui:field="userPortal" icon="USER">Utilisateurs Portail</boot:NavLink>
             <boot:NavLink ui:field="userGsr" icon="SUITCASE">Utilisateurs GSR</boot:NavLink>
+            <boot:NavHeader ui:field="settingsHeader">Paramètrage</boot:NavHeader>
             <boot:NavLink ui:field="generalSettings" icon="UMBRELLA">Configuration Globale</boot:NavLink>
             <boot:NavLink ui:field="valueList" icon="TASKS">Liste de valeurs</boot:NavLink>
             <boot:NavLink ui:field="session" icon="WRENCH">Session</boot:NavLink>
