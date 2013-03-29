@@ -162,8 +162,7 @@ public class DossierServiceImpl implements DossierService {
     @Override
     @Transactional(readOnly = true)
     public PagedDossiers findAllDossiersByCriteria(DossierFilterDTO filter, Integer pageNumber, Integer length) {
-        Specifications<Dossier> spec = Specifications.where(DossierSpec.firstnameLike(filter.getFirstnameOrlastname()))
-                .or(DossierSpec.lastnameLike(filter.getFirstnameOrlastname()));
+        Specifications<Dossier> spec = Specifications.where(DossierSpec.numDossierLike(filter.getNumDossier()));
 
         if (filter.getStatus() != null) {
             spec = spec.and(DossierSpec.dossierStatusIs(filter.getStatus()));
@@ -193,8 +192,16 @@ public class DossierServiceImpl implements DossierService {
             spec = spec.and(DossierSpec.isParentGsr(filter.getParentGsr()));
         }
 
-        if (!Strings.isNullOrEmpty(filter.getNumDossier())) {
-            spec = spec.and(DossierSpec.numDossierLike(filter.getNumDossier()));
+        if (!Strings.isNullOrEmpty(filter.getFirstnameOrlastname())) {
+            spec = spec.and(DossierSpec.firstnameLike(filter.getFirstnameOrlastname())).or(DossierSpec.lastnameLike(filter.getFirstnameOrlastname()));
+        }
+
+        if(filter.getSession() != null && filter.getSession().getId() != null) {
+            spec = spec.and(DossierSpec.sessionEqual(filter.getSession()));
+        }
+
+        if(filter.getStatusList() != null && !filter.getStatusList().isEmpty()) {
+            spec = spec.and(DossierSpec.statusIn(filter.getStatusList()));
         }
 
         if (pageNumber != null && length != null) {

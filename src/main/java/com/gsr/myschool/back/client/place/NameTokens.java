@@ -21,12 +21,14 @@ public class NameTokens {
     public static final String preInscriptions = "preInscriptions";
     public static final String reception = "reception";
     public static final String validation = "validation";
+    public static final String confirmation = "confirmation";
     public static final String userPortal = "userPortal";
     public static final String userGsr = "userGsr";
     public static final String valueList = "valuelist";
     public static final String generalSettings = "generalSettings";
     public static final String inscriptiondetail = "inscriptionDetails";
     public static final String session = "session";
+    public static final String affectation = "affectation";
 
     public static String getLogin() {
         return login;
@@ -42,6 +44,10 @@ public class NameTokens {
 
     public static String getValidation() {
         return validation;
+    }
+
+    public static String getConfirmation() {
+        return confirmation;
     }
 
     public static String getValueList() {
@@ -66,5 +72,9 @@ public class NameTokens {
 
     public static String getSession() {
         return session;
+    }
+
+    public static String getAffectation() {
+        return affectation;
     }
 }

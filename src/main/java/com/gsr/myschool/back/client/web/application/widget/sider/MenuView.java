@@ -24,6 +24,8 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
     @UiField
     NavLink validation;
     @UiField
+    NavLink confirmation;
+    @UiField
     NavLink userPortal;
     @UiField
     NavLink userGsr;
@@ -33,6 +35,8 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
     NavLink generalSettings;
     @UiField
     NavLink session;
+    @UiField
+    NavLink affectation;
     @UiField
     NavHeader settingsHeader;
 
@@ -55,11 +59,13 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         preInscription.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
         reception.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN, GlobalParameters.ROLE_OPERATOR));
         validation.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
+        confirmation.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN, GlobalParameters.ROLE_OPERATOR));
         userPortal.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
         userGsr.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
         valueList.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
         generalSettings.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
         session.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
+        affectation.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
         settingsHeader.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
     }
 
@@ -78,6 +84,9 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
             case VALIDATION:
                 validation.setActive(true);
                 break;
+            case CONFIRMATION_TEST:
+                confirmation.setActive(true);
+                break;
             case USERS_PORTAL:
                 userPortal.setActive(true);
                 break;
@@ -89,6 +98,9 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
                 break;
             case SESSION:
                 session.setActive(true);
+                break;
+            case AFFECTATION:
+                affectation.setActive(true);
                 break;
         }
     }
@@ -114,6 +126,14 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         clearActive();
         validation.setActive(true);
         currentMenu = MenuItem.VALIDATION;
+        getUiHandlers().onMenuChanged(currentMenu);
+    }
+
+    @UiHandler("confirmation")
+    void onConfirmationClicked(ClickEvent event) {
+        clearActive();
+        confirmation.setActive(true);
+        currentMenu = MenuItem.CONFIRMATION_TEST;
         getUiHandlers().onMenuChanged(currentMenu);
     }
 
@@ -157,14 +177,24 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         getUiHandlers().onMenuChanged(currentMenu);
     }
 
+    @UiHandler("affectation")
+    void onAffectationClicked(ClickEvent event) {
+        clearActive();
+        affectation.setActive(true);
+        currentMenu = MenuItem.AFFECTATION;
+        getUiHandlers().onMenuChanged(currentMenu);
+    }
+
     private void clearActive() {
         preInscription.setActive(false);
         reception.setActive(false);
         validation.setActive(false);
+        confirmation.setActive(false);
         valueList.setActive(false);
         userGsr.setActive(false);
         userPortal.setActive(false);
         generalSettings.setActive(false);
         session.setActive(false);
+        affectation.setActive(false);
     }
 }

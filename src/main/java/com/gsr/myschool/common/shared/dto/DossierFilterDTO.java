@@ -3,9 +3,11 @@ package com.gsr.myschool.common.shared.dto;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.core.Filiere;
 import com.gsr.myschool.server.business.core.NiveauEtude;
+import com.gsr.myschool.server.business.core.SessionExamen;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class DossierFilterDTO implements Serializable {
     private String numDossier;
@@ -17,6 +19,8 @@ public class DossierFilterDTO implements Serializable {
     private NiveauEtude niveauEtude;
     private String firstnameOrlastname;
     private Boolean parentGsr;
+    private List<DossierStatus> statusList;
+    private SessionExamen session;
 
     public String getNumDossier() {
         return numDossier;
@@ -88,5 +92,21 @@ public class DossierFilterDTO implements Serializable {
 
     public void setParentGsr(Boolean parentGsr) {
         this.parentGsr = parentGsr;
+    }
+
+    public List<DossierStatus> getStatusList() {
+        return statusList;
+    }
+
+    public void setStatusList(List<DossierStatus> statusList) {
+        this.statusList = statusList;
+    }
+
+    public SessionExamen getSession() {
+        return session;
+    }
+
+    public void setSession(SessionExamen session) {
+        this.session = session;
     }
 }
