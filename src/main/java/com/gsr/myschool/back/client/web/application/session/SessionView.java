@@ -14,7 +14,10 @@ import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
+import com.gsr.myschool.back.client.resource.style.CellTableStyle;
 import com.gsr.myschool.back.client.web.application.session.renderer.SessionActionCell;
 import com.gsr.myschool.back.client.web.application.session.renderer.SessionActionCellFactory;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
@@ -30,17 +33,18 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
     public interface Binder extends UiBinder<Widget, SessionView> {
     }
 
-    @UiField
+    @UiField(provided = true)
     CellTable<SessionExamenProxy> sessionsTable;
 
     private final ListDataProvider<SessionExamenProxy> dataProvider;
     private final SessionActionCellFactory sessionActionCellFactory;
     private final DateTimeFormat dateFormat;
+    private final SingleSelectionModel<SessionExamenProxy> selectionModel;
 
+    private Delegate<SessionExamenProxy> openAction;
     private Delegate<SessionExamenProxy> updateAction;
     private Delegate<SessionExamenProxy> closeAction;
     private Delegate<SessionExamenProxy> cancelAction;
-    private Delegate<SessionExamenProxy> removeAction;
 
     private SessionActionCell actionsCell;
 
@@ -48,12 +52,15 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
     public SessionView(final Binder uiBinder,
                        final SharedMessageBundle sharedMessageBundle,
                        final SessionActionCellFactory sessionActionCellFactory,
-                       final UiHandlersStrategy<SessionUiHandlers> uiHandlers) {
+                       final UiHandlersStrategy<SessionUiHandlers> uiHandlers,
+                       final CellTableStyle cellTableStyle) {
         super(uiHandlers);
 
         this.sessionActionCellFactory = sessionActionCellFactory;
         this.dataProvider =  new ListDataProvider<SessionExamenProxy>();
         this.dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
+        this.selectionModel = new SingleSelectionModel<SessionExamenProxy>();
+        this.sessionsTable = new CellTable<SessionExamenProxy>(15, cellTableStyle);
 
         initWidget(uiBinder.createAndBindUi(this));
         initActions();
@@ -61,6 +68,13 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
 
         dataProvider.addDataDisplay(sessionsTable);
         sessionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
+        sessionsTable.setSelectionModel(selectionModel);
+        selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+            @Override
+            public void onSelectionChange(SelectionChangeEvent selectionChangeEvent) {
+                getUiHandlers().sessionSelected(selectionModel.getSelectedObject());
+            }
+        });
     }
 
     @Override
@@ -76,6 +90,13 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
     }
 
     private void initActions() {
+        openAction = new Delegate<SessionExamenProxy>() {
+            @Override
+            public void execute(SessionExamenProxy session) {
+                getUiHandlers().openSession(session);
+            }
+        };
+
         updateAction = new Delegate<SessionExamenProxy>() {
             @Override
             public void execute(SessionExamenProxy session) {
@@ -94,13 +115,6 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
             @Override
             public void execute(SessionExamenProxy session) {
                 getUiHandlers().cancelSession(session);
-            }
-        };
-
-        removeAction = new Delegate<SessionExamenProxy>() {
-            @Override
-            public void execute(SessionExamenProxy session) {
-                getUiHandlers().removeSession(session);
             }
         };
     }
@@ -137,8 +151,7 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
         sessionsTable.addColumn(statutColumn, "Statut");
         sessionsTable.setColumnWidth(statutColumn, 10, Style.Unit.PCT);
 
-        actionsCell = sessionActionCellFactory.create(updateAction, closeAction,
-                cancelAction, removeAction);
+        actionsCell = sessionActionCellFactory.create(openAction, updateAction, closeAction, cancelAction);
         Column<SessionExamenProxy, SessionExamenProxy> actionsColumn =
                 new Column<SessionExamenProxy, SessionExamenProxy>(actionsCell) {
             @Override

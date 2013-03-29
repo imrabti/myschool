@@ -1,5 +1,9 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'>
     <div class="btn-group">
+        <a href="javascript:;" style="display: none;" class="btn btn-mini" ui:field="open">
+            <i class="icon-unlock"/>
+            <span class="">Ouvrir</span>
+        </a>
         <a href="javascript:;" style="display: none;" class="btn btn-mini" ui:field="update">
             <i class="icon-edit"/>
             <span class="">Modifier</span>
@@ -11,10 +15,6 @@
         <a href="javascript:;" style="display: none;" class="btn btn-mini" ui:field="cancel">
             <i class="icon-remove-sign"/>
             <span class="">Annuler</span>
-        </a>
-        <a href="javascript:;" style="display: none;" class="btn btn-mini" ui:field="remove">
-            <i class="icon-remove"/>
-            <span class="">Supprimer</span>
         </a>
     </div>
 </ui:UiBinder>

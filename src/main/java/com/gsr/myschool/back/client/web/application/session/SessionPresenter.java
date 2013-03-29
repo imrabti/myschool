@@ -58,9 +58,20 @@ public class SessionPresenter extends Presenter<MyView, MyProxy> implements Sess
     }
 
     @Override
+    public void sessionSelected(SessionExamenProxy session) {
+        // TODO load attached NiveaEtudes
+        // TODO update the UI to show or hide the Edit button
+    }
+
+    @Override
     public void newSession() {
         editSessionPresenter.setCurrentSession(null);
         addToPopupSlot(editSessionPresenter);
+    }
+
+    @Override
+    public void openSession(SessionExamenProxy session) {
+        // TODO : Remove a session
     }
 
     @Override
@@ -77,11 +88,6 @@ public class SessionPresenter extends Presenter<MyView, MyProxy> implements Sess
     @Override
     public void cancelSession(SessionExamenProxy session) {
         // TODO : Cancel a session
-    }
-
-    @Override
-    public void removeSession(SessionExamenProxy session) {
-        // TODO : Remove a session
     }
 
     @Override

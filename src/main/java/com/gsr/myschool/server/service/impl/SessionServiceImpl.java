@@ -68,6 +68,11 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
+    public void attacheToSession(Long sessionId, NiveauEtude niveauEtude) {
+        // TODO load all attached matiere and add them...
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<SessionExamen> findAllSessions() {
         String currentAnneeScolaire = DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1);

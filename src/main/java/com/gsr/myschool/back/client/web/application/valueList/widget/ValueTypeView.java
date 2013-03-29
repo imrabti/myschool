@@ -62,20 +62,20 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers>
 
         this.dataProvider = new ListDataProvider<ValueTypeProxy>();
         this.valueTypeTable = new CellTable<ValueTypeProxy>(15, cellTableStyle);
+        this.valueTypeSelectionModel = new SingleSelectionModel<ValueTypeProxy>();
 
         initDataGrid();
         initWidget(uiBinder.createAndBindUi(this));
 
         dataProvider.addDataDisplay(valueTypeTable);
-        this.valueTypeSelectionModel = new SingleSelectionModel<ValueTypeProxy>();
+        valueTypeTable.setSelectionModel(valueTypeSelectionModel);
+        valueTypeTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
         valueTypeSelectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
             @Override
             public void onSelectionChange(SelectionChangeEvent event) {
                 getUiHandlers().valueTypeChanged(valueTypeSelectionModel.getSelectedObject());
             }
         });
-        valueTypeTable.setSelectionModel(valueTypeSelectionModel);
-        valueTypeTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
     }
 
     @Override
