@@ -32,9 +32,12 @@ import com.gsr.myschool.common.client.request.ExcelRequestBuilder;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
+import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
+import com.gsr.myschool.common.shared.exception.AffectationClosedException;
+import com.gsr.myschool.common.shared.exception.InscriptionClosedException;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -145,6 +148,14 @@ public class AffectationPresenter extends Presenter<AffectationPresenter.MyView,
 
                 MessageEvent.fire(this, message);
                 loadDossiersCounts();
+            }
+            @Override
+            public void onException(String type) {
+                if (AffectationClosedException.class.getName().equals(type)) {
+                    Message message = new Message.Builder(messageBundle.affectationClosed())
+                            .style(AlertType.WARNING).closeDelay(CloseDelay.NEVER).build();
+                    MessageEvent.fire(this, message);
+                }
             }
         });
     }

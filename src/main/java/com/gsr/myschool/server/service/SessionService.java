@@ -1,5 +1,6 @@
 package com.gsr.myschool.server.service;
 
+import com.gsr.myschool.common.shared.exception.AffectationClosedException;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.core.SessionExamen;
@@ -26,9 +27,9 @@ public interface SessionService {
 
     List<SessionExamen> findSessionByNE(NiveauEtude niveau);
 
-    Boolean affecter(Dossier dossier, SessionExamen session);
+    Boolean affecter(Dossier dossier, SessionExamen session) throws AffectationClosedException;
 
-    Boolean desaffecter(Dossier dossier);
+    Boolean desaffecter(Dossier dossier) throws AffectationClosedException;
 
     List<SessionExamen> findAllOpenedSessions();
 }
