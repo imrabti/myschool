@@ -7,5 +7,6 @@ import com.gsr.myschool.common.shared.dto.NiveauEtudeNode;
 public interface AttachedNiveauEtudeTreeFactory {
     AttachedNiveauEtudeTree create(@Assisted("readyOnly") Boolean readOnly,
                                    @Assisted("detail") Delegate<NiveauEtudeNode> detail,
-                                   @Assisted("delete") Delegate<NiveauEtudeNode> delete);
+                                   @Assisted("delete") Delegate<NiveauEtudeNode> delete,
+                                   @Assisted("print") Delegate<NiveauEtudeNode> print);
 }

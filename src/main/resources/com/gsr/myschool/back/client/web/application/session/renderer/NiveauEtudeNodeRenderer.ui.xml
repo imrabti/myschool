@@ -11,12 +11,12 @@
 
         .name {
             float: left;
-            width: 370px;
+            width: 350px;
         }
 
         .action {
             float: right;
-            width: 50px;
+            width: 70px;
         }
 
         .action div {
@@ -33,6 +33,7 @@
         </div>
         <div class="{style.action}">
             <div class="icon-remove" ui:field="delete"/>
+            <div class="icon-print" ui:field="print"/>
             <div class="icon-search" ui:field="detail"/>
         </div>
         <div style="clear: both;"/>

@@ -20,6 +20,12 @@ public interface SessionRequest extends RequestContext {
 
     Request<Void> attacheToSession(Long sessionId, Long niveauEtudeId);
 
+    Request<Void> updateHoraire(List<String> horaires);
+
+    Request<Void> deleteNiveauEtude(Long niveauEtudeId);
+
+    Request<List<SessionNiveauEtudeProxy>> findAllMatieresByNiveauEtude(Long niveauEtudeId);
+
     Request<List<SessionNiveauEtudeProxy>> findAllNiveauEtudeBySession(Long sessionId);
 
     Request<List<SessionExamenProxy>> findAllSessions();

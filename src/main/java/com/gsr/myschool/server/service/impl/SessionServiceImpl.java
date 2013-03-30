@@ -96,6 +96,29 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
+    public void updateHoraire(List<String> horaires) {
+        for (String item : horaires) {
+            SessionNiveauEtude matiere = sessionExamenNERepos.findOne(Long.parseLong(item.split("#")[0]));
+            matiere.setHoraireDe(item.split("#")[1]);
+            matiere.setHoraireA(item.split("#")[2]);
+            sessionExamenNERepos.save(matiere);
+        }
+    }
+
+    @Override
+    public void deleteNiveauEtude(Long niveauEtudeId) {
+        List<SessionNiveauEtude> matieres = sessionExamenNERepos.findByNiveauEtudeId(niveauEtudeId);
+        sessionExamenNERepos.delete(matieres);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<SessionNiveauEtude> findAllMatieresByNiveauEtude(Long niveauEtudeId) {
+        return sessionExamenNERepos.findByNiveauEtudeId(niveauEtudeId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<SessionNiveauEtude> findAllNiveauEtudeBySession(Long sessionId) {
         return sessionExamenNERepos.findBySessionExamenId(sessionId);
     }

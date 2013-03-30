@@ -14,6 +14,12 @@ public interface SessionService {
 
     void attacheToSession(Long sessionId, Long niveauEtudeId);
 
+    void updateHoraire(List<String> horaires);
+
+    void deleteNiveauEtude(Long niveauEtudeId);
+
+    List<SessionNiveauEtude> findAllMatieresByNiveauEtude(Long niveauEtudeId);
+
     List<SessionNiveauEtude> findAllNiveauEtudeBySession(Long sessionId);
 
     List<SessionExamen> findAllSessions();

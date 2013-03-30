@@ -17,7 +17,7 @@
 package com.gsr.myschool.back.client.web.application.session.renderer;
 
 import com.google.gwt.cell.client.AbstractCell;
-import com.google.gwt.cell.client.ActionCell;
+import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.view.client.ListDataProvider;
@@ -35,21 +35,24 @@ public class AttachedNiveauEtudeTree implements TreeViewModel {
     private final ListDataProvider<SessionTree> rootDataProvider;
 
     private Boolean readOnly;
-    private ActionCell.Delegate<NiveauEtudeNode> detail;
-    private ActionCell.Delegate<NiveauEtudeNode> delete;
+    private Delegate<NiveauEtudeNode> detail;
+    private Delegate<NiveauEtudeNode> delete;
+    private Delegate<NiveauEtudeNode> print;
     private NiveauEtudeNodeCellFactory niveauEtudeNodeCellFactory;
 
     @Inject
     public AttachedNiveauEtudeTree(NiveauEtudeNodeCellFactory niveauEtudeNodeCellFactory,
                                    @Assisted("readyOnly") Boolean readOnly,
-                                   @Assisted("detail") ActionCell.Delegate<NiveauEtudeNode> detail,
-                                   @Assisted("delete") ActionCell.Delegate<NiveauEtudeNode> delete) {
+                                   @Assisted("detail") Delegate<NiveauEtudeNode> detail,
+                                   @Assisted("delete") Delegate<NiveauEtudeNode> delete,
+                                   @Assisted("print") Delegate<NiveauEtudeNode> print) {
         this.niveauEtudeNodeCellFactory = niveauEtudeNodeCellFactory;
         this.treeModel = new ArrayList<SessionTree>();
         this.rootDataProvider = new ListDataProvider<SessionTree>();
         this.readOnly = readOnly;
         this.detail = detail;
         this.delete = delete;
+        this.print = print;
     }
 
     @Override
@@ -73,7 +76,7 @@ public class AttachedNiveauEtudeTree implements TreeViewModel {
             ListDataProvider<NiveauEtudeNode> dataProvider = new ListDataProvider<NiveauEtudeNode>();
             dataProvider.setList(new ArrayList<NiveauEtudeNode>(rootNode.getNiveauEtudeNodes().values()));
 
-            NiveauEtudeNodeCell niveauEtudeCell = niveauEtudeNodeCellFactory.create(readOnly, detail, delete);
+            NiveauEtudeNodeCell niveauEtudeCell = niveauEtudeNodeCellFactory.create(readOnly, detail, delete, print);
             return new DefaultNodeInfo<NiveauEtudeNode>(dataProvider, niveauEtudeCell);
         }
         return null;

@@ -37,6 +37,7 @@ public class NiveauEtudeNodeCell extends AbstractCell<NiveauEtudeNode> {
 
     private Delegate<NiveauEtudeNode> detail;
     private Delegate<NiveauEtudeNode> delete;
+    private Delegate<NiveauEtudeNode> print;
     private Boolean readOnly;
 
     private NiveauEtudeNode selectedObject;
@@ -46,7 +47,8 @@ public class NiveauEtudeNodeCell extends AbstractCell<NiveauEtudeNode> {
                                final NiveauEtudeNodeReadOnlyRenderer uiRendererReadOnly,
                                @Assisted("readyOnly") Boolean readOnly,
                                @Assisted("detail") Delegate<NiveauEtudeNode> detail,
-                               @Assisted("delete") Delegate<NiveauEtudeNode> delete) {
+                               @Assisted("delete") Delegate<NiveauEtudeNode> delete,
+                               @Assisted("print") Delegate<NiveauEtudeNode> print) {
         super(BrowserEvents.CLICK);
 
         this.uiRenderer = uiRenderer;
@@ -54,6 +56,7 @@ public class NiveauEtudeNodeCell extends AbstractCell<NiveauEtudeNode> {
         this.readOnly = readOnly;
         this.detail = detail;
         this.delete = delete;
+        this.print = print;
     }
 
     @Override
@@ -84,5 +87,10 @@ public class NiveauEtudeNodeCell extends AbstractCell<NiveauEtudeNode> {
     @UiHandler({"delete"})
     void onDeleteClicked(ClickEvent event) {
         delete.execute(selectedObject);
+    }
+
+    @UiHandler({"print"})
+    void onPrintClicked(ClickEvent event) {
+        print.execute(selectedObject);
     }
 }

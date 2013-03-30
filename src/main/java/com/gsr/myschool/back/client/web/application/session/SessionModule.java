@@ -11,6 +11,7 @@ import com.gsr.myschool.back.client.web.application.session.popup.EditSessionVie
 import com.gsr.myschool.back.client.web.application.session.popup.NewNiveauEtudePresenter;
 import com.gsr.myschool.back.client.web.application.session.popup.NewNiveauEtudeUiHandlers;
 import com.gsr.myschool.back.client.web.application.session.popup.NewNiveauEtudeView;
+import com.gsr.myschool.back.client.web.application.session.popup.ui.MatiereHoraireEditorFactory;
 import com.gsr.myschool.back.client.web.application.session.renderer.AttachedNiveauEtudeTreeFactory;
 import com.gsr.myschool.back.client.web.application.session.renderer.NiveauEtudeNodeCellFactory;
 import com.gsr.myschool.back.client.web.application.session.renderer.SessionActionCellFactory;
@@ -43,5 +44,6 @@ public class SessionModule extends AbstractPresenterModule {
         install(new GinFactoryModuleBuilder().build(SessionActionCellFactory.class));
         install(new GinFactoryModuleBuilder().build(NiveauEtudeNodeCellFactory.class));
         install(new GinFactoryModuleBuilder().build(AttachedNiveauEtudeTreeFactory.class));
+        install(new GinFactoryModuleBuilder().build(MatiereHoraireEditorFactory.class));
     }
 }

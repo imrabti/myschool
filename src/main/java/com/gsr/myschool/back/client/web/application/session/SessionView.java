@@ -14,7 +14,6 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
@@ -73,7 +72,7 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
 
         this.sessionActionCellFactory = sessionActionCellFactory;
         this.dataProvider =  new ListDataProvider<SessionExamenProxy>();
-        this.treeModel = attachedNiveauEtudeTreeFactory.create(false, setupDetails(), setupDelete());
+        this.treeModel = attachedNiveauEtudeTreeFactory.create(false, setupDetails(), setupDelete(), setupPrint());
         this.dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
         this.selectionModel = new SingleSelectionModel<SessionExamenProxy>();
         this.sessionsTable = new CellTable<SessionExamenProxy>(15, cellTableStyle);
@@ -196,7 +195,7 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
         return new ActionCell.Delegate<NiveauEtudeNode>() {
             @Override
             public void execute(NiveauEtudeNode object) {
-                Window.alert("Clicked Detail!!!");
+                getUiHandlers().showNiveauEtudeDetail(object);
             }
         };
     }
@@ -205,7 +204,16 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
         return new ActionCell.Delegate<NiveauEtudeNode>() {
             @Override
             public void execute(NiveauEtudeNode object) {
-                Window.alert("Clicked Delete!!!");
+                getUiHandlers().deleteNiveauEtude(object);
+            }
+        };
+    }
+
+    private ActionCell.Delegate<NiveauEtudeNode> setupPrint(){
+        return new ActionCell.Delegate<NiveauEtudeNode>() {
+            @Override
+            public void execute(NiveauEtudeNode object) {
+                getUiHandlers().printConvocation(object);
             }
         };
     }

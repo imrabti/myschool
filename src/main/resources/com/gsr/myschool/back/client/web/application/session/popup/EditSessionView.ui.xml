@@ -12,7 +12,7 @@
         }
 
         .smallMargin {
-            margin-left: 175px;
+            margin-left: 180px;
         }
 
         .smallMarginButtom {
@@ -29,42 +29,42 @@
             <g:HTMLPanel styleName="{style.contentWrapper}">
                 <boot:Form type="HORIZONTAL">
                     <boot:ControlGroup addStyleNames="{style.smallMarginButtom}">
-                        <boot:ControlLabel width="165px">Nom</boot:ControlLabel>
+                        <boot:ControlLabel width="170px">Nom</boot:ControlLabel>
                         <boot:Controls styleName="{style.smallMargin}">
                             <boot:TextBox ui:field="nom" width="250px"/>
                         </boot:Controls>
                     </boot:ControlGroup>
 
                     <boot:ControlGroup addStyleNames="{style.smallMarginButtom}">
-                        <boot:ControlLabel width="165px">Date de session</boot:ControlLabel>
+                        <boot:ControlLabel width="170px">Date de session</boot:ControlLabel>
                         <boot:Controls styleName="{style.smallMargin}">
                             <b2:DateBox ui:field="dateSession" format="dd/mm/yyyy" width="150px"/>
                         </boot:Controls>
                     </boot:ControlGroup>
 
                     <boot:ControlGroup addStyleNames="{style.smallMarginButtom}">
-                        <boot:ControlLabel width="165px">Accueil des élèves à</boot:ControlLabel>
+                        <boot:ControlLabel width="170px">Accueil des élèves à</boot:ControlLabel>
                         <boot:Controls styleName="{style.smallMargin}">
                             <s:TimeInput ui:field="welcomKids"/>
                         </boot:Controls>
                     </boot:ControlGroup>
 
                     <boot:ControlGroup addStyleNames="{style.smallMarginButtom}">
-                        <boot:ControlLabel width="165px">Debut des épreuves à</boot:ControlLabel>
+                        <boot:ControlLabel width="170px">Debut des épreuves à</boot:ControlLabel>
                         <boot:Controls styleName="{style.smallMargin}">
                             <s:TimeInput ui:field="debutTest"/>
                         </boot:Controls>
                     </boot:ControlGroup>
 
                     <boot:ControlGroup addStyleNames="{style.smallMarginButtom}">
-                        <boot:ControlLabel width="165px">Récupération des enfant à</boot:ControlLabel>
+                        <boot:ControlLabel width="170px">Récupération des enfant à</boot:ControlLabel>
                         <boot:Controls styleName="{style.smallMargin}">
                             <s:TimeInput ui:field="gatherKids"/>
                         </boot:Controls>
                     </boot:ControlGroup>
 
                     <boot:ControlGroup addStyleNames="{style.smallMarginButtom}">
-                        <boot:ControlLabel width="165px">Téléphone du site</boot:ControlLabel>
+                        <boot:ControlLabel width="170px">Téléphone du site</boot:ControlLabel>
                         <boot:Controls styleName="{style.smallMargin}">
                             <boot:InputAddOn prependIcon="PHONE">
                                 <boot:TextBox ui:field="telephone"/>
@@ -73,7 +73,7 @@
                     </boot:ControlGroup>
 
                     <boot:ControlGroup addStyleNames="{style.smallMarginButtom}">
-                        <boot:ControlLabel width="165px">Adresse</boot:ControlLabel>
+                        <boot:ControlLabel width="170px">Adresse</boot:ControlLabel>
                         <boot:Controls>
                             <boot:TextArea ui:field="adresse" width="250px"/>
                         </boot:Controls>

@@ -8,6 +8,9 @@
     <ui:style>
         .contentWrapper {
             padding: 10px;
+            height: 200px;
+            width: 560px;
+            overflow-y: auto;
         }
     </ui:style>
 
@@ -18,12 +21,12 @@
             <s:ModalHeader ui:field="modalHeader" text="Editer les horaires"/>
 
             <g:HTMLPanel styleName="{style.contentWrapper}">
-                <!-- Content will be in here -->
+                <g:HTMLPanel ui:field="horairePanel"/>
             </g:HTMLPanel>
 
             <g:HTMLPanel styleName="{resource.sharedStyleCss.buttonContainerPopup}">
                 <boot:Button ui:field="cancel" text="Annuler"/>
-                <boot:Button ui:field="save"  text="Enregistrer" icon="SAVE"
+                <boot:Button ui:field="save" text="Enregistrer" icon="SAVE"
                              styleName="btn btn-success"/>
             </g:HTMLPanel>
         </g:FlowPanel>

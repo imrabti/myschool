@@ -1,6 +1,7 @@
 package com.gsr.myschool.back.client.web.application.session;
 
 import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
+import com.gsr.myschool.common.shared.dto.NiveauEtudeNode;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface SessionUiHandlers extends UiHandlers {
@@ -17,4 +18,10 @@ public interface SessionUiHandlers extends UiHandlers {
     void closeSession(SessionExamenProxy session);
 
     void cancelSession(SessionExamenProxy session);
+
+    void showNiveauEtudeDetail(NiveauEtudeNode niveauEtudeNode);
+
+    void deleteNiveauEtude(NiveauEtudeNode niveauEtudeNode);
+
+    void printConvocation(NiveauEtudeNode niveauEtudeNode);
 }
