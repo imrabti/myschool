@@ -14,26 +14,7 @@
  * the License.
  */
 
-package com.gsr.myschool.common.client.resource.message;
+package com.gsr.myschool.common.shared.exception;
 
-import com.google.gwt.i18n.client.Messages;
-
-public interface SharedMessageBundle extends Messages {
-    String operationSuccess();
-
-    String operationFailure();
-
-    String noResultFound();
-
-    String emptyValueList();
-
-    String allValueList();
-
-    String unAuthorized();
-
-    String serverDown();
-
-    String inscriptionClosed();
-
-    String affectationClosed();
+public class AffectationClosedException extends Exception {
 }

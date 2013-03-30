@@ -9,8 +9,10 @@ import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
+import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
+import com.gsr.myschool.common.shared.exception.AffectationClosedException;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PopupView;
 import com.gwtplatform.mvp.client.PresenterWidget;
@@ -52,6 +54,15 @@ public class SessionAffectationPresenter extends PresenterWidget<SessionAffectat
                 MessageEvent.fire(this, message);
                 DossierAffectedEvent.fire(this);
                 getView().hide();
+            }
+            @Override
+            public void onException(String type) {
+                if (AffectationClosedException.class.getName().equals(type)) {
+                    Message message = new Message.Builder(messageBundle.affectationClosed())
+                            .style(AlertType.WARNING).closeDelay(CloseDelay.NEVER).build();
+                    MessageEvent.fire(this, message);
+                    getView().hide();
+                }
             }
         });
     }

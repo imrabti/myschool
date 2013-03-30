@@ -129,6 +129,8 @@ public class DossierServiceImpl implements DossierService {
     @Override
     public Boolean rejectDossier(Dossier dossier) {
         Task task = validationProcessService.getDossierToAnalyse(dossier.getId());
+        if (task == null) return false;
+
         Dossier analyzedDossier = dossierRepos.findOne(dossier.getId());
 
         analyzedDossier.setStatus(DossierStatus.NOT_ACCEPTED_FOR_TEST);
@@ -145,11 +147,15 @@ public class DossierServiceImpl implements DossierService {
 
         if (analyzedDossier.getStatus() == DossierStatus.NOT_ACCEPTED_FOR_TEST) {
             Task task = validationProcessService.getDossierToReAccept(dossier.getId());
+            if (task == null) return false;
+
             analyzedDossier.setStatus(DossierStatus.ACCEPTED_FOR_TEST);
 
             validationProcessService.acceptAnalysedDossier(task, dossier);
         } else {
             Task task = validationProcessService.getDossierToAnalyse(dossier.getId());
+            if (task == null) return false;
+
             analyzedDossier.setStatus(DossierStatus.ACCEPTED_FOR_TEST);
 
             validationProcessService.acceptAnalysedDossier(task, dossier);
