@@ -69,16 +69,16 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
                          final ValueListActionCellFactory actionCellFactory) {
         super(uiHandlers);
 
-        this.actionCellFactory = actionCellFactory;
-
         initWidget(uiBinder.createAndBindUi(this));
         initActions();
         initDataGrid();
 
         this.addValueList.setVisible(false);
         this.dataProvider = new ListDataProvider<ValueListProxy>();
-        dataProvider.addDataDisplay(valueListTable);
         this.valueListSelectionModel = new SingleSelectionModel<ValueListProxy>();
+        this.actionCellFactory = actionCellFactory;
+
+        dataProvider.addDataDisplay(valueListTable);
         valueListTable.setSelectionModel(valueListSelectionModel);
         valueListTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
     }

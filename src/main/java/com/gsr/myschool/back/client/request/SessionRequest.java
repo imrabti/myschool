@@ -6,6 +6,7 @@ import com.google.web.bindery.requestfactory.shared.Service;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
+import com.gsr.myschool.common.client.proxy.SessionNiveauEtudeProxy;
 import com.gsr.myschool.server.service.impl.SessionServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
 
@@ -16,6 +17,16 @@ public interface SessionRequest extends RequestContext {
     Request<Void> createNewSession(SessionExamenProxy sessionExamen);
 
     Request<Void> updateSession(SessionExamenProxy sessionExamen);
+
+    Request<Void> attacheToSession(Long sessionId, Long niveauEtudeId);
+
+    Request<Void> updateHoraire(List<String> horaires);
+
+    Request<Void> deleteNiveauEtude(Long niveauEtudeId);
+
+    Request<List<SessionNiveauEtudeProxy>> findAllMatieresByNiveauEtude(Long niveauEtudeId);
+
+    Request<List<SessionNiveauEtudeProxy>> findAllNiveauEtudeBySession(Long sessionId);
 
     Request<List<SessionExamenProxy>> findAllSessions();
 

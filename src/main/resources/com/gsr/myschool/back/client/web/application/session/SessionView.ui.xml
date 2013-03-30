@@ -1,6 +1,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'
+             xmlns:cell='urn:import:com.google.gwt.user.cellview.client'>
 
     <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
@@ -40,8 +41,8 @@
                         <span style="display: block; clear: both;"/>
                     </g:HTMLPanel>
 
-                    <div class="{style.contentWrapper}">
-                        Here the table of attached niveau etudes
+                    <div>
+                        <cell:CellTree ui:field="attachedNiveau"/>
                     </div>
                 </g:HTMLPanel>
             </div>

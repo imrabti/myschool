@@ -1,7 +1,9 @@
 package com.gsr.myschool.back.client.web.application.session;
 
+import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
+import com.google.gwt.cell.client.ActionCell;
 import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -9,12 +11,18 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
+import com.gsr.myschool.back.client.resource.style.CellTableStyle;
+import com.gsr.myschool.back.client.web.application.session.renderer.AttachedNiveauEtudeTree;
+import com.gsr.myschool.back.client.web.application.session.renderer.AttachedNiveauEtudeTreeFactory;
 import com.gsr.myschool.back.client.web.application.session.renderer.SessionActionCell;
 import com.gsr.myschool.back.client.web.application.session.renderer.SessionActionCellFactory;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
@@ -23,6 +31,9 @@ import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
+import com.gsr.myschool.common.shared.dto.NiveauEtudeNode;
+import com.gsr.myschool.common.shared.dto.SessionTree;
+import com.gsr.myschool.common.shared.type.SessionStatus;
 
 import java.util.List;
 
@@ -30,17 +41,23 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
     public interface Binder extends UiBinder<Widget, SessionView> {
     }
 
-    @UiField
+    @UiField(provided = true)
     CellTable<SessionExamenProxy> sessionsTable;
+    @UiField(provided = true)
+    CellTree attachedNiveau;
+    @UiField
+    Button attachNiveauEtude;
 
     private final ListDataProvider<SessionExamenProxy> dataProvider;
+    private final AttachedNiveauEtudeTree treeModel;
     private final SessionActionCellFactory sessionActionCellFactory;
     private final DateTimeFormat dateFormat;
+    private final SingleSelectionModel<SessionExamenProxy> selectionModel;
 
+    private Delegate<SessionExamenProxy> openAction;
     private Delegate<SessionExamenProxy> updateAction;
     private Delegate<SessionExamenProxy> closeAction;
     private Delegate<SessionExamenProxy> cancelAction;
-    private Delegate<SessionExamenProxy> removeAction;
 
     private SessionActionCell actionsCell;
 
@@ -48,12 +65,18 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
     public SessionView(final Binder uiBinder,
                        final SharedMessageBundle sharedMessageBundle,
                        final SessionActionCellFactory sessionActionCellFactory,
-                       final UiHandlersStrategy<SessionUiHandlers> uiHandlers) {
+                       final AttachedNiveauEtudeTreeFactory attachedNiveauEtudeTreeFactory,
+                       final UiHandlersStrategy<SessionUiHandlers> uiHandlers,
+                       final CellTableStyle cellTableStyle) {
         super(uiHandlers);
 
         this.sessionActionCellFactory = sessionActionCellFactory;
         this.dataProvider =  new ListDataProvider<SessionExamenProxy>();
+        this.treeModel = attachedNiveauEtudeTreeFactory.create(false, setupDetails(), setupDelete(), setupPrint());
         this.dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
+        this.selectionModel = new SingleSelectionModel<SessionExamenProxy>();
+        this.sessionsTable = new CellTable<SessionExamenProxy>(15, cellTableStyle);
+        this.attachedNiveau = new CellTree(treeModel, null);
 
         initWidget(uiBinder.createAndBindUi(this));
         initActions();
@@ -61,6 +84,13 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
 
         dataProvider.addDataDisplay(sessionsTable);
         sessionsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
+        sessionsTable.setSelectionModel(selectionModel);
+        selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+            @Override
+            public void onSelectionChange(SelectionChangeEvent selectionChangeEvent) {
+                getUiHandlers().sessionSelected(selectionModel.getSelectedObject());
+            }
+        });
     }
 
     @Override
@@ -70,12 +100,30 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
         dataProvider.getList().addAll(sessions);
     }
 
+    @Override
+    public void setAttachedNiveau(List<SessionTree> data, SessionStatus status) {
+        attachNiveauEtude.setVisible(status == SessionStatus.CREATED);
+        treeModel.refreshData(data, status != SessionStatus.CREATED);
+    }
+
     @UiHandler("newSession")
     void onNewSessionClicked(ClickEvent event) {
         getUiHandlers().newSession();
     }
 
+    @UiHandler("attachNiveauEtude")
+    void onAttacheNiveauEtude(ClickEvent event) {
+        getUiHandlers().attachNiveauEtude();
+    }
+
     private void initActions() {
+        openAction = new Delegate<SessionExamenProxy>() {
+            @Override
+            public void execute(SessionExamenProxy session) {
+                getUiHandlers().openSession(session);
+            }
+        };
+
         updateAction = new Delegate<SessionExamenProxy>() {
             @Override
             public void execute(SessionExamenProxy session) {
@@ -96,13 +144,6 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
                 getUiHandlers().cancelSession(session);
             }
         };
-
-        removeAction = new Delegate<SessionExamenProxy>() {
-            @Override
-            public void execute(SessionExamenProxy session) {
-                getUiHandlers().removeSession(session);
-            }
-        };
     }
 
     private void initDataGrid() {
@@ -113,7 +154,7 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
             }
         };
         sessionsTable.addColumn(nomColumn, "Nom");
-        sessionsTable.setColumnWidth(nomColumn, 20, Style.Unit.PCT);
+        sessionsTable.setColumnWidth(nomColumn, 25, Style.Unit.PCT);
 
         TextColumn<SessionExamenProxy> dateColumn = new TextColumn<SessionExamenProxy>() {
             @Override
@@ -126,7 +167,7 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
             }
         };
         sessionsTable.addColumn(dateColumn, "Date session");
-        sessionsTable.setColumnWidth(dateColumn, 20, Style.Unit.PCT);
+        sessionsTable.setColumnWidth(dateColumn, 15, Style.Unit.PCT);
 
         TextColumn<SessionExamenProxy> statutColumn = new TextColumn<SessionExamenProxy>() {
             @Override
@@ -137,8 +178,7 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
         sessionsTable.addColumn(statutColumn, "Statut");
         sessionsTable.setColumnWidth(statutColumn, 10, Style.Unit.PCT);
 
-        actionsCell = sessionActionCellFactory.create(updateAction, closeAction,
-                cancelAction, removeAction);
+        actionsCell = sessionActionCellFactory.create(openAction, updateAction, closeAction, cancelAction);
         Column<SessionExamenProxy, SessionExamenProxy> actionsColumn =
                 new Column<SessionExamenProxy, SessionExamenProxy>(actionsCell) {
             @Override
@@ -149,5 +189,32 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
         actionsColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         sessionsTable.addColumn(actionsColumn, "Actions");
         sessionsTable.setColumnWidth(actionsColumn, 15, Style.Unit.PCT);
+    }
+
+    private ActionCell.Delegate<NiveauEtudeNode> setupDetails(){
+        return new ActionCell.Delegate<NiveauEtudeNode>() {
+            @Override
+            public void execute(NiveauEtudeNode object) {
+                getUiHandlers().showNiveauEtudeDetail(object);
+            }
+        };
+    }
+
+    private ActionCell.Delegate<NiveauEtudeNode> setupDelete(){
+        return new ActionCell.Delegate<NiveauEtudeNode>() {
+            @Override
+            public void execute(NiveauEtudeNode object) {
+                getUiHandlers().deleteNiveauEtude(object);
+            }
+        };
+    }
+
+    private ActionCell.Delegate<NiveauEtudeNode> setupPrint(){
+        return new ActionCell.Delegate<NiveauEtudeNode>() {
+            @Override
+            public void execute(NiveauEtudeNode object) {
+                getUiHandlers().printConvocation(object);
+            }
+        };
     }
 }

@@ -48,4 +48,6 @@ public interface MessageBundle extends Messages {
     String sessionSavedSuccess();
 
     String sessionUpdatedSuccess();
+
+    String niveauEtudeDeleteSucess();
 }

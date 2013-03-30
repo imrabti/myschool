@@ -24,14 +24,11 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 import com.gsr.myschool.back.client.web.application.settings.renderer.NiveauEtudeInfosTreeFactory;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
-import com.gsr.myschool.common.client.proxy.FiliereProxy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
-import com.gsr.myschool.common.client.util.ValueList;
 
 public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> implements SettingsPresenter.MyView {
     public interface Binder extends UiBinder<Widget, SettingsView> {
@@ -45,12 +42,12 @@ public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> impleme
     Button desactivate;
 
     @Inject
-    public SettingsView(final Binder uiBinder, final ValueList valueList,
-            final UiHandlersStrategy<SettingsUiHandlers> uiHandlers,
-            final NiveauEtudeInfosTreeFactory niveauEtudeInfosTreeFactory) {
+    public SettingsView(final Binder uiBinder,
+                        final UiHandlersStrategy<SettingsUiHandlers> uiHandlers,
+                        final NiveauEtudeInfosTreeFactory niveauEtudeInfosTreeFactory) {
         super(uiHandlers);
 
-        myTree = new CellTree(niveauEtudeInfosTreeFactory.create(valueList, setupShowDetails()), null);
+        myTree = new CellTree(niveauEtudeInfosTreeFactory.create(setupShowDetails()), null);
 
         initWidget(uiBinder.createAndBindUi(this));
     }

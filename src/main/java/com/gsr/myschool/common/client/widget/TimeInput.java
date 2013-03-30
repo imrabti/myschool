@@ -71,4 +71,9 @@ public class TimeInput extends Composite implements LeafValueEditor<String> {
             return HOURS[hourIdx] + ":" + MINUTES[minuteIdx];
         }
     }
+
+    public void setEnabled(Boolean enabled) {
+        hour.setEnabled(enabled);
+        minute.setEnabled(enabled);
+    }
 }

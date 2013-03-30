@@ -8,9 +8,10 @@
     <ui:style>
         .contentWrapper {
             padding: 10px;
-            height: 200px;
-            width: 560px;
-            overflow-y: auto;
+        }
+
+        .smallMargin {
+            margin-bottom: 10px !important;
         }
     </ui:style>
 
@@ -18,15 +19,29 @@
     <g:PopupPanel modal="true" autoHideEnabled="false" styleName="{resource.popupStyleCss.gwtPopupPanel}"
                   glassEnabled="true">
         <g:FlowPanel>
-            <s:ModalHeader ui:field="modalHeader" text="Editer les horaires"/>
+            <s:ModalHeader ui:field="modalHeader" text="Attacher niveau d'etude"/>
 
             <g:HTMLPanel styleName="{style.contentWrapper}">
-                <g:HTMLPanel ui:field="horairePanel"/>
+                <boot:Form type="HORIZONTAL">
+                    <boot:ControlGroup addStyleNames="{style.smallMargin}">
+                        <boot:ControlLabel>Formation</boot:ControlLabel>
+                        <boot:Controls>
+                            <boot:ValueListBox ui:field="filiere" width="250px"/>
+                        </boot:Controls>
+                    </boot:ControlGroup>
+
+                    <boot:ControlGroup>
+                        <boot:ControlLabel>Niveau demandé</boot:ControlLabel>
+                        <boot:Controls>
+                            <boot:ValueListBox ui:field="niveauEtude" width="250px"/>
+                        </boot:Controls>
+                    </boot:ControlGroup>
+                </boot:Form>
             </g:HTMLPanel>
 
             <g:HTMLPanel styleName="{resource.sharedStyleCss.buttonContainerPopup}">
                 <boot:Button ui:field="cancel" text="Annuler"/>
-                <boot:Button ui:field="save" text="Enregistrer" icon="SAVE"
+                <boot:Button ui:field="save"  text="Enregistrer" icon="SAVE"
                              styleName="btn btn-success"/>
             </g:HTMLPanel>
         </g:FlowPanel>
