@@ -16,12 +16,10 @@
 
 package com.gsr.myschool.back.client.web.application.settings.renderer;
 
-import com.google.gwt.cell.client.ActionCell;
+import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.inject.assistedinject.Assisted;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
-import com.gsr.myschool.common.client.util.ValueList;
 
 public interface NiveauEtudeInfosTreeFactory {
-    NiveauEtudeInfosTree create(final ValueList valueList,
-                           @Assisted ActionCell.Delegate<NiveauEtudeProxy> showDetails);
+    NiveauEtudeInfosTree create(@Assisted Delegate<NiveauEtudeProxy> showDetails);
 }

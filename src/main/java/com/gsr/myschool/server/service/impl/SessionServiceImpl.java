@@ -5,11 +5,16 @@ import com.gsr.myschool.common.shared.type.SessionStatus;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.DossierSession;
+import com.gsr.myschool.server.business.core.MatiereExamDuNE;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.core.SessionExamen;
+import com.gsr.myschool.server.business.core.SessionNiveauEtude;
 import com.gsr.myschool.server.business.valuelist.ValueList;
 import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.repos.DossierSessionRepos;
+import com.gsr.myschool.server.repos.MatiereExamenNERepos;
+import com.gsr.myschool.server.repos.NiveauEtudeRepos;
+import com.gsr.myschool.server.repos.SessionExamenNERepos;
 import com.gsr.myschool.server.repos.SessionExamenRepos;
 import com.gsr.myschool.server.repos.ValueListRepos;
 import com.gsr.myschool.server.security.SecurityContextProvider;
@@ -40,6 +45,12 @@ public class SessionServiceImpl implements SessionService {
     private SecurityContextProvider securityContextProvider;
     @Autowired
     private DossierRepos dossierRepos;
+    @Autowired
+    private NiveauEtudeRepos niveauEtudeRepos;
+    @Autowired
+    private MatiereExamenNERepos matiereExamenNERepos;
+    @Autowired
+    private SessionExamenNERepos sessionExamenNERepos;
 
     @Override
     public void createNewSession(SessionExamen sessionExamen) {
@@ -69,7 +80,24 @@ public class SessionServiceImpl implements SessionService {
 
     @Override
     public void attacheToSession(Long sessionId, Long niveauEtudeId) {
-        // TODO load all attached matiere and add them...
+        SessionExamen session = sessionExamenRepos.findOne(sessionId);
+        NiveauEtude niveauEtude = niveauEtudeRepos.findOne(niveauEtudeId);
+
+        if (sessionExamenNERepos.findByNiveauEtudeId(niveauEtudeId).isEmpty()) {
+            List<MatiereExamDuNE> matieres = matiereExamenNERepos.findByNiveauEtudeId(niveauEtudeId);
+            for (MatiereExamDuNE item : matieres) {
+                SessionNiveauEtude attachedMatiere = new SessionNiveauEtude();
+                attachedMatiere.setNiveauEtude(niveauEtude);
+                attachedMatiere.setSessionExamen(session);
+                attachedMatiere.setMatiere(item.getMatiereExamen().getNom());
+                sessionExamenNERepos.save(attachedMatiere);
+            }
+        }
+    }
+
+    @Override
+    public List<SessionNiveauEtude> findAllNiveauEtudeBySession(Long sessionId) {
+        return sessionExamenNERepos.findBySessionExamenId(sessionId);
     }
 
     @Override

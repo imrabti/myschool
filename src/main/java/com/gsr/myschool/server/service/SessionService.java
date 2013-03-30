@@ -3,6 +3,7 @@ package com.gsr.myschool.server.service;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.core.SessionExamen;
+import com.gsr.myschool.server.business.core.SessionNiveauEtude;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ public interface SessionService {
     void updateSession(SessionExamen sessionExamen);
 
     void attacheToSession(Long sessionId, Long niveauEtudeId);
+
+    List<SessionNiveauEtude> findAllNiveauEtudeBySession(Long sessionId);
 
     List<SessionExamen> findAllSessions();
 

@@ -1,0 +1,40 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'>
+    <ui:with field='name' type='java.lang.String'/>
+    <ui:with field='warning' type='java.lang.String'/>
+
+
+    <ui:style>
+        .status {
+            float: left;
+            width: 20px;
+        }
+
+        .name {
+            float: left;
+            width: 370px;
+        }
+
+        .action {
+            float: right;
+            width: 50px;
+        }
+
+        .action div {
+            display: inline-block;
+            margin-right: 3px;
+        }
+    </ui:style>
+    <div>
+        <div class="{style.status}">
+            <div class="{warning}"/>
+        </div>
+        <div class="{style.name}">
+            <ui:text from="{name}"/>
+        </div>
+        <div class="{style.action}">
+            <div class="icon-remove" ui:field="delete"/>
+            <div class="icon-search" ui:field="detail"/>
+        </div>
+        <div style="clear: both;"/>
+    </div>
+</ui:UiBinder>

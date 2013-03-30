@@ -1,10 +1,5 @@
 package com.gsr.myschool.common.shared.dto;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
-@Component
-@Scope("session")
 public class UserCredentials {
     private String username;
     private String password;
