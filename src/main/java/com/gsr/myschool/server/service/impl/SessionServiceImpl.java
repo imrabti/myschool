@@ -1,5 +1,6 @@
 package com.gsr.myschool.server.service.impl;
 
+import com.gsr.myschool.common.shared.exception.AffectationClosedException;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.SessionStatus;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
@@ -26,9 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Transactional
@@ -166,13 +165,24 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public Boolean affecter(Dossier dossier, SessionExamen session) {
+    public Boolean affecter(Dossier dossier, SessionExamen session) throws AffectationClosedException {
         DossierSession sameexist = dossierSessionRepos.findByDossierIdAndSessionExamenId(dossier.getId(), session.getId());
         if (sameexist != null) {
             return false;
         }
 
         DossierSession exist = dossierSessionRepos.findByDossierId(dossier.getId());
+        if (exist != null && exist.getSessionExamen().getStatus() == SessionStatus.CLOSED) {
+            GregorianCalendar calendar = new GregorianCalendar();
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+
+            Date dateSession = exist.getSessionExamen().getDateSession();
+            Date yesterday = calendar.getTime();
+
+            if (dateSession.before(yesterday)) {
+                throw new AffectationClosedException();
+            }
+        }
         if (exist != null) {
             dossierSessionRepos.delete(exist);
         }
@@ -201,11 +211,23 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public Boolean desaffecter(Dossier dossier) {
+    public Boolean desaffecter(Dossier dossier) throws AffectationClosedException {
         DossierSession exist = dossierSessionRepos.findByDossierId(dossier.getId());
         if (exist == null || exist.getSessionExamen() == null || exist.getDossier() == null) {
             return false;
         }
+        if (exist.getSessionExamen().getStatus() == SessionStatus.CLOSED) {
+            GregorianCalendar calendar = new GregorianCalendar();
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+
+            Date dateSession = exist.getSessionExamen().getDateSession();
+            Date yesterday = calendar.getTime();
+
+            if (dateSession.before(yesterday)) {
+                throw new AffectationClosedException();
+            }
+        }
+
         Dossier affectedDossier = dossierRepos.findOne(dossier.getId());
         affectedDossier.setStatus(DossierStatus.ACCEPTED_FOR_TEST);
 
