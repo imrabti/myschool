@@ -1,0 +1,46 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:s='urn:import:com.gsr.myschool.common.client.widget'>
+    <ui:style>
+        .wrapper {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .matiere {
+            width: 200px;
+            float: left;
+        }
+
+        .horaire {
+            width: 180px;
+            float: left;
+        }
+
+        .inline {
+            display: inline-block;
+        }
+
+        .clear {
+            clear: both;
+        }
+    </ui:style>
+
+    <g:HTMLPanel styleName="{style.wrapper}">
+        <div class="{style.matiere}">
+            <g:Label ui:field="matiere"/>
+        </div>
+
+        <div class="{style.horaire}">
+            <g:InlineLabel text="De"/>
+            <s:TimeInput ui:field="horaireDe" styleName="{style.inline}"/>
+        </div>
+
+        <div class="{style.horaire}">
+            <g:InlineLabel text="A"/>
+            <s:TimeInput ui:field="horaireA" styleName="{style.inline}"/>
+        </div>
+
+        <div class="{style.clear}"/>
+    </g:HTMLPanel>
+</ui:UiBinder>

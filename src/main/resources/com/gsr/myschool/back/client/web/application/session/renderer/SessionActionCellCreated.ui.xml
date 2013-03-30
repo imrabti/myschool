@@ -1,24 +1,23 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'>
     <div>
         <div class="btn-group">
-            <a href="javascript:;" ui:field="cancel" class="btn btn-mini">
-                <i class="icon-remove-sign"/>
-                <span class="">Annuler</span>
-            </a>
-        </div>
-
-        <div class="btn-group" style="display: none;">
-            <a href="javascript:;" style="display: none;" class="btn btn-mini" ui:field="open">
+            <a href="javascript:;" class="btn btn-mini" ui:field="open">
                 <i class="icon-unlock"/>
                 <span class="">Ouvrir</span>
             </a>
-            <a href="javascript:;" style="display: none;" class="btn btn-mini" ui:field="update">
+            <a href="javascript:;" class="btn btn-mini" ui:field="update">
                 <i class="icon-edit"/>
                 <span class="">Modifier</span>
             </a>
+        </div>
+        <div class="btn-group">
             <a href="javascript:;" style="display: none;" class="btn btn-mini" ui:field="close">
                 <i class="icon-lock"/>
                 <span class="">Clôturer</span>
+            </a>
+            <a href="javascript:;" style="display: none;" class="btn btn-mini" ui:field="cancel">
+                <i class="icon-remove-sign"/>
+                <span class="">Annuler</span>
             </a>
             <a href="javascript:;" style="display: none;" class="btn btn-mini" ui:field="remove">
                 <i class="icon-remove"/>

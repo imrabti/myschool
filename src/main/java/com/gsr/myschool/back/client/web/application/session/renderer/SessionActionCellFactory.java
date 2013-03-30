@@ -5,8 +5,8 @@ import com.google.inject.assistedinject.Assisted;
 import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
 
 public interface SessionActionCellFactory {
-    SessionActionCell create(@Assisted("update") Delegate<SessionExamenProxy> update,
+    SessionActionCell create(@Assisted("open") Delegate<SessionExamenProxy> open,
+                             @Assisted("update") Delegate<SessionExamenProxy> update,
                              @Assisted("close")  Delegate<SessionExamenProxy> close,
-                             @Assisted("cancel") Delegate<SessionExamenProxy> cancel,
-                             @Assisted("remove") Delegate<SessionExamenProxy> remove);
+                             @Assisted("cancel") Delegate<SessionExamenProxy> cancel);
 }

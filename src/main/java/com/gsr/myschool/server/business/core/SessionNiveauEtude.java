@@ -12,7 +12,8 @@ public class SessionNiveauEtude {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String matiere;
-    private String horaire;
+    private String horaireDe;
+    private String horaireA;
     @ManyToOne
     private SessionExamen sessionExamen;
     @ManyToOne
@@ -34,12 +35,20 @@ public class SessionNiveauEtude {
         this.matiere = matiere;
     }
 
-    public String getHoraire() {
-        return horaire;
+    public String getHoraireDe() {
+        return horaireDe;
     }
 
-    public void setHoraire(String horaire) {
-        this.horaire = horaire;
+    public void setHoraireDe(String horaireDe) {
+        this.horaireDe = horaireDe;
+    }
+
+    public String getHoraireA() {
+        return horaireA;
+    }
+
+    public void setHoraireA(String horaireA) {
+        this.horaireA = horaireA;
     }
 
     public SessionExamen getSessionExamen() {
