@@ -236,7 +236,7 @@ public class SessionServiceImpl implements SessionService {
                 return false;
             }
         }
-
+        session = sessionExamenRepos.findOne(session.getId());
         session.setStatus(SessionStatus.CLOSED);
         sessionExamenRepos.save(session);
         return true;
