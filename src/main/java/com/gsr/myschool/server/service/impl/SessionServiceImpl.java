@@ -141,7 +141,7 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public void cancelOrDeleteSession(Long sessionId) {
         SessionExamen session = sessionExamenRepos.findOne(sessionId);
-        if (session.getStatus() == SessionStatus.CREATED) {
+        if (session.getStatus() == SessionStatus.CREATED || session.getStatus() == SessionStatus.CANCELED) {
             List<SessionNiveauEtude> matieres = sessionExamenNERepos.findBySessionExamenId(sessionId);
             sessionExamenNERepos.delete(matieres);
             sessionExamenRepos.delete(session);
