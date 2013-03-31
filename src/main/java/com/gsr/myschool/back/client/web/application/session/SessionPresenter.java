@@ -158,7 +158,16 @@ public class SessionPresenter extends Presenter<MyView, MyProxy> implements Sess
 
     @Override
     public void cancelSession(SessionExamenProxy session) {
-        // TODO : Cancel a session
+        if (Window.confirm(messageBundle.deleteConfirmation())) {
+            Long sessionId = session.getId();
+            requestFactory.sessionService().cancelOrDeleteSession(sessionId).fire(new ReceiverImpl<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    getView().setAttachedNiveau(new ArrayList<SessionTree>(), selectedSession.getStatus());
+                    loadSession();
+                }
+            });
+        }
     }
 
     @Override

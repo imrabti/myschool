@@ -22,6 +22,8 @@ public interface SessionService {
 
     Boolean openSession(Long sessionId) throws SessionEmptyException;
 
+    void cancelOrDeleteSession(Long sessionId);
+
     List<SessionNiveauEtude> findAllMatieresByNiveauEtude(Long niveauEtudeId);
 
     List<SessionNiveauEtude> findAllNiveauEtudeBySession(Long sessionId);

@@ -134,6 +134,20 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
+    public void cancelOrDeleteSession(Long sessionId) {
+        SessionExamen session = sessionExamenRepos.findOne(sessionId);
+        if (session.getStatus() == SessionStatus.CREATED) {
+            List<SessionNiveauEtude> matieres = sessionExamenNERepos.findBySessionExamenId(sessionId);
+            sessionExamenNERepos.delete(matieres);
+            sessionExamenRepos.delete(session);
+        } else if (session.getStatus() == SessionStatus.OPEN) {
+            // TODO : Remove affectation and set to Cancel.
+        } else if (session.getStatus() == SessionStatus.CLOSED) {
+            // TODO : Remove affectation send Email and set to Cancel.
+        }
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<SessionNiveauEtude> findAllMatieresByNiveauEtude(Long niveauEtudeId) {
         return sessionExamenNERepos.findByNiveauEtudeId(niveauEtudeId);
