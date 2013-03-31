@@ -11,7 +11,7 @@ import java.util.List;
 public interface SessionExamenRepos extends JpaRepository<SessionExamen, Long> {
     List<SessionExamen> findByAnneeScolaireId(Long id);
 
-    @Query("select s from SessionExamen s, SessionNiveauEtude sn " +
+    @Query("select distinct s from SessionExamen s, SessionNiveauEtude sn " +
             "where s.id = sn.sessionExamen.id " +
             "and s.anneeScolaire.id = :anneeId " +
             "and sn.niveauEtude.id = :id " +

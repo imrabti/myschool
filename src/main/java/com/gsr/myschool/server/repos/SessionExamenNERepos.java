@@ -9,4 +9,6 @@ public interface SessionExamenNERepos extends JpaRepository<SessionNiveauEtude, 
     List<SessionNiveauEtude> findByNiveauEtudeId(Long id);
 
     List<SessionNiveauEtude> findBySessionExamenId(Long id);
+
+    List<SessionNiveauEtude> findBySessionExamenIdAndNiveauEtudeId(Long sessionId, Long niveauId);
 }
