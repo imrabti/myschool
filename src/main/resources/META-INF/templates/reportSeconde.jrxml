@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportMSGS" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4c574922-4b99-490d-ae3f-1b12f7827f23">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="640"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<subDataset name="dataset1" uuid="e5e78060-9521-470f-ba62-d65999e710df">
 		<field name="matiere" class="org.apache.commons.beanutils.BeanMap">
@@ -151,14 +151,14 @@
 						<textField>
 							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" x="0" y="1" width="159" height="19"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$F{matiere}.get("nom")]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$F{matiere}.get("matiere")]]></textFieldExpression>
 						</textField>
 						<textField>
 							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" x="159" y="1" width="234" height="19"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle">
 								<font size="8"/>
 							</textElement>
-							<textFieldExpression><![CDATA[$F{matiere}.get("de")+ " - "+$F{matiere}.get("a")]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$F{matiere}.get("horaireDe")+ " - "+$F{matiere}.get("horaireA")]]></textFieldExpression>
 						</textField>
 						<line direction="BottomUp">
 							<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="1" y="19" width="393" height="1"/>

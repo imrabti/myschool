@@ -9,8 +9,8 @@ import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
-import com.gsr.myschool.back.client.web.application.session.SessionPresenter.MyView;
 import com.gsr.myschool.back.client.web.application.session.SessionPresenter.MyProxy;
+import com.gsr.myschool.back.client.web.application.session.SessionPresenter.MyView;
 import com.gsr.myschool.back.client.web.application.session.event.NiveauEtudeChangedEvent;
 import com.gsr.myschool.back.client.web.application.session.event.SessionChangedEvent;
 import com.gsr.myschool.back.client.web.application.session.popup.EditNiveauEtudeTimePresenter;
@@ -20,6 +20,7 @@ import com.gsr.myschool.common.client.proxy.FiliereProxy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
 import com.gsr.myschool.common.client.proxy.SessionNiveauEtudeProxy;
+import com.gsr.myschool.common.client.request.ConvocationRequestBuilder;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
 import com.gsr.myschool.common.client.widget.messages.Message;
@@ -160,7 +161,9 @@ public class SessionPresenter extends Presenter<MyView, MyProxy> implements Sess
 
     @Override
     public void printConvocation(NiveauEtudeNode niveauEtudeNode) {
-        // TODO : Call service to print convocation.
+        ConvocationRequestBuilder requestBuilder = new ConvocationRequestBuilder();
+        requestBuilder.buildData(niveauEtudeNode.getId().toString(), selectedSession.getId().toString());
+        requestBuilder.sendTestRequest();
     }
 
     @Override
@@ -188,12 +191,12 @@ public class SessionPresenter extends Presenter<MyView, MyProxy> implements Sess
         Long sessionId = selectedSession.getId();
         requestFactory.sessionService().findAllNiveauEtudeBySession(sessionId).fire(
                 new ReceiverImpl<List<SessionNiveauEtudeProxy>>() {
-            @Override
-            public void onSuccess(List<SessionNiveauEtudeProxy> response) {
-                List<SessionTree> tree = buildTree(response);
-                getView().setAttachedNiveau(tree, selectedSession.getStatus());
-            }
-        });
+                    @Override
+                    public void onSuccess(List<SessionNiveauEtudeProxy> response) {
+                        List<SessionTree> tree = buildTree(response);
+                        getView().setAttachedNiveau(tree, selectedSession.getStatus());
+                    }
+                });
     }
 
     private List<SessionTree> buildTree(List<SessionNiveauEtudeProxy> response) {
@@ -212,7 +215,7 @@ public class SessionPresenter extends Presenter<MyView, MyProxy> implements Sess
 
             SessionTree rootNode = treeRoot.get(filiere.getId());
             if (!rootNode.getNiveauEtudeNodes().containsKey(niveauEtude.getId())) {
-                NiveauEtudeNode niveauNode  = new NiveauEtudeNode();
+                NiveauEtudeNode niveauNode = new NiveauEtudeNode();
                 niveauNode.setId(niveauEtude.getId());
                 niveauNode.setName(niveauEtude.getNom());
                 niveauNode.setComplete(niveauEtudeCompleted(niveauEtude.getId(), response));

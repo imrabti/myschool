@@ -3,6 +3,7 @@ package com.gsr.myschool.server.service.impl;
 import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.common.shared.type.EmailType;
 import com.gsr.myschool.server.business.EmailTemplate;
+import com.gsr.myschool.server.reporting.ConvocationController;
 import com.gsr.myschool.server.repos.EmailTemplateRepos;
 import com.gsr.myschool.server.service.EmailService;
 import org.junit.Before;
@@ -15,10 +16,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static java.lang.Thread.sleep;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -26,14 +30,16 @@ import java.util.Map;
         "classpath*:/META-INF/applicationContext-activiti.xml",
         "classpath*:/META-INF/applicationContext-security.xml"
 })
-@TransactionConfiguration(defaultRollback = true)
-@Transactional
-@ActiveProfiles("test")
+//@TransactionConfiguration(defaultRollback = true)
+//@Transactional
+//@ActiveProfiles("test")
 public class EmailServiceImplTest {
     @Autowired
     private EmailService emailService;
     @Autowired
     private EmailTemplateRepos emailTemplateRepos;
+    @Autowired
+    private ConvocationController convocationController;
     EmailTemplate email = new EmailTemplate();
 
     @Before
@@ -46,7 +52,6 @@ public class EmailServiceImplTest {
 
     @Test
     public void testPopulateEmail() throws Exception {
-        emailTemplateRepos.save(email);
 
         // create variables needed
         String to = "kecha.mohamed@gmail.com";
@@ -74,5 +79,12 @@ public class EmailServiceImplTest {
         System.out.println("subject : " + result.getSubject());
         System.out.println("message : " + result.getMessage());
         System.out.println("==");
+
+
+        File f = convocationController.generateConvocation(902L);
+        System.out.println("==");
+        emailService.sendWithAttachement(result, f);
+        System.out.println("==");
+        sleep(10000);
     }
 }

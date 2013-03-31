@@ -1,10 +1,13 @@
 package com.gsr.myschool.server.business.core;
 
+import com.gsr.myschool.server.util.BeanMapper;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.util.Map;
 
 @Entity
 public class SessionNiveauEtude {
@@ -65,5 +68,9 @@ public class SessionNiveauEtude {
 
     public void setNiveauEtude(NiveauEtude niveauEtude) {
         this.niveauEtude = niveauEtude;
+    }
+
+    public Map getReportsAttributes() {
+        return BeanMapper.beanToMap(this);
     }
 }
