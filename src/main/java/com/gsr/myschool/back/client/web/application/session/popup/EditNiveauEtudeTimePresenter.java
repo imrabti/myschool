@@ -64,7 +64,8 @@ public class EditNiveauEtudeTimePresenter extends PresenterWidget<MyView> implem
 
     @Override
     protected void onReveal() {
-        requestFactory.sessionService().findAllMatieresByNiveauEtude(currentNiveauEtudeId)
+        Long sessionId = currentSession.getId();
+        requestFactory.sessionService().findAllMatieresByNiveauEtude(sessionId, currentNiveauEtudeId)
                 .fire(new ReceiverImpl<List<SessionNiveauEtudeProxy>>() {
                     @Override
                     public void onSuccess(List<SessionNiveauEtudeProxy> result) {

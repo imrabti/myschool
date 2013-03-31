@@ -28,6 +28,7 @@ import com.gsr.myschool.common.shared.dto.NiveauEtudeNode;
 import com.gsr.myschool.common.shared.dto.SessionTree;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AttachedNiveauEtudeTree implements TreeViewModel {
@@ -74,7 +75,9 @@ public class AttachedNiveauEtudeTree implements TreeViewModel {
         if (t instanceof SessionTree) {
             SessionTree rootNode = (SessionTree) t;
             ListDataProvider<NiveauEtudeNode> dataProvider = new ListDataProvider<NiveauEtudeNode>();
-            dataProvider.setList(new ArrayList<NiveauEtudeNode>(rootNode.getNiveauEtudeNodes().values()));
+            ArrayList<NiveauEtudeNode> nodes = new ArrayList<NiveauEtudeNode>(rootNode.getNiveauEtudeNodes().values());
+            Collections.sort(nodes);
+            dataProvider.setList(nodes);
 
             NiveauEtudeNodeCell niveauEtudeCell = niveauEtudeNodeCellFactory.create(readOnly, detail, delete, print);
             return new DefaultNodeInfo<NiveauEtudeNode>(dataProvider, niveauEtudeCell);
