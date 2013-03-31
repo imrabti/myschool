@@ -4,13 +4,13 @@
             <i class="icon-search"/>
             <span class="">consulter</span>
         </a>
-        <a href="javascript:;" class="btn btn-success" ui:field="accept">
-            <i class="icon-ok"/>
-            <span class="">accepter pour test</span>
-        </a>
         <a href="javascript:;" class="btn btn-warning" ui:field="deny">
             <i class="icon-minus"/>
             <span class="">refuser</span>
+        </a>
+        <a href="javascript:;" class="btn btn-success" ui:field="accept">
+            <i class="icon-ok"/>
+            <span class="">accepter pour test</span>
         </a>
     </div>
 </ui:UiBinder>
