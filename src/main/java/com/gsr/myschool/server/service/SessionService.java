@@ -25,7 +25,7 @@ public interface SessionService {
 
     void cancelOrDeleteSession(Long sessionId);
 
-    List<SessionNiveauEtude> findAllMatieresByNiveauEtude(Long niveauEtudeId);
+    List<SessionNiveauEtude> findAllMatieresByNiveauEtude(Long sessionId, Long niveauEtudeId);
 
     List<SessionNiveauEtude> findAllNiveauEtudeBySession(Long sessionId);
 

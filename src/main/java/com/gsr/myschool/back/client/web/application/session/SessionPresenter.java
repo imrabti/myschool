@@ -274,6 +274,7 @@ public class SessionPresenter extends Presenter<MyView, MyProxy> implements Sess
                 NiveauEtudeNode niveauNode = new NiveauEtudeNode();
                 niveauNode.setId(niveauEtude.getId());
                 niveauNode.setName(niveauEtude.getNom());
+                niveauNode.setAnnee(niveauEtude.getAnnee());
                 niveauNode.setComplete(niveauEtudeCompleted(niveauEtude.getId(), response));
                 rootNode.getNiveauEtudeNodes().put(niveauEtude.getId(), niveauNode);
             }

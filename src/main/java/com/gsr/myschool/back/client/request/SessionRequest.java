@@ -30,7 +30,7 @@ public interface SessionRequest extends RequestContext {
 
     Request<Void> cancelOrDeleteSession(Long sessionId);
 
-    Request<List<SessionNiveauEtudeProxy>> findAllMatieresByNiveauEtude(Long niveauEtudeId);
+    Request<List<SessionNiveauEtudeProxy>> findAllMatieresByNiveauEtude(Long sessionId, Long niveauEtudeId);
 
     Request<List<SessionNiveauEtudeProxy>> findAllNiveauEtudeBySession(Long sessionId);
 
