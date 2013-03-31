@@ -31,4 +31,15 @@ public class URLUtils {
 
         return builder.toString();
     }
+
+    public static String generateURL(Boolean devmode) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(GWT.getHostPageBaseURL());
+
+        if (!GWT.isScript() && devmode) {
+            builder.append(GWT_DEV_MOD);
+        }
+
+        return builder.toString();
+    }
 }

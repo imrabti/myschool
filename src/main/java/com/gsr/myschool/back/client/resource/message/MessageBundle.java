@@ -56,4 +56,10 @@ public interface MessageBundle extends Messages {
     String openSessionError();
 
     String openSessionSuccess();
+
+    String closeSession();
+
+    String closeSessionSuccess();
+
+    String closeSessionFaillure();
 }

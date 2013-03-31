@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class ReportDTO {
     private String reportName;
+    private String fileName;
 
     private Map<String, Object> reportParameters;
 
@@ -27,5 +28,13 @@ public class ReportDTO {
 
     public void setReportParameters(Map<String, Object> reportParameters) {
         this.reportParameters = reportParameters;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

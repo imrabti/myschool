@@ -62,7 +62,7 @@ public class ConvocationController {
     public void generateConvocation(@RequestParam String number, HttpServletResponse response) {
         ReportDTO dto = convocationService.generateConvocation(number);
         try {
-            response.addHeader("Content-Disposition", "attachment; filename=convocation.pdf");
+            response.addHeader("Content-Disposition", "attachment; filename=" + dto.getFileName());
 
             BufferedOutputStream outputStream = new BufferedOutputStream(response.getOutputStream());
             byte[] result = reportService.generatePdf(dto);

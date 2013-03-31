@@ -230,7 +230,14 @@ public class AffectationView extends ViewWithUiHandlers<AffectationUiHandlers>
             }
         };
 
-        AffectationActionCell actionsCell = actionCellFactory.create(viewDetailsAction, affectAction, desaffectAction);
+        Delegate<DossierProxy> imprimer = new Delegate<DossierProxy>() {
+            @Override
+            public void execute(DossierProxy inscription) {
+                getUiHandlers().imprimer(inscription);
+            }
+        };
+
+        AffectationActionCell actionsCell = actionCellFactory.create(viewDetailsAction, affectAction, desaffectAction, imprimer);
         Column<DossierProxy, DossierProxy> actionsColumn = new
                 Column<DossierProxy, DossierProxy>(actionsCell) {
                     @Override

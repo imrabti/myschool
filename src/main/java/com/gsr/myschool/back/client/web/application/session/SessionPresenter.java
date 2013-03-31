@@ -23,6 +23,7 @@ import com.gsr.myschool.common.client.proxy.SessionNiveauEtudeProxy;
 import com.gsr.myschool.common.client.request.ConvocationRequestBuilder;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
+import com.gsr.myschool.common.client.util.URLUtils;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
@@ -153,7 +154,28 @@ public class SessionPresenter extends Presenter<MyView, MyProxy> implements Sess
 
     @Override
     public void closeSession(SessionExamenProxy session) {
-        // TODO : Close a session
+        if (Window.confirm(messageBundle.closeSession())) {
+            String convocationLink = URLUtils.generateURL(false);
+            requestFactory.sessionService().launchSession(selectedSession, convocationLink).fire(new ReceiverImpl<Boolean>() {
+                @Override
+                public void onSuccess(Boolean aBoolean) {
+                    if (aBoolean) {
+                        Message message = new Message.Builder(messageBundle.closeSessionSuccess())
+                                .style(AlertType.SUCCESS)
+                                .build();
+                        MessageEvent.fire(this, message);
+
+                        getView().setAttachedNiveau(new ArrayList<SessionTree>(), selectedSession.getStatus());
+                        loadSession();
+                    } else {
+                        Message message = new Message.Builder(messageBundle.closeSessionFaillure())
+                                .style(AlertType.ERROR)
+                                .build();
+                        MessageEvent.fire(this, message);
+                    }
+                }
+            });
+        }
     }
 
     @Override
