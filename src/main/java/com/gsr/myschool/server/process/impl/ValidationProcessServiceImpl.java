@@ -267,6 +267,30 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
 
     @Override
     public void rejectAnalysedDossier(Task task, Dossier dossier) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("gender", dossier.getOwner().getGender().toString());
+        params.put("lastname", dossier.getOwner().getLastName());
+        params.put("firstname", dossier.getOwner().getFirstName());
+        params.put("nomEnfant", dossier.getCandidat().getLastname());
+        params.put("prenomEnfant", dossier.getCandidat().getFirstname());
+        params.put("refdossier", dossier.getGeneratedNumDossier());
+        try {
+            EmailDTO email = emailService.populateEmail(EmailType.NOT_ACCEPTED_FOR_TEST,
+                    dossier.getOwner().getEmail(), sender,
+                    params, "", "");
+            emailService.prepare(email);
+
+            InboxMessage message = new InboxMessage();
+            message.setParentUser(dossier.getOwner());
+            message.setSubject(email.getSubject());
+            message.setContent(email.getMessage());
+            message.setMsgDate(new Date());
+            message.setMsgStatus(InboxMessageStatus.UNREAD);
+            inboxMessageRepos.save(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         // Initialise process variables
         Map<String, Object> processParams = new HashMap<String, Object>();
         processParams.put("accepte", false);

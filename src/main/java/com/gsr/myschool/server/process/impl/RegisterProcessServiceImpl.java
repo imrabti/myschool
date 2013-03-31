@@ -82,7 +82,7 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
         params.put("link", link);
 
         EmailDTO email = emailService.populateEmail(EmailType.REGISTRATION, user.getEmail(), sender, params, "", "");
-        emailService.send(email);
+        emailService.prepare(email);
 
         Map<String, Object> processParams = new HashMap<String, Object>();
         processParams.put("token", token);
