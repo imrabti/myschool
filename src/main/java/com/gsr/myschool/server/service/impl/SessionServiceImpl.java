@@ -1,29 +1,26 @@
 package com.gsr.myschool.server.service.impl;
 
+import com.gsr.myschool.common.client.util.Base64;
+import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.common.shared.exception.AffectationClosedException;
-import com.gsr.myschool.common.shared.type.DossierStatus;
-import com.gsr.myschool.common.shared.type.SessionStatus;
-import com.gsr.myschool.common.shared.type.ValueTypeCode;
+import com.gsr.myschool.common.shared.type.*;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.DossierSession;
+import com.gsr.myschool.server.business.InboxMessage;
 import com.gsr.myschool.server.business.core.MatiereExamDuNE;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.core.SessionExamen;
 import com.gsr.myschool.server.business.core.SessionNiveauEtude;
 import com.gsr.myschool.server.business.valuelist.ValueList;
-import com.gsr.myschool.server.repos.DossierRepos;
-import com.gsr.myschool.server.repos.DossierSessionRepos;
-import com.gsr.myschool.server.repos.MatiereExamenNERepos;
-import com.gsr.myschool.server.repos.NiveauEtudeRepos;
-import com.gsr.myschool.server.repos.SessionExamenNERepos;
-import com.gsr.myschool.server.repos.SessionExamenRepos;
-import com.gsr.myschool.server.repos.ValueListRepos;
+import com.gsr.myschool.server.repos.*;
 import com.gsr.myschool.server.security.SecurityContextProvider;
+import com.gsr.myschool.server.service.EmailPreparatorService;
 import com.gsr.myschool.server.service.SessionService;
 import com.gsr.myschool.server.util.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +47,14 @@ public class SessionServiceImpl implements SessionService {
     private MatiereExamenNERepos matiereExamenNERepos;
     @Autowired
     private SessionExamenNERepos sessionExamenNERepos;
+    @Autowired
+    private EmailPreparatorService emailService;
+    @Autowired
+    private InboxMessageRepos inboxMessageRepos;
+    @Value("${mailserver.sender}")
+    private String sender;
+    @Value("${mailserver.convocationLink}")
+    private String convocationLink;
 
     @Override
     public void createNewSession(SessionExamen sessionExamen) {
@@ -244,4 +249,6 @@ public class SessionServiceImpl implements SessionService {
             return false;
         }
     }
+
+
 }

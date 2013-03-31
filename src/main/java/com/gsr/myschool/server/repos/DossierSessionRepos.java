@@ -19,8 +19,14 @@ package com.gsr.myschool.server.repos;
 import com.gsr.myschool.server.business.DossierSession;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface DossierSessionRepos extends JpaRepository<DossierSession, Long> {
     DossierSession findByDossierIdAndSessionExamenId(Long dossierId, Long sessionId);
 
     DossierSession findByDossierId(Long dossierId);
+
+    DossierSession findByGeneratedConvocationPDFPath(String token);
+
+    List<DossierSession> findBySessionExamenId(Long sessionId);
 }

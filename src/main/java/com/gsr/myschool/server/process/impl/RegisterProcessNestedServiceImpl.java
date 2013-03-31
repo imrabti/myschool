@@ -80,7 +80,7 @@ public class RegisterProcessNestedServiceImpl implements RegisterProcessNestedSe
             params.put("link", link);
             try {
                 email = emailService.populateEmail(EmailType.RELANCE, user.getEmail(), email.getFrom(), params, "", "");
-                emailService.send(email);
+                emailService.prepare(email);
             } catch (Exception e) {
                 log.error("Error sending email relance for user " + id);
             }
@@ -120,7 +120,7 @@ public class RegisterProcessNestedServiceImpl implements RegisterProcessNestedSe
 
         try {
             email = emailService.populateEmail(EmailType.ACTIVATION, user.getEmail(), email.getFrom(), params, "", "");
-            emailService.send(email);
+            emailService.prepare(email);
 
             InboxMessage message = new InboxMessage();
             message.setParentUser(user);
@@ -137,7 +137,7 @@ public class RegisterProcessNestedServiceImpl implements RegisterProcessNestedSe
     @Override
     public void sendActivationMailAgain(EmailDTO email) {
         try {
-            emailService.send(email);
+            emailService.prepare(email);
         } catch (Exception e) {
             log.error("Error sending email activation again");
         }
