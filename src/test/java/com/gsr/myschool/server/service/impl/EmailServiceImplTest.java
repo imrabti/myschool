@@ -3,26 +3,20 @@ package com.gsr.myschool.server.service.impl;
 import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.common.shared.type.EmailType;
 import com.gsr.myschool.server.business.EmailTemplate;
-import com.gsr.myschool.server.reporting.ConvocationController;
+import com.gsr.myschool.server.reporting.convocation.ConvocationService;
 import com.gsr.myschool.server.repos.EmailTemplateRepos;
 import com.gsr.myschool.server.service.EmailService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static java.lang.Thread.sleep;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -39,7 +33,7 @@ public class EmailServiceImplTest {
     @Autowired
     private EmailTemplateRepos emailTemplateRepos;
     @Autowired
-    private ConvocationController convocationController;
+    private ConvocationService convocationService;
     EmailTemplate email = new EmailTemplate();
 
     @Before
@@ -67,7 +61,7 @@ public class EmailServiceImplTest {
         testlist.add("test2");
         testlist.add("test3");
 
-        params.put("testlist",testlist);
+        params.put("testlist", testlist);
 
         // populate the mail template and return a mailDTO
         EmailDTO result = emailService.populateEmail(EmailType.ACTIVATION, to, from, params, cc, bcc);
@@ -81,10 +75,10 @@ public class EmailServiceImplTest {
         System.out.println("==");
 
 
-        File f = convocationController.generateConvocation(902L);
-        System.out.println("==");
-        emailService.sendWithAttachement(result, f);
-        System.out.println("==");
-        sleep(10000);
+//        File f = convocationService.generateConvocation(902L);
+//        System.out.println("==");
+//        emailService.sendWithAttachement(result, f);
+//        System.out.println("==");
+//        sleep(10000);
     }
 }

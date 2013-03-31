@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.gsr.myschool.server.reporting;
+package com.gsr.myschool.server.reporting.convocation;
 
 import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
@@ -25,26 +25,20 @@ import com.gsr.myschool.server.business.InfoParent;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.core.SessionExamen;
 import com.gsr.myschool.server.business.core.SessionNiveauEtude;
+import com.gsr.myschool.server.reporting.ReportService;
 import com.gsr.myschool.server.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@Controller
-@RequestMapping("/convocation")
-public class ConvocationController {
+@Service
+public class ConvocationServiceImpl implements ConvocationService {
     @Autowired
     ReportService reportService;
     @Value("${reportCECM}")
@@ -56,8 +50,6 @@ public class ConvocationController {
     @Value("${reportCP}")
     String reportCP;
     @Autowired
-    private DossierRepos dossierRepos;
-    @Autowired
     private NiveauEtudeRepos niveauEtudeRepos;
     @Autowired
     private SessionExamenNERepos sessionExamenNERepos;
@@ -68,17 +60,17 @@ public class ConvocationController {
     @Autowired
     private InfoParentRepos infoParentRepos;
 
-
-    public File generateConvocation(Long dossierId) {
-        Dossier dossier = dossierRepos.findOne(dossierId);
-        DossierSession dossierSession = dossierSessionRepos.findByDossierId(dossierId);
-        List<InfoParent> parents = infoParentRepos.findByDossierId(dossierId);
+    @Override
+    public File generateConvocation(Dossier dossier) {
+        DossierSession dossierSession = dossierSessionRepos.findByDossierId(dossier.getId());
+        List<InfoParent> parents = infoParentRepos.findByDossierId(dossier.getId());
 
         NiveauEtude niveauEtude = dossier.getNiveauEtude();
         SessionExamen session = dossierSession.getSessionExamen();
         if (niveauEtude == null || session == null) return null;
 
-        List<SessionNiveauEtude> matieres = sessionExamenNERepos.findBySessionExamenIdAndNiveauEtudeId(session.getId(), niveauEtude.getId());
+        List<SessionNiveauEtude> matieres = sessionExamenNERepos.findBySessionExamenIdAndNiveauEtudeId(session.getId(),
+                niveauEtude.getId());
 
         SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
         ReportDTO dto;
@@ -133,9 +125,9 @@ public class ConvocationController {
         }
 
         dto.setReportParameters(myMap);
+
         try {
-            String fileName = niveauEtude.getNom().length() > 10 ? niveauEtude.getNom().substring(0, 10) : niveauEtude.getNom();
-            File convocation = new File("convocation " + fileName + ".pdf");
+            File convocation = new File("convocation_" + dossier.getGeneratedNumDossier() + ".pdf");
             FileOutputStream fs = new FileOutputStream(convocation);
             BufferedOutputStream outputStream = new BufferedOutputStream(fs);
             byte[] result = reportService.generatePdf(dto);
@@ -150,9 +142,8 @@ public class ConvocationController {
         }
     }
 
-    @RequestMapping(value = "test", method = RequestMethod.GET, produces = "application/pdf")
-    @ResponseStatus(HttpStatus.OK)
-    public void generateReportTest(@RequestParam String niveauId, @RequestParam String sessionId, HttpServletResponse response) {
+    @Override
+    public ReportDTO generateConvocationTest(Long niveauId, Long sessionId) {
         NiveauEtude niveauEtude = niveauEtudeRepos.findOne(Long.valueOf(niveauId));
         SessionExamen session = sessionExamenRepos.findOne(Long.valueOf(sessionId));
         List<SessionNiveauEtude> matieres = sessionExamenNERepos.findBySessionExamenIdAndNiveauEtudeId(Long.valueOf(sessionId), Long.valueOf(niveauId));
@@ -217,17 +208,7 @@ public class ConvocationController {
         }
 
         dto.setReportParameters(myMap);
-        try {
-            response.addHeader("Content-Disposition", "attachment; filename=" + niveauEtude.getNom() + ".pdf");
 
-            BufferedOutputStream outputStream = new BufferedOutputStream(response.getOutputStream());
-            byte[] result = reportService.generatePdf(dto);
-
-            outputStream.write(result, 0, result.length);
-            outputStream.flush();
-            outputStream.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return dto;
     }
 }
