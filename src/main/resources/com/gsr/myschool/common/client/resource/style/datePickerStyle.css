@@ -1,0 +1,85 @@
+@external dateBoxPopup, datePickerMonthSelector, datePickerMonth, datePickerPreviousButton, datePickerNextButton,
+ datePickerDays,datePickerWeekdayLabel, datePickerWeekendLabel, datePickerDay, datePickerDayIsToday,
+ datePickerDayIsWeekend, datePickerDayIsFiller, datePickerDayIsValue, datePickerDayIsDisabled,
+ datePickerDayIsHighlighted, datePickerDayIsValueAndHighlighted;
+
+.dateBoxPopup {
+    z-index: 100;
+}
+
+.gwt-DatePicker {
+    border: 1px solid #a1a1a1;
+    background-color: #fff;
+}
+
+.gwt-DatePicker .datePickerMonthSelector {
+    background-color: #545454;
+}
+
+.gwt-DatePicker .datePickerMonth {
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 3px;
+}
+
+.gwt-DatePicker .datePickerPreviousButton {
+    color: #fff;
+    font-size: 12px;
+}
+
+.gwt-DatePicker .datePickerNextButton {
+    color: #fff;
+    font-size: 12px;
+}
+
+.gwt-DatePicker .datePickerDays {
+
+}
+
+.gwt-DatePicker .datePickerWeekdayLabel {
+    background-color: #545454;
+    color: #fff;
+    font-size: 11px;
+}
+
+.gwt-DatePicker .datePickerWeekendLabel {
+    background-color: #545454;
+    color: #fff;
+    font-size: 11px;
+}
+
+.gwt-DatePicker .datePickerDay {
+    font-size: 11px;
+    padding: 5px;
+    color: #545454;
+}
+
+.gwt-DatePicker .datePickerDayIsToday {
+    border: none;
+    font-weight: bold;
+}
+
+.gwt-DatePicker .datePickerDayIsWeekend {
+    background: #EEE;
+}
+
+.gwt-DatePicker .datePickerDayIsFiller {
+    color: #888;
+}
+
+.gwt-DatePicker .datePickerDayIsValue {
+    background-color: #57A02F;
+    color: #fff;
+    font-weight: bold;
+}
+
+.gwt-DatePicker .datePickerDayIsHighlighted {
+    background-color: #e5fdd0;
+}
+
+.gwt-DatePicker .datePickerDayIsValueAndHighlighted {
+}
+
+.gwt-DatePicker .datePickerDayIsDisabled {
+}

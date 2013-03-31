@@ -2,23 +2,26 @@ package com.gsr.myschool.back.client.web.application.session.popup;
 
 import com.github.gwtbootstrap.client.ui.TextArea;
 import com.github.gwtbootstrap.client.ui.TextBox;
-import com.github.gwtbootstrap.datepicker.client.ui.DateBox;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.datepicker.client.DateBox;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.PopupViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
+import com.gsr.myschool.common.client.resource.SharedResources;
 import com.gsr.myschool.common.client.util.DateUtilsClient;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.widget.ModalHeader;
 import com.gsr.myschool.common.client.widget.TimeInput;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 
 import static com.google.gwt.query.client.GQuery.$;
 
@@ -54,7 +57,7 @@ public class EditSessionView extends PopupViewWithUiHandlers<EditSessionUiHandle
                            final TimeInput welcomKids, final TimeInput debutTest,
                            final TimeInput gatherKids, final ModalHeader modalHeader,
                            final UiHandlersStrategy<EditSessionUiHandlers> uiHandlers,
-                           final Driver driver) {
+                           final SharedResources sharedResources, final Driver driver) {
         super(eventBus, uiHandlers);
 
         this.driver = driver;
@@ -72,6 +75,9 @@ public class EditSessionView extends PopupViewWithUiHandlers<EditSessionUiHandle
                 hide();
             }
         });
+
+        dateSession.getDatePicker().setStyleName(sharedResources.datePickerStyle().gwtDatePicker());
+        dateSession.setFormat(new DateBox.DefaultFormat(DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT)));
 
         $(nom).id("nom");
         $(dateSession).id("dateSession");
