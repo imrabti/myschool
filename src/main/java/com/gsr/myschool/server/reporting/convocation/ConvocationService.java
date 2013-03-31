@@ -25,4 +25,6 @@ public interface ConvocationService {
     File generateConvocation(Dossier dossier);
 
     ReportDTO generateConvocationTest(Long niveauId, Long sessionId);
+
+    ReportDTO generateConvocation(String token);
 }

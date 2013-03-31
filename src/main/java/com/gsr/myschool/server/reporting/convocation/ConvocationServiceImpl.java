@@ -211,4 +211,72 @@ public class ConvocationServiceImpl implements ConvocationService {
 
         return dto;
     }
+
+    @Override
+    public ReportDTO generateConvocation(String token) {
+        DossierSession dossierSession = dossierSessionRepos.findByGeneratedConvocationPDFPath(token);
+        List<InfoParent> parents = infoParentRepos.findByDossierId(dossierSession.getDossier().getId());
+
+        NiveauEtude niveauEtude = dossierSession.getDossier().getNiveauEtude();
+        SessionExamen session = dossierSession.getSessionExamen();
+        if (niveauEtude == null || session == null) return null;
+
+        List<SessionNiveauEtude> matieres = sessionExamenNERepos.findBySessionExamenIdAndNiveauEtudeId(session.getId(),
+                niveauEtude.getId());
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
+        ReportDTO dto;
+
+        Map<String, Object> myMap = new HashMap<String, Object>();
+
+        myMap.put("date", dateFormat.format(new Date()));
+
+        if (session.getDateSession() != null) {
+            myMap.put("dateTest", dateFormat.format(session.getDateSession()));
+        } else {
+            myMap.put("dateTest", "8:00");
+        }
+
+        myMap.put("heureAccueilDebut", session.getWelcomKids());
+        myMap.put("heureAccueilFin", "8:00");
+
+        myMap.put("heureDebut", session.getDebutTest());
+        myMap.put("heureRecuperation", session.getGatherKids());
+
+        myMap.put("niveauEtude", niveauEtude.getNom());
+        myMap.put("section", niveauEtude.getFiliere().getNom());
+
+        myMap.put("adresse", session.getAdresse());
+        myMap.put("phone", session.getTelephone());
+
+        for (InfoParent parent : parents) {
+            if (!Strings.isNullOrEmpty(parent.getNom())) {
+                myMap.put("nomParent", parent.getNom());
+            }
+        }
+        myMap.put("prenomEnfant", dossierSession.getDossier().getCandidat().getFirstname());
+
+        if (niveauEtude.getAnnee() <= 5 && niveauEtude.getAnnee() >= 4) {
+            dto = new ReportDTO(reportMSGS);
+        } else if (niveauEtude.getAnnee() == 6) {
+            dto = new ReportDTO(reportCP);
+            myMap.put("heureEpreuveDebut", matieres.get(0).getHoraireDe());
+            myMap.put("heureEpreuveFin", matieres.get(0).getHoraireA());
+        } else if (niveauEtude.getAnnee() >= 7 && niveauEtude.getAnnee() <= 10) {
+            dto = new ReportDTO(reportCECM);
+            myMap.put("heureEpreuveDebut", matieres.get(0).getHoraireDe());
+            myMap.put("heureEpreuveFin", matieres.get(0).getHoraireA());
+        } else {
+            dto = new ReportDTO(reportSeconde);
+
+            List<Map> myList = new ArrayList<Map>();
+            for (SessionNiveauEtude matiere : matieres) {
+                myList.add(matiere.getReportsAttributes());
+            }
+            myMap.put("matieres", myList);
+        }
+
+        dto.setReportParameters(myMap);
+        return dto;
+    }
 }
