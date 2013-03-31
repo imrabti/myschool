@@ -17,6 +17,7 @@ import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.FraterieDTOProxy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
+import com.gsr.myschool.common.client.util.DateUtilsClient;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
@@ -104,6 +105,8 @@ public class FraterieEditor extends Composite implements EditorView<FraterieDTOP
         if (driver.hasErrors()) {
             return null;
         } else {
+            fraterie.setBirthDate(DateUtilsClient.correctDate(fraterie.getBirthDate()));
+
             return fraterie;
         }
     }

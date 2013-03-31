@@ -16,6 +16,7 @@ import com.gsr.myschool.common.client.proxy.InfoParentProxy;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.resource.message.HelpMessageBundle;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
+import com.gsr.myschool.common.client.util.DateUtilsClient;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
@@ -183,6 +184,8 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
         if (driver.hasErrors()) {
             return null;
         } else {
+            infoParent.setBirthDate(DateUtilsClient.correctDate(infoParent.getBirthDate()));
+
             return infoParent;
         }
     }

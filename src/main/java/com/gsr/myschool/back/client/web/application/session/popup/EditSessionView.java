@@ -15,6 +15,7 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.PopupViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
+import com.gsr.myschool.common.client.util.DateUtilsClient;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.widget.ModalHeader;
 import com.gsr.myschool.common.client.widget.TimeInput;
@@ -93,6 +94,8 @@ public class EditSessionView extends PopupViewWithUiHandlers<EditSessionUiHandle
         if (driver.hasErrors()) {
             return null;
         } else {
+            session.setDateSession(DateUtilsClient.correctDate(session.getDateSession()));
+
             return session;
         }
     }
