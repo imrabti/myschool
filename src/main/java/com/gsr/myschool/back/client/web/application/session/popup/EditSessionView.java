@@ -95,7 +95,9 @@ public class EditSessionView extends ValidatedPopupViewImplWithUiHandlers<EditSe
         if (driver.hasErrors()) {
             return null;
         } else {
-            session.setDateSession(DateUtilsClient.correctDate(session.getDateSession()));
+            if (session.getDateSession() != null) {
+                session.setDateSession(DateUtilsClient.correctDate(session.getDateSession()));
+            }
 
             return session;
         }
