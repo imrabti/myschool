@@ -34,4 +34,6 @@ public interface AffectationUiHandlers extends UiHandlers {
     void affecter(DossierProxy inscription);
 
     void desaffecter(DossierProxy inscription);
+
+    void imprimer(DossierProxy inscription);
 }

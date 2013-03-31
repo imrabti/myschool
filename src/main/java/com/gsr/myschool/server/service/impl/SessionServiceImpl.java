@@ -200,6 +200,16 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
+    public DossierSession findByDossier(Dossier dossier) {
+        try {
+            return dossierSessionRepos.findByDossierId(dossier.getId());
+        }   catch (Exception e) {
+            log.error(e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
     public Boolean launchSession(SessionExamen session, String link) {
         List<DossierSession> dossierSessions = dossierSessionRepos.findBySessionExamenId(session.getId());
         for (DossierSession dossiersession : dossierSessions) {

@@ -53,6 +53,7 @@ public class AffectationActionCell extends AbstractCell<DossierProxy> {
     private ActionCell.Delegate<DossierProxy> viewDetails;
     private ActionCell.Delegate<DossierProxy> affecter;
     private ActionCell.Delegate<DossierProxy> desaffecter;
+    private ActionCell.Delegate<DossierProxy> imprimer;
 
     private DossierProxy selectedObject;
 
@@ -61,7 +62,8 @@ public class AffectationActionCell extends AbstractCell<DossierProxy> {
                                  final RendererNotAffectedDossier notAffectedRenderer,
                                  @Assisted("viewDetails") ActionCell.Delegate<DossierProxy> viewDetails,
                                  @Assisted("affecter") ActionCell.Delegate<DossierProxy> affecter,
-                                 @Assisted("desaffecter") ActionCell.Delegate<DossierProxy> desaffecter) {
+                                 @Assisted("desaffecter") ActionCell.Delegate<DossierProxy> desaffecter,
+                                 @Assisted("imprimer") ActionCell.Delegate<DossierProxy> imprimer) {
         super(BrowserEvents.CLICK);
 
         this.affectedRenderer = affectedRenderer;
@@ -69,6 +71,7 @@ public class AffectationActionCell extends AbstractCell<DossierProxy> {
         this.viewDetails = viewDetails;
         this.affecter = affecter;
         this.desaffecter = desaffecter;
+        this.imprimer = imprimer;
     }
 
     @Override
@@ -112,6 +115,12 @@ public class AffectationActionCell extends AbstractCell<DossierProxy> {
     void onDesafecterClicked(ClickEvent event) {
         if (selectedObject.getStatus() == DossierStatus.INVITED_TO_TEST) {
             desaffecter.execute(selectedObject);
+        }
+    }
+    @UiHandler({"imprimer"})
+    void onPrintClicked(ClickEvent event) {
+        if (selectedObject.getStatus() == DossierStatus.INVITED_TO_TEST) {
+            imprimer.execute(selectedObject);
         }
     }
 }

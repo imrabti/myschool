@@ -17,8 +17,10 @@
 package com.gsr.myschool.back.client.web.application.affectation;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
+import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.DossierRequest;
@@ -28,6 +30,7 @@ import com.gsr.myschool.back.client.web.application.affectation.popup.SessionAff
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.PagedDossiersProxy;
+import com.gsr.myschool.common.client.request.ConvocationRequestBuilder;
 import com.gsr.myschool.common.client.request.ExcelRequestBuilder;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
@@ -39,6 +42,8 @@ import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.exception.AffectationClosedException;
 import com.gsr.myschool.common.shared.exception.InscriptionClosedException;
 import com.gsr.myschool.common.shared.type.DossierStatus;
+import com.gsr.myschool.common.shared.type.SessionStatus;
+import com.gsr.myschool.server.business.DossierSession;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -149,12 +154,27 @@ public class AffectationPresenter extends Presenter<AffectationPresenter.MyView,
                 MessageEvent.fire(this, message);
                 loadDossiersCounts();
             }
+
             @Override
             public void onException(String type) {
                 if (AffectationClosedException.class.getName().equals(type)) {
                     Message message = new Message.Builder(messageBundle.affectationClosed())
                             .style(AlertType.WARNING).closeDelay(CloseDelay.NEVER).build();
                     MessageEvent.fire(this, message);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void imprimer(DossierProxy dossier) {
+        final ConvocationRequestBuilder request = new ConvocationRequestBuilder();
+        requestFactory.sessionService().findByDossier(dossier).fire(new Receiver<DossierSession>() {
+            @Override
+            public void onSuccess(DossierSession dossierSession) {
+                if (!Strings.isNullOrEmpty(dossierSession.getGeneratedConvocationPDFPath())) {
+                    request.buildData(dossierSession.getGeneratedConvocationPDFPath());
+                    request.sendRequest();
                 }
             }
         });

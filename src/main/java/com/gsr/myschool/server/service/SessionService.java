@@ -3,6 +3,7 @@ package com.gsr.myschool.server.service;
 import com.gsr.myschool.common.shared.exception.AffectationClosedException;
 import com.gsr.myschool.common.shared.exception.SessionEmptyException;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.business.DossierSession;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.core.SessionExamen;
 import com.gsr.myschool.server.business.core.SessionNiveauEtude;
@@ -39,4 +40,6 @@ public interface SessionService {
     List<SessionExamen> findAllOpenedSessions();
 
     Boolean launchSession(SessionExamen session, String link);
+
+    DossierSession findByDossier(Dossier dossier);
 }

@@ -23,5 +23,6 @@ import com.gsr.myschool.common.client.proxy.DossierProxy;
 public interface AffectationActionCellFactory {
     AffectationActionCell create(@Assisted("viewDetails") ActionCell.Delegate<DossierProxy> viewDetails,
                                  @Assisted("affecter") ActionCell.Delegate<DossierProxy> affecter,
-                                 @Assisted("desaffecter") ActionCell.Delegate<DossierProxy> desaffecter);
+                                 @Assisted("desaffecter") ActionCell.Delegate<DossierProxy> desaffecter,
+                                 @Assisted("imprimer") ActionCell.Delegate<DossierProxy> imprimer);
 }

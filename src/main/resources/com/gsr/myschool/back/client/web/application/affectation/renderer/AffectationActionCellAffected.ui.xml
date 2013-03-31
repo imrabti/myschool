@@ -1,5 +1,9 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'>
     <div class="btn-group">
+        <a href="javascript:;" class="btn" ui:field="imprimer">
+            <i class="icon-print"/>
+            <span class="">Imprimer convocation</span>
+        </a>
         <a href="javascript:;" class="btn" ui:field="viewDetails">
             <i class="icon-search"/>
             <span class="">consulter</span>

@@ -33,6 +33,11 @@ public class ConvocationRequestBuilder extends RequestBuilder {
         postData.append("niveauId=" + niveauId + "&sessionId=" + sessionId);
     }
 
+    public void buildData(String token) {
+        postData = new StringBuffer();
+        postData.append("number=" +token);
+    }
+
     public void sendRequest() {
         if (GWT.isScript()) {
             Window.open("/preinscription/resource/convocation?" + postData.toString(), "_blank", "");

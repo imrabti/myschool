@@ -7,6 +7,8 @@ import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
 import com.gsr.myschool.common.client.proxy.SessionNiveauEtudeProxy;
+import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.business.DossierSession;
 import com.gsr.myschool.server.service.impl.SessionServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
 
@@ -43,4 +45,6 @@ public interface SessionRequest extends RequestContext {
     Request<Boolean> desaffecter(DossierProxy dossier);
 
     Request<Boolean> launchSession(SessionExamenProxy session, String link);
+
+    Request<DossierSession> findByDossier(DossierProxy dossier);
 }
