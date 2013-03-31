@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportMSGS" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4c574922-4b99-490d-ae3f-1b12f7827f23">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="42"/>
 	<parameter name="date" class="java.lang.String"/>
 	<parameter name="dateTest" class="java.lang.String"/>
 	<parameter name="heureAccueilDebut" class="java.lang.String"/>
@@ -27,63 +27,63 @@
 				<reportElement uuid="e81b6025-2acb-4471-87d4-120fbaed85f7" x="0" y="0" width="77" height="60"/>
 				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"gsrlogo.png"]]></imageExpression>
 			</image>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="418caa72-058d-4616-ad42-92ddc3260878" x="384" y="75" width="130" height="20"/>
 				<textElement textAlignment="Right">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="ba510252-afc9-4453-a2c9-225ff6f6854b" x="287" y="110" width="227" height="20"/>
 				<textElement textAlignment="Right">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Madame, Monsieur "+$P{nomParent}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="167" width="393" height="30"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Nous vous invitons à présenter votre enfant "+$P{prenomEnfant}+" le : "]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="201" width="393" height="16"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dateTest}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="241" width="393" height="16"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Début des épreuves à "+$P{heureDebut}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="261" width="393" height="16"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Récupération des enfants à "+$P{heureRecuperation}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="281" width="393" height="31"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Afin de passer le test-concours d’admission en "+$P{niveauEtude}+" - "+$P{section}+" et ce à l’adresse suivante :"]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="316" width="393" height="27"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{adresse}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="353" width="393" height="16"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
@@ -111,7 +111,7 @@
 				</textElement>
 				<text><![CDATA[La Direction]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="221" width="393" height="16"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
