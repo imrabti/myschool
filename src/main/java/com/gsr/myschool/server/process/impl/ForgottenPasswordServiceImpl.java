@@ -22,7 +22,7 @@ import com.gsr.myschool.common.shared.type.EmailType;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.process.ForgottenPasswordService;
 import com.gsr.myschool.server.repos.UserRepos;
-import com.gsr.myschool.server.service.EmailService;
+import com.gsr.myschool.server.service.EmailPreparatorService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
@@ -39,7 +39,7 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordService {
     @Autowired
     private UserRepos userRepos;
     @Autowired
-    private EmailService emailService;
+    private EmailPreparatorService emailService;
     @Autowired
     private RuntimeService runtimeService;
     @Autowired

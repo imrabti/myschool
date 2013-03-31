@@ -23,7 +23,7 @@ import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.InboxMessage;
 import com.gsr.myschool.server.process.ValidationProcessNestedService;
 import com.gsr.myschool.server.repos.InboxMessageRepos;
-import com.gsr.myschool.server.service.EmailService;
+import com.gsr.myschool.server.service.EmailPreparatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -35,7 +35,7 @@ import java.util.Map;
 @Service
 public class ValidationProcessNestedServiceImpl implements ValidationProcessNestedService {
     @Autowired
-    private EmailService emailService;
+    private EmailPreparatorService emailService;
     @Autowired
     private InboxMessageRepos inboxMessageRepos;
     @Value("${mailserver.sender}")

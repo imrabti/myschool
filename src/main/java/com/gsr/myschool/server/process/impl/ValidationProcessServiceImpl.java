@@ -27,7 +27,7 @@ import com.gsr.myschool.server.business.InboxMessage;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.repos.InboxMessageRepos;
-import com.gsr.myschool.server.service.EmailService;
+import com.gsr.myschool.server.service.EmailPreparatorService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
@@ -63,7 +63,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     @Autowired
     private DossierRepos dossierRepos;
     @Autowired
-    private EmailService emailService;
+    private EmailPreparatorService emailService;
     @Autowired
     private InboxMessageRepos inboxMessageRepos;
     @Value("${mailserver.sender}")
@@ -105,7 +105,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
         try {
             EmailDTO email = emailService.populateEmail(EmailType.PIECES_RECEIVED,
                     dossier.getOwner().getEmail(), sender, params, "", "");
-            emailService.send(email);
+            emailService.prepare(email);
 
             InboxMessage message = new InboxMessage();
             message.setParentUser(dossier.getOwner());
@@ -134,7 +134,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
         try {
             EmailDTO email = emailService.populateEmail(EmailType.DOSSIER_RECEIVED,
                     dossier.getOwner().getEmail(), sender, params, "", "");
-            emailService.send(email);
+            emailService.prepare(email);
 
             InboxMessage message = new InboxMessage();
             message.setParentUser(dossier.getOwner());
@@ -195,7 +195,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
             EmailDTO email = emailService.populateEmail(EmailType.DOSSIER_INCOMPLETE,
                     dossier.getOwner().getEmail(), sender,
                     params, "", "");
-            emailService.send(email);
+            emailService.prepare(email);
 
             InboxMessage message = new InboxMessage();
             message.setParentUser(dossier.getOwner());
@@ -230,7 +230,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
             EmailDTO email = emailService.populateEmail(EmailType.DOSSIER_COMPLETE,
                     dossier.getOwner().getEmail(), sender,
                     params, "", "");
-            emailService.send(email);
+            emailService.prepare(email);
 
             InboxMessage message = new InboxMessage();
             message.setParentUser(dossier.getOwner());
