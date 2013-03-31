@@ -279,6 +279,7 @@ public class ConvocationServiceImpl implements ConvocationService {
         }
 
         dto.setReportParameters(myMap);
+        dto.setFileName("convocation_" + dossierSession.getDossier().getGeneratedNumDossier() + ".pdf");
         return dto;
     }
 }
