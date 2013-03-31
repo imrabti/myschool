@@ -200,7 +200,7 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public Boolean closeSession(SessionExamen session, String link) {
+    public Boolean launchSession(SessionExamen session, String link) {
         List<DossierSession> dossierSessions = dossierSessionRepos.findBySessionExamenId(session.getId());
         for (DossierSession dossiersession : dossierSessions) {
             Dossier dossier = dossiersession.getDossier();

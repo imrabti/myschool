@@ -156,7 +156,7 @@ public class SessionPresenter extends Presenter<MyView, MyProxy> implements Sess
     public void closeSession(SessionExamenProxy session) {
         if (Window.confirm(messageBundle.closeSession())) {
             String convocationLink = URLUtils.generateURL(false);
-            requestFactory.sessionService().closeSession(selectedSession, convocationLink).fire(new ReceiverImpl<Boolean>() {
+            requestFactory.sessionService().launchSession(selectedSession, convocationLink).fire(new ReceiverImpl<Boolean>() {
                 @Override
                 public void onSuccess(Boolean aBoolean) {
                     if (aBoolean) {

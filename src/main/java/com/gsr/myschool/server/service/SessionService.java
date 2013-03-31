@@ -38,5 +38,5 @@ public interface SessionService {
 
     List<SessionExamen> findAllOpenedSessions();
 
-    Boolean closeSession(SessionExamen session, String link);
+    Boolean launchSession(SessionExamen session, String link);
 }
