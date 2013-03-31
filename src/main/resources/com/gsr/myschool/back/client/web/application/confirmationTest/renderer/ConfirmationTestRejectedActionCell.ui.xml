@@ -3,17 +3,20 @@
     <ui:with field="reason" type="java.lang.String" />
 
     <div class="btn-group">
-        <a href="javascript:;" alt="{reason}" class="btn" ui:field="viewDetails">
+        <a href="javascript:;" class="btn" ui:field="viewDetails">
             <i class="icon-search"/>
             <span class="">consulter</span>
-        </a>
-        <a href="javascript:;" alt="{reason}" class="btn btn-success" ui:field="accept">
-            <i class="icon-ok"/>
-            <span class="">accepter pour test</span>
         </a>
         <a href="javascript:;" style="display:none;" class="btn btn-warning" ui:field="deny">
             <i class="icon-minus"/>
             <span class="">refuser</span>
+        </a>
+        <a href="javascript:;" title="{reason}" class="btn btn-warning" >
+            <span class="">!</span>
+        </a>
+        <a href="javascript:;" class="btn btn-success" ui:field="accept">
+            <i class="icon-ok"/>
+            <span class="">accepter pour test</span>
         </a>
     </div>
 

@@ -38,7 +38,7 @@ public interface DossierRequest extends RequestContext {
 
     Request<List<PiecejustifDTOProxy>> getPieceJustifFromProcess(DossierProxy dossier);
 
-    Request<Boolean> rejectDossier(DossierProxy dossier);
+    Request<Boolean> rejectDossier(Long dossierId, String motif);
 
     Request<Boolean> acceptDossier(DossierProxy dossier);
 }
