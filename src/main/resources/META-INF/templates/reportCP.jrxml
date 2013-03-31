@@ -59,13 +59,6 @@
 				<textFieldExpression><![CDATA[$P{dateTest}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="221" width="393" height="16"/>
-				<textElement textAlignment="Center">
-					<font size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Accueil de "+$P{heureAccueilDebut}+" à "+$P{heureAccueilFin}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="241" width="393" height="16"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
@@ -204,6 +197,13 @@
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["de "+$P{heureEpreuveDebut}+" à "+$P{heureEpreuveFin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="220" width="393" height="16"/>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Accueil à "+$P{heureAccueilDebut}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
