@@ -2,7 +2,7 @@
     <div class="btn-group">
         <a href="javascript:;" class="btn" ui:field="imprimer">
             <i class="icon-print"/>
-            <span class="">Imprimer convocation</span>
+            <span class="">Imprimer</span>
         </a>
         <a href="javascript:;" class="btn" ui:field="viewDetails">
             <i class="icon-search"/>
@@ -10,7 +10,7 @@
         </a>
         <a href="javascript:;" class="btn btn-warning" ui:field="desaffecter">
             <i class="icon-remove"/>
-            <span class="">Annuler affectation</span>
+            <span class="">Annuler</span>
         </a>
         <a href="javascript:;" class="btn btn-success" ui:field="affecter">
             <i class="icon-pushpin"/>

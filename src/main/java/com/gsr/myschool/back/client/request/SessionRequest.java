@@ -3,10 +3,7 @@ package com.gsr.myschool.back.client.request;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
-import com.gsr.myschool.common.client.proxy.DossierProxy;
-import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
-import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
-import com.gsr.myschool.common.client.proxy.SessionNiveauEtudeProxy;
+import com.gsr.myschool.common.client.proxy.*;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.DossierSession;
 import com.gsr.myschool.server.service.impl.SessionServiceImpl;
@@ -46,5 +43,5 @@ public interface SessionRequest extends RequestContext {
 
     Request<Boolean> launchSession(SessionExamenProxy session, String link);
 
-    Request<DossierSession> findByDossier(DossierProxy dossier);
+    Request<DossierSessionProxy> findByDossier(DossierProxy dossier);
 }

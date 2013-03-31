@@ -1,7 +1,7 @@
 package com.gsr.myschool.common.shared.type;
 
 public enum SessionStatus {
-    CREATED("Créer"),
+    CREATED("Créée"),
     OPEN("Ouverte"),
     CLOSED("Cloturée"),
     CANCELED("Annulée");

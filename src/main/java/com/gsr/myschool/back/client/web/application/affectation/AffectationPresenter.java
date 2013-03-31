@@ -29,6 +29,7 @@ import com.gsr.myschool.back.client.web.application.affectation.event.DossierAff
 import com.gsr.myschool.back.client.web.application.affectation.popup.SessionAffectationPresenter;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.client.proxy.DossierSessionProxy;
 import com.gsr.myschool.common.client.proxy.PagedDossiersProxy;
 import com.gsr.myschool.common.client.request.ConvocationRequestBuilder;
 import com.gsr.myschool.common.client.request.ExcelRequestBuilder;
@@ -169,9 +170,9 @@ public class AffectationPresenter extends Presenter<AffectationPresenter.MyView,
     @Override
     public void imprimer(DossierProxy dossier) {
         final ConvocationRequestBuilder request = new ConvocationRequestBuilder();
-        requestFactory.sessionService().findByDossier(dossier).fire(new Receiver<DossierSession>() {
+        requestFactory.sessionService().findByDossier(dossier).fire(new Receiver<DossierSessionProxy>() {
             @Override
-            public void onSuccess(DossierSession dossierSession) {
+            public void onSuccess(DossierSessionProxy dossierSession) {
                 if (!Strings.isNullOrEmpty(dossierSession.getGeneratedConvocationPDFPath())) {
                     request.buildData(dossierSession.getGeneratedConvocationPDFPath());
                     request.sendRequest();
