@@ -21,25 +21,25 @@ import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.user.client.Window;
 
 public class ConvocationRequestBuilder extends RequestBuilder {
-        private StringBuffer postData;
+    private StringBuffer postData;
 
-        public ConvocationRequestBuilder() {
-            super(GET, "resource/convocation");
-            setHeader("Content-type", "application/x-www-form-urlencoded");
-        }
+    public ConvocationRequestBuilder() {
+        super(GET, "resource/convocation");
+        setHeader("Content-type", "application/x-www-form-urlencoded");
+    }
 
-        public void buildData(String niveauId, String sessionId) {
-            postData = new StringBuffer();
-            postData.append("niveauId=" + niveauId + "&sessionId=" + sessionId);
-        }
+    public void buildData(String niveauId, String sessionId) {
+        postData = new StringBuffer();
+        postData.append("niveauId=" + niveauId + "&sessionId=" + sessionId);
+    }
 
-        public void sendRequest() {
-            if (GWT.isScript()) {
-                Window.open("/preinscription/resource/convocation?" + postData.toString(), "_blank", "");
-            } else {
-                Window.open("/resource/convocation?" + postData.toString(), "_blank", "");
-            }
+    public void sendRequest() {
+        if (GWT.isScript()) {
+            Window.open("/preinscription/resource/convocation?" + postData.toString(), "_blank", "");
+        } else {
+            Window.open("/resource/convocation?" + postData.toString(), "_blank", "");
         }
+    }
 
     public void sendTestRequest() {
         if (GWT.isScript()) {

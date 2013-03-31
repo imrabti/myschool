@@ -19,12 +19,11 @@ package com.gsr.myschool.server.process.impl;
 import com.gsr.myschool.common.client.util.Base64;
 import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.common.shared.type.EmailType;
-import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.UserStatus;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.process.RegisterProcessService;
 import com.gsr.myschool.server.repos.UserRepos;
-import com.gsr.myschool.server.service.EmailService;
+import com.gsr.myschool.server.service.EmailPreparatorService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.Execution;
@@ -42,7 +41,7 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
     @Autowired
     private UserRepos userRepos;
     @Autowired
-    private EmailService emailService;
+    private EmailPreparatorService emailService;
     @Autowired
     private RuntimeService runtimeService;
     @Autowired

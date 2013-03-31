@@ -25,7 +25,7 @@ import com.gsr.myschool.server.exception.ServiceException;
 import com.gsr.myschool.server.process.RegisterProcessNestedService;
 import com.gsr.myschool.server.repos.InboxMessageRepos;
 import com.gsr.myschool.server.repos.UserRepos;
-import com.gsr.myschool.server.service.EmailService;
+import com.gsr.myschool.server.service.EmailPreparatorService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class RegisterProcessNestedServiceImpl implements RegisterProcessNestedSe
     @Autowired
     private UserRepos userRepos;
     @Autowired
-    private EmailService emailService;
+    private EmailPreparatorService emailService;
     @Autowired
     private InboxMessageRepos inboxMessageRepos;
 
