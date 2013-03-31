@@ -114,7 +114,10 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
         if (driver.hasErrors()) {
             return null;
         } else {
-            candidat.setBirthDate(DateUtilsClient.correctDate(candidat.getBirthDate()));
+            if (candidat.getBirthDate() != null) {
+                candidat.setBirthDate(DateUtilsClient.correctDate(candidat.getBirthDate()));
+            }
+
             return candidat;
         }
     }

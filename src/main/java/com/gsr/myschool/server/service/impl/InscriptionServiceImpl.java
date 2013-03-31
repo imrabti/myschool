@@ -20,6 +20,7 @@ import com.gsr.myschool.server.util.DateUtils;
 import com.gsr.myschool.server.util.I18nMessageBean;
 import com.gsr.myschool.server.util.UUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -291,7 +292,7 @@ public class InscriptionServiceImpl implements InscriptionService {
             spec = spec.and(EtablissementScolaireSpec.typeEqual(filter.getType()));
         }
 
-        return etablissementScolaireRepos.findAll(spec);
+        return etablissementScolaireRepos.findAll(spec, new Sort("nom"));
     }
 
     @Override

@@ -184,7 +184,9 @@ public class ParentEditor extends Composite implements EditorView<InfoParentProx
         if (driver.hasErrors()) {
             return null;
         } else {
-            infoParent.setBirthDate(DateUtilsClient.correctDate(infoParent.getBirthDate()));
+            if (infoParent.getBirthDate() != null) {
+                infoParent.setBirthDate(DateUtilsClient.correctDate(infoParent.getBirthDate()));
+            }
 
             return infoParent;
         }
