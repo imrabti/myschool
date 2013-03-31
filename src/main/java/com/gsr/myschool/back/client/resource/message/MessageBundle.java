@@ -58,4 +58,8 @@ public interface MessageBundle extends Messages {
     String openSessionSuccess();
 
     String closeSession();
+
+    String closeSessionSuccess();
+
+    String closeSessionFaillure();
 }

@@ -159,11 +159,20 @@ public class SessionPresenter extends Presenter<MyView, MyProxy> implements Sess
             requestFactory.sessionService().closeSession(selectedSession, convocationLink).fire(new ReceiverImpl<Boolean>() {
                 @Override
                 public void onSuccess(Boolean aBoolean) {
-                    Message message = new Message.Builder(messageBundle.niveauEtudeDeleteSucess())
-                            .style(AlertType.SUCCESS).build();
-                    MessageEvent.fire(this, message);
+                    if (aBoolean) {
+                        Message message = new Message.Builder(messageBundle.closeSessionSuccess())
+                                .style(AlertType.SUCCESS)
+                                .build();
+                        MessageEvent.fire(this, message);
 
-                    loadAttachedNiveauEtude();
+                        getView().setAttachedNiveau(new ArrayList<SessionTree>(), selectedSession.getStatus());
+                        loadSession();
+                    } else {
+                        Message message = new Message.Builder(messageBundle.closeSessionFaillure())
+                                .style(AlertType.ERROR)
+                                .build();
+                        MessageEvent.fire(this, message);
+                    }
                 }
             });
         }
