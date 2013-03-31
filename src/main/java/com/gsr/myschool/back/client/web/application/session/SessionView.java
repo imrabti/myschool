@@ -104,6 +104,10 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
     public void setAttachedNiveau(List<SessionTree> data, SessionStatus status) {
         attachNiveauEtude.setVisible(status == SessionStatus.CREATED);
         treeModel.refreshData(data, status != SessionStatus.CREATED);
+
+        for (int i = 0; i < attachedNiveau.getRootTreeNode().getChildCount(); i++) {
+            attachedNiveau.getRootTreeNode().setChildOpen(i, true);
+        }
     }
 
     @UiHandler("newSession")
