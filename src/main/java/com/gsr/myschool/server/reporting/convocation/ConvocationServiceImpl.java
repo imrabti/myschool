@@ -40,15 +40,15 @@ import java.util.*;
 @Service
 public class ConvocationServiceImpl implements ConvocationService {
     @Autowired
-    ReportService reportService;
+    private ReportService reportService;
     @Value("${reportCECM}")
-    String reportCECM;
+    private String reportCECM;
     @Value("${reportMSGS}")
-    String reportMSGS;
+    private String reportMSGS;
     @Value("${reportSeconde}")
-    String reportSeconde;
+    private String reportSeconde;
     @Value("${reportCP}")
-    String reportCP;
+    private String reportCP;
     @Autowired
     private NiveauEtudeRepos niveauEtudeRepos;
     @Autowired
@@ -144,8 +144,8 @@ public class ConvocationServiceImpl implements ConvocationService {
 
     @Override
     public ReportDTO generateConvocationTest(Long niveauId, Long sessionId) {
-        NiveauEtude niveauEtude = niveauEtudeRepos.findOne(Long.valueOf(niveauId));
-        SessionExamen session = sessionExamenRepos.findOne(Long.valueOf(sessionId));
+        NiveauEtude niveauEtude = niveauEtudeRepos.findOne(niveauId);
+        SessionExamen session = sessionExamenRepos.findOne(sessionId);
         List<SessionNiveauEtude> matieres = sessionExamenNERepos.findBySessionExamenIdAndNiveauEtudeId(Long.valueOf(sessionId), Long.valueOf(niveauId));
 
         SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
