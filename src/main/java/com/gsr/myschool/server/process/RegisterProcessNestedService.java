@@ -24,4 +24,10 @@ public interface RegisterProcessNestedService {
     EmailDTO getActivationMail(Long id, EmailDTO email) throws Exception;
 
     EmailDTO getRelanceMail(Long id, String token, EmailDTO email) throws Exception;
+
+    void sendRelanceMail(Long id, String link, EmailDTO email);
+
+    void sendActivationMail(Long id, EmailDTO email);
+
+    void sendActivationMailAgain(EmailDTO email);
 }

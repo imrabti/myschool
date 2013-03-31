@@ -21,7 +21,6 @@ import com.gsr.myschool.common.shared.type.EmailType;
 import com.gsr.myschool.common.shared.type.InboxMessageStatus;
 import com.gsr.myschool.server.business.InboxMessage;
 import com.gsr.myschool.server.business.User;
-import com.gsr.myschool.server.exception.ServiceException;
 import com.gsr.myschool.server.process.RegisterProcessNestedService;
 import com.gsr.myschool.server.repos.InboxMessageRepos;
 import com.gsr.myschool.server.repos.UserRepos;
@@ -52,7 +51,7 @@ public class RegisterProcessNestedServiceImpl implements RegisterProcessNestedSe
     }
 
     @Override
-    public EmailDTO getRelanceMail(Long id, String link, EmailDTO email) throws Exception, ServiceException {
+    public EmailDTO getRelanceMail(Long id, String link, EmailDTO email) throws Exception {
 
         User user = userRepos.findOne(id);
         if (user != null) {
@@ -61,13 +60,33 @@ public class RegisterProcessNestedServiceImpl implements RegisterProcessNestedSe
             params.put("lastname", user.getLastName());
             params.put("firstname", user.getFirstName());
             params.put("link", link);
-            email = emailService.populateEmail(EmailType.RELANCE, email.getTo(), email.getFrom(), params, "", "");
+            email = emailService.populateEmail(EmailType.RELANCE, user.getEmail(), email.getFrom(), params, "", "");
         } else {
             log.debug("No user with ID " + id + " Found");
         }
 
         return email;
 
+    }
+
+    @Override
+    public void sendRelanceMail(Long id, String link, EmailDTO email) {
+        User user = userRepos.findOne(id);
+        if (user != null) {
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("gender", user.getGender().toString());
+            params.put("lastname", user.getLastName());
+            params.put("firstname", user.getFirstName());
+            params.put("link", link);
+            try {
+                email = emailService.populateEmail(EmailType.RELANCE, user.getEmail(), email.getFrom(), params, "", "");
+                emailService.send(email);
+            } catch (Exception e) {
+                log.error("Error sending email relance for user " + id);
+            }
+        } else {
+            log.debug("No user with ID " + id + " Found");
+        }
     }
 
     @Override
@@ -78,7 +97,7 @@ public class RegisterProcessNestedServiceImpl implements RegisterProcessNestedSe
         params.put("lastname", user.getLastName());
         params.put("firstname", user.getFirstName());
 
-        email = emailService.populateEmail(EmailType.ACTIVATION, email.getTo(), email.getFrom(), params, "", "");
+        email = emailService.populateEmail(EmailType.ACTIVATION, user.getEmail(), email.getFrom(), params, "", "");
 
         InboxMessage message = new InboxMessage();
         message.setParentUser(user);
@@ -89,5 +108,38 @@ public class RegisterProcessNestedServiceImpl implements RegisterProcessNestedSe
         inboxMessageRepos.save(message);
 
         return email;
+    }
+
+    @Override
+    public void sendActivationMail(Long id, EmailDTO email) {
+        User user = userRepos.findOne(id);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("gender", user.getGender().toString());
+        params.put("lastname", user.getLastName());
+        params.put("firstname", user.getFirstName());
+
+        try {
+            email = emailService.populateEmail(EmailType.ACTIVATION, user.getEmail(), email.getFrom(), params, "", "");
+            emailService.send(email);
+
+            InboxMessage message = new InboxMessage();
+            message.setParentUser(user);
+            message.setSubject(email.getSubject());
+            message.setContent(email.getMessage());
+            message.setMsgDate(new Date());
+            message.setMsgStatus(InboxMessageStatus.UNREAD);
+            inboxMessageRepos.save(message);
+        } catch (Exception e) {
+            log.error("Error sending email relance for user " + id);
+        }
+    }
+
+    @Override
+    public void sendActivationMailAgain(EmailDTO email) {
+        try {
+            emailService.send(email);
+        } catch (Exception e) {
+            log.error("Error sending email activation again");
+        }
     }
 }
