@@ -38,5 +38,5 @@ public interface SessionService {
 
     List<SessionExamen> findAllOpenedSessions();
 
-    Boolean declancherSession(SessionExamen session);
+    Boolean closeSession(SessionExamen session);
 }
