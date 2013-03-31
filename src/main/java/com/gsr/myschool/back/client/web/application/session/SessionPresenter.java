@@ -28,6 +28,7 @@ import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.dto.NiveauEtudeNode;
 import com.gsr.myschool.common.shared.dto.SessionTree;
+import com.gsr.myschool.common.shared.exception.SessionEmptyException;
 import com.gsr.myschool.common.shared.type.SessionStatus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -117,7 +118,31 @@ public class SessionPresenter extends Presenter<MyView, MyProxy> implements Sess
 
     @Override
     public void openSession(SessionExamenProxy session) {
-        // TODO : Remove a session
+        Long sessionId = session.getId();
+        requestFactory.sessionService().openSession(sessionId).fire(new ReceiverImpl<Boolean>() {
+            @Override
+            public void onSuccess(Boolean aBoolean) {
+                if (aBoolean) {
+                    Message message = new Message.Builder(messageBundle.openSessionSuccess())
+                            .style(AlertType.SUCCESS).build();
+                    MessageEvent.fire(this, message);
+
+                    getView().setAttachedNiveau(new ArrayList<SessionTree>(), selectedSession.getStatus());
+                    loadSession();
+                } else {
+                    Message message = new Message.Builder(messageBundle.openSessionError()).build();
+                    MessageEvent.fire(this, message);
+                }
+            }
+
+            @Override
+            public void onException(String type) {
+                if (SessionEmptyException.class.getName().equals(type)) {
+                    Message message = new Message.Builder(messageBundle.sessionEmptyError()).build();
+                    MessageEvent.fire(this, message);
+                }
+            }
+        });
     }
 
     @Override

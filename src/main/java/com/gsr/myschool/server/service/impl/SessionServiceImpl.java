@@ -1,6 +1,8 @@
 package com.gsr.myschool.server.service.impl;
 
+import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.exception.AffectationClosedException;
+import com.gsr.myschool.common.shared.exception.SessionEmptyException;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.SessionStatus;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
@@ -56,7 +58,7 @@ public class SessionServiceImpl implements SessionService {
         String currentAnneeScolaire = DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1);
         sessionExamen.setAnneeScolaire(valueListRepos.findByValueAndValueTypeCode(currentAnneeScolaire,
                 ValueTypeCode.SCHOOL_YEAR));
-        sessionExamen.setStatus(SessionStatus.OPEN);
+        sessionExamen.setStatus(SessionStatus.CREATED);
         sessionExamen.setCandidates(0);
         sessionExamenRepos.save(sessionExamen);
     }
@@ -108,6 +110,27 @@ public class SessionServiceImpl implements SessionService {
     public void deleteNiveauEtude(Long niveauEtudeId) {
         List<SessionNiveauEtude> matieres = sessionExamenNERepos.findByNiveauEtudeId(niveauEtudeId);
         sessionExamenNERepos.delete(matieres);
+    }
+
+    @Override
+    public Boolean openSession(Long sessionId) throws SessionEmptyException {
+        List<SessionNiveauEtude> matieres = sessionExamenNERepos.findBySessionExamenId(sessionId);
+
+        if (matieres.isEmpty()) {
+            throw new SessionEmptyException();
+        }
+
+        for (SessionNiveauEtude item : matieres) {
+            if (Strings.isNullOrEmpty(item.getHoraireA())|| Strings.isNullOrEmpty(item.getHoraireDe())) {
+                return false;
+            }
+        }
+
+        SessionExamen session = sessionExamenRepos.findOne(sessionId);
+        session.setStatus(SessionStatus.OPEN);
+        sessionExamenRepos.save(session);
+
+        return true;
     }
 
     @Override

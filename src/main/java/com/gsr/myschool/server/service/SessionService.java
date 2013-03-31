@@ -1,6 +1,7 @@
 package com.gsr.myschool.server.service;
 
 import com.gsr.myschool.common.shared.exception.AffectationClosedException;
+import com.gsr.myschool.common.shared.exception.SessionEmptyException;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.core.SessionExamen;
@@ -18,6 +19,8 @@ public interface SessionService {
     void updateHoraire(List<String> horaires);
 
     void deleteNiveauEtude(Long niveauEtudeId);
+
+    Boolean openSession(Long sessionId) throws SessionEmptyException;
 
     List<SessionNiveauEtude> findAllMatieresByNiveauEtude(Long niveauEtudeId);
 
