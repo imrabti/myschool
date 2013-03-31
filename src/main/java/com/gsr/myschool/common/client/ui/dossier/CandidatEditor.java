@@ -16,6 +16,7 @@ import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.CandidatProxy;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
+import com.gsr.myschool.common.client.util.DateUtilsClient;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.renderer.ValueListRendererFactory;
@@ -113,6 +114,7 @@ public class CandidatEditor extends Composite implements EditorView<CandidatProx
         if (driver.hasErrors()) {
             return null;
         } else {
+            candidat.setBirthDate(DateUtilsClient.correctDate(candidat.getBirthDate()));
             return candidat;
         }
     }

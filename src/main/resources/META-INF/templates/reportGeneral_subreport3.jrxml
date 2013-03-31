@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2_access" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="538305d2-c740-4515-ae3c-a6cd7c8331a8">
 	<property name="ireport.zoom" value="1.1000000000000025"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1311"/>
+	<property name="ireport.y" value="79"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -87,7 +87,7 @@ l'intérêt de votre enfant.]]></text>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="450" splitType="Stretch">
+		<band height="600" splitType="Stretch">
 			<componentElement>
 				<reportElement uuid="f64ff34d-95b0-41d8-a744-212e054fb434" key="table" style="table" mode="Transparent" x="0" y="0" width="250" height="28" forecolor="#999999"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">

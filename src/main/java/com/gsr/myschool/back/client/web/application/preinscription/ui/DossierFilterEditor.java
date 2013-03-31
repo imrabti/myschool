@@ -18,6 +18,7 @@ import com.gsr.myschool.common.client.proxy.FiliereProxy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.ui.dossier.renderer.FiliereRenderer;
 import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
+import com.gsr.myschool.common.client.util.DateUtilsClient;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
@@ -97,6 +98,9 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         if (driver.hasErrors()) {
             return null;
         } else {
+            dossierFilter.setDateFrom(DateUtilsClient.correctDate(dossierFilter.getDateFrom()));
+            dossierFilter.setDateTill(DateUtilsClient.correctDate(dossierFilter.getDateTill()));
+
             return dossierFilter;
         }
     }
