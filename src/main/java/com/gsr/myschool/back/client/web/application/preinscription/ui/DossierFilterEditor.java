@@ -96,8 +96,13 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         if (driver.hasErrors()) {
             return null;
         } else {
-            dossierFilter.setDateFrom(DateUtilsClient.correctDate(dossierFilter.getDateFrom()));
-            dossierFilter.setDateTill(DateUtilsClient.correctDate(dossierFilter.getDateTill()));
+            if (dossierFilter.getDateFrom() != null) {
+                dossierFilter.setDateFrom(DateUtilsClient.correctDate(dossierFilter.getDateFrom()));
+            }
+
+            if (dossierFilter.getDateTill() != null) {
+                dossierFilter.setDateTill(DateUtilsClient.correctDate(dossierFilter.getDateTill()));
+            }
 
             return dossierFilter;
         }
