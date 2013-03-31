@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.io.StringWriter;
 import java.util.Iterator;
 import java.util.Map;
@@ -70,6 +71,21 @@ public class EmailServiceImpl implements EmailService {
                 message.setTo(mail.getTo());
                 message.setSubject(mail.getSubject());
                 message.setText(mail.getMessage(), true);
+            }
+        });
+    }
+
+    @Override
+    @Async
+    public void sendWithAttachement(final EmailDTO mail, final File file) throws Exception {
+        mailSender.send(new MimeMessagePreparator() {
+            public void prepare(MimeMessage mimeMessage) throws MessagingException {
+                MimeMessageHelper message = new MimeMessageHelper(mimeMessage,true, "UTF-8");
+                message.setFrom(mail.getFrom());
+                message.setTo(mail.getTo());
+                message.setSubject(mail.getSubject());
+                message.setText(mail.getMessage(), true);
+                message.addAttachment(file.getName(), file);
             }
         });
     }
