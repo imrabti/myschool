@@ -20,10 +20,6 @@
                 <i class="icon-lock"/>
                 <span class="">Clôturer</span>
             </a>
-            <a href="javascript:;" style="display: none;" class="btn btn-mini" ui:field="remove">
-                <i class="icon-remove"/>
-                <span class="">Supprimer</span>
-            </a>
         </div>
     </div>
 </ui:UiBinder>

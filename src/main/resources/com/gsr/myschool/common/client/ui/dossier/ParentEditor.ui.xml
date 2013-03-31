@@ -149,7 +149,7 @@
             </boot:ControlGroup>
 
             <boot:ControlGroup>
-                <boot:ControlLabel width="170px">Avez-vous étudié au GSR ?</boot:ControlLabel>
+                <boot:ControlLabel width="170px"><span style="text-decoration:underline;font-weight:bold;">Important:</span> Avez-vous étudié au GSR ?</boot:ControlLabel>
                 <boot:Controls>
                     <boot:CheckBox ui:field="parentGsr" width="250px"/>
                 </boot:Controls>

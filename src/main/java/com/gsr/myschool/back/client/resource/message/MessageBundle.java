@@ -50,4 +50,10 @@ public interface MessageBundle extends Messages {
     String sessionUpdatedSuccess();
 
     String niveauEtudeDeleteSucess();
+
+    String sessionEmptyError();
+
+    String openSessionError();
+
+    String openSessionSuccess();
 }
