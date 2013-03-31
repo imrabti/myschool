@@ -240,7 +240,7 @@ public class ConvocationServiceImpl implements ConvocationService {
         myMap.put("heureAccueilDebut", session.getWelcomKids());
         myMap.put("heureAccueilFin", "8:00");
 
-        myMap.put("refDossier", dossierSession.getDossier().getGeneratedNumDossier());
+        myMap.put("refDossier", "GSR_REF_TEST_01234");
 
         myMap.put("heureDebut", session.getDebutTest());
         myMap.put("heureRecuperation", session.getGatherKids());
