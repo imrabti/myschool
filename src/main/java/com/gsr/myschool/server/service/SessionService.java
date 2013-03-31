@@ -37,4 +37,6 @@ public interface SessionService {
     Boolean desaffecter(Dossier dossier) throws AffectationClosedException;
 
     List<SessionExamen> findAllOpenedSessions();
+
+    Boolean declancherSession(SessionExamen session);
 }

@@ -82,6 +82,7 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
         params.put("link", link);
 
         EmailDTO email = emailService.populateEmail(EmailType.REGISTRATION, user.getEmail(), sender, params, "", "");
+        emailService.prepare(email);
 
         Map<String, Object> processParams = new HashMap<String, Object>();
         processParams.put("token", token);
@@ -89,7 +90,7 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
         processParams.put("link", link);
         processParams.put("userId", user.getId());
 
-        runtimeService.startProcessInstanceByKey("register", processParams);
+        runtimeService.startProcessInstanceByKey("register", user.getId().toString(), processParams);
     }
 
     @Override

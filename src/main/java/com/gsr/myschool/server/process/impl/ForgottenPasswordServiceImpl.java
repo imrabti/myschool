@@ -63,6 +63,7 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordService {
 
         EmailDTO emailDTO = emailService.populateEmail(EmailType.FORGOTTEN_PASSWORD,
                 email, sender, params, "", "");
+        emailService.prepare(emailDTO);
 
         Map<String, Object> processParams = new HashMap<String, Object>();
         processParams.put("token", token);

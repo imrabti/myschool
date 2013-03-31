@@ -56,4 +56,22 @@ public class ConvocationController {
             throw new RuntimeException(e);
         }
     }
+
+    @RequestMapping(method = RequestMethod.GET, produces = "application/pdf")
+    @ResponseStatus(HttpStatus.OK)
+    public void generateConvocation(@RequestParam String number, HttpServletResponse response) {
+        ReportDTO dto = convocationService.generateConvocation(number);
+        try {
+            response.addHeader("Content-Disposition", "attachment; filename=convocation.pdf");
+
+            BufferedOutputStream outputStream = new BufferedOutputStream(response.getOutputStream());
+            byte[] result = reportService.generatePdf(dto);
+
+            outputStream.write(result, 0, result.length);
+            outputStream.flush();
+            outputStream.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
