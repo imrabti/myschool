@@ -19,7 +19,6 @@ package com.gsr.myschool.server.process.impl;
 import com.gsr.myschool.common.client.util.Base64;
 import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.common.shared.type.EmailType;
-import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.common.shared.type.UserStatus;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.process.RegisterProcessService;
@@ -83,6 +82,7 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
         params.put("link", link);
 
         EmailDTO email = emailService.populateEmail(EmailType.REGISTRATION, user.getEmail(), sender, params, "", "");
+        emailService.send(email);
 
         Map<String, Object> processParams = new HashMap<String, Object>();
         processParams.put("token", token);
@@ -90,7 +90,7 @@ public class RegisterProcessServiceImpl implements RegisterProcessService {
         processParams.put("link", link);
         processParams.put("userId", user.getId());
 
-        runtimeService.startProcessInstanceByKey("register", processParams);
+        runtimeService.startProcessInstanceByKey("register", user.getId().toString(), processParams);
     }
 
     @Override
