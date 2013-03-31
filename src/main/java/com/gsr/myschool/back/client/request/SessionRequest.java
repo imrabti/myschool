@@ -41,4 +41,6 @@ public interface SessionRequest extends RequestContext {
     Request<Boolean> affecter(DossierProxy dossier, SessionExamenProxy session);
 
     Request<Boolean> desaffecter(DossierProxy dossier);
+
+    Request<Boolean> closeSession(SessionExamenProxy session);
 }

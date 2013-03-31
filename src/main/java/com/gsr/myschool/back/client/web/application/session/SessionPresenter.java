@@ -153,7 +153,18 @@ public class SessionPresenter extends Presenter<MyView, MyProxy> implements Sess
 
     @Override
     public void closeSession(SessionExamenProxy session) {
-        // TODO : Close a session
+        if (Window.confirm(messageBundle.closeSession())) {
+            requestFactory.sessionService().closeSession(selectedSession).fire(new ReceiverImpl<Boolean>() {
+                @Override
+                public void onSuccess(Boolean aBoolean) {
+                    Message message = new Message.Builder(messageBundle.niveauEtudeDeleteSucess())
+                            .style(AlertType.SUCCESS).build();
+                    MessageEvent.fire(this, message);
+
+                    loadAttachedNiveauEtude();
+                }
+            });
+        }
     }
 
     @Override
