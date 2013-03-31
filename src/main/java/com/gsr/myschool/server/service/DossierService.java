@@ -32,7 +32,7 @@ public interface DossierService {
 
     List<PiecejustifDTO> getPieceJustifFromProcess(Dossier dossier);
 
-    Boolean rejectDossier(Dossier dossier);
+    Boolean rejectDossier(Long dossierId, String motif);
 
     Boolean acceptDossier(Dossier dossier);
 }

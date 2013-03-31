@@ -127,17 +127,17 @@ public class DossierServiceImpl implements DossierService {
     }
 
     @Override
-    public Boolean rejectDossier(Dossier dossier) {
-        Task task = validationProcessService.getDossierToAnalyse(dossier.getId());
+    public Boolean rejectDossier(Long dossierId, String motif) {
+        Task task = validationProcessService.getDossierToAnalyse(dossierId);
         if (task == null) return false;
 
-        Dossier analyzedDossier = dossierRepos.findOne(dossier.getId());
+        Dossier analyzedDossier = dossierRepos.findOne(dossierId);
 
         analyzedDossier.setStatus(DossierStatus.NOT_ACCEPTED_FOR_TEST);
-        analyzedDossier.setMotifRefus(dossier.getMotifRefus());
+        analyzedDossier.setMotifRefus(motif);
 
         dossierRepos.save(analyzedDossier);
-        validationProcessService.rejectAnalysedDossier(task, dossier);
+        validationProcessService.rejectAnalysedDossier(task, analyzedDossier);
         return true;
     }
 

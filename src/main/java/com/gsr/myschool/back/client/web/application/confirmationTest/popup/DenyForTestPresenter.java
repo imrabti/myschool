@@ -49,8 +49,7 @@ public class DenyForTestPresenter extends PresenterWidget<DenyForTestPresenter.M
 
     @Override
     public void setDenyReason(String reason) {
-        currentDossier.setMotifRefus(reason);
-        requestFactory.dossierService().rejectDossier(currentDossier).fire(new ReceiverImpl<Boolean>() {
+        requestFactory.dossierService().rejectDossier(currentDossier.getId(), reason).fire(new ReceiverImpl<Boolean>() {
             @Override
             public void onSuccess(Boolean response) {
                 String messageString = response ? messageBundle.operationSuccess() : messageBundle.operationFailure();
