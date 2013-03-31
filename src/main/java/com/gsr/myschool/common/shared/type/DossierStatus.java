@@ -12,7 +12,8 @@ public enum DossierStatus {
     STANDBY("En attente"),
     ACCEPTED_FOR_TEST("Accepté pour test"),
     INVITED_TO_TEST("Convoqué pour test"),
-    NOT_ACCEPTED_FOR_TEST("Non séléctionné");
+    NOT_ACCEPTED_FOR_TEST("Refusé pour test"),
+    TO_BE_REGISTERED("Admis à l'inscription");
 
     private String label;
 
