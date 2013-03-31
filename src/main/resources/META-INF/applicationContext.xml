@@ -29,9 +29,7 @@
 
     <!-- Activates @Scheduled and @Async annotations for scheduling -->
     <task:annotation-driven/>
-    <task:executor id="executorWithPoolSizeRange"
-                   pool-size="5-25"
-                   queue-capacity="100"/>
+    <task:executor id="executorWithPoolSizeRange" pool-size="5-25" queue-capacity="100"/>
 
     <!-- Spring Mail configuration -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

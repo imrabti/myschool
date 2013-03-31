@@ -5,7 +5,7 @@ import com.gsr.myschool.common.shared.type.EmailType;
 import com.gsr.myschool.server.business.EmailTemplate;
 import com.gsr.myschool.server.reporting.convocation.ConvocationService;
 import com.gsr.myschool.server.repos.EmailTemplateRepos;
-import com.gsr.myschool.server.service.EmailService;
+import com.gsr.myschool.server.service.EmailPreparatorService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +29,7 @@ import java.util.Map;
 //@ActiveProfiles("test")
 public class EmailServiceImplTest {
     @Autowired
-    private EmailService emailService;
+    private EmailPreparatorService emailService;
     @Autowired
     private EmailTemplateRepos emailTemplateRepos;
     @Autowired
@@ -77,7 +77,7 @@ public class EmailServiceImplTest {
 
 //        File f = convocationService.generateConvocation(902L);
 //        System.out.println("==");
-//        emailService.sendWithAttachement(result, f);
+//        emailService.prepareWithAttachement(result, f);
 //        System.out.println("==");
 //        sleep(10000);
     }

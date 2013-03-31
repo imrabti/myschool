@@ -9,7 +9,8 @@
         <param-value>
             classpath*:META-INF/applicationContext.xml,
             classpath*:META-INF/applicationContext-activiti.xml,
-            classpath*:META-INF/applicationContext-security.xml
+            classpath*:META-INF/applicationContext-security.xml,
+            classpath*:META-INF/applicationContext-mq.xml
         </param-value>
     </context-param>
 

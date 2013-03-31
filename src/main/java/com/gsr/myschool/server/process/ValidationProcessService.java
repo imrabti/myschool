@@ -74,7 +74,7 @@ public interface ValidationProcessService {
     /**
      * Finish the validation of the Dossier task after checking the arrival
      * of all files required to this apply the folder with a REJECTED status
-     * and turn it into WAITING this action will send an email to the parent
+     * and turn it into WAITING this action will prepare an email to the parent
      * with the rest of files needed
      *
      * @param task
