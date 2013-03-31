@@ -1,14 +1,12 @@
 package com.gsr.myschool.server.service.impl;
 
-import com.gsr.myschool.common.client.util.Base64;
-import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.google.common.base.Strings;
+import com.gsr.myschool.common.client.util.Base64;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
+import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.common.shared.exception.AffectationClosedException;
-import com.gsr.myschool.common.shared.type.*;
 import com.gsr.myschool.common.shared.exception.SessionEmptyException;
-import com.gsr.myschool.common.shared.type.DossierStatus;
-import com.gsr.myschool.common.shared.type.SessionStatus;
-import com.gsr.myschool.common.shared.type.ValueTypeCode;
+import com.gsr.myschool.common.shared.type.*;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.DossierSession;
 import com.gsr.myschool.server.business.InboxMessage;
@@ -29,6 +27,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -129,7 +128,7 @@ public class SessionServiceImpl implements SessionService {
         }
 
         for (SessionNiveauEtude item : matieres) {
-            if (Strings.isNullOrEmpty(item.getHoraireA())|| Strings.isNullOrEmpty(item.getHoraireDe())) {
+            if (Strings.isNullOrEmpty(item.getHoraireA()) || Strings.isNullOrEmpty(item.getHoraireDe())) {
                 return false;
             }
         }
@@ -149,10 +148,98 @@ public class SessionServiceImpl implements SessionService {
             sessionExamenNERepos.delete(matieres);
             sessionExamenRepos.delete(session);
         } else if (session.getStatus() == SessionStatus.OPEN) {
-            // TODO : Remove affectation and set to Cancel.
+            List<DossierSession> dossierSessions = dossierSessionRepos.findBySessionExamenId(session.getId());
+            dossierSessionRepos.delete(dossierSessions);
+
+            session.setStatus(SessionStatus.CANCELED);
+            sessionExamenRepos.save(session);
         } else if (session.getStatus() == SessionStatus.CLOSED) {
-            // TODO : Remove affectation send Email and set to Cancel.
+            SimpleDateFormat format = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
+            List<DossierSession> dossierSessions = dossierSessionRepos.findBySessionExamenId(session.getId());
+            for (DossierSession dossiersession : dossierSessions) {
+                Dossier dossier = dossiersession.getDossier();
+
+                Map<String, Object> params = new HashMap<String, Object>();
+                if (dossiersession.getSessionExamen().getDateSession() != null) {
+                    params.put("dateSession", format.format(dossiersession.getSessionExamen().getDateSession()));
+                } else {
+                    params.put("dateSession", "");
+                }
+
+                params.put("sessionNom", dossiersession.getSessionExamen().getNom());
+                params.put("gender", dossier.getOwner().getGender().toString());
+                params.put("lastname", dossier.getOwner().getLastName());
+                params.put("firstname", dossier.getOwner().getFirstName());
+                params.put("nomEnfant", dossier.getCandidat().getLastname());
+                params.put("prenomEnfant", dossier.getCandidat().getFirstname());
+                params.put("refdossier", dossier.getGeneratedNumDossier());
+
+                try {
+                    EmailDTO email = emailService.populateEmail(EmailType.SESSION_CANCELED,
+                            dossier.getOwner().getEmail(), sender,
+                            params, "", "");
+                    emailService.prepare(email);
+
+                    InboxMessage message = new InboxMessage();
+                    message.setParentUser(dossier.getOwner());
+                    message.setSubject(email.getSubject());
+                    message.setContent(email.getMessage());
+                    message.setMsgDate(new Date());
+                    message.setMsgStatus(InboxMessageStatus.UNREAD);
+                    inboxMessageRepos.save(message);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            dossierSessionRepos.delete(dossierSessions);
+
+            session.setStatus(SessionStatus.CANCELED);
+            sessionExamenRepos.save(session);
         }
+    }
+
+    @Override
+    public Boolean declancherSession(SessionExamen session) {
+        List<DossierSession> dossierSessions = dossierSessionRepos.findBySessionExamenId(session.getId());
+        for (DossierSession dossiersession : dossierSessions) {
+            Dossier dossier = dossiersession.getDossier();
+            String token = Base64.encode((new Date()).toString());
+            token = token.replace("=", "E");
+            dossiersession.setGeneratedConvocationPDFPath(convocationLink + "number=" + token);
+            dossierSessionRepos.save(dossiersession);
+
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("gender", dossier.getOwner().getGender().toString());
+            params.put("lastname", dossier.getOwner().getLastName());
+            params.put("firstname", dossier.getOwner().getFirstName());
+            params.put("nomEnfant", dossier.getCandidat().getLastname());
+            params.put("prenomEnfant", dossier.getCandidat().getFirstname());
+            params.put("refdossier", dossier.getGeneratedNumDossier());
+            params.put("link", dossiersession.getGeneratedConvocationPDFPath());
+
+            try {
+                EmailDTO email = emailService.populateEmail(EmailType.CONVOCATED_FOR_TEST,
+                        dossier.getOwner().getEmail(), sender,
+                        params, "", "");
+                emailService.prepare(email);
+
+                InboxMessage message = new InboxMessage();
+                message.setParentUser(dossier.getOwner());
+                message.setSubject(email.getSubject());
+                message.setContent(email.getMessage());
+                message.setMsgDate(new Date());
+                message.setMsgStatus(InboxMessageStatus.UNREAD);
+                inboxMessageRepos.save(message);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        session.setStatus(SessionStatus.CLOSED);
+        sessionExamenRepos.save(session);
+        return true;
     }
 
     @Override
