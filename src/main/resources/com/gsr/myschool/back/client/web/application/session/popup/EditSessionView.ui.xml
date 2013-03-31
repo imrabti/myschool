@@ -32,6 +32,7 @@
                         <boot:ControlLabel width="170px">Nom</boot:ControlLabel>
                         <boot:Controls styleName="{style.smallMargin}">
                             <boot:TextBox ui:field="nom" width="250px"/>
+                            <span class="{resource.sharedStyleCss.requiredField}"/>
                         </boot:Controls>
                     </boot:ControlGroup>
 
@@ -69,6 +70,7 @@
                             <boot:InputAddOn prependIcon="PHONE">
                                 <boot:TextBox ui:field="telephone"/>
                             </boot:InputAddOn>
+                            <span class="{resource.sharedStyleCss.requiredField}"/>
                         </boot:Controls>
                     </boot:ControlGroup>
 
@@ -76,6 +78,7 @@
                         <boot:ControlLabel width="170px">Adresse</boot:ControlLabel>
                         <boot:Controls>
                             <boot:TextArea ui:field="adresse" width="250px"/>
+                            <span class="{resource.sharedStyleCss.requiredField}"/>
                         </boot:Controls>
                     </boot:ControlGroup>
                 </boot:Form>
