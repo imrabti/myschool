@@ -7,17 +7,20 @@ import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.SessionRequest;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.web.application.session.event.SessionChangedEvent;
+import com.gsr.myschool.back.client.web.application.session.popup.EditSessionPresenter.MyView;
+import com.gsr.myschool.common.client.mvp.ValidatedPopupView;
 import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
-import com.gsr.myschool.common.client.request.ReceiverImpl;
+import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gwtplatform.mvp.client.HasUiHandlers;
-import com.gwtplatform.mvp.client.PopupView;
 import com.gwtplatform.mvp.client.PresenterWidget;
-import com.gsr.myschool.back.client.web.application.session.popup.EditSessionPresenter.MyView;
+
+import javax.validation.ConstraintViolation;
+import java.util.Set;
 
 public class EditSessionPresenter extends PresenterWidget<MyView> implements EditSessionUiHandlers {
-    public interface MyView extends PopupView, HasUiHandlers<EditSessionUiHandlers> {
+    public interface MyView extends ValidatedPopupView, HasUiHandlers<EditSessionUiHandlers> {
         void edit(SessionExamenProxy sessionExamen);
     }
 
@@ -26,6 +29,7 @@ public class EditSessionPresenter extends PresenterWidget<MyView> implements Edi
 
     private SessionRequest currentContext;
     private SessionExamenProxy currentSession;
+    private Boolean sessionViolation;
 
     @Inject
     public EditSessionPresenter(final EventBus eventBus, final MyView view,
@@ -41,34 +45,61 @@ public class EditSessionPresenter extends PresenterWidget<MyView> implements Edi
 
     public void setCurrentSession(SessionExamenProxy currentSession) {
         this.currentSession = currentSession;
+        sessionViolation = false;
     }
 
     @Override
     public void saveSession(SessionExamenProxy sessionExamen) {
-        if (currentSession.getId() == null) {
-            currentContext.createNewSession(currentSession).fire(new ReceiverImpl<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Message message = new Message.Builder(messageBundle.sessionSavedSuccess())
-                            .style(AlertType.SUCCESS).build();
-                    MessageEvent.fire(this, message);
-                    SessionChangedEvent.fire(this);
+        if (!sessionViolation) {
+            if (currentSession.getId() == null) {
+                currentContext.createNewSession(currentSession).fire(new ValidatedReceiverImpl<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        sessionViolation = true;
 
-                    getView().hide();
-                }
-            });
+                        Message message = new Message.Builder(messageBundle.sessionSavedSuccess())
+                                .style(AlertType.SUCCESS).build();
+                        MessageEvent.fire(this, message);
+                        SessionChangedEvent.fire(this);
+
+                        getView().clearErrors();
+                        getView().hide();
+                    }
+
+                    @Override
+                    public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                        sessionViolation = false;
+
+                        getView().clearErrors();
+                        getView().showErrors(violations);
+                    }
+                });
+            } else {
+                currentContext.updateSession(currentSession).fire(new ValidatedReceiverImpl<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        sessionViolation = true;
+
+                        Message message = new Message.Builder(messageBundle.sessionUpdatedSuccess())
+                                .style(AlertType.SUCCESS).build();
+                        MessageEvent.fire(this, message);
+                        SessionChangedEvent.fire(this);
+
+                        getView().clearErrors();
+                        getView().hide();
+                    }
+
+                    @Override
+                    public void onValidationError(Set<ConstraintViolation<?>> violations) {
+                        sessionViolation = false;
+
+                        getView().clearErrors();
+                        getView().showErrors(violations);
+                    }
+                });
+            }
         } else {
-            currentContext.updateSession(currentSession).fire(new ReceiverImpl<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Message message = new Message.Builder(messageBundle.sessionUpdatedSuccess())
-                            .style(AlertType.SUCCESS).build();
-                    MessageEvent.fire(this, message);
-                    SessionChangedEvent.fire(this);
-
-                    getView().hide();
-                }
-            });
+          currentContext.fire();
         }
     }
 
@@ -82,5 +113,6 @@ public class EditSessionPresenter extends PresenterWidget<MyView> implements Edi
         }
 
         getView().edit(currentSession);
+        getView().clearErrors();
     }
 }

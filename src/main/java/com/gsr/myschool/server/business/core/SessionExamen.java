@@ -2,8 +2,15 @@ package com.gsr.myschool.server.business.core;
 
 import com.gsr.myschool.common.shared.type.SessionStatus;
 import com.gsr.myschool.server.business.valuelist.ValueList;
+import com.gsr.myschool.server.validator.NotBlank;
+import com.gsr.myschool.server.validator.Phone;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @Entity
@@ -11,14 +18,22 @@ public class SessionExamen implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotBlank
     private Date dateSession;
     private Double longitude;
     private Double latitude;
+    @NotBlank
     private String adresse;
+    @NotBlank
+    @Phone
     private String telephone;
+    @NotBlank
     private String nom;
+    @NotBlank
     private String debutTest;
+    @NotBlank
     private String welcomKids;
+    @NotBlank
     private String gatherKids;
     @ManyToOne
     private ValueList anneeScolaire;
