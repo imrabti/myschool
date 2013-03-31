@@ -91,15 +91,13 @@ public class SessionServiceImpl implements SessionService {
         SessionExamen session = sessionExamenRepos.findOne(sessionId);
         NiveauEtude niveauEtude = niveauEtudeRepos.findOne(niveauEtudeId);
 
-        if (sessionExamenNERepos.findByNiveauEtudeId(niveauEtudeId).isEmpty()) {
-            List<MatiereExamDuNE> matieres = matiereExamenNERepos.findByNiveauEtudeId(niveauEtudeId);
-            for (MatiereExamDuNE item : matieres) {
-                SessionNiveauEtude attachedMatiere = new SessionNiveauEtude();
-                attachedMatiere.setNiveauEtude(niveauEtude);
-                attachedMatiere.setSessionExamen(session);
-                attachedMatiere.setMatiere(item.getMatiereExamen().getNom());
-                sessionExamenNERepos.save(attachedMatiere);
-            }
+        List<MatiereExamDuNE> matieres = matiereExamenNERepos.findByNiveauEtudeId(niveauEtudeId);
+        for (MatiereExamDuNE item : matieres) {
+            SessionNiveauEtude attachedMatiere = new SessionNiveauEtude();
+            attachedMatiere.setNiveauEtude(niveauEtude);
+            attachedMatiere.setSessionExamen(session);
+            attachedMatiere.setMatiere(item.getMatiereExamen().getNom());
+            sessionExamenNERepos.save(attachedMatiere);
         }
     }
 
@@ -244,8 +242,8 @@ public class SessionServiceImpl implements SessionService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<SessionNiveauEtude> findAllMatieresByNiveauEtude(Long niveauEtudeId) {
-        return sessionExamenNERepos.findByNiveauEtudeId(niveauEtudeId);
+    public List<SessionNiveauEtude> findAllMatieresByNiveauEtude(Long sessionId, Long niveauEtudeId) {
+        return sessionExamenNERepos.findBySessionExamenIdAndNiveauEtudeId(sessionId, niveauEtudeId);
     }
 
     @Override
