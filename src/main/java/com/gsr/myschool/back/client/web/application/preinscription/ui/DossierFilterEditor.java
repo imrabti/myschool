@@ -40,6 +40,8 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     @UiField(provided = true)
     ValueListBox<FiliereProxy> filiere;
     @UiField
+    TextBox numDossier;
+    @UiField
     TextBox firstnameOrlastname;
     @UiField
     DateBox dateFrom;

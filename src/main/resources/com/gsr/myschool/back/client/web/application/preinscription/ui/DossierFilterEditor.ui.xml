@@ -22,6 +22,11 @@
 
     <g:HTMLPanel>
         <div class="{style.row}">
+            <g:Label text="N° Dossier" styleName="{style.label}"/>
+            <boot:TextBox ui:field="numDossier" width="168px"/>
+        </div>
+
+        <div class="{style.row}">
             <g:Label text="Statut" styleName="{style.label}"/>
             <boot:ValueListBox ui:field="status" width="180px"/>
 

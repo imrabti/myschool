@@ -42,5 +42,5 @@ public interface SessionRequest extends RequestContext {
 
     Request<Boolean> desaffecter(DossierProxy dossier);
 
-    Request<Boolean> closeSession(SessionExamenProxy session);
+    Request<Boolean> closeSession(SessionExamenProxy session, String link);
 }

@@ -200,13 +200,13 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public Boolean closeSession(SessionExamen session) {
+    public Boolean closeSession(SessionExamen session, String link) {
         List<DossierSession> dossierSessions = dossierSessionRepos.findBySessionExamenId(session.getId());
         for (DossierSession dossiersession : dossierSessions) {
             Dossier dossier = dossiersession.getDossier();
-            String token = Base64.encode((new Date()).toString());
+            String token = Base64.encode(dossiersession.getDossier().getGeneratedNumDossier() + "" + (new Date()).toString());
             token = token.replace("=", "E");
-            dossiersession.setGeneratedConvocationPDFPath(convocationLink + "number=" + token);
+            dossiersession.setGeneratedConvocationPDFPath(token);
             dossierSessionRepos.save(dossiersession);
 
             Map<String, Object> params = new HashMap<String, Object>();
@@ -216,7 +216,7 @@ public class SessionServiceImpl implements SessionService {
             params.put("nomEnfant", dossier.getCandidat().getLastname());
             params.put("prenomEnfant", dossier.getCandidat().getFirstname());
             params.put("refdossier", dossier.getGeneratedNumDossier());
-            params.put("link", dossiersession.getGeneratedConvocationPDFPath());
+            params.put("link", link + "resource/convocation?number=" + token);
 
             try {
                 EmailDTO email = emailService.populateEmail(EmailType.CONVOCATED_FOR_TEST,

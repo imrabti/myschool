@@ -23,6 +23,7 @@ import com.gsr.myschool.common.client.proxy.SessionNiveauEtudeProxy;
 import com.gsr.myschool.common.client.request.ConvocationRequestBuilder;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
+import com.gsr.myschool.common.client.util.URLUtils;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
@@ -154,7 +155,8 @@ public class SessionPresenter extends Presenter<MyView, MyProxy> implements Sess
     @Override
     public void closeSession(SessionExamenProxy session) {
         if (Window.confirm(messageBundle.closeSession())) {
-            requestFactory.sessionService().closeSession(selectedSession).fire(new ReceiverImpl<Boolean>() {
+            String convocationLink = URLUtils.generateURL(false);
+            requestFactory.sessionService().closeSession(selectedSession, convocationLink).fire(new ReceiverImpl<Boolean>() {
                 @Override
                 public void onSuccess(Boolean aBoolean) {
                     Message message = new Message.Builder(messageBundle.niveauEtudeDeleteSucess())
