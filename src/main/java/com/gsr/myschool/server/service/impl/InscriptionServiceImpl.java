@@ -157,6 +157,9 @@ public class InscriptionServiceImpl implements InscriptionService {
         }
 
         Dossier currentDossier = dossierRepos.findOne(dossierId);
+        List<Fraterie> fraterie = fraterieRepos.findByCandidatId(currentDossier.getCandidat().getId());
+        fraterieRepos.delete(fraterie);
+
         dossierRepos.delete(currentDossier);
         candidatRepos.delete(currentDossier.getCandidat());
     }

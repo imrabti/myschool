@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportMSGS" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4c574922-4b99-490d-ae3f-1b12f7827f23">
-	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="193"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="181"/>
+	<property name="ireport.y" value="120"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
+	<subDataset name="dataset1" uuid="e5e78060-9521-470f-ba62-d65999e710df">
+		<field name="matiere" class="org.apache.commons.beanutils.BeanMap">
+			<fieldDescription><![CDATA[_THIS]]></fieldDescription>
+		</field>
+		<variable name="horaireDe" class="java.lang.String">
+			<variableExpression><![CDATA[$F{matiere}.get("horaireDe") != null ? $F{matiere}.get("horaireDe") : ""]]></variableExpression>
+		</variable>
+		<variable name="horaireA" class="java.lang.String">
+			<variableExpression><![CDATA[$F{matiere}.get("horaireA") != null ? $F{matiere}.get("horaireA") : ""]]></variableExpression>
+		</variable>
+	</subDataset>
 	<parameter name="date" class="java.lang.String"/>
 	<parameter name="dateTest" class="java.lang.String"/>
 	<parameter name="heureAccueilDebut" class="java.lang.String"/>
@@ -22,6 +33,7 @@
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<parameter name="refDossier" class="java.lang.String"/>
+	<parameter name="matieres" class="java.util.List"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -36,7 +48,7 @@
 				<textElement textAlignment="Right">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Casablanca le "+$P{date}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="ba510252-afc9-4453-a2c9-225ff6f6854b" x="287" y="110" width="227" height="20"/>
@@ -78,127 +90,29 @@
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Afin de passer le test-concours d’admission en "+$P{niveauEtude}+" - "+$P{section}+" selon le calendrier ci-après :"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["afin de passer le test-concours d’admission en "+$P{niveauEtude}+" - "+$P{section}+" selon le calendrier ci-après :"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="33e0c2da-6b4f-4896-baf4-851c4453facb" x="77" y="432" width="393" height="36"/>
+				<reportElement uuid="33e0c2da-6b4f-4896-baf4-851c4453facb" x="77" y="547" width="393" height="30"/>
 				<textElement textAlignment="Justified" markup="none">
 					<font size="11"/>
 				</textElement>
 				<text><![CDATA[Nous vous prions d’agréer, Madame, Monsieur, l’expression de nos salutations les meilleures.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="55b4582b-0ecd-4dd2-8852-9255dc3b4037" x="77" y="487" width="393" height="54"/>
+				<reportElement uuid="55b4582b-0ecd-4dd2-8852-9255dc3b4037" x="77" y="591" width="393" height="18"/>
 				<textElement markup="none">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[NB : Votre enfant devra présenter cette convocation le jour du test.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0dfee8f0-2b42-4aa9-b91a-13fefdf59481" x="328" y="571" width="186" height="20"/>
+				<reportElement uuid="0dfee8f0-2b42-4aa9-b91a-13fefdf59481" x="328" y="624" width="186" height="20"/>
 				<textElement textAlignment="Right" markup="none">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[La Direction]]></text>
 			</staticText>
-			<rectangle>
-				<reportElement uuid="76b79e9b-8d5a-4186-96a1-5e80bb33a12a" x="313" y="349" width="157" height="60"/>
-				<graphicElement>
-					<pen lineWidth="1.5"/>
-				</graphicElement>
-			</rectangle>
-			<rectangle>
-				<reportElement uuid="76b79e9b-8d5a-4186-96a1-5e80bb33a12a" x="77" y="330" width="109" height="20"/>
-				<graphicElement>
-					<pen lineWidth="1.5"/>
-				</graphicElement>
-			</rectangle>
-			<rectangle>
-				<reportElement uuid="76b79e9b-8d5a-4186-96a1-5e80bb33a12a" x="313" y="330" width="157" height="19"/>
-				<graphicElement>
-					<pen lineWidth="1.5"/>
-				</graphicElement>
-			</rectangle>
-			<rectangle>
-				<reportElement uuid="76b79e9b-8d5a-4186-96a1-5e80bb33a12a" x="77" y="349" width="109" height="30"/>
-				<graphicElement>
-					<pen lineWidth="1.5"/>
-				</graphicElement>
-			</rectangle>
-			<rectangle>
-				<reportElement uuid="76b79e9b-8d5a-4186-96a1-5e80bb33a12a" x="186" y="349" width="127" height="60"/>
-				<graphicElement>
-					<pen lineWidth="1.5"/>
-				</graphicElement>
-			</rectangle>
-			<rectangle>
-				<reportElement uuid="76b79e9b-8d5a-4186-96a1-5e80bb33a12a" x="186" y="330" width="127" height="19"/>
-				<graphicElement>
-					<pen lineWidth="1.5"/>
-				</graphicElement>
-			</rectangle>
-			<rectangle>
-				<reportElement uuid="76b79e9b-8d5a-4186-96a1-5e80bb33a12a" x="77" y="379" width="109" height="30"/>
-				<graphicElement>
-					<pen lineWidth="1.5"/>
-				</graphicElement>
-			</rectangle>
-			<staticText>
-				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="77" y="330" width="109" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[EPREUVES]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="186" y="330" width="127" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Horaires]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="313" y="330" width="157" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[LIEU]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="77" y="349" width="109" height="30"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Mathématiques]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="77" y="379" width="109" height="30"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Français]]></text>
-			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="313" y="349" width="157" height="44"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{adresse}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="313" y="393" width="157" height="16"/>
-				<textElement textAlignment="Center">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{phone}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="37c00228-99e2-4903-8e26-eee9890423a1" x="187" y="350" width="126" height="59"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA["de "+$P{heureEpreuveDebut}+" à "+$P{heureEpreuveFin}]]></textFieldExpression>
-			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="220" width="393" height="16"/>
 				<textElement textAlignment="Center">
@@ -211,8 +125,104 @@
 				<textElement textAlignment="Right">
 					<font size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Ref : "+$P{refDossier} ]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Ref : "+$P{refDossier}]]></textFieldExpression>
 			</textField>
+			<componentElement>
+				<reportElement uuid="9dbe190e-b1e7-44cf-b971-306b95b3aba9" x="10" y="-181" width="394" height="20"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1" uuid="6ba6aefc-e885-49e9-9fd7-00eafd929b71">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{matieres})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="20" width="394">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" x="0" y="1" width="159" height="19"/>
+							<textElement textAlignment="Center" verticalAlignment="Middle"/>
+							<textFieldExpression><![CDATA[$F{matiere}.get("matiere")]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" x="159" y="1" width="234" height="19"/>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font size="8"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$V{horaireDe}+ " - "+$V{horaireA}]]></textFieldExpression>
+						</textField>
+						<line direction="BottomUp">
+							<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="1" y="19" width="393" height="1"/>
+							<graphicElement>
+								<pen lineWidth="0.25"/>
+							</graphicElement>
+						</line>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<staticText>
+				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="76" y="322" width="252" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[EPREUVES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="328" y="322" width="141" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Horaires]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="76" y="456" width="393" height="26"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Adresse : "+$P{adresse}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="76" y="482" width="393" height="16"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Téléphone : "+$P{phone}]]></textFieldExpression>
+			</textField>
+			<line direction="BottomUp">
+				<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="77" y="340" width="394" height="1"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="76" y="322" width="394" height="1"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<componentElement>
+				<reportElement uuid="9dbe190e-b1e7-44cf-b971-306b95b3aba9" x="77" y="341" width="394" height="20"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1" uuid="6ba6aefc-e885-49e9-9fd7-00eafd929b71">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{matieres})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="20" width="394">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" x="0" y="0" width="251" height="20"/>
+							<textElement textAlignment="Center" verticalAlignment="Middle"/>
+							<textFieldExpression><![CDATA[$F{matiere}.get("matiere")]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" x="251" y="0" width="141" height="20"/>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font size="8"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$V{horaireDe}+ " - "+$V{horaireA}]]></textFieldExpression>
+						</textField>
+						<line direction="BottomUp">
+							<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="1" y="19" width="393" height="1"/>
+							<graphicElement>
+								<pen lineWidth="0.25"/>
+							</graphicElement>
+						</line>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
 		</band>
 	</title>
 	<pageHeader>

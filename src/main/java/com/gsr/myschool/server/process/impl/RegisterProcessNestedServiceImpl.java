@@ -19,6 +19,7 @@ package com.gsr.myschool.server.process.impl;
 import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.common.shared.type.EmailType;
 import com.gsr.myschool.common.shared.type.InboxMessageStatus;
+import com.gsr.myschool.common.shared.type.UserStatus;
 import com.gsr.myschool.server.business.InboxMessage;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.process.RegisterProcessNestedService;
@@ -47,7 +48,14 @@ public class RegisterProcessNestedServiceImpl implements RegisterProcessNestedSe
 
     @Override
     public void deleteAccount(Long id) {
-        userRepos.delete(id);
+        try {
+            User user = userRepos.findOne(id);
+            if (user.getStatus() == UserStatus.INACTIVE) {
+                userRepos.delete(id);
+            }
+        } catch (Exception e) {
+            log.debug("No user with ID " + id + " Found");
+        }
     }
 
     @Override

@@ -34,4 +34,6 @@ public interface InscriptionRequest extends RequestContext {
     Request<List<InfoParentProxy>> findInfoParentByDossierId(Long dossierId);
 
     Request<List<FraterieProxy>> findFraterieByDossierId(Long dossierId);
+
+    Request<Void> deleteInscription(Long dossierId);
 }

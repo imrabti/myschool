@@ -27,7 +27,6 @@ import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
 import com.gsr.myschool.common.shared.type.DossierStatus;
-import com.gsr.myschool.server.business.core.SessionExamen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,12 +105,11 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         driver.edit(object);
         filiere.setAcceptableValues(valueList.getFiliereList());
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
-        if (object.getStatus() == null) {
-            status.setValue(DossierStatus.ACCEPTED_FOR_TEST);
-        }
-        status.setValue(null);
-        status.setAcceptableValues(DossierStatus.affectationValues());
         session.setValue(null);
+        status.setValue(null);
+        session.setValue(object.getSession());
+        status.setValue(object.getStatus());
+        status.setAcceptableValues(DossierStatus.affectationValues());
         session.setAcceptableValues(valueList.getSessionsList());
     }
 

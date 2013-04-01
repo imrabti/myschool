@@ -57,8 +57,6 @@ public class SessionServiceImpl implements SessionService {
     private InboxMessageRepos inboxMessageRepos;
     @Value("${mailserver.sender}")
     private String sender;
-    @Value("${mailserver.convocationLink}")
-    private String convocationLink;
 
     @Override
     public void createNewSession(SessionExamen sessionExamen) {
@@ -147,6 +145,12 @@ public class SessionServiceImpl implements SessionService {
             sessionExamenRepos.delete(session);
         } else if (session.getStatus() == SessionStatus.OPEN) {
             List<DossierSession> dossierSessions = dossierSessionRepos.findBySessionExamenId(session.getId());
+            for (DossierSession ds : dossierSessions) {
+                Dossier dossier = dossierRepos.findOne(ds.getDossier().getId());
+                dossier.setStatus(DossierStatus.ACCEPTED_FOR_TEST);
+                dossierRepos.save(dossier);
+            }
+
             dossierSessionRepos.delete(dossierSessions);
 
             session.setStatus(SessionStatus.CANCELED);
@@ -156,6 +160,8 @@ public class SessionServiceImpl implements SessionService {
             List<DossierSession> dossierSessions = dossierSessionRepos.findBySessionExamenId(session.getId());
             for (DossierSession dossiersession : dossierSessions) {
                 Dossier dossier = dossiersession.getDossier();
+                dossier.setStatus(DossierStatus.ACCEPTED_FOR_TEST);
+                dossierRepos.save(dossier);
 
                 Map<String, Object> params = new HashMap<String, Object>();
                 if (dossiersession.getSessionExamen().getDateSession() != null) {
@@ -211,10 +217,13 @@ public class SessionServiceImpl implements SessionService {
     public Boolean launchSession(SessionExamen session, String link) {
         List<DossierSession> dossierSessions = dossierSessionRepos.findBySessionExamenId(session.getId());
         for (DossierSession dossiersession : dossierSessions) {
-            Dossier dossier = dossiersession.getDossier();
+            Dossier dossier = dossierRepos.findOne(dossiersession.getDossier().getId());
             String token = Base64.encode(dossiersession.getDossier().getGeneratedNumDossier() + "" + (new Date()).toString());
             token = token.replace("=", "E");
             dossiersession.setGeneratedConvocationPDFPath(token);
+            dossier.setStatus(DossierStatus.INVITED_TO_TEST);
+
+            dossierRepos.save(dossier);
             dossierSessionRepos.save(dossiersession);
 
             Map<String, Object> params = new HashMap<String, Object>();
@@ -308,7 +317,7 @@ public class SessionServiceImpl implements SessionService {
     public Boolean affecter(Dossier dossier, SessionExamen session) throws AffectationClosedException {
         DossierSession sameexist = dossierSessionRepos.findByDossierIdAndSessionExamenId(dossier.getId(), session.getId());
         if (sameexist != null) {
-            return false;
+            return true;
         }
 
         DossierSession exist = dossierSessionRepos.findByDossierId(dossier.getId());
@@ -328,7 +337,7 @@ public class SessionServiceImpl implements SessionService {
         }
 
         Dossier affectedDossier = dossierRepos.findOne(dossier.getId());
-        affectedDossier.setStatus(DossierStatus.INVITED_TO_TEST);
+        affectedDossier.setStatus(DossierStatus.AFFECTED);
 
         SessionExamen examen = sessionExamenRepos.findOne(session.getId());
         examen.setCandidates(examen.getCandidates() + 1);
@@ -363,7 +372,7 @@ public class SessionServiceImpl implements SessionService {
             Date dateSession = exist.getSessionExamen().getDateSession();
             Date yesterday = calendar.getTime();
 
-            if (dateSession.before(yesterday)) {
+            if (yesterday.before(dateSession)) {
                 throw new AffectationClosedException();
             }
         }

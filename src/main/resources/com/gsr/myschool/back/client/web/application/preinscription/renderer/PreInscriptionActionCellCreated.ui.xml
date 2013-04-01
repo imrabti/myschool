@@ -4,6 +4,10 @@
             <i class="icon-search"/>
             <span class="">consulter</span>
         </a>
+        <a href="javascript:;" class="btn" ui:field="delete">
+            <i class="icon-remove"/>
+            <span class="">Supprimer</span>
+        </a>
         <a href="javascript:;" class="btn" ui:field="print">
             <i class="icon-print"/>
             <span class="">Imprimer</span>

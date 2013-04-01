@@ -246,7 +246,14 @@ public class PreInscriptionView extends ViewWithUiHandlers<PreInscriptionUiHandl
             }
         };
 
-        PreInscriptionActionCell actionsCell = actionCellFactory.create(viewDetailsAction, printAction);
+        Delegate<DossierProxy> deleteAction = new Delegate<DossierProxy>() {
+            @Override
+            public void execute(DossierProxy inscription) {
+                getUiHandlers().delete(inscription);
+            }
+        };
+
+        PreInscriptionActionCell actionsCell = actionCellFactory.create(viewDetailsAction, printAction, deleteAction);
         Column<DossierProxy, DossierProxy> actionsColumn = new
                 Column<DossierProxy, DossierProxy>(actionsCell) {
             @Override

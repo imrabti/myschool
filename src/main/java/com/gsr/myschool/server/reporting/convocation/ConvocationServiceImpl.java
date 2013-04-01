@@ -104,16 +104,16 @@ public class ConvocationServiceImpl implements ConvocationService {
         }
         myMap.put("prenomEnfant", dossier.getCandidat().getFirstname());
 
-        if (niveauEtude.getAnnee() <= 5 && niveauEtude.getAnnee() >= 4) {
+        if (niveauEtude.getAnnee() <= 5) {
             dto = new ReportDTO(reportMSGS);
-        } else if (niveauEtude.getAnnee() == 6) {
+        } else if (niveauEtude.getAnnee() >= 6 && niveauEtude.getAnnee() <= 10) {
             dto = new ReportDTO(reportCP);
-            myMap.put("heureEpreuveDebut", matieres.get(0).getHoraireDe());
-            myMap.put("heureEpreuveFin", matieres.get(0).getHoraireA());
-        } else if (niveauEtude.getAnnee() >= 7 && niveauEtude.getAnnee() <= 10) {
-            dto = new ReportDTO(reportCECM);
-            myMap.put("heureEpreuveDebut", matieres.get(0).getHoraireDe());
-            myMap.put("heureEpreuveFin", matieres.get(0).getHoraireA());
+
+            List<Map> myList = new ArrayList<Map>();
+            for (SessionNiveauEtude matiere : matieres) {
+                myList.add(matiere.getReportsAttributes());
+            }
+            myMap.put("matieres", myList);
         } else {
             dto = new ReportDTO(reportSeconde);
 
@@ -163,6 +163,8 @@ public class ConvocationServiceImpl implements ConvocationService {
         myMap.put("heureAccueilDebut", Strings.isNullOrEmpty(session.getWelcomKids()) ? "" : session.getWelcomKids());
         myMap.put("heureAccueilFin", "8:00");
 
+        myMap.put("refDossier", "GSR_REF_TEST_01234");
+
         myMap.put("heureDebut", Strings.isNullOrEmpty(session.getDebutTest()) ? "8:00" : session.getDebutTest());
         myMap.put("heureRecuperation", Strings.isNullOrEmpty(session.getGatherKids()) ? "8:00" : session.getGatherKids());
 
@@ -175,28 +177,16 @@ public class ConvocationServiceImpl implements ConvocationService {
         myMap.put("nomParent", "NomParent");
         myMap.put("prenomEnfant", "Mehdi");
 
-        if (niveauEtude.getAnnee() <= 5 && niveauEtude.getAnnee() >= 4) {
+        if (niveauEtude.getAnnee() <= 5) {
             dto = new ReportDTO(reportMSGS);
-        } else if (niveauEtude.getAnnee() == 6) {
+        } else if (niveauEtude.getAnnee() >= 6 && niveauEtude.getAnnee() <= 10) {
             dto = new ReportDTO(reportCP);
 
-            if (matieres.isEmpty()) {
-                myMap.put("heureEpreuveDebut", "8:45");
-                myMap.put("heureEpreuveFin", "11:30");
-            } else {
-                myMap.put("heureEpreuveDebut", matieres.get(0).getHoraireDe());
-                myMap.put("heureEpreuveFin", matieres.get(0).getHoraireA());
+            List<Map> myList = new ArrayList<Map>();
+            for (SessionNiveauEtude matiere : matieres) {
+                myList.add(matiere.getReportsAttributes());
             }
-        } else if (niveauEtude.getAnnee() >= 7 && niveauEtude.getAnnee() <= 10) {
-            dto = new ReportDTO(reportCECM);
-
-            if (matieres.isEmpty()) {
-                myMap.put("heureEpreuveDebut", "8:45");
-                myMap.put("heureEpreuveFin", "11:30");
-            } else {
-                myMap.put("heureEpreuveDebut", matieres.get(0).getHoraireDe());
-                myMap.put("heureEpreuveFin", matieres.get(0).getHoraireA());
-            }
+            myMap.put("matieres", myList);
         } else {
             dto = new ReportDTO(reportSeconde);
 
@@ -240,7 +230,7 @@ public class ConvocationServiceImpl implements ConvocationService {
         myMap.put("heureAccueilDebut", session.getWelcomKids());
         myMap.put("heureAccueilFin", "8:00");
 
-        myMap.put("refDossier", "GSR_REF_TEST_01234");
+        myMap.put("refDossier", dossierSession.getDossier().getGeneratedNumDossier());
 
         myMap.put("heureDebut", session.getDebutTest());
         myMap.put("heureRecuperation", session.getGatherKids());
@@ -254,20 +244,21 @@ public class ConvocationServiceImpl implements ConvocationService {
         for (InfoParent parent : parents) {
             if (!Strings.isNullOrEmpty(parent.getNom())) {
                 myMap.put("nomParent", parent.getNom());
+                break;
             }
         }
         myMap.put("prenomEnfant", dossierSession.getDossier().getCandidat().getFirstname());
 
-        if (niveauEtude.getAnnee() <= 5 && niveauEtude.getAnnee() >= 4) {
+        if (niveauEtude.getAnnee() <= 5) {
             dto = new ReportDTO(reportMSGS);
-        } else if (niveauEtude.getAnnee() == 6) {
+        } else if (niveauEtude.getAnnee() >= 6 && niveauEtude.getAnnee() <= 10) {
             dto = new ReportDTO(reportCP);
-            myMap.put("heureEpreuveDebut", matieres.get(0).getHoraireDe());
-            myMap.put("heureEpreuveFin", matieres.get(0).getHoraireA());
-        } else if (niveauEtude.getAnnee() >= 7 && niveauEtude.getAnnee() <= 10) {
-            dto = new ReportDTO(reportCECM);
-            myMap.put("heureEpreuveDebut", matieres.get(0).getHoraireDe());
-            myMap.put("heureEpreuveFin", matieres.get(0).getHoraireA());
+
+            List<Map> myList = new ArrayList<Map>();
+            for (SessionNiveauEtude matiere : matieres) {
+                myList.add(matiere.getReportsAttributes());
+            }
+            myMap.put("matieres", myList);
         } else {
             dto = new ReportDTO(reportSeconde);
 

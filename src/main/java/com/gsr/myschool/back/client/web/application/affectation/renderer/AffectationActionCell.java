@@ -47,8 +47,16 @@ public class AffectationActionCell extends AbstractCell<DossierProxy> {
         void onBrowserEvent(AffectationActionCell o, NativeEvent e, Element p);
     }
 
+    @UiTemplate("AffectationActionCellInvited.ui.xml")
+    public interface RendererInvitedDossier extends UiRenderer {
+        void render(SafeHtmlBuilder sb);
+
+        void onBrowserEvent(AffectationActionCell o, NativeEvent e, Element p);
+    }
+
     private final RendererAffectedDossier affectedRenderer;
     private final RendererNotAffectedDossier notAffectedRenderer;
+    private final RendererInvitedDossier invitedRenderer;
 
     private ActionCell.Delegate<DossierProxy> viewDetails;
     private ActionCell.Delegate<DossierProxy> affecter;
@@ -60,6 +68,7 @@ public class AffectationActionCell extends AbstractCell<DossierProxy> {
     @Inject
     public AffectationActionCell(final RendererAffectedDossier affectedRenderer,
                                  final RendererNotAffectedDossier notAffectedRenderer,
+                                 final RendererInvitedDossier invitedRenderer,
                                  @Assisted("viewDetails") ActionCell.Delegate<DossierProxy> viewDetails,
                                  @Assisted("affecter") ActionCell.Delegate<DossierProxy> affecter,
                                  @Assisted("desaffecter") ActionCell.Delegate<DossierProxy> desaffecter,
@@ -68,6 +77,7 @@ public class AffectationActionCell extends AbstractCell<DossierProxy> {
 
         this.affectedRenderer = affectedRenderer;
         this.notAffectedRenderer = notAffectedRenderer;
+        this.invitedRenderer = invitedRenderer;
         this.viewDetails = viewDetails;
         this.affecter = affecter;
         this.desaffecter = desaffecter;
@@ -80,9 +90,15 @@ public class AffectationActionCell extends AbstractCell<DossierProxy> {
         selectedObject = value;
         switch (selectedObject.getStatus()) {
             case INVITED_TO_TEST:
+                invitedRenderer.onBrowserEvent(this, event, parent);
+                break;
+            case AFFECTED:
                 affectedRenderer.onBrowserEvent(this, event, parent);
                 break;
             case ACCEPTED_FOR_TEST:
+                notAffectedRenderer.onBrowserEvent(this, event, parent);
+                break;
+            default:
                 notAffectedRenderer.onBrowserEvent(this, event, parent);
                 break;
         }
@@ -93,9 +109,15 @@ public class AffectationActionCell extends AbstractCell<DossierProxy> {
         selectedObject = value;
         switch (selectedObject.getStatus()) {
             case INVITED_TO_TEST:
+                invitedRenderer.render(builder);
+                break;
+            case AFFECTED:
                 affectedRenderer.render(builder);
                 break;
             case ACCEPTED_FOR_TEST:
+                notAffectedRenderer.render(builder);
+                break;
+            default:
                 notAffectedRenderer.render(builder);
                 break;
         }
@@ -113,10 +135,12 @@ public class AffectationActionCell extends AbstractCell<DossierProxy> {
 
     @UiHandler({"desaffecter"})
     void onDesafecterClicked(ClickEvent event) {
-        if (selectedObject.getStatus() == DossierStatus.INVITED_TO_TEST) {
+        if (selectedObject.getStatus() == DossierStatus.INVITED_TO_TEST
+                || selectedObject.getStatus() == DossierStatus.AFFECTED) {
             desaffecter.execute(selectedObject);
         }
     }
+
     @UiHandler({"imprimer"})
     void onPrintClicked(ClickEvent event) {
         if (selectedObject.getStatus() == DossierStatus.INVITED_TO_TEST) {
