@@ -328,7 +328,7 @@ public class SessionServiceImpl implements SessionService {
             Date dateSession = exist.getSessionExamen().getDateSession();
             Date yesterday = calendar.getTime();
 
-            if (dateSession.before(yesterday)) {
+            if (yesterday.before(dateSession)) {
                 throw new AffectationClosedException();
             }
         }
