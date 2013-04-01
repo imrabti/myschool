@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.back.client.web.application.preinscription;
 
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
@@ -28,7 +29,10 @@ import com.gsr.myschool.common.client.proxy.PagedDossiersProxy;
 import com.gsr.myschool.common.client.request.ExcelRequestBuilder;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.request.ReportRequestBuilder;
+import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
+import com.gsr.myschool.common.client.widget.messages.Message;
+import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -64,6 +68,7 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
 
     private final BackRequestFactory requestFactory;
     private final PlaceManager placeManager;
+    private final SharedMessageBundle messageBundle;
 
     private DossierRequest currentContext;
     private DossierFilterDTOProxy dossierFilter;
@@ -71,10 +76,12 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
     @Inject
     public PreInscriptionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                                    final BackRequestFactory requestFactory,
-                                   final PlaceManager placeManager) {
+                                   final PlaceManager placeManager,
+                                   final SharedMessageBundle messageBundle) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
+        this.messageBundle = messageBundle;
         this.placeManager = placeManager;
 
         getView().setUiHandlers(this);
@@ -118,6 +125,22 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
         ReportRequestBuilder requestBuilder = new ReportRequestBuilder();
         requestBuilder.buildData(dossier.getId().toString());
         requestBuilder.sendRequest();
+    }
+
+    @Override
+    public void delete(DossierProxy inscription) {
+        requestFactory.inscriptionService().deleteInscription(inscription.getId()).fire(new ReceiverImpl<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                String content = messageBundle.operationSuccess();
+                AlertType alertType = AlertType.SUCCESS;
+                Message message = new Message.Builder(content)
+                        .style(alertType).build();
+
+                MessageEvent.fire(this, message);
+                loadDossiersCounts();
+            }
+        });
     }
 
     @Override

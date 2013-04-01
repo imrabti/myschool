@@ -4,11 +4,11 @@
             <i class="icon-search"/>
             <span class="">consulter</span>
         </a>
-        <a href="javascript:;" class="btn" ui:field="imprimer" style="display: none;">
+        <a href="javascript:;" class="btn" ui:field="imprimer">
             <i class="icon-print"/>
             <span class="">Imprimer</span>
         </a>
-        <a href="javascript:;" class="btn" ui:field="desaffecter" style="display: none;" >
+        <a href="javascript:;" class="btn btn-warning" ui:field="desaffecter">
             <i class="icon-remove"/>
             <span class="">Annuler</span>
         </a>

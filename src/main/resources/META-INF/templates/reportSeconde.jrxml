@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportMSGS" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4c574922-4b99-490d-ae3f-1b12f7827f23">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="291"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<subDataset name="dataset1" uuid="e5e78060-9521-470f-ba62-d65999e710df">
 		<field name="matiere" class="org.apache.commons.beanutils.BeanMap">
@@ -44,11 +44,11 @@
 				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"gsrlogo.png"]]></imageExpression>
 			</image>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="418caa72-058d-4616-ad42-92ddc3260878" x="384" y="60" width="130" height="20"/>
+				<reportElement uuid="418caa72-058d-4616-ad42-92ddc3260878" x="384" y="40" width="130" height="20"/>
 				<textElement textAlignment="Right">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Casablanca le "+$P{date}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="ba510252-afc9-4453-a2c9-225ff6f6854b" x="287" y="110" width="227" height="20"/>
@@ -78,12 +78,12 @@
 				</textElement>
 				<textFieldExpression><![CDATA["Accueil des élèves à "+$P{heureAccueilDebut}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="263" width="393" height="45"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="263" width="393" height="29"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Afin de passer le test-concours d’admission en "+$P{niveauEtude}+" - "+$P{section}+" selon le calendrier ci-après :"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["afin de passer le test-concours d’admission en "+$P{niveauEtude}+" - "+$P{section}+" selon le calendrier ci-après :"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="94359f98-314c-452d-8428-4286829fa457" x="78" y="611" width="393" height="21"/>
@@ -141,12 +141,12 @@
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{matieres})]]></dataSourceExpression>
 					</datasetRun>
 					<jr:listContents height="20" width="394">
-						<textField isBlankWhenNull="true">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" x="0" y="1" width="159" height="19"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$F{matiere}.get("matiere")]]></textFieldExpression>
 						</textField>
-						<textField isBlankWhenNull="true">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" x="159" y="1" width="234" height="19"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle">
 								<font size="8"/>
@@ -175,11 +175,11 @@
 				</graphicElement>
 			</line>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="318" y="83" width="196" height="16"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="318" y="74" width="196" height="16"/>
 				<textElement textAlignment="Right">
 					<font size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Ref : "+$P{refDossier} ]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Ref : "+$P{refDossier}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

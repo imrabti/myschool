@@ -22,6 +22,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+
 @Service
 public class SchedulerService {
 
@@ -29,7 +31,13 @@ public class SchedulerService {
     @Qualifier("expiredDossierJob")
     private Worker worker;
 
-    @Scheduled(cron="0 0 0 * * ?")
+
+    @PostConstruct
+    public void startupJobs() {
+        worker.work();
+    }
+
+    @Scheduled(cron="0 30 2 * * ?")
     public void doSchedule() {
         worker.work();
     }

@@ -13,6 +13,7 @@ public enum DossierStatus {
     ACCEPTED_FOR_TEST("Accepté pour test"),
     INVITED_TO_TEST("Convoqué pour test"),
     NOT_ACCEPTED_FOR_TEST("Refusé pour test"),
+    AFFECTED("Affecté pour test"),
     TO_BE_REGISTERED("Admis à l'inscription");
 
     private String label;
@@ -44,6 +45,7 @@ public enum DossierStatus {
         List<DossierStatus> receptionStatus = new ArrayList<DossierStatus>();
         receptionStatus.add(ACCEPTED_FOR_TEST);
         receptionStatus.add(INVITED_TO_TEST);
+        receptionStatus.add(AFFECTED);
         return receptionStatus;
     }
 }

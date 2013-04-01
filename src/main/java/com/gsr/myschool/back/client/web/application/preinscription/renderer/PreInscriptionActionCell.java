@@ -10,46 +10,75 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiRenderer;
+import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 
 public class PreInscriptionActionCell extends AbstractCell<DossierProxy> {
-    public interface Renderer extends UiRenderer {
+    @UiTemplate("PreInscriptionActionCellCreated.ui.xml")
+    public interface RendererCreatedDossier extends UiRenderer {
         void render(SafeHtmlBuilder sb);
 
         void onBrowserEvent(PreInscriptionActionCell o, NativeEvent e, Element p);
     }
 
-    private final Renderer uiRenderer;
+    @UiTemplate("PreInscriptionActionCellOther.ui.xml")
+    public interface RendererOtherDossier extends UiRenderer {
+        void render(SafeHtmlBuilder sb);
+
+        void onBrowserEvent(PreInscriptionActionCell o, NativeEvent e, Element p);
+    }
+
+    private final RendererOtherDossier rendererOtherDossier;
+    private final RendererCreatedDossier rendererCreatedDossier;
 
     private Delegate<DossierProxy> viewDetails;
     private Delegate<DossierProxy> print;
+    private Delegate<DossierProxy> delete;
 
     private DossierProxy selectedObject;
 
     @Inject
-    public PreInscriptionActionCell(final Renderer uiRenderer,
-            @Assisted("viewDetails") Delegate<DossierProxy> viewDetails,
-            @Assisted("print") Delegate<DossierProxy> print) {
+    public PreInscriptionActionCell(final RendererOtherDossier rendererOtherDossier,
+                                    final RendererCreatedDossier rendererCreatedDossier,
+                                    @Assisted("viewDetails") Delegate<DossierProxy> viewDetails,
+                                    @Assisted("print") Delegate<DossierProxy> print,
+                                    @Assisted("delete") Delegate<DossierProxy> delete) {
         super(BrowserEvents.CLICK);
 
-        this.uiRenderer = uiRenderer;
+        this.rendererCreatedDossier = rendererCreatedDossier;
+        this.rendererOtherDossier = rendererOtherDossier;
         this.viewDetails = viewDetails;
         this.print = print;
+        this.delete = delete;
     }
 
     @Override
     public void onBrowserEvent(Context context, Element parent, DossierProxy value, NativeEvent event,
                                ValueUpdater<DossierProxy> valueUpdater) {
         selectedObject = value;
-        uiRenderer.onBrowserEvent(this, event, parent);
+        switch (selectedObject.getStatus()) {
+            case CREATED:
+                rendererCreatedDossier.onBrowserEvent(this, event, parent);
+                break;
+            default:
+                rendererOtherDossier.onBrowserEvent(this, event, parent);
+                break;
+        }
     }
 
     @Override
     public void render(Context context, DossierProxy value, SafeHtmlBuilder builder) {
-        uiRenderer.render(builder);
+        switch (value.getStatus()) {
+            case CREATED:
+                rendererCreatedDossier.render(builder);
+                break;
+            default:
+                rendererOtherDossier.render(builder);
+                break;
+        }
     }
 
     @UiHandler({"viewDetails"})
@@ -61,6 +90,13 @@ public class PreInscriptionActionCell extends AbstractCell<DossierProxy> {
     void onPrintClicked(ClickEvent event) {
         if (!selectedObject.getStatus().equals(DossierStatus.CREATED)) {
             print.execute(selectedObject);
+        }
+    }
+
+    @UiHandler({"delete"})
+    void onDeleteClicked(ClickEvent event) {
+        if (selectedObject.getStatus().equals(DossierStatus.CREATED)) {
+            delete.execute(selectedObject);
         }
     }
 }
