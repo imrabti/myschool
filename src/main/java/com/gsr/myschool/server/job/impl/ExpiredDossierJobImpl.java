@@ -59,10 +59,10 @@ public class ExpiredDossierJobImpl implements Worker {
             if (dossier.getCreateDate() != null) {
                 Calendar date = new GregorianCalendar();
                 date.setTime(dossier.getCreateDate());
-                date.add(Calendar.DAY_OF_WEEK, 1);
+                date.add(Calendar.DAY_OF_WEEK_IN_MONTH, 1);
                 Calendar deleteAfterThis = new GregorianCalendar();
 
-                if (date.after(deleteAfterThis)) {
+                if (deleteAfterThis.after(date)) {
                     logger.info("deleting dossier id : " + dossier.getId() + ".");
                     try {
                         inscriptionService.deleteInscription(dossier.getId());

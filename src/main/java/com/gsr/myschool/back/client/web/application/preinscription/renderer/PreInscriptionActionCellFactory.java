@@ -6,5 +6,6 @@ import com.gsr.myschool.common.client.proxy.DossierProxy;
 
 public interface PreInscriptionActionCellFactory {
     PreInscriptionActionCell create(@Assisted("viewDetails") Delegate<DossierProxy> viewDetails,
-            @Assisted("print") Delegate<DossierProxy> print);
+                                    @Assisted("print") Delegate<DossierProxy> print,
+                                    @Assisted("delete") Delegate<DossierProxy> delete);
 }

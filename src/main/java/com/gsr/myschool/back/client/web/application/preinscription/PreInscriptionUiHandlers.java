@@ -32,4 +32,6 @@ public interface PreInscriptionUiHandlers extends UiHandlers {
     void export(DossierFilterDTOProxy dossierFilter);
 
     void printInscription(DossierProxy inscription);
+
+    void delete(DossierProxy inscription);
 }
