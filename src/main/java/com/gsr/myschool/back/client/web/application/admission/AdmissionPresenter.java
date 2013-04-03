@@ -14,17 +14,16 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.application.confirmationTest;
+package com.gsr.myschool.back.client.web.application.admission;
 
-import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.DossierRequest;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
-import com.gsr.myschool.back.client.web.application.confirmationTest.popup.DenyForTestPresenter;
-import com.gsr.myschool.back.client.web.application.confirmationTest.event.RejectCompletedEvent;
+import com.gsr.myschool.back.client.web.application.admission.event.CloseCompletedEvent;
+import com.gsr.myschool.back.client.web.application.admission.popup.CommentAdmissionPresenter;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.PagedDossiersProxy;
@@ -32,8 +31,6 @@ import com.gsr.myschool.common.client.request.ExcelRequestBuilder;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
-import com.gsr.myschool.common.client.widget.messages.Message;
-import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -49,9 +46,9 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 
 import java.util.List;
 
-public class ConfirmationTestPresenter extends Presenter<ConfirmationTestPresenter.MyView, ConfirmationTestPresenter.MyProxy>
-        implements ConfirmationTestUiHandlers, RejectCompletedEvent.RejectCompletedHandler {
-    public interface MyView extends View, HasUiHandlers<ConfirmationTestUiHandlers> {
+public class AdmissionPresenter extends Presenter<AdmissionPresenter.MyView, AdmissionPresenter.MyProxy>
+        implements AdmissionUiHandlers, CloseCompletedEvent.CloseCompletedHandler {
+    public interface MyView extends View, HasUiHandlers<AdmissionUiHandlers> {
         void reloadData();
 
         void setDossierCount(Integer result);
@@ -62,40 +59,40 @@ public class ConfirmationTestPresenter extends Presenter<ConfirmationTestPresent
     }
 
     @ProxyStandard
-    @NameToken(NameTokens.confirmation)
+    @NameToken(NameTokens.admission)
     @UseGatekeeper(HasRoleGatekeeper.class)
     @GatekeeperParams({GlobalParameters.ROLE_ADMIN, GlobalParameters.ROLE_OPERATOR})
-    public interface MyProxy extends ProxyPlace<ConfirmationTestPresenter> {
+    public interface MyProxy extends ProxyPlace<AdmissionPresenter> {
     }
 
     private final BackRequestFactory requestFactory;
     private final SharedMessageBundle messageBundle;
     private final PlaceManager placeManager;
-    private final DenyForTestPresenter denyForTestPresenter;
+    private final CommentAdmissionPresenter commentAdmissionPresenter;
 
     private DossierRequest currentContext;
     private DossierFilterDTOProxy dossierFilter;
 
     @Inject
-    public ConfirmationTestPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
+    public AdmissionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
             final BackRequestFactory requestFactory,
             final PlaceManager placeManager,
             final SharedMessageBundle messageBundle,
-            final DenyForTestPresenter denyForTestPresenter) {
+            final CommentAdmissionPresenter commentAdmissionPresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
         this.messageBundle = messageBundle;
         this.placeManager = placeManager;
-        this.denyForTestPresenter = denyForTestPresenter;
+        this.commentAdmissionPresenter = commentAdmissionPresenter;
 
         getView().setUiHandlers(this);
     }
 
     @Override
-    public void editDenyReason(DossierProxy currentDossier) {
-        denyForTestPresenter.loadDossier(currentDossier);
-        addToPopupSlot(denyForTestPresenter);
+    public void editStatusComment(DossierProxy currentDossier, Boolean accept) {
+        commentAdmissionPresenter.loadDossier(currentDossier, accept);
+        addToPopupSlot(commentAdmissionPresenter);
     }
 
     @Override
@@ -106,21 +103,7 @@ public class ConfirmationTestPresenter extends Presenter<ConfirmationTestPresent
     }
 
     @Override
-    public void accept(DossierProxy dossier) {
-        requestFactory.dossierService().acceptDossier(dossier).fire(new ReceiverImpl<Boolean>() {
-            @Override
-            public void onSuccess(Boolean response) {
-                String messageString = response ? messageBundle.operationSuccess() : messageBundle.operationFailure();
-                AlertType alertType = response ? AlertType.SUCCESS : AlertType.ERROR;
-                Message message = new Message.Builder(messageString).style(alertType).build();
-                MessageEvent.fire(this, message);
-                loadDossiersCounts();
-            }
-        });
-    }
-
-    @Override
-    public void onRejectCompleted(RejectCompletedEvent event) {
+    public void onCloseCompleted(CloseCompletedEvent event) {
         loadDossiersCounts();
     }
 
@@ -155,7 +138,7 @@ public class ConfirmationTestPresenter extends Presenter<ConfirmationTestPresent
     public void init() {
         currentContext = requestFactory.dossierService();
         dossierFilter = currentContext.create(DossierFilterDTOProxy.class);
-        dossierFilter.setStatus(DossierStatus.ACCEPTED_FOR_STUDY);
+        dossierFilter.setStatus(DossierStatus.INVITED_TO_TEST);
 
         getView().editDossierFilter(dossierFilter);
         loadDossiersCounts();
@@ -171,14 +154,14 @@ public class ConfirmationTestPresenter extends Presenter<ConfirmationTestPresent
 
     @Override
     protected void onBind() {
-        addRegisteredHandler(RejectCompletedEvent.getType(), this);
+        addRegisteredHandler(CloseCompletedEvent.getType(), this);
     }
 
     @Override
     protected void onReveal() {
         currentContext = requestFactory.dossierService();
         dossierFilter = currentContext.create(DossierFilterDTOProxy.class);
-        dossierFilter.setStatus(DossierStatus.ACCEPTED_FOR_STUDY);
+        dossierFilter.setStatus(DossierStatus.INVITED_TO_TEST);
 
         getView().editDossierFilter(dossierFilter);
         loadDossiersCounts();

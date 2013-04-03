@@ -26,6 +26,8 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
     @UiField
     NavLink confirmation;
     @UiField
+    NavLink admission;
+    @UiField
     NavLink userPortal;
     @UiField
     NavLink userGsr;
@@ -60,6 +62,7 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         reception.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN, GlobalParameters.ROLE_OPERATOR));
         validation.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
         confirmation.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN, GlobalParameters.ROLE_OPERATOR));
+        admission.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN, GlobalParameters.ROLE_OPERATOR));
         userPortal.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
         userGsr.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
         valueList.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
@@ -86,6 +89,9 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
                 break;
             case CONFIRMATION_TEST:
                 confirmation.setActive(true);
+                break;
+            case ADMISSION:
+                admission.setActive(true);
                 break;
             case USERS_PORTAL:
                 userPortal.setActive(true);
@@ -134,6 +140,14 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         clearActive();
         confirmation.setActive(true);
         currentMenu = MenuItem.CONFIRMATION_TEST;
+        getUiHandlers().onMenuChanged(currentMenu);
+    }
+
+    @UiHandler("admission")
+    void onAdmissionClicked(ClickEvent event) {
+        clearActive();
+        admission.setActive(true);
+        currentMenu = MenuItem.ADMISSION;
         getUiHandlers().onMenuChanged(currentMenu);
     }
 
@@ -190,6 +204,7 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         reception.setActive(false);
         validation.setActive(false);
         confirmation.setActive(false);
+        admission.setActive(false);
         valueList.setActive(false);
         userGsr.setActive(false);
         userPortal.setActive(false);

@@ -14,34 +14,34 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.application.validation.event;
+package com.gsr.myschool.back.client.web.application.admission.event;
 
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HasHandlers;
 
-public class RejectCompletedEvent extends GwtEvent<RejectCompletedEvent.RejectCompletedHandler> {
-    public interface RejectCompletedHandler extends EventHandler {
-        void onRejectCompleted(RejectCompletedEvent event);
+public class CloseCompletedEvent extends GwtEvent<CloseCompletedEvent.CloseCompletedHandler> {
+    public interface CloseCompletedHandler extends EventHandler {
+        void onCloseCompleted(CloseCompletedEvent event);
     }
 
-    public static Type<RejectCompletedHandler> TYPE = new Type<RejectCompletedHandler>();
+    public static Type<CloseCompletedHandler> TYPE = new Type<CloseCompletedHandler>();
 
     public static void fire(HasHandlers source) {
-        source.fireEvent(new RejectCompletedEvent());
+        source.fireEvent(new CloseCompletedEvent());
     }
 
-    public static Type<RejectCompletedHandler> getType() {
+    public static Type<CloseCompletedHandler> getType() {
         return TYPE;
     }
 
     @Override
-    public Type<RejectCompletedHandler> getAssociatedType() {
+    public Type<CloseCompletedHandler> getAssociatedType() {
         return TYPE;
     }
 
     @Override
-    protected void dispatch(RejectCompletedHandler handler) {
-        handler.onRejectCompleted(this);
+    protected void dispatch(CloseCompletedHandler handler) {
+        handler.onCloseCompleted(this);
     }
 }
