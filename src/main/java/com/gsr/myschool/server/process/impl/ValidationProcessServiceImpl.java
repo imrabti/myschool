@@ -306,7 +306,66 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     }
 
     @Override
-    public List<Dossier> getAllAnalysedDossiers() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public Task getDossierToAdmission(Long dossierId) {
+        return taskService.createTaskQuery()
+                .processInstanceBusinessKey(dossierId.toString())
+                .taskDefinitionKey(ValidationTask.AFFECTATION.getValue())
+                .singleResult();
+    }
+
+    @Override
+    public void admitFinalDossier(Task task, Dossier dossier) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("gender", dossier.getOwner().getGender().toString());
+        params.put("lastname", dossier.getOwner().getLastName());
+        params.put("firstname", dossier.getOwner().getFirstName());
+        params.put("nomEnfant", dossier.getCandidat().getLastname());
+        params.put("prenomEnfant", dossier.getCandidat().getFirstname());
+        params.put("refdossier", dossier.getGeneratedNumDossier());
+        try {
+            EmailDTO email = emailService.populateEmail(EmailType.FINAL_ADMISSION,
+                    dossier.getOwner().getEmail(), sender,
+                    params, "", "");
+            emailService.prepare(email);
+
+            InboxMessage message = new InboxMessage();
+            message.setParentUser(dossier.getOwner());
+            message.setSubject(email.getSubject());
+            message.setContent(email.getMessage());
+            message.setMsgDate(new Date());
+            message.setMsgStatus(InboxMessageStatus.UNREAD);
+            inboxMessageRepos.save(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        taskService.complete(task.getId());
+    }
+
+    @Override
+    public void rejectFinalDossier(Task task, Dossier dossier) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("gender", dossier.getOwner().getGender().toString());
+        params.put("lastname", dossier.getOwner().getLastName());
+        params.put("firstname", dossier.getOwner().getFirstName());
+        params.put("nomEnfant", dossier.getCandidat().getLastname());
+        params.put("prenomEnfant", dossier.getCandidat().getFirstname());
+        params.put("refdossier", dossier.getGeneratedNumDossier());
+        try {
+            EmailDTO email = emailService.populateEmail(EmailType.FINAL_REJECTION,
+                    dossier.getOwner().getEmail(), sender,
+                    params, "", "");
+            emailService.prepare(email);
+
+            InboxMessage message = new InboxMessage();
+            message.setParentUser(dossier.getOwner());
+            message.setSubject(email.getSubject());
+            message.setContent(email.getMessage());
+            message.setMsgDate(new Date());
+            message.setMsgStatus(InboxMessageStatus.UNREAD);
+            inboxMessageRepos.save(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        taskService.complete(task.getId());
     }
 }
