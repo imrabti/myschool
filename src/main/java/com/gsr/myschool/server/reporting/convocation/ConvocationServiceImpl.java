@@ -27,6 +27,7 @@ import com.gsr.myschool.server.business.core.SessionExamen;
 import com.gsr.myschool.server.business.core.SessionNiveauEtude;
 import com.gsr.myschool.server.reporting.ReportService;
 import com.gsr.myschool.server.repos.*;
+import com.gsr.myschool.server.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -41,8 +42,8 @@ import java.util.*;
 public class ConvocationServiceImpl implements ConvocationService {
     @Autowired
     private ReportService reportService;
-    @Value("${reportCECM}")
-    private String reportCECM;
+    @Value("${convocationPrepa}")
+    private String convocationPrepa;
     @Value("${reportMSGS}")
     private String reportMSGS;
     @Value("${reportSeconde}")
@@ -104,7 +105,19 @@ public class ConvocationServiceImpl implements ConvocationService {
         }
         myMap.put("prenomEnfant", dossier.getCandidat().getFirstname());
 
-        if (niveauEtude.getAnnee() <= 5) {
+        if (niveauEtude.getAnnee() == 18) {
+            dto = new ReportDTO(convocationPrepa);
+
+            List<Map> myList = new ArrayList<Map>();
+            for (SessionNiveauEtude matiere : matieres) {
+                myList.add(matiere.getReportsAttributes());
+            }
+            myMap.put("matieres", myList);
+            myMap.put("prenomEnfant", dossier.getCandidat().getFirstname() + " " + dossier.getCandidat().getLastname());
+            myMap.put("typeBac", dossier.getCandidat().getBacSerie().getValue());
+            myMap.put("anneeScolaire", DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1));
+            myMap.put("session", session.getNom());
+        } else if (niveauEtude.getAnnee() <= 5) {
             dto = new ReportDTO(reportMSGS);
         } else if (niveauEtude.getAnnee() >= 6 && niveauEtude.getAnnee() <= 10) {
             dto = new ReportDTO(reportCP);
@@ -177,7 +190,19 @@ public class ConvocationServiceImpl implements ConvocationService {
         myMap.put("nomParent", "NomParent");
         myMap.put("prenomEnfant", "Mehdi");
 
-        if (niveauEtude.getAnnee() <= 5) {
+        if (niveauEtude.getAnnee() == 18) {
+            dto = new ReportDTO(convocationPrepa);
+
+            List<Map> myList = new ArrayList<Map>();
+            for (SessionNiveauEtude matiere : matieres) {
+                myList.add(matiere.getReportsAttributes());
+            }
+            myMap.put("matieres", myList);
+            myMap.put("prenomEnfant", "Nom et prenom enfant");
+            myMap.put("typeBac", "bacalauréat");
+            myMap.put("anneeScolaire", DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1));
+            myMap.put("session", session.getNom());
+        } else if (niveauEtude.getAnnee() <= 5) {
             dto = new ReportDTO(reportMSGS);
         } else if (niveauEtude.getAnnee() >= 6 && niveauEtude.getAnnee() <= 10) {
             dto = new ReportDTO(reportCP);
@@ -207,6 +232,7 @@ public class ConvocationServiceImpl implements ConvocationService {
         DossierSession dossierSession = dossierSessionRepos.findByGeneratedConvocationPDFPath(token);
         List<InfoParent> parents = infoParentRepos.findByDossierId(dossierSession.getDossier().getId());
 
+        Dossier dossier = dossierSession.getDossier();
         NiveauEtude niveauEtude = dossierSession.getDossier().getNiveauEtude();
         SessionExamen session = dossierSession.getSessionExamen();
         if (niveauEtude == null || session == null) return null;
@@ -249,7 +275,21 @@ public class ConvocationServiceImpl implements ConvocationService {
         }
         myMap.put("prenomEnfant", dossierSession.getDossier().getCandidat().getFirstname());
 
-        if (niveauEtude.getAnnee() <= 5) {
+        if (niveauEtude.getAnnee() == 18) {
+            dto = new ReportDTO(convocationPrepa);
+
+            List<Map> myList = new ArrayList<Map>();
+            for (SessionNiveauEtude matiere : matieres) {
+                myList.add(matiere.getReportsAttributes());
+            }
+            myMap.put("matieres", myList);
+            myMap.put("prenomEnfant", dossier.getCandidat().getFirstname() + " " + dossier.getCandidat().getLastname());
+            if (dossier.getCandidat().getBacSerie() != null) {
+                myMap.put("typeBac", dossier.getCandidat().getBacSerie().getValue());
+            }
+            myMap.put("anneeScolaire", DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1));
+            myMap.put("session", session.getNom());
+        } else if (niveauEtude.getAnnee() <= 5) {
             dto = new ReportDTO(reportMSGS);
         } else if (niveauEtude.getAnnee() >= 6 && niveauEtude.getAnnee() <= 10) {
             dto = new ReportDTO(reportCP);
