@@ -199,7 +199,8 @@ public class DossierServiceImpl implements DossierService {
         }
 
         if (!Strings.isNullOrEmpty(filter.getFirstnameOrlastname())) {
-            spec = spec.and(DossierSpec.firstnameLike(filter.getFirstnameOrlastname())).or(DossierSpec.lastnameLike(filter.getFirstnameOrlastname()));
+            spec = spec.and(Specifications.where(DossierSpec.firstnameLike(filter.getFirstnameOrlastname()))
+                    .or(DossierSpec.lastnameLike(filter.getFirstnameOrlastname())));
         }
 
         if(filter.getSession() != null && filter.getSession().getId() != null) {
