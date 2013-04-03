@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportMSGS" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4c574922-4b99-490d-ae3f-1b12f7827f23">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportMSGS" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4c574922-4b99-490d-ae3f-1b12f7827f23">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="16"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="date" class="java.lang.String"/>
 	<parameter name="dateTest" class="java.lang.String"/>
 	<parameter name="heureAccueilDebut" class="java.lang.String"/>
@@ -20,107 +20,112 @@
 	</parameter>
 	<parameter name="refDossier" class="java.lang.String"/>
 	<background>
-		<band splitType="Stretch"/>
+		<band height="842" splitType="Stretch">
+			<image>
+				<reportElement uuid="63248bbf-de39-493f-85d5-b6af4cd7e352" x="0" y="0" width="595" height="842"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"CrappyStuff.png"]]></imageExpression>
+			</image>
+		</band>
 	</background>
 	<title>
 		<band height="644" splitType="Stretch">
 			<image>
-				<reportElement uuid="e81b6025-2acb-4471-87d4-120fbaed85f7" x="0" y="0" width="77" height="60"/>
-				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"gsrlogo.png"]]></imageExpression>
+				<reportElement uuid="e81b6025-2acb-4471-87d4-120fbaed85f7" x="20" y="20" width="77" height="60"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"logo.png"]]></imageExpression>
 			</image>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="418caa72-058d-4616-ad42-92ddc3260878" x="328" y="40" width="186" height="20"/>
+				<reportElement uuid="418caa72-058d-4616-ad42-92ddc3260878" x="348" y="60" width="186" height="20"/>
 				<textElement textAlignment="Right">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Casablanca le "+$P{date}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="ba510252-afc9-4453-a2c9-225ff6f6854b" x="252" y="113" width="262" height="20"/>
+				<reportElement uuid="ba510252-afc9-4453-a2c9-225ff6f6854b" x="272" y="133" width="262" height="20"/>
 				<textElement textAlignment="Right">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Madame, Monsieur "+$P{nomParent}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="167" width="393" height="30"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="97" y="187" width="393" height="30"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Nous vous invitons à présenter votre enfant "+$P{prenomEnfant}+" le : "]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="201" width="393" height="16"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="97" y="221" width="393" height="16"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dateTest}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="241" width="393" height="16"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="97" y="261" width="393" height="16"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Début des épreuves à "+$P{heureDebut}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="261" width="393" height="16"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="97" y="281" width="393" height="16"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Récupération des enfants à "+$P{heureRecuperation}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="281" width="393" height="31"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="97" y="301" width="393" height="31"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA["afin de passer le test-concours d’admission en "+$P{niveauEtude}+" - "+$P{section}+" et ce à l’adresse suivante :"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="316" width="393" height="21"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="97" y="336" width="393" height="21"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{adresse}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="355" width="393" height="16"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="97" y="375" width="393" height="16"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{phone}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="827128ac-8bff-41e7-bb75-dbfac4a1a022" x="77" y="432" width="393" height="36"/>
+				<reportElement uuid="827128ac-8bff-41e7-bb75-dbfac4a1a022" x="97" y="452" width="393" height="36"/>
 				<textElement textAlignment="Justified" markup="none">
 					<font size="11"/>
 				</textElement>
 				<text><![CDATA[Nous vous prions d’agréer, Madame, Monsieur, l’expression de nos salutations les meilleures.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="162b4df0-a431-462d-b01b-5e29fa2931c1" x="77" y="487" width="393" height="54"/>
+				<reportElement uuid="162b4df0-a431-462d-b01b-5e29fa2931c1" x="97" y="507" width="393" height="54"/>
 				<textElement markup="none">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[N.B. : Merci de veiller à ce que votre enfant ait en sa possession cette présente convocation le jour de son test-concours d’admission.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9529bb8b-14b0-4fb1-af00-507d6a4d9555" x="328" y="571" width="186" height="20"/>
+				<reportElement uuid="9529bb8b-14b0-4fb1-af00-507d6a4d9555" x="348" y="591" width="186" height="20"/>
 				<textElement textAlignment="Right" markup="none">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[La Direction]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="221" width="393" height="16"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="97" y="241" width="393" height="16"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Accueil à "+$P{heureAccueilDebut}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="287" y="80" width="227" height="16"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="307" y="100" width="227" height="16"/>
 				<textElement textAlignment="Right">
 					<font size="11"/>
 				</textElement>

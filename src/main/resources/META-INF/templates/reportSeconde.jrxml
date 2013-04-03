@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportMSGS" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4c574922-4b99-490d-ae3f-1b12f7827f23">
-	<property name="ireport.zoom" value="1.0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportMSGS" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4c574922-4b99-490d-ae3f-1b12f7827f23">
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="992"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<subDataset name="dataset1" uuid="e5e78060-9521-470f-ba62-d65999e710df">
 		<field name="matiere" class="org.apache.commons.beanutils.BeanMap">
@@ -35,107 +35,112 @@
 	</parameter>
 	<parameter name="refDossier" class="java.lang.String"/>
 	<background>
-		<band splitType="Stretch"/>
+		<band height="842" splitType="Stretch">
+			<image>
+				<reportElement uuid="6c20ec88-92a2-42fb-b308-9cf2ebfcb005" x="0" y="0" width="595" height="842"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"CrappyStuff.png"]]></imageExpression>
+			</image>
+		</band>
 	</background>
 	<title>
-		<band height="691" splitType="Stretch">
+		<band height="731" splitType="Stretch">
 			<image>
-				<reportElement uuid="e81b6025-2acb-4471-87d4-120fbaed85f7" x="0" y="0" width="77" height="60"/>
-				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"gsrlogo.png"]]></imageExpression>
+				<reportElement uuid="e81b6025-2acb-4471-87d4-120fbaed85f7" x="29" y="20" width="77" height="60"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"logo.png"]]></imageExpression>
 			</image>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="418caa72-058d-4616-ad42-92ddc3260878" x="318" y="40" width="196" height="20"/>
+				<reportElement uuid="418caa72-058d-4616-ad42-92ddc3260878" x="347" y="60" width="196" height="20"/>
 				<textElement textAlignment="Right">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Casablanca le "+$P{date}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="ba510252-afc9-4453-a2c9-225ff6f6854b" x="267" y="110" width="247" height="20"/>
+				<reportElement uuid="ba510252-afc9-4453-a2c9-225ff6f6854b" x="296" y="130" width="247" height="20"/>
 				<textElement textAlignment="Right">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Madame, Monsieur "+$P{nomParent}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="167" width="393" height="16"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="106" y="187" width="393" height="16"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Nous vous invitons à présenter votre enfant "+$P{prenomEnfant}+" le : "]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="184" width="393" height="16"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="106" y="204" width="393" height="16"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dateTest}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="203" width="393" height="16"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="106" y="223" width="393" height="16"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Accueil des élèves à "+$P{heureAccueilDebut}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="77" y="263" width="393" height="29"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="106" y="283" width="393" height="29"/>
 				<textElement textAlignment="Center">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA["afin de passer le test-concours d’admission en "+$P{niveauEtude}+" - "+$P{section}+" selon le calendrier ci-après :"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="94359f98-314c-452d-8428-4286829fa457" x="78" y="611" width="393" height="21"/>
+				<reportElement uuid="94359f98-314c-452d-8428-4286829fa457" x="107" y="631" width="393" height="21"/>
 				<textElement textAlignment="Justified" markup="none">
 					<font size="11"/>
 				</textElement>
 				<text><![CDATA[Veuillez agréer, Madame, Monsieur, l’expression de notre haute considération.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="abf12cff-7702-4a91-867b-3a5a334379bc" x="77" y="632" width="393" height="23"/>
+				<reportElement uuid="abf12cff-7702-4a91-867b-3a5a334379bc" x="106" y="652" width="393" height="23"/>
 				<textElement markup="none">
 					<font size="11" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[NB : Votre enfant devra présenter cette convocation le jour du test.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="42212ef8-d210-471c-b8a0-a68fa8911d44" x="328" y="671" width="186" height="20"/>
+				<reportElement uuid="42212ef8-d210-471c-b8a0-a68fa8911d44" x="357" y="691" width="186" height="20"/>
 				<textElement textAlignment="Right" markup="none">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[La Direction]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="77" y="308" width="159" height="19"/>
+				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="106" y="328" width="159" height="19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[EPREUVES]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="236" y="308" width="234" height="19"/>
+				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="265" y="328" width="234" height="19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Horaires]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="78" y="519" width="393" height="26"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="107" y="539" width="393" height="26"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Adresse : "+$P{adresse}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="78" y="545" width="393" height="16"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="107" y="565" width="393" height="16"/>
 				<textElement>
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Téléphone : "+$P{phone}]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement uuid="9dbe190e-b1e7-44cf-b971-306b95b3aba9" x="77" y="328" width="394" height="20"/>
+				<reportElement uuid="9dbe190e-b1e7-44cf-b971-306b95b3aba9" x="106" y="348" width="394" height="20"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="dataset1" uuid="6ba6aefc-e885-49e9-9fd7-00eafd929b71">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{matieres})]]></dataSourceExpression>
@@ -154,7 +159,7 @@
 							<textFieldExpression><![CDATA[$V{horaireDe}+ " - "+$V{horaireA}]]></textFieldExpression>
 						</textField>
 						<line direction="BottomUp">
-							<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="1" y="19" width="393" height="1"/>
+							<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="0" y="19" width="393" height="1"/>
 							<graphicElement>
 								<pen lineWidth="0.25"/>
 							</graphicElement>
@@ -163,19 +168,19 @@
 				</jr:list>
 			</componentElement>
 			<line direction="BottomUp">
-				<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="77" y="327" width="394" height="1"/>
+				<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="106" y="347" width="394" height="1"/>
 				<graphicElement>
 					<pen lineWidth="2.0"/>
 				</graphicElement>
 			</line>
 			<line direction="BottomUp">
-				<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="77" y="308" width="394" height="1"/>
+				<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="106" y="328" width="394" height="1"/>
 				<graphicElement>
 					<pen lineWidth="2.0"/>
 				</graphicElement>
 			</line>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="287" y="74" width="227" height="16"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="316" y="94" width="227" height="16"/>
 				<textElement textAlignment="Right">
 					<font size="11"/>
 				</textElement>
