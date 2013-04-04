@@ -182,6 +182,39 @@ public class DossierServiceImpl implements DossierService {
     }
 
     @Override
+    public Boolean finallyAdmitDossier(Dossier dossier, String comment) {
+        Dossier affectedDossier = dossierRepos.findOne(dossier.getId());
+
+        Task task = validationProcessService.getDossierToAdmission(dossier.getId());
+        if (task == null) return false;
+
+        affectedDossier.setStatus(DossierStatus.TO_BE_REGISTERED);
+        affectedDossier.setMotifRefus(comment);
+
+        validationProcessService.admitFinalDossier(task, dossier);
+
+        dossierRepos.save(affectedDossier);
+        return true;
+    }
+
+    @Override
+    public Boolean finallyRejectDossier(Dossier dossier, String comment) {
+        Dossier affectedDossier = dossierRepos.findOne(dossier.getId());
+
+        Task task = validationProcessService.getDossierToAdmission(dossier.getId());
+        if (task == null) return false;
+
+        affectedDossier.setStatus(DossierStatus.REJECTED);
+        affectedDossier.setMotifRefus(comment);
+
+        validationProcessService.rejectFinalDossier(task, dossier);
+
+        dossierRepos.save(affectedDossier);
+        return true;
+    }
+
+
+    @Override
     @Transactional(readOnly = true)
     public PagedDossiers findAllDossiersByCriteria(DossierFilterDTO filter, Integer pageNumber, Integer length) {
         Specifications<Dossier> spec = Specifications.where(DossierSpec.numDossierLike(filter.getNumDossier()));
@@ -215,14 +248,15 @@ public class DossierServiceImpl implements DossierService {
         }
 
         if (!Strings.isNullOrEmpty(filter.getFirstnameOrlastname())) {
-            spec = spec.and(DossierSpec.firstnameLike(filter.getFirstnameOrlastname())).or(DossierSpec.lastnameLike(filter.getFirstnameOrlastname()));
+            spec = spec.and(Specifications.where(DossierSpec.firstnameLike(filter.getFirstnameOrlastname()))
+                    .or(DossierSpec.lastnameLike(filter.getFirstnameOrlastname())));
         }
 
-        if(filter.getSession() != null && filter.getSession().getId() != null) {
+        if (filter.getSession() != null && filter.getSession().getId() != null) {
             spec = spec.and(DossierSpec.sessionEqual(filter.getSession()));
         }
 
-        if(filter.getStatusList() != null && !filter.getStatusList().isEmpty()) {
+        if (filter.getStatusList() != null && !filter.getStatusList().isEmpty()) {
             spec = spec.and(DossierSpec.statusIn(filter.getStatusList()));
         }
 

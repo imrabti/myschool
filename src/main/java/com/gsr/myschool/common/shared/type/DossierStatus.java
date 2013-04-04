@@ -28,21 +28,21 @@ public enum DossierStatus {
         return label;
     }
 
-    public static List receptionValues() {
+    public static List<DossierStatus> receptionValues() {
         List<DossierStatus> receptionStatus = new ArrayList<DossierStatus>();
         receptionStatus.add(SUBMITTED);
         receptionStatus.add(STANDBY);
         return receptionStatus;
     }
 
-    public static List confirmationTestValues() {
+    public static List<DossierStatus> confirmationTestValues() {
         List<DossierStatus> receptionStatus = new ArrayList<DossierStatus>();
         receptionStatus.add(ACCEPTED_FOR_STUDY);
         receptionStatus.add(NOT_ACCEPTED_FOR_TEST);
         return receptionStatus;
     }
 
-    public static List affectationValues() {
+    public static List<DossierStatus> affectationValues() {
         List<DossierStatus> receptionStatus = new ArrayList<DossierStatus>();
         receptionStatus.add(ACCEPTED_FOR_TEST);
         receptionStatus.add(INVITED_TO_TEST);

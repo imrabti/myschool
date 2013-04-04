@@ -155,7 +155,7 @@ public class ConfirmationTestPresenter extends Presenter<ConfirmationTestPresent
     public void init() {
         currentContext = requestFactory.dossierService();
         dossierFilter = currentContext.create(DossierFilterDTOProxy.class);
-        dossierFilter.setStatus(DossierStatus.ACCEPTED_FOR_STUDY);
+        dossierFilter.setStatusList(DossierStatus.confirmationTestValues());
 
         getView().editDossierFilter(dossierFilter);
         loadDossiersCounts();
@@ -178,7 +178,7 @@ public class ConfirmationTestPresenter extends Presenter<ConfirmationTestPresent
     protected void onReveal() {
         currentContext = requestFactory.dossierService();
         dossierFilter = currentContext.create(DossierFilterDTOProxy.class);
-        dossierFilter.setStatus(DossierStatus.ACCEPTED_FOR_STUDY);
+        dossierFilter.setStatusList(DossierStatus.confirmationTestValues());
 
         getView().editDossierFilter(dossierFilter);
         loadDossiersCounts();
