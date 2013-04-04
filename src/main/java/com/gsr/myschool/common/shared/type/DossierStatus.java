@@ -14,6 +14,7 @@ public enum DossierStatus {
     INVITED_TO_TEST("Convoqué pour test"),
     NOT_ACCEPTED_FOR_TEST("Refusé pour test"),
     AFFECTED("Affecté pour test"),
+    NOT_ADMITTED("Non Admis"),
     TO_BE_REGISTERED("Admis à l'inscription");
 
     private String label;
@@ -47,5 +48,13 @@ public enum DossierStatus {
         receptionStatus.add(INVITED_TO_TEST);
         receptionStatus.add(AFFECTED);
         return receptionStatus;
+    }
+
+    public static List admissionValues() {
+        List<DossierStatus> admissionStatus = new ArrayList<DossierStatus>();
+        admissionStatus.add(INVITED_TO_TEST);
+        admissionStatus.add(TO_BE_REGISTERED);
+        admissionStatus.add(NOT_ADMITTED);
+        return admissionStatus;
     }
 }

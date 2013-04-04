@@ -1,22 +1,23 @@
-package com.gsr.myschool.back.client.web.application.confirmationTest.popup;
+package com.gsr.myschool.back.client.web.application.admission.popup;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
-import com.gsr.myschool.back.client.web.application.confirmationTest.event.RejectCompletedEvent;
+import com.gsr.myschool.back.client.web.application.admission.event.CloseCompletedEvent;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupView;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 
-public class DenyForTestPresenter extends PresenterWidget<DenyForTestPresenter.MyView>
-        implements DenyForTestUiHandlers {
-    public interface MyView extends ValidatedPopupView, HasUiHandlers<DenyForTestUiHandlers> {
+public class CommentAdmissionPresenter extends PresenterWidget<CommentAdmissionPresenter.MyView>
+        implements CommentAdmissionUiHandlers {
+    public interface MyView extends ValidatedPopupView, HasUiHandlers<CommentAdmissionUiHandlers> {
         void resetReason();
     }
 
@@ -24,11 +25,12 @@ public class DenyForTestPresenter extends PresenterWidget<DenyForTestPresenter.M
     private final SharedMessageBundle messageBundle;
 
     private DossierProxy currentDossier;
+    private DossierStatus closedStatus;
 
     @Inject
-    public DenyForTestPresenter(final EventBus eventBus, final MyView view,
-                                final BackRequestFactory requestFactory,
-                                final SharedMessageBundle messageBundle) {
+    public CommentAdmissionPresenter(final EventBus eventBus, final MyView view,
+            final BackRequestFactory requestFactory,
+            final SharedMessageBundle messageBundle) {
         super(eventBus, view);
 
         this.requestFactory = requestFactory;
@@ -38,8 +40,13 @@ public class DenyForTestPresenter extends PresenterWidget<DenyForTestPresenter.M
     }
 
     @Override
-    public void loadDossier(DossierProxy dossierProxy) {
+    public void loadDossier(DossierProxy dossierProxy, Boolean accepted) {
         currentDossier = dossierProxy;
+        if (accepted) {
+            closedStatus = DossierStatus.TO_BE_REGISTERED;
+        } else {
+            closedStatus = DossierStatus.NOT_ADMITTED;
+        }
     }
 
     @Override
@@ -48,8 +55,8 @@ public class DenyForTestPresenter extends PresenterWidget<DenyForTestPresenter.M
     }
 
     @Override
-    public void setDenyReason(String reason) {
-        requestFactory.dossierService().rejectDossier(currentDossier.getId(), reason).fire(new ReceiverImpl<Boolean>() {
+    public void setAdmissionComment(String comment) {
+        requestFactory.dossierService().closeDossier(currentDossier, closedStatus, comment).fire(new ReceiverImpl<Boolean>() {
             @Override
             public void onSuccess(Boolean response) {
                 String messageString = response ? messageBundle.operationSuccess() : messageBundle.operationFailure();
@@ -59,7 +66,7 @@ public class DenyForTestPresenter extends PresenterWidget<DenyForTestPresenter.M
 
                 if (response) {
                     getView().hide();
-                    RejectCompletedEvent.fire(this);
+                    CloseCompletedEvent.fire(this);
                 }
             }
         });

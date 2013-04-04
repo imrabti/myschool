@@ -142,6 +142,22 @@ public class DossierServiceImpl implements DossierService {
     }
 
     @Override
+    public Boolean closeDossier(Dossier dossier, DossierStatus status, String comment) {
+        // TODO: Update the validation process service methods
+        // Task task = validationProcessService.getDossierToAnalyse(dossier.getId());
+        // if (task == null) return false;
+
+        Dossier analyzedDossier = dossierRepos.findOne(dossier.getId());
+
+        analyzedDossier.setStatus(status);
+        analyzedDossier.setCommentaire(comment);
+
+        dossierRepos.save(analyzedDossier);
+        // validationProcessService.rejectAnalysedDossier(task, analyzedDossier);
+        return true;
+    }
+
+    @Override
     public Boolean acceptDossier(Dossier dossier) {
         Dossier analyzedDossier = dossierRepos.findOne(dossier.getId());
 

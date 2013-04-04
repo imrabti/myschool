@@ -22,6 +22,7 @@ public class NameTokens {
     public static final String reception = "reception";
     public static final String validation = "validation";
     public static final String confirmation = "confirmation";
+    public static final String admission = "admission";
     public static final String userPortal = "userPortal";
     public static final String userGsr = "userGsr";
     public static final String valueList = "valuelist";
@@ -76,5 +77,9 @@ public class NameTokens {
 
     public static String getAffectation() {
         return affectation;
+    }
+
+    public static String getAdmission() {
+        return admission;
     }
 }
