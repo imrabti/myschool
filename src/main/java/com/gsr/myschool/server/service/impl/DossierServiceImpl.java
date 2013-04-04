@@ -143,17 +143,17 @@ public class DossierServiceImpl implements DossierService {
 
     @Override
     public Boolean closeDossier(Dossier dossier, DossierStatus status, String comment) {
-        // TODO: Update the validation process service methods
-        // Task task = validationProcessService.getDossierToAnalyse(dossier.getId());
-        // if (task == null) return false;
+        Dossier affectedDossier = dossierRepos.findOne(dossier.getId());
 
-        Dossier analyzedDossier = dossierRepos.findOne(dossier.getId());
+        Task task = validationProcessService.getDossierToAdmission(dossier.getId());
+        if (task == null) return false;
 
-        analyzedDossier.setStatus(status);
-        analyzedDossier.setCommentaire(comment);
+        affectedDossier.setStatus(status);
+        affectedDossier.setMotifRefus(comment);
 
-        dossierRepos.save(analyzedDossier);
-        // validationProcessService.rejectAnalysedDossier(task, analyzedDossier);
+        validationProcessService.admitFinalDossier(task, dossier);
+
+        dossierRepos.save(affectedDossier);
         return true;
     }
 
@@ -178,38 +178,6 @@ public class DossierServiceImpl implements DossierService {
         }
 
         dossierRepos.save(analyzedDossier);
-        return true;
-    }
-
-    @Override
-    public Boolean finallyAdmitDossier(Dossier dossier, String comment) {
-        Dossier affectedDossier = dossierRepos.findOne(dossier.getId());
-
-        Task task = validationProcessService.getDossierToAdmission(dossier.getId());
-        if (task == null) return false;
-
-        affectedDossier.setStatus(DossierStatus.TO_BE_REGISTERED);
-        affectedDossier.setMotifRefus(comment);
-
-        validationProcessService.admitFinalDossier(task, dossier);
-
-        dossierRepos.save(affectedDossier);
-        return true;
-    }
-
-    @Override
-    public Boolean finallyRejectDossier(Dossier dossier, String comment) {
-        Dossier affectedDossier = dossierRepos.findOne(dossier.getId());
-
-        Task task = validationProcessService.getDossierToAdmission(dossier.getId());
-        if (task == null) return false;
-
-        affectedDossier.setStatus(DossierStatus.REJECTED);
-        affectedDossier.setMotifRefus(comment);
-
-        validationProcessService.rejectFinalDossier(task, dossier);
-
-        dossierRepos.save(affectedDossier);
         return true;
     }
 
