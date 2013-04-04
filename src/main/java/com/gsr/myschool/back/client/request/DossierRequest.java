@@ -23,6 +23,7 @@ import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.PagedDossiersProxy;
 import com.gsr.myschool.common.client.proxy.PiecejustifDTOProxy;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.service.impl.DossierServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
 
@@ -42,7 +43,5 @@ public interface DossierRequest extends RequestContext {
 
     Request<Boolean> acceptDossier(DossierProxy dossier);
 
-    Request<Boolean> finallyAdmitDossier(DossierProxy dossier, String comment);
-
-    Request<Boolean> finallyRejectDossier(DossierProxy dossier, String comment);
+    Request<Boolean> closeDossier(DossierProxy dossier, DossierStatus closedStatus, String comment);
 }
