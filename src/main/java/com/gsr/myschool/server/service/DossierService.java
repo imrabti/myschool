@@ -19,6 +19,7 @@ package com.gsr.myschool.server.service;
 import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
 import com.gsr.myschool.common.shared.dto.PiecejustifDTO;
 import com.gsr.myschool.common.shared.dto.PagedDossiers;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
 
 import java.util.List;
@@ -36,7 +37,5 @@ public interface DossierService {
 
     Boolean acceptDossier(Dossier dossier);
 
-    Boolean finallyRejectDossier(Dossier dossier, String comment);
-
-    Boolean finallyAdmitDossier(Dossier dossier, String comment);
+    Boolean closeDossier(Dossier dossier, DossierStatus status, String comment);
 }

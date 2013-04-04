@@ -1,0 +1,23 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'>
+
+    <ui:with field="comment" type="java.lang.String" />
+
+    <div class="btn-group">
+        <a href="javascript:;" title="{comment}" class="btn btn-warning btn-mini" >
+            <span class="">!</span>
+        </a>
+        <a href="javascript:;" style="display:none;" class="btn btn-warning btn-mini" ui:field="deny">
+            <i class="icon-minus"/>
+            <span class="">refuser</span>
+        </a>
+        <a href="javascript:;" style="display:none;" class="btn btn-success btn-mini" ui:field="accept">
+            <i class="icon-ok"/>
+            <span class="">accepter</span>
+        </a>
+        <a href="javascript:;" class="btn btn-mini" ui:field="viewDetails">
+            <i class="icon-search"/>
+            <span class="">consulter</span>
+        </a>
+    </div>
+
+</ui:UiBinder>
