@@ -4,6 +4,7 @@ import com.gsr.myschool.server.business.EtablissementScolaire;
 import com.gsr.myschool.server.business.core.Filiere;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.valuelist.ValueList;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface CachedListValueService {
     List<ValueList> findAllValueList();
 
     List<String> findAllNumDossier();
+
+    List<Filiere> findFilieres();
 }
