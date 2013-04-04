@@ -52,7 +52,7 @@ public class CachedListValueServiceServiceImpl implements CachedListValueService
             settings.setValue(GlobalParameters.APP_STATUS_OPENED);
             settingsRepos.save(settings);
         }
-        if (GlobalParameters.APP_STATUS_CLOSED.equals(settings.getValue())) {
+        if (GlobalParameters.APP_STATUS_OPENED.equals(settings.getValue())) {
             return filiereRepos.findAll();
         } else {
             return filiereRepos.findByIdGreaterThan(25L);
