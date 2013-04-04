@@ -35,4 +35,8 @@ public interface DossierService {
     Boolean rejectDossier(Long dossierId, String motif);
 
     Boolean acceptDossier(Dossier dossier);
+
+    Boolean finallyRejectDossier(Dossier dossier, String comment);
+
+    Boolean finallyAdmitDossier(Dossier dossier, String comment);
 }

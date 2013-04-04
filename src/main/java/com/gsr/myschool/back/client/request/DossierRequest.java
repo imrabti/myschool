@@ -41,4 +41,8 @@ public interface DossierRequest extends RequestContext {
     Request<Boolean> rejectDossier(Long dossierId, String motif);
 
     Request<Boolean> acceptDossier(DossierProxy dossier);
+
+    Request<Boolean> finallyAdmitDossier(DossierProxy dossier, String comment);
+
+    Request<Boolean> finallyRejectDossier(DossierProxy dossier, String comment);
 }

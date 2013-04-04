@@ -96,9 +96,13 @@ public interface ValidationProcessService {
 
     void acceptAnalysedDossier(Task task, Dossier dossier);
 
-    List<Dossier> getAllAnalysedDossiers();
-
     Task getDossierToAnalyse(Long dossierId);
 
     Task getDossierToReAccept(Long dossierId);
+
+    Task getDossierToAdmission(Long dossierId);
+
+    void rejectFinalDossier(Task task, Dossier dossier);
+
+    void admitFinalDossier(Task task, Dossier dossier);
 }
