@@ -40,6 +40,11 @@ public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> impleme
     Button activate;
     @UiField
     Button desactivate;
+    @UiField
+    Button activateGeneralFiliere;
+    @UiField
+    Button desactivateGeneralFiliere;
+
 
     @Inject
     public SettingsView(final Binder uiBinder,
@@ -57,6 +62,11 @@ public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> impleme
         desactivate.setEnabled(bool);
     }
 
+    public void setActivateGeneral(Boolean bool) {
+        activateGeneralFiliere.setEnabled(!bool);
+        desactivateGeneralFiliere.setEnabled(bool);
+    }
+
     @UiHandler("activate")
     void onActivateClicked(ClickEvent event) {
         getUiHandlers().activateInscriptions();
@@ -65,6 +75,16 @@ public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> impleme
     @UiHandler("desactivate")
     void onDesactivateClicked(ClickEvent event) {
         getUiHandlers().desactivateInscriptions();
+    }
+
+    @UiHandler("activateGeneralFiliere")
+    void onActivateGeneralClicked(ClickEvent event) {
+        getUiHandlers().activateGenaralFilieres();
+    }
+
+    @UiHandler("desactivateGeneralFiliere")
+    void onDesactivateGeneralClicked(ClickEvent event) {
+        getUiHandlers().desactivateGenaralFilieres();
     }
 
     private ActionCell.Delegate<NiveauEtudeProxy> setupShowDetails(){

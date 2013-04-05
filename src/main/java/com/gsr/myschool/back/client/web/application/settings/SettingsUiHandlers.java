@@ -25,4 +25,8 @@ public interface SettingsUiHandlers extends UiHandlers {
     void desactivateInscriptions();
 
     void activateInscriptions();
+
+    void desactivateGenaralFilieres();
+
+    void activateGenaralFilieres();
 }

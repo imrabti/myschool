@@ -18,6 +18,10 @@
         .smallMarginButtom {
             margin-bottom: 10px !important;
         }
+
+        .inline {
+            display: inline-block;
+        }
     </ui:style>
 
 
@@ -40,27 +44,31 @@
                         <boot:ControlLabel width="170px">Date de session</boot:ControlLabel>
                         <boot:Controls styleName="{style.smallMargin}">
                             <p2:DateBox ui:field="dateSession" width="150px"/>
+                            <span class="{resource.sharedStyleCss.requiredField}"/>
                         </boot:Controls>
                     </boot:ControlGroup>
 
                     <boot:ControlGroup addStyleNames="{style.smallMarginButtom}">
                         <boot:ControlLabel width="170px">Accueil des élèves à</boot:ControlLabel>
                         <boot:Controls styleName="{style.smallMargin}">
-                            <s:TimeInput ui:field="welcomKids"/>
+                            <s:TimeInput ui:field="welcomKids" styleName="{style.inline}"/>
+                            <span class="{resource.sharedStyleCss.requiredField}"/>
                         </boot:Controls>
                     </boot:ControlGroup>
 
                     <boot:ControlGroup addStyleNames="{style.smallMarginButtom}">
                         <boot:ControlLabel width="170px">Debut des épreuves à</boot:ControlLabel>
                         <boot:Controls styleName="{style.smallMargin}">
-                            <s:TimeInput ui:field="debutTest"/>
+                            <s:TimeInput ui:field="debutTest" styleName="{style.inline}"/>
+                            <span class="{resource.sharedStyleCss.requiredField}"/>
                         </boot:Controls>
                     </boot:ControlGroup>
 
                     <boot:ControlGroup addStyleNames="{style.smallMarginButtom}">
                         <boot:ControlLabel width="170px">Récupération des enfant à</boot:ControlLabel>
                         <boot:Controls styleName="{style.smallMargin}">
-                            <s:TimeInput ui:field="gatherKids"/>
+                            <s:TimeInput ui:field="gatherKids" styleName="{style.inline}"/>
+                            <span class="{resource.sharedStyleCss.requiredField}"/>
                         </boot:Controls>
                     </boot:ControlGroup>
 

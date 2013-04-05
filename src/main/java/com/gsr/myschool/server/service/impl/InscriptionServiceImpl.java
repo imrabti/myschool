@@ -165,6 +165,23 @@ public class InscriptionServiceImpl implements InscriptionService {
     }
 
     @Override
+    public void deleteInscriptionInProcess(Long dossierId) {
+        List<InfoParent> infoParents = infoParentRepos.findByDossierId(dossierId);
+        for (InfoParent infoParent : infoParents) {
+            infoParentRepos.delete(infoParent);
+        }
+
+        Dossier currentDossier = dossierRepos.findOne(dossierId);
+        List<Fraterie> fraterie = fraterieRepos.findByCandidatId(currentDossier.getCandidat().getId());
+        fraterieRepos.delete(fraterie);
+
+        dossierRepos.delete(currentDossier);
+        candidatRepos.delete(currentDossier.getCandidat());
+
+        validationProcessService.deleteProcessInstance(dossierId);
+    }
+
+    @Override
     public Dossier updateDossier(Dossier dossier) {
         Dossier currentDossier = dossierRepos.findOne(dossier.getId());
         currentDossier.setFiliere(filiereRepos.findOne(dossier.getFiliere().getId()));

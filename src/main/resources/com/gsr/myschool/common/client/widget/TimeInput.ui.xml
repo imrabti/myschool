@@ -8,6 +8,5 @@
         <g:InlineLabel text="H"/>
         <g:ListBox ui:field="minute" width="55px"/>
         <g:InlineLabel text="M"/>
-        <span class="{resource.sharedStyleCss.requiredField}"/>
     </g:HTMLPanel>
 </ui:UiBinder>

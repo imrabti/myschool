@@ -41,4 +41,6 @@ public interface InscriptionService {
     List<String> submitInscription(Long dossierId) throws InscriptionClosedException;
 
     Boolean statusInscriptionOpened();
+
+    void deleteInscriptionInProcess(Long dossierId);
 }

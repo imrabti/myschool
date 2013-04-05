@@ -151,7 +151,11 @@ public class DossierServiceImpl implements DossierService {
         affectedDossier.setStatus(status);
         affectedDossier.setMotifRefus(comment);
 
-        validationProcessService.admitFinalDossier(task, dossier);
+        if (DossierStatus.TO_BE_REGISTERED == status) {
+            validationProcessService.admitFinalDossier(task, dossier);
+        } else {
+            validationProcessService.rejectFinalDossier(task, dossier);
+        }
 
         dossierRepos.save(affectedDossier);
         return true;
