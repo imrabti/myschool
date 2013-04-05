@@ -63,6 +63,9 @@ public class PreInscriptionActionCell extends AbstractCell<DossierProxy> {
             case CREATED:
                 rendererCreatedDossier.onBrowserEvent(this, event, parent);
                 break;
+            case SUBMITTED:
+                rendererCreatedDossier.onBrowserEvent(this, event, parent);
+                break;
             default:
                 rendererOtherDossier.onBrowserEvent(this, event, parent);
                 break;
@@ -73,6 +76,9 @@ public class PreInscriptionActionCell extends AbstractCell<DossierProxy> {
     public void render(Context context, DossierProxy value, SafeHtmlBuilder builder) {
         switch (value.getStatus()) {
             case CREATED:
+                rendererCreatedDossier.render(builder);
+                break;
+            case SUBMITTED:
                 rendererCreatedDossier.render(builder);
                 break;
             default:
@@ -95,7 +101,8 @@ public class PreInscriptionActionCell extends AbstractCell<DossierProxy> {
 
     @UiHandler({"delete"})
     void onDeleteClicked(ClickEvent event) {
-        if (selectedObject.getStatus().equals(DossierStatus.CREATED)) {
+        if (selectedObject.getStatus().equals(DossierStatus.CREATED)
+                || selectedObject.getStatus().equals(DossierStatus.SUBMITTED)) {
             delete.execute(selectedObject);
         }
     }

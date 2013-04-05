@@ -30,6 +30,7 @@ import com.gsr.myschool.server.repos.InboxMessageRepos;
 import com.gsr.myschool.server.service.EmailPreparatorService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -367,5 +368,13 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
             e.printStackTrace();
         }
         taskService.complete(task.getId());
+    }
+
+    @Override
+    public void deleteProcessInstance(Long dossierId) {
+        ProcessInstance pi = runtimeService.createProcessInstanceQuery().processInstanceBusinessKey(dossierId.toString()).singleResult();
+        if (pi != null) {
+            runtimeService.deleteProcessInstance(pi.getProcessInstanceId(), "delete from back office");
+        }
     }
 }

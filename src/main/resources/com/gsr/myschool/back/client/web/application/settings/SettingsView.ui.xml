@@ -10,10 +10,14 @@
             <h2>
                 <g:InlineLabel text="Paramètres généraux"/>
             </h2>
-            <boot:ButtonGroup>
-                <boot:Button ui:field="activate">Ouvrir les pré-inscriptions</boot:Button>
-                <boot:Button ui:field="desactivate">Fermer les pré-inscriptions</boot:Button>
-            </boot:ButtonGroup>
+                <boot:ButtonGroup>
+                    <boot:Button ui:field="activateGeneralFiliere">Ouvrir les filières générales</boot:Button>
+                    <boot:Button ui:field="desactivateGeneralFiliere">Fermer les filières générales</boot:Button>
+                </boot:ButtonGroup>
+                <boot:ButtonGroup>
+                    <boot:Button ui:field="activate">Ouvrir les pré-inscriptions</boot:Button>
+                    <boot:Button ui:field="desactivate">Fermer les pré-inscriptions</boot:Button>
+                </boot:ButtonGroup>
             <span style="display: block; clear: both;"/>
         </g:HTMLPanel>
 

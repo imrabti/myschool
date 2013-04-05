@@ -45,6 +45,8 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
         implements SettingsUiHandlers {
     public interface MyView extends View, HasUiHandlers<SettingsUiHandlers> {
         void setActivate(Boolean bool);
+
+        void setActivateGeneral(Boolean bool);
     }
 
     private final NiveauEtudeInfosPresenter niveauEtudeInfosPresenter;
@@ -112,11 +114,50 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
     }
 
     @Override
+    public void desactivateGenaralFilieres() {
+        requestFactory.settingsService().updateSettings(SettingsKey.FILIERE_GENERAL_CLOSED, GlobalParameters.APP_STATUS_CLOSED)
+                .fire(new ReceiverImpl<Void>() {
+                    @Override
+                    public void onSuccess(Void response) {
+                        Message message = new Message.Builder(messageBundle.desactivateGeneralFiliereSuccess())
+                                .style(AlertType.SUCCESS)
+                                .closeDelay(CloseDelay.DEFAULT)
+                                .build();
+                        MessageEvent.fire(this, message);
+                        getView().setActivateGeneral(false);
+                    }
+                });
+    }
+
+
+    @Override
+    public void activateGenaralFilieres() {
+        requestFactory.settingsService().updateSettings(SettingsKey.FILIERE_GENERAL_CLOSED, GlobalParameters.APP_STATUS_OPENED)
+                .fire(new ReceiverImpl<Void>() {
+                    @Override
+                    public void onSuccess(Void response) {
+                        Message message = new Message.Builder(messageBundle.activateGeneralFiliereSuccess())
+                                .style(AlertType.SUCCESS)
+                                .closeDelay(CloseDelay.DEFAULT)
+                                .build();
+                        MessageEvent.fire(this, message);
+                        getView().setActivateGeneral(true);
+                    }
+                });
+    }
+
+    @Override
     public void onReveal() {
         requestFactory.settingsService().getSetting(SettingsKey.STATUS).fire(new ReceiverImpl<String>() {
             @Override
             public void onSuccess(String response) {
                 getView().setActivate(GlobalParameters.APP_STATUS_OPENED.equals(response));
+            }
+        });
+        requestFactory.settingsService().getSetting(SettingsKey.FILIERE_GENERAL_CLOSED).fire(new ReceiverImpl<String>() {
+            @Override
+            public void onSuccess(String response) {
+                getView().setActivateGeneral(GlobalParameters.APP_STATUS_OPENED.equals(response));
             }
         });
     }

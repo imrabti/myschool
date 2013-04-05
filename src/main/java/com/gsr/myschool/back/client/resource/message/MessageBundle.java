@@ -62,4 +62,8 @@ public interface MessageBundle extends Messages {
     String closeSessionSuccess();
 
     String closeSessionFaillure();
+
+    String activateGeneralFiliereSuccess();
+
+    String desactivateGeneralFiliereSuccess();
 }

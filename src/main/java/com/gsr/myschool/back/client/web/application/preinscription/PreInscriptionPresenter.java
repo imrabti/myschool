@@ -34,6 +34,7 @@ import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -99,15 +100,15 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
         Integer pageNumber = (offset / limit) + (offset % limit);
         currentContext.findAllDossiersByCriteria(dossierFilter, pageNumber, limit)
                 .fire(new ReceiverImpl<PagedDossiersProxy>() {
-            @Override
-            public void onSuccess(PagedDossiersProxy result) {
-                currentContext = requestFactory.dossierService();
-                dossierFilter = currentContext.edit(dossierFilter);
+                    @Override
+                    public void onSuccess(PagedDossiersProxy result) {
+                        currentContext = requestFactory.dossierService();
+                        dossierFilter = currentContext.edit(dossierFilter);
 
-                getView().displayDossiers(offset, result.getDossiers());
-                getView().editDossierFilter(dossierFilter);
-            }
-        });
+                        getView().displayDossiers(offset, result.getDossiers());
+                        getView().editDossierFilter(dossierFilter);
+                    }
+                });
     }
 
     @Override
@@ -129,18 +130,34 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
 
     @Override
     public void delete(DossierProxy inscription) {
-        requestFactory.inscriptionService().deleteInscription(inscription.getId()).fire(new ReceiverImpl<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                String content = messageBundle.operationSuccess();
-                AlertType alertType = AlertType.SUCCESS;
-                Message message = new Message.Builder(content)
-                        .style(alertType).build();
+        if (inscription.getStatus() == DossierStatus.CREATED) {
+            requestFactory.inscriptionService().deleteInscription(inscription.getId()).fire(new ReceiverImpl<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    String content = messageBundle.operationSuccess();
+                    AlertType alertType = AlertType.SUCCESS;
+                    Message message = new Message.Builder(content)
+                            .style(alertType).build();
 
-                MessageEvent.fire(this, message);
-                loadDossiersCounts();
-            }
-        });
+                    MessageEvent.fire(this, message);
+                    loadDossiersCounts();
+                }
+            });
+        } else {
+            requestFactory.inscriptionService().deleteInscriptionInProcess(inscription.getId()).fire(new ReceiverImpl<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    String content = messageBundle.operationSuccess();
+                    AlertType alertType = AlertType.SUCCESS;
+                    Message message = new Message.Builder(content)
+                            .style(alertType).build();
+
+                    MessageEvent.fire(this, message);
+                    loadDossiersCounts();
+
+                }
+            });
+        }
     }
 
     @Override
@@ -170,15 +187,15 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
     private void loadDossiersCounts() {
         currentContext.findAllDossiersByCriteria(dossierFilter, 0, GlobalParameters.PAGE_SIZE)
                 .fire(new ReceiverImpl<PagedDossiersProxy>() {
-            @Override
-            public void onSuccess(PagedDossiersProxy result) {
-                currentContext = requestFactory.dossierService();
-                dossierFilter = currentContext.edit(dossierFilter);
+                    @Override
+                    public void onSuccess(PagedDossiersProxy result) {
+                        currentContext = requestFactory.dossierService();
+                        dossierFilter = currentContext.edit(dossierFilter);
 
-                getView().setDossierCount(result.getTotalElements());
-                getView().editDossierFilter(dossierFilter);
-                getView().reloadData();
-            }
-        });
+                        getView().setDossierCount(result.getTotalElements());
+                        getView().editDossierFilter(dossierFilter);
+                        getView().reloadData();
+                    }
+                });
     }
 }

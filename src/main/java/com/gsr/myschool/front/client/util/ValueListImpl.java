@@ -99,7 +99,7 @@ public class ValueListImpl implements ValueList {
 
     @Override
     public void initFiliereList() {
-        requestFactory.cachedListValueService().findAllFiliere().fire(new Receiver<List<FiliereProxy>>() {
+        requestFactory.cachedListValueService().findFilieres().fire(new Receiver<List<FiliereProxy>>() {
             @Override
             public void onSuccess(List<FiliereProxy> result) {
                 filiereList = result;
