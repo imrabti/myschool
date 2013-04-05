@@ -71,9 +71,17 @@ public class ReportController {
 
     public ReportDTO buildReportDto(Dossier dossier) {
         ReportDTO printableDossier = new ReportDTO("");
-        if (dossier.getFiliere() != null && dossier.getFiliere().getId() >= 30) {
-            printableDossier.setReportName("reportPrepa");
-        } else {
+		if (dossier.getFiliere() != null && dossier.getFiliere().getId() >= 30 &&
+				dossier.getFiliere().getNom().contains("EC")) {
+			printableDossier.setReportName("reportPrepa");
+		}
+
+		if (dossier.getFiliere() != null && dossier.getFiliere().getId() >= 30 &&
+				dossier.getFiliere().getNom().contains("SI")) {
+            printableDossier.setReportName("reportPrepa2");
+        }
+
+		if (dossier.getFiliere() != null && dossier.getFiliere().getId() < 30) {
             printableDossier.setReportName("reportGeneral");
         }
         printableDossier.getReportParameters().put("dossier", dossier.getReportsAttributes());
