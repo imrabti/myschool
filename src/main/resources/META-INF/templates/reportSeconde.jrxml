@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportSeconde" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4c574922-4b99-490d-ae3f-1b12f7827f23">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="992"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<subDataset name="dataset1" uuid="e5e78060-9521-470f-ba62-d65999e710df">
 		<field name="matiere" class="org.apache.commons.beanutils.BeanMap">
@@ -51,91 +51,91 @@
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="418caa72-058d-4616-ad42-92ddc3260878" x="347" y="60" width="196" height="20"/>
 				<textElement textAlignment="Right">
-					<font size="12"/>
+					<font fontName="Serif" size="12" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Casablanca le "+$P{date}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="ba510252-afc9-4453-a2c9-225ff6f6854b" x="296" y="130" width="247" height="20"/>
 				<textElement textAlignment="Right">
-					<font size="12"/>
+					<font fontName="Serif" size="12" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Madame, Monsieur "+$P{nomParent}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="106" y="187" width="393" height="16"/>
 				<textElement textAlignment="Center">
-					<font size="11"/>
+					<font fontName="Serif" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Nous vous invitons à présenter votre enfant "+$P{prenomEnfant}+" le : "]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="106" y="204" width="393" height="16"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="106" y="206" width="393" height="24"/>
 				<textElement textAlignment="Center">
-					<font size="11"/>
+					<font fontName="Serif" size="16" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dateTest}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="106" y="223" width="393" height="16"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="106" y="235" width="393" height="16"/>
 				<textElement textAlignment="Center">
-					<font size="11"/>
+					<font fontName="Serif" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Accueil des élèves à "+$P{heureAccueilDebut}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="106" y="283" width="393" height="29"/>
 				<textElement textAlignment="Center">
-					<font size="11"/>
+					<font fontName="Serif" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["afin de passer le test-concours d’admission en "+$P{niveauEtude}+" - "+$P{section}+" selon le calendrier ci-après :"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="94359f98-314c-452d-8428-4286829fa457" x="107" y="631" width="393" height="21"/>
-				<textElement textAlignment="Justified" markup="none">
-					<font size="11"/>
+				<reportElement uuid="94359f98-314c-452d-8428-4286829fa457" x="106" y="625" width="407" height="27"/>
+				<textElement markup="none">
+					<font fontName="Serif" size="11" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Veuillez agréer, Madame, Monsieur, l’expression de notre haute considération.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="abf12cff-7702-4a91-867b-3a5a334379bc" x="106" y="652" width="393" height="23"/>
+				<reportElement uuid="abf12cff-7702-4a91-867b-3a5a334379bc" x="106" y="652" width="407" height="23"/>
 				<textElement markup="none">
-					<font size="11" isBold="true" isItalic="true"/>
+					<font fontName="Serif" size="11" isBold="true" isItalic="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[NB : Votre enfant devra présenter cette convocation le jour du test.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="42212ef8-d210-471c-b8a0-a68fa8911d44" x="357" y="691" width="186" height="20"/>
 				<textElement textAlignment="Right" markup="none">
-					<font size="12" isBold="true"/>
+					<font fontName="Serif" size="12" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[La Direction]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="106" y="328" width="159" height="19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font fontName="Serif" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[EPREUVES]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="265" y="328" width="234" height="19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font fontName="Serif" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Horaires]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="107" y="539" width="393" height="26"/>
 				<textElement verticalAlignment="Middle">
-					<font size="11"/>
+					<font fontName="Serif" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Adresse : "+$P{adresse}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Adresse du site : "+$P{adresse}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="107" y="565" width="393" height="16"/>
 				<textElement>
-					<font size="11"/>
+					<font fontName="Serif" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Téléphone : "+$P{phone}]]></textFieldExpression>
 			</textField>
@@ -148,13 +148,15 @@
 					<jr:listContents height="20" width="394">
 						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" x="0" y="1" width="159" height="19"/>
-							<textElement textAlignment="Center" verticalAlignment="Middle"/>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Serif" isPdfEmbedded="true"/>
+							</textElement>
 							<textFieldExpression><![CDATA[$F{matiere}.get("matiere")]]></textFieldExpression>
 						</textField>
 						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" x="159" y="1" width="234" height="19"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle">
-								<font size="8"/>
+								<font fontName="Serif" size="8" isPdfEmbedded="true"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$V{horaireDe}+ " - "+$V{horaireA}]]></textFieldExpression>
 						</textField>
@@ -180,9 +182,9 @@
 				</graphicElement>
 			</line>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="316" y="94" width="227" height="16"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="316" y="90" width="227" height="16"/>
 				<textElement textAlignment="Right">
-					<font size="11"/>
+					<font fontName="Serif" size="10" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Ref : "+$P{refDossier}]]></textFieldExpression>
 			</textField>
