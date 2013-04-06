@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="convocationPrepa" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4c574922-4b99-490d-ae3f-1b12f7827f23">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="579"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<subDataset name="dataset1" uuid="e5e78060-9521-470f-ba62-d65999e710df">
 		<field name="matiere" class="org.apache.commons.beanutils.BeanMap">
@@ -54,7 +54,7 @@
 			<staticText>
 				<reportElement uuid="cf85beec-7d4b-4545-930d-38a442666ed6" x="304" y="20" width="261" height="20"/>
 				<textElement textAlignment="Right" markup="none">
-					<font size="10" isBold="true"/>
+					<font fontName="Serif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CLASSES PREPARATOIRES AUX GRANDES ECOLES]]></text>
 			</staticText>
@@ -73,14 +73,14 @@
 			<staticText>
 				<reportElement uuid="94359f98-314c-452d-8428-4286829fa457" x="134" y="734" width="337" height="11"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-					<font size="8" isBold="true" isUnderline="true"/>
+					<font fontName="Serif" size="8" isBold="true" isUnderline="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[CPGE SCIENTIFIQUES ET ECONOMIQUES]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="abf12cff-7702-4a91-867b-3a5a334379bc" x="134" y="745" width="337" height="33"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-					<font size="8" isBold="false" isItalic="false"/>
+					<font fontName="Serif" size="8" isBold="false" isItalic="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[89, Avenue du 2 Mars. Casablanca
 Tél. : 0522828963/0522809050    Fax : 0522809052
@@ -89,35 +89,35 @@ gsr@gsr.ac.ma      www.gsr.ac.ma]]></text>
 			<staticText>
 				<reportElement uuid="42212ef8-d210-471c-b8a0-a68fa8911d44" x="357" y="669" width="186" height="20"/>
 				<textElement textAlignment="Right" markup="none">
-					<font size="12" isBold="true"/>
+					<font fontName="Serif" size="12" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[La Direction]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="54" y="437" width="276" height="19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font fontName="Serif" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[EPREUVES]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="330" y="437" width="213" height="19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font fontName="Serif" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Horaires]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="54" y="542" width="489" height="19"/>
 				<textElement verticalAlignment="Middle">
-					<font size="9"/>
+					<font fontName="Serif" size="9" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Adresse : "+$P{adresse}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Adresse du site : "+$P{adresse}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="54" y="561" width="489" height="16"/>
 				<textElement>
-					<font size="9"/>
+					<font fontName="Serif" size="9" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Téléphone : "+$P{phone}]]></textFieldExpression>
 			</textField>
@@ -131,14 +131,14 @@ gsr@gsr.ac.ma      www.gsr.ac.ma]]></text>
 						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" x="0" y="0" width="276" height="14"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle">
-								<font size="9"/>
+								<font fontName="Serif" size="9" isPdfEmbedded="true"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{matiere}.get("matiere")]]></textFieldExpression>
 						</textField>
 						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" x="276" y="1" width="213" height="14"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle">
-								<font size="8"/>
+								<font fontName="Serif" size="8" isPdfEmbedded="true"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$V{horaireDe}+ " - "+$V{horaireA}]]></textFieldExpression>
 						</textField>
@@ -166,7 +166,7 @@ gsr@gsr.ac.ma      www.gsr.ac.ma]]></text>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="338" y="40" width="227" height="11"/>
 				<textElement textAlignment="Right">
-					<font size="8"/>
+					<font fontName="Serif" size="8" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Ref : "+$P{refDossier}]]></textFieldExpression>
 			</textField>
@@ -179,124 +179,140 @@ gsr@gsr.ac.ma      www.gsr.ac.ma]]></text>
 			<staticText>
 				<reportElement uuid="a1fa20a4-7a2c-435f-979c-0ddfdd804f0f" x="137" y="80" width="337" height="23"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14" isBold="true"/>
+					<font fontName="Serif" size="14" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[CONVOCATION AU CONCOURS D’ACCES]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="293eacc2-20b3-42a1-9328-9350efb4f0a8" x="137" y="103" width="337" height="18"/>
-				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Serif" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{section}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="293eacc2-20b3-42a1-9328-9350efb4f0a8" x="54" y="134" width="489" height="25"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14"/>
+					<font fontName="Serif" size="14" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{session}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="f64ff073-9c10-44f0-9cac-4b5a1e888137" x="82" y="182" width="99" height="20"/>
-				<textElement/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Nom et prénom]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="f64ff073-9c10-44f0-9cac-4b5a1e888137" x="81" y="202" width="100" height="20"/>
-				<textElement/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Type Bac]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="f64ff073-9c10-44f0-9cac-4b5a1e888137" x="81" y="222" width="100" height="20"/>
-				<textElement/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Filière choisie]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="293eacc2-20b3-42a1-9328-9350efb4f0a8" x="191" y="182" width="323" height="20"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{prenomEnfant}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="293eacc2-20b3-42a1-9328-9350efb4f0a8" x="191" y="202" width="323" height="20"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{typeBac}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="293eacc2-20b3-42a1-9328-9350efb4f0a8" x="191" y="222" width="323" height="20"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isPdfEmbedded="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{niveauEtude}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="7771b6b4-8529-4bc8-8c08-11ab13ba205b" x="68" y="274" width="175" height="15"/>
-				<textElement/>
+				<textElement>
+					<font fontName="Serif" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[Mademoiselle, Monsieur,]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="a1403677-42e5-40d0-804c-a1c47d906870" x="54" y="296" width="489" height="27"/>
 				<textElement markup="none">
-					<font size="9"/>
+					<font fontName="Serif" size="9" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Suite à votre demande d’inscription en Classes Préparatoires du GSR, nous avons le plaisir de vous informer que votre candidature a été retenue pour la rentrée "+$P{anneeScolaire}+"."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="4eafe21a-7140-423e-a0d0-6917dc2f82b8" x="54" y="327" width="489" height="28"/>
 				<textElement>
-					<font size="9"/>
+					<font fontName="Serif" size="9" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Nous vous invitons à vous présenter le " +$P{dateTest}+ " à "+$P{heureDebut} +" pour passer les épreuves d’admission aux classes préparatoires aux grandes écoles d’Ingénieurs et /ou de Commerce."]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="7771b6b4-8529-4bc8-8c08-11ab13ba205b" x="54" y="363" width="228" height="15"/>
 				<textElement>
-					<font isBold="true" isUnderline="true"/>
+					<font fontName="Serif" isBold="true" isUnderline="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Vous devez vous munir de :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="7771b6b4-8529-4bc8-8c08-11ab13ba205b" x="90" y="378" width="192" height="15"/>
 				<textElement>
-					<font size="9" isBold="false" isUnderline="false"/>
+					<font fontName="Serif" size="9" isBold="false" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[La présente convocation]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="7771b6b4-8529-4bc8-8c08-11ab13ba205b" x="90" y="393" width="192" height="15"/>
 				<textElement>
-					<font size="9" isBold="false" isUnderline="false"/>
+					<font fontName="Serif" size="9" isBold="false" isUnderline="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Votre CIN]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="7771b6b4-8529-4bc8-8c08-11ab13ba205b" x="54" y="414" width="228" height="15"/>
 				<textElement>
-					<font isBold="true" isUnderline="true"/>
+					<font fontName="Serif" isBold="true" isUnderline="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Epreuves de concours :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="7771b6b4-8529-4bc8-8c08-11ab13ba205b" x="54" y="583" width="228" height="15"/>
 				<textElement>
-					<font isBold="true" isUnderline="true"/>
+					<font fontName="Serif" isBold="true" isUnderline="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Déroulement des épreuves :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="4d3efd70-bf6d-40ce-a4ba-e57d6a9eb11b" x="54" y="602" width="489" height="14"/>
 				<textElement textAlignment="Justified">
-					<font size="9"/>
+					<font fontName="Serif" size="9" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Les candidats doivent se présenter ¼ d’heure avant le début de chaque épreuve.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="4d3efd70-bf6d-40ce-a4ba-e57d6a9eb11b" x="54" y="616" width="489" height="34"/>
 				<textElement>
-					<font size="9"/>
+					<font fontName="Serif" size="9" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Tout candidat retardataire n’est admis à passer son concours qu’à titre conditionnel et ne bénéficiera d’aucune prolongation ; le retard à une épreuve sera soumis à l’appréciation du jury qui pourra, le cas échéant, attribuer la note zéro.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="4d3efd70-bf6d-40ce-a4ba-e57d6a9eb11b" x="54" y="650" width="489" height="14"/>
 				<textElement textAlignment="Justified">
-					<font size="9"/>
+					<font fontName="Serif" size="9" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[L’accès aux salles de tests est strictement interdit au public.]]></text>
 			</staticText>
