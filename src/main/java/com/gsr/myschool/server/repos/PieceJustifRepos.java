@@ -26,4 +26,6 @@ import java.util.List;
 public interface PieceJustifRepos extends JpaRepository<PieceJustif, Long> {
     @Query("SELECT m FROM PieceJustif m, PieceJustifDuNE e WHERE e.niveauEtude.id = :id AND e.pieceJustif.id = m.id")
     List<PieceJustif> findByNiveauEtude(@Param("id") Long niveauEtude);
+
+    PieceJustif findByNomEquals(String nom);
 }

@@ -5,9 +5,17 @@ import com.gsr.myschool.common.shared.type.SettingsKey;
 import com.gsr.myschool.server.business.EtablissementScolaire;
 import com.gsr.myschool.server.business.Settings;
 import com.gsr.myschool.server.business.core.Filiere;
+import com.gsr.myschool.server.business.core.MatiereExamen;
 import com.gsr.myschool.server.business.core.NiveauEtude;
+import com.gsr.myschool.server.business.core.PieceJustif;
 import com.gsr.myschool.server.business.valuelist.ValueList;
-import com.gsr.myschool.server.repos.*;
+import com.gsr.myschool.server.repos.DossierRepos;
+import com.gsr.myschool.server.repos.EtablissementScolaireRepos;
+import com.gsr.myschool.server.repos.FiliereRepos;
+import com.gsr.myschool.server.repos.MatiereExamenRepos;
+import com.gsr.myschool.server.repos.NiveauEtudeRepos;
+import com.gsr.myschool.server.repos.PieceJustifRepos;
+import com.gsr.myschool.server.repos.SettingsRepos;
 import com.gsr.myschool.server.service.CachedListValueService;
 import com.gsr.myschool.server.service.ValueListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +25,7 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,6 +43,10 @@ public class CachedListValueServiceServiceImpl implements CachedListValueService
     private DossierRepos dossierRepos;
     @Autowired
     private SettingsRepos settingsRepos;
+    @Autowired
+    private PieceJustifRepos pieceJustifRepos;
+    @Autowired
+    private MatiereExamenRepos matiereExamenRepos;
 
     @Override
     @Cacheable("filiere")
@@ -73,6 +86,26 @@ public class CachedListValueServiceServiceImpl implements CachedListValueService
     @Cacheable("niveauEtude")
     public List<NiveauEtude> findAllNiveauEtude() {
         return niveauEtudeRepos.findAll(new Sort(new Order("annee")));
+    }
+
+    @Override
+    @Cacheable("pieces")
+    public List<String> findPieces() {
+        List<String> pieces = new ArrayList<String>();
+        for (PieceJustif piece: pieceJustifRepos.findAll()) {
+            pieces.add(piece.getNom());
+        }
+        return pieces;
+    }
+
+    @Override
+    @Cacheable("matieres")
+    public List<String> findMatieres() {
+        List<String> matieres = new ArrayList<String>();
+        for (MatiereExamen matiere: matiereExamenRepos.findAll()) {
+            matieres.add(matiere.getNom());
+        }
+        return matieres;
     }
 
     @Override

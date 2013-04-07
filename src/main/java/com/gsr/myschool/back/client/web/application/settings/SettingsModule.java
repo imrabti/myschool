@@ -20,6 +20,7 @@ import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
 import com.google.inject.TypeLiteral;
 import com.gsr.myschool.back.client.web.application.settings.popup.NiveauEtudeInfosPresenter;
 import com.gsr.myschool.back.client.web.application.settings.popup.NiveauEtudeInfosView;
+import com.gsr.myschool.back.client.web.application.settings.popup.NiveauEtudeSetupUiHandlers;
 import com.gsr.myschool.back.client.web.application.settings.renderer.NiveauEtudeInfosTreeFactory;
 import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
@@ -30,6 +31,9 @@ public class SettingsModule extends AbstractPresenterModule {
     protected void configure() {
         bind(new TypeLiteral<UiHandlersStrategy<SettingsUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<SettingsUiHandlers>>() {});
+
+        bind(new TypeLiteral<UiHandlersStrategy<NiveauEtudeSetupUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<NiveauEtudeSetupUiHandlers>>() {});
 
         bindPresenter(SettingsPresenter.class, SettingsPresenter.MyView.class, SettingsView.class,
                 SettingsPresenter.MyProxy.class);
