@@ -147,7 +147,7 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
     }
 
     @Override
-    public void onReveal() {
+    protected void onReveal() {
         requestFactory.settingsService().getSetting(SettingsKey.STATUS).fire(new ReceiverImpl<String>() {
             @Override
             public void onSuccess(String response) {
