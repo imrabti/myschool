@@ -17,9 +17,25 @@
 package com.gsr.myschool.server.service;
 
 import com.gsr.myschool.common.shared.type.SettingsKey;
+import com.gsr.myschool.server.business.core.MatiereExamen;
+import com.gsr.myschool.server.business.core.PieceJustif;
+
+import java.util.List;
 
 public interface SettingService {
     void updateSettings(SettingsKey key, String value);
 
     String getSetting(SettingsKey key);
+
+    List<PieceJustif> findAllPieceJustif();
+
+    List<MatiereExamen> findAllMatiereExamen();
+
+    Boolean deletePieceJustif(PieceJustif piece);
+
+    Boolean deleteMatiereExamen(MatiereExamen matiere);
+
+    Boolean addPieceJustif(PieceJustif piece);
+
+    Boolean addMatiereExamen(MatiereExamen matiere);
 }

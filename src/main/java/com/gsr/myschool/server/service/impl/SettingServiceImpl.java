@@ -18,17 +18,31 @@ package com.gsr.myschool.server.service.impl;
 
 import com.gsr.myschool.common.shared.type.SettingsKey;
 import com.gsr.myschool.server.business.Settings;
-import com.gsr.myschool.server.repos.SettingsRepos;
+import com.gsr.myschool.server.business.core.MatiereExamDuNE;
+import com.gsr.myschool.server.business.core.MatiereExamen;
+import com.gsr.myschool.server.business.core.PieceJustif;
+import com.gsr.myschool.server.business.core.PieceJustifDuNE;
+import com.gsr.myschool.server.repos.*;
 import com.gsr.myschool.server.service.SettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
 public class SettingServiceImpl implements SettingService {
     @Autowired
     private SettingsRepos settingsRepos;
+    @Autowired
+    private PieceJustifRepos pieceJustifRepos;
+    @Autowired
+    private PieceJustifDuNERepos pieceJustifDuNERepos;
+    @Autowired
+    private MatiereExamenRepos matiereExamenRepos;
+    @Autowired
+    private MatiereExamenNERepos matiereExamenNERepos;
 
     @Override
     public void updateSettings(SettingsKey key, String value) {
@@ -41,5 +55,59 @@ public class SettingServiceImpl implements SettingService {
     public String getSetting(SettingsKey key) {
         Settings setting = settingsRepos.findOne(key);
         return setting != null ? setting.getValue() : "";
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PieceJustif> findAllPieceJustif() {
+        return pieceJustifRepos.findAll();
+    }
+
+    @Override
+    public Boolean deletePieceJustif(PieceJustif piece) {
+        List<PieceJustifDuNE> result = pieceJustifDuNERepos.findByPieceJustifId(piece.getId());
+        if (result == null || result.isEmpty()) {
+            pieceJustifRepos.delete(piece);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean addPieceJustif(PieceJustif piece) {
+        try {
+            pieceJustifRepos.save(piece);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<MatiereExamen> findAllMatiereExamen() {
+        return matiereExamenRepos.findAll();
+    }
+
+    @Override
+    public Boolean deleteMatiereExamen(MatiereExamen matiere) {
+        List<MatiereExamDuNE> result = matiereExamenNERepos.findByMatiereExamenId(matiere.getId());
+        if (result == null || result.isEmpty()) {
+            matiereExamenRepos.delete(matiere);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean addMatiereExamen(MatiereExamen matiere) {
+        try {
+            matiereExamenRepos.save(matiere);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

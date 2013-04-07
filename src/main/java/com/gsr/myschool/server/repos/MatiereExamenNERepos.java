@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface MatiereExamenNERepos extends JpaRepository<MatiereExamDuNE, Long> {
     List<MatiereExamDuNE> findByNiveauEtudeId(Long id);
+
+    List<MatiereExamDuNE> findByMatiereExamenId(Long matiereId);
 }

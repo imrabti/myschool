@@ -20,7 +20,7 @@
     </ui:style>
 
     <g:HTMLPanel>
-        <div class="{style.row}">
+        <div>
             <g:Label text="N° Dossier" styleName="{style.label}"/>
             <g:SuggestBox ui:field="numDossier" width="168px"/>
 
