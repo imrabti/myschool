@@ -17,25 +17,55 @@
 package com.gsr.myschool.back.client.web.application.settings;
 
 import com.github.gwtbootstrap.client.ui.Button;
-import com.google.gwt.cell.client.ActionCell;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.cellview.client.CellTree;
+import com.google.gwt.user.cellview.client.CellList;
+import com.google.gwt.user.client.ui.DeckPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.ValuePicker;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.gsr.myschool.back.client.web.application.settings.renderer.NiveauEtudeInfosTreeFactory;
 import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
-import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
+import com.gsr.myschool.common.client.resource.style.TabsListStyle;
+import com.gsr.myschool.common.client.widget.renderer.EnumCell;
+
+import java.util.Arrays;
 
 public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> implements SettingsPresenter.MyView {
     public interface Binder extends UiBinder<Widget, SettingsView> {
     }
 
+    public enum SettingsType {
+        GLOBAL("Configuration globale"),
+        SYSTEME_SCOLAIRE("Système scolaire"),
+        MATIERES("Matières"),
+        PIECES_JUSTIFICATIVES("Pieces justificatives");
+
+        private String label;
+
+        private SettingsType(String label) {
+            this.label = label;
+        }
+
+        public String toString() {
+            return label;
+        }
+    }
+
     @UiField(provided = true)
-    CellTree myTree;
+    ValuePicker<SettingsType> tabs;
+    @UiField
+    DeckPanel settingsIndexedPanel;
+    @UiField
+    SimplePanel systemeScolaireSettings;
+    @UiField
+    SimplePanel matieresSettings;
+    @UiField
+    SimplePanel piecesJustificativesSettings;
     @UiField
     Button activate;
     @UiField
@@ -45,26 +75,49 @@ public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> impleme
     @UiField
     Button desactivateGeneralFiliere;
 
-
     @Inject
-    public SettingsView(final Binder uiBinder,
-                        final UiHandlersStrategy<SettingsUiHandlers> uiHandlers,
-                        final NiveauEtudeInfosTreeFactory niveauEtudeInfosTreeFactory) {
+    public SettingsView(final Binder uiBinder, final TabsListStyle listStyle,
+                        final UiHandlersStrategy<SettingsUiHandlers> uiHandlers) {
         super(uiHandlers);
 
-        myTree = new CellTree(niveauEtudeInfosTreeFactory.create(setupShowDetails()), null);
+        CellList<SettingsType> tabsCell = new CellList<SettingsType>(new EnumCell<SettingsType>(), listStyle);
+        tabs = new ValuePicker<SettingsType>(tabsCell);
 
         initWidget(uiBinder.createAndBindUi(this));
+
+        tabs.setAcceptableValues(Arrays.asList(SettingsType.values()));
+        tabs.setValue(SettingsType.GLOBAL, false);
+        settingsIndexedPanel.showWidget(SettingsType.GLOBAL.ordinal());
     }
 
+    @Override
+    public void setInSlot(Object slot, Widget content) {
+        if (content != null) {
+            if (slot == SettingsPresenter.TYPE_SetSystemScolaireContent) {
+                systemeScolaireSettings.setWidget(content);
+            } else if (slot == SettingsPresenter.TYPE_SetMatiereContent) {
+                matieresSettings.setWidget(content);
+            } else if (slot == SettingsPresenter.TYPE_SetPiecesJustificativesContent) {
+                piecesJustificativesSettings.setWidget(content);
+            }
+        }
+    }
+
+    @Override
     public void setActivate(Boolean bool) {
         activate.setEnabled(!bool);
         desactivate.setEnabled(bool);
     }
 
+    @Override
     public void setActivateGeneral(Boolean bool) {
         activateGeneralFiliere.setEnabled(!bool);
         desactivateGeneralFiliere.setEnabled(bool);
+    }
+
+    @UiHandler("tabs")
+    void onTabsChanged(ValueChangeEvent<SettingsType> event) {
+        settingsIndexedPanel.showWidget(tabs.getValue().ordinal());
     }
 
     @UiHandler("activate")
@@ -85,14 +138,5 @@ public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> impleme
     @UiHandler("desactivateGeneralFiliere")
     void onDesactivateGeneralClicked(ClickEvent event) {
         getUiHandlers().desactivateGenaralFilieres();
-    }
-
-    private ActionCell.Delegate<NiveauEtudeProxy> setupShowDetails(){
-        return new ActionCell.Delegate<NiveauEtudeProxy>() {
-            @Override
-            public void execute(NiveauEtudeProxy object) {
-                getUiHandlers().showDetails(object);
-            }
-        };
     }
 }

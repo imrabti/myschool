@@ -14,13 +14,13 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.application.settings.widget.pieceJustif;
+package com.gsr.myschool.back.client.web.application.settings.widget;
 
-import com.gsr.myschool.common.client.proxy.PieceJustifProxy;
+import com.gsr.myschool.common.client.proxy.MatiereExamenProxy;
 import com.gwtplatform.mvp.client.UiHandlers;
 
-public interface PiecesJustifUiHandlers extends UiHandlers {
-    void deletePieceJustif(PieceJustifProxy object);
+public interface MatiereExamenUiHandlers extends UiHandlers {
+    void deleteMatiereExamen(MatiereExamenProxy object);
 
-    void addPieceJustif(PieceJustifProxy pieceJustifProxy);
+    void addMatiereExamen(MatiereExamenProxy matiere);
 }
