@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.application.settings.widget.matiereExamen;
+package com.gsr.myschool.back.client.web.application.settings.widget;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.inject.Inject;

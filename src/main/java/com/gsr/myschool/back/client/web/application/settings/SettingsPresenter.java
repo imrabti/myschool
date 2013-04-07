@@ -23,8 +23,7 @@ import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
-import com.gsr.myschool.back.client.web.application.settings.popup.NiveauEtudeInfosPresenter;
-import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
+import com.gsr.myschool.back.client.web.application.settings.widget.SystemScolairePresenter;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
 import com.gsr.myschool.common.client.widget.messages.CloseDelay;
@@ -49,8 +48,6 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
         void setActivateGeneral(Boolean bool);
     }
 
-    private final NiveauEtudeInfosPresenter niveauEtudeInfosPresenter;
-
     @ProxyStandard
     @NameToken(NameTokens.generalSettings)
     @UseGatekeeper(HasRoleGatekeeper.class)
@@ -58,27 +55,26 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
     public interface MyProxy extends ProxyPlace<SettingsPresenter> {
     }
 
+    public static final Object TYPE_SetSystemScolaireContent = new Object();
+    public static final Object TYPE_SetMatiereContent = new Object();
+    public static final Object TYPE_SetPiecesJustificativesContent = new Object();
+
     private final BackRequestFactory requestFactory;
     private final MessageBundle messageBundle;
+    private final SystemScolairePresenter systemScolairePresenter;
 
     @Inject
     public SettingsPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                              final BackRequestFactory requestFactory,
-                             final NiveauEtudeInfosPresenter niveauEtudeInfosPresenter,
-                             final MessageBundle messageBundle) {
+                             final MessageBundle messageBundle,
+                             final SystemScolairePresenter systemScolairePresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
-        this.niveauEtudeInfosPresenter = niveauEtudeInfosPresenter;
         this.messageBundle = messageBundle;
+        this.systemScolairePresenter = systemScolairePresenter;
 
         getView().setUiHandlers(this);
-    }
-
-    @Override
-    public void showDetails(NiveauEtudeProxy value) {
-        niveauEtudeInfosPresenter.setCurrentNiveauEtude(value);
-        addToPopupSlot(niveauEtudeInfosPresenter);
     }
 
     @Override
@@ -160,5 +156,9 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
                 getView().setActivateGeneral(GlobalParameters.APP_STATUS_OPENED.equals(response));
             }
         });
+
+        setInSlot(TYPE_SetSystemScolaireContent, systemScolairePresenter);
+        // TODO : Matiere set in slot
+        // TODO : Pices justificatices set in slot
     }
 }
