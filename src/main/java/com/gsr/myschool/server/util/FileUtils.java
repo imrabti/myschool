@@ -2,11 +2,7 @@ package com.gsr.myschool.server.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public final class FileUtils {
     static public List getFileListing(File aStartingDir, String[] filter) throws FileNotFoundException {
@@ -89,5 +85,25 @@ public final class FileUtils {
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Checks if the path exists for the file creation and cretes the folder if
+     * it does not exists
+     */
+    public static void CheckPath(String fileName) {
+
+        fileName = fileName.substring(0, fileName.lastIndexOf(  File.separator  ));
+        StringTokenizer tokenizer = new StringTokenizer(fileName, File.separator);
+        String concat = "";
+        while (tokenizer.hasMoreElements()) {
+            String current = tokenizer.nextToken();
+            concat += current + File.separator;
+            // System.out.println(concat);
+            File dir = new File(concat);
+            if (!dir.exists())
+                dir.mkdir();
+        }
+
     }
 }
