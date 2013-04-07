@@ -12,6 +12,14 @@
             max-height: 400px;
             overflow-y: auto;
         }
+
+        .smallMargin {
+            margin-left: 90px;
+        }
+
+        .smallMarginButtom {
+            margin-bottom: 10px !important;
+        }
     </ui:style>
 
     <g:PopupPanel modal="true" autoHideEnabled="false" styleName="{resource.popupStyleCss.gwtPopupPanel}"
@@ -20,7 +28,23 @@
             <s:ModalHeader ui:field="modalHeader" text="Nouvelle filière"/>
 
             <g:HTMLPanel styleName="{style.contentWrapper}">
-                <!-- Here the content -->
+                <boot:Form type="HORIZONTAL">
+                    <boot:ControlGroup addStyleNames="{style.smallMarginButtom}">
+                        <boot:ControlLabel width="80px">Nom</boot:ControlLabel>
+                        <boot:Controls styleName="{style.smallMargin}">
+                            <boot:TextBox ui:field="nom" width="250px"/>
+                            <span class="{resource.sharedStyleCss.requiredField}"/>
+                        </boot:Controls>
+                    </boot:ControlGroup>
+
+                    <boot:ControlGroup addStyleNames="{style.smallMarginButtom}">
+                        <boot:ControlLabel width="80px">Description</boot:ControlLabel>
+                        <boot:Controls styleName="{style.smallMargin}">
+                            <boot:TextArea ui:field="description"/>
+                            <span class="{resource.sharedStyleCss.requiredField}"/>
+                        </boot:Controls>
+                    </boot:ControlGroup>
+                </boot:Form>
             </g:HTMLPanel>
 
             <g:HTMLPanel styleName="{resource.sharedStyleCss.buttonContainerPopup}">

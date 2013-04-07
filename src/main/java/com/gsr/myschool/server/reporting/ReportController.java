@@ -13,7 +13,7 @@ import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.repos.FraterieRepos;
 import com.gsr.myschool.server.repos.InfoParentRepos;
 import com.gsr.myschool.server.repos.PieceJustifDuNERepos;
-import com.gsr.myschool.server.service.SettingService;
+import com.gsr.myschool.server.service.SettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -36,7 +36,7 @@ public class ReportController {
     @Autowired
     ReportService reportService;
     @Autowired
-    SettingService settingService;
+    SettingsService settingsService;
     @Value("${reportPrepName}")
     String reportPrepName;
     @Value("${reportSecName}")
@@ -128,7 +128,7 @@ public class ReportController {
             int next = current + 1;
             printableDossier.getReportParameters().put("currentYear", current + " / " + next);
         }
-        dateLimiteMsg = settingService.getSetting(SettingsKey.DATE_LIMITE);
+        dateLimiteMsg = settingsService.getSetting(SettingsKey.DATE_LIMITE);
         if (!Strings.isNullOrEmpty(dateLimiteMsg)) {
             printableDossier.getReportParameters().put("dateLimite", dateLimiteMsg);
         }

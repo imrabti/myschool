@@ -69,6 +69,10 @@ public interface MessageBundle extends Messages {
 
     String dateLimiteUpdatedSuccess();
 
+    String filiereAddedSuccess();
+
+    String niveauEtudeAddedSuccess();
+
     String deletePieceJustifFailure();
 
     String deleteMatiereExamenFailure();
