@@ -17,6 +17,9 @@
 package com.gsr.myschool.back.client.web.application.settings;
 
 import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.DropdownButton;
+import com.github.gwtbootstrap.client.ui.TextArea;
+import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -74,6 +77,10 @@ public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> impleme
     Button activateGeneralFiliere;
     @UiField
     Button desactivateGeneralFiliere;
+    @UiField
+    DropdownButton addSystemScolaire;
+    @UiField
+    TextArea dateLimite;
 
     @Inject
     public SettingsView(final Binder uiBinder, final TabsListStyle listStyle,
@@ -115,9 +122,15 @@ public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> impleme
         desactivateGeneralFiliere.setEnabled(bool);
     }
 
+    @Override
+    public void setDateLimite(String value) {
+        dateLimite.setText(value);
+    }
+
     @UiHandler("tabs")
     void onTabsChanged(ValueChangeEvent<SettingsType> event) {
         settingsIndexedPanel.showWidget(tabs.getValue().ordinal());
+        addSystemScolaire.setVisible(tabs.getValue() == SettingsType.SYSTEME_SCOLAIRE);
     }
 
     @UiHandler("activate")
@@ -138,5 +151,20 @@ public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> impleme
     @UiHandler("desactivateGeneralFiliere")
     void onDesactivateGeneralClicked(ClickEvent event) {
         getUiHandlers().desactivateGenaralFilieres();
+    }
+
+    @UiHandler("dateLimite")
+    void onDateLimiteBlur(BlurEvent event) {
+        getUiHandlers().updateDateLimit(dateLimite.getValue());
+    }
+
+    @UiHandler("addFiliere")
+    void onAddFiliereClick(ClickEvent event) {
+        getUiHandlers().addFiliere();
+    }
+
+    @UiHandler("addNiveauEtude")
+    void onAddNiveauEtudeClick(ClickEvent event) {
+        getUiHandlers().addNiveauEtude();
     }
 }

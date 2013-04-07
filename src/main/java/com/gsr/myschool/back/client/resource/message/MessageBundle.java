@@ -67,6 +67,8 @@ public interface MessageBundle extends Messages {
 
     String desactivateGeneralFiliereSuccess();
 
+    String dateLimiteUpdatedSuccess();
+
     String deletePieceJustifFailure();
 
     String deleteMatiereExamenFailure();

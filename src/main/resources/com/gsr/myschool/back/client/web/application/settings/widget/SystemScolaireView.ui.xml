@@ -3,7 +3,7 @@
              xmlns:cell='urn:import:com.google.gwt.user.cellview.client'>
     <ui:style>
         .wrapper {
-            margin-top: -20px;
+            margin-top: -25px;
         }
     </ui:style>
 
