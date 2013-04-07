@@ -78,4 +78,8 @@ public interface MessageBundle extends Messages {
     String addMatiereExamenSuccess();
 
     String addPieceJustifSuccess();
+
+    String addPieceJustifFailure();
+
+    String addMatiereExamenFailure();
 }

@@ -6,9 +6,9 @@
     <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
     <g:HTMLPanel>
-        <boot:Form type="HORIZONTAL">
+        <boot:Form type="INLINE">
             <boot:ControlGroup>
-                <boot:ControlLabel>Nom</boot:ControlLabel>
+                <boot:ControlLabel>Pièce justificative</boot:ControlLabel>
                 <boot:Controls>
                     <boot:TextBox ui:field="nom" width="250px"/>
                     <span class="{resource.sharedStyleCss.requiredField}"/>

@@ -73,6 +73,7 @@ public class PiecesJustifView extends ValidatedViewWithUiHandlers<PiecesJustifUi
     public void setData(List<PieceJustifProxy> data) {
         dataProvider.getList().clear();
         dataProvider.getList().addAll(data);
+        piecesJustifTable.setPageSize(data.size());
     }
 
     @Override

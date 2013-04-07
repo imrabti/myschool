@@ -83,11 +83,16 @@ public class MatiereExamenPresenter extends PresenterWidget<MatiereExamenPresent
                     getView().editMatiereExamen(currentPiece);
                     getView().clearErrors();
 
-                    Message message = new Message.Builder(messageBundle.addMatiereExamenSuccess())
-                            .style(AlertType.SUCCESS).closeDelay(CloseDelay.DEFAULT).build();
+                    String result = response ? messageBundle.addMatiereExamenSuccess() : messageBundle.addMatiereExamenFailure();
+                    AlertType alert = response ? AlertType.SUCCESS : AlertType.ERROR;
+
+                    Message message = new Message.Builder(result)
+                            .style(alert)
+                            .closeDelay(CloseDelay.DEFAULT)
+                            .build();
                     MessageEvent.fire(this, message);
 
-                    loadPieceJustif();
+                    loadMatiereExamen();
                 }
             });
         } else {
@@ -105,12 +110,23 @@ public class MatiereExamenPresenter extends PresenterWidget<MatiereExamenPresent
                 Message message = new Message.Builder(result)
                         .style(alert).closeDelay(CloseDelay.DEFAULT).build();
                 MessageEvent.fire(this, message);
-                loadPieceJustif();
+                loadMatiereExamen();
             }
         });
     }
 
-    private void loadPieceJustif() {
+    @Override
+    protected void onReveal() {
+        currentContext = requestFactory.settingsService();
+        currentPiece = currentContext.create(MatiereExamenProxy.class);
+        matiereViolation = false;
+
+        getView().editMatiereExamen(currentPiece);
+        getView().clearErrors();
+        loadMatiereExamen();
+    }
+
+    private void loadMatiereExamen() {
         requestFactory.settingsService().findAllMatiereExamen().fire(new ReceiverImpl<List<MatiereExamenProxy>>() {
             @Override
             public void onSuccess(List<MatiereExamenProxy> result) {

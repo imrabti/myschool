@@ -73,6 +73,7 @@ public class MatiereExamenView extends ValidatedViewWithUiHandlers<MatiereExamen
     public void setData(List<MatiereExamenProxy> data) {
         dataProvider.getList().clear();
         dataProvider.getList().addAll(data);
+        matiereExamenTable.setPageSize(data.size());
     }
 
     @Override
