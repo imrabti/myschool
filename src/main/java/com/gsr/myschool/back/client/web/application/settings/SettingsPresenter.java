@@ -23,6 +23,8 @@ import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
+import com.gsr.myschool.back.client.web.application.settings.popup.AddFilierePresenter;
+import com.gsr.myschool.back.client.web.application.settings.popup.AddNiveauEtudePresenter;
 import com.gsr.myschool.back.client.web.application.settings.widget.MatiereExamenPresenter;
 import com.gsr.myschool.back.client.web.application.settings.widget.PiecesJustifPresenter;
 import com.gsr.myschool.back.client.web.application.settings.widget.SystemScolairePresenter;
@@ -48,6 +50,8 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
         void setActivate(Boolean bool);
 
         void setActivateGeneral(Boolean bool);
+
+        void setDateLimite(String dateLimite);
     }
 
     @ProxyStandard
@@ -66,19 +70,24 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
     private final MatiereExamenPresenter matiereExamenPresenter;
     private final PiecesJustifPresenter piecesJustifPresenter;
     private final SystemScolairePresenter systemScolairePresenter;
+    private final AddFilierePresenter addFilierePresenter;
+    private final AddNiveauEtudePresenter addNiveauEtudePresenter;
 
     @Inject
     public SettingsPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                              final BackRequestFactory requestFactory,
                              final MessageBundle messageBundle,
                              final SystemScolairePresenter systemScolairePresenter,
-                             final PiecesJustifPresenter piecesJustifPresenter,
+                             final AddFilierePresenter addFilierePresenter,
+                             final AddNiveauEtudePresenter addNiveauEtudePresenter,                              final PiecesJustifPresenter piecesJustifPresenter,
                              final MatiereExamenPresenter matiereExamenPresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
         this.messageBundle = messageBundle;
         this.systemScolairePresenter = systemScolairePresenter;
+        this.addFilierePresenter = addFilierePresenter;
+        this.addNiveauEtudePresenter = addNiveauEtudePresenter;
         this.matiereExamenPresenter = matiereExamenPresenter;
         this.piecesJustifPresenter = piecesJustifPresenter;
 
@@ -151,6 +160,30 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
     }
 
     @Override
+    public void updateDateLimit(String value) {
+        requestFactory.settingsService().updateSettings(SettingsKey.DATE_LIMITE, value).fire(new ReceiverImpl<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Message message = new Message.Builder(messageBundle.dateLimiteUpdatedSuccess())
+                        .style(AlertType.SUCCESS)
+                        .closeDelay(CloseDelay.DEFAULT)
+                        .build();
+                MessageEvent.fire(this, message);
+            }
+        });
+    }
+
+    @Override
+    public void addFiliere() {
+        addToPopupSlot(addFilierePresenter);
+    }
+
+    @Override
+    public void addNiveauEtude() {
+        addToPopupSlot(addNiveauEtudePresenter);
+    }
+
+    @Override
     protected void onReveal() {
         requestFactory.settingsService().getSetting(SettingsKey.STATUS).fire(new ReceiverImpl<String>() {
             @Override
@@ -158,10 +191,18 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
                 getView().setActivate(GlobalParameters.APP_STATUS_OPENED.equals(response));
             }
         });
+
         requestFactory.settingsService().getSetting(SettingsKey.FILIERE_GENERAL_CLOSED).fire(new ReceiverImpl<String>() {
             @Override
             public void onSuccess(String response) {
                 getView().setActivateGeneral(GlobalParameters.APP_STATUS_OPENED.equals(response));
+            }
+        });
+
+        requestFactory.settingsService().getSetting(SettingsKey.DATE_LIMITE).fire(new ReceiverImpl<String>() {
+            @Override
+            public void onSuccess(String response) {
+                getView().setDateLimite(response);
             }
         });
 

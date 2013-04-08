@@ -18,6 +18,12 @@ package com.gsr.myschool.back.client.web.application.settings;
 
 import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
 import com.google.inject.TypeLiteral;
+import com.gsr.myschool.back.client.web.application.settings.popup.AddFilierePresenter;
+import com.gsr.myschool.back.client.web.application.settings.popup.AddFiliereUiHandlers;
+import com.gsr.myschool.back.client.web.application.settings.popup.AddFiliereView;
+import com.gsr.myschool.back.client.web.application.settings.popup.AddNiveauEtudePresenter;
+import com.gsr.myschool.back.client.web.application.settings.popup.AddNiveauEtudeUiHandlers;
+import com.gsr.myschool.back.client.web.application.settings.popup.AddNiveauEtudeView;
 import com.gsr.myschool.back.client.web.application.settings.popup.NiveauEtudeInfosPresenter;
 import com.gsr.myschool.back.client.web.application.settings.popup.NiveauEtudeInfosView;
 import com.gsr.myschool.back.client.web.application.settings.renderer.NiveauEtudeInfosTreeFactory;
@@ -33,6 +39,10 @@ public class SettingsModule extends AbstractPresenterModule {
                 .to(new TypeLiteral<SetterUiHandlersStrategy<SettingsUiHandlers>>() {});
         bind(new TypeLiteral<UiHandlersStrategy<SystemScolaireUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<SystemScolaireUiHandlers>>() {});
+        bind(new TypeLiteral<UiHandlersStrategy<AddFiliereUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<AddFiliereUiHandlers>>() {});
+        bind(new TypeLiteral<UiHandlersStrategy<AddNiveauEtudeUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<AddNiveauEtudeUiHandlers>>() {});
         bind(new TypeLiteral<UiHandlersStrategy<PiecesJustifUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<PiecesJustifUiHandlers>>() {});
         bind(new TypeLiteral<UiHandlersStrategy<MatiereExamenUiHandlers>>() {})
@@ -45,6 +55,10 @@ public class SettingsModule extends AbstractPresenterModule {
                 NiveauEtudeInfosView.class);
         bindSingletonPresenterWidget(SystemScolairePresenter.class, SystemScolairePresenter.MyView.class,
                 SystemScolaireView.class);
+        bindSingletonPresenterWidget(AddFilierePresenter.class, AddFilierePresenter.MyView.class,
+                AddFiliereView.class);
+        bindSingletonPresenterWidget(AddNiveauEtudePresenter.class, AddNiveauEtudePresenter.MyView.class,
+                AddNiveauEtudeView.class);
         bindSingletonPresenterWidget(MatiereExamenPresenter.class, MatiereExamenPresenter.MyView.class,
                 MatiereExamenView.class);
         bindSingletonPresenterWidget(PiecesJustifPresenter.class, PiecesJustifPresenter.MyView.class,

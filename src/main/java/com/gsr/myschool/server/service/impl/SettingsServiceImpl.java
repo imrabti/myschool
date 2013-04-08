@@ -18,12 +18,14 @@ package com.gsr.myschool.server.service.impl;
 
 import com.gsr.myschool.common.shared.type.SettingsKey;
 import com.gsr.myschool.server.business.Settings;
+import com.gsr.myschool.server.business.core.Filiere;
 import com.gsr.myschool.server.business.core.MatiereExamDuNE;
 import com.gsr.myschool.server.business.core.MatiereExamen;
+import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.core.PieceJustif;
 import com.gsr.myschool.server.business.core.PieceJustifDuNE;
 import com.gsr.myschool.server.repos.*;
-import com.gsr.myschool.server.service.SettingService;
+import com.gsr.myschool.server.service.SettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,9 +34,13 @@ import java.util.List;
 
 @Service
 @Transactional
-public class SettingServiceImpl implements SettingService {
+public class SettingsServiceImpl implements SettingsService {
     @Autowired
     private SettingsRepos settingsRepos;
+    @Autowired
+    private FiliereRepos filiereRepos;
+    @Autowired
+    private NiveauEtudeRepos niveauEtudeRepos;
     @Autowired
     private PieceJustifRepos pieceJustifRepos;
     @Autowired
@@ -55,6 +61,19 @@ public class SettingServiceImpl implements SettingService {
     public String getSetting(SettingsKey key) {
         Settings setting = settingsRepos.findOne(key);
         return setting != null ? setting.getValue() : "";
+    }
+
+    @Override
+    public Boolean addFiliere(Filiere filiere) {
+        filiereRepos.save(filiere);
+        return true;
+    }
+
+    @Override
+    public Boolean addNiveauEtude(NiveauEtude niveauEtude) {
+        niveauEtude.setFiliere(filiereRepos.findOne(niveauEtude.getFiliere().getId()));
+        niveauEtudeRepos.save(niveauEtude);
+        return true;
     }
 
     @Override
