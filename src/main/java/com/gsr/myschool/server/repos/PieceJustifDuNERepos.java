@@ -8,5 +8,7 @@ import java.util.List;
 public interface PieceJustifDuNERepos extends JpaRepository<PieceJustifDuNE, Long> {
     List<PieceJustifDuNE> findByNiveauEtudeId(Long niveauEtudeId);
 
+    PieceJustifDuNE findByPieceJustifIdAndNiveauEtudeId(Long pieceJustifId, Long niveauEtudeId);
+
     List<PieceJustifDuNE> findByPieceJustifId(Long pieceJustifId);
 }

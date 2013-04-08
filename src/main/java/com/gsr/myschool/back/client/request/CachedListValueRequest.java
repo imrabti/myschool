@@ -25,4 +25,8 @@ public interface CachedListValueRequest extends RequestContext {
     Request<List<String>> findAllNumDossier();
 
     Request<List<FiliereProxy>> findFilieres();
+
+    Request<List<String>> findPieces();
+
+    Request<List<String>> findMatieres();
 }

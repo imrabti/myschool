@@ -17,6 +17,7 @@
 package com.gsr.myschool.server.service;
 
 import com.gsr.myschool.server.business.core.MatiereExamen;
+import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.core.PieceJustif;
 
 import java.util.List;
@@ -25,4 +26,8 @@ public interface NiveauEtudeService {
     List<MatiereExamen> getMatiereExamenByNiveau(Long niveauEtude);
 
     List<PieceJustif> getPieceJustfByNiveau(Long niveauEtude);
+
+    Boolean editPieceDuNiveau(PieceJustif pieceJustif, NiveauEtude niveauEtude, Boolean removeIt);
+
+    Boolean editMatiereDuNiveau(MatiereExamen matiereExamen, NiveauEtude niveauEtude, Boolean removeIt);
 }

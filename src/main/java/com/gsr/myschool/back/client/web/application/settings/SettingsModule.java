@@ -26,6 +26,7 @@ import com.gsr.myschool.back.client.web.application.settings.popup.AddNiveauEtud
 import com.gsr.myschool.back.client.web.application.settings.popup.AddNiveauEtudeView;
 import com.gsr.myschool.back.client.web.application.settings.popup.NiveauEtudeInfosPresenter;
 import com.gsr.myschool.back.client.web.application.settings.popup.NiveauEtudeInfosView;
+import com.gsr.myschool.back.client.web.application.settings.popup.NiveauEtudeSetupUiHandlers;
 import com.gsr.myschool.back.client.web.application.settings.renderer.NiveauEtudeInfosTreeFactory;
 import com.gsr.myschool.back.client.web.application.settings.widget.*;
 import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
@@ -47,6 +48,9 @@ public class SettingsModule extends AbstractPresenterModule {
                 .to(new TypeLiteral<SetterUiHandlersStrategy<PiecesJustifUiHandlers>>() {});
         bind(new TypeLiteral<UiHandlersStrategy<MatiereExamenUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<MatiereExamenUiHandlers>>() {});
+
+        bind(new TypeLiteral<UiHandlersStrategy<NiveauEtudeSetupUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<NiveauEtudeSetupUiHandlers>>() {});
 
         bindPresenter(SettingsPresenter.class, SettingsPresenter.MyView.class, SettingsView.class,
                 SettingsPresenter.MyProxy.class);
