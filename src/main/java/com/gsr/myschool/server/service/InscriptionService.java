@@ -6,6 +6,7 @@ import com.gsr.myschool.common.shared.dto.ScolariteActuelleDTO;
 import com.gsr.myschool.common.shared.exception.InscriptionClosedException;
 import com.gsr.myschool.common.shared.exception.UnAuthorizedException;
 import com.gsr.myschool.server.business.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public interface InscriptionService {
 
     List<InfoParent> findInfoParentByDossierId(Long dossierId);
 
-    List<EtablissementScolaire> findEtablissementByFilter(EtablissementFilterDTO filter);
+    List findEtablissementByFilter(EtablissementFilterDTO filter);
 
     List<Fraterie> findFraterieByDossierId(Long dossierId);
 
@@ -43,4 +44,7 @@ public interface InscriptionService {
     Boolean statusInscriptionOpened();
 
     void deleteInscriptionInProcess(Long dossierId);
+
+    @Transactional(readOnly = true)
+    Boolean statusFilieresGeneralesOpened();
 }

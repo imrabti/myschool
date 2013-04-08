@@ -52,6 +52,10 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
         void setData(List<DossierProxy> data);
 
         void setInscriptionStatusOpened(Boolean opened);
+
+        void setFiliereGeneralesOpened(Boolean opened);
+
+        void setAlertMessage(Boolean visible, Boolean type);
     }
 
     @ProxyStandard
@@ -208,8 +212,15 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
     private void checkStatusInscriptions() {
         requestFactory.inscriptionService().statusInscriptionOpened().fire(new ReceiverImpl<Boolean>() {
             @Override
-            public void onSuccess(Boolean response) {
+            public void onSuccess(final Boolean response) {
                 getView().setInscriptionStatusOpened(response);
+                requestFactory.inscriptionService().statusFilieresGeneralesOpened().fire(new ReceiverImpl<Boolean>() {
+                    @Override
+                    public void onSuccess(Boolean aBoolean) {
+                        getView().setFiliereGeneralesOpened(aBoolean);
+                        getView().setAlertMessage(!response || !aBoolean, response);
+                    }
+                });
             }
         });
     }

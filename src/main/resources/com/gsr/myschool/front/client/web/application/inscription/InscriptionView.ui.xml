@@ -26,7 +26,7 @@
 
         <div class="{style.tableWrapper}">
             <boot:Alert type="ERROR" ui:field="closedInscriptions" close="false"
-                        text="Les pré-inscriptions sont fermées" heading="Attention"/>
+                        text="" heading="Attention"/>
             <boot:CellTable ui:field="inscriptionsTable" bordered="true"
                             addStyleNames="{clientResources.sharedStyleCss.tableTransparentBack}"/>
         </div>
