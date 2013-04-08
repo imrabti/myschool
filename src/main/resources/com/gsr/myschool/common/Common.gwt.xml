@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<module rename-to='myproject'>
+<module rename-to='common'>
     <!-- Inherit the core Web Toolkit stuff.                        -->
     <inherits name='com.google.gwt.user.User'/>
     <inherits name='com.google.web.bindery.requestfactory.RequestFactory'/>
@@ -11,6 +11,7 @@
     <inherits name="com.github.gwtbootstrap.datepicker.Datepicker"/>
     <inherits name="com.github.gwtbootstrap.Bootstrap"/>
     <inherits name="com.gwtplatform.mvp.Mvp"/>
+    <inherits name='com.axeiya.gwtckeditor.Gwtckeditor'/>
 
     <source path='client'/>
     <source path='shared'/>
