@@ -73,6 +73,8 @@
             <g:SimplePanel ui:field="matieresSettings"/>
 
             <g:SimplePanel ui:field="piecesJustificativesSettings"/>
+
+            <g:SimplePanel ui:field="emailTemplatesSettings"/>
         </g:DeckPanel>
     </g:HTMLPanel>
 </ui:UiBinder>
