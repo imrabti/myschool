@@ -14,17 +14,13 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.application.settings;
+package com.gsr.myschool.back.client.web.application.settings.widget;
 
-import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
+import com.gsr.myschool.common.client.proxy.MatiereExamenProxy;
 import com.gwtplatform.mvp.client.UiHandlers;
 
-public interface SettingsUiHandlers extends UiHandlers {
-    void desactivateInscriptions();
+public interface MatiereExamenUiHandlers extends UiHandlers {
+    void deleteMatiereExamen(MatiereExamenProxy object);
 
-    void activateInscriptions();
-
-    void desactivateGenaralFilieres();
-
-    void activateGenaralFilieres();
+    void addMatiereExamen(MatiereExamenProxy matiere);
 }

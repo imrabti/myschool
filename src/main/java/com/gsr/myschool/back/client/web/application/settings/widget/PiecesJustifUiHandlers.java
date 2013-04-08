@@ -14,17 +14,13 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.application.settings;
+package com.gsr.myschool.back.client.web.application.settings.widget;
 
-import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
+import com.gsr.myschool.common.client.proxy.PieceJustifProxy;
 import com.gwtplatform.mvp.client.UiHandlers;
 
-public interface SettingsUiHandlers extends UiHandlers {
-    void desactivateInscriptions();
+public interface PiecesJustifUiHandlers extends UiHandlers {
+    void deletePieceJustif(PieceJustifProxy object);
 
-    void activateInscriptions();
-
-    void desactivateGenaralFilieres();
-
-    void activateGenaralFilieres();
+    void addPieceJustif(PieceJustifProxy pieceJustifProxy);
 }

@@ -1,0 +1,36 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:s='urn:import:com.gsr.myschool.common.client.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+
+    <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+
+    <ui:style>
+        .wrapper {
+            margin-top: -20px;
+        }
+
+        .tableWrapper {
+            margin-top: 12px;
+        }
+
+        .enhancedWell {
+            background-color: rgba(245, 245, 245, 0.6);
+        }
+    </ui:style>
+
+    <g:HTMLPanel styleName="{style.wrapper}">
+        <h3 class="{clientResources.sharedStyleCss.mediumTitle}">
+            Pieces justificatives
+        </h3>
+
+        <boot:Well addStyleNames="{style.enhancedWell}">
+            <s:PiecesJustifEditor ui:field="piecesJustifEditor"/>
+            <boot:Button text="Ajouter" icon="PLUS" ui:field="addPiece"/>
+        </boot:Well>
+
+        <div class="{style.tableWrapper}">
+            <boot:CellTable ui:field="piecesJustifTable"/>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>
