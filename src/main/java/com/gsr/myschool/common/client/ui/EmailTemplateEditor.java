@@ -16,7 +16,6 @@
 
 package com.gsr.myschool.common.client.ui;
 
-import com.github.gwtbootstrap.client.ui.TextArea;
 import com.github.gwtbootstrap.client.ui.TextBox;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -25,8 +24,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.EmailTemplateProxy;
-import com.gsr.myschool.common.client.proxy.MatiereExamenProxy;
 import com.gsr.myschool.common.client.util.EditorView;
+import com.gsr.myschool.common.client.widget.CKRichTextInput;
 
 import static com.google.gwt.query.client.GQuery.$;
 
@@ -37,16 +36,18 @@ public class EmailTemplateEditor extends Composite implements EditorView<EmailTe
     public interface Driver extends SimpleBeanEditorDriver<EmailTemplateProxy, EmailTemplateEditor> {
     }
 
-    @UiField
-    TextArea message;
+    @UiField(provided = true)
+    CKRichTextInput message;
     @UiField
     TextBox subject;
 
     private final Driver driver;
 
     @Inject
-    public EmailTemplateEditor(final Binder uiBinder, final Driver driver) {
+    public EmailTemplateEditor(final Binder uiBinder, final Driver driver,
+                               final CKRichTextInput message) {
         this.driver = driver;
+        this.message = message;
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
