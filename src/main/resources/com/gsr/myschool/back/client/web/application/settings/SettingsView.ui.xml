@@ -1,26 +1,78 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:cell='urn:import:com.google.gwt.user.cellview.client'
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
 
     <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+
+    <ui:style>
+        .contentWrapper {
+            padding: 12px;
+        }
+
+        .margin {
+            margin-top: 20px;
+        }
+
+        .row {
+            margin-bottom: 20px;
+        }
+
+        .label {
+            width: 220px;
+            display: inline-block;
+        }
+    </ui:style>
 
     <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
         <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
             <h2>
                 <g:InlineLabel text="Paramètres généraux"/>
             </h2>
-                <boot:ButtonGroup>
-                    <boot:Button ui:field="activateGeneralFiliere">Ouvrir les filières générales</boot:Button>
-                    <boot:Button ui:field="desactivateGeneralFiliere">Fermer les filières générales</boot:Button>
-                </boot:ButtonGroup>
-                <boot:ButtonGroup>
-                    <boot:Button ui:field="activate">Ouvrir les pré-inscriptions</boot:Button>
-                    <boot:Button ui:field="desactivate">Fermer les pré-inscriptions</boot:Button>
-                </boot:ButtonGroup>
+            <div>
+                <boot:Tooltip text="Cliquer ici pour ajouter une nouvelle filière ou niveau d'étude" placement="LEFT">
+                    <boot:DropdownButton ui:field="addSystemScolaire" text="Ajouter" icon="PLUS"
+                                         rightDropdown="true" visible="false">
+                        <boot:NavLink ui:field="addFiliere" text="Nouvelle filère"/>
+                        <boot:NavLink ui:field="addNiveauEtude" text="Nouveau niveau d'étude"/>
+                    </boot:DropdownButton>
+                </boot:Tooltip>
+            </div>
             <span style="display: block; clear: both;"/>
         </g:HTMLPanel>
 
-        <cell:CellTree ui:field="myTree"/>
+        <g:ValuePicker ui:field="tabs" addStyleNames="{style.margin}"/>
+
+        <g:DeckPanel ui:field="settingsIndexedPanel" animationEnabled="true" styleName="{style.contentWrapper}">
+            <g:HTMLPanel ui:field="globalSettings">
+                <div class="{style.row}">
+                    <g:Label addStyleNames="{style.label}" text="Statut pour les filières générales"/>
+
+                    <boot:ButtonGroup>
+                        <boot:Button ui:field="desactivateGeneralFiliere">OFF</boot:Button>
+                        <boot:Button ui:field="activateGeneralFiliere">ON</boot:Button>
+                    </boot:ButtonGroup>
+                </div>
+
+                <div class="{style.row}">
+                    <g:Label addStyleNames="{style.label}" text="Statut des pré-inscriptions"/>
+
+                    <boot:ButtonGroup>
+                        <boot:Button ui:field="desactivate">OFF</boot:Button>
+                        <boot:Button ui:field="activate">ON</boot:Button>
+                    </boot:ButtonGroup>
+                </div>
+
+                <div class="{style.row}">
+                    <g:Label addStyleNames="{style.label}" text="Date limite des pré-inscriptions"/>
+                    <boot:TextArea ui:field="dateLimite" width="300px" height="80px"/>
+                </div>
+            </g:HTMLPanel>
+
+            <g:SimplePanel ui:field="systemeScolaireSettings"/>
+
+            <g:SimplePanel ui:field="matieresSettings"/>
+
+            <g:SimplePanel ui:field="piecesJustificativesSettings"/>
+        </g:DeckPanel>
     </g:HTMLPanel>
 </ui:UiBinder>

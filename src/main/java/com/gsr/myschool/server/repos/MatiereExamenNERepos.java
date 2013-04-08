@@ -9,4 +9,6 @@ public interface MatiereExamenNERepos extends JpaRepository<MatiereExamDuNE, Lon
     List<MatiereExamDuNE> findByNiveauEtudeId(Long id);
 
     MatiereExamDuNE findByMatiereExamenIdAndNiveauEtudeId(Long matiereId, Long niveauId);
+
+    List<MatiereExamDuNE> findByMatiereExamenId(Long matiereId);
 }

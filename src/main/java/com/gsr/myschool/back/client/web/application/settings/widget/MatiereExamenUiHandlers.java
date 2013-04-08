@@ -14,12 +14,13 @@
  * the License.
  */
 
-package com.gsr.myschool.server.service;
+package com.gsr.myschool.back.client.web.application.settings.widget;
 
-import com.gsr.myschool.common.shared.type.SettingsKey;
+import com.gsr.myschool.common.client.proxy.MatiereExamenProxy;
+import com.gwtplatform.mvp.client.UiHandlers;
 
-public interface SettingService {
-    void updateSettings(SettingsKey key, String value);
+public interface MatiereExamenUiHandlers extends UiHandlers {
+    void deleteMatiereExamen(MatiereExamenProxy object);
 
-    String getSetting(SettingsKey key);
+    void addMatiereExamen(MatiereExamenProxy matiere);
 }

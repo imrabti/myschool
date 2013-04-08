@@ -13,7 +13,7 @@ public class TimeInput extends Composite implements LeafValueEditor<String> {
     public interface Binder extends UiBinder<Widget, TimeInput> {
     }
 
-    private static final String[] HOURS = {"--", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"};
+    private static final String[] HOURS = {"--", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"};
     private static final String[] MINUTES = {"--", "00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55"};
 
     @UiField
