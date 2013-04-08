@@ -24,6 +24,24 @@ public class SuggestionListFactory {
         });
     }
 
+    public void getListPieces(final CallbackImpl<List<String>> callback) {
+        requestFactory.cachedListValueService().findPieces().fire(new ReceiverImpl<List<String>>() {
+            @Override
+            public void onSuccess(List<String> response) {
+                callback.onSuccess(response);
+            }
+        });
+    }
+
+    public void getListMatieres(final CallbackImpl<List<String>> callback) {
+        requestFactory.cachedListValueService().findMatieres().fire(new ReceiverImpl<List<String>>() {
+            @Override
+            public void onSuccess(List<String> response) {
+                callback.onSuccess(response);
+            }
+        });
+    }
+
     public void getListUserMain(CallbackImpl<List<String>> callback) {
         // TODO : Add a new suggestion method...
     }

@@ -26,4 +26,6 @@ import java.util.List;
 public interface MatiereExamenRepos extends JpaRepository<MatiereExamen, Long> {
     @Query("SELECT m From MatiereExamen m, MatiereExamDuNE e WHERE e.niveauEtude.id = :id AND e.matiereExamen.id = m.id")
     List<MatiereExamen> findByNiveauEtude(@Param("id") Long niveauEtude);
+
+    MatiereExamen findByNomEquals(String nom);
 }

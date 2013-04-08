@@ -20,6 +20,7 @@ import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
 import com.gsr.myschool.common.client.proxy.MatiereExamenProxy;
+import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.proxy.PieceJustifProxy;
 import com.gsr.myschool.server.service.impl.NiveauEtudeServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
@@ -31,4 +32,10 @@ public interface NiveauEtudeRequest extends RequestContext {
     Request<List<MatiereExamenProxy>> getMatiereExamenByNiveau(Long niveauEtude);
 
     Request<List<PieceJustifProxy>> getPieceJustfByNiveau(Long niveauEtude);
+
+    Request<Boolean> editPieceDuNiveau(PieceJustifProxy pieceJustifProxy, NiveauEtudeProxy niveauEtudeProxy,
+            Boolean removeIt);
+
+    Request<Boolean> editMatiereDuNiveau(MatiereExamenProxy object, NiveauEtudeProxy currentNiveauEtude,
+            Boolean removeIt);
 }
