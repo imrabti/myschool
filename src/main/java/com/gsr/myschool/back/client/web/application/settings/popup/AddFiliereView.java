@@ -56,6 +56,7 @@ public class AddFiliereView extends PopupViewWithUiHandlers<AddFiliereUiHandlers
     @Override
     public void edit(FiliereProxy object) {
         driver.edit(object);
+        nom.setFocus(true);
     }
 
     @Override
