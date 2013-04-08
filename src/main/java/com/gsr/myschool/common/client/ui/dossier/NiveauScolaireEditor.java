@@ -31,10 +31,6 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
     public interface Driver extends SimpleBeanEditorDriver<DossierProxy, NiveauScolaireEditor> {
     }
 
-    private FiliereProxy sectionFr;
-    private FiliereProxy sectionBilingue;
-    private List<FiliereProxy> filieres;
-
     @UiField(provided = true)
     ValueListBox<FiliereProxy> filiere;
     @UiField(provided = true)
@@ -47,6 +43,10 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
 
     private final ValueList valueList;
     private final Driver driver;
+
+    private FiliereProxy sectionFr;
+    private FiliereProxy sectionBilingue;
+    private List<FiliereProxy> filieres;
 
     @Inject
     public NiveauScolaireEditor(final Binder uiBinder, final ValueList valueList,

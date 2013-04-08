@@ -19,19 +19,25 @@ package com.gsr.myschool.back.client.request;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
+import com.gsr.myschool.common.client.proxy.FiliereProxy;
 import com.gsr.myschool.common.client.proxy.MatiereExamenProxy;
+import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.proxy.PieceJustifProxy;
 import com.gsr.myschool.common.shared.type.SettingsKey;
-import com.gsr.myschool.server.service.impl.SettingServiceImpl;
+import com.gsr.myschool.server.service.impl.SettingsServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
 
 import java.util.List;
 
-@Service(value = SettingServiceImpl.class, locator = SpringServiceLocator.class)
+@Service(value = SettingsServiceImpl.class, locator = SpringServiceLocator.class)
 public interface SettingsRequest extends RequestContext {
     Request<Void> updateSettings(SettingsKey key, String value);
 
     Request<String> getSetting(SettingsKey key);
+
+    Request<Boolean> addFiliere(FiliereProxy filiere);
+
+    Request<Boolean> addNiveauEtude(NiveauEtudeProxy niveauEtude);
 
     Request<List<PieceJustifProxy>> findAllPieceJustif();
 

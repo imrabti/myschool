@@ -28,6 +28,15 @@
             <h2>
                 <g:InlineLabel text="Paramètres généraux"/>
             </h2>
+            <div>
+                <boot:Tooltip text="Cliquer ici pour ajouter une nouvelle filière ou niveau d'étude" placement="LEFT">
+                    <boot:DropdownButton ui:field="addSystemScolaire" text="Ajouter" icon="PLUS"
+                                         rightDropdown="true" visible="false">
+                        <boot:NavLink ui:field="addFiliere" text="Nouvelle filère"/>
+                        <boot:NavLink ui:field="addNiveauEtude" text="Nouveau niveau d'étude"/>
+                    </boot:DropdownButton>
+                </boot:Tooltip>
+            </div>
             <span style="display: block; clear: both;"/>
         </g:HTMLPanel>
 
@@ -39,8 +48,8 @@
                     <g:Label addStyleNames="{style.label}" text="Statut pour les filières générales"/>
 
                     <boot:ButtonGroup>
-                        <boot:Button ui:field="activateGeneralFiliere">ON</boot:Button>
                         <boot:Button ui:field="desactivateGeneralFiliere">OFF</boot:Button>
+                        <boot:Button ui:field="activateGeneralFiliere">ON</boot:Button>
                     </boot:ButtonGroup>
                 </div>
 
@@ -48,9 +57,14 @@
                     <g:Label addStyleNames="{style.label}" text="Statut des pré-inscriptions"/>
 
                     <boot:ButtonGroup>
-                        <boot:Button ui:field="activate">ON</boot:Button>
                         <boot:Button ui:field="desactivate">OFF</boot:Button>
+                        <boot:Button ui:field="activate">ON</boot:Button>
                     </boot:ButtonGroup>
+                </div>
+
+                <div class="{style.row}">
+                    <g:Label addStyleNames="{style.label}" text="Date limite des pré-inscriptions"/>
+                    <boot:TextArea ui:field="dateLimite" width="300px" height="80px"/>
                 </div>
             </g:HTMLPanel>
 

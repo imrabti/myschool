@@ -17,15 +17,21 @@
 package com.gsr.myschool.server.service;
 
 import com.gsr.myschool.common.shared.type.SettingsKey;
+import com.gsr.myschool.server.business.core.Filiere;
 import com.gsr.myschool.server.business.core.MatiereExamen;
+import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.core.PieceJustif;
 
 import java.util.List;
 
-public interface SettingService {
+public interface SettingsService {
     void updateSettings(SettingsKey key, String value);
 
     String getSetting(SettingsKey key);
+
+    Boolean addFiliere(Filiere filiere);
+
+    Boolean addNiveauEtude(NiveauEtude niveauEtude);
 
     List<PieceJustif> findAllPieceJustif();
 
