@@ -46,7 +46,8 @@ public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> impleme
         GLOBAL("Configuration globale"),
         SYSTEME_SCOLAIRE("Système scolaire"),
         MATIERES("Matières"),
-        PIECES_JUSTIFICATIVES("Pieces justificatives");
+        PIECES_JUSTIFICATIVES("Pieces justificatives"),
+        TEMPLATE_EMAIL("Templates email");
 
         private String label;
 
@@ -69,6 +70,8 @@ public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> impleme
     SimplePanel matieresSettings;
     @UiField
     SimplePanel piecesJustificativesSettings;
+    @UiField
+    SimplePanel emailTemplatesSettings;
     @UiField
     Button activate;
     @UiField
@@ -106,6 +109,8 @@ public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> impleme
                 matieresSettings.setWidget(content);
             } else if (slot == SettingsPresenter.TYPE_SetPiecesJustificativesContent) {
                 piecesJustificativesSettings.setWidget(content);
+            } else if (slot == SettingsPresenter.TYPE_SetEmailTemplateContent) {
+                emailTemplatesSettings.setWidget(content);
             }
         }
     }

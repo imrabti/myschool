@@ -25,6 +25,7 @@ import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.back.client.web.application.settings.popup.AddFilierePresenter;
 import com.gsr.myschool.back.client.web.application.settings.popup.AddNiveauEtudePresenter;
+import com.gsr.myschool.back.client.web.application.settings.widget.EmailTemplatePresenter;
 import com.gsr.myschool.back.client.web.application.settings.widget.MatiereExamenPresenter;
 import com.gsr.myschool.back.client.web.application.settings.widget.PiecesJustifPresenter;
 import com.gsr.myschool.back.client.web.application.settings.widget.SystemScolairePresenter;
@@ -64,6 +65,7 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
     public static final Object TYPE_SetSystemScolaireContent = new Object();
     public static final Object TYPE_SetMatiereContent = new Object();
     public static final Object TYPE_SetPiecesJustificativesContent = new Object();
+    public static final Object TYPE_SetEmailTemplateContent = new Object();
 
     private final BackRequestFactory requestFactory;
     private final MessageBundle messageBundle;
@@ -72,6 +74,7 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
     private final SystemScolairePresenter systemScolairePresenter;
     private final AddFilierePresenter addFilierePresenter;
     private final AddNiveauEtudePresenter addNiveauEtudePresenter;
+    private final EmailTemplatePresenter emailTemplatePresenter;
 
     @Inject
     public SettingsPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
@@ -79,8 +82,10 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
                              final MessageBundle messageBundle,
                              final SystemScolairePresenter systemScolairePresenter,
                              final AddFilierePresenter addFilierePresenter,
-                             final AddNiveauEtudePresenter addNiveauEtudePresenter,                              final PiecesJustifPresenter piecesJustifPresenter,
-                             final MatiereExamenPresenter matiereExamenPresenter) {
+                             final AddNiveauEtudePresenter addNiveauEtudePresenter,
+                             final PiecesJustifPresenter piecesJustifPresenter,
+                             final MatiereExamenPresenter matiereExamenPresenter,
+                             final EmailTemplatePresenter emailTemplatePresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
@@ -90,6 +95,7 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
         this.addNiveauEtudePresenter = addNiveauEtudePresenter;
         this.matiereExamenPresenter = matiereExamenPresenter;
         this.piecesJustifPresenter = piecesJustifPresenter;
+        this.emailTemplatePresenter = emailTemplatePresenter;
 
         getView().setUiHandlers(this);
     }
@@ -209,5 +215,6 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
         setInSlot(TYPE_SetSystemScolaireContent, systemScolairePresenter);
         setInSlot(TYPE_SetMatiereContent, matiereExamenPresenter);
         setInSlot(TYPE_SetPiecesJustificativesContent, piecesJustifPresenter);
+        setInSlot(TYPE_SetEmailTemplateContent, emailTemplatePresenter);
     }
 }

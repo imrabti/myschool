@@ -48,6 +48,8 @@ public class SettingsModule extends AbstractPresenterModule {
                 .to(new TypeLiteral<SetterUiHandlersStrategy<PiecesJustifUiHandlers>>() {});
         bind(new TypeLiteral<UiHandlersStrategy<MatiereExamenUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<MatiereExamenUiHandlers>>() {});
+        bind(new TypeLiteral<UiHandlersStrategy<EmailTemplateUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<EmailTemplateUiHandlers>>() {});
 
         bind(new TypeLiteral<UiHandlersStrategy<NiveauEtudeSetupUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<NiveauEtudeSetupUiHandlers>>() {});
@@ -67,6 +69,8 @@ public class SettingsModule extends AbstractPresenterModule {
                 MatiereExamenView.class);
         bindSingletonPresenterWidget(PiecesJustifPresenter.class, PiecesJustifPresenter.MyView.class,
                 PiecesJustifView.class);
+        bindSingletonPresenterWidget(EmailTemplatePresenter.class, EmailTemplatePresenter.MyView.class,
+                EmailTemplateView.class);
 
         install(new GinFactoryModuleBuilder().build(NiveauEtudeInfosTreeFactory.class));
     }

@@ -16,14 +16,11 @@
 
 package com.gsr.myschool.server.service.impl;
 
+import com.gsr.myschool.common.shared.type.EmailType;
 import com.gsr.myschool.common.shared.type.SettingsKey;
+import com.gsr.myschool.server.business.EmailTemplate;
 import com.gsr.myschool.server.business.Settings;
-import com.gsr.myschool.server.business.core.Filiere;
-import com.gsr.myschool.server.business.core.MatiereExamDuNE;
-import com.gsr.myschool.server.business.core.MatiereExamen;
-import com.gsr.myschool.server.business.core.NiveauEtude;
-import com.gsr.myschool.server.business.core.PieceJustif;
-import com.gsr.myschool.server.business.core.PieceJustifDuNE;
+import com.gsr.myschool.server.business.core.*;
 import com.gsr.myschool.server.repos.*;
 import com.gsr.myschool.server.service.SettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +46,8 @@ public class SettingsServiceImpl implements SettingsService {
     private MatiereExamenRepos matiereExamenRepos;
     @Autowired
     private MatiereExamenNERepos matiereExamenNERepos;
+    @Autowired
+    private EmailTemplateRepos emailTemplateRepos;
 
     @Override
     public void updateSettings(SettingsKey key, String value) {
@@ -128,5 +127,20 @@ public class SettingsServiceImpl implements SettingsService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public Boolean updateTemplateEmail(EmailTemplate template) {
+        try {
+            emailTemplateRepos.save(template);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public EmailTemplate findEmailTemplateByCode(EmailType code) {
+        return emailTemplateRepos.findByCode(code);
     }
 }
