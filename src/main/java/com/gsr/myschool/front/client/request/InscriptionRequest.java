@@ -1,5 +1,6 @@
 package com.gsr.myschool.front.client.request;
 
+import com.google.gwt.event.logical.shared.HighlightEvent;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
@@ -50,4 +51,6 @@ public interface InscriptionRequest extends RequestContext {
     Request<List<String>> submitInscription(Long dossierId);
 
     Request<Boolean> statusInscriptionOpened();
+
+    Request<Boolean> statusFilieresGeneralesOpened();
 }

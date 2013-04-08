@@ -14,6 +14,7 @@ import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
 
 public class InscriptionActionCell extends AbstractCell<DossierProxy> {
     @UiTemplate("InscriptionActionCellCreated.ui.xml")
@@ -57,6 +58,7 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
 
     private DossierProxy selectedObject;
     private Boolean inscriptionOpened = true;
+    private Boolean filieresGeneralesOpened = true;
 
     @Inject
     public InscriptionActionCell(final RendererCreated uiRendererCreated,
@@ -88,7 +90,15 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
 
         switch (selectedObject.getStatus()) {
             case CREATED:
-                if (inscriptionOpened) {
+                if (filieresGeneralesOpened && inscriptionOpened ||
+                        !filieresGeneralesOpened
+                                && inscriptionOpened
+                                && value.getNiveauEtude() != null
+                                && value.getNiveauEtude().getFiliere() != null
+                                && value.getNiveauEtude().getFiliere().getId() >= GlobalParameters.PREPA_FILIERE_FROM
+                        || !filieresGeneralesOpened
+                        && inscriptionOpened
+                        && value.getNiveauEtude() == null) {
                     uiRendererCreated.onBrowserEvent(this, event, parent);
                     break;
                 } else {
@@ -108,7 +118,15 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
     public void render(Context context, DossierProxy value, SafeHtmlBuilder builder) {
         switch (value.getStatus()) {
             case CREATED:
-                if (inscriptionOpened) {
+                if (filieresGeneralesOpened && inscriptionOpened ||
+                        !filieresGeneralesOpened
+                                && inscriptionOpened
+                                && value.getNiveauEtude() != null
+                                && value.getNiveauEtude().getFiliere() != null
+                                && value.getNiveauEtude().getFiliere().getId() >= GlobalParameters.PREPA_FILIERE_FROM
+                        || !filieresGeneralesOpened
+                        && inscriptionOpened
+                        && value.getNiveauEtude() == null) {
                     uiRendererCreated.render(builder);
                     break;
                 } else {
@@ -122,10 +140,15 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
                 uiRendererOther.render(builder);
                 break;
         }
+
     }
 
     public void setInscriptionOpened(Boolean opened) {
         this.inscriptionOpened = opened;
+    }
+
+    public void setFilieresGeneralesOpened(Boolean opened) {
+        this.filieresGeneralesOpened = opened;
     }
 
     @UiHandler({"preview"})
@@ -135,21 +158,48 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
 
     @UiHandler({"edit"})
     void onEditClicked(ClickEvent event) {
-        if (inscriptionOpened) {
+        DossierProxy value = selectedObject;
+        if (filieresGeneralesOpened && inscriptionOpened ||
+                !filieresGeneralesOpened
+                        && inscriptionOpened
+                        && value.getNiveauEtude() != null
+                        && value.getNiveauEtude().getFiliere() != null
+                        && value.getNiveauEtude().getFiliere().getId() >= GlobalParameters.PREPA_FILIERE_FROM
+                || !filieresGeneralesOpened
+                && inscriptionOpened
+                && value.getNiveauEtude() == null) {
             edit.execute(selectedObject);
         }
     }
 
     @UiHandler({"delete"})
     void onDeleteClicked(ClickEvent event) {
-        if (inscriptionOpened) {
+        DossierProxy value = selectedObject;
+        if (filieresGeneralesOpened && inscriptionOpened ||
+                !filieresGeneralesOpened
+                        && inscriptionOpened
+                        && value.getNiveauEtude() != null
+                        && value.getNiveauEtude().getFiliere() != null
+                        && value.getNiveauEtude().getFiliere().getId() >= GlobalParameters.PREPA_FILIERE_FROM
+                || !filieresGeneralesOpened
+                && inscriptionOpened
+                && value.getNiveauEtude() == null) {
             delete.execute(selectedObject);
         }
     }
 
     @UiHandler({"submit"})
     void onSubmitClicked(ClickEvent event) {
-        if (inscriptionOpened) {
+        DossierProxy value = selectedObject;
+        if (filieresGeneralesOpened && inscriptionOpened ||
+                !filieresGeneralesOpened
+                        && inscriptionOpened
+                        && value.getNiveauEtude() != null
+                        && value.getNiveauEtude().getFiliere() != null
+                        && value.getNiveauEtude().getFiliere().getId() >= GlobalParameters.PREPA_FILIERE_FROM
+                || !filieresGeneralesOpened
+                && inscriptionOpened
+                && value.getNiveauEtude() == null) {
             submit.execute(selectedObject);
         }
     }
