@@ -16,15 +16,13 @@
         }
 
         .valueContainer {
-            float: left;
-            width: 600px;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            padding-right: 10px;
+            padding-top: 10px;
         }
 
-        .listWrapper {
-            margin-top: 10px;
+        .addTexField {
+            float: left;
+            margin-right: 10px;
+            width: 480px;
         }
 
         .clear {
@@ -40,38 +38,36 @@
                 <g:Label text="Matières d'examens" styleName="{resource.sharedStyleCss.mediumTitle}"/>
 
                 <div class="{style.valueContainer}">
-                    <e:MatiereExamenEditor ui:field="matiereEditor" />
-                    <div style="float:right">
-                        <boot:Button icon="PLUS" title="Ajouter matière du niveau" ui:field="addMatiere" />
-                        <boot:Button icon="SAVE" title="Modifier matière du niveau" ui:field="saveMatiere" />
-                        <boot:Button icon="REMOVE" title="Supprimer matière du niveau" ui:field="removeMatiere" />
+                    <e:MatiereExamenEditor ui:field="matiereEditor" styleName="{style.addTexField}"/>
+                    <div style="float: left;">
+                        <boot:ButtonGroup>
+                            <boot:Button icon="PLUS" title="Ajouter matière du niveau" ui:field="addMatiere" />
+                            <boot:Button icon="SAVE" title="Modifier matière du niveau" ui:field="saveMatiere" />
+                            <boot:Button icon="REMOVE" title="Supprimer matière du niveau" ui:field="removeMatiere" />
+                        </boot:ButtonGroup>
                     </div>
                     <div class="{style.clear}" />
                 </div>
 
-                <div class="{style.clear}" />
-
-                <div class="{style.listWrapper}" style="margin-bottom: 10px;">
+                <div style="margin-bottom: 10px;">
                     <cell:CellList ui:field="matiereExamenList"/>
                 </div>
 
                 <g:Label text="Pièces justificatives" styleName="{resource.sharedStyleCss.mediumTitle}"/>
 
                 <div class="{style.valueContainer}">
-                    <e:PieceJustificatifEditor ui:field="pieceEditor" />
-                    <div style="float:right">
-                        <boot:Button icon="PLUS" title="Ajouter pièce du niveau" ui:field="addPiece" />
-                        <boot:Button icon="SAVE" title="Modifier pièce du niveau" ui:field="savePiece" />
-                        <boot:Button icon="REMOVE" title="Supprimer pièce du niveau" ui:field="removePiece" />
+                    <e:PieceJustificatifEditor ui:field="pieceEditor" styleName="{style.addTexField}"/>
+                    <div style="float: left;">
+                        <boot:ButtonGroup>
+                            <boot:Button icon="PLUS" title="Ajouter pièce du niveau" ui:field="addPiece" />
+                            <boot:Button icon="SAVE" title="Modifier pièce du niveau" ui:field="savePiece" />
+                            <boot:Button icon="REMOVE" title="Supprimer pièce du niveau" ui:field="removePiece" />
+                        </boot:ButtonGroup>
                     </div>
                     <div class="{style.clear}" />
                 </div>
 
-                <div class="{style.clear}" />
-
-                <div class="{style.listWrapper}">
-                    <cell:CellList ui:field="pieceJustifList"/>
-                </div>
+                <cell:CellList ui:field="pieceJustifList"/>
             </g:HTMLPanel>
         </g:FlowPanel>
     </g:PopupPanel>
