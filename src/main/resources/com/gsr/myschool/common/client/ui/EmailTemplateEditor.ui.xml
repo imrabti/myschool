@@ -20,7 +20,6 @@
                 </boot:Controls>
                 <boot:ControlLabel styleName="{style.wrapper}">Message</boot:ControlLabel>
                 <boot:Controls>
-                    <!--<boot:TextArea ui:field="message" width="400px" height="205px"/>-->
                     <s:CKRichTextInput ui:field="message"/>
                 </boot:Controls>
             </boot:ControlGroup>
