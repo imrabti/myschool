@@ -20,10 +20,6 @@
     </ui:style>
 
     <g:HTMLPanel styleName="{style.wrapper}">
-        <h3 class="{clientResources.sharedStyleCss.mediumTitle}">
-            Matières examens
-        </h3>
-
         <boot:Well addStyleNames="{style.enhancedWell}">
             <s:MatiereExamenEditor ui:field="matiereExamenEditor"/>
             <boot:Button text="Ajouter" icon="PLUS" ui:field="addMatiereExamen"/>
