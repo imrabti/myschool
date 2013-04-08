@@ -44,6 +44,9 @@ public class MatiereExamenEditor extends Composite implements EditorView<Matiere
     public MatiereExamenEditor(final Binder uiBinder, final Driver driver) {
         this.driver = driver;
 
+        initWidget(uiBinder.createAndBindUi(this));
+        driver.initialize(this);
+
         $(nom).id("nom");
     }
 

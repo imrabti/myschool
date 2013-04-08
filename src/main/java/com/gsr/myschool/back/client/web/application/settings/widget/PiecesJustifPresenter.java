@@ -83,8 +83,13 @@ public class PiecesJustifPresenter extends PresenterWidget<PiecesJustifPresenter
                     getView().editPieceJustif(currentPiece);
                     getView().clearErrors();
 
-                    Message message = new Message.Builder(messageBundle.addPieceJustifSuccess())
-                            .style(AlertType.SUCCESS).closeDelay(CloseDelay.DEFAULT).build();
+                    String result = response ? messageBundle.addPieceJustifSuccess() : messageBundle.addPieceJustifFailure();
+                    AlertType alert = response ? AlertType.SUCCESS : AlertType.ERROR;
+
+                    Message message = new Message.Builder(result)
+                            .style(alert)
+                            .closeDelay(CloseDelay.DEFAULT)
+                            .build();
                     MessageEvent.fire(this, message);
 
                     loadPieceJustif();
@@ -108,6 +113,18 @@ public class PiecesJustifPresenter extends PresenterWidget<PiecesJustifPresenter
                 loadPieceJustif();
             }
         });
+    }
+
+    @Override
+    protected void onReveal() {
+        currentContext = requestFactory.settingsService();
+        currentPiece = currentContext.create(PieceJustifProxy.class);
+        pieceViolation = false;
+
+        getView().editPieceJustif(currentPiece);
+        getView().clearErrors();
+
+        loadPieceJustif();
     }
 
     private void loadPieceJustif() {

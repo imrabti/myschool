@@ -44,6 +44,9 @@ public class PiecesJustifEditor extends Composite implements EditorView<PieceJus
     public PiecesJustifEditor(final Binder uiBinder, final Driver driver) {
         this.driver = driver;
 
+        initWidget(uiBinder.createAndBindUi(this));
+        driver.initialize(this);
+
         $(nom).id("nom");
     }
 

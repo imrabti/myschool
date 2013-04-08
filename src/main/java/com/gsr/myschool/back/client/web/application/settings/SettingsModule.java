@@ -27,9 +27,7 @@ import com.gsr.myschool.back.client.web.application.settings.popup.AddNiveauEtud
 import com.gsr.myschool.back.client.web.application.settings.popup.NiveauEtudeInfosPresenter;
 import com.gsr.myschool.back.client.web.application.settings.popup.NiveauEtudeInfosView;
 import com.gsr.myschool.back.client.web.application.settings.renderer.NiveauEtudeInfosTreeFactory;
-import com.gsr.myschool.back.client.web.application.settings.widget.SystemScolairePresenter;
-import com.gsr.myschool.back.client.web.application.settings.widget.SystemScolaireUiHandlers;
-import com.gsr.myschool.back.client.web.application.settings.widget.SystemScolaireView;
+import com.gsr.myschool.back.client.web.application.settings.widget.*;
 import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
@@ -45,6 +43,10 @@ public class SettingsModule extends AbstractPresenterModule {
                 .to(new TypeLiteral<SetterUiHandlersStrategy<AddFiliereUiHandlers>>() {});
         bind(new TypeLiteral<UiHandlersStrategy<AddNiveauEtudeUiHandlers>>() {})
                 .to(new TypeLiteral<SetterUiHandlersStrategy<AddNiveauEtudeUiHandlers>>() {});
+        bind(new TypeLiteral<UiHandlersStrategy<PiecesJustifUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<PiecesJustifUiHandlers>>() {});
+        bind(new TypeLiteral<UiHandlersStrategy<MatiereExamenUiHandlers>>() {})
+                .to(new TypeLiteral<SetterUiHandlersStrategy<MatiereExamenUiHandlers>>() {});
 
         bindPresenter(SettingsPresenter.class, SettingsPresenter.MyView.class, SettingsView.class,
                 SettingsPresenter.MyProxy.class);
@@ -57,6 +59,10 @@ public class SettingsModule extends AbstractPresenterModule {
                 AddFiliereView.class);
         bindSingletonPresenterWidget(AddNiveauEtudePresenter.class, AddNiveauEtudePresenter.MyView.class,
                 AddNiveauEtudeView.class);
+        bindSingletonPresenterWidget(MatiereExamenPresenter.class, MatiereExamenPresenter.MyView.class,
+                MatiereExamenView.class);
+        bindSingletonPresenterWidget(PiecesJustifPresenter.class, PiecesJustifPresenter.MyView.class,
+                PiecesJustifView.class);
 
         install(new GinFactoryModuleBuilder().build(NiveauEtudeInfosTreeFactory.class));
     }

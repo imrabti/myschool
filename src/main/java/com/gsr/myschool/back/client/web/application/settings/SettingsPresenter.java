@@ -25,6 +25,8 @@ import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.back.client.web.application.settings.popup.AddFilierePresenter;
 import com.gsr.myschool.back.client.web.application.settings.popup.AddNiveauEtudePresenter;
+import com.gsr.myschool.back.client.web.application.settings.widget.MatiereExamenPresenter;
+import com.gsr.myschool.back.client.web.application.settings.widget.PiecesJustifPresenter;
 import com.gsr.myschool.back.client.web.application.settings.widget.SystemScolairePresenter;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
@@ -65,6 +67,8 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
 
     private final BackRequestFactory requestFactory;
     private final MessageBundle messageBundle;
+    private final MatiereExamenPresenter matiereExamenPresenter;
+    private final PiecesJustifPresenter piecesJustifPresenter;
     private final SystemScolairePresenter systemScolairePresenter;
     private final AddFilierePresenter addFilierePresenter;
     private final AddNiveauEtudePresenter addNiveauEtudePresenter;
@@ -75,7 +79,8 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
                              final MessageBundle messageBundle,
                              final SystemScolairePresenter systemScolairePresenter,
                              final AddFilierePresenter addFilierePresenter,
-                             final AddNiveauEtudePresenter addNiveauEtudePresenter) {
+                             final AddNiveauEtudePresenter addNiveauEtudePresenter,                              final PiecesJustifPresenter piecesJustifPresenter,
+                             final MatiereExamenPresenter matiereExamenPresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
@@ -83,6 +88,8 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
         this.systemScolairePresenter = systemScolairePresenter;
         this.addFilierePresenter = addFilierePresenter;
         this.addNiveauEtudePresenter = addNiveauEtudePresenter;
+        this.matiereExamenPresenter = matiereExamenPresenter;
+        this.piecesJustifPresenter = piecesJustifPresenter;
 
         getView().setUiHandlers(this);
     }
@@ -200,7 +207,7 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
         });
 
         setInSlot(TYPE_SetSystemScolaireContent, systemScolairePresenter);
-        // TODO : Matiere set in slot
-        // TODO : Pices justificatices set in slot
+        setInSlot(TYPE_SetMatiereContent, matiereExamenPresenter);
+        setInSlot(TYPE_SetPiecesJustificativesContent, piecesJustifPresenter);
     }
 }

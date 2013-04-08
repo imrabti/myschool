@@ -95,8 +95,12 @@ public class SettingsServiceImpl implements SettingsService {
 
     @Override
     public Boolean addPieceJustif(PieceJustif piece) {
-        pieceJustifRepos.save(piece);
-        return true;
+        try {
+            pieceJustifRepos.save(piece);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
@@ -118,7 +122,11 @@ public class SettingsServiceImpl implements SettingsService {
 
     @Override
     public Boolean addMatiereExamen(MatiereExamen matiere) {
-        matiereExamenRepos.save(matiere);
-        return true;
+        try {
+            matiereExamenRepos.save(matiere);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
