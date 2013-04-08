@@ -33,6 +33,7 @@ import com.gsr.myschool.common.client.mvp.ValidatedViewWithUiHandlers;
 import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.EmailTemplateProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
+import com.gsr.myschool.common.client.resource.style.DetailsListStyle;
 import com.gsr.myschool.common.client.ui.EmailTemplateEditor;
 import com.gsr.myschool.common.client.widget.EmptyResult;
 import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
@@ -57,7 +58,8 @@ public class EmailTemplateView extends ValidatedViewWithUiHandlers<EmailTemplate
     public EmailTemplateView(final Binder uiBinder, final ValidationErrorPopup errorPopup,
                              final UiHandlersStrategy<EmailTemplateUiHandlers> uiHandlersStrategy,
                              final SharedMessageBundle sharedMessageBundle,
-                             EmailTemplateEditor emailTemplateEditor) {
+                             final EmailTemplateEditor emailTemplateEditor,
+                             final DetailsListStyle listStyle) {
         super(uiHandlersStrategy, errorPopup);
 
         this.emailTemplateEditor = emailTemplateEditor;
@@ -67,7 +69,7 @@ public class EmailTemplateView extends ValidatedViewWithUiHandlers<EmailTemplate
             public void render(Context context, EmailType emailType, SafeHtmlBuilder safeHtmlBuilder) {
                 safeHtmlBuilder.appendEscaped(emailType.toString());
             }
-        });
+        }, listStyle);
 
         initWidget(uiBinder.createAndBindUi(this));
 
@@ -84,6 +86,7 @@ public class EmailTemplateView extends ValidatedViewWithUiHandlers<EmailTemplate
             }
         });
         templates.setEmptyListWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
+        selectionModel.setSelected(EmailType.REGISTRATION, true);
     }
 
     @Override
@@ -93,6 +96,6 @@ public class EmailTemplateView extends ValidatedViewWithUiHandlers<EmailTemplate
 
     @UiHandler("updateTemplate")
     void onUpdateClicker(ClickEvent event) {
-          getUiHandlers().updateTemplate(emailTemplateEditor.get());
+        getUiHandlers().updateTemplate(emailTemplateEditor.get());
     }
 }

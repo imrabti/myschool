@@ -5,6 +5,11 @@
     <ui:with field="helpMessage" type="com.gsr.myschool.common.client.resource.message.HelpMessageBundle"/>
     <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
+    <ui:style>
+        .wrapper {
+            padding-top :12px;
+        }
+    </ui:style>
     <g:HTMLPanel>
         <boot:Form type="INLINE">
             <boot:ControlGroup>
@@ -12,9 +17,9 @@
                 <boot:Controls>
                     <boot:TextBox ui:field="subject" width="250px"/>
                 </boot:Controls>
-                <boot:ControlLabel>Message</boot:ControlLabel>
+                <boot:ControlLabel styleName="{style.wrapper}">Message</boot:ControlLabel>
                 <boot:Controls>
-                    <boot:TextArea ui:field="message" width="400px" visibleLines="8"/>
+                    <boot:TextArea ui:field="message" width="400px" height="205px"/>
                 </boot:Controls>
             </boot:ControlGroup>
         </boot:Form>

@@ -12,21 +12,20 @@
         }
 
         .tableWrapper {
-            margin-top: 12px;
+            margin-top: 20px;
             float: left;
             width: 300px;
+            margin-right: 30px;
         }
 
         .enhancedWell {
+            margin-top: 20px;
             float: left;
             background-color: rgba(245, 245, 245, 0.6);
         }
     </ui:style>
 
     <g:HTMLPanel styleName="{style.wrapper}">
-        <h3 class="{clientResources.sharedStyleCss.mediumTitle}">
-            Email templates
-        </h3>
 
         <div class="{style.tableWrapper}">
             <cell:CellList ui:field="templates"/>

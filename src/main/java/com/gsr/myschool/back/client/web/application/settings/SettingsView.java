@@ -46,7 +46,7 @@ public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> impleme
         GLOBAL("Configuration globale"),
         SYSTEME_SCOLAIRE("Système scolaire"),
         MATIERES("Matières"),
-        PIECES_JUSTIFICATIVES("Pieces justificatives"),
+        PIECES_JUSTIFICATIVES("Pièces justificatives"),
         TEMPLATE_EMAIL("Templates email");
 
         private String label;
