@@ -295,14 +295,13 @@ public class InscriptionServiceImpl implements InscriptionService {
     @Override
     @Transactional(readOnly = true)
     public List<InfoParent> findInfoParentByDossierId(Long dossierId) {
-        List<InfoParent> infoParentList = infoParentRepos.findByDossierId(dossierId);
-        return infoParentList;
+        return infoParentRepos.findByDossierId(dossierId);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<EtablissementScolaire> findEtablissementByFilter(EtablissementFilterDTO filter) {
-        Specifications spec = Specifications.where(EtablissementScolaireSpec.nomLike(filter.getNom()));
+        Specifications<EtablissementScolaire> spec = Specifications.where(EtablissementScolaireSpec.nomLike(filter.getNom()));
 
         if (filter.getVille() != null) {
             spec = spec.and(EtablissementScolaireSpec.villeEqual(filter.getVille()));
@@ -380,11 +379,14 @@ public class InscriptionServiceImpl implements InscriptionService {
     @Transactional(readOnly = true)
     public Boolean statusInscriptionOpened() {
         Settings setting = settingsRepos.findOne(SettingsKey.STATUS);
-        if (GlobalParameters.APP_STATUS_OPENED.equals(setting.getValue())) {
-            return true;
-        } else {
-            return false;
-        }
+        return GlobalParameters.APP_STATUS_OPENED.equals(setting.getValue());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Boolean statusFilieresGeneralesOpened() {
+        Settings setting = settingsRepos.findOne(SettingsKey.FILIERE_GENERAL_CLOSED);
+        return GlobalParameters.APP_STATUS_OPENED.equals(setting.getValue());
     }
 
     private void validatedDossier(Long dossierId, Set<String> errors) {
@@ -395,20 +397,20 @@ public class InscriptionServiceImpl implements InscriptionService {
             Filiere filiere = dossier.getFiliere();
             NiveauEtude niveauEtude = dossier.getNiveauEtude();
 
-            if (filiere.getId() == GlobalParameters.SECTION_FRANCAISE &&
-                    (niveauEtude.getId() == GlobalParameters.PETITE_SECTION ||
-                            niveauEtude.getId() == GlobalParameters.MOYENNE_SECTION ||
-                            niveauEtude.getId() == GlobalParameters.GRANDE_SECTION)) {
+            if (filiere.getId().longValue() == GlobalParameters.SECTION_FRANCAISE.longValue() &&
+                    (niveauEtude.getId().longValue() == GlobalParameters.PETITE_SECTION.longValue() ||
+                            niveauEtude.getId().longValue() == GlobalParameters.MOYENNE_SECTION.longValue() ||
+                            niveauEtude.getId().longValue() == GlobalParameters.GRANDE_SECTION.longValue())) {
                 Integer validBirthYear = DateUtils.currentYear() - niveauEtude.getAnnee();
                 Integer birthYear = DateUtils.getYear(dossier.getCandidat().getBirthDate());
 
                 if (birthYear.compareTo(validBirthYear) != 0) {
                     String message = "";
-                    if (niveauEtude.getId() == GlobalParameters.PETITE_SECTION) {
+                    if (niveauEtude.getId().longValue() == GlobalParameters.PETITE_SECTION.longValue()) {
                         message = messageBean.getMessage("petiteSectionAge");
-                    } else if (niveauEtude.getId() == GlobalParameters.MOYENNE_SECTION) {
+                    } else if (niveauEtude.getId().longValue() == GlobalParameters.MOYENNE_SECTION.longValue()) {
                         message = messageBean.getMessage("moyenneSectionAge");
-                    } else if (niveauEtude.getId() == GlobalParameters.GRANDE_SECTION) {
+                    } else if (niveauEtude.getId().longValue() == GlobalParameters.GRANDE_SECTION.longValue()) {
                         message = messageBean.getMessage("grandeSectionAge");
                     }
 
@@ -422,16 +424,15 @@ public class InscriptionServiceImpl implements InscriptionService {
                 }
 
                 ValueList bacSerie = dossier.getCandidat().getBacSerie();
-                if (niveauEtude.getId() == GlobalParameters.BAC_SGT_ECO
-                        && bacSerie.getId() != GlobalParameters.BAC_ECO) {
+                if (niveauEtude.getId().longValue() == GlobalParameters.BAC_SGT_ECO.longValue()
+                        && bacSerie.getId().longValue() != GlobalParameters.BAC_ECO.longValue()) {
                     errors.add(messageBean.getMessage("bacECORequired"));
                     return;
                 }
 
-                if (niveauEtude.getId() == GlobalParameters.BAC_AUTRES
-                        && bacSerie.getId() == GlobalParameters.BAC_ECO) {
+                if (niveauEtude.getId().longValue() == GlobalParameters.BAC_AUTRES.longValue()
+                        && bacSerie.getId().longValue() == GlobalParameters.BAC_ECO.longValue()) {
                     errors.add(messageBean.getMessage("bacAutresRequired"));
-                    return;
                 }
             }
         }

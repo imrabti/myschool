@@ -98,7 +98,19 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
     public void setInscriptionStatusOpened(Boolean opened) {
         add.setEnabled(opened);
         actionsCell.setInscriptionOpened(opened);
-        closedInscriptions.setVisible(!opened);
+    }
+
+    @Override
+    public void setFiliereGeneralesOpened(Boolean opened) {
+        actionsCell.setFilieresGeneralesOpened(opened);
+    }
+
+    @Override
+    public void setAlertMessage(Boolean visible, Boolean type) {
+        closedInscriptions.setVisible(visible);
+        closedInscriptions.setText(type ? "Les pré-inscriptions pour les filières générales sont fermées"
+                : "Les pré-inscriptions sont fermées");
+        closedInscriptions.setType(type ? AlertType.WARNING : AlertType.ERROR);
     }
 
     @UiHandler("add")
