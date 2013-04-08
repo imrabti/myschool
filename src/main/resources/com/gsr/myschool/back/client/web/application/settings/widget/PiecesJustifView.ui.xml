@@ -20,10 +20,6 @@
     </ui:style>
 
     <g:HTMLPanel styleName="{style.wrapper}">
-        <h3 class="{clientResources.sharedStyleCss.mediumTitle}">
-            Pieces justificatives
-        </h3>
-
         <boot:Well addStyleNames="{style.enhancedWell}">
             <s:PiecesJustifEditor ui:field="piecesJustifEditor"/>
             <boot:Button text="Ajouter" icon="PLUS" ui:field="addPiece"/>

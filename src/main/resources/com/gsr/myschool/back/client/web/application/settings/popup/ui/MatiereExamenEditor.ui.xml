@@ -1,31 +1,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-    <ui:style>
-        .valueContainer {
-            float: left;
-            width: 600px;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            padding-right: 10px;
-        }
-
-        .motifInput {
-            border-bottom: 1px solid #999999 !important;
-            width: 580px;
-            box-shadow: none !important;
-            border-radius: 0px !important;
-        }
-
-        .clear {
-            clear: both;
-        }
-    </ui:style>
-
     <g:HTMLPanel>
-        <div class="{style.valueContainer}">
-            <g:SuggestBox ui:field="nom" addStyleNames="{style.motifInput}"/>
-        </div>
-
-        <div class="{style.clear}"/>
+        <g:SuggestBox ui:field="nom" width="100%"/>
     </g:HTMLPanel>
 </ui:UiBinder>
