@@ -1,0 +1,22 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
+
+    <ui:with field="helpMessage" type="com.gsr.myschool.common.client.resource.message.HelpMessageBundle"/>
+    <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
+
+    <g:HTMLPanel>
+        <boot:Form type="INLINE">
+            <boot:ControlGroup>
+                <boot:ControlLabel>Sujet</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:TextBox ui:field="subject" width="250px"/>
+                </boot:Controls>
+                <boot:ControlLabel>Message</boot:ControlLabel>
+                <boot:Controls>
+                    <boot:TextArea ui:field="message" width="400px" visibleLines="8"/>
+                </boot:Controls>
+            </boot:ControlGroup>
+        </boot:Form>
+    </g:HTMLPanel>
+</ui:UiBinder>

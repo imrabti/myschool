@@ -16,7 +16,9 @@
 
 package com.gsr.myschool.server.service;
 
+import com.gsr.myschool.common.shared.type.EmailType;
 import com.gsr.myschool.common.shared.type.SettingsKey;
+import com.gsr.myschool.server.business.EmailTemplate;
 import com.gsr.myschool.server.business.core.Filiere;
 import com.gsr.myschool.server.business.core.MatiereExamen;
 import com.gsr.myschool.server.business.core.NiveauEtude;
@@ -44,4 +46,8 @@ public interface SettingsService {
     Boolean addPieceJustif(PieceJustif piece);
 
     Boolean addMatiereExamen(MatiereExamen matiere);
+
+    Boolean updateTemplateEmail(EmailTemplate template);
+
+    EmailTemplate findEmailTemplateByCode(EmailType code);
 }

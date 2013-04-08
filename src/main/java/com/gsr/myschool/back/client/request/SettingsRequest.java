@@ -19,11 +19,10 @@ package com.gsr.myschool.back.client.request;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
-import com.gsr.myschool.common.client.proxy.FiliereProxy;
-import com.gsr.myschool.common.client.proxy.MatiereExamenProxy;
-import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
-import com.gsr.myschool.common.client.proxy.PieceJustifProxy;
+import com.gsr.myschool.common.client.proxy.*;
+import com.gsr.myschool.common.shared.type.EmailType;
 import com.gsr.myschool.common.shared.type.SettingsKey;
+import com.gsr.myschool.server.business.EmailTemplate;
 import com.gsr.myschool.server.service.impl.SettingsServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
 
@@ -50,4 +49,8 @@ public interface SettingsRequest extends RequestContext {
     Request<Boolean> addPieceJustif(PieceJustifProxy piece);
 
     Request<Boolean> addMatiereExamen(MatiereExamenProxy matiere);
+
+    Request<Boolean> updateTemplateEmail(EmailTemplateProxy template);
+
+    Request<EmailTemplateProxy> findEmailTemplateByCode(EmailType code);
 }

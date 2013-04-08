@@ -79,6 +79,8 @@ public class ValueTypeEditor extends Composite implements EditorView<ValueTypePr
         getParents();
         getRegexp();
 
+        parent.setVisible(false);
+
         $(code).id("code");
     }
 

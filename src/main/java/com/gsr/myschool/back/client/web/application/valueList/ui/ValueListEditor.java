@@ -65,6 +65,7 @@ public class ValueListEditor extends Composite implements EditorView<ValueListPr
         driver.initialize(this);
 
         getParents();
+        parent.setVisible(false);
 
         $(value).id("value");
         $(label).id("label");
