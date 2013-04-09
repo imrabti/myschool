@@ -127,6 +127,11 @@ public class NiveauEtudeInfosView extends ValidatedPopupViewImplWithUiHandlers<N
     }
 
     @Override
+    public void initForm() {
+        initializeEvents();
+    }
+
+    @Override
     public void setDataPieceJustf(List<PieceJustifProxy> response) {
         pieceJustifList.setPageSize(response.size());
         dataProviderPieces.getList().clear();
