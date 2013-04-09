@@ -42,6 +42,8 @@ public class NiveauEtudeInfosPresenter extends PresenterWidget<NiveauEtudeInfosP
         void setDataPieceJustf(List<PieceJustifProxy> response);
 
         void setDataMatiereExamen(List<MatiereExamenProxy> response);
+
+        void initForm();
     }
 
     private final BackRequestFactory requestFactory;
@@ -78,7 +80,8 @@ public class NiveauEtudeInfosPresenter extends PresenterWidget<NiveauEtudeInfosP
                         MessageEvent.fire(this, message);
 
                         if (aBoolean) {
-                            getView().hide();
+                            fillCellList();
+                            getView().initForm();
                         }
                     }
                 });
@@ -96,7 +99,8 @@ public class NiveauEtudeInfosPresenter extends PresenterWidget<NiveauEtudeInfosP
                         MessageEvent.fire(this, message);
 
                         if (aBoolean) {
-                            getView().hide();
+                            fillCellList();
+                            getView().initForm();
                         }
                     }
                 });
