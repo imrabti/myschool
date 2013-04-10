@@ -24,6 +24,7 @@ import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.core.PieceJustif;
 import com.gsr.myschool.server.process.ValidationProcessService;
+import com.gsr.myschool.server.process.impl.ValidationProcessServiceImpl.ValidationTask;
 import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.repos.PieceJustifRepos;
 import com.gsr.myschool.server.repos.spec.DossierSpec;
@@ -77,8 +78,13 @@ public class DossierServiceImpl implements DossierService {
     }
 
     @Override
-    public List<PiecejustifDTO> getPieceJustifFromProcess(Dossier dossier) {
-        return validationProcessService.getPieceJustifFromProcess(dossier.getId());
+    public List<PiecejustifDTO> getPieceJustifFromProcessValidation(Dossier dossier) {
+        return validationProcessService.getPieceJustifFromProcess(dossier.getId(), ValidationTask.VALIDATION);
+    }
+
+    @Override
+    public List<PiecejustifDTO> getPieceJustifFromProcessStandby(Dossier dossier) {
+        return validationProcessService.getPieceJustifFromProcess(dossier.getId(), ValidationTask.RECEPTION);
     }
 
     @Override
@@ -104,7 +110,8 @@ public class DossierServiceImpl implements DossierService {
             dossierRepos.save(verifiedDossier);
         } else {
             Dossier dossier = dossierRepos.findOne(dossierId);
-            List<PiecejustifDTO> piecejustifDTOs = validationProcessService.getPieceJustifFromProcess(dossier.getId());
+            List<PiecejustifDTO> piecejustifDTOs = validationProcessService.getPieceJustifFromProcess(dossier.getId(),
+                    ValidationTask.VALIDATION);
             for (PiecejustifDTO piece : piecejustifDTOs) {
                 if (pieceNotAvailable.containsKey(piece.getId())) {
                     piece.setAvailable(false);

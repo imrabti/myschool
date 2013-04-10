@@ -18,6 +18,7 @@ package com.gsr.myschool.server.process;
 
 import com.gsr.myschool.common.shared.dto.PiecejustifDTO;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.process.impl.ValidationProcessServiceImpl.ValidationTask;
 import org.activiti.engine.task.Task;
 
 import java.util.List;
@@ -61,7 +62,7 @@ public interface ValidationProcessService {
      * @param dossierId
      * @return
      */
-    List<PiecejustifDTO> getPieceJustifFromProcess(Long dossierId);
+    List<PiecejustifDTO> getPieceJustifFromProcess(Long dossierId, ValidationTask step);
 
     /**
      * Returns the Dossier that had been received and ready to be validated,

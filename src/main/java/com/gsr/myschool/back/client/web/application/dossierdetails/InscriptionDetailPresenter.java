@@ -26,6 +26,7 @@ import com.gsr.myschool.common.client.proxy.*;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.ParentType;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -53,6 +54,10 @@ public class InscriptionDetailPresenter extends Presenter<InscriptionDetailPrese
         void setScolariteActuelle(ScolariteActuelleProxy scolariteActuelle);
 
         void setFraterie(List<FraterieProxy> fraterieList);
+
+        void setPiecesJustificatives(List<PiecejustifDTOProxy> piecesJustificatives);
+
+        void hidePiecesJustificatives();
     }
 
     @ProxyStandard
@@ -89,6 +94,7 @@ public class InscriptionDetailPresenter extends Presenter<InscriptionDetailPrese
 
                 loadInfoParent();
                 loadFraterie();
+                loadPiecesJustificatives();
             }
         });
     }
@@ -123,5 +129,19 @@ public class InscriptionDetailPresenter extends Presenter<InscriptionDetailPrese
                         getView().setFraterie(result);
                     }
                 });
+    }
+
+    private void loadPiecesJustificatives() {
+        if (currentDossier.getStatus() == DossierStatus.STANDBY) {
+            requestFactory.dossierService().getPieceJustifFromProcessStandby(currentDossier)
+                    .fire(new ReceiverImpl<List<PiecejustifDTOProxy>>() {
+                        @Override
+                        public void onSuccess(List<PiecejustifDTOProxy> result) {
+                            getView().setPiecesJustificatives(result);
+                        }
+                    });
+        } else {
+            getView().hidePiecesJustificatives();
+        }
     }
 }

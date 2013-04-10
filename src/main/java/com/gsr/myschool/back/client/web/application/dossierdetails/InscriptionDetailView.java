@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.back.client.web.application.dossierdetails;
 
+import com.github.gwtbootstrap.client.ui.AccordionGroup;
 import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.common.base.Objects;
@@ -46,6 +47,7 @@ import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.type.ParentType;
 import com.gsr.myschool.common.shared.type.TypeEnseignement;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -70,10 +72,15 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
     HTMLPanel scolariteActuellePanel;
     @UiField
     CellTable<FraterieProxy> fraterieTable;
+    @UiField
+    CellTable<PiecejustifDTOProxy> piecesTable;
+    @UiField
+    AccordionGroup piecesJustifPanel;
 
     private final DateTimeFormat dateFormat;
     private final MessageBundle messageBundle;
     private final ListDataProvider<FraterieProxy> fraterieDataProvider;
+    private final ListDataProvider<PiecejustifDTOProxy> piecesDataProvider;
     private final RowLabelValueFactory rowLabelValueFactory;
 
     @Inject
@@ -88,12 +95,16 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
 
         initWidget(uiBinder.createAndBindUi(this));
         initFraterieDataGrid();
+        initPiecesDataGrid();
 
         dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
         fraterieDataProvider = new ListDataProvider<FraterieProxy>();
+        piecesDataProvider = new ListDataProvider<PiecejustifDTOProxy>();
 
         fraterieDataProvider.addDataDisplay(fraterieTable);
+        piecesDataProvider.addDataDisplay(piecesTable);
         fraterieTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
+        piecesTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
     }
 
     @UiHandler("back")
@@ -253,6 +264,25 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
         fraterieDataProvider.getList().addAll(data);
     }
 
+    @Override
+    public void setPiecesJustificatives(List<PiecejustifDTOProxy> piecesJustificatives) {
+        List<PiecejustifDTOProxy> missing = new ArrayList<PiecejustifDTOProxy>();
+        for (PiecejustifDTOProxy piece : piecesJustificatives) {
+            if (!piece.getAvailable()) {
+                missing.add(piece);
+            }
+        }
+
+        piecesJustifPanel.setVisible(true);
+        piecesDataProvider.getList().clear();
+        piecesDataProvider.getList().addAll(missing);
+    }
+
+    @Override
+    public void hidePiecesJustificatives() {
+        piecesJustifPanel.setVisible(false);
+    }
+
     private void initFraterieDataGrid() {
         TextColumn<FraterieProxy> nomPrenomColumn = new TextColumn<FraterieProxy>() {
             @Override
@@ -297,6 +327,28 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
         etablissementColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         fraterieTable.addColumn(etablissementColumn, "Etablissement");
         fraterieTable.setColumnWidth(etablissementColumn, 30, Style.Unit.PCT);
+    }
+
+    private void initPiecesDataGrid() {
+        TextColumn<PiecejustifDTOProxy> nomTitleColumn = new TextColumn<PiecejustifDTOProxy>() {
+            @Override
+            public String getValue(PiecejustifDTOProxy object) {
+                return object.getNom();
+            }
+        };
+        nomTitleColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        piecesTable.addColumn(nomTitleColumn, "Type de la pièce");
+        piecesTable.setColumnWidth(nomTitleColumn, 50, Style.Unit.PCT);
+
+        TextColumn<PiecejustifDTOProxy> motifColumn = new TextColumn<PiecejustifDTOProxy>() {
+            @Override
+            public String getValue(PiecejustifDTOProxy object) {
+                return object.getMotif();
+            }
+        };
+        motifColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        piecesTable.addColumn(motifColumn, "Motif de refus");
+        piecesTable.setColumnWidth(motifColumn, 50, Style.Unit.PCT);
     }
 
     private void setupParentType(HTMLPanel container, InfoParentProxy infoParent) {

@@ -22,6 +22,10 @@
         </g:HTMLPanel>
 
         <boot:Accordion styleName="{style.accordionWrapper}">
+            <boot:AccordionGroup ui:field="piecesJustifPanel" heading="Pieces justificatives manquantes" defaultOpen="true">
+                <boot:CellTable ui:field="piecesTable" bordered="true"/>
+            </boot:AccordionGroup>
+
             <boot:AccordionGroup heading="Information Dossier" defaultOpen="true">
                 <g:HTMLPanel ui:field="dossierPanel"/>
             </boot:AccordionGroup>
