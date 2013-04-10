@@ -17,6 +17,7 @@
 package com.gsr.myschool.back.client.web.application.preinscription;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
@@ -130,19 +131,21 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
 
     @Override
     public void delete(DossierProxy inscription) {
-        if (inscription.getStatus() == DossierStatus.CREATED) {
-            requestFactory.inscriptionService().deleteInscription(inscription.getId()).fire(new ReceiverImpl<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    String content = messageBundle.operationSuccess();
-                    AlertType alertType = AlertType.SUCCESS;
-                    Message message = new Message.Builder(content)
-                            .style(alertType).build();
+        if (Window.confirm(messageBundle.operationConfirm())) {
+            if (inscription.getStatus() == DossierStatus.CREATED) {
+                requestFactory.inscriptionService().deleteInscription(inscription.getId()).fire(new ReceiverImpl<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        String content = messageBundle.operationSuccess();
+                        AlertType alertType = AlertType.SUCCESS;
+                        Message message = new Message.Builder(content)
+                                .style(alertType).build();
 
-                    MessageEvent.fire(this, message);
-                    loadDossiersCounts();
-                }
-            });
+                        MessageEvent.fire(this, message);
+                        loadDossiersCounts();
+                    }
+                });
+        }
         } else {
             requestFactory.inscriptionService().deleteInscriptionInProcess(inscription.getId()).fire(new ReceiverImpl<Void>() {
                 @Override
