@@ -31,7 +31,9 @@ public interface DossierService {
 
     Boolean verify(Long dossierId, List<String> notChecked);
 
-    List<PiecejustifDTO> getPieceJustifFromProcess(Dossier dossier);
+    List<PiecejustifDTO> getPieceJustifFromProcessValidation(Dossier dossier);
+
+    List<PiecejustifDTO> getPieceJustifFromProcessStandby(Dossier dossier);
 
     Boolean rejectDossier(Long dossierId, String motif);
 

@@ -90,7 +90,7 @@ public class PiecesJustificatifPresenter extends PresenterWidget<MyView> impleme
         candidatDetails.add(new LabelValue("Niveau demandé", currentDossier.getNiveauEtude().getNom()));
         getView().displayDossierDetails(currentDossier, candidatDetails);
 
-        requestFactory.dossierService().getPieceJustifFromProcess(currentDossier)
+        requestFactory.dossierService().getPieceJustifFromProcessValidation(currentDossier)
                 .fire(new ReceiverImpl<List<PiecejustifDTOProxy>>() {
                     @Override
                     public void onSuccess(List<PiecejustifDTOProxy> result) {

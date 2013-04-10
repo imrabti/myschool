@@ -164,10 +164,10 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     }
 
     @Override
-    public List<PiecejustifDTO> getPieceJustifFromProcess(Long dossierId) {
+    public List<PiecejustifDTO> getPieceJustifFromProcess(Long dossierId, ValidationTask step) {
         Task task = taskService.createTaskQuery()
                 .processInstanceBusinessKey(dossierId.toString())
-                .taskDefinitionKey(ValidationTask.VALIDATION.getValue())
+                .taskDefinitionKey(step.getValue())
                 .singleResult();
         return (List<PiecejustifDTO>) runtimeService.getVariable(task.getExecutionId(), "piecejustifs");
     }
