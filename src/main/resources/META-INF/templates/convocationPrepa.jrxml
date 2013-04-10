@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="convocationPrepa" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4c574922-4b99-490d-ae3f-1b12f7827f23">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="579"/>
+	<property name="ireport.y" value="1005"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<subDataset name="dataset1" uuid="e5e78060-9521-470f-ba62-d65999e710df">
 		<field name="matiere" class="org.apache.commons.beanutils.BeanMap">
@@ -83,7 +83,7 @@
 					<font fontName="Serif" size="8" isBold="false" isItalic="false" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[89, Avenue du 2 Mars. Casablanca
-Tél. : 0522828963/0522809050    Fax : 0522809052
+Tél. : 0522839313    Fax : 0522809052
 gsr@gsr.ac.ma      www.gsr.ac.ma]]></text>
 			</staticText>
 			<staticText>
@@ -94,14 +94,14 @@ gsr@gsr.ac.ma      www.gsr.ac.ma]]></text>
 				<text><![CDATA[La Direction]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="54" y="437" width="276" height="19"/>
+				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="54" y="453" width="276" height="19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Serif" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[EPREUVES]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="330" y="437" width="213" height="19"/>
+				<reportElement uuid="096dcc49-c9be-476f-b486-c1925ed2f55d" x="330" y="453" width="213" height="19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Serif" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
@@ -122,14 +122,14 @@ gsr@gsr.ac.ma      www.gsr.ac.ma]]></text>
 				<textFieldExpression><![CDATA["Téléphone : "+$P{phone}]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement uuid="9dbe190e-b1e7-44cf-b971-306b95b3aba9" x="54" y="457" width="489" height="15"/>
+				<reportElement uuid="9dbe190e-b1e7-44cf-b971-306b95b3aba9" x="54" y="473" width="489" height="15"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="dataset1" uuid="6ba6aefc-e885-49e9-9fd7-00eafd929b71">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{matieres})]]></dataSourceExpression>
 					</datasetRun>
 					<jr:listContents height="15" width="489">
 						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" x="0" y="0" width="276" height="14"/>
+							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" x="0" y="1" width="276" height="14"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle">
 								<font fontName="Serif" size="9" isPdfEmbedded="true"/>
 							</textElement>
@@ -143,7 +143,7 @@ gsr@gsr.ac.ma      www.gsr.ac.ma]]></text>
 							<textFieldExpression><![CDATA[$V{horaireDe}+ " - "+$V{horaireA}]]></textFieldExpression>
 						</textField>
 						<line direction="BottomUp">
-							<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="0" y="14" width="489" height="1"/>
+							<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="0" y="13" width="489" height="1"/>
 							<graphicElement>
 								<pen lineWidth="0.25"/>
 							</graphicElement>
@@ -152,13 +152,13 @@ gsr@gsr.ac.ma      www.gsr.ac.ma]]></text>
 				</jr:list>
 			</componentElement>
 			<line direction="BottomUp">
-				<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="54" y="456" width="489" height="1"/>
+				<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="54" y="472" width="489" height="1"/>
 				<graphicElement>
 					<pen lineWidth="2.0"/>
 				</graphicElement>
 			</line>
 			<line direction="BottomUp">
-				<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="54" y="437" width="489" height="1"/>
+				<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="54" y="453" width="489" height="1"/>
 				<graphicElement>
 					<pen lineWidth="2.0"/>
 				</graphicElement>
@@ -282,7 +282,7 @@ gsr@gsr.ac.ma      www.gsr.ac.ma]]></text>
 				<text><![CDATA[Votre CIN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="7771b6b4-8529-4bc8-8c08-11ab13ba205b" x="54" y="414" width="228" height="15"/>
+				<reportElement uuid="7771b6b4-8529-4bc8-8c08-11ab13ba205b" x="54" y="430" width="228" height="15"/>
 				<textElement>
 					<font fontName="Serif" isBold="true" isUnderline="true" isPdfEmbedded="true"/>
 				</textElement>
@@ -315,6 +315,13 @@ gsr@gsr.ac.ma      www.gsr.ac.ma]]></text>
 					<font fontName="Serif" size="9" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[L’accès aux salles de tests est strictement interdit au public.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7771b6b4-8529-4bc8-8c08-11ab13ba205b" x="90" y="408" width="192" height="15"/>
+				<textElement>
+					<font fontName="Serif" size="9" isBold="false" isUnderline="false" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Votre relevé de notes du Bac "National"]]></text>
 			</staticText>
 		</band>
 	</title>

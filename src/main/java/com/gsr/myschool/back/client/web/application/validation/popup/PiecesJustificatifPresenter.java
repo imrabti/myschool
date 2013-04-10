@@ -2,11 +2,13 @@ package com.gsr.myschool.back.client.web.application.validation.popup;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.DossierRequest;
 import com.gsr.myschool.back.client.web.application.validation.event.VerificationCompletedEvent;
+import com.gsr.myschool.back.client.web.application.validation.popup.PiecesJustificatifPresenter.MyView;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.PiecejustifDTOProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
@@ -18,7 +20,6 @@ import com.gsr.myschool.common.shared.dto.LabelValue;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PopupView;
 import com.gwtplatform.mvp.client.PresenterWidget;
-import com.gsr.myschool.back.client.web.application.validation.popup.PiecesJustificatifPresenter.MyView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,21 +64,22 @@ public class PiecesJustificatifPresenter extends PresenterWidget<MyView> impleme
                 notChecked.add(piece.getId() + "#" + piece.getMotif());
             }
         }
+        if (Window.confirm(messageBundle.operationConfirm())) {
+            requestFactory.dossierService().verify(dossierId, notChecked).fire(new ReceiverImpl<Boolean>() {
+                @Override
+                public void onSuccess(Boolean response) {
+                    String messageString = response ? messageBundle.operationSuccess() : messageBundle.operationFailure();
+                    AlertType alertType = response ? AlertType.SUCCESS : AlertType.ERROR;
+                    Message message = new Message.Builder(messageString).style(alertType).build();
+                    MessageEvent.fire(this, message);
 
-        requestFactory.dossierService().verify(dossierId, notChecked).fire(new ReceiverImpl<Boolean>() {
-            @Override
-            public void onSuccess(Boolean response) {
-                String messageString = response ? messageBundle.operationSuccess() : messageBundle.operationFailure();
-                AlertType alertType = response ? AlertType.SUCCESS : AlertType.ERROR;
-                Message message = new Message.Builder(messageString).style(alertType).build();
-                MessageEvent.fire(this, message);
-
-                if (response) {
-                    getView().hide();
-                    VerificationCompletedEvent.fire(this);
+                    if (response) {
+                        getView().hide();
+                        VerificationCompletedEvent.fire(this);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     @Override
