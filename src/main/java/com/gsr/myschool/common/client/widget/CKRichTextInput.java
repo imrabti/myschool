@@ -21,7 +21,6 @@ public class CKRichTextInput extends Composite implements LeafValueEditor<String
         line.add(CKConfig.TOOLBAR_OPTIONS.Bold);
         line.add(CKConfig.TOOLBAR_OPTIONS.Italic);
         line.add(CKConfig.TOOLBAR_OPTIONS.Underline);
-        line.add(CKConfig.TOOLBAR_OPTIONS.Strike);
 
         line.addBlockSeparator();
 
@@ -44,7 +43,6 @@ public class CKRichTextInput extends Composite implements LeafValueEditor<String
         line.addBlockSeparator();
 
         line.add(CKConfig.TOOLBAR_OPTIONS.Paste);
-        line.add(CKConfig.TOOLBAR_OPTIONS.PasteFromWord);
         line.add(CKConfig.TOOLBAR_OPTIONS.PasteText);
 
         ToolbarLine line2 = new ToolbarLine();
