@@ -145,21 +145,21 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
                         loadDossiersCounts();
                     }
                 });
-        }
-        } else {
-            requestFactory.inscriptionService().deleteInscriptionInProcess(inscription.getId()).fire(new ReceiverImpl<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    String content = messageBundle.operationSuccess();
-                    AlertType alertType = AlertType.SUCCESS;
-                    Message message = new Message.Builder(content)
-                            .style(alertType).build();
+            } else {
+                requestFactory.inscriptionService().deleteInscriptionInProcess(inscription.getId()).fire(new ReceiverImpl<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        String content = messageBundle.operationSuccess();
+                        AlertType alertType = AlertType.SUCCESS;
+                        Message message = new Message.Builder(content)
+                                .style(alertType).build();
 
-                    MessageEvent.fire(this, message);
-                    loadDossiersCounts();
+                        MessageEvent.fire(this, message);
+                        loadDossiersCounts();
 
-                }
-            });
+                    }
+                });
+            }
         }
     }
 
