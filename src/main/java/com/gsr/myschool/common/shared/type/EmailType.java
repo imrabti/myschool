@@ -13,7 +13,7 @@ public enum EmailType {
     SESSION_CANCELED("Annulation de session de test concours"),
     CONVOCATED_FOR_TEST("Convocation au test concours d’admission"),
     FINAL_ADMISSION("Acceptation finale"),
-    FINAL_REJECTION("Acceptation finale");
+    FINAL_REJECTION("Refus finale");
 
     private String label;
 

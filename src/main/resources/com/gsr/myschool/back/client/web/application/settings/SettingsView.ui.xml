@@ -48,8 +48,8 @@
                     <g:Label addStyleNames="{style.label}" text="Statut pour les filières générales"/>
 
                     <boot:ButtonGroup>
-                        <boot:Button ui:field="desactivateGeneralFiliere">OFF</boot:Button>
-                        <boot:Button ui:field="activateGeneralFiliere">ON</boot:Button>
+                        <boot:Button ui:field="desactivateGeneralFiliere">FERMER</boot:Button>
+                        <boot:Button ui:field="activateGeneralFiliere">OUVRIR</boot:Button>
                     </boot:ButtonGroup>
                 </div>
 
@@ -57,8 +57,8 @@
                     <g:Label addStyleNames="{style.label}" text="Statut des pré-inscriptions"/>
 
                     <boot:ButtonGroup>
-                        <boot:Button ui:field="desactivate">OFF</boot:Button>
-                        <boot:Button ui:field="activate">ON</boot:Button>
+                        <boot:Button ui:field="desactivate">FERMER</boot:Button>
+                        <boot:Button ui:field="activate">OUVRIR</boot:Button>
                     </boot:ButtonGroup>
                 </div>
 
