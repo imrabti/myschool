@@ -36,4 +36,6 @@ public interface SharedMessageBundle extends Messages {
     String inscriptionClosed();
 
     String affectationClosed();
+
+	String operationConfirm();
 }
