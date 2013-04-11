@@ -15,7 +15,7 @@ public class EmailTemplate implements Serializable {
     private Long id;
     @Enumerated
     private EmailType code;
-    @Column(length = 450)
+    @Column(length = 1000)
     private String message;
     private String subject;
     private Date created;
