@@ -13,7 +13,7 @@ public class InboxMessage implements java.io.Serializable {
     @ManyToOne
     private User parentUser;
     private String subject;
-    @Column(length = 455)
+    @Column(length = 1000)
     private String content;
     private Date msgDate;
     @Enumerated
