@@ -26,13 +26,11 @@ import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.front.client.resource.FrontResources;
 import com.gsr.myschool.common.client.util.ValueList;
 import com.gwtplatform.mvp.client.Bootstrapper;
-import com.gwtplatform.mvp.client.annotations.Bootstrap;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 
 import java.util.logging.Logger;
 
-@Bootstrap
 public class BootstrapperImpl implements Bootstrapper {
     private final static Logger logger = Logger.getLogger(BootstrapperImpl.class.getName());
 

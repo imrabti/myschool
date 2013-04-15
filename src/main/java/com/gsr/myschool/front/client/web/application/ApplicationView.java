@@ -16,7 +16,7 @@
 
 package com.gsr.myschool.front.client.web.application;
 
-import com.gsr.myschool.common.client.mvp.ViewImpl;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.gsr.myschool.common.client.widget.AjaxLoader;
 import com.gsr.myschool.front.client.web.application.widget.footer.FooterView;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -25,6 +25,7 @@ import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import com.gwtplatform.mvp.client.ViewImpl;
 
 public class ApplicationView extends ViewImpl implements ApplicationPresenter.MyView {
     public interface Binder extends UiBinder<Widget, ApplicationView> {
@@ -51,7 +52,7 @@ public class ApplicationView extends ViewImpl implements ApplicationPresenter.My
     }
 
     @Override
-    public void setInSlot(Object slot, Widget content) {
+    public void setInSlot(Object slot, IsWidget content) {
         if (content != null) {
             if (slot == ApplicationPresenter.TYPE_SetMainContent) {
                 mainDisplay.setWidget(content);

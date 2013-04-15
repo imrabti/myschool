@@ -16,27 +16,24 @@
 
 package com.gsr.myschool.common.client.mvp;
 
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
+import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public abstract class ValidatedViewWithUiHandlers<H extends UiHandlers> extends ValidatedViewImpl
-        implements UiHandlersStrategy<H> {
-    private UiHandlersStrategy<H> uiHandlersStrategy;
+        implements HasUiHandlers<H> {
+    private H uiHandlers;
 
-    public ValidatedViewWithUiHandlers(final UiHandlersStrategy<H> uiHandlersStrategy,
-                                       final ValidationErrorPopup errorPopup) {
+    public ValidatedViewWithUiHandlers(final ValidationErrorPopup errorPopup) {
         super(errorPopup);
-        this.uiHandlersStrategy = uiHandlersStrategy;
     }
 
-    @Override
-    public H getUiHandlers() {
-        return uiHandlersStrategy.getUiHandlers();
+    protected H getUiHandlers() {
+        return uiHandlers;
     }
 
     @Override
     public void setUiHandlers(H uiHandlers) {
-        uiHandlersStrategy.setUiHandlers(uiHandlers);
+        this.uiHandlers = uiHandlers;
     }
 }

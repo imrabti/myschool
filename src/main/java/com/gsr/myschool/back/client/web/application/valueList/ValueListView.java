@@ -28,19 +28,18 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
-import com.gsr.myschool.back.client.resource.message.MessageBundle;
 import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueListActionCell;
 import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueListActionCellFactory;
-import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import java.util.List;
 
@@ -64,11 +63,8 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
 
     @Inject
     public ValueListView(final Binder uiBinder,
-                         final UiHandlersStrategy<ValueListUiHandlers> uiHandlers,
                          final SharedMessageBundle sharedMessageBundle,
                          final ValueListActionCellFactory actionCellFactory) {
-        super(uiHandlers);
-
         initWidget(uiBinder.createAndBindUi(this));
         initActions();
         initDataGrid();
@@ -84,7 +80,7 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
     }
 
     @Override
-    public void setInSlot(Object slot, Widget content) {
+    public void setInSlot(Object slot, IsWidget content) {
         if (content != null) {
             if (slot == ValueListPresenter.TYPE_SetValueTypeContent) {
                 valueTypeDisplay.setWidget(content);

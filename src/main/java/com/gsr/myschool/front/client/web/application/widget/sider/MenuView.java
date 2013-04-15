@@ -9,8 +9,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements MenuPresenter.MyView {
     public interface Binder extends UiBinder<Widget, MenuView> {
@@ -30,8 +29,7 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
     private MenuItem currentMenu;
 
     @Inject
-    public MenuView(final Binder uiBinder, final UiHandlersStrategy<MenuUiHandlers> uiHandlersStrategy) {
-        super(uiHandlersStrategy);
+    public MenuView(final Binder uiBinder) {
         initWidget(uiBinder.createAndBindUi(this));
     }
 

@@ -16,9 +16,6 @@
 
 package com.gsr.myschool.front.client.web.application;
 
-import com.google.inject.TypeLiteral;
-import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.front.client.web.application.convocation.ConvocationModule;
 import com.gsr.myschool.front.client.web.application.help.HelpModule;
 import com.gsr.myschool.front.client.web.application.inbox.InboxModule;
@@ -42,12 +39,9 @@ public class ApplicationModule extends AbstractPresenterModule {
         install(new InboxModule());
         install(new HelpModule());
 
-        bind(new TypeLiteral<UiHandlersStrategy<HeaderUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<HeaderUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<MenuUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<MenuUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<AccountSettingsUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<AccountSettingsUiHandlers>>() {});
+        bind(HeaderUiHandlers.class).to(HeaderPresenter.class);
+        bind(MenuUiHandlers.class).to(MenuPresenter.class);
+        bind(AccountSettingsUiHandlers.class).to(AccountSettingsPresenter.class);
 
         bindPresenter(ApplicationPresenter.class, ApplicationPresenter.MyView.class, ApplicationView.class,
                 ApplicationPresenter.MyProxy.class);

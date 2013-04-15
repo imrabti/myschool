@@ -23,6 +23,7 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
+import com.gwtplatform.mvp.client.PopupViewImpl;
 
 import javax.validation.ConstraintViolation;
 import java.util.Set;

@@ -27,7 +27,6 @@ import com.gsr.myschool.common.client.util.CallbackImpl;
 import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gwtplatform.mvp.client.Bootstrapper;
-import com.gwtplatform.mvp.client.annotations.Bootstrap;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 
@@ -35,7 +34,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-@Bootstrap
 public class BootstrapperImpl implements Bootstrapper {
     private final static Logger logger = Logger.getLogger(BootstrapperImpl.class.getName());
 

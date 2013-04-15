@@ -28,10 +28,9 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.shared.dto.UserCredentials;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 public class LoginView extends ViewWithUiHandlers<LoginUiHandlers> implements LoginPresenter.MyView,
         EditorView<UserCredentials> {
@@ -49,10 +48,7 @@ public class LoginView extends ViewWithUiHandlers<LoginUiHandlers> implements Lo
     private final Driver driver;
 
     @Inject
-    public LoginView(final Binder uiBinder, final Driver driver,
-                     final UiHandlersStrategy<LoginUiHandlers> uiHandlers) {
-        super(uiHandlers);
-
+    public LoginView(final Binder uiBinder, final Driver driver) {
         this.driver = driver;
 
         initWidget(uiBinder.createAndBindUi(this));

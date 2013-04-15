@@ -28,7 +28,6 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
 import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.InboxProxy;
 import com.gsr.myschool.common.client.widget.ModalHeader;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
@@ -52,9 +51,8 @@ public class InboxDetailsView extends ValidatedPopupViewImplWithUiHandlers<Inbox
     protected InboxDetailsView(final EventBus eventBus, final Binder uiBinder,
                                final ValidationErrorPopup errorPopup,
                                final ModalHeader modalHeader,
-                               final MessageBundle messages,
-                               final UiHandlersStrategy<InboxDetailsUiHandlers> uiHandlers) {
-        super(eventBus, errorPopup, uiHandlers);
+                               final MessageBundle messages) {
+        super(eventBus, errorPopup);
 
         this.messages = messages;
         this.modalHeader = modalHeader;

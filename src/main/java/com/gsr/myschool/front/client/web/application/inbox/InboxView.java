@@ -19,27 +19,21 @@ package com.gsr.myschool.front.client.web.application.inbox;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.cell.client.ActionCell;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.DoubleClickEvent;
-import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellList;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.inject.Inject;
-import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.InboxProxy;
-import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
 import com.gsr.myschool.common.shared.type.InboxMessageStatus;
 import com.gsr.myschool.front.client.resource.style.InboxListStyle;
-import com.gsr.myschool.front.client.web.application.inbox.renderer.InboxCell;
 import com.gsr.myschool.front.client.web.application.inbox.renderer.InboxCellFactory;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,12 +50,9 @@ public class InboxView extends ViewWithUiHandlers<InboxUiHandlers> implements In
 
     @Inject
     public InboxView(final Binder uiBinder,
-                     final UiHandlersStrategy<InboxUiHandlers> uiHandlers,
                      final SharedMessageBundle sharedMessageBundle,
                      final InboxCellFactory inboxCellFactory,
                      final InboxListStyle listStyle) {
-        super(uiHandlers);
-
         this.dataProvider = new ListDataProvider<InboxProxy>();
         this.multipleSelectionModel = new MultiSelectionModel<InboxProxy>();
         this.inboxTable = new CellList<InboxProxy>(inboxCellFactory.create(setupShowDetails()), listStyle);

@@ -6,7 +6,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ValidatedViewWithUiHandlers;
 import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.EtablissementScolaireProxy;
 import com.gsr.myschool.common.client.proxy.ScolariteActuelleDTOProxy;
 import com.gsr.myschool.common.client.ui.dossier.ScolariteActuelleEditor;
@@ -21,9 +20,8 @@ public class ScolariteActuelleView extends ValidatedViewWithUiHandlers<Scolarite
 
     @Inject
     public ScolariteActuelleView(final Binder uiBinder, final ValidationErrorPopup errorPopup,
-                                 final UiHandlersStrategy<ScolariteActuelleUiHandlers> uiHandlersStrategy,
                                  final ScolariteActuelleEditor scolariteActuelleEditor) {
-        super(uiHandlersStrategy, errorPopup);
+        super(errorPopup);
 
         this.scolariteActuelleEditor = scolariteActuelleEditor;
 

@@ -20,8 +20,6 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
-import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.CandidatProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.FraterieProxy;
@@ -35,6 +33,7 @@ import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.ParentType;
 import com.gsr.myschool.common.shared.type.TypeEnseignement;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import java.util.List;
 import java.util.Map;
@@ -74,11 +73,8 @@ public class InscriptionDetailView extends ViewWithUiHandlers<InscriptionDetailU
 
     @Inject
     public InscriptionDetailView(final Binder uiBinder, final MessageBundle messageBundle,
-                                 final UiHandlersStrategy<InscriptionDetailUiHandlers> uiHandlersStrategy,
                                  final RowLabelValueFactory rowLabelValueFactory,
                                  final SharedMessageBundle sharedMessageBundle) {
-        super(uiHandlersStrategy);
-
         this.messageBundle = messageBundle;
         this.rowLabelValueFactory = rowLabelValueFactory;
 

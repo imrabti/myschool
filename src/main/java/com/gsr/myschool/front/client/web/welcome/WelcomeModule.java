@@ -16,9 +16,6 @@
 
 package com.gsr.myschool.front.client.web.welcome;
 
-import com.google.inject.TypeLiteral;
-import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.front.client.web.welcome.popup.*;
 import com.gsr.myschool.front.client.web.welcome.widget.ResetPasswordPresenter;
 import com.gsr.myschool.front.client.web.welcome.widget.ResetPasswordUiHandlers;
@@ -34,16 +31,11 @@ import com.gsr.myschool.front.client.web.welcome.widget.RegisterView;
 public class WelcomeModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
-        bind(new TypeLiteral<UiHandlersStrategy<LoginUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<LoginUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<RegisterUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<RegisterUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<ForgotPasswordUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<ForgotPasswordUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<ResetPasswordUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<ResetPasswordUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<ResendmailUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<ResendmailUiHandlers>>() {});
+        bind(LoginUiHandlers.class).to(LoginPresenter.class);
+        bind(RegisterUiHandlers.class).to(RegisterPresenter.class);
+        bind(ForgotPasswordUiHandlers.class).to(ForgotPasswordPresenter.class);
+        bind(ResetPasswordUiHandlers.class).to(ResetPasswordUiHandlers.class);
+        bind(ResendmailUiHandlers.class).to(ResendmailPresenter.class);
 
         bindPresenter(WelcomePresenter.class, WelcomePresenter.MyView.class, WelcomeView.class,
                 WelcomePresenter.MyProxy.class);

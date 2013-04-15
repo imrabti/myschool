@@ -17,28 +17,21 @@
 package com.gsr.myschool.back.client.web.application.valueList;
 
 import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
-import com.google.inject.TypeLiteral;
 import com.gsr.myschool.back.client.web.application.valueList.popup.*;
 import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueListActionCellFactory;
 import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueTypeActionCellFactory;
 import com.gsr.myschool.back.client.web.application.valueList.widget.ValueTypePresenter;
 import com.gsr.myschool.back.client.web.application.valueList.widget.ValueTypeUiHandlers;
 import com.gsr.myschool.back.client.web.application.valueList.widget.ValueTypeView;
-import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 public class ValueListModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
-        bind(new TypeLiteral<UiHandlersStrategy<AddValueTypeUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<AddValueTypeUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<ValueTypeUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<ValueTypeUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<AddValueListUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<AddValueListUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<ValueListUiHandlers>>(){})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<ValueListUiHandlers>>(){});
+        bind(AddValueTypeUiHandlers.class).to(AddValueTypePresenter.class);
+        bind(ValueTypeUiHandlers.class).to(ValueTypePresenter.class);
+        bind(AddValueListUiHandlers.class).to(AddValueListPresenter.class);
+        bind(ValueListUiHandlers.class).to(ValueListPresenter.class);
 
         bindPresenter(ValueListPresenter.class, ValueListPresenter.MyView.class, ValueListView.class,
                 ValueListPresenter.MyProxy.class);
