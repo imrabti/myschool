@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportMSGS" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4c574922-4b99-490d-ae3f-1b12f7827f23">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="192"/>
 	<parameter name="date" class="java.lang.String"/>
 	<parameter name="dateTest" class="java.lang.String"/>
 	<parameter name="heureAccueilDebut" class="java.lang.String"/>
@@ -55,7 +55,7 @@
 				<textFieldExpression><![CDATA["Nous vous invitons à présenter votre enfant "+$P{prenomEnfant}+" le : "]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="97" y="217" width="393" height="20"/>
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="97" y="206" width="393" height="24"/>
 				<textElement textAlignment="Center">
 					<font fontName="Serif" size="16" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
@@ -97,7 +97,7 @@
 				<textFieldExpression><![CDATA[$P{phone}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="827128ac-8bff-41e7-bb75-dbfac4a1a022" x="97" y="474" width="393" height="22"/>
+				<reportElement uuid="827128ac-8bff-41e7-bb75-dbfac4a1a022" x="97" y="474" width="393" height="33"/>
 				<textElement textAlignment="Justified" markup="none">
 					<font fontName="Serif" size="11" isPdfEmbedded="true"/>
 				</textElement>
@@ -108,7 +108,7 @@
 				<textElement markup="none">
 					<font fontName="Serif" size="11" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[N.B. : Merci de veiller à ce que votre enfant ait en sa possession cette présente convocation le jour de son test-concours d’admission.]]></text>
+				<text><![CDATA[NB : Votre enfant devra présenter cette convocation le jour du test.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="9529bb8b-14b0-4fb1-af00-507d6a4d9555" x="348" y="591" width="186" height="20"/>
