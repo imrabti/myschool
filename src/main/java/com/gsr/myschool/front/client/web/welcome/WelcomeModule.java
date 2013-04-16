@@ -34,7 +34,7 @@ public class WelcomeModule extends AbstractPresenterModule {
         bind(LoginUiHandlers.class).to(LoginPresenter.class);
         bind(RegisterUiHandlers.class).to(RegisterPresenter.class);
         bind(ForgotPasswordUiHandlers.class).to(ForgotPasswordPresenter.class);
-        bind(ResetPasswordUiHandlers.class).to(ResetPasswordUiHandlers.class);
+        bind(ResetPasswordUiHandlers.class).to(ResetPasswordPresenter.class);
         bind(ResendmailUiHandlers.class).to(ResendmailPresenter.class);
 
         bindPresenter(WelcomePresenter.class, WelcomePresenter.MyView.class, WelcomeView.class,

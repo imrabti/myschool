@@ -31,7 +31,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ValidatedViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.MatiereExamenProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.ui.MatiereExamenEditor;
@@ -54,10 +53,9 @@ public class MatiereExamenView extends ValidatedViewWithUiHandlers<MatiereExamen
 
     @Inject
     public MatiereExamenView(final Binder uiBinder, final ValidationErrorPopup errorPopup,
-                             final UiHandlersStrategy<MatiereExamenUiHandlers> uiHandlersStrategy,
                              final SharedMessageBundle sharedMessageBundle,
                              final MatiereExamenEditor matiereExamenEditor) {
-        super(uiHandlersStrategy, errorPopup);
+        super(errorPopup);
 
         this.matiereExamenEditor = matiereExamenEditor;
 

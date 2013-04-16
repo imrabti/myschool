@@ -27,14 +27,14 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.DeckPanel;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.ValuePicker;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.resource.style.TabsListStyle;
 import com.gsr.myschool.common.client.widget.renderer.EnumCell;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import java.util.Arrays;
 
@@ -86,10 +86,7 @@ public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> impleme
     TextArea dateLimite;
 
     @Inject
-    public SettingsView(final Binder uiBinder, final TabsListStyle listStyle,
-                        final UiHandlersStrategy<SettingsUiHandlers> uiHandlers) {
-        super(uiHandlers);
-
+    public SettingsView(final Binder uiBinder, final TabsListStyle listStyle) {
         CellList<SettingsType> tabsCell = new CellList<SettingsType>(new EnumCell<SettingsType>(), listStyle);
         tabs = new ValuePicker<SettingsType>(tabsCell);
 
@@ -101,7 +98,7 @@ public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> impleme
     }
 
     @Override
-    public void setInSlot(Object slot, Widget content) {
+    public void setInSlot(Object slot, IsWidget content) {
         if (content != null) {
             if (slot == SettingsPresenter.TYPE_SetSystemScolaireContent) {
                 systemeScolaireSettings.setWidget(content);

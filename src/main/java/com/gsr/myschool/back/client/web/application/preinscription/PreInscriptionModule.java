@@ -17,17 +17,13 @@
 package com.gsr.myschool.back.client.web.application.preinscription;
 
 import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
-import com.google.inject.TypeLiteral;
 import com.gsr.myschool.back.client.web.application.preinscription.renderer.PreInscriptionActionCellFactory;
-import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 public class PreInscriptionModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
-        bind(new TypeLiteral<UiHandlersStrategy<PreInscriptionUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<PreInscriptionUiHandlers>>() {});
+        bind(PreInscriptionUiHandlers.class).to(PreInscriptionPresenter.class);
 
         bindPresenter(PreInscriptionPresenter.class, PreInscriptionPresenter.MyView.class, PreInscriptionView.class,
                 PreInscriptionPresenter.MyProxy.class);

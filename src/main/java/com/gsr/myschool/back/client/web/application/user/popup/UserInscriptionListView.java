@@ -16,7 +16,6 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
 import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
@@ -40,10 +39,9 @@ public class UserInscriptionListView extends ValidatedPopupViewImplWithUiHandler
 
     @Inject
     public UserInscriptionListView(final EventBus eventBus, final Binder uiBinder,
-                                   final UiHandlersStrategy<UserInscriptionListUiHandlers> uiHandlers,
                                    final SharedMessageBundle sharedMessageBundle,
                                    final ValidationErrorPopup errorPopup, final ModalHeader modalHeader) {
-        super(eventBus, errorPopup, uiHandlers);
+        super(eventBus, errorPopup);
 
         this.modalHeader = modalHeader;
         initWidget(uiBinder.createAndBindUi(this));

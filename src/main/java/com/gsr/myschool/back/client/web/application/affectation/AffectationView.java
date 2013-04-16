@@ -37,14 +37,13 @@ import com.google.inject.Inject;
 import com.gsr.myschool.back.client.web.application.affectation.renderer.AffectationActionCell;
 import com.gsr.myschool.back.client.web.application.affectation.renderer.AffectationActionCellFactory;
 import com.gsr.myschool.back.client.web.application.affectation.ui.DossierFilterEditor;
-import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
 import com.gsr.myschool.common.client.widget.LoadingIndicator;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import java.util.List;
 
@@ -69,10 +68,7 @@ public class AffectationView extends ViewWithUiHandlers<AffectationUiHandlers>
                            final DossierFilterEditor dossierFilterEditor,
                            final LoadingIndicator loadingIndicator,
                            final SimplePager.Resources pagerResources,
-                           final UiHandlersStrategy<AffectationUiHandlers> uiHandlers,
                            final AffectationActionCellFactory actionCellFactory) {
-        super(uiHandlers);
-
         this.dossierFilterEditor = dossierFilterEditor;
         this.actionCellFactory = actionCellFactory;
         this.dataProvider = setupDataProvider();

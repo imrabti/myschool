@@ -17,22 +17,17 @@
 package com.gsr.myschool.back.client.web.application.affectation;
 
 import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
-import com.google.inject.TypeLiteral;
 import com.gsr.myschool.back.client.web.application.affectation.popup.SessionAffectationPresenter;
 import com.gsr.myschool.back.client.web.application.affectation.popup.SessionAffectationUiHandlers;
 import com.gsr.myschool.back.client.web.application.affectation.popup.SessionAffectationView;
 import com.gsr.myschool.back.client.web.application.affectation.renderer.AffectationActionCellFactory;
-import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 public class AffectationModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
-        bind(new TypeLiteral<UiHandlersStrategy<AffectationUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<AffectationUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<SessionAffectationUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<SessionAffectationUiHandlers>>() {});
+        bind(AffectationUiHandlers.class).to(AffectationPresenter.class);
+        bind(SessionAffectationUiHandlers.class).to(SessionAffectationPresenter.class);
 
         bindPresenter(AffectationPresenter.class, AffectationPresenter.MyView.class, AffectationView.class,
                 AffectationPresenter.MyProxy.class);

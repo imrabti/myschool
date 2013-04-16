@@ -53,7 +53,7 @@ public class ApplicationModule extends AbstractPresenterModule {
         install(new AdmissionModule());
 
         bind(ApplicationUiHandlers.class).to(ApplicationPresenter.class);
-        bind(HeaderUiHandlers.class).to(HeaderUiHandlers.class);
+        bind(HeaderUiHandlers.class).to(HeaderPresenter.class);
         bind(MenuUiHandlers.class).to(MenuPresenter.class);
 
         bindPresenter(ApplicationPresenter.class, ApplicationPresenter.MyView.class, ApplicationView.class,

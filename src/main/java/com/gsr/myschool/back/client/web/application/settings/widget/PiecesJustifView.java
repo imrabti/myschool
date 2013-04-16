@@ -31,7 +31,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ValidatedViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.PieceJustifProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.ui.PiecesJustifEditor;
@@ -54,10 +53,9 @@ public class PiecesJustifView extends ValidatedViewWithUiHandlers<PiecesJustifUi
 
     @Inject
     public PiecesJustifView(final Binder uiBinder, final ValidationErrorPopup errorPopup,
-                            final UiHandlersStrategy<PiecesJustifUiHandlers> uiHandlersStrategy,
                             final SharedMessageBundle sharedMessageBundle,
                             final PiecesJustifEditor piecesJustifEditor) {
-        super(uiHandlersStrategy, errorPopup);
+        super(errorPopup);
 
         this.piecesJustifEditor = piecesJustifEditor;
 
