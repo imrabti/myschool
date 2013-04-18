@@ -27,7 +27,6 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.web.application.valueList.ui.ValueTypeEditor;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
 import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.common.client.widget.ModalHeader;
 
@@ -43,11 +42,10 @@ public class AddValueTypeView extends ValidatedPopupViewImplWithUiHandlers<AddVa
 
     @Inject
     public AddValueTypeView(final EventBus eventBus, final Binder uiBinder,
-                            final UiHandlersStrategy<AddValueTypeUiHandlers> uiHandlers,
                             final ValidationErrorPopup errorPopup,
                             final ModalHeader modalHeader,
                             final ValueTypeEditor valueTypeEditor) {
-        super(eventBus, errorPopup, uiHandlers);
+        super(eventBus, errorPopup);
 
         this.modalHeader = modalHeader;
         this.valueTypeEditor = valueTypeEditor;

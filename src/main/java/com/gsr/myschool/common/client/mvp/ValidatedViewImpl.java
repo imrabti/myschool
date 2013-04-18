@@ -22,6 +22,7 @@ import com.google.gwt.query.client.Function;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
+import com.gwtplatform.mvp.client.ViewImpl;
 
 import javax.validation.ConstraintViolation;
 import java.util.Set;

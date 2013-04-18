@@ -25,8 +25,6 @@ import com.gsr.myschool.back.client.web.application.session.renderer.AttachedNiv
 import com.gsr.myschool.back.client.web.application.session.renderer.AttachedNiveauEtudeTreeFactory;
 import com.gsr.myschool.back.client.web.application.session.renderer.SessionActionCell;
 import com.gsr.myschool.back.client.web.application.session.renderer.SessionActionCellFactory;
-import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
@@ -34,6 +32,7 @@ import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.dto.NiveauEtudeNode;
 import com.gsr.myschool.common.shared.dto.SessionTree;
 import com.gsr.myschool.common.shared.type.SessionStatus;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import java.util.List;
 
@@ -66,10 +65,7 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
                        final SharedMessageBundle sharedMessageBundle,
                        final SessionActionCellFactory sessionActionCellFactory,
                        final AttachedNiveauEtudeTreeFactory attachedNiveauEtudeTreeFactory,
-                       final UiHandlersStrategy<SessionUiHandlers> uiHandlers,
                        final CellTableStyle cellTableStyle) {
-        super(uiHandlers);
-
         this.sessionActionCellFactory = sessionActionCellFactory;
         this.dataProvider =  new ListDataProvider<SessionExamenProxy>();
         this.treeModel = attachedNiveauEtudeTreeFactory.create(false, setupDetails(), setupDelete(), setupPrint());

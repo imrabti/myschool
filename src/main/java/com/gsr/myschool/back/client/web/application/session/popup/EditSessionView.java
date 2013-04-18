@@ -14,7 +14,6 @@ import com.google.gwt.user.datepicker.client.DateBox;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
 import com.gsr.myschool.common.client.resource.SharedResources;
 import com.gsr.myschool.common.client.util.DateUtilsClient;
@@ -57,10 +56,9 @@ public class EditSessionView extends ValidatedPopupViewImplWithUiHandlers<EditSe
     public EditSessionView(final EventBus eventBus, final Binder uiBinder,
                            final TimeInput welcomKids, final TimeInput debutTest,
                            final TimeInput gatherKids, final ModalHeader modalHeader,
-                           final UiHandlersStrategy<EditSessionUiHandlers> uiHandlers,
-                           final Driver driver, final ValidationErrorPopup errorPopup, 
+                           final Driver driver, final ValidationErrorPopup errorPopup,
                            final SharedResources sharedResources) {
-        super(eventBus, errorPopup, uiHandlers);
+        super(eventBus, errorPopup);
 
         this.driver = driver;
         this.modalHeader = modalHeader;

@@ -21,18 +21,18 @@ import com.google.inject.Inject;
 import com.gsr.myschool.back.client.web.application.confirmationTest.renderer.ConfirmationTestActionCell;
 import com.gsr.myschool.back.client.web.application.confirmationTest.renderer.ConfirmationTestActionCellFactory;
 import com.gsr.myschool.back.client.web.application.confirmationTest.ui.DossierFilterEditor;
-import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
 import com.gsr.myschool.common.client.widget.LoadingIndicator;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import java.util.List;
 
-public class ConfirmationTestView extends ViewWithUiHandlers<ConfirmationTestUiHandlers> implements ConfirmationTestPresenter.MyView {
+public class ConfirmationTestView extends ViewWithUiHandlers<ConfirmationTestUiHandlers>
+        implements ConfirmationTestPresenter.MyView {
     public interface Binder extends UiBinder<Widget, ConfirmationTestView> {
     }
 
@@ -52,10 +52,7 @@ public class ConfirmationTestView extends ViewWithUiHandlers<ConfirmationTestUiH
 			final DossierFilterEditor dossierProxyEditor,
 			final LoadingIndicator loadingIndicator,
 			final SimplePager.Resources pagerResources,
-			final UiHandlersStrategy<ConfirmationTestUiHandlers> uiHandlers,
 			final ConfirmationTestActionCellFactory actionCellFactory) {
-        super(uiHandlers);
-
         this.actionCellFactory = actionCellFactory;
         this.dossierFilterEditor = dossierProxyEditor;
         this.dataProvider = setupDataProvider();

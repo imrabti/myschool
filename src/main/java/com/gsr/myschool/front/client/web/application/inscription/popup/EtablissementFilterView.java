@@ -21,8 +21,6 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.widget.renderer.ValueListRendererFactory;
 import com.gsr.myschool.front.client.resource.style.CellTableStyle;
-import com.gsr.myschool.common.client.mvp.PopupViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.EtablissementFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.EtablissementScolaireProxy;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
@@ -34,6 +32,7 @@ import com.gsr.myschool.common.client.widget.ModalHeader;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
 import com.gsr.myschool.common.shared.type.EtablissementType;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
+import com.gwtplatform.mvp.client.PopupViewWithUiHandlers;
 
 import java.util.Arrays;
 import java.util.List;
@@ -69,9 +68,8 @@ public class EtablissementFilterView extends PopupViewWithUiHandlers<Etablisseme
                                    final SharedMessageBundle messageBundle,
                                    final CellTableStyle cellTableStyle,
                                    final ValueList valueList,
-                                   final ValueListRendererFactory valueListRendererFactory,
-                                   final UiHandlersStrategy<EtablissementFilterUiHandlers> uiHandlersStrategy) {
-        super(eventBus, uiHandlersStrategy);
+                                   final ValueListRendererFactory valueListRendererFactory) {
+        super(eventBus);
 
         this.driver = driver;
         this.modalHeader = modalHeader;

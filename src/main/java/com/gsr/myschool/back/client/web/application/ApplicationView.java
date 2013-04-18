@@ -18,14 +18,14 @@ package com.gsr.myschool.back.client.web.application;
 
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.back.client.web.application.widget.footer.FooterView;
-import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.widget.AjaxLoader;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 public class ApplicationView extends ViewWithUiHandlers<ApplicationUiHandlers> implements ApplicationPresenter.MyView {
     public interface Binder extends UiBinder<Widget, ApplicationView> {
@@ -44,16 +44,14 @@ public class ApplicationView extends ViewWithUiHandlers<ApplicationUiHandlers> i
 
     @Inject
     public ApplicationView(final Binder uiBinder, final FooterView footer,
-                           final AjaxLoader ajaxLoader, final UiHandlersStrategy<ApplicationUiHandlers> uiHandlers) {
-        super(uiHandlers);
-
+                           final AjaxLoader ajaxLoader) {
         this.footer = footer;
         this.ajaxLoader = ajaxLoader;
         initWidget(uiBinder.createAndBindUi(this));
     }
 
     @Override
-    public void setInSlot(Object slot, Widget content) {
+    public void setInSlot(Object slot, IsWidget content) {
         if (content != null) {
             if (slot == ApplicationPresenter.TYPE_SetMainContent) {
                 mainDisplay.setWidget(content);

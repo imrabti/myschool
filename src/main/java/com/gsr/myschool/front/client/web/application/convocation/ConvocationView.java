@@ -19,18 +19,14 @@ package com.gsr.myschool.front.client.web.application.convocation;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 public class ConvocationView extends ViewWithUiHandlers<ConvocationUiHandlers> implements ConvocationPresenter.MyView {
     public interface Binder extends UiBinder<Widget, ConvocationView> {
     }
 
     @Inject
-    public ConvocationView(final Binder uiBinder,
-                           final UiHandlersStrategy<ConvocationUiHandlers> uiHandlers) {
-        super(uiHandlers);
-
+    public ConvocationView(final Binder uiBinder) {
         initWidget(uiBinder.createAndBindUi(this));
     }
 }

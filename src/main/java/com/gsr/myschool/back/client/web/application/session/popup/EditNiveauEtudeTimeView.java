@@ -11,10 +11,9 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.web.application.session.popup.ui.MatiereHoraireEditor;
 import com.gsr.myschool.back.client.web.application.session.popup.ui.MatiereHoraireEditorFactory;
-import com.gsr.myschool.common.client.mvp.PopupViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.SessionNiveauEtudeProxy;
 import com.gsr.myschool.common.client.widget.ModalHeader;
+import com.gwtplatform.mvp.client.PopupViewWithUiHandlers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +33,9 @@ public class EditNiveauEtudeTimeView extends PopupViewWithUiHandlers<EditNiveauE
 
     @Inject
     public EditNiveauEtudeTimeView(final EventBus eventBus, final Binder uiBinder,
-                                   final UiHandlersStrategy<EditNiveauEtudeTimeUiHandlers> uiHandlers,
                                    final MatiereHoraireEditorFactory matiereHoraireEditorFactory,
                                    final ModalHeader modalHeader) {
-        super(eventBus, uiHandlers);
+        super(eventBus);
 
         this.modalHeader = modalHeader;
         this.matiereHoraireEditorFactory = matiereHoraireEditorFactory;

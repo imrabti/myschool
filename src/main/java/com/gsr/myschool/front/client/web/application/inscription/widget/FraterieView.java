@@ -20,7 +20,6 @@ import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ValidatedViewWithUiHandlers;
 import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.EtablissementScolaireProxy;
 import com.gsr.myschool.common.client.proxy.FraterieDTOProxy;
 import com.gsr.myschool.common.client.proxy.FraterieProxy;
@@ -49,10 +48,9 @@ public class FraterieView extends ValidatedViewWithUiHandlers<FraterieUiHandlers
 
     @Inject
     public FraterieView(final Binder uiBinder, final ValidationErrorPopup errorPopup,
-                        final UiHandlersStrategy<FraterieUiHandlers> uiHandlersStrategy,
                         final SharedMessageBundle sharedMessageBundle,
                         final FraterieEditor fraterieEditor) {
-        super(uiHandlersStrategy, errorPopup);
+        super(errorPopup);
 
         this.fraterieEditor = fraterieEditor;
 

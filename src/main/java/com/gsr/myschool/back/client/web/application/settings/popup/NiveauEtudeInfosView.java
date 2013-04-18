@@ -35,7 +35,6 @@ import com.gsr.myschool.back.client.web.application.settings.popup.ui.PieceJusti
 import com.gsr.myschool.back.client.web.application.settings.renderer.MatiereExamenRenderer;
 import com.gsr.myschool.back.client.web.application.settings.renderer.PieceJustifRenderer;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.MatiereExamenProxy;
 import com.gsr.myschool.common.client.proxy.PieceJustifProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
@@ -84,13 +83,12 @@ public class NiveauEtudeInfosView extends ValidatedPopupViewImplWithUiHandlers<N
     @Inject
     protected NiveauEtudeInfosView(EventBus eventBus, final Binder uiBinder,
                                    final ValidationErrorPopup errorPopup,
-                                   final UiHandlersStrategy<NiveauEtudeSetupUiHandlers> uiHandlers,
                                    final SharedMessageBundle sharedMessageBundle,
                                    final PieceJustificatifEditor pieceEditor,
                                    final MatiereExamenEditor matiereEditor,
                                    final DetailsListStyle listStyle,
                                    final ModalHeader modalHeader) {
-        super(eventBus, errorPopup, uiHandlers);
+        super(eventBus, errorPopup);
 
         this.modalHeader = modalHeader;
         this.pieceEditor = pieceEditor;

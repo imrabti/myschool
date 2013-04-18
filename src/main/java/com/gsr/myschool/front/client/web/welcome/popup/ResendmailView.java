@@ -14,7 +14,6 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
 import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.ForgotPasswordDTOProxy;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.widget.ModalHeader;
@@ -37,9 +36,8 @@ public class ResendmailView extends ValidatedPopupViewImplWithUiHandlers<Resendm
     @Inject
     public ResendmailView(final EventBus eventBus, final Binder uiBinder,
                           final ValidationErrorPopup errorPopup, final Driver driver,
-                          final UiHandlersStrategy<ResendmailUiHandlers> uiHandlersStrategy,
                           final ModalHeader modalHeader) {
-        super(eventBus, errorPopup, uiHandlersStrategy);
+        super(eventBus, errorPopup);
 
         this.driver = driver;
         this.modalHeader = modalHeader;

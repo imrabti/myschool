@@ -16,7 +16,6 @@
 
 package com.gsr.myschool.back.client.web.application;
 
-import com.google.inject.TypeLiteral;
 import com.gsr.myschool.back.client.web.application.admission.AdmissionModule;
 import com.gsr.myschool.back.client.web.application.confirmationTest.ConfirmationTestModule;
 import com.gsr.myschool.back.client.web.application.affectation.AffectationModule;
@@ -35,8 +34,6 @@ import com.gsr.myschool.back.client.web.application.widget.header.HeaderView;
 import com.gsr.myschool.back.client.web.application.widget.sider.MenuPresenter;
 import com.gsr.myschool.back.client.web.application.widget.sider.MenuUiHandlers;
 import com.gsr.myschool.back.client.web.application.widget.sider.MenuView;
-import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 public class ApplicationModule extends AbstractPresenterModule {
@@ -55,12 +52,9 @@ public class ApplicationModule extends AbstractPresenterModule {
         install(new ConfirmationTestModule());
         install(new AdmissionModule());
 
-        bind(new TypeLiteral<UiHandlersStrategy<ApplicationUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<ApplicationUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<HeaderUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<HeaderUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<MenuUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<MenuUiHandlers>>() {});
+        bind(ApplicationUiHandlers.class).to(ApplicationPresenter.class);
+        bind(HeaderUiHandlers.class).to(HeaderPresenter.class);
+        bind(MenuUiHandlers.class).to(MenuPresenter.class);
 
         bindPresenter(ApplicationPresenter.class, ApplicationPresenter.MyView.class, ApplicationView.class,
                 ApplicationPresenter.MyProxy.class);

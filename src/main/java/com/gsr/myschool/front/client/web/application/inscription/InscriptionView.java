@@ -34,14 +34,13 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
-import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.front.client.web.application.inscription.renderer.InscriptionActionCell;
 import com.gsr.myschool.front.client.web.application.inscription.renderer.InscriptionActionCellFactory;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import java.util.List;
 
@@ -70,11 +69,8 @@ public class InscriptionView extends ViewWithUiHandlers<InscriptionUiHandlers> i
 
     @Inject
     public InscriptionView(final Binder uiBinder,
-                           final UiHandlersStrategy<InscriptionUiHandlers> uiHandlers,
                            final InscriptionActionCellFactory actionCellFactory,
                            final SharedMessageBundle sharedMessageBundle) {
-        super(uiHandlers);
-
         this.actionCellFactory = actionCellFactory;
 
         initWidget(uiBinder.createAndBindUi(this));

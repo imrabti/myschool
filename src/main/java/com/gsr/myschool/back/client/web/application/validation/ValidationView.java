@@ -37,14 +37,13 @@ import com.google.inject.Inject;
 import com.gsr.myschool.back.client.web.application.validation.renderer.ValidationActionCell;
 import com.gsr.myschool.back.client.web.application.validation.renderer.ValidationActionCellFactory;
 import com.gsr.myschool.back.client.web.application.validation.ui.DossierFilterEditor;
-import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
 import com.gsr.myschool.common.client.widget.LoadingIndicator;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import java.util.List;
 
@@ -68,10 +67,7 @@ public class ValidationView extends ViewWithUiHandlers<ValidationUiHandlers> imp
                           final DossierFilterEditor dossierProxyEditor,
                           final LoadingIndicator loadingIndicator,
                           final SimplePager.Resources pagerResources,
-                          final UiHandlersStrategy<ValidationUiHandlers> uiHandlers,
                           final ValidationActionCellFactory actionCellFactory) {
-        super(uiHandlers);
-
         this.actionCellFactory = actionCellFactory;
         this.dossierFilterEditor = dossierProxyEditor;
         this.dataProvider = setupDataProvider();

@@ -6,11 +6,11 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.DeckPanel;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHandlers>
         implements EditInscriptionPresenter.MyView {
@@ -41,15 +41,12 @@ public class EditInscriptionView extends ViewWithUiHandlers<EditInscriptionUiHan
     private WizardStep currentStep;
 
     @Inject
-    public EditInscriptionView(final Binder uiBinder,
-                               final UiHandlersStrategy<EditInscriptionUiHandlers> uiHandlers) {
-        super(uiHandlers);
-
+    public EditInscriptionView(final Binder uiBinder) {
         initWidget(uiBinder.createAndBindUi(this));
     }
 
     @Override
-    public void setInSlot(Object slot, Widget content) {
+    public void setInSlot(Object slot, IsWidget content) {
         if (content != null) {
             if (slot == EditInscriptionPresenter.TYPE_Step_1_Content) {
                 step1.setWidget(content);

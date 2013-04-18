@@ -10,7 +10,6 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
 import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.AdminUserProxy;
 import com.gsr.myschool.common.client.ui.user.AdminUserAccountEditor;
 import com.gsr.myschool.common.client.widget.ModalHeader;
@@ -27,10 +26,9 @@ public class AdminUserAccountEditView extends ValidatedPopupViewImplWithUiHandle
 
     @Inject
     public AdminUserAccountEditView(final EventBus eventBus, final Binder uiBinder,
-            final UiHandlersStrategy<AdminUserAccountEditUiHandlers> uiHandlers,
-            final ValidationErrorPopup errorPopup, final ModalHeader modalHeader,
-            final AdminUserAccountEditor adminEditor) {
-        super(eventBus, errorPopup, uiHandlers);
+                                    final ValidationErrorPopup errorPopup, final ModalHeader modalHeader,
+                                    final AdminUserAccountEditor adminEditor) {
+        super(eventBus, errorPopup);
 
         this.modalHeader = modalHeader;
         this.adminEditor = adminEditor;

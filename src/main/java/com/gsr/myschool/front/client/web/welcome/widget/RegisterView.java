@@ -30,7 +30,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ValidatedViewWithUiHandlers;
 import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
@@ -65,9 +64,8 @@ public class RegisterView extends ValidatedViewWithUiHandlers<RegisterUiHandlers
 
     @Inject
     public RegisterView(final Binder uiBinder, final Driver driver,
-                        final UiHandlersStrategy<RegisterUiHandlers> uiHandlersStrategy,
                         final ValidationErrorPopup validationErrorPopup) {
-        super(uiHandlersStrategy, validationErrorPopup);
+        super(validationErrorPopup);
 
         this.driver = driver;
         this.gender = new ValueListBox<Gender>(new EnumRenderer<Gender>());
