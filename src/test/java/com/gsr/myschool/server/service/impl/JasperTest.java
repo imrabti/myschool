@@ -17,13 +17,14 @@
 package com.gsr.myschool.server.service.impl;
 
 
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
+import com.gsr.myschool.common.shared.dto.BilanDTO;
 import com.gsr.myschool.common.shared.dto.ReportDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.reporting.ReportController;
 import com.gsr.myschool.server.reporting.ReportService;
 import com.gsr.myschool.server.repos.DossierRepos;
-import com.gsr.myschool.shared.dto.JasperTestDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +32,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
         "classpath*:META-INF/applicationContext.xml",
         "classpath*:/META-INF/applicationContext-security.xml",
+        "classpath*:/META-INF/applicationContext-mq.xml",
         "classpath*:/META-INF/applicationContext-activiti.xml"
 })
 public class JasperTest {
@@ -78,7 +78,7 @@ public class JasperTest {
         }
     }*/
 
-    @Test
+    //    @Test
     public void printAllDossiersInFolder() {
         for (Dossier dossier : dossierRepos.findAll()) {
             if (!dossier.getStatus().equals(DossierStatus.CREATED)) {
@@ -93,10 +93,47 @@ public class JasperTest {
                     reportService.generatePdfIntoFolder(dto, dossier.getGeneratedNumDossier());
                 } catch (Exception e) {
 
-                    System.err.println(" ERROR IN DOSSIER NUM = " + dossier.getGeneratedNumDossier() );
+                    System.err.println(" ERROR IN DOSSIER NUM = " + dossier.getGeneratedNumDossier());
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    @Test
+    public void printBilan() {
+        List<BilanDTO> dossiers = dossierRepos.findBilanDossier();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
+        ReportDTO dto = new ReportDTO("bilan");
+
+        Map<String, Object> myMap = new HashMap<String, Object>();
+
+        myMap.put("date", dateFormat.format(new Date()));
+
+        List<Map> myList = new ArrayList<Map>();
+        List<Map> myList2 = new ArrayList<Map>();
+
+        for (BilanDTO bilan : dossiers) {
+            if (bilan.getFiliere().longValue() == GlobalParameters.SECTION_FRANCAISE) {
+                myList.add(bilan.getReportsAttributes());
+            } else if (bilan.getFiliere().longValue() == GlobalParameters.SECTION_BILINGUE) {
+                myList2.add(bilan.getReportsAttributes());
+            }
+        }
+        myMap.put("bilingues", myList2);
+        myMap.put("francais", myList);
+
+        dto.setReportParameters(myMap);
+        dto.setFileName("convocation_.pdf");
+
+        try {
+            FileOutputStream out = new FileOutputStream("filename.pdf");
+            byte[] bytes = reportService.generatePdf(dto);
+            out.write(bytes);
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.server.repos;
 
+import com.gsr.myschool.common.shared.dto.BilanDTO;
 import com.gsr.myschool.server.business.Dossier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -28,4 +29,7 @@ public interface DossierRepos extends JpaRepository<Dossier, Long>, JpaSpecifica
     List<String> findAllNumDossier();
 
     List<Dossier> findByOwnerIdOrderByIdDesc(Long userId);
+
+    @Query("select new com.gsr.myschool.common.shared.dto.BilanDTO(d.niveauEtude.nom, d.niveauEtude.filiere.id, count(d)) FROM Dossier d group by d.niveauEtude ")
+    List<BilanDTO> findBilanDossier();
 }

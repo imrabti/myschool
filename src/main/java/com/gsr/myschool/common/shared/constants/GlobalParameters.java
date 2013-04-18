@@ -13,6 +13,7 @@ public class GlobalParameters {
     public static final String ROLE_OPERATOR = "ROLE_OPERATOR";
 
     public static final Long SECTION_FRANCAISE = 10l;
+    public static final Long SECTION_BILINGUE = 20l;
     public static final Long PETITE_SECTION = 1l;
     public static final Long MOYENNE_SECTION = 2l;
     public static final Long GRANDE_SECTION = 3l;

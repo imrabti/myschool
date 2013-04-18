@@ -30,12 +30,12 @@ public class ConvocationRequestBuilder extends RequestBuilder {
 
     public void buildData(String niveauId, String sessionId) {
         postData = new StringBuffer();
-        postData.append("niveauId=" + niveauId + "&sessionId=" + sessionId);
+        postData.append("niveauId=").append(niveauId).append("&sessionId=").append(sessionId);
     }
 
     public void buildData(String token) {
         postData = new StringBuffer();
-        postData.append("number=" +token);
+        postData.append("number=").append(token);
     }
 
     public void sendRequest() {
