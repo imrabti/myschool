@@ -11,19 +11,15 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-import com.gsr.myschool.back.client.web.application.settings.renderer.PieceJustifRenderer;
 import com.gsr.myschool.back.client.web.application.validation.popup.ui.PieceJustificatifEditor;
 import com.gsr.myschool.back.client.web.application.validation.popup.ui.PieceJustificatifEditorFactory;
-import com.gsr.myschool.common.client.mvp.PopupViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
-import com.gsr.myschool.common.client.proxy.MatiereExamenProxy;
-import com.gsr.myschool.common.client.proxy.PieceJustifProxy;
 import com.gsr.myschool.common.client.proxy.PiecejustifDTOProxy;
 import com.gsr.myschool.common.client.resource.style.DetailsListStyle;
 import com.gsr.myschool.common.client.widget.ModalHeader;
 import com.gsr.myschool.common.client.widget.renderer.LabelValueCell;
 import com.gsr.myschool.common.shared.dto.LabelValue;
+import com.gwtplatform.mvp.client.PopupViewWithUiHandlers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,9 +45,8 @@ public class PiecesJustifcatifView extends PopupViewWithUiHandlers<PiecesJustifi
                                  final ModalHeader modalHeader,
                                  final DetailsListStyle listStyle,
                                  final LabelValueCell labelValueCell,
-                                 final PieceJustificatifEditorFactory pieceJustificatifFactory,
-                                 final UiHandlersStrategy<PiecesJustificatifUiHandlers> uiHandlers) {
-        super(eventBus, uiHandlers);
+                                 final PieceJustificatifEditorFactory pieceJustificatifFactory) {
+        super(eventBus);
 
         this.modalHeader = modalHeader;
         this.pieceJustificatifFactory = pieceJustificatifFactory;

@@ -12,13 +12,12 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-import com.gsr.myschool.common.client.mvp.PopupViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.FiliereProxy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.ui.dossier.renderer.FiliereRenderer;
 import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.ModalHeader;
+import com.gwtplatform.mvp.client.PopupViewWithUiHandlers;
 
 public class AddNiveauEtudeView extends PopupViewWithUiHandlers<AddNiveauEtudeUiHandlers>
         implements AddNiveauEtudePresenter.MyView {
@@ -42,9 +41,8 @@ public class AddNiveauEtudeView extends PopupViewWithUiHandlers<AddNiveauEtudeUi
     @Inject
     public AddNiveauEtudeView(final EventBus eventBus, final Binder uiBinder,
                               final Driver driver, final ModalHeader modalHeader,
-                              final ValueList valueList,
-                              final UiHandlersStrategy<AddNiveauEtudeUiHandlers> uiHandlersStrategy) {
-        super(eventBus, uiHandlersStrategy);
+                              final ValueList valueList) {
+        super(eventBus);
 
         this.driver = driver;
         this.modalHeader = modalHeader;

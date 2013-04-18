@@ -2,10 +2,11 @@ package com.gsr.myschool.front.client.web.welcome;
 
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.gsr.myschool.common.client.mvp.ViewImpl;
+import com.gwtplatform.mvp.client.ViewImpl;
 
 public class WelcomeView extends ViewImpl implements WelcomePresenter.MyView {
     public interface Binder extends UiBinder<Widget, WelcomeView> {
@@ -22,7 +23,7 @@ public class WelcomeView extends ViewImpl implements WelcomePresenter.MyView {
     }
 
     @Override
-    public void setInSlot(Object slot, Widget content) {
+    public void setInSlot(Object slot, IsWidget content) {
         if (content != null) {
             if (slot == WelcomePresenter.TYPE_SetLoginContent) {
                 loginPanel.setWidget(content);

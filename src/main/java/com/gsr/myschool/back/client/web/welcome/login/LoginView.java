@@ -30,10 +30,9 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
-import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.shared.dto.UserCredentials;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 public class LoginView extends ViewWithUiHandlers<LoginUiHandlers> implements LoginPresenter.MyView,
         EditorView<UserCredentials> {
@@ -56,10 +55,7 @@ public class LoginView extends ViewWithUiHandlers<LoginUiHandlers> implements Lo
 
     @Inject
     public LoginView(final Binder uiBinder, final MessageBundle messageBundle,
-                     final UiHandlersStrategy<LoginUiHandlers> uiHandlers,
                      final Driver driver) {
-        super(uiHandlers);
-
         this.messageBundle = messageBundle;
         this.driver = driver;
 

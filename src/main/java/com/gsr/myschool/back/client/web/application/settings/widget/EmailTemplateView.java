@@ -30,7 +30,6 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ValidatedViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.EmailTemplateProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.resource.style.DetailsListStyle;
@@ -56,11 +55,10 @@ public class EmailTemplateView extends ValidatedViewWithUiHandlers<EmailTemplate
 
     @Inject
     public EmailTemplateView(final Binder uiBinder, final ValidationErrorPopup errorPopup,
-                             final UiHandlersStrategy<EmailTemplateUiHandlers> uiHandlersStrategy,
                              final SharedMessageBundle sharedMessageBundle,
                              final EmailTemplateEditor emailTemplateEditor,
                              final DetailsListStyle listStyle) {
-        super(uiHandlersStrategy, errorPopup);
+        super(errorPopup);
 
         this.emailTemplateEditor = emailTemplateEditor;
         this.dataProvider = new ListDataProvider<EmailType>(Arrays.asList(EmailType.values()));

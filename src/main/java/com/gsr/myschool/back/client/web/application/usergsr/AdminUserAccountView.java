@@ -17,7 +17,6 @@
 package com.gsr.myschool.back.client.web.application.usergsr;
 
 import com.github.gwtbootstrap.client.ui.CellTable;
-import com.google.common.base.Strings;
 import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -33,10 +32,9 @@ import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 import com.gsr.myschool.back.client.web.application.usergsr.renderer.AdminUserActionCell;
 import com.gsr.myschool.back.client.web.application.usergsr.renderer.AdminUserActionCellFactory;
-import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.AdminUserProxy;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import java.util.List;
 
@@ -57,10 +55,7 @@ public class AdminUserAccountView extends ViewWithUiHandlers<AdminUserAccountUiH
 
     @Inject
     public AdminUserAccountView(final Binder uiBinder,
-			final UiHandlersStrategy<AdminUserAccountUiHandlers> uiHandlers,
-			final AdminUserActionCellFactory actionCellFactoryAdmin) {
-        super(uiHandlers);
-
+                                final AdminUserActionCellFactory actionCellFactoryAdmin) {
         this.actionCellFactoryAdmin = actionCellFactoryAdmin;
 
         initWidget(uiBinder.createAndBindUi(this));

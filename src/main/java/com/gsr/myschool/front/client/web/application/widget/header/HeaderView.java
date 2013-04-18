@@ -23,9 +23,8 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 public class HeaderView extends ViewWithUiHandlers<HeaderUiHandlers> implements HeaderPresenter.MyView {
     public interface Binder extends UiBinder<Widget, HeaderView> {
@@ -37,10 +36,7 @@ public class HeaderView extends ViewWithUiHandlers<HeaderUiHandlers> implements 
     private final MessageBundle messageBundle;
 
     @Inject
-    public HeaderView(final Binder uiBinder, final MessageBundle messageBundle,
-                      final UiHandlersStrategy<HeaderUiHandlers> uiHandlersStrategy) {
-        super(uiHandlersStrategy);
-
+    public HeaderView(final Binder uiBinder, final MessageBundle messageBundle) {
         this.messageBundle = messageBundle;
 
         initWidget(uiBinder.createAndBindUi(this));

@@ -50,7 +50,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ValueListPresenter extends Presenter<ValueListPresenter.MyView, ValueListPresenter.MyProxy>
-        implements ValueListUiHandlers, ValueTypeChangedEvent.ValueTypeChangedHandler, ValueListChangedEvent.ValueListChangedHandler {
+        implements ValueListUiHandlers, ValueTypeChangedEvent.ValueTypeChangedHandler,
+        ValueListChangedEvent.ValueListChangedHandler {
     public interface MyView extends View, HasUiHandlers<ValueListUiHandlers> {
         void setData(List<ValueListProxy> response);
 

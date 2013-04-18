@@ -16,9 +16,6 @@
 
 package com.gsr.myschool.back.client.web.welcome;
 
-import com.google.inject.TypeLiteral;
-import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.back.client.web.welcome.login.LoginPresenter;
 import com.gsr.myschool.back.client.web.welcome.login.LoginUiHandlers;
 import com.gsr.myschool.back.client.web.welcome.login.LoginView;
@@ -27,8 +24,7 @@ import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 public class WelcomeModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
-        bind(new TypeLiteral<UiHandlersStrategy<LoginUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<LoginUiHandlers>>() {});
+        bind(LoginUiHandlers.class).to(LoginPresenter.class);
 
         bindPresenter(LoginPresenter.class, LoginPresenter.MyView.class, LoginView.class,
                 LoginPresenter.MyProxy.class);

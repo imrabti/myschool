@@ -11,10 +11,9 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-import com.gsr.myschool.common.client.mvp.PopupViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.FiliereProxy;
 import com.gsr.myschool.common.client.widget.ModalHeader;
+import com.gwtplatform.mvp.client.PopupViewWithUiHandlers;
 
 public class AddFiliereView extends PopupViewWithUiHandlers<AddFiliereUiHandlers>
         implements AddFilierePresenter.MyView {
@@ -35,9 +34,8 @@ public class AddFiliereView extends PopupViewWithUiHandlers<AddFiliereUiHandlers
 
     @Inject
     public AddFiliereView(final EventBus eventBus, final Binder uiBinder,
-                          final Driver driver, final ModalHeader modalHeader,
-                          final UiHandlersStrategy<AddFiliereUiHandlers> uiHandlersStrategy) {
-        super(eventBus, uiHandlersStrategy);
+                          final Driver driver, final ModalHeader modalHeader) {
+        super(eventBus);
 
         this.driver = driver;
         this.modalHeader = modalHeader;

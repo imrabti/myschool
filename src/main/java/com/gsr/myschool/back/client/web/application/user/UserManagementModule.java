@@ -17,22 +17,16 @@
 package com.gsr.myschool.back.client.web.application.user;
 
 import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
-import com.google.inject.TypeLiteral;
 import com.gsr.myschool.back.client.web.application.user.popup.*;
 import com.gsr.myschool.back.client.web.application.user.renderer.UserAccountActionCellFactory;
-import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 public class UserManagementModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
-        bind(new TypeLiteral<UiHandlersStrategy<UserAccountUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<UserAccountUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<UserInscriptionListUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<UserInscriptionListUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<UserAccountEditUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<UserAccountEditUiHandlers>>() {});
+        bind(UserAccountUiHandlers.class).to(UserAccountPresenter.class);
+        bind(UserInscriptionListUiHandlers.class).to(UserInscriptionListPresenter.class);
+        bind(UserAccountEditUiHandlers.class).to(UserAccountEditPresenter.class);
 
         bindSingletonPresenterWidget(UserAccountEditPresenter.class, UserAccountEditPresenter.MyView.class,
                 UserAccountEditView.class);

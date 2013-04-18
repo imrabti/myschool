@@ -18,13 +18,9 @@ package com.gsr.myschool.back.client.web.application.valueList.widget;
 
 import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
-import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
@@ -33,13 +29,10 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 import com.gsr.myschool.back.client.resource.style.CellTableStyle;
-import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueTypeActionCell;
-import com.gsr.myschool.back.client.web.application.valueList.renderer.ValueTypeActionCellFactory;
-import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.ValueTypeProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import java.util.List;
 
@@ -55,11 +48,9 @@ public class ValueTypeView extends ViewWithUiHandlers<ValueTypeUiHandlers>
     private final ListDataProvider<ValueTypeProxy> dataProvider;
 
     @Inject
-    public ValueTypeView(final Binder uiBinder, final UiHandlersStrategy<ValueTypeUiHandlers> uiHandlers,
+    public ValueTypeView(final Binder uiBinder,
                          final SharedMessageBundle sharedMessageBundle,
                          final CellTableStyle cellTableStyle) {
-        super(uiHandlers);
-
         this.dataProvider = new ListDataProvider<ValueTypeProxy>();
         this.valueTypeTable = new CellTable<ValueTypeProxy>(15, cellTableStyle);
         this.valueTypeSelectionModel = new SingleSelectionModel<ValueTypeProxy>();

@@ -10,8 +10,6 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-import com.gsr.myschool.common.client.mvp.PopupViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.FiliereProxy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.ui.dossier.renderer.FiliereRenderer;
@@ -19,6 +17,7 @@ import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
 import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.ModalHeader;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
+import com.gwtplatform.mvp.client.PopupViewWithUiHandlers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +38,8 @@ public class NewNiveauEtudeView extends PopupViewWithUiHandlers<NewNiveauEtudeUi
 
     @Inject
     public NewNiveauEtudeView(final EventBus eventBus, final Binder uiBinder,
-                              final UiHandlersStrategy<NewNiveauEtudeUiHandlers> uiHandlers,
                               final ModalHeader modalHeader, final ValueList valueList) {
-        super(eventBus, uiHandlers);
+        super(eventBus);
 
         this.modalHeader = modalHeader;
         this.valueList = valueList;

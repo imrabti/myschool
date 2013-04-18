@@ -20,14 +20,13 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.resource.style.CellTableStyle;
-import com.gsr.myschool.common.client.mvp.PopupViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
 import com.gsr.myschool.common.client.widget.ModalHeader;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
+import com.gwtplatform.mvp.client.PopupViewWithUiHandlers;
 
 import java.util.List;
 
@@ -55,15 +54,14 @@ public class SessionAffectationView extends PopupViewWithUiHandlers<SessionAffec
     public SessionAffectationView(final EventBus eventBus, final Binder uiBinder,
                                   final ModalHeader modalHeader,
                                   final SharedMessageBundle messageBundle,
-                                  final CellTableStyle cellTableStyle,
-                                  final UiHandlersStrategy<SessionAffectationUiHandlers> uiHandlersStrategy) {
-        super(eventBus, uiHandlersStrategy);
+                                  final CellTableStyle cellTableStyle) {
+        super(eventBus);
 
         this.modalHeader = modalHeader;
         this.dataProvider = new ListDataProvider<SessionExamenProxy>();
         this.selectionModel = new SingleSelectionModel<SessionExamenProxy>();
         this.etablissementTable = new CellTable<SessionExamenProxy>(10, cellTableStyle);
-        dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
+        this.dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
 
         initWidget(uiBinder.createAndBindUi(this));
         initCellTable();

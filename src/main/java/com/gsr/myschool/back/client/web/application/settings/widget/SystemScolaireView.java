@@ -8,9 +8,8 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.back.client.web.application.settings.renderer.NiveauEtudeInfosTreeFactory;
 import com.gsr.myschool.back.client.web.application.settings.widget.SystemScolairePresenter.MyView;
-import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 public class SystemScolaireView extends ViewWithUiHandlers<SystemScolaireUiHandlers> implements MyView {
     public interface Binder extends UiBinder<Widget, SystemScolaireView> {
@@ -21,10 +20,7 @@ public class SystemScolaireView extends ViewWithUiHandlers<SystemScolaireUiHandl
 
     @Inject
     public SystemScolaireView(final Binder uiBinder,
-                              final UiHandlersStrategy<SystemScolaireUiHandlers> uiHandlersStrategy,
                               final NiveauEtudeInfosTreeFactory niveauEtudeInfosTreeFactory) {
-        super(uiHandlersStrategy);
-
         myTree = new CellTree(niveauEtudeInfosTreeFactory.create(setupShowDetails()), null);
 
         initWidget(uiBinder.createAndBindUi(this));

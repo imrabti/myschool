@@ -11,7 +11,6 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupViewImplWithUiHandlers;
 import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.PasswordDTOProxy;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.widget.ModalHeader;
@@ -37,12 +36,11 @@ public class AccountSettingsView extends ValidatedPopupViewImplWithUiHandlers<Ac
 
     @Inject
     public AccountSettingsView(final EventBus eventBus, final Binder uiBinder,
-                               final UiHandlersStrategy<AccountSettingsUiHandlers> uiHandlers,
                                final ValidationErrorPopup errorPopup,
                                final ModalHeader modalHeader,
                                final UserAccountEditor userAccountEditor,
                                final PasswordEditor passwordEditor) {
-        super(eventBus, errorPopup, uiHandlers);
+        super(eventBus, errorPopup);
 
         this.modalHeader = modalHeader;
         this.userAccountEditor = userAccountEditor;

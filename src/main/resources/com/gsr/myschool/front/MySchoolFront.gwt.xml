@@ -28,5 +28,6 @@
     <source path='client'/>
     <source path='shared'/>
 
+    <set-configuration-property name="gwtp.bootstrapper" value="com.gsr.myschool.front.client.BootstrapperImpl"/>
     <set-configuration-property name="gin.ginjector.modules" value="com.gsr.myschool.front.client.gin.ClientModule"/>
 </module>

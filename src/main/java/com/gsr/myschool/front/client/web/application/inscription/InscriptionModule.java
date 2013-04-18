@@ -17,9 +17,6 @@
 package com.gsr.myschool.front.client.web.application.inscription;
 
 import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
-import com.google.inject.TypeLiteral;
-import com.gsr.myschool.common.client.mvp.uihandler.SetterUiHandlersStrategy;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.front.client.web.application.inscription.popup.ConfirmationInscriptionPresenter;
 import com.gsr.myschool.front.client.web.application.inscription.popup.ConfirmationInscriptionUiHandlers;
 import com.gsr.myschool.front.client.web.application.inscription.popup.ConfirmationInscriptionView;
@@ -44,20 +41,13 @@ import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 public class InscriptionModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
-        bind(new TypeLiteral<UiHandlersStrategy<InscriptionUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<InscriptionUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<EditInscriptionUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<EditInscriptionUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<ScolariteActuelleUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<ScolariteActuelleUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<FraterieUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<FraterieUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<EtablissementFilterUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<EtablissementFilterUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<InscriptionDetailUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<InscriptionDetailUiHandlers>>() {});
-        bind(new TypeLiteral<UiHandlersStrategy<ConfirmationInscriptionUiHandlers>>() {})
-                .to(new TypeLiteral<SetterUiHandlersStrategy<ConfirmationInscriptionUiHandlers>>() {});
+        bind(InscriptionUiHandlers.class).to(InscriptionPresenter.class);
+        bind(EditInscriptionUiHandlers.class).to(EditInscriptionPresenter.class);
+        bind(ScolariteActuelleUiHandlers.class).to(ScolariteActuellePresenter.class);
+        bind(FraterieUiHandlers.class).to(FrateriePresenter.class);
+        bind(EtablissementFilterUiHandlers.class).to(EtablissementFilterPresenter.class);
+        bind(InscriptionDetailUiHandlers.class).to(InscriptionDetailPresenter.class);
+        bind(ConfirmationInscriptionUiHandlers.class).to(ConfirmationInscriptionPresenter.class);
 
         bindPresenter(InscriptionPresenter.class, InscriptionPresenter.MyView.class, InscriptionView.class,
                 InscriptionPresenter.MyProxy.class);

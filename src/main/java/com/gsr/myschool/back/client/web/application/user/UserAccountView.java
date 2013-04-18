@@ -34,14 +34,12 @@ import com.google.inject.Inject;
 import com.gsr.myschool.back.client.web.application.user.renderer.UserAccountActionCell;
 import com.gsr.myschool.back.client.web.application.user.renderer.UserAccountActionCellFactory;
 import com.gsr.myschool.back.client.web.application.user.ui.UserFilterEditor;
-import com.gsr.myschool.common.client.mvp.ViewWithUiHandlers;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
-import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.UserFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.EmptyResult;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import java.util.List;
 
@@ -63,12 +61,9 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
 
     @Inject
     public UserAccountView(final Binder uiBinder,
-                           final UiHandlersStrategy<UserAccountUiHandlers> uiHandlers,
                            final UserFilterEditor userFilterEditor,
                            final SharedMessageBundle sharedMessageBundle,
                            final UserAccountActionCellFactory actionCellFactory) {
-        super(uiHandlers);
-
         this.actionCellFactory = actionCellFactory;
         this.userFilterEditor = userFilterEditor;
 

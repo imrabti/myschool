@@ -12,7 +12,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ValidatedViewWithUiHandlers;
 import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
-import com.gsr.myschool.common.client.mvp.uihandler.UiHandlersStrategy;
 import com.gsr.myschool.common.client.proxy.ResetPasswordDTOProxy;
 import com.gsr.myschool.common.client.util.EditorView;
 
@@ -35,9 +34,8 @@ public class ResetPasswordView extends ValidatedViewWithUiHandlers<ResetPassword
 
     @Inject
     public ResetPasswordView(final Binder uiBinder, final ValidationErrorPopup errorPopup,
-                             final UiHandlersStrategy<ResetPasswordUiHandlers> uiHandlersStrategy,
                              final Driver driver) {
-        super(uiHandlersStrategy, errorPopup);
+        super(errorPopup);
 
         this.driver = driver;
 
