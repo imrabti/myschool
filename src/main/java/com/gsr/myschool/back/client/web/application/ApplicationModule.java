@@ -22,6 +22,7 @@ import com.gsr.myschool.back.client.web.application.affectation.AffectationModul
 import com.gsr.myschool.back.client.web.application.dossierdetails.DossierDetailsModule;
 import com.gsr.myschool.back.client.web.application.preinscription.PreInscriptionModule;
 import com.gsr.myschool.back.client.web.application.reception.ReceptionModule;
+import com.gsr.myschool.back.client.web.application.reporting.ReportingModule;
 import com.gsr.myschool.back.client.web.application.session.SessionModule;
 import com.gsr.myschool.back.client.web.application.settings.SettingsModule;
 import com.gsr.myschool.back.client.web.application.user.UserManagementModule;
@@ -51,6 +52,7 @@ public class ApplicationModule extends AbstractPresenterModule {
         install(new AffectationModule());
         install(new ConfirmationTestModule());
         install(new AdmissionModule());
+        install(new ReportingModule());
 
         bind(ApplicationUiHandlers.class).to(ApplicationPresenter.class);
         bind(HeaderUiHandlers.class).to(HeaderPresenter.class);
