@@ -21,6 +21,7 @@
             <boot:NavLink ui:field="confirmation" icon="ENVELOPE" visible="false">Confirmation pour test</boot:NavLink>
             <boot:NavLink ui:field="affectation" icon="PUSHPIN">Affectation aux sessions</boot:NavLink>
             <boot:NavLink ui:field="admission" icon="FLAG">Admission pour inscription</boot:NavLink>
+            <boot:NavLink ui:field="reporting" icon="BAR_CHART">Statistiques</boot:NavLink>
             <boot:NavHeader ui:field="settingsHeader">Paramètrage</boot:NavHeader>
             <boot:NavLink ui:field="userPortal" icon="USER">Utilisateurs Portail</boot:NavLink>
             <boot:NavLink ui:field="userGsr" icon="SUITCASE">Utilisateurs GSR</boot:NavLink>

@@ -11,7 +11,8 @@ public enum MenuItem {
     VALUE_LIST("VALUE_LIST"),
     GENERAL_SETTINGS("GENERAL SETTINGS"),
     SESSION("SESSION"),
-    AFFECTATION("AFFECTATION");
+    AFFECTATION("AFFECTATION"),
+    REPORTING("REPORTING");
 
     private String label;
 
