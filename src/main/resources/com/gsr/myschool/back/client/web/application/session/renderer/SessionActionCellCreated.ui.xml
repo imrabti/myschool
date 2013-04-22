@@ -9,6 +9,10 @@
                 <i class="icon-edit"/>
                 <span class="">Modifier</span>
             </a>
+            <a href="javascript:;" class="btn btn-mini" ui:field="copy">
+                <i class="icon-copy"/>
+                <span class="">Cloner</span>
+            </a>
             <a href="javascript:;" class="btn btn-mini" ui:field="cancel">
                 <i class="icon-remove"/>
                 <span class="">Supprimer</span>

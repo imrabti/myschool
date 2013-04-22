@@ -27,6 +27,8 @@ public interface SessionRequest extends RequestContext {
 
     Request<Void> cancelOrDeleteSession(Long sessionId);
 
+    Request<Void> copySession(Long sessionId);
+
     Request<List<SessionNiveauEtudeProxy>> findAllMatieresByNiveauEtude(Long sessionId, Long niveauEtudeId);
 
     Request<List<SessionNiveauEtudeProxy>> findAllNiveauEtudeBySession(Long sessionId);

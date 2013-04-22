@@ -57,6 +57,7 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
     private Delegate<SessionExamenProxy> updateAction;
     private Delegate<SessionExamenProxy> closeAction;
     private Delegate<SessionExamenProxy> cancelAction;
+    private Delegate<SessionExamenProxy> copyAction;
 
     private SessionActionCell actionsCell;
 
@@ -144,6 +145,13 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
                 getUiHandlers().cancelSession(session);
             }
         };
+
+        copyAction = new Delegate<SessionExamenProxy>() {
+            @Override
+            public void execute(SessionExamenProxy session) {
+                getUiHandlers().copySession(session);
+            }
+        };
     }
 
     private void initDataGrid() {
@@ -178,7 +186,7 @@ public class SessionView extends ViewWithUiHandlers<SessionUiHandlers> implement
         sessionsTable.addColumn(statutColumn, "Statut");
         sessionsTable.setColumnWidth(statutColumn, 10, Style.Unit.PCT);
 
-        actionsCell = sessionActionCellFactory.create(openAction, updateAction, closeAction, cancelAction);
+        actionsCell = sessionActionCellFactory.create(openAction, updateAction, closeAction, cancelAction, copyAction);
         Column<SessionExamenProxy, SessionExamenProxy> actionsColumn =
                 new Column<SessionExamenProxy, SessionExamenProxy>(actionsCell) {
             @Override

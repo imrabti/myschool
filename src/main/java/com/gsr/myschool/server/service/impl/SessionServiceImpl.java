@@ -204,10 +204,40 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
+    public void copySession(Long sessionId) {
+        SessionExamen toCopy = sessionExamenRepos.findOne(sessionId);
+        SessionExamen copied = new SessionExamen();
+        copied.setStatus(SessionStatus.CREATED);
+        copied.setAdresse(toCopy.getAdresse());
+        copied.setAnneeScolaire(toCopy.getAnneeScolaire());
+        copied.setCandidates(0);
+        copied.setDateSession(toCopy.getDateSession());
+        copied.setDebutTest(toCopy.getDebutTest());
+        copied.setGatherKids(toCopy.getGatherKids());
+        copied.setLatitude(toCopy.getLatitude());
+        copied.setLongitude(toCopy.getLongitude());
+        copied.setNom(toCopy.getNom() + " (copy)");
+        copied.setTelephone(toCopy.getTelephone());
+        copied.setWelcomKids(toCopy.getWelcomKids());
+        sessionExamenRepos.save(copied);
+
+        List<SessionNiveauEtude> dataToCopy = sessionExamenNERepos.findBySessionExamenId(sessionId);
+        for (SessionNiveauEtude itemToCopy : dataToCopy) {
+            SessionNiveauEtude newData = new SessionNiveauEtude();
+            newData.setHoraireA(itemToCopy.getHoraireA());
+            newData.setHoraireDe(itemToCopy.getHoraireDe());
+            newData.setMatiere(itemToCopy.getMatiere());
+            newData.setNiveauEtude(itemToCopy.getNiveauEtude());
+            newData.setSessionExamen(copied);
+            sessionExamenNERepos.save(newData);
+        }
+    }
+
+    @Override
     public DossierSession findByDossier(Dossier dossier) {
         try {
             return dossierSessionRepos.findByDossierId(dossier.getId());
-        }   catch (Exception e) {
+        } catch (Exception e) {
             log.error(e.getMessage());
         }
         return null;
