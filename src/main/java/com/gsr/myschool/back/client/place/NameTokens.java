@@ -30,6 +30,7 @@ public class NameTokens {
     public static final String inscriptiondetail = "inscriptionDetails";
     public static final String session = "session";
     public static final String affectation = "affectation";
+    public static final String reporting = "reporting";
 
     public static String getLogin() {
         return login;
@@ -81,5 +82,9 @@ public class NameTokens {
 
     public static String getAdmission() {
         return admission;
+    }
+
+    public static String getReporting() {
+        return reporting;
     }
 }
