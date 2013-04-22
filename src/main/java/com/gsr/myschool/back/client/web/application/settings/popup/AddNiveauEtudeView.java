@@ -17,7 +17,11 @@ import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.ui.dossier.renderer.FiliereRenderer;
 import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.ModalHeader;
+import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
+import com.gsr.myschool.common.shared.type.TypeNiveauEtude;
 import com.gwtplatform.mvp.client.PopupViewWithUiHandlers;
+
+import java.util.Arrays;
 
 public class AddNiveauEtudeView extends PopupViewWithUiHandlers<AddNiveauEtudeUiHandlers>
         implements AddNiveauEtudePresenter.MyView {
@@ -33,6 +37,8 @@ public class AddNiveauEtudeView extends PopupViewWithUiHandlers<AddNiveauEtudeUi
     ValueListBox<FiliereProxy> filiere;
     @UiField
     TextBox nom;
+    @UiField(provided = true)
+    ValueListBox<TypeNiveauEtude> type;
     @UiField
     IntegerBox annee;
 
@@ -47,11 +53,14 @@ public class AddNiveauEtudeView extends PopupViewWithUiHandlers<AddNiveauEtudeUi
         this.driver = driver;
         this.modalHeader = modalHeader;
         this.filiere = new ValueListBox<FiliereProxy>(new FiliereRenderer());
+        this.type = new ValueListBox<TypeNiveauEtude>(new EnumRenderer<TypeNiveauEtude>());
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
 
         filiere.setAcceptableValues(valueList.getFiliereList());
+        type.setAcceptableValues(Arrays.asList(TypeNiveauEtude.values()));
+
         modalHeader.addCloseHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
