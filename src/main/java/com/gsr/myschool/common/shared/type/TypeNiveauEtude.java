@@ -1,8 +1,11 @@
 package com.gsr.myschool.common.shared.type;
 
 public enum TypeNiveauEtude {
+    MATERNELLE("Maternelle"),
     PRIMAIRE("Primaire"),
-    SECONDAIRE("Secondaire");
+    COLLEGE("Collège"),
+    LYCEE("Lycée"),
+    SUPERIEUR("Supérieur");
 
     private String label;
 
