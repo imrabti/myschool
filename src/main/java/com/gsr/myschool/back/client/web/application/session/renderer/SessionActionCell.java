@@ -53,6 +53,7 @@ public class SessionActionCell extends AbstractCell<SessionExamenProxy> {
     private Delegate<SessionExamenProxy> update;
     private Delegate<SessionExamenProxy> close;
     private Delegate<SessionExamenProxy> cancel;
+    private Delegate<SessionExamenProxy> copy;
 
     private SessionExamenProxy selectedObject;
 
@@ -64,7 +65,8 @@ public class SessionActionCell extends AbstractCell<SessionExamenProxy> {
                              @Assisted("open") Delegate<SessionExamenProxy> open,
                              @Assisted("update")  Delegate<SessionExamenProxy> update,
                              @Assisted("close") Delegate<SessionExamenProxy> close,
-                             @Assisted("cancel") Delegate<SessionExamenProxy> cancel) {
+                             @Assisted("cancel") Delegate<SessionExamenProxy> cancel,
+                             @Assisted("copy") Delegate<SessionExamenProxy> copy) {
         super(BrowserEvents.CLICK);
 
         this.uiRendererCreated = uiRendererCreated;
@@ -75,6 +77,7 @@ public class SessionActionCell extends AbstractCell<SessionExamenProxy> {
         this.update = update;
         this.close = close;
         this.cancel = cancel;
+        this.copy = copy;
     }
 
     @Override
@@ -134,5 +137,10 @@ public class SessionActionCell extends AbstractCell<SessionExamenProxy> {
     @UiHandler({"cancel"})
     void onCancelClicked(ClickEvent event) {
         cancel.execute(selectedObject);
+    }
+
+    @UiHandler({"copy"})
+    void onCopyClicked(ClickEvent event) {
+        copy.execute(selectedObject);
     }
 }

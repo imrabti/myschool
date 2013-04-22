@@ -193,6 +193,21 @@ public class SessionPresenter extends Presenter<MyView, MyProxy> implements Sess
     }
 
     @Override
+    public void copySession(SessionExamenProxy session) {
+        Long sessionId = session.getId();
+        requestFactory.sessionService().copySession(sessionId).fire(new ReceiverImpl<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Message message = new Message.Builder(messageBundle.sessionSavedSuccess())
+                        .style(AlertType.SUCCESS).build();
+                MessageEvent.fire(this, message);
+
+                loadSession();
+            }
+        });
+    }
+
+    @Override
     public void showNiveauEtudeDetail(NiveauEtudeNode niveauEtudeNode) {
         editNiveauEtudeTimePresenter.setCurrentSession(selectedSession);
         editNiveauEtudeTimePresenter.setCurrentNiveauEtudeId(niveauEtudeNode.getId());

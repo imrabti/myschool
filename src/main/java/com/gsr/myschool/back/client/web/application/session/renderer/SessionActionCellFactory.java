@@ -8,5 +8,6 @@ public interface SessionActionCellFactory {
     SessionActionCell create(@Assisted("open") Delegate<SessionExamenProxy> open,
                              @Assisted("update") Delegate<SessionExamenProxy> update,
                              @Assisted("close")  Delegate<SessionExamenProxy> close,
-                             @Assisted("cancel") Delegate<SessionExamenProxy> cancel);
+                             @Assisted("cancel") Delegate<SessionExamenProxy> cancel,
+                             @Assisted("copy") Delegate<SessionExamenProxy> copy);
 }
