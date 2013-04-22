@@ -24,7 +24,7 @@ public class ReportingView extends ViewWithUiHandlers<ReportingUiHandlers> imple
     public enum ReportingType {
         SUMMARY("Bilan des pré-inscriptions"),
         CONVOCATION("Bilan des convocations"),
-        MULTIPLE_INSCRIPTIONS("Comptes avec plusieurs pré-inscriptions");
+        MULTIPLE_INSCRIPTIONS("Comptes multi-dossiers");
 
         private String label;
 
