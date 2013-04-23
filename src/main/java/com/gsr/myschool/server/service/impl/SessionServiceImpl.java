@@ -110,8 +110,9 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public void deleteNiveauEtude(Long niveauEtudeId) {
-        List<SessionNiveauEtude> matieres = sessionExamenNERepos.findByNiveauEtudeId(niveauEtudeId);
+    public void deleteNiveauEtude(Long sessionId, Long niveauEtudeId) {
+        List<SessionNiveauEtude> matieres = sessionExamenNERepos.findBySessionExamenIdAndNiveauEtudeId(sessionId,
+                niveauEtudeId);
         sessionExamenNERepos.delete(matieres);
     }
 

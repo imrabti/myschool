@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface SessionExamenNERepos extends JpaRepository<SessionNiveauEtude, Long> {
-    List<SessionNiveauEtude> findByNiveauEtudeId(Long id);
-
     List<SessionNiveauEtude> findBySessionExamenId(Long id);
 
     List<SessionNiveauEtude> findBySessionExamenIdAndNiveauEtudeId(Long sessionId, Long niveauId);
