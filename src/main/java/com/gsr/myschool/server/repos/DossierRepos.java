@@ -28,4 +28,6 @@ public interface DossierRepos extends JpaRepository<Dossier, Long>, JpaSpecifica
     List<String> findAllNumDossier();
 
     List<Dossier> findByOwnerIdOrderByIdDesc(Long userId);
+
+    Long countByOwnerIdAndAnneeScolaireId(Long userId, Long anneeScolaireId);
 }

@@ -20,6 +20,7 @@ import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
+import com.gsr.myschool.common.client.proxy.DossierMultipleProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.PagedDossiersProxy;
 import com.gsr.myschool.common.client.proxy.PiecejustifDTOProxy;
@@ -46,4 +47,6 @@ public interface DossierRequest extends RequestContext {
     Request<Boolean> acceptDossier(DossierProxy dossier);
 
     Request<Boolean> closeDossier(DossierProxy dossier, DossierStatus closedStatus, String comment);
+
+    Request<List<DossierMultipleProxy>> findMultipleDossierByStatus(DossierStatus status);
 }

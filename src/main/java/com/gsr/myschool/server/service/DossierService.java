@@ -17,6 +17,7 @@
 package com.gsr.myschool.server.service;
 
 import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
+import com.gsr.myschool.common.shared.dto.DossierMultiple;
 import com.gsr.myschool.common.shared.dto.PiecejustifDTO;
 import com.gsr.myschool.common.shared.dto.PagedDossiers;
 import com.gsr.myschool.common.shared.type.DossierStatus;
@@ -40,4 +41,6 @@ public interface DossierService {
     Boolean acceptDossier(Dossier dossier);
 
     Boolean closeDossier(Dossier dossier, DossierStatus status, String comment);
+
+    List<DossierMultiple> findMultipleDossierByStatus(DossierStatus status);
 }
