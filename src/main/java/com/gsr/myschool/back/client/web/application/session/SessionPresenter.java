@@ -217,7 +217,9 @@ public class SessionPresenter extends Presenter<MyView, MyProxy> implements Sess
     @Override
     public void deleteNiveauEtude(NiveauEtudeNode niveauEtudeNode) {
         if (Window.confirm(messageBundle.deleteConfirmation())) {
-            requestFactory.sessionService().deleteNiveauEtude(niveauEtudeNode.getId()).fire(new ReceiverImpl<Void>() {
+            Long niveauEtudeId = niveauEtudeNode.getId();
+            Long sessionId = selectedSession.getId();
+            requestFactory.sessionService().deleteNiveauEtude(sessionId, niveauEtudeId).fire(new ReceiverImpl<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Message message = new Message.Builder(messageBundle.niveauEtudeDeleteSucess())
