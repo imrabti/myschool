@@ -19,7 +19,7 @@ public interface SessionService {
 
     void updateHoraire(List<String> horaires);
 
-    void deleteNiveauEtude(Long niveauEtudeId);
+    void deleteNiveauEtude(Long sessionId, Long niveauEtudeId);
 
     Boolean openSession(Long sessionId) throws SessionEmptyException;
 
