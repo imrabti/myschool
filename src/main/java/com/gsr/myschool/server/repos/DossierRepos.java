@@ -17,10 +17,13 @@
 package com.gsr.myschool.server.repos;
 
 import com.gsr.myschool.common.shared.dto.BilanDTO;
+import com.gsr.myschool.common.shared.type.DossierStatus;
+import com.gsr.myschool.common.shared.type.TypeNiveauEtude;
 import com.gsr.myschool.server.business.Dossier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -30,6 +33,19 @@ public interface DossierRepos extends JpaRepository<Dossier, Long>, JpaSpecifica
 
     List<Dossier> findByOwnerIdOrderByIdDesc(Long userId);
 
-    @Query("select new com.gsr.myschool.common.shared.dto.BilanDTO(d.niveauEtude.nom, d.niveauEtude.filiere.id, count(d)) FROM Dossier d group by d.niveauEtude ")
+    @Query("select new com.gsr.myschool.common.shared.dto.BilanDTO(d.niveauEtude.nom, d.niveauEtude.filiere.id, count(d)) " +
+            "FROM Dossier d WHERE d.status = :status group by d.niveauEtude ")
+    List<BilanDTO> findBilanDossier(@Param("status") DossierStatus status);
+
+    @Query("select new com.gsr.myschool.common.shared.dto.BilanDTO(d.niveauEtude.type, d.niveauEtude.filiere.id, count(d)) " +
+            "FROM Dossier d WHERE d.status = :status group by d.niveauEtude.type ")
+    List<BilanDTO> findBilanCycle(@Param("status") DossierStatus status);
+
+    @Query("select new com.gsr.myschool.common.shared.dto.BilanDTO(d.niveauEtude.nom, d.niveauEtude.filiere.id, count(d)) " +
+            "FROM Dossier d group by d.niveauEtude ")
     List<BilanDTO> findBilanDossier();
+
+    @Query("select new com.gsr.myschool.common.shared.dto.BilanDTO(d.niveauEtude.type, d.niveauEtude.filiere.id, count(d)) " +
+            "FROM Dossier d group by d.niveauEtude.type ")
+    List<BilanDTO> findBilanCycle();
 }

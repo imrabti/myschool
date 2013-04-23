@@ -16,6 +16,8 @@
 
 package com.gsr.myschool.common.shared.dto;
 
+import com.gsr.myschool.common.shared.type.DossierStatus;
+import com.gsr.myschool.common.shared.type.TypeNiveauEtude;
 import com.gsr.myschool.server.util.BeanMapper;
 
 import java.io.Serializable;
@@ -55,6 +57,12 @@ public class BilanDTO implements Serializable {
 
     public BilanDTO(String niveau, Long filiere, Long total) {
         this.niveau = niveau;
+        this.filiere = filiere;
+        this.total = total;
+    }
+
+    public BilanDTO(TypeNiveauEtude niveau, Long filiere, Long total) {
+        this.niveau = niveau.toString();
         this.filiere = filiere;
         this.total = total;
     }
