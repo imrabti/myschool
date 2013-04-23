@@ -1,5 +1,6 @@
 package com.gsr.myschool.common.shared.dto;
 
+import com.google.gwt.thirdparty.guava.common.base.Objects;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.InfoParent;
 import com.gsr.myschool.server.business.User;
@@ -23,21 +24,33 @@ public class DossierMultiple {
     public DossierMultiple(User user, Dossier dossier, List<InfoParent> infoParents) {
         compte = user.getEmail();
         numDossier = dossier.getGeneratedNumDossier();
-        candidat = dossier.getCandidat().getFirstname() + " " + dossier.getCandidat().getLastname();
-        etablissement = dossier.getScolariteActuelle().getEtablissement().getNom();
-        filiere = dossier.getFiliere().getNom();
-        niveauEtude = dossier.getNiveauEtude().getNom();
+
+        if (null != dossier.getCandidat()) {
+            candidat = dossier.getCandidat().getFirstname() + " " + dossier.getCandidat().getLastname();
+        }
+
+        if (null != dossier.getScolariteActuelle().getEtablissement()) {
+            etablissement = dossier.getScolariteActuelle().getEtablissement().getNom();
+        }
+
+        if (null != dossier.getFiliere()) {
+            filiere = dossier.getFiliere().getNom();
+        }
+
+        if (null != dossier.getNiveauEtude()) {
+            niveauEtude = dossier.getNiveauEtude().getNom();
+        }
 
         for (InfoParent item : infoParents) {
             switch (item.getParentType()) {
                 case PERE:
-                    pere = item.getPrenom() + " " + item.getNom();
+                    pere = Objects.firstNonNull(item.getPrenom(), "")  + " " + Objects.firstNonNull(item.getNom(), "");
                     break;
                 case MERE:
-                    mere = item.getPrenom() + " " + item.getNom();
+                    mere = Objects.firstNonNull(item.getPrenom(), "")  + " " + Objects.firstNonNull(item.getNom(), "");
                     break;
                 case TUTEUR:
-                    tuteur = item.getPrenom() + " " + item.getNom();
+                    tuteur = Objects.firstNonNull(item.getPrenom(), "")  + " " + Objects.firstNonNull(item.getNom(), "");
                     break;
             }
         }

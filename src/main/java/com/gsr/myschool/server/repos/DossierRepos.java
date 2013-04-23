@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.server.repos;
 
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Dossier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -29,5 +30,7 @@ public interface DossierRepos extends JpaRepository<Dossier, Long>, JpaSpecifica
 
     List<Dossier> findByOwnerIdOrderByIdDesc(Long userId);
 
-    Long countByOwnerIdAndAnneeScolaireId(Long userId, Long anneeScolaireId);
+    List<Dossier> findByOwnerIdAndAnneeScolaireId(Long userId, Long anneeScolaireId);
+
+    List<Dossier> findByOwnerIdAndAnneeScolaireIdAndStatus(Long userId, Long anneeScolaireId, DossierStatus status);
 }

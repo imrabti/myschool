@@ -277,7 +277,15 @@ public class DossierServiceImpl implements DossierService {
 
         if (anneeScolaire != null) {
             for (User user : listUsers) {
-                Long dossierCount = dossierRepos.countByOwnerIdAndAnneeScolaireId(user.getId(), anneeScolaire.getId());
+                Integer dossierCount;
+                if (status == null) {
+                    dossierCount = dossierRepos.findByOwnerIdAndAnneeScolaireId(user.getId(),
+                            anneeScolaire.getId()).size();
+                } else {
+                    dossierCount = dossierRepos.findByOwnerIdAndAnneeScolaireIdAndStatus(user.getId(),
+                            anneeScolaire.getId(), status).size();
+                }
+
                 if (dossierCount > 1) {
                     List<Dossier> dossiers = dossierRepos.findByOwnerIdOrderByIdDesc(user.getId());
                     for (Dossier item : dossiers) {

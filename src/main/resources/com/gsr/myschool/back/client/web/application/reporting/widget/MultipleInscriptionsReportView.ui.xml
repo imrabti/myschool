@@ -28,7 +28,7 @@
         </boot:Well>
 
         <div class="{style.tableWrapper}">
-            Here the result table
+            <boot:CellTable ui:field="dossierTable" bordered="true"/>
         </div>
     </g:HTMLPanel>
 </ui:UiBinder>
