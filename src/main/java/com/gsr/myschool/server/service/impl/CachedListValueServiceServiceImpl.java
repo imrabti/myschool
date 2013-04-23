@@ -89,6 +89,23 @@ public class CachedListValueServiceServiceImpl implements CachedListValueService
     }
 
     @Override
+    @Cacheable("niveauEtudeFront")
+    public List<NiveauEtude> findNiveauEtudes() {
+        Settings settings = settingsRepos.findOne(SettingsKey.FILIERE_GENERAL_CLOSED);
+        if (settings == null) {
+            settings = new Settings();
+            settings.setSetting(SettingsKey.FILIERE_GENERAL_CLOSED);
+            settings.setValue(GlobalParameters.APP_STATUS_OPENED);
+            settingsRepos.save(settings);
+        }
+        if (GlobalParameters.APP_STATUS_OPENED.equals(settings.getValue())) {
+            return niveauEtudeRepos.findAll(new Sort(new Order("annee")));
+        } else {
+            return niveauEtudeRepos.findByAnneeGreaterThanOrderByAnneeDesc(16);
+        }
+    }
+
+    @Override
     @Cacheable("pieces")
     public List<String> findPieces() {
         List<String> pieces = new ArrayList<String>();
