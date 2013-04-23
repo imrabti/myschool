@@ -110,19 +110,29 @@ public class JasperTest {
         Map<String, Object> myMap = new HashMap<String, Object>();
 
         myMap.put("date", dateFormat.format(new Date()));
+        Long total1 = 0L, total2 = 0L, total3 = 0L;
 
-        List<Map> myList = new ArrayList<Map>();
-        List<Map> myList2 = new ArrayList<Map>();
+        List<Map> myList1 = new ArrayList<Map>(), myList2 = new ArrayList<Map>(), myList3 = new ArrayList<Map>();
 
         for (BilanDTO bilan : dossiers) {
             if (bilan.getFiliere().longValue() == GlobalParameters.SECTION_FRANCAISE) {
-                myList.add(bilan.getReportsAttributes());
+                myList1.add(bilan.getReportsAttributes());
+                total1 += bilan.getTotal();
             } else if (bilan.getFiliere().longValue() == GlobalParameters.SECTION_BILINGUE) {
                 myList2.add(bilan.getReportsAttributes());
+                total2 += bilan.getTotal();
+            } else if (bilan.getFiliere() >= GlobalParameters.PREPA_FILIERE_FROM) {
+                myList3.add(bilan.getReportsAttributes());
+                total3 += bilan.getTotal();
             }
         }
+        myMap.put("francais", myList1);
         myMap.put("bilingues", myList2);
-        myMap.put("francais", myList);
+        myMap.put("prepas", myList3);
+
+        myMap.put("francaisTotal", total1.toString());
+        myMap.put("bilinguesTotal", total2.toString());
+        myMap.put("prepasTotal", total3.toString());
 
         dto.setReportParameters(myMap);
         dto.setFileName("convocation_.pdf");

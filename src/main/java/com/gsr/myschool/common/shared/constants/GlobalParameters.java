@@ -23,7 +23,7 @@ public class GlobalParameters {
 
     public static final Long PREPA_FILIERE_FROM = 30l;
 
-    public static final List<Long> NE_toute_petite_section_ids = Arrays.asList( new Long[]{49L,50L});
+    public static final List<Long> NE_toute_petite_section_ids = Arrays.asList(49L,50L);
 
     public static final String APP_STATUS_OPENED = "open";
     public static final String APP_STATUS_CLOSED = "closed";

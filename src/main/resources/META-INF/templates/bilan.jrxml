@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bilan" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4c574922-4b99-490d-ae3f-1b12f7827f23">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bilan" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4c574922-4b99-490d-ae3f-1b12f7827f23">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="160"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<subDataset name="dataset1" uuid="e5e78060-9521-470f-ba62-d65999e710df">
 		<field name="mission" class="org.apache.commons.beanutils.BeanMap">
@@ -14,198 +14,108 @@
 			<fieldDescription><![CDATA[_THIS]]></fieldDescription>
 		</field>
 	</subDataset>
-	<parameter name="date" class="java.lang.String"/>
-	<parameter name="dateTest" class="java.lang.String"/>
-	<parameter name="heureAccueilDebut" class="java.lang.String"/>
-	<parameter name="heureAccueilFin" class="java.lang.String"/>
-	<parameter name="heureDebut" class="java.lang.String"/>
-	<parameter name="heureRecuperation" class="java.lang.String"/>
-	<parameter name="niveauEtude" class="java.lang.String"/>
-	<parameter name="section" class="java.lang.String"/>
-	<parameter name="adresse" class="java.lang.String"/>
-	<parameter name="phone" class="java.lang.String"/>
-	<parameter name="nomParent" class="java.lang.String"/>
-	<parameter name="heureEpreuveFin" class="java.lang.String"/>
-	<parameter name="heureEpreuveDebut" class="java.lang.String"/>
-	<parameter name="prenomEnfant" class="java.lang.String"/>
-	<parameter name="francais" class="java.util.List"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="refDossier" class="java.lang.String"/>
-	<parameter name="typeBac" class="java.lang.String"/>
-	<parameter name="session" class="java.lang.String"/>
-	<parameter name="anneeScolaire" class="java.lang.String"/>
+	<parameter name="date" class="java.lang.String"/>
 	<parameter name="bilingues" class="java.util.List"/>
+	<parameter name="francais" class="java.util.List"/>
+	<parameter name="prepas" class="java.util.List"/>
+	<parameter name="prepasTotal" class="java.lang.String"/>
+	<parameter name="francaisTotal" class="java.lang.String"/>
+	<parameter name="bilinguesTotal" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="780" splitType="Stretch">
-			<image>
-				<reportElement uuid="e81b6025-2acb-4471-87d4-120fbaed85f7" x="29" y="20" width="77" height="60"/>
-				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"logo.png"]]></imageExpression>
-			</image>
-			<staticText>
-				<reportElement uuid="cf85beec-7d4b-4545-930d-38a442666ed6" x="304" y="20" width="261" height="20"/>
-				<textElement textAlignment="Right" markup="none">
-					<font fontName="Serif" size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Dossiers convoqués]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="42212ef8-d210-471c-b8a0-a68fa8911d44" x="379" y="760" width="186" height="20"/>
-				<textElement textAlignment="Right" markup="none">
-					<font fontName="Serif" size="12" isBold="true" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[La Direction]]></text>
-			</staticText>
-			<componentElement>
-				<reportElement uuid="9dbe190e-b1e7-44cf-b971-306b95b3aba9" x="28" y="148" width="258" height="15"/>
-				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
-					<datasetRun subDataset="dataset2" uuid="6ba6aefc-e885-49e9-9fd7-00eafd929b71">
-						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{bilingues})]]></dataSourceExpression>
-					</datasetRun>
-					<jr:listContents height="15" width="258">
-						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" x="0" y="1" width="123" height="14"/>
-							<textElement textAlignment="Center" verticalAlignment="Middle">
-								<font fontName="Serif" size="9" isPdfEmbedded="true"/>
-							</textElement>
-							<textFieldExpression><![CDATA[$F{bilingue}.get("niveau")]]></textFieldExpression>
-						</textField>
-						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" x="123" y="1" width="135" height="14"/>
-							<textElement textAlignment="Right" verticalAlignment="Middle">
-								<font fontName="Serif" size="8" isPdfEmbedded="true"/>
-							</textElement>
-							<textFieldExpression><![CDATA[$F{bilingue}.get("total")]]></textFieldExpression>
-						</textField>
-						<line direction="BottomUp">
-							<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="0" y="13" width="258" height="1"/>
-							<graphicElement>
-								<pen lineWidth="0.25"/>
-							</graphicElement>
-						</line>
-					</jr:listContents>
-				</jr:list>
-			</componentElement>
-			<line direction="BottomUp">
-				<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="28" y="147" width="258" height="1"/>
-				<graphicElement>
-					<pen lineWidth="2.0"/>
-				</graphicElement>
-			</line>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="338" y="40" width="227" height="11"/>
-				<textElement textAlignment="Right">
-					<font fontName="Serif" size="8" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Date d'impression : "+$P{date}]]></textFieldExpression>
-			</textField>
-			<componentElement>
-				<reportElement uuid="9dbe190e-b1e7-44cf-b971-306b95b3aba9" x="307" y="148" width="258" height="15"/>
-				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
-					<datasetRun subDataset="dataset1" uuid="6ba6aefc-e885-49e9-9fd7-00eafd929b71">
-						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{francais})]]></dataSourceExpression>
-					</datasetRun>
-					<jr:listContents height="15" width="258">
-						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" x="0" y="1" width="123" height="14"/>
-							<textElement textAlignment="Center" verticalAlignment="Middle">
-								<font fontName="Serif" size="9" isPdfEmbedded="true"/>
-							</textElement>
-							<textFieldExpression><![CDATA[$F{mission}.get("niveau")]]></textFieldExpression>
-						</textField>
-						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" x="123" y="1" width="135" height="14"/>
-							<textElement textAlignment="Right" verticalAlignment="Middle">
-								<font fontName="Serif" size="8" isPdfEmbedded="true"/>
-							</textElement>
-							<textFieldExpression><![CDATA[$F{mission}.get("total")]]></textFieldExpression>
-						</textField>
-						<line direction="BottomUp">
-							<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="0" y="13" width="258" height="1"/>
-							<graphicElement>
-								<pen lineWidth="0.25"/>
-							</graphicElement>
-						</line>
-					</jr:listContents>
-				</jr:list>
-			</componentElement>
-			<line direction="BottomUp">
-				<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="307" y="147" width="258" height="1"/>
-				<graphicElement>
-					<pen lineWidth="2.0"/>
-				</graphicElement>
-			</line>
-			<barChart>
-				<chart evaluationTime="Report">
-					<reportElement uuid="ce6455dd-3070-4d71-a830-7f979d4c9c3b" stretchType="RelativeToBandHeight" x="28" y="499" width="537" height="281"/>
-					<chartTitle/>
-					<chartSubtitle/>
-					<chartLegend/>
-				</chart>
-				<categoryDataset>
-					<dataset>
-						<datasetRun subDataset="dataset2" uuid="3f59413e-4dab-4e4c-99f1-ad7f63c2a4cb">
-							<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{bilingues})]]></dataSourceExpression>
-						</datasetRun>
-					</dataset>
-					<categorySeries>
-						<seriesExpression><![CDATA["Dummy Series"]]></seriesExpression>
-						<categoryExpression><![CDATA[$F{bilingue}.get("niveau").toString()]]></categoryExpression>
-						<valueExpression><![CDATA[$F{bilingue}.get("total")]]></valueExpression>
-						<labelExpression><![CDATA[$F{bilingue}.get("niveau").toString()]]></labelExpression>
-					</categorySeries>
-				</categoryDataset>
-				<barPlot>
-					<plot labelRotation="60.0"/>
-					<itemLabel/>
-					<categoryAxisFormat labelRotation="60.0">
-						<axisFormat>
-							<labelFont>
-								<font size="5"/>
-							</labelFont>
-						</axisFormat>
-					</categoryAxisFormat>
-				</barPlot>
-			</barChart>
-			<break>
-				<reportElement uuid="ea106a10-164d-49c9-8130-e58697fe8dc0" x="0" y="232" width="100" height="1"/>
-			</break>
-			<barChart>
-				<chart evaluationTime="Report">
-					<reportElement uuid="ce6455dd-3070-4d71-a830-7f979d4c9c3b" stretchType="RelativeToBandHeight" x="28" y="248" width="537" height="251"/>
-					<chartTitle/>
-					<chartSubtitle/>
-					<chartLegend/>
-				</chart>
-				<categoryDataset>
-					<dataset>
-						<datasetRun subDataset="dataset1" uuid="3f59413e-4dab-4e4c-99f1-ad7f63c2a4cb">
-							<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{francais})]]></dataSourceExpression>
-						</datasetRun>
-					</dataset>
-					<categorySeries>
-						<seriesExpression><![CDATA["Dummy Series"]]></seriesExpression>
-						<categoryExpression><![CDATA[$F{mission}.get("niveau").toString()]]></categoryExpression>
-						<valueExpression><![CDATA[$F{mission}.get("total")]]></valueExpression>
-						<labelExpression><![CDATA[$F{mission}.get("niveau").toString()]]></labelExpression>
-					</categorySeries>
-				</categoryDataset>
-				<barPlot>
-					<plot labelRotation="60.0"/>
-					<itemLabel/>
-					<categoryAxisFormat labelRotation="60.0">
-						<axisFormat>
-							<labelFont>
-								<font size="5"/>
-							</labelFont>
-						</axisFormat>
-					</categoryAxisFormat>
-				</barPlot>
-			</barChart>
+		<band height="100" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="a0fe4948-65d0-419f-8942-419dfce9981c" positionType="Float" x="0" y="0" width="595" height="33"/>
+				<subreportParameter name="francaisTotal">
+					<subreportParameterExpression><![CDATA[$P{francaisTotal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="date">
+					<subreportParameterExpression><![CDATA[$P{date}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="francais">
+					<subreportParameterExpression><![CDATA[$P{francais}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="bilinguesTotal">
+					<subreportParameterExpression><![CDATA[$P{bilinguesTotal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="bilingues">
+					<subreportParameterExpression><![CDATA[$P{bilingues}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="prepas">
+					<subreportParameterExpression><![CDATA[$P{prepas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="prepasTotal">
+					<subreportParameterExpression><![CDATA[$P{prepasTotal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "bilan_subreport2.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="a0fe4948-65d0-419f-8942-419dfce9981c" positionType="Float" x="0" y="33" width="595" height="33"/>
+				<subreportParameter name="bilingues">
+					<subreportParameterExpression><![CDATA[$P{bilingues}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="francaisTotal">
+					<subreportParameterExpression><![CDATA[$P{francaisTotal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="date">
+					<subreportParameterExpression><![CDATA[$P{date}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="francais">
+					<subreportParameterExpression><![CDATA[$P{francais}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="prepas">
+					<subreportParameterExpression><![CDATA[$P{prepas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="bilinguesTotal">
+					<subreportParameterExpression><![CDATA[$P{bilinguesTotal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="prepasTotal">
+					<subreportParameterExpression><![CDATA[$P{prepasTotal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "bilan_subreport3.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="a0fe4948-65d0-419f-8942-419dfce9981c" positionType="Float" x="0" y="66" width="595" height="33"/>
+				<subreportParameter name="bilingues">
+					<subreportParameterExpression><![CDATA[$P{bilingues}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="francaisTotal">
+					<subreportParameterExpression><![CDATA[$P{francaisTotal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="date">
+					<subreportParameterExpression><![CDATA[$P{date}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="francais">
+					<subreportParameterExpression><![CDATA[$P{francais}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="prepas">
+					<subreportParameterExpression><![CDATA[$P{prepas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="bilinguesTotal">
+					<subreportParameterExpression><![CDATA[$P{bilinguesTotal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="prepasTotal">
+					<subreportParameterExpression><![CDATA[$P{prepasTotal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "bilan_subreport1.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</title>
 	<pageHeader>
