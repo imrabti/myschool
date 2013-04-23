@@ -169,4 +169,14 @@ public class SettingsView extends ViewWithUiHandlers<SettingsUiHandlers> impleme
     void onAddNiveauEtudeClick(ClickEvent event) {
         getUiHandlers().addNiveauEtude();
     }
+
+    @UiHandler("cleanProcess")
+    void cleanProcess(ClickEvent event) {
+        getUiHandlers().cleanProcess();
+    }
+
+    @UiHandler("deleteCreatedPrepaDossier")
+    void deleteCreatedPrepaDossier(ClickEvent event) {
+        getUiHandlers().deleteCreatedPrepaDossier();
+    }
 }

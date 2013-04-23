@@ -28,10 +28,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component("processPatchJob")
+@Service
 public class ProcessPatchJobImpl implements Worker {
 
     private Log logger = LogFactory.getLog("Process Patch Job");
@@ -52,7 +53,7 @@ public class ProcessPatchJobImpl implements Worker {
             try {
                 ProcessInstance pi = runtimeService.createProcessInstanceQuery()
                         .processDefinitionKey("validation")
-                        .processInstanceBusinessKey("961").singleResult();
+                        .processInstanceBusinessKey(dossier.getId().toString()).singleResult();
                 if (pi == null) {
                     validationProcessService.startProcess(dossier);
                     count++;
@@ -66,4 +67,6 @@ public class ProcessPatchJobImpl implements Worker {
         System.out.println("Number of process started = " + count);
         logger.info("Number of process started = " + count);
     }
+
+
 }

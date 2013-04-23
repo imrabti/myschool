@@ -32,4 +32,8 @@ public interface SettingsUiHandlers extends UiHandlers {
     void addFiliere();
 
     void addNiveauEtude();
+
+    void deleteCreatedPrepaDossier();
+
+    void cleanProcess();
 }

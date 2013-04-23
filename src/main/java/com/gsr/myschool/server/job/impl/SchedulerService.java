@@ -31,15 +31,9 @@ public class SchedulerService {
     @Qualifier("expiredDossierJob")
     private Worker worker;
 
-    @Autowired
-    @Qualifier("processPatchJob")
-    private Worker processPatchJob;
-
-
     @PostConstruct
     public void startupJobs() {
         worker.work();
-        processPatchJob.work();
     }
 
     @Scheduled(cron = "0 30 2 * * ?")

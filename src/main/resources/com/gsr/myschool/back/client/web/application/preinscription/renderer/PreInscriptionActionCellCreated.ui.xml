@@ -4,13 +4,13 @@
             <i class="icon-search"/>
             <span class="">consulter</span>
         </a>
+        <a href="javascript:;" class="btn btn-mini" ui:field="print" style="display:none;">
+            <i class="icon-print"/>
+            <span class="">Imprimer</span>
+        </a>
         <a href="javascript:;" class="btn btn-mini" ui:field="delete">
             <i class="icon-remove"/>
             <span class="">Supprimer</span>
-        </a>
-        <a href="javascript:;" class="btn btn-mini" ui:field="print">
-            <i class="icon-print"/>
-            <span class="">Imprimer</span>
         </a>
     </div>
 </ui:UiBinder>
