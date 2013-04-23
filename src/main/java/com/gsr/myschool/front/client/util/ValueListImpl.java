@@ -120,7 +120,7 @@ public class ValueListImpl implements ValueList {
 
     @Override
     public void initNiveauEtudeMap() {
-        requestFactory.cachedListValueService().findAllNiveauEtude().fire(new Receiver<List<NiveauEtudeProxy>>() {
+        requestFactory.cachedListValueService().findNiveauEtudes().fire(new Receiver<List<NiveauEtudeProxy>>() {
             @Override
             public void onSuccess(List<NiveauEtudeProxy> result) {
                 niveauEtudeList.addAll(result);

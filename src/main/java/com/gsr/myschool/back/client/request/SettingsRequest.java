@@ -53,4 +53,8 @@ public interface SettingsRequest extends RequestContext {
     Request<Boolean> updateTemplateEmail(EmailTemplateProxy template);
 
     Request<EmailTemplateProxy> findEmailTemplateByCode(EmailType code);
+
+    Request<Void> deleteDossiers(Boolean isPrepa);
+
+    Request<Void> correctionProcess();
 }

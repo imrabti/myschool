@@ -38,6 +38,14 @@
                     </boot:ControlGroup>
 
                     <boot:ControlGroup addStyleNames="{style.smallMarginButtom}">
+                        <boot:ControlLabel width="80px">Type</boot:ControlLabel>
+                        <boot:Controls styleName="{style.smallMargin}">
+                            <boot:ValueListBox ui:field="type" width="250px"/>
+                            <span class="{resource.sharedStyleCss.requiredField}"/>
+                        </boot:Controls>
+                    </boot:ControlGroup>
+
+                    <boot:ControlGroup addStyleNames="{style.smallMarginButtom}">
                         <boot:ControlLabel width="80px">Nom</boot:ControlLabel>
                         <boot:Controls styleName="{style.smallMargin}">
                             <boot:TextBox ui:field="nom"/>

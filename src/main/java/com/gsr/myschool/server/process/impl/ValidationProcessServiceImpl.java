@@ -89,7 +89,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     public Task getDossierToReceive(Long dossierId) {
         return taskService.createTaskQuery()
                 .processInstanceBusinessKey(dossierId.toString())
-                .taskDefinitionKey(ValidationTask.RECEPTION.getValue())
+                .processDefinitionKey("validation")
                 .singleResult();
     }
 

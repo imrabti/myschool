@@ -1,9 +1,11 @@
 package com.gsr.myschool.server.business.core;
 
+import com.gsr.myschool.common.shared.type.TypeNiveauEtude;
 import com.gsr.myschool.server.util.BeanMapper;
 import org.apache.commons.beanutils.BeanMap;
 
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,6 +21,8 @@ public class NiveauEtude implements java.io.Serializable {
     private Filiere filiere;
     private Integer annee;
     private String nom;
+    @Enumerated
+    private TypeNiveauEtude type;
 
     public Long getId() {
         return id;
@@ -52,7 +56,15 @@ public class NiveauEtude implements java.io.Serializable {
         this.nom = newNom;
     }
 
-	public Map getReportsAttributes() {
+    public TypeNiveauEtude getType() {
+        return type;
+    }
+
+    public void setType(TypeNiveauEtude type) {
+        this.type = type;
+    }
+
+    public Map getReportsAttributes() {
         return BeanMapper.beanToMap(this);
 	}
 }

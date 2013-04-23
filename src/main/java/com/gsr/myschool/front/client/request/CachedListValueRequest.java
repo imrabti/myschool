@@ -14,11 +14,9 @@ import java.util.List;
 
 @Service(value = CachedListValueServiceServiceImpl.class, locator = SpringServiceLocator.class)
 public interface CachedListValueRequest extends RequestContext {
-    Request<List<FiliereProxy>> findAllFiliere();
-
     Request<List<EtablissementScolaireProxy>> findAllEtablissementScolaire();
 
-    Request<List<NiveauEtudeProxy>> findAllNiveauEtude();
+    Request<List<NiveauEtudeProxy>> findNiveauEtudes();
 
     Request<List<ValueListProxy>> findAllValueList();
 

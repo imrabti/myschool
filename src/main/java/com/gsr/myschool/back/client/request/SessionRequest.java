@@ -21,11 +21,13 @@ public interface SessionRequest extends RequestContext {
 
     Request<Void> updateHoraire(List<String> horaires);
 
-    Request<Void> deleteNiveauEtude(Long niveauEtudeId);
+    Request<Void> deleteNiveauEtude(Long sessionId, Long niveauEtudeId);
 
     Request<Boolean> openSession(Long sessionId);
 
     Request<Void> cancelOrDeleteSession(Long sessionId);
+
+    Request<Void> copySession(Long sessionId);
 
     Request<List<SessionNiveauEtudeProxy>> findAllMatieresByNiveauEtude(Long sessionId, Long niveauEtudeId);
 
