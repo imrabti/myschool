@@ -63,6 +63,17 @@
                 </div>
 
                 <div class="{style.row}">
+                    <g:Label addStyleNames="{style.label}" text="Supprimer les dossiers crées de plus de sept jours non soumis en Prépa"/>
+
+                    <boot:Button ui:field="deleteCreatedPrepaDossier">Supprimer</boot:Button>
+                </div>
+                <div class="{style.row}">
+                    <g:Label addStyleNames="{style.label}" text="Nettoyer les Processus"/>
+
+                    <boot:Button ui:field="cleanProcess">Nettoyer</boot:Button>
+                </div>
+
+                <div class="{style.row}">
                     <g:Label addStyleNames="{style.label}" text="Date limite des pré-inscriptions"/>
                     <boot:TextArea ui:field="dateLimite" width="300px" height="80px"/>
                 </div>

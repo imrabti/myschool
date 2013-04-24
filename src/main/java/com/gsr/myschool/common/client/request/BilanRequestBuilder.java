@@ -19,38 +19,31 @@ package com.gsr.myschool.common.client.request;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.user.client.Window;
+import com.gsr.myschool.common.shared.type.BilanType;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 
-public class ConvocationRequestBuilder extends RequestBuilder {
+public class BilanRequestBuilder extends RequestBuilder {
     private StringBuffer postData;
 
-    public ConvocationRequestBuilder() {
+    public BilanRequestBuilder() {
         super(GET, "resource/convocation");
         setHeader("Content-type", "application/x-www-form-urlencoded");
     }
 
-    public void buildData(String niveauId, String sessionId) {
+    public void buildData(DossierStatus status, BilanType type) {
         postData = new StringBuffer();
-        postData.append("niveauId=").append(niveauId).append("&sessionId=").append(sessionId);
-    }
-
-    public void buildData(String token) {
-        postData = new StringBuffer();
-        postData.append("number=").append(token);
+        if (status != null) {
+            postData.append("status=").append(status.name()).append("&type=").append(type.ordinal());
+        } else {
+            postData.append("type=").append(type.ordinal());
+        }
     }
 
     public void sendRequest() {
         if (GWT.isScript()) {
-            Window.open("/preinscription/resource/convocation?" + postData.toString(), "_blank", "");
+            Window.open("/preinscription/resource/bilan?" + postData.toString(), "_blank", "");
         } else {
-            Window.open("/resource/convocation?" + postData.toString(), "_blank", "");
-        }
-    }
-
-    public void sendTestRequest() {
-        if (GWT.isScript()) {
-            Window.open("/preinscription/resource/convocation/test?" + postData.toString(), "_blank", "");
-        } else {
-            Window.open("/resource/convocation/test?" + postData.toString(), "_blank", "");
+            Window.open("/resource/bilan?" + postData.toString(), "_blank", "");
         }
     }
 }

@@ -14,26 +14,20 @@
  * the License.
  */
 
-package com.gsr.myschool.back.client.web.application.settings;
+package com.gsr.myschool.common.shared.type;
 
-import com.gwtplatform.mvp.client.UiHandlers;
+public enum BilanType {
+    NIVEAU_ETUDE("Par Niveau d'étude"),
+    CYCLE("Par Cycle");
 
-public interface SettingsUiHandlers extends UiHandlers {
-    void desactivateInscriptions();
+    private String label;
 
-    void activateInscriptions();
+    private BilanType(String label) {
+        this.label = label;
+    }
 
-    void desactivateGenaralFilieres();
-
-    void activateGenaralFilieres();
-
-    void updateDateLimit(String value);
-
-    void addFiliere();
-
-    void addNiveauEtude();
-
-    void deleteCreatedPrepaDossier();
-
-    void cleanProcess();
+    @Override
+    public String toString() {
+        return label;
+    }
 }

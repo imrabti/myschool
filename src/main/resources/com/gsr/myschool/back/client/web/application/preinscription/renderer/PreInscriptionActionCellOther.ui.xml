@@ -4,7 +4,7 @@
             <i class="icon-search"/>
             <span class="">consulter</span>
         </a>
-        <a href="javascript:;" class="btn btn-mini" ui:field="delete" style="display:none;">
+        <a href="javascript:;" class="btn btn-mini" ui:field="delete">
             <i class="icon-remove"/>
             <span class="">Supprimer</span>
         </a>

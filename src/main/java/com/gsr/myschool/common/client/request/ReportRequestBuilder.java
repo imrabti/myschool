@@ -8,7 +8,7 @@ public class ReportRequestBuilder extends RequestBuilder {
     private StringBuffer postData;
 
     public ReportRequestBuilder() {
-        super(GET, "resource/reporting");
+        super(GET, "resource/report");
         setHeader("Content-type", "application/x-www-form-urlencoded");
     }
 
@@ -19,9 +19,9 @@ public class ReportRequestBuilder extends RequestBuilder {
 
     public void sendRequest() {
         if (GWT.isScript()) {
-            Window.open("/preinscription/resource/reporting?" + postData.toString(), "_blank", "");
+            Window.open("/preinscription/resource/report?" + postData.toString(), "_blank", "");
         } else {
-            Window.open("/resource/reporting?" + postData.toString(), "_blank", "");
+            Window.open("/resource/report?" + postData.toString(), "_blank", "");
         }
     }
 }
