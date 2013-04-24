@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface FraterieRepos extends JpaRepository<Fraterie, Long> {
     List<Fraterie> findByCandidatId(Long candidatId);
+    List<Fraterie> findByCandidatIdAndEtablissementGsr(Long candidatId, Boolean isGsr);
 }

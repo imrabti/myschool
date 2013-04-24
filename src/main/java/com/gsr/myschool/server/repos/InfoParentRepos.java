@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface InfoParentRepos extends JpaRepository<InfoParent, Long> {
     List<InfoParent> findByDossierId(Long dossierId);
+    List<InfoParent> findByDossierIdAndParentGsr(Long dossierId, Boolean isParentGsr);
 }
