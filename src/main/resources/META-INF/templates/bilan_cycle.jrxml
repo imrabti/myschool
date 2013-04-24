@@ -35,7 +35,7 @@
 				<textElement textAlignment="Right" markup="none">
 					<font fontName="Serif" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Dossiers convoqués]]></text>
+				<text><![CDATA[Bilan Dossiers]]></text>
 			</staticText>
 			<componentElement>
 				<reportElement uuid="9dbe190e-b1e7-44cf-b971-306b95b3aba9" mode="Transparent" x="29" y="176" width="506" height="15" isPrintWhenDetailOverflows="true"/>
