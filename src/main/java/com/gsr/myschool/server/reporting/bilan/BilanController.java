@@ -49,14 +49,23 @@ public class BilanController {
     @ResponseStatus(HttpStatus.OK)
     public void generateBilan(@RequestParam(defaultValue = "") String status, @RequestParam String type, HttpServletResponse response) {
         ReportDTO dto = null;
-
-        if (BilanType.CYCLE.ordinal() == Integer.parseInt(type)) {
+        Integer bilanType;
+        DossierStatus dossierStatus = null;
+        try {
+            bilanType = Integer.parseInt(type);
+            if (!Strings.isNullOrEmpty(status)) {
+                dossierStatus = DossierStatus.valueOf(status);
+            }
+        } catch (Exception e) {
+            return ;
+        }
+        if (BilanType.CYCLE.ordinal() == bilanType) {
             List<BilanDTO> dossiers;
 
             if (Strings.isNullOrEmpty(status)) {
                 dossiers = dossierRepos.findBilanCycle();
             } else {
-                dossiers = dossierRepos.findBilanCycle(DossierStatus.valueOf(status));
+                dossiers = dossierRepos.findBilanCycle(dossierStatus);
             }
 
             SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
@@ -79,12 +88,12 @@ public class BilanController {
 
             dto.setReportParameters(myMap);
             dto.setFileName("BilanCycle.pdf");
-        } else if (BilanType.NIVEAU_ETUDE.ordinal() == Integer.parseInt(type)) {
+        } else if (BilanType.NIVEAU_ETUDE.ordinal() == bilanType) {
             List<BilanDTO> dossiers;
             if (Strings.isNullOrEmpty(status)) {
                 dossiers = dossierRepos.findBilanDossier();
             } else {
-                dossiers = dossierRepos.findBilanDossier(DossierStatus.valueOf(status));
+                dossiers = dossierRepos.findBilanDossier(dossierStatus);
             }
             SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
             dto = new ReportDTO("bilan");
