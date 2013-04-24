@@ -8,6 +8,7 @@ import com.gsr.myschool.back.client.web.application.reporting.widget.Convocation
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierConvocationDTOProxy;
 import com.gsr.myschool.common.client.proxy.PagedDossiersProxy;
+import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
 import com.gsr.myschool.common.client.request.ExcelRequestBuilder;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.request.ReportRequestBuilder;
@@ -17,6 +18,7 @@ import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConvocationReportPresenter extends PresenterWidget<MyView> implements ConvocationReportUiHandlers {
@@ -67,6 +69,11 @@ public class ConvocationReportPresenter extends PresenterWidget<MyView> implemen
                 currentContext.edit(dossierFilter.getFiliere()) : null);
         dossierFilter.setNiveauEtude(dossierFilter.getNiveauEtude() != null ?
                 currentContext.edit(dossierFilter.getNiveauEtude()) : null);
+        List<SessionExamenProxy> sessions = new ArrayList<SessionExamenProxy>();
+        if (dossierFilter.getSession() != null) {
+            sessions.add(dossierFilter.getSession());
+        }
+        dossierFilter.setSessionList(sessions);
 
         loadDossiersCounts();
     }

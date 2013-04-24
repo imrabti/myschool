@@ -1,6 +1,5 @@
 package com.gsr.myschool.back.client.web.application.reporting.widget.convocationui;
 
-import com.github.gwtbootstrap.client.ui.CheckBox;
 import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -14,6 +13,7 @@ import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.FiliereProxy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
+import com.gsr.myschool.common.client.ui.dossier.renderer.BooleanListRenderer;
 import com.gsr.myschool.common.client.ui.dossier.renderer.FiliereRenderer;
 import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
 import com.gsr.myschool.common.client.ui.dossier.renderer.SessionExamenRenderer;
@@ -36,10 +36,10 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     ValueListBox<FiliereProxy> filiere;
     @UiField(provided = true)
     ValueListBox<SessionExamenProxy> session;
-    @UiField
-    CheckBox parentGsr;
-    @UiField
-    CheckBox gsrFraterie;
+    @UiField(provided = true)
+    ValueListBox<Boolean> parentGsr;
+    @UiField(provided = true)
+    ValueListBox<Boolean> gsrFraterie;
 
     private final Driver driver;
     private final ValueList valueList;
@@ -52,12 +52,16 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         this.filiere = new ValueListBox<FiliereProxy>(new FiliereRenderer());
         this.niveauEtude = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
         this.session = new ValueListBox<SessionExamenProxy>(new SessionExamenRenderer());
+        this.gsrFraterie = new ValueListBox<Boolean>(new BooleanListRenderer());
+        this.parentGsr = new ValueListBox<Boolean>(new BooleanListRenderer());
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
 
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
         session.setAcceptableValues(valueList.getSessionsList());
+        gsrFraterie.setAcceptableValues(BooleanListRenderer.acceptedValues());
+        parentGsr.setAcceptableValues(BooleanListRenderer.acceptedValues());
 
         filiere.addValueChangeHandler(new ValueChangeHandler<FiliereProxy>() {
             @Override

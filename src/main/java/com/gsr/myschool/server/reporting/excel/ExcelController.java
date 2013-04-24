@@ -17,9 +17,12 @@
 package com.gsr.myschool.server.reporting.excel;
 
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
+import com.gsr.myschool.common.shared.dto.DossierConvocationDTO;
 import com.gsr.myschool.common.shared.dto.DossierExcelDTO;
 import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
+import com.gsr.myschool.server.business.Candidat;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.business.ScolariteActuelle;
 import com.gsr.myschool.server.service.DossierService;
 import com.gsr.myschool.server.service.XlsExportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +51,15 @@ public class ExcelController {
     @ResponseStatus(HttpStatus.OK)
     public void generateExcel(@RequestBody DossierFilterDTO requestdata, HttpServletRequest request, HttpServletResponse response) {
         try {
-            List<Dossier> dossiers = dossierService.findAllDossiersByCriteria(requestdata, null, null).getDossiers();
-            List<DossierExcelDTO> resultDossiers = map(dossiers);
+            List<DossierExcelDTO> resultDossiers = new ArrayList<DossierExcelDTO>();
+            if (requestdata.getSessionList() != null) {
+                List<DossierConvocationDTO> dossiers = dossierService.findAllDossiersBySessionAndCriteria(requestdata,
+                        null, null).getDossierConvocationDTOs();
+                resultDossiers = mapDossierForConvocation(dossiers);
+            } else {
+                List<Dossier> dossiers = dossierService.findAllDossiersByCriteria(requestdata, null, null).getDossiers();
+                resultDossiers = map(dossiers);
+            }
 
             String fileName = new Date().getTime() + ".xls";
             File file = new File(request.getSession().getServletContext().getRealPath("/") + TMP_FOLDER_PATH + fileName);
@@ -170,6 +180,92 @@ public class ExcelController {
             }
             if (dossier.getStatus() != null) {
                 d.setStatus(dossier.getStatus().toString());
+            }
+
+            resultDossiers.add(d);
+        }
+        return resultDossiers;
+    }
+
+    private List<DossierExcelDTO> mapDossierForConvocation(List<DossierConvocationDTO> dossiers) {
+        List<DossierExcelDTO> resultDossiers = new ArrayList<DossierExcelDTO>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
+        for (DossierConvocationDTO dossier : dossiers) {
+            DossierExcelDTO d = new DossierExcelDTO();
+            /* candidat */
+            Candidat candidat = dossier.getDossierSession().getDossier().getCandidat();
+            if (candidat != null) {
+                d.setCin(candidat.getCin());
+                d.setCne(candidat.getCne());
+                d.setEmail(candidat.getEmail());
+                d.setFirstname(candidat.getFirstname());
+                d.setLastname(candidat.getLastname());
+                d.setBirthLocation(candidat.getBirthLocation());
+                d.setGsm(candidat.getGsm());
+                d.setPhone(candidat.getPhone());
+                if (candidat.getBacSerie() != null) {
+                    d.setBacSerie(candidat.getBacSerie().getLabel());
+                }
+                if (candidat.getBacYear() != null) {
+                    d.setBacYear(candidat.getBacYear().getLabel());
+                }
+                if (candidat.getNationality() != null) {
+                    d.setNationality(candidat.getNationality().getLabel());
+                }
+                if (candidat.getBirthDate() != null) {
+                    d.setBirthDate(dateFormat.format(candidat.getBirthDate()));
+                }
+
+            }
+
+            /* Scolarite actuelle */
+            ScolariteActuelle scolariteActuelle = dossier.getDossierSession().getDossier().getScolariteActuelle();
+            if (scolariteActuelle != null) {
+                if (scolariteActuelle.getEtablissement() != null) {
+                    d.setEtablissementActuel(scolariteActuelle.getEtablissement().getNom());
+                }
+                if (scolariteActuelle.getFiliere() != null) {
+                    d.setFormationActuel(scolariteActuelle.getFiliere().getNom());
+                }
+                if (scolariteActuelle.getNiveauEtude() != null) {
+                    d.setNiveauEtudeActuel(scolariteActuelle.getNiveauEtude().getNom());
+                }
+            }
+
+            /* filieres */
+            if (dossier.getDossierSession().getDossier().getFiliere2() != null) {
+                d.setFiliere2nom(dossier.getDossierSession().getDossier().getFiliere2().getNom());
+            }
+            if (dossier.getDossierSession().getDossier().getFiliere() != null) {
+                d.setFilierenom(dossier.getDossierSession().getDossier().getFiliere().getNom());
+            }
+            if (dossier.getDossierSession().getDossier().getNiveauEtude2() != null) {
+                d.setNiveauEtude2nom(dossier.getDossierSession().getDossier().getNiveauEtude2().getNom());
+            }
+            if (dossier.getDossierSession().getDossier().getNiveauEtude() != null) {
+                d.setNiveauEtudenom(dossier.getDossierSession().getDossier().getNiveauEtude().getNom());
+            }
+
+            /* autres infos */
+            if (dossier.getDossierSession().getDossier().getAnneeScolaire() != null) {
+                d.setAnneeScolaire(dossier.getDossierSession().getDossier().getAnneeScolaire().getLabel());
+            }
+            if (dossier.getDossierSession().getDossier().getOwner() != null) {
+                d.setOwneremail(dossier.getDossierSession().getDossier().getOwner().getEmail());
+            }
+            if (dossier.getDossierSession().getDossier().getCreateDate() != null) {
+                d.setCreateDate(dateFormat.format(dossier.getDossierSession().getDossier().getCreateDate()));
+            }
+            if (dossier.getDossierSession().getDossier().getSubmitDate() != null) {
+                d.setSubmitDate(dateFormat.format(dossier.getDossierSession().getDossier().getSubmitDate()));
+            }
+            if (dossier.getDossierSession().getDossier().getStatus() != null) {
+                d.setStatus(dossier.getDossierSession().getDossier().getStatus().toString());
+            }
+
+            if (dossier.getDossierSession().getSessionExamen() != null) {
+                d.setSession(dossier.getDossierSession().getSessionExamen().getNom());
+                d.setDateSession(dateFormat.format(dossier.getDossierSession().getSessionExamen().getDateSession()));
             }
 
             resultDossiers.add(d);

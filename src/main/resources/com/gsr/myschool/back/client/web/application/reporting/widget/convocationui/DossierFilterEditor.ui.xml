@@ -36,10 +36,10 @@
 
         <div class="{style.row}">
             <g:Label text="Fratrie au GSR" styleName="{style.label}"/>
-            <boot:CheckBox ui:field="gsrFraterie" styleName="{style.inline}"/>
+            <boot:ValueListBox ui:field="gsrFraterie" styleName="{style.inline}" width="180px"/>
 
             <g:Label text="Parents au GSR" styleName="{style.label}"/>
-            <boot:CheckBox ui:field="parentGsr" styleName="{style.inline}"/>
+            <boot:ValueListBox ui:field="parentGsr" styleName="{style.inline}" width="180px"/>
         </div>
     </g:HTMLPanel>
 </ui:UiBinder>

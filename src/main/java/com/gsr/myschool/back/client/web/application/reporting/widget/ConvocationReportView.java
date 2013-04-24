@@ -157,6 +157,16 @@ public class ConvocationReportView extends ViewWithUiHandlers<ConvocationReportU
 		convocationsTable.addColumn(etsColumn, "Etablissement D'origine");
 		convocationsTable.setColumnWidth(etsColumn, 10, Style.Unit.PCT);
 
+        TextColumn<DossierConvocationDTOProxy> sessionColumn = new TextColumn<DossierConvocationDTOProxy>() {
+            @Override
+            public String getValue(DossierConvocationDTOProxy object) {
+                return object.getDossierSession().getSessionExamen().getNom();
+            }
+        };
+        sessionColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        convocationsTable.addColumn(sessionColumn, "Session");
+        convocationsTable.setColumnWidth(sessionColumn, 10, Style.Unit.PCT);
+
         TextColumn<DossierConvocationDTOProxy> fraterieGsrColumn = new TextColumn<DossierConvocationDTOProxy>() {
             @Override
             public String getValue(DossierConvocationDTOProxy object) {
@@ -176,6 +186,5 @@ public class ConvocationReportView extends ViewWithUiHandlers<ConvocationReportU
         parentGsrColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         convocationsTable.addColumn(parentGsrColumn, "Parent-GSR");
         convocationsTable.setColumnWidth(parentGsrColumn, 10, Style.Unit.PCT);
-
 	}
 }

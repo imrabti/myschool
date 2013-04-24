@@ -278,11 +278,11 @@ public class DossierServiceImpl implements DossierService {
             spec = spec.and(DossierSpec.niveauEtudeEqual(filter.getNiveauEtude()));
         }
 
-        if (filter.getGsrFraterie() != null && filter.getGsrFraterie()) {
+        if (filter.getGsrFraterie() != null) {
             spec = spec.and(DossierSpec.isGsrFraterie(filter.getGsrFraterie()));
         }
 
-        if (filter.getParentGsr() != null && filter.getParentGsr()) {
+        if (filter.getParentGsr() != null) {
             spec = spec.and(DossierSpec.isParentGsr(filter.getParentGsr()));
         }
 

@@ -127,7 +127,7 @@ public class DossierSpec {
                 final Subquery<Long> sessionQuery = query.subquery(Long.class);
                 final Root<DossierSession> dossierSessionRoot = sessionQuery.from(DossierSession.class);
                 sessionQuery.select(dossierSessionRoot.<Dossier>get("dossier").<Long>get("id"));
-                sessionQuery.where(dossierSessionRoot.<SessionExamen>get("sessionExamen").<Long>get("id").in(sessions));
+                sessionQuery.where(dossierSessionRoot.<SessionExamen>get("sessionExamen").in(sessions));
 
                 return cb.in(root.<Long>get("id")).value(sessionQuery);
             }
