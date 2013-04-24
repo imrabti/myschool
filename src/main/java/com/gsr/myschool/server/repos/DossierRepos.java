@@ -18,7 +18,6 @@ package com.gsr.myschool.server.repos;
 
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.dto.BilanDTO;
-import com.gsr.myschool.common.shared.type.TypeNiveauEtude;
 import com.gsr.myschool.server.business.Dossier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
