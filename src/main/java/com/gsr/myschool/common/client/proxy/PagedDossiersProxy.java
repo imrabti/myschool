@@ -12,6 +12,10 @@ public interface PagedDossiersProxy extends ValueProxy {
 
     public void setDossiers(List<DossierProxy> dossiers);
 
+    public List<DossierConvocationDTOProxy> getDossierConvocationDTOs();
+
+    public void setDossierConvocationDTOs(List<DossierConvocationDTOProxy> dossierConvocationDTOs);
+
     public Integer getTotalElements();
 
     public void setTotalElements(Integer totalElements);

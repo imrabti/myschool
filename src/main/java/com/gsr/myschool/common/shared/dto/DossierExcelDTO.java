@@ -28,7 +28,7 @@ import java.io.Serializable;
                 "cin", "cne", "email", "gsm", "bacYear", "bacSerie", "nationality",
                 "filierenom", "niveauEtudenom", "filiere2nom", "niveauEtude2nom", "owneremail",
                 "createDate", "submitDate", "status", "generatedNumDossier", "anneeScolaire",
-                "niveauEtudeActuel", "formationActuel", "etablissementActuel"})
+                "niveauEtudeActuel", "formationActuel", "etablissementActuel", "session", "dateSession"})
 public class DossierExcelDTO implements Serializable {
     /* candidat */
     @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
@@ -120,6 +120,12 @@ public class DossierExcelDTO implements Serializable {
     @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
             columnName = "Année scolaire")
     private String anneeScolaire;
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Session")
+    private String session;
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true),
+            columnName = "Date de Session")
+    private String dateSession;
 
     public String getFirstname() {
         return firstname;
@@ -319,5 +325,21 @@ public class DossierExcelDTO implements Serializable {
 
     public void setFormationActuel(String formationActuel) {
         this.formationActuel = formationActuel;
+    }
+
+    public String getSession() {
+        return session;
+    }
+
+    public void setSession(String session) {
+        this.session = session;
+    }
+
+    public String getDateSession() {
+        return dateSession;
+    }
+
+    public void setDateSession(String dateSession) {
+        this.dateSession = dateSession;
     }
 }

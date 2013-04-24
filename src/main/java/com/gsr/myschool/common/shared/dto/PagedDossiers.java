@@ -6,13 +6,15 @@ import java.util.List;
 
 public class PagedDossiers {
     private List<Dossier> dossiers;
+    private List<DossierConvocationDTO> dossierConvocationDTOs;
     private Integer totalElements;
 
     public PagedDossiers() {
     }
 
-    public PagedDossiers(List<Dossier> dossiers, Integer totalElements) {
+    public PagedDossiers(List<Dossier> dossiers, List<DossierConvocationDTO> dossierConvocationDTOs, Integer totalElements) {
         this.dossiers = dossiers;
+        this.dossierConvocationDTOs = dossierConvocationDTOs;
         this.totalElements = totalElements;
     }
 
@@ -22,6 +24,14 @@ public class PagedDossiers {
 
     public void setDossiers(List<Dossier> dossiers) {
         this.dossiers = dossiers;
+    }
+
+    public List<DossierConvocationDTO> getDossierConvocationDTOs() {
+        return dossierConvocationDTOs;
+    }
+
+    public void setDossierConvocationDTOs(List<DossierConvocationDTO> dossierConvocationDTOs) {
+        this.dossierConvocationDTOs = dossierConvocationDTOs;
     }
 
     public Integer getTotalElements() {
