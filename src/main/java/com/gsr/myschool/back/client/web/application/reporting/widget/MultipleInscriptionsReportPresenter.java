@@ -1,5 +1,7 @@
 package com.gsr.myschool.back.client.web.application.reporting.widget;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
@@ -44,6 +46,18 @@ public class MultipleInscriptionsReportPresenter extends PresenterWidget<MyView>
 
     @Override
     public void export(DossierStatus status) {
-        // TODO : Call Rest service for Excel export...
+        if (GWT.isScript()) {
+            if (status != null) {
+                Window.open("/preinscription/resource/excel/multidossier?q=" + status.name(), "_blank", "");
+            } else {
+                Window.open("/preinscription/resource/excel/multidossier?q=", "_blank", "");
+            }
+        } else {
+            if (status != null) {
+                Window.open("/resource/excel/multidossier?q=" + status.name(), "_blank", "");
+            } else {
+                Window.open("/resource/excel/multidossier?q=", "_blank", "");
+            }
+        }
     }
 }

@@ -4,18 +4,36 @@ import com.google.gwt.thirdparty.guava.common.base.Objects;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.InfoParent;
 import com.gsr.myschool.server.business.User;
+import org.adorsys.xlseasy.annotation.CellAlign;
+import org.adorsys.xlseasy.annotation.Sheet;
+import org.adorsys.xlseasy.annotation.SheetCellStyle;
+import org.adorsys.xlseasy.annotation.SheetColumn;
 
 import java.util.List;
 
+@Sheet(autoSizeColumns = true,
+        columnOrder = {
+                "compte", "numDossier", "candidat", "etablissement", "pere",
+                "mere", "tuteur", "filiere", "niveauEtude"
+        })
 public class DossierMultiple {
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true), columnName = "Compte")
     private String compte;
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true), columnName = "Num dossier")
     private String numDossier;
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true), columnName = "Candidat")
     private String candidat;
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true), columnName = "Etablissement")
     private String etablissement;
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true), columnName = "Père")
     private String pere;
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true), columnName = "Mère")
     private String mere;
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true), columnName = "Tuteur")
     private String tuteur;
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true), columnName = "Filière")
     private String filiere;
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true), columnName = "Niveau d'étude")
     private String niveauEtude;
 
     public DossierMultiple() {
