@@ -19,6 +19,7 @@ package com.gsr.myschool.common.client.request;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.user.client.Window;
+import com.gsr.myschool.common.shared.type.BilanType;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 
 public class BilanRequestBuilder extends RequestBuilder {
@@ -29,12 +30,12 @@ public class BilanRequestBuilder extends RequestBuilder {
         setHeader("Content-type", "application/x-www-form-urlencoded");
     }
 
-    public void buildData(DossierStatus status, int type) {
+    public void buildData(DossierStatus status, BilanType type) {
         postData = new StringBuffer();
         if (status != null) {
-            postData.append("status=").append(status.ordinal()).append("&type=").append(type);
+            postData.append("status=").append(status.name()).append("&type=").append(type.ordinal());
         } else {
-            postData.append("type=").append(type);
+            postData.append("type=").append(type.ordinal());
         }
     }
 

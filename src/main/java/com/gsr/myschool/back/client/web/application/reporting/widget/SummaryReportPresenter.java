@@ -27,7 +27,7 @@ public class SummaryReportPresenter extends PresenterWidget<MyView> implements S
     public void generateReport(DossierStatus status, BilanType type) {
         if (type == null) return;
         BilanRequestBuilder request = new BilanRequestBuilder();
-        request.buildData(status, type.ordinal());
+        request.buildData(status, type);
         request.sendRequest();
     }
 }
