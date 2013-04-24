@@ -120,6 +120,20 @@ public class DossierSpec {
         };
     }
 
+    public static Specification<Dossier> sessionIn(final List<SessionExamen> sessions) {
+        return new Specification<Dossier>() {
+            @Override
+            public Predicate toPredicate(Root<Dossier> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                final Subquery<Long> sessionQuery = query.subquery(Long.class);
+                final Root<DossierSession> dossierSessionRoot = sessionQuery.from(DossierSession.class);
+                sessionQuery.select(dossierSessionRoot.<Dossier>get("dossier").<Long>get("id"));
+                sessionQuery.where(dossierSessionRoot.<SessionExamen>get("sessionExamen").in(sessions));
+
+                return cb.in(root.<Long>get("id")).value(sessionQuery);
+            }
+        };
+    }
+
     public static Specification<Dossier> sessionEqual(final SessionExamen session) {
         return new Specification<Dossier>() {
             @Override

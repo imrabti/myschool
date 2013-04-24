@@ -34,6 +34,8 @@ import java.util.List;
 public interface DossierRequest extends RequestContext {
     Request<PagedDossiersProxy> findAllDossiersByCriteria(DossierFilterDTOProxy filter, Integer page, Integer length);
 
+    Request<PagedDossiersProxy> findAllDossiersBySessionAndCriteria(DossierFilterDTOProxy filter, Integer page, Integer length);
+
     Request<Boolean> receive(DossierProxy dossier);
 
     Request<Boolean> verify(Long dossierId, List<String> notChecked);

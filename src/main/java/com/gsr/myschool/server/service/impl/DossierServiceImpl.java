@@ -17,6 +17,7 @@
 package com.gsr.myschool.server.service.impl;
 
 import com.google.common.base.Strings;
+import com.gsr.myschool.common.shared.dto.DossierConvocationDTO;
 import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
 import com.gsr.myschool.common.shared.dto.DossierMultiple;
 import com.gsr.myschool.common.shared.dto.PagedDossiers;
@@ -31,6 +32,8 @@ import com.gsr.myschool.server.business.valuelist.ValueList;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.process.impl.ValidationProcessServiceImpl.ValidationTask;
 import com.gsr.myschool.server.repos.DossierRepos;
+import com.gsr.myschool.server.repos.DossierSessionRepos;
+import com.gsr.myschool.server.repos.FraterieRepos;
 import com.gsr.myschool.server.repos.InfoParentRepos;
 import com.gsr.myschool.server.repos.PieceJustifRepos;
 import com.gsr.myschool.server.repos.UserRepos;
@@ -55,6 +58,10 @@ import java.util.Map;
 public class DossierServiceImpl implements DossierService {
     @Autowired
     private DossierRepos dossierRepos;
+    @Autowired
+    private DossierSessionRepos dossierSessionRepos;
+    @Autowired
+    private FraterieRepos fraterieRepos;
     @Autowired
     private PieceJustifRepos pieceJustifRepos;
     @Autowired
@@ -258,12 +265,76 @@ public class DossierServiceImpl implements DossierService {
             PageRequest page = new PageRequest(pageNumber, length);
             Page resultPage = dossierRepos.findAll(spec, page);
 
-            return new PagedDossiers(resultPage.getContent(), (int) resultPage.getTotalElements());
+            return new PagedDossiers(resultPage.getContent(), null, (int) resultPage.getTotalElements());
         } else {
             List<Dossier> result = dossierRepos.findAll(spec);
 
-            return new PagedDossiers(result, result.size());
+            return new PagedDossiers(result, null, result.size());
         }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public PagedDossiers findAllDossiersBySessionAndCriteria(DossierFilterDTO filter, Integer pageNumber, Integer length) {
+        Specifications<Dossier> spec = Specifications.where(DossierSpec.numDossierLike(filter.getNumDossier()));
+
+        if (filter.getStatus() != null) {
+            spec = spec.and(DossierSpec.dossierStatusIs(filter.getStatus()));
+        }
+
+        if (filter.getFiliere() != null) {
+            spec = spec.and(DossierSpec.filiereEqual(filter.getFiliere()));
+        }
+
+        if (filter.getNiveauEtude() != null) {
+            spec = spec.and(DossierSpec.niveauEtudeEqual(filter.getNiveauEtude()));
+        }
+
+        if (filter.getGsrFraterie() != null) {
+            spec = spec.and(DossierSpec.isGsrFraterie(filter.getGsrFraterie()));
+        }
+
+        if (filter.getParentGsr() != null) {
+            spec = spec.and(DossierSpec.isParentGsr(filter.getParentGsr()));
+        }
+
+        if (filter.getSessionList() != null && !filter.getSessionList().isEmpty()) {
+            spec = spec.and(DossierSpec.sessionIn(filter.getSessionList()));
+        }
+
+        List<DossierConvocationDTO> dossierConvocationDTOs = new ArrayList<DossierConvocationDTO>();
+
+        if (pageNumber != null && length != null) {
+            PageRequest page = new PageRequest(pageNumber, length);
+            Page resultPage = dossierRepos.findAll(spec, page);
+
+            dossierConvocationDTOs = setConvocationAttrs(dossierConvocationDTOs, resultPage.getContent());
+
+            return new PagedDossiers(null, dossierConvocationDTOs, (int) resultPage.getTotalElements());
+        } else {
+            List<Dossier> result = dossierRepos.findAll(spec);
+
+            dossierConvocationDTOs = setConvocationAttrs(dossierConvocationDTOs, result);
+
+            return new PagedDossiers(null, dossierConvocationDTOs, result.size());
+        }
+    }
+
+    private List<DossierConvocationDTO> setConvocationAttrs(List<DossierConvocationDTO> dossierConvocationDTOs,
+            List<Dossier> dossiers) {
+        for (Object dossier: dossiers) {
+            Dossier dossierConv = (Dossier) dossier;
+            DossierConvocationDTO dossierConvocationDTO = new DossierConvocationDTO();
+            dossierConvocationDTO.setDossierSession(dossierSessionRepos.findByDossierId(dossierConv.getId()));
+            dossierConvocationDTO.setGsrFraterie(fraterieRepos.findByCandidatIdAndEtablissementGsr(
+                    dossierConv.getCandidat().getId(), true
+            ).size() > 0 ? true : false);
+            dossierConvocationDTO.setGsrParent(infoParentRepos.findByDossierIdAndParentGsr(
+                    dossierConv.getId(), true
+            ).size() > 0 ? true : false);
+            dossierConvocationDTOs.add(dossierConvocationDTO);
+        }
+        return dossierConvocationDTOs;
     }
 
     @Override
