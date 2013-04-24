@@ -149,7 +149,7 @@ public class JasperTest {
 
     @Test
     public void printBilanCycle() {
-        List<BilanDTO> dossiers = dossierRepos.findBilanCycle(null);
+        List<BilanDTO> dossiers = dossierRepos.findBilanCycle(DossierStatus.INVITED_TO_TEST);
         SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
         ReportDTO dto = new ReportDTO("bilan_cycle");
 
