@@ -44,6 +44,7 @@ public class ExpiredDossierJobImpl implements Worker {
     @Autowired
     private DossierService dossierService;
 
+    @Override
     public void work() {
         SimpleDateFormat dateformat = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
 
@@ -56,6 +57,10 @@ public class ExpiredDossierJobImpl implements Worker {
         List<Dossier> dossiers = dossierService.findAllDossiersByCriteria(filter, null, null).getDossiers();
 
         for (Dossier dossier : dossiers) {
+            // ne supprimer que les dossier crées non soumis des filieres generales
+            if (dossier.getFiliere() != null
+                    && dossier.getFiliere().getId().longValue() >= GlobalParameters.PREPA_FILIERE_FROM)
+                continue;
             if (dossier.getCreateDate() != null) {
                 Calendar date = new GregorianCalendar();
                 date.setTime(dossier.getCreateDate());

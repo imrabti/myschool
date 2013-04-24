@@ -19,6 +19,7 @@ package com.gsr.myschool.back.client.web.application.settings;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.resource.message.MessageBundle;
@@ -187,6 +188,24 @@ public class SettingsPresenter extends Presenter<SettingsPresenter.MyView, Setti
     @Override
     public void addNiveauEtude() {
         addToPopupSlot(addNiveauEtudePresenter);
+    }
+
+    @Override
+    public void deleteCreatedPrepaDossier() {
+        requestFactory.settingsService().deleteDossiers(true).fire(new Receiver<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+    }
+
+    @Override
+    public void cleanProcess() {
+        requestFactory.settingsService().correctionProcess().fire(new Receiver<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
     }
 
     @Override

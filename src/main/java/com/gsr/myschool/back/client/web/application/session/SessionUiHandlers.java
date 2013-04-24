@@ -19,6 +19,8 @@ public interface SessionUiHandlers extends UiHandlers {
 
     void cancelSession(SessionExamenProxy session);
 
+    void copySession(SessionExamenProxy session);
+
     void showNiveauEtudeDetail(NiveauEtudeNode niveauEtudeNode);
 
     void deleteNiveauEtude(NiveauEtudeNode niveauEtudeNode);

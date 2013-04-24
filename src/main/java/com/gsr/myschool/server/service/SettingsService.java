@@ -50,4 +50,8 @@ public interface SettingsService {
     Boolean updateTemplateEmail(EmailTemplate template);
 
     EmailTemplate findEmailTemplateByCode(EmailType code);
+
+    void deleteDossiers(Boolean isPrepa);
+
+    void correctionProcess();
 }

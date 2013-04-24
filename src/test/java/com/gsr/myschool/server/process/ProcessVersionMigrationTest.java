@@ -24,6 +24,7 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.runtime.Execution;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
@@ -38,7 +39,8 @@ import java.util.List;
 @ContextConfiguration(locations = {
         "classpath*:META-INF/applicationContext.xml",
         "classpath*:META-INF/applicationContext-activiti.xml",
-        "classpath*:/META-INF/applicationContext-security.xml"
+        "classpath*:/META-INF/applicationContext-security.xml",
+        "classpath*:/META-INF/applicationContext-mq.xml"
 })
 public class ProcessVersionMigrationTest {
     @Autowired
@@ -88,7 +90,7 @@ public class ProcessVersionMigrationTest {
 //        }
     }
 
-    @Test
+    //@Test
     public void myOtherTest() {
 
         List<Execution> listE = runtimeService.createExecutionQuery().processDefinitionKey("validation").list();
@@ -109,5 +111,16 @@ public class ProcessVersionMigrationTest {
                 }
             }
         }
+    }
+
+    @Test
+    public void mytest() {
+        Execution pi = runtimeService.createExecutionQuery().processDefinitionKey("validation").processInstanceBusinessKey("633").singleResult();
+        if (pi != null) {
+            runtimeService.deleteProcessInstance(pi.getProcessInstanceId(),"deleted from test");
+            System.out.println("DELETED !!!");
+        }
+        else
+            System.out.println("NADA !!!");
     }
 }

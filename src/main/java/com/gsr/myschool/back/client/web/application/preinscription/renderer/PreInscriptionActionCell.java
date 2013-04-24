@@ -101,9 +101,9 @@ public class PreInscriptionActionCell extends AbstractCell<DossierProxy> {
 
     @UiHandler({"delete"})
     void onDeleteClicked(ClickEvent event) {
-        if (selectedObject.getStatus().equals(DossierStatus.CREATED)
-                || selectedObject.getStatus().equals(DossierStatus.SUBMITTED)) {
+//        if (selectedObject.getStatus().equals(DossierStatus.CREATED)
+//                || selectedObject.getStatus().equals(DossierStatus.SUBMITTED)) {
             delete.execute(selectedObject);
-        }
+//        }
     }
 }

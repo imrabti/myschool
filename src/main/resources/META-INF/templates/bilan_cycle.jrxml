@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bilan_cycle" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="1dc2f5ba-6bff-4a80-aefd-cf1c65e33436">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="dataset2" uuid="e5e78060-9521-470f-ba62-d65999e710df">
+		<field name="mission" class="org.apache.commons.beanutils.BeanMap">
+			<fieldDescription><![CDATA[_THIS]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="date" class="java.lang.String"/>
+	<parameter name="cycles" class="java.util.List"/>
+	<parameter name="cyclesTotal" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="700" splitType="Prevent">
+			<image>
+				<reportElement uuid="e81b6025-2acb-4471-87d4-120fbaed85f7" x="27" y="22" width="70" height="51"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"logo.png"]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="336" y="42" width="227" height="11"/>
+				<textElement textAlignment="Right">
+					<font fontName="Serif" size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Date d'impression : "+$P{date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="cf85beec-7d4b-4545-930d-38a442666ed6" x="302" y="22" width="261" height="20"/>
+				<textElement textAlignment="Right" markup="none">
+					<font fontName="Serif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bilan Dossiers]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement uuid="9dbe190e-b1e7-44cf-b971-306b95b3aba9" mode="Transparent" x="29" y="176" width="506" height="15" isPrintWhenDetailOverflows="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset2" uuid="6ba6aefc-e885-49e9-9fd7-00eafd929b71">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{cycles})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="506">
+						<textField isBlankWhenNull="true">
+							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" stretchType="RelativeToTallestObject" x="10" y="0" width="396" height="15"/>
+							<textElement verticalAlignment="Middle">
+								<font fontName="Serif" size="8" isPdfEmbedded="true"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{mission}.get("niveau")]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" x="406" y="0" width="90" height="15"/>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<font fontName="Serif" size="8" isPdfEmbedded="true"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{mission}.get("total")]]></textFieldExpression>
+						</textField>
+						<line direction="BottomUp">
+							<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="0" y="14" width="506" height="1"/>
+							<graphicElement>
+								<pen lineWidth="0.25"/>
+							</graphicElement>
+						</line>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField>
+				<reportElement uuid="e62fa33d-3f63-4508-982f-a354eda59597" x="435" y="146" width="90" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cyclesTotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="399eff13-86d7-4ac2-a7b3-e13026d4c502" x="39" y="146" width="246" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bilan Cycles]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="a510bceb-3884-4ddd-a301-b9d0b9085297" x="29" y="166" width="506" height="1"/>
+				<graphicElement>
+					<pen lineWidth="3.0"/>
+				</graphicElement>
+			</line>
+			<pie3DChart>
+				<chart evaluationTime="Report">
+					<reportElement uuid="027bf6b3-21d4-407c-9857-dd057b10c69a" positionType="Float" x="27" y="404" width="524" height="274"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<dataset>
+						<datasetRun subDataset="dataset2" uuid="c4bf3787-83af-40c4-9062-a28f8920d94e">
+							<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{cycles})]]></dataSourceExpression>
+						</datasetRun>
+					</dataset>
+					<keyExpression><![CDATA[$F{mission}.get( "niveau" )]]></keyExpression>
+					<valueExpression><![CDATA[$F{mission}.get( "total" )]]></valueExpression>
+				</pieDataset>
+				<pie3DPlot labelFormat=" {0} ({2}) ">
+					<plot>
+						<seriesColor seriesOrder="0" color="#44BAED"/>
+						<seriesColor seriesOrder="1" color="#4288A4"/>
+						<seriesColor seriesOrder="2" color="#F99D66"/>
+						<seriesColor seriesOrder="3" color="#1BD6D2"/>
+						<seriesColor seriesOrder="4" color="#D19255"/>
+						<seriesColor seriesOrder="5" color="#F070D4"/>
+						<seriesColor seriesOrder="6" color="#7D5028"/>
+					</plot>
+					<itemLabel/>
+				</pie3DPlot>
+			</pie3DChart>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

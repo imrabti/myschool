@@ -19,11 +19,16 @@ package com.gsr.myschool.server.service.impl;
 import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.dto.DossierConvocationDTO;
 import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
+import com.gsr.myschool.common.shared.dto.DossierMultiple;
 import com.gsr.myschool.common.shared.dto.PagedDossiers;
 import com.gsr.myschool.common.shared.dto.PiecejustifDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
+import com.gsr.myschool.common.shared.type.ValueTypeCode;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.business.InfoParent;
+import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.business.core.PieceJustif;
+import com.gsr.myschool.server.business.valuelist.ValueList;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.process.impl.ValidationProcessServiceImpl.ValidationTask;
 import com.gsr.myschool.server.repos.DossierRepos;
@@ -31,8 +36,11 @@ import com.gsr.myschool.server.repos.DossierSessionRepos;
 import com.gsr.myschool.server.repos.FraterieRepos;
 import com.gsr.myschool.server.repos.InfoParentRepos;
 import com.gsr.myschool.server.repos.PieceJustifRepos;
+import com.gsr.myschool.server.repos.UserRepos;
+import com.gsr.myschool.server.repos.ValueListRepos;
 import com.gsr.myschool.server.repos.spec.DossierSpec;
 import com.gsr.myschool.server.service.DossierService;
+import com.gsr.myschool.server.util.DateUtils;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -58,6 +66,12 @@ public class DossierServiceImpl implements DossierService {
     private InfoParentRepos infoParentRepos;
     @Autowired
     private PieceJustifRepos pieceJustifRepos;
+    @Autowired
+    private UserRepos userRepos;
+    @Autowired
+    private ValueListRepos valueListRepos;
+    @Autowired
+    private InfoParentRepos infoParentRepos;
     @Autowired
     private ValidationProcessService validationProcessService;
 
@@ -323,5 +337,38 @@ public class DossierServiceImpl implements DossierService {
             dossierConvocationDTOs.add(dossierConvocationDTO);
         }
         return dossierConvocationDTOs;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<DossierMultiple> findMultipleDossierByStatus(DossierStatus status) {
+        List<DossierMultiple> dossierMultiples = new ArrayList<DossierMultiple>();
+        List<User> listUsers = userRepos.findAll();
+        String currentAnneeScolaire = DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1);
+        ValueList anneeScolaire = valueListRepos.findByValueAndValueTypeCode(currentAnneeScolaire,
+                ValueTypeCode.SCHOOL_YEAR);
+
+        if (anneeScolaire != null) {
+            for (User user : listUsers) {
+                Integer dossierCount;
+                if (status == null) {
+                    dossierCount = dossierRepos.findByOwnerIdAndAnneeScolaireId(user.getId(),
+                            anneeScolaire.getId()).size();
+                } else {
+                    dossierCount = dossierRepos.findByOwnerIdAndAnneeScolaireIdAndStatus(user.getId(),
+                            anneeScolaire.getId(), status).size();
+                }
+
+                if (dossierCount > 1) {
+                    List<Dossier> dossiers = dossierRepos.findByOwnerIdOrderByIdDesc(user.getId());
+                    for (Dossier item : dossiers) {
+                        List<InfoParent> parents = infoParentRepos.findByDossierId(item.getId());
+                        dossierMultiples.add(new DossierMultiple(user, item, parents));
+                    }
+                }
+            }
+        }
+
+        return dossierMultiples;
     }
 }

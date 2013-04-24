@@ -16,17 +16,31 @@
 
 package com.gsr.myschool.server.service.impl;
 
+import com.gsr.myschool.common.shared.constants.GlobalParameters;
+import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.EmailType;
 import com.gsr.myschool.common.shared.type.SettingsKey;
+import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.EmailTemplate;
 import com.gsr.myschool.server.business.Settings;
 import com.gsr.myschool.server.business.core.*;
+import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.*;
+import com.gsr.myschool.server.repos.spec.DossierSpec;
+import com.gsr.myschool.server.service.DossierService;
+import com.gsr.myschool.server.service.InscriptionService;
 import com.gsr.myschool.server.service.SettingsService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @Service
@@ -48,6 +62,16 @@ public class SettingsServiceImpl implements SettingsService {
     private MatiereExamenNERepos matiereExamenNERepos;
     @Autowired
     private EmailTemplateRepos emailTemplateRepos;
+    @Autowired
+    private InscriptionService inscriptionService;
+    @Autowired
+    private DossierService dossierService;
+    @Autowired
+    private RuntimeService runtimeService;
+    @Autowired
+    private DossierRepos dossierRepos;
+    @Autowired
+    private ValidationProcessService validationProcessService;
 
     @Override
     public void updateSettings(SettingsKey key, String value) {
@@ -142,5 +166,60 @@ public class SettingsServiceImpl implements SettingsService {
     @Override
     public EmailTemplate findEmailTemplateByCode(EmailType code) {
         return emailTemplateRepos.findByCode(code);
+    }
+
+    @Override
+    public void deleteDossiers(Boolean isPrepa) {
+        DossierFilterDTO filter = new DossierFilterDTO();
+        filter.setStatus(DossierStatus.CREATED);
+
+        List<Dossier> dossiers = dossierService.findAllDossiersByCriteria(filter, null, null).getDossiers();
+
+        for (Dossier dossier : dossiers) {
+            // ne supprimer que les dossier crées non soumis des prepa
+            Boolean skipCondition = isPrepa ?
+                    dossier.getFiliere() != null  && dossier.getFiliere().getId().longValue() < GlobalParameters.PREPA_FILIERE_FROM :
+                    dossier.getFiliere() != null  && dossier.getFiliere().getId().longValue() >= GlobalParameters.PREPA_FILIERE_FROM;
+            if (skipCondition)
+                continue;
+
+            if (dossier.getCreateDate() != null) {
+                Calendar date = new GregorianCalendar();
+                date.setTime(dossier.getCreateDate());
+                date.add(Calendar.DAY_OF_WEEK_IN_MONTH, 1);
+                Calendar deleteAfterThis = new GregorianCalendar();
+
+                if (deleteAfterThis.after(date)) {
+                    try {
+                        inscriptionService.deleteInscription(dossier.getId());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void correctionProcess() {
+        List<Dossier> dossiers = dossierRepos.findAll(DossierSpec.dossierStatusIs(DossierStatus.SUBMITTED));
+        int count = 0;
+        for (Dossier dossier : dossiers) {
+
+            try {
+                ProcessInstance pi = runtimeService.createProcessInstanceQuery()
+                        .processDefinitionKey("validation")
+                        .processInstanceBusinessKey(dossier.getId().toString()).singleResult();
+                if (pi == null) {
+                    validationProcessService.startProcess(dossier);
+                    count++;
+                }
+
+            } catch (Exception e) {
+                System.out.println(dossier.getId().toString());
+                e.printStackTrace();
+            }
+        }
+        System.out.println("Number of process started = " + count);
     }
 }

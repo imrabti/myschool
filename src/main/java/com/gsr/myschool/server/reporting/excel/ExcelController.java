@@ -16,10 +16,13 @@
 
 package com.gsr.myschool.server.reporting.excel;
 
+import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.dto.DossierConvocationDTO;
 import com.gsr.myschool.common.shared.dto.DossierExcelDTO;
 import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
+import com.gsr.myschool.common.shared.dto.DossierMultiple;
+import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Candidat;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.ScolariteActuelle;
@@ -39,15 +42,15 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping("/excel")
 public class ExcelController {
+    private static String TMP_FOLDER_PATH = "/tmp/";
+
     @Autowired
     private DossierService dossierService;
     @Autowired
     private XlsExportService xlsExportService;
-    private static String TMP_FOLDER_PATH = "/tmp/";
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, value = "/excel")
     @ResponseStatus(HttpStatus.OK)
     public void generateExcel(@RequestBody DossierFilterDTO requestdata, HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -79,7 +82,7 @@ public class ExcelController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = "application/vnd.ms-excel")
+    @RequestMapping(method = RequestMethod.GET, value = "/excel", produces = "application/vnd.ms-excel")
     @ResponseStatus(HttpStatus.OK)
     public void generateExcel(@RequestParam String fileName, HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -103,6 +106,24 @@ public class ExcelController {
             outputStream.close();
 
             file.delete();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/excel/multidossier", produces = "application/vnd.ms-excel")
+    public void generateMultiDossierExcel(@RequestParam String q, HttpServletResponse response) {
+        DossierStatus status = Strings.isNullOrEmpty(q) ? null :  DossierStatus.valueOf(q);
+        List<DossierMultiple> dossierMultiples = dossierService.findMultipleDossierByStatus(status);
+
+        try {
+            response.addHeader("Content-Disposition", "attachment; filename=multidossier_" + System.currentTimeMillis() + ".xls");
+
+            BufferedOutputStream outputStream = new BufferedOutputStream(response.getOutputStream());
+            xlsExportService.saveSpreadsheetRecords(DossierMultiple.class, dossierMultiples, outputStream);
+
+            outputStream.flush();
+            outputStream.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
