@@ -2,7 +2,6 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
 
-    <ui:with field="helpMessage" type="com.gsr.myschool.common.client.resource.message.HelpMessageBundle"/>
     <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
     <g:HTMLPanel>
