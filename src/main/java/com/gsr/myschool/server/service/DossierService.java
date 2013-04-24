@@ -18,7 +18,6 @@ package com.gsr.myschool.server.service;
 
 import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
 import com.gsr.myschool.common.shared.dto.DossierMultiple;
-import com.gsr.myschool.common.shared.dto.PiecejustifDTO;
 import com.gsr.myschool.common.shared.dto.PagedDossiers;
 import com.gsr.myschool.common.shared.dto.PiecejustifDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;

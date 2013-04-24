@@ -63,8 +63,6 @@ public class DossierServiceImpl implements DossierService {
     @Autowired
     private FraterieRepos fraterieRepos;
     @Autowired
-    private InfoParentRepos infoParentRepos;
-    @Autowired
     private PieceJustifRepos pieceJustifRepos;
     @Autowired
     private UserRepos userRepos;
