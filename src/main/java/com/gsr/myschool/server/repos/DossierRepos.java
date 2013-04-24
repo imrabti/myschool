@@ -16,9 +16,8 @@
 
 package com.gsr.myschool.server.repos;
 
-import com.gsr.myschool.common.shared.dto.BilanDTO;
 import com.gsr.myschool.common.shared.type.DossierStatus;
-import com.gsr.myschool.common.shared.type.TypeNiveauEtude;
+import com.gsr.myschool.common.shared.dto.BilanDTO;
 import com.gsr.myschool.server.business.Dossier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -48,4 +47,8 @@ public interface DossierRepos extends JpaRepository<Dossier, Long>, JpaSpecifica
     @Query("select new com.gsr.myschool.common.shared.dto.BilanDTO(d.niveauEtude.type, d.niveauEtude.filiere.id, count(d)) " +
             "FROM Dossier d group by d.niveauEtude.type ")
     List<BilanDTO> findBilanCycle();
+
+    List<Dossier> findByOwnerIdAndAnneeScolaireId(Long userId, Long anneeScolaireId);
+
+    List<Dossier> findByOwnerIdAndAnneeScolaireIdAndStatus(Long userId, Long anneeScolaireId, DossierStatus status);
 }
