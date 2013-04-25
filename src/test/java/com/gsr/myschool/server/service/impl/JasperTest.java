@@ -100,7 +100,7 @@ public class JasperTest {
         }
     }
 
-        @Test
+     @Test
     public void printBilan() {
         List<BilanDTO> dossiers = dossierRepos.findBilanDossier(DossierStatus.INVITED_TO_TEST);
 
@@ -109,6 +109,7 @@ public class JasperTest {
 
         Map<String, Object> myMap = new HashMap<String, Object>();
 
+        myMap.put("status", null);
         myMap.put("date", dateFormat.format(new Date()));
         Long total1 = 0L, total2 = 0L, total3 = 0L;
 
@@ -122,6 +123,7 @@ public class JasperTest {
                 myList2.add(bilan.getReportsAttributes());
                 total2 += bilan.getTotal();
             } else if (bilan.getFiliere() >= GlobalParameters.PREPA_FILIERE_FROM) {
+                bilan.setNiveau(bilan.getNiveau().substring(0, bilan.getNiveau().indexOf("(")));
                 myList3.add(bilan.getReportsAttributes());
                 total3 += bilan.getTotal();
             }
@@ -155,6 +157,7 @@ public class JasperTest {
 
         Map<String, Object> myMap = new HashMap<String, Object>();
 
+        myMap.put("status", DossierStatus.ACCEPTED_FOR_TEST.toString());
         myMap.put("date", dateFormat.format(new Date()));
         Long total1 = 0L;
 

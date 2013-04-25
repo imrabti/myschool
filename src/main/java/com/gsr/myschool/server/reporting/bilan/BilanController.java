@@ -73,6 +73,7 @@ public class BilanController {
 
             Map<String, Object> myMap = new HashMap<String, Object>();
 
+            myMap.put("status", dossierStatus.toString());
             myMap.put("date", dateFormat.format(new Date()));
             Long total1 = 0L;
 
@@ -87,7 +88,8 @@ public class BilanController {
             myMap.put("cyclesTotal", total1.toString());
 
             dto.setReportParameters(myMap);
-            dto.setFileName("BilanCycle.pdf");
+            dto.setFileName("BilanCycle"+ System.currentTimeMillis()  +".pdf");
+
         } else if (BilanType.NIVEAU_ETUDE.ordinal() == bilanType) {
             List<BilanDTO> dossiers;
             if (Strings.isNullOrEmpty(status)) {
@@ -100,6 +102,7 @@ public class BilanController {
 
             Map<String, Object> myMap = new HashMap<String, Object>();
 
+            myMap.put("status", dossierStatus.toString());
             myMap.put("date", dateFormat.format(new Date()));
             Long total1 = 0L, total2 = 0L, total3 = 0L;
 
@@ -113,6 +116,8 @@ public class BilanController {
                     myList2.add(bilan.getReportsAttributes());
                     total2 += bilan.getTotal();
                 } else if (bilan.getFiliere() >= GlobalParameters.PREPA_FILIERE_FROM) {
+                    if (bilan.getNiveau().contains("("))
+                    bilan.setNiveau(bilan.getNiveau().substring(0, bilan.getNiveau().indexOf("(")));
                     myList3.add(bilan.getReportsAttributes());
                     total3 += bilan.getTotal();
                 }
@@ -126,7 +131,7 @@ public class BilanController {
             myMap.put("prepasTotal", total3.toString());
 
             dto.setReportParameters(myMap);
-            dto.setFileName("BilanNiveauEtude.pdf");
+            dto.setFileName("BilanNiveauEtude_"+ System.currentTimeMillis()  +".pdf");
         }
 
         try {

@@ -2,7 +2,7 @@
     <div class="btn-group">
         <a href="javascript:;" class="btn btn-mini" ui:field="viewDetails">
             <i class="icon-search"/>
-            <span class="">consulter</span>
+            <span class="">Consulter</span>
         </a>
         <a href="javascript:;" class="btn btn-mini" ui:field="delete">
             <i class="icon-remove"/>

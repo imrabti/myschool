@@ -24,6 +24,7 @@
 	<parameter name="prepasTotal" class="java.lang.String"/>
 	<parameter name="francaisTotal" class="java.lang.String"/>
 	<parameter name="bilinguesTotal" class="java.lang.String"/>
+	<parameter name="status" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -31,8 +32,23 @@
 		<band height="100" splitType="Stretch">
 			<subreport>
 				<reportElement uuid="a0fe4948-65d0-419f-8942-419dfce9981c" positionType="Float" x="0" y="0" width="595" height="33"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="bilingues">
+					<subreportParameterExpression><![CDATA[$P{bilingues}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="status">
+					<subreportParameterExpression><![CDATA[$P{status}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="bilinguesTotal">
+					<subreportParameterExpression><![CDATA[$P{bilinguesTotal}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="francaisTotal">
 					<subreportParameterExpression><![CDATA[$P{francaisTotal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="prepasTotal">
+					<subreportParameterExpression><![CDATA[$P{prepasTotal}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="date">
 					<subreportParameterExpression><![CDATA[$P{date}]]></subreportParameterExpression>
@@ -40,31 +56,31 @@
 				<subreportParameter name="francais">
 					<subreportParameterExpression><![CDATA[$P{francais}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportParameter name="bilinguesTotal">
-					<subreportParameterExpression><![CDATA[$P{bilinguesTotal}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="bilingues">
-					<subreportParameterExpression><![CDATA[$P{bilingues}]]></subreportParameterExpression>
-				</subreportParameter>
 				<subreportParameter name="prepas">
 					<subreportParameterExpression><![CDATA[$P{prepas}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SUBREPORT_DIR">
-					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="prepasTotal">
-					<subreportParameterExpression><![CDATA[$P{prepasTotal}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "bilan_subreport2.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement uuid="a0fe4948-65d0-419f-8942-419dfce9981c" positionType="Float" x="0" y="33" width="595" height="33"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="bilingues">
 					<subreportParameterExpression><![CDATA[$P{bilingues}]]></subreportParameterExpression>
 				</subreportParameter>
+				<subreportParameter name="status">
+					<subreportParameterExpression><![CDATA[$P{status}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="bilinguesTotal">
+					<subreportParameterExpression><![CDATA[$P{bilinguesTotal}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="francaisTotal">
 					<subreportParameterExpression><![CDATA[$P{francaisTotal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="prepasTotal">
+					<subreportParameterExpression><![CDATA[$P{prepasTotal}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="date">
 					<subreportParameterExpression><![CDATA[$P{date}]]></subreportParameterExpression>
@@ -74,26 +90,29 @@
 				</subreportParameter>
 				<subreportParameter name="prepas">
 					<subreportParameterExpression><![CDATA[$P{prepas}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SUBREPORT_DIR">
-					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="bilinguesTotal">
-					<subreportParameterExpression><![CDATA[$P{bilinguesTotal}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="prepasTotal">
-					<subreportParameterExpression><![CDATA[$P{prepasTotal}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "bilan_subreport3.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement uuid="a0fe4948-65d0-419f-8942-419dfce9981c" positionType="Float" x="0" y="66" width="595" height="33"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="bilingues">
 					<subreportParameterExpression><![CDATA[$P{bilingues}]]></subreportParameterExpression>
 				</subreportParameter>
+				<subreportParameter name="status">
+					<subreportParameterExpression><![CDATA[$P{status}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="bilinguesTotal">
+					<subreportParameterExpression><![CDATA[$P{bilinguesTotal}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="francaisTotal">
 					<subreportParameterExpression><![CDATA[$P{francaisTotal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="prepasTotal">
+					<subreportParameterExpression><![CDATA[$P{prepasTotal}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="date">
 					<subreportParameterExpression><![CDATA[$P{date}]]></subreportParameterExpression>
@@ -103,15 +122,6 @@
 				</subreportParameter>
 				<subreportParameter name="prepas">
 					<subreportParameterExpression><![CDATA[$P{prepas}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SUBREPORT_DIR">
-					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="bilinguesTotal">
-					<subreportParameterExpression><![CDATA[$P{bilinguesTotal}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="prepasTotal">
-					<subreportParameterExpression><![CDATA[$P{prepasTotal}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "bilan_subreport1.jasper"]]></subreportExpression>
