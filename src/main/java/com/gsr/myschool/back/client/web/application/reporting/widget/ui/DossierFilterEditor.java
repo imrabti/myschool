@@ -1,4 +1,4 @@
-package com.gsr.myschool.back.client.web.application.reporting.widget.convocationui;
+package com.gsr.myschool.back.client.web.application.reporting.widget.ui;
 
 import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;

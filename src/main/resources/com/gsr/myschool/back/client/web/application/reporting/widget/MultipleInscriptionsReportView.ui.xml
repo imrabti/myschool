@@ -10,16 +10,23 @@
         .enhancedWell {
             background-color: rgba(245, 245, 245, 0.6);
         }
+
+        .label {
+            display: inline-block;
+            width: 120px;
+            text-align: right;
+            margin-right: 5px;
+        }
     </ui:style>
 
     <g:HTMLPanel>
         <boot:Well addStyleNames="{style.enhancedWell}">
             <boot:Form type="INLINE">
                 <boot:ControlGroup>
-                    <boot:ControlLabel>Statut dossier</boot:ControlLabel>
-                    <boot:Controls>
-                        <boot:ValueListBox ui:field="status" width="180px"/>
-                    </boot:Controls>
+                    <boot:ControlLabel>
+                        <g:Label addStyleNames="{style.label}" text="Statut des dossiers"/>
+                    </boot:ControlLabel>
+                    <boot:ValueListBox ui:field="status" width="180px"/>
                 </boot:ControlGroup>
             </boot:Form>
 
