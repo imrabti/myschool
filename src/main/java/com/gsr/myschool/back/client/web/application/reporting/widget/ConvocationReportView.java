@@ -149,7 +149,8 @@ public class ConvocationReportView extends ViewWithUiHandlers<ConvocationReportU
 		TextColumn<DossierConvocationDTOProxy> etsColumn = new TextColumn<DossierConvocationDTOProxy>() {
 			@Override
 			public String getValue(DossierConvocationDTOProxy object) {
-				if (object.getDossierSession().getDossier().getScolariteActuelle() == null) return "";
+				if (object.getDossierSession().getDossier().getScolariteActuelle() == null ||
+                    object.getDossierSession().getDossier().getScolariteActuelle().getEtablissement() == null) return "";
 				return object.getDossierSession().getDossier().getScolariteActuelle().getEtablissement().getNom();
 			}
 		};

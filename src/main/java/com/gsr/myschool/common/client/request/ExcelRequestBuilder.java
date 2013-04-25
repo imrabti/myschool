@@ -35,6 +35,11 @@ public class ExcelRequestBuilder extends RequestBuilder {
         setHeader("Content-type", "application/json");
     }
 
+    public ExcelRequestBuilder(String url) {
+        super(POST, url);
+        setHeader("Content-type", "application/json");
+    }
+
     public void sendRequest(ValueProxy data) {
         AutoBean autobean = AutoBeanUtils.getAutoBean(data);
         String requestdata = AutoBeanCodex.encode(autobean).getPayload();
@@ -59,4 +64,30 @@ public class ExcelRequestBuilder extends RequestBuilder {
             e.printStackTrace();
         }
     }
+
+    public void sendRequestReportConvocation(ValueProxy data) {
+        AutoBean autobean = AutoBeanUtils.getAutoBean(data);
+        String requestdata = AutoBeanCodex.encode(autobean).getPayload();
+        setRequestData(requestdata);
+        setCallback(new RequestCallback() {
+            @Override
+            public void onResponseReceived(Request request, Response response) {
+                if (GWT.isScript()) {
+                    Window.open("/preinscription/resource/dossierconvoques?fileName=" + response.getText(), "_blank", "");
+                } else {
+                    Window.open("/resource/dossierconvoques?fileName=" + response.getText(), "_blank", "");
+                }
+            }
+
+            @Override
+            public void onError(Request request, Throwable exception) {
+            }
+        });
+        try {
+            send();
+        } catch (RequestException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

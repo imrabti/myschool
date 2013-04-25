@@ -71,7 +71,7 @@ public class ValueListImpl implements ValueList {
 
     @Override
     public List<SessionExamenProxy> getSessionsList() {
-        requestFactory.sessionService().findAllOpenedSessions().fire(new ReceiverImpl<List<SessionExamenProxy>>() {
+        requestFactory.sessionService().findAllSessionsWithStatus(SessionStatus.OPEN).fire(new ReceiverImpl<List<SessionExamenProxy>>() {
             @Override
             public void onSuccess(List<SessionExamenProxy> sessionExamenProxies) {
                 listSessions = sessionExamenProxies;
@@ -82,7 +82,7 @@ public class ValueListImpl implements ValueList {
 
     @Override
     public List<SessionExamenProxy> getClosedSessionsList() {
-        requestFactory.sessionService().findAllSessions(Arrays.asList( SessionStatus.CLOSED.ordinal() )  ).fire(new ReceiverImpl<List<SessionExamenProxy>>() {
+        requestFactory.sessionService().findAllSessionsWithStatus(SessionStatus.CLOSED).fire(new ReceiverImpl<List<SessionExamenProxy>>() {
             @Override
             public void onSuccess(List<SessionExamenProxy> sessionExamenProxies) {
                 listSessions = sessionExamenProxies;

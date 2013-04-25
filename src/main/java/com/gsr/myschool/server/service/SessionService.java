@@ -2,6 +2,7 @@ package com.gsr.myschool.server.service;
 
 import com.gsr.myschool.common.shared.exception.AffectationClosedException;
 import com.gsr.myschool.common.shared.exception.SessionEmptyException;
+import com.gsr.myschool.common.shared.type.SessionStatus;
 import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.DossierSession;
 import com.gsr.myschool.server.business.core.NiveauEtude;
@@ -40,7 +41,7 @@ public interface SessionService {
 
     Boolean desaffecter(Dossier dossier) throws AffectationClosedException;
 
-    List<SessionExamen> findAllOpenedSessions();
+    List<SessionExamen> findAllSessionsWithStatus(SessionStatus sessionStatus);
 
     Boolean launchSession(SessionExamen session, String link);
 
