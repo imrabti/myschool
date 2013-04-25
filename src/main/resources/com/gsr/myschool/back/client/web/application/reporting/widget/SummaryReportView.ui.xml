@@ -12,8 +12,8 @@
     </ui:style>
 
     <g:HTMLPanel>
-        <boot:Form type="INLINE">
-            <boot:Well>
+        <boot:Well>
+            <boot:Form type="INLINE">
                 <boot:ControlGroup>
                     <boot:ControlLabel>
                         <g:Label addStyleNames="{style.label}" text="Statut des dossiers"/>
@@ -26,10 +26,9 @@
                     </boot:ControlLabel>
                     <boot:ValueListBox ui:field="reportTypeList"/>
                 </boot:ControlGroup>
-            </boot:Well>
-            <boot:Controls>
-                <boot:Button ui:field="generate" text="generate"/>
-            </boot:Controls>
-        </boot:Form>
+            </boot:Form>
+
+            <boot:Button ui:field="generate" text="Générer"/>
+        </boot:Well>
     </g:HTMLPanel>
 </ui:UiBinder>

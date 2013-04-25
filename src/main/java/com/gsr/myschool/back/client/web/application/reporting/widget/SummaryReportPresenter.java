@@ -25,9 +25,10 @@ public class SummaryReportPresenter extends PresenterWidget<MyView> implements S
 
     @Override
     public void generateReport(DossierStatus status, BilanType type) {
-        if (type == null) return;
-        BilanRequestBuilder request = new BilanRequestBuilder();
-        request.buildData(status, type);
-        request.sendRequest();
+        if (type != null) {
+            BilanRequestBuilder request = new BilanRequestBuilder();
+            request.buildData(status, type);
+            request.sendRequest();
+        }
     }
 }

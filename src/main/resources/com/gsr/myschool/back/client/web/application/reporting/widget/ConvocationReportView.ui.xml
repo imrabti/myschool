@@ -6,33 +6,22 @@
     <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
     <ui:style>
-        .contentWrapper {
+        .tableWrapper {
             margin-top: 12px;
-            margin-bottom: 12px;
         }
     </ui:style>
 
-    <g:HTMLPanel styleName="{clientResources.sharedStyleCss.mainContentWrapper}">
-        <g:HTMLPanel styleName="{clientResources.sharedStyleCss.bigTitle}">
-            <h2>
-                <g:InlineLabel text="Rapport Convocations"/>
-            </h2>
-            <span style="display: block; clear: both;"/>
-        </g:HTMLPanel>
+    <g:HTMLPanel>
+        <boot:Well>
+            <s:DossierFilterEditor ui:field="dossierFilterEditor"/>
+            <boot:Button text="Rechercher" icon="SEARCH" ui:field="search"/>
+            <boot:Button text="Initialiser formulaire" ui:field="initialize"/>
+            <boot:Button text="Export Excel" icon="TH_LIST" ui:field="export"/>
+        </boot:Well>
 
-        <div class="{style.contentWrapper}">
-            <boot:Well>
-                <s:DossierFilterEditor ui:field="dossierFilterEditor"/>
-                <boot:Button text="Rechercher" icon="SEARCH" ui:field="search"/>
-                <boot:Button text="Initialiser formulaire" ui:field="initialize"/>
-                <boot:Button text="Export Excel" icon="TH_LIST" ui:field="export"/>
-            </boot:Well>
-
-            <div class="{style.contentWrapper}">
-                <boot:CellTable ui:field="convocationsTable" bordered="true"/>
-                <boot:SimplePager ui:field="pager"/>
-            </div>
+        <div class="{style.tableWrapper}">
+            <boot:CellTable ui:field="convocationsTable" bordered="true"/>
+            <boot:SimplePager ui:field="pager"/>
         </div>
     </g:HTMLPanel>
-
 </ui:UiBinder>
