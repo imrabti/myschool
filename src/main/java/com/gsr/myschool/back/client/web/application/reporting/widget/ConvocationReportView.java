@@ -17,7 +17,7 @@ import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.Range;
 import com.google.inject.Inject;
-import com.gsr.myschool.back.client.web.application.reporting.widget.convocationui.DossierFilterEditor;
+import com.gsr.myschool.back.client.web.application.reporting.widget.ui.DossierFilterEditor;
 import com.gsr.myschool.common.client.proxy.DossierConvocationDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
