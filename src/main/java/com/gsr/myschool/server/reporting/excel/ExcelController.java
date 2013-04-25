@@ -19,23 +19,31 @@ package com.gsr.myschool.server.reporting.excel;
 import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.dto.DossierConvocationDTO;
+import com.gsr.myschool.common.shared.dto.DossierConvoqueExcelDTO;
 import com.gsr.myschool.common.shared.dto.DossierExcelDTO;
 import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
 import com.gsr.myschool.common.shared.dto.DossierMultiple;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Candidat;
 import com.gsr.myschool.server.business.Dossier;
-import com.gsr.myschool.server.business.ScolariteActuelle;
 import com.gsr.myschool.server.service.DossierService;
 import com.gsr.myschool.server.service.XlsExportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,15 +62,9 @@ public class ExcelController {
     @ResponseStatus(HttpStatus.OK)
     public void generateExcel(@RequestBody DossierFilterDTO requestdata, HttpServletRequest request, HttpServletResponse response) {
         try {
-            List<DossierExcelDTO> resultDossiers = new ArrayList<DossierExcelDTO>();
-            if (requestdata.getSessionList() != null) {
-                List<DossierConvocationDTO> dossiers = dossierService.findAllDossiersBySessionAndCriteria(requestdata,
-                        null, null).getDossierConvocationDTOs();
-                resultDossiers = mapDossierForConvocation(dossiers);
-            } else {
-                List<Dossier> dossiers = dossierService.findAllDossiersByCriteria(requestdata, null, null).getDossiers();
-                resultDossiers = map(dossiers);
-            }
+
+            List<Dossier> dossiers = dossierService.findAllDossiersByCriteria(requestdata, null, null).getDossiers();
+            List<DossierExcelDTO> resultDossiers = map(dossiers);
 
             String fileName = new Date().getTime() + ".xls";
             File file = new File(request.getSession().getServletContext().getRealPath("/") + TMP_FOLDER_PATH + fileName);
@@ -124,6 +126,63 @@ public class ExcelController {
 
             outputStream.flush();
             outputStream.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/dossierconvoques")
+    @ResponseStatus(HttpStatus.OK)
+    public void generateDossierConvoquesExcel(@RequestBody DossierFilterDTO requestdata,  HttpServletRequest request,
+            HttpServletResponse response) {
+        List<DossierConvocationDTO> dossiers = dossierService.findAllDossiersBySessionAndCriteria(requestdata, null,
+                null).getDossierConvocationDTOs();
+        List<DossierConvoqueExcelDTO> resultDossiers = mapDossierForConvocation(dossiers);
+
+        try {
+
+            String fileName = new Date().getTime() + ".xls";
+            File file = new File(request.getSession().getServletContext().getRealPath("/") + TMP_FOLDER_PATH + fileName);
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            file.createNewFile();
+
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            xlsExportService.saveSpreadsheetRecords(DossierConvoqueExcelDTO.class, resultDossiers, fileOutputStream);
+            fileOutputStream.flush();
+            fileOutputStream.close();
+
+            response.getWriter().println(fileName);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/dossierconvoques", produces = "application/vnd.ms-excel")
+    @ResponseStatus(HttpStatus.OK)
+    public void generateDossierConvoquesExcel(@RequestParam String fileName, HttpServletRequest request, HttpServletResponse response) {
+        try {
+            final int buffersize = 1024;
+            final byte[] buffer = new byte[buffersize];
+
+            response.addHeader("Content-Disposition", "attachment; filename=dossierconvoques.xls");
+
+            File file = new File(request.getSession().getServletContext().getRealPath("/") + TMP_FOLDER_PATH + fileName);
+            InputStream inputStream = new FileInputStream(file);
+            BufferedOutputStream outputStream = new BufferedOutputStream(response.getOutputStream());
+
+            int available = 0;
+            while ((available = inputStream.read(buffer)) >= 0) {
+                outputStream.write(buffer, 0, available);
+            }
+
+            inputStream.close();
+
+            outputStream.flush();
+            outputStream.close();
+
+            file.delete();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -208,85 +267,36 @@ public class ExcelController {
         return resultDossiers;
     }
 
-    private List<DossierExcelDTO> mapDossierForConvocation(List<DossierConvocationDTO> dossiers) {
-        List<DossierExcelDTO> resultDossiers = new ArrayList<DossierExcelDTO>();
+    private List<DossierConvoqueExcelDTO> mapDossierForConvocation(List<DossierConvocationDTO> dossiers) {
+        List<DossierConvoqueExcelDTO> resultDossiers = new ArrayList<DossierConvoqueExcelDTO>();
         SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
         for (DossierConvocationDTO dossier : dossiers) {
-            DossierExcelDTO d = new DossierExcelDTO();
+            DossierConvoqueExcelDTO d = new DossierConvoqueExcelDTO();
             /* candidat */
             Candidat candidat = dossier.getDossierSession().getDossier().getCandidat();
-            if (candidat != null) {
-                d.setCin(candidat.getCin());
-                d.setCne(candidat.getCne());
-                d.setEmail(candidat.getEmail());
-                d.setFirstname(candidat.getFirstname());
-                d.setLastname(candidat.getLastname());
-                d.setBirthLocation(candidat.getBirthLocation());
-                d.setGsm(candidat.getGsm());
-                d.setPhone(candidat.getPhone());
-                if (candidat.getBacSerie() != null) {
-                    d.setBacSerie(candidat.getBacSerie().getLabel());
-                }
-                if (candidat.getBacYear() != null) {
-                    d.setBacYear(candidat.getBacYear().getLabel());
-                }
-                if (candidat.getNationality() != null) {
-                    d.setNationality(candidat.getNationality().getLabel());
-                }
+            if (candidat != null) {;
+                d.setName(candidat.getLastname() + " " + candidat.getFirstname());
                 if (candidat.getBirthDate() != null) {
                     d.setBirthDate(dateFormat.format(candidat.getBirthDate()));
                 }
-
-            }
-
-            /* Scolarite actuelle */
-            ScolariteActuelle scolariteActuelle = dossier.getDossierSession().getDossier().getScolariteActuelle();
-            if (scolariteActuelle != null) {
-                if (scolariteActuelle.getEtablissement() != null) {
-                    d.setEtablissementActuel(scolariteActuelle.getEtablissement().getNom());
-                }
-                if (scolariteActuelle.getFiliere() != null) {
-                    d.setFormationActuel(scolariteActuelle.getFiliere().getNom());
-                }
-                if (scolariteActuelle.getNiveauEtude() != null) {
-                    d.setNiveauEtudeActuel(scolariteActuelle.getNiveauEtude().getNom());
-                }
-            }
-
-            /* filieres */
-            if (dossier.getDossierSession().getDossier().getFiliere2() != null) {
-                d.setFiliere2nom(dossier.getDossierSession().getDossier().getFiliere2().getNom());
-            }
-            if (dossier.getDossierSession().getDossier().getFiliere() != null) {
-                d.setFilierenom(dossier.getDossierSession().getDossier().getFiliere().getNom());
-            }
-            if (dossier.getDossierSession().getDossier().getNiveauEtude2() != null) {
-                d.setNiveauEtude2nom(dossier.getDossierSession().getDossier().getNiveauEtude2().getNom());
-            }
-            if (dossier.getDossierSession().getDossier().getNiveauEtude() != null) {
-                d.setNiveauEtudenom(dossier.getDossierSession().getDossier().getNiveauEtude().getNom());
             }
 
             /* autres infos */
-            if (dossier.getDossierSession().getDossier().getAnneeScolaire() != null) {
-                d.setAnneeScolaire(dossier.getDossierSession().getDossier().getAnneeScolaire().getLabel());
+            if (dossier.getDossierSession().getDossier().getScolariteActuelle().getEtablissement() != null) {
+                d.setEtablissement(dossier.getDossierSession().getDossier().
+                        getScolariteActuelle().getEtablissement().getNom());
             }
-            if (dossier.getDossierSession().getDossier().getOwner() != null) {
-                d.setOwneremail(dossier.getDossierSession().getDossier().getOwner().getEmail());
+            if (dossier.getDossierSession().getDossier().getGeneratedNumDossier() != null) {
+                d.setGeneratedNumDossier(dossier.getDossierSession().getDossier().getGeneratedNumDossier());
             }
-            if (dossier.getDossierSession().getDossier().getCreateDate() != null) {
-                d.setCreateDate(dateFormat.format(dossier.getDossierSession().getDossier().getCreateDate()));
+            if (dossier.getGsrFraterie() != null) {
+                d.setFraterieGsr(dossier.getHaveFraterie());
             }
-            if (dossier.getDossierSession().getDossier().getSubmitDate() != null) {
-                d.setSubmitDate(dateFormat.format(dossier.getDossierSession().getDossier().getSubmitDate()));
+            if (dossier.getGsrParent() != null) {
+                d.setParentGsr(dossier.getHaveParentGsr());
             }
-            if (dossier.getDossierSession().getDossier().getStatus() != null) {
-                d.setStatus(dossier.getDossierSession().getDossier().getStatus().toString());
-            }
-
             if (dossier.getDossierSession().getSessionExamen() != null) {
                 d.setSession(dossier.getDossierSession().getSessionExamen().getNom());
-                d.setDateSession(dateFormat.format(dossier.getDossierSession().getSessionExamen().getDateSession()));
             }
 
             resultDossiers.add(d);

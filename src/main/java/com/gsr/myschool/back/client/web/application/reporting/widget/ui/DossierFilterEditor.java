@@ -17,7 +17,6 @@ import com.gsr.myschool.common.client.ui.dossier.renderer.BooleanListRenderer;
 import com.gsr.myschool.common.client.ui.dossier.renderer.FiliereRenderer;
 import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
 import com.gsr.myschool.common.client.ui.dossier.renderer.SessionExamenRenderer;
-import com.gsr.myschool.common.client.util.DateUtilsClient;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
 
@@ -91,16 +90,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         DossierFilterDTOProxy dossierFilter = driver.flush();
         if (driver.hasErrors()) {
             return null;
-        } else {
-            if (dossierFilter.getDateFrom() != null) {
-                dossierFilter.setDateFrom(DateUtilsClient.correctDate(dossierFilter.getDateFrom()));
-            }
-
-            if (dossierFilter.getDateTill() != null) {
-                dossierFilter.setDateTill(DateUtilsClient.correctDate(dossierFilter.getDateTill()));
-            }
-
-            return dossierFilter;
         }
+        return dossierFilter;
     }
 }

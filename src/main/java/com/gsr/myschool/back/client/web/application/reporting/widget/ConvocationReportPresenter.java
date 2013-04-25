@@ -5,8 +5,8 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.DossierRequest;
 import com.gsr.myschool.back.client.web.application.reporting.widget.ConvocationReportPresenter.MyView;
-import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierConvocationDTOProxy;
+import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.PagedDossiersProxy;
 import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
 import com.gsr.myschool.common.client.request.ExcelRequestBuilder;
@@ -97,8 +97,8 @@ public class ConvocationReportPresenter extends PresenterWidget<MyView> implemen
 
     @Override
     public void export(DossierFilterDTOProxy dossierFilter) {
-        ExcelRequestBuilder request = new ExcelRequestBuilder();
-        request.sendRequest(dossierFilter);
+        ExcelRequestBuilder request = new ExcelRequestBuilder("resource/dossierconvoques");
+        request.sendRequestReportConvocation(dossierFilter);
     }
 
     @Override

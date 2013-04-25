@@ -335,13 +335,13 @@ public class SessionServiceImpl implements SessionService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<SessionExamen> findAllOpenedSessions() {
+    public List<SessionExamen> findAllSessionsWithStatus(SessionStatus sessionStatus) {
         String currentAnneeScolaire = DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1);
         ValueList currentAnnee = valueListRepos.findByValueAndValueTypeCode(currentAnneeScolaire,
                 ValueTypeCode.SCHOOL_YEAR);
 
         if (currentAnnee != null) {
-            return sessionExamenRepos.findByAnneeScolaireIdAndStatus(currentAnnee.getId(), SessionStatus.OPEN);
+            return sessionExamenRepos.findByAnneeScolaireIdAndStatus(currentAnnee.getId(), sessionStatus);
         } else {
             return new ArrayList<SessionExamen>();
         }
