@@ -1,7 +1,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'
-             xmlns:s='urn:import:com.gsr.myschool.back.client.web.application.reporting.widget.convocationui'>
+             xmlns:s='urn:import:com.gsr.myschool.back.client.web.application.reporting.widget.ui'>
 
     <ui:with field="clientResources" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
