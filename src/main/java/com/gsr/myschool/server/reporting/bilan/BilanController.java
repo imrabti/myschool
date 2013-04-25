@@ -73,7 +73,7 @@ public class BilanController {
 
             Map<String, Object> myMap = new HashMap<String, Object>();
 
-            myMap.put("status", dossierStatus.toString());
+            myMap.put("status", dossierStatus==null?null:dossierStatus.toString());
             myMap.put("date", dateFormat.format(new Date()));
             Long total1 = 0L;
 
@@ -88,7 +88,7 @@ public class BilanController {
             myMap.put("cyclesTotal", total1.toString());
 
             dto.setReportParameters(myMap);
-            dto.setFileName("BilanCycle"+ System.currentTimeMillis()  +".pdf");
+            dto.setFileName("BilanCycle_"+ System.currentTimeMillis()  +".pdf");
 
         } else if (BilanType.NIVEAU_ETUDE.ordinal() == bilanType) {
             List<BilanDTO> dossiers;
@@ -102,7 +102,7 @@ public class BilanController {
 
             Map<String, Object> myMap = new HashMap<String, Object>();
 
-            myMap.put("status", dossierStatus.toString());
+            myMap.put("status", dossierStatus==null?null:dossierStatus.toString());
             myMap.put("date", dateFormat.format(new Date()));
             Long total1 = 0L, total2 = 0L, total3 = 0L;
 

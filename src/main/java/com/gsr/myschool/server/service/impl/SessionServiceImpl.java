@@ -316,6 +316,23 @@ public class SessionServiceImpl implements SessionService {
         }
     }
 
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<SessionExamen> findAllSessions(List<Integer> sessionIdList ) {
+        String currentAnneeScolaire = DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1);
+        ValueList currentAnnee = valueListRepos.findByValueAndValueTypeCode(currentAnneeScolaire,
+                ValueTypeCode.SCHOOL_YEAR);
+
+        if (currentAnnee != null) {
+            return sessionExamenRepos.findByAnneeScolaireAndStatusList(currentAnnee.getId(),  sessionIdList);   // SessionStatus.OPEN);
+        } else {
+            return new ArrayList<SessionExamen>();
+        }
+    }
+
+
     @Override
     @Transactional(readOnly = true)
     public List<SessionExamen> findAllOpenedSessions() {

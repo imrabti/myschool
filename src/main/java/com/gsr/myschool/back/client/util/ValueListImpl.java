@@ -7,14 +7,10 @@ import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.common.client.proxy.*;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.util.ValueList;
+import com.gsr.myschool.common.shared.type.SessionStatus;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ValueListImpl implements ValueList {
     private final BackRequestFactory requestFactory;
@@ -76,6 +72,17 @@ public class ValueListImpl implements ValueList {
     @Override
     public List<SessionExamenProxy> getSessionsList() {
         requestFactory.sessionService().findAllOpenedSessions().fire(new ReceiverImpl<List<SessionExamenProxy>>() {
+            @Override
+            public void onSuccess(List<SessionExamenProxy> sessionExamenProxies) {
+                listSessions = sessionExamenProxies;
+            }
+        });
+        return listSessions;
+    }
+
+    @Override
+    public List<SessionExamenProxy> getClosedSessionsList() {
+        requestFactory.sessionService().findAllSessions(Arrays.asList( SessionStatus.CLOSED.ordinal() )  ).fire(new ReceiverImpl<List<SessionExamenProxy>>() {
             @Override
             public void onSuccess(List<SessionExamenProxy> sessionExamenProxies) {
                 listSessions = sessionExamenProxies;

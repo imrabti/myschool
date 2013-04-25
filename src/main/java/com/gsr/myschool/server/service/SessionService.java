@@ -7,6 +7,7 @@ import com.gsr.myschool.server.business.DossierSession;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.core.SessionExamen;
 import com.gsr.myschool.server.business.core.SessionNiveauEtude;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -44,4 +45,7 @@ public interface SessionService {
     Boolean launchSession(SessionExamen session, String link);
 
     DossierSession findByDossier(Dossier dossier);
+
+    @Transactional(readOnly = true)
+    List<SessionExamen> findAllSessions(List<Integer> sessionIdList);
 }

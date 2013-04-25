@@ -141,6 +141,11 @@ public class ValueListImpl implements ValueList {
     }
 
     @Override
+    public List<SessionExamenProxy> getClosedSessionsList() {
+        return null;
+    }
+
+    @Override
     public void initValueListMap() {
         requestFactory.cachedListValueService().findAllValueList().fire(new Receiver<List<ValueListProxy>>() {
             @Override

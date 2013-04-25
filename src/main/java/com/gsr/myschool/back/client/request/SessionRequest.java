@@ -39,6 +39,8 @@ public interface SessionRequest extends RequestContext {
 
     Request<List<SessionExamenProxy>> findAllOpenedSessions();
 
+    Request<List<SessionExamenProxy>> findAllSessions(List<Integer> sessionIdList );
+
     Request<Boolean> affecter(DossierProxy dossier, SessionExamenProxy session);
 
     Request<Boolean> desaffecter(DossierProxy dossier);

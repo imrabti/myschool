@@ -83,7 +83,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         filiere.setAcceptableValues(valueList.getFiliereList());
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
         session.setValue(object.getSession());
-        session.setAcceptableValues(valueList.getSessionsList());
+        session.setAcceptableValues(valueList.getClosedSessionsList());
     }
 
     @Override

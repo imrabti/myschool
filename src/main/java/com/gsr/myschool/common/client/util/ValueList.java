@@ -27,4 +27,6 @@ public interface ValueList {
     void initNiveauEtudeMap();
 
     void initValueListMap();
+
+    List<SessionExamenProxy> getClosedSessionsList();
 }
