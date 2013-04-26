@@ -7,6 +7,7 @@ import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
+import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.exception.InscriptionClosedException;
@@ -50,6 +51,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
 
     private final FrontRequestFactory requestFactory;
     private final PlaceManager placeManager;
+    private final SecurityUtils securityUtils;
     private final SharedMessageBundle messageBundle;
     private final ParentPresenter parentPresenter;
     private final CandidatPresenter candidatPresenter;
@@ -67,6 +69,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
                                     final ParentPresenter parentPresenter,
                                     final CandidatPresenter candidatPresenter,
                                     final FrateriePresenter frateriePresenter,
+                                    final SecurityUtils securityUtils,
                                     final ScolariteActuellePresenter scolariteActuellePresenter,
                                     final SolariteSouhaitePresenter solariteSouhaitePresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
@@ -75,6 +78,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
         this.placeManager = placeManager;
         this.messageBundle = messageBundle;
         this.parentPresenter = parentPresenter;
+        this.securityUtils = securityUtils;
         this.candidatPresenter = candidatPresenter;
         this.frateriePresenter = frateriePresenter;
         this.scolariteActuellePresenter = scolariteActuellePresenter;
@@ -101,16 +105,18 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
 
             @Override
             public void onException(String type) {
-                if (type.equals(UnAuthorizedException.class.getName())) {
-                    Message message = new Message.Builder(messageBundle.unAuthorized())
-                            .style(AlertType.ERROR).build();
-                    MessageEvent.fire(this, message);
-                    placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
-                } else if (type.equals(InscriptionClosedException.class.getName())) {
-                    Message message = new Message.Builder(messageBundle.inscriptionClosed())
-                            .style(AlertType.ERROR).build();
-                    MessageEvent.fire(this, message);
-                    placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
+                if (!securityUtils.isSuperUser()) {
+                    if (type.equals(UnAuthorizedException.class.getName())) {
+                        Message message = new Message.Builder(messageBundle.unAuthorized())
+                                .style(AlertType.ERROR).build();
+                        MessageEvent.fire(this, message);
+                        placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
+                    } else if (type.equals(InscriptionClosedException.class.getName())) {
+                        Message message = new Message.Builder(messageBundle.inscriptionClosed())
+                                .style(AlertType.ERROR).build();
+                        MessageEvent.fire(this, message);
+                        placeManager.revealPlace(new PlaceRequest(NameTokens.getInscription()));
+                    }
                 }
             }
         });

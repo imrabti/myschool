@@ -89,7 +89,7 @@ public class ConvocationReportPresenter extends PresenterWidget<MyView> implemen
     public void init() {
         currentContext = requestFactory.dossierService();
         dossierFilter = currentContext.create(DossierFilterDTOProxy.class);
-        dossierFilter.setStatus(DossierStatus.AFFECTED);
+        dossierFilter.setStatus(DossierStatus.INVITED_TO_TEST);
 
         getView().editDossierFilter(dossierFilter);
         loadDossiersCounts();
@@ -105,7 +105,7 @@ public class ConvocationReportPresenter extends PresenterWidget<MyView> implemen
     protected void onReveal() {
         currentContext = requestFactory.dossierService();
         dossierFilter = currentContext.create(DossierFilterDTOProxy.class);
-        dossierFilter.setStatus(DossierStatus.AFFECTED);
+        dossierFilter.setStatus(DossierStatus.INVITED_TO_TEST);
 
         getView().editDossierFilter(dossierFilter);
         loadDossiersCounts();

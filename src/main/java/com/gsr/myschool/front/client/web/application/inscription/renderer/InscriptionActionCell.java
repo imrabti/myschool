@@ -181,16 +181,20 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
     @UiHandler({"edit"})
     void onEditClicked(ClickEvent event) {
         DossierProxy value = selectedObject;
-        if (filieresGeneralesOpened && inscriptionOpened ||
-                !filieresGeneralesOpened
-                        && inscriptionOpened
-                        && value.getNiveauEtude() != null
-                        && value.getNiveauEtude().getFiliere() != null
-                        && value.getNiveauEtude().getFiliere().getId() >= GlobalParameters.PREPA_FILIERE_FROM
-                || !filieresGeneralesOpened
-                && inscriptionOpened
-                && value.getNiveauEtude() == null) {
+        if (securityUtils.isSuperUser()) {
             edit.execute(selectedObject);
+        } else {
+            if (filieresGeneralesOpened && inscriptionOpened ||
+                    !filieresGeneralesOpened
+                            && inscriptionOpened
+                            && value.getNiveauEtude() != null
+                            && value.getNiveauEtude().getFiliere() != null
+                            && value.getNiveauEtude().getFiliere().getId() >= GlobalParameters.PREPA_FILIERE_FROM
+                    || !filieresGeneralesOpened
+                    && inscriptionOpened
+                    && value.getNiveauEtude() == null) {
+                edit.execute(selectedObject);
+            }
         }
     }
 
