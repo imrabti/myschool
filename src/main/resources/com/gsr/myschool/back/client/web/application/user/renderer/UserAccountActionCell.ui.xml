@@ -1,8 +1,12 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'>
     <div class="btn-group">
-        <a href="javascript:;" class="btn" ui:field="editAccount">
+        <a href="javascript:;" class="btn btn-mini" ui:field="editAccount">
             <i class="icon-edit"/>
             <span class="">Modifier</span>
+        </a>
+        <a href="javascript:;" class="btn btn-mini" ui:field="login">
+            <i class="icon-signin"/>
+            <span class="">Login</span>
         </a>
     </div>
 </ui:UiBinder>

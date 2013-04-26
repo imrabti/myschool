@@ -22,6 +22,9 @@ import com.google.gwt.storage.client.StorageMap;
 import java.util.List;
 
 public class SecurityUtils {
+    private final static String USERNAME_OLD = "USERNAME_OLD";
+    private final static String PASSWORD_OLD = "PASSWORD_OLD";
+
     private final StorageMap sessionStorage;
 
     public SecurityUtils() {
@@ -31,6 +34,22 @@ public class SecurityUtils {
     public void setCredentials(String username, String password) {
         sessionStorage.put(Credentials.USERNAME.name(), username);
         sessionStorage.put(Credentials.PASSWORD.name(), password);
+    }
+
+    public void backupCredentials() {
+        sessionStorage.put(USERNAME_OLD, getUsername());
+        sessionStorage.put(PASSWORD_OLD, getPassword());
+    }
+
+    public void restoreBackup() {
+        String username = sessionStorage.get(USERNAME_OLD);
+        String password = sessionStorage.get(PASSWORD_OLD);
+
+        sessionStorage.put(Credentials.USERNAME.name(), username);
+        sessionStorage.put(Credentials.PASSWORD.name(), password);
+
+        sessionStorage.remove(USERNAME_OLD);
+        sessionStorage.remove(PASSWORD_OLD);
     }
 
     public void setAuthorities(List<String> authorities) {
@@ -62,6 +81,10 @@ public class SecurityUtils {
     public Boolean isLoggedIn() {
         return sessionStorage.containsKey(Credentials.USERNAME.name()) &&
                 sessionStorage.containsKey(Credentials.PASSWORD.name());
+    }
+
+    public Boolean isSuperUser() {
+        return sessionStorage.containsKey(USERNAME_OLD) && sessionStorage.containsKey(PASSWORD_OLD);
     }
 
     public Boolean hasAuthority(String... authorities) {

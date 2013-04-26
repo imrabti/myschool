@@ -23,5 +23,7 @@ import com.gwtplatform.mvp.client.UiHandlers;
 public interface UserAccountUiHandlers extends UiHandlers {
     void update(UserProxy currentUser);
 
+    void login(UserProxy currentUser);
+
     void searchWithFilter(UserFilterDTOProxy userFilter);
 }
