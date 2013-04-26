@@ -16,8 +16,10 @@
 
 package com.gsr.myschool.front.client.web.application.widget.header;
 
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+import com.gsr.myschool.common.client.util.URLUtils;
 import com.gsr.myschool.common.shared.type.Gender;
 import com.gsr.myschool.front.client.security.CurrentUserProvider;
 import com.gsr.myschool.front.client.place.NameTokens;
@@ -57,8 +59,13 @@ public class HeaderPresenter extends PresenterWidget<HeaderPresenter.MyView> imp
 
     @Override
     public void logout() {
-        securityUtils.clearCredentials();
-        placeManager.revealPlace(new PlaceRequest(NameTokens.getWelcome()));
+        if (securityUtils.isSuperUser()) {
+            securityUtils.restoreBackup();
+            Window.Location.assign(URLUtils.generateURL("backoffice.html", "userPortal"));
+        } else {
+            securityUtils.clearCredentials();
+            placeManager.revealPlace(new PlaceRequest(NameTokens.getWelcome()));
+        }
     }
 
     @Override

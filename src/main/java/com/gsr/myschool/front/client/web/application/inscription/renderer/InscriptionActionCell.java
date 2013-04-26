@@ -14,6 +14,7 @@ import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 
 public class InscriptionActionCell extends AbstractCell<DossierProxy> {
@@ -45,10 +46,20 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
         void onBrowserEvent(InscriptionActionCell o, NativeEvent e, Element p);
     }
 
+    @UiTemplate("InscriptionActionCellSU.ui.xml")
+    public interface RendererSU extends UiRenderer {
+        void render(SafeHtmlBuilder sb);
+
+        void onBrowserEvent(InscriptionActionCell o, NativeEvent e, Element p);
+    }
+
     private final RendererCreated uiRendererCreated;
     private final RendererSubmitted uiRendererSubmitted;
     private final RendererOther uiRendererOther;
     private final RendererInscriptionClosed rendererInscriptionClosed;
+    private final RendererSU uiRendererSU;
+
+    private final SecurityUtils securityUtils;
 
     private Delegate<DossierProxy> preview;
     private Delegate<DossierProxy> edit;
@@ -65,6 +76,8 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
                                  final RendererSubmitted uiRendererSubmitted,
                                  final RendererOther uiRendererOther,
                                  final RendererInscriptionClosed rendererInscriptionClosed,
+                                 final RendererSU uiRendererSU,
+                                 final SecurityUtils securityUtils,
                                  @Assisted("preview") Delegate<DossierProxy> preview,
                                  @Assisted("edit") Delegate<DossierProxy> edit,
                                  @Assisted("delete") Delegate<DossierProxy> delete,
@@ -76,6 +89,8 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
         this.uiRendererSubmitted = uiRendererSubmitted;
         this.uiRendererOther = uiRendererOther;
         this.rendererInscriptionClosed = rendererInscriptionClosed;
+        this.uiRendererSU = uiRendererSU;
+        this.securityUtils = securityUtils;
         this.preview = preview;
         this.edit = edit;
         this.delete = delete;
@@ -88,59 +103,66 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
                                ValueUpdater<DossierProxy> valueUpdater) {
         selectedObject = value;
 
-        switch (selectedObject.getStatus()) {
-            case CREATED:
-                if (filieresGeneralesOpened && inscriptionOpened ||
-                        !filieresGeneralesOpened
-                                && inscriptionOpened
-                                && value.getNiveauEtude() != null
-                                && value.getNiveauEtude().getFiliere() != null
-                                && value.getNiveauEtude().getFiliere().getId() >= GlobalParameters.PREPA_FILIERE_FROM
-                        || !filieresGeneralesOpened
-                        && inscriptionOpened
-                        && value.getNiveauEtude() == null) {
-                    uiRendererCreated.onBrowserEvent(this, event, parent);
+        if (securityUtils.isSuperUser()) {
+            uiRendererSU.onBrowserEvent(this, event, parent);
+        } else {
+            switch (selectedObject.getStatus()) {
+                case CREATED:
+                    if (filieresGeneralesOpened && inscriptionOpened ||
+                            !filieresGeneralesOpened
+                                    && inscriptionOpened
+                                    && value.getNiveauEtude() != null
+                                    && value.getNiveauEtude().getFiliere() != null
+                                    && value.getNiveauEtude().getFiliere().getId() >= GlobalParameters.PREPA_FILIERE_FROM
+                            || !filieresGeneralesOpened
+                            && inscriptionOpened
+                            && value.getNiveauEtude() == null) {
+                        uiRendererCreated.onBrowserEvent(this, event, parent);
+                        break;
+                    } else {
+                        rendererInscriptionClosed.onBrowserEvent(this, event, parent);
+                        break;
+                    }
+                case SUBMITTED:
+                    uiRendererSubmitted.onBrowserEvent(this, event, parent);
                     break;
-                } else {
-                    rendererInscriptionClosed.onBrowserEvent(this, event, parent);
+                default:
+                    uiRendererOther.onBrowserEvent(this, event, parent);
                     break;
-                }
-            case SUBMITTED:
-                uiRendererSubmitted.onBrowserEvent(this, event, parent);
-                break;
-            default:
-                uiRendererOther.onBrowserEvent(this, event, parent);
-                break;
+            }
         }
     }
 
     @Override
     public void render(Context context, DossierProxy value, SafeHtmlBuilder builder) {
-        switch (value.getStatus()) {
-            case CREATED:
-                if (filieresGeneralesOpened && inscriptionOpened ||
-                        !filieresGeneralesOpened
-                                && inscriptionOpened
-                                && value.getNiveauEtude() != null
-                                && value.getNiveauEtude().getFiliere() != null
-                                && value.getNiveauEtude().getFiliere().getId() >= GlobalParameters.PREPA_FILIERE_FROM
-                        || !filieresGeneralesOpened
-                        && inscriptionOpened
-                        && value.getNiveauEtude() == null) {
-                    uiRendererCreated.render(builder);
+        if (securityUtils.isSuperUser()) {
+            uiRendererSU.render(builder);
+        } else {
+            switch (value.getStatus()) {
+                case CREATED:
+                    if (filieresGeneralesOpened && inscriptionOpened ||
+                            !filieresGeneralesOpened
+                                    && inscriptionOpened
+                                    && value.getNiveauEtude() != null
+                                    && value.getNiveauEtude().getFiliere() != null
+                                    && value.getNiveauEtude().getFiliere().getId() >= GlobalParameters.PREPA_FILIERE_FROM
+                            || !filieresGeneralesOpened
+                            && inscriptionOpened
+                            && value.getNiveauEtude() == null) {
+                        uiRendererCreated.render(builder);
+                        break;
+                    } else {
+                        rendererInscriptionClosed.render(builder);
+                        break;
+                    }
+                case SUBMITTED:
+                    uiRendererSubmitted.render(builder);
                     break;
-                } else {
-                    rendererInscriptionClosed.render(builder);
+                default:
+                    uiRendererOther.render(builder);
                     break;
-                }
-            case SUBMITTED:
-                uiRendererSubmitted.render(builder);
-                break;
-            default:
-                uiRendererOther.render(builder);
-                break;
+            }
         }
-
     }
 
     public void setInscriptionOpened(Boolean opened) {
