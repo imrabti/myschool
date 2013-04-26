@@ -31,28 +31,44 @@ public class PreInscriptionActionCell extends AbstractCell<DossierProxy> {
         void onBrowserEvent(PreInscriptionActionCell o, NativeEvent e, Element p);
     }
 
+    @UiTemplate("PreInscriptionActionCellInvited.ui.xml")
+    public interface RendererInvitedDossier extends UiRenderer {
+        void render(SafeHtmlBuilder sb);
+
+        void onBrowserEvent(PreInscriptionActionCell o, NativeEvent e, Element p);
+    }
+
     private final RendererOtherDossier rendererOtherDossier;
     private final RendererCreatedDossier rendererCreatedDossier;
+    private final RendererInvitedDossier renderInvitedDossier;
 
     private Delegate<DossierProxy> viewDetails;
     private Delegate<DossierProxy> print;
     private Delegate<DossierProxy> delete;
+    private Delegate<DossierProxy> printConvocation;
+    private Delegate<DossierProxy> sendConvocation;
 
     private DossierProxy selectedObject;
 
     @Inject
     public PreInscriptionActionCell(final RendererOtherDossier rendererOtherDossier,
                                     final RendererCreatedDossier rendererCreatedDossier,
+                                    final RendererInvitedDossier renderInvitedDossier,
                                     @Assisted("viewDetails") Delegate<DossierProxy> viewDetails,
                                     @Assisted("print") Delegate<DossierProxy> print,
-                                    @Assisted("delete") Delegate<DossierProxy> delete) {
+                                    @Assisted("delete") Delegate<DossierProxy> delete,
+                                    @Assisted("printConvocation") Delegate<DossierProxy> printConvocation,
+                                    @Assisted("sendConvocation") Delegate<DossierProxy> sendConvocation) {
         super(BrowserEvents.CLICK);
 
         this.rendererCreatedDossier = rendererCreatedDossier;
         this.rendererOtherDossier = rendererOtherDossier;
+        this.renderInvitedDossier = renderInvitedDossier;
         this.viewDetails = viewDetails;
         this.print = print;
         this.delete = delete;
+        this.printConvocation = printConvocation;
+        this.sendConvocation = sendConvocation;
     }
 
     @Override
@@ -66,6 +82,8 @@ public class PreInscriptionActionCell extends AbstractCell<DossierProxy> {
             case SUBMITTED:
                 rendererCreatedDossier.onBrowserEvent(this, event, parent);
                 break;
+            case INVITED_TO_TEST:
+                renderInvitedDossier.onBrowserEvent(this, event, parent);
             default:
                 rendererOtherDossier.onBrowserEvent(this, event, parent);
                 break;
@@ -80,6 +98,9 @@ public class PreInscriptionActionCell extends AbstractCell<DossierProxy> {
                 break;
             case SUBMITTED:
                 rendererOtherDossier.render(builder);
+                break;
+            case INVITED_TO_TEST:
+                renderInvitedDossier.render(builder);
                 break;
             default:
                 rendererOtherDossier.render(builder);
@@ -102,5 +123,15 @@ public class PreInscriptionActionCell extends AbstractCell<DossierProxy> {
     @UiHandler({"delete"})
     void onDeleteClicked(ClickEvent event) {
         delete.execute(selectedObject);
+    }
+
+    @UiHandler({"printConvocation"})
+    void onPrintconvocationClicked(ClickEvent event) {
+        printConvocation.execute(selectedObject);
+    }
+
+    @UiHandler({"sendConvocation"})
+    void onSendconvocationClicked(ClickEvent event) {
+        sendConvocation.execute(selectedObject);
     }
 }

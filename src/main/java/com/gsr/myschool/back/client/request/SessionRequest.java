@@ -51,4 +51,6 @@ public interface SessionRequest extends RequestContext {
     Request<Boolean> launchSession(SessionExamenProxy session, String link);
 
     Request<DossierSessionProxy> findByDossier(DossierProxy dossier);
+
+    Request<Void> sendEmailConvocation(DossierSessionProxy session, String link);
 }

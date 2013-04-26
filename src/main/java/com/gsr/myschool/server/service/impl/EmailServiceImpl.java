@@ -1,5 +1,6 @@
 package com.gsr.myschool.server.service.impl;
 
+import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.dto.EmailDTO;
 import com.gsr.myschool.server.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class EmailServiceImpl implements EmailService {
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
                 message.setFrom(mail.getFrom());
                 message.setTo(mail.getTo());
+                if (!Strings.isNullOrEmpty(mail.getCc())) {
+                    message.setCc(mail.getCc());
+                }
                 message.setSubject(mail.getSubject());
                 message.setText(mail.getMessage(), true);
             }

@@ -8,6 +8,14 @@
             <i class="icon-remove"/>
             <span class="">Supprimer</span>
         </a>
+        <a href="javascript:;" class="btn btn-mini" ui:field="sendConvocation" style="display:none;">
+            <i class="icon-print"/>
+            <span class="">Envoyer convocation</span>
+        </a>
+        <a href="javascript:;" class="btn btn-mini" ui:field="printConvocation" style="display:none;">
+            <i class="icon-print"/>
+            <span class="">Imprimer convocation</span>
+        </a>
         <a href="javascript:;" class="btn btn-mini" ui:field="print">
             <i class="icon-print"/>
             <span class="">Imprimer</span>

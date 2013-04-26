@@ -291,6 +291,36 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
+    public void sendEmailConvocation(DossierSession session, String link) {
+        Dossier dossier = dossierRepos.findOne(session.getDossier().getId());
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("gender", dossier.getOwner().getGender().toString());
+        params.put("lastname", dossier.getOwner().getLastName());
+        params.put("firstname", dossier.getOwner().getFirstName());
+        params.put("nomEnfant", dossier.getCandidat().getLastname());
+        params.put("prenomEnfant", dossier.getCandidat().getFirstname());
+        params.put("refdossier", dossier.getGeneratedNumDossier());
+        params.put("link", link + "resource/convocation?number=" + session.getGeneratedConvocationPDFPath());
+
+        try {
+            EmailDTO email = emailService.populateEmail(EmailType.CONVOCATED_FOR_TEST,
+                    dossier.getOwner().getEmail(), sender,
+                    params, sender, "");
+            emailService.prepare(email);
+
+            InboxMessage message = new InboxMessage();
+            message.setParentUser(dossier.getOwner());
+            message.setSubject(email.getSubject());
+            message.setContent(email.getMessage());
+            message.setMsgDate(new Date());
+            message.setMsgStatus(InboxMessageStatus.UNREAD);
+            inboxMessageRepos.save(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<SessionNiveauEtude> findAllMatieresByNiveauEtude(Long sessionId, Long niveauEtudeId) {
         return sessionExamenNERepos.findBySessionExamenIdAndNiveauEtudeId(sessionId, niveauEtudeId);

@@ -17,21 +17,26 @@
 package com.gsr.myschool.back.client.web.application.preinscription;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
+import com.google.common.base.Strings;
 import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.gsr.myschool.back.client.place.NameTokens;
 import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.request.DossierRequest;
 import com.gsr.myschool.back.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.client.proxy.DossierSessionProxy;
 import com.gsr.myschool.common.client.proxy.PagedDossiersProxy;
+import com.gsr.myschool.common.client.request.ConvocationRequestBuilder;
 import com.gsr.myschool.common.client.request.ExcelRequestBuilder;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.request.ReportRequestBuilder;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
+import com.gsr.myschool.common.client.util.URLUtils;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
@@ -161,6 +166,41 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
                 });
             }
         }
+    }
+
+    @Override
+    public void printConvocationAction(DossierProxy inscription) {
+        final ConvocationRequestBuilder request = new ConvocationRequestBuilder();
+        requestFactory.sessionService().findByDossier(inscription).fire(new Receiver<DossierSessionProxy>() {
+            @Override
+            public void onSuccess(DossierSessionProxy dossierSession) {
+                if (!Strings.isNullOrEmpty(dossierSession.getGeneratedConvocationPDFPath())) {
+                    request.buildData(dossierSession.getGeneratedConvocationPDFPath());
+                    request.sendRequest();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void sendConvocationAction(DossierProxy inscription) {
+        requestFactory.sessionService().findByDossier(inscription).fire(new ReceiverImpl<DossierSessionProxy>() {
+            @Override
+            public void onSuccess(DossierSessionProxy dossierSession) {
+                String convocationLink = URLUtils.generateURL(false);
+                requestFactory.sessionService().sendEmailConvocation(dossierSession, convocationLink).fire(new ReceiverImpl<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        String content = messageBundle.operationSuccess();
+                        AlertType alertType = AlertType.SUCCESS;
+                        Message message = new Message.Builder(content)
+                                .style(alertType).build();
+
+                        MessageEvent.fire(this, message);
+                    }
+                });
+            }
+        });
     }
 
     @Override

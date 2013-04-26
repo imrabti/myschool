@@ -47,6 +47,7 @@ public interface SessionService {
 
     DossierSession findByDossier(Dossier dossier);
 
-    @Transactional(readOnly = true)
     List<SessionExamen> findAllSessions(List<Integer> sessionIdList);
+
+    void sendEmailConvocation(DossierSession session, String link);
 }

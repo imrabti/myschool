@@ -34,4 +34,8 @@ public interface PreInscriptionUiHandlers extends UiHandlers {
     void printInscription(DossierProxy inscription);
 
     void delete(DossierProxy inscription);
+
+    void printConvocationAction(DossierProxy inscription);
+
+    void sendConvocationAction(DossierProxy inscription);
 }
