@@ -16,6 +16,7 @@
 
 package com.gsr.myschool.back.client.web.application.user;
 
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.back.client.place.NameTokens;
@@ -28,6 +29,8 @@ import com.gsr.myschool.common.client.proxy.UserFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.security.HasRoleGatekeeper;
+import com.gsr.myschool.common.client.security.SecurityUtils;
+import com.gsr.myschool.common.client.util.URLUtils;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
@@ -57,6 +60,7 @@ public class UserAccountPresenter extends Presenter<UserAccountPresenter.MyView,
 
     private final BackRequestFactory requestFactory;
     private final UserAccountEditPresenter userAccountEditPresenter;
+    private final SecurityUtils securityUtils;
 
     private UserRequest currentContext;
     private UserFilterDTOProxy currentUserFilter;
@@ -64,10 +68,12 @@ public class UserAccountPresenter extends Presenter<UserAccountPresenter.MyView,
     @Inject
     public UserAccountPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                                 final BackRequestFactory requestFactory,
+                                final SecurityUtils securityUtils,
                                 final UserAccountEditPresenter userAccountEditPresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
+        this.securityUtils = securityUtils;
         this.userAccountEditPresenter = userAccountEditPresenter;
 
         getView().setUiHandlers(this);
@@ -91,6 +97,17 @@ public class UserAccountPresenter extends Presenter<UserAccountPresenter.MyView,
     public void update(UserProxy currentUser) {
         userAccountEditPresenter.editDatas(currentUser);
         addToPopupSlot(userAccountEditPresenter);
+    }
+
+    @Override
+    public void login(UserProxy currentUser) {
+        String username = currentUser.getEmail();
+        String password = currentUser.getPassword();
+
+        securityUtils.backupCredentials();
+        securityUtils.setCredentials(username, password);
+
+        Window.Location.assign(URLUtils.generateURL("inscription"));
     }
 
     @Override

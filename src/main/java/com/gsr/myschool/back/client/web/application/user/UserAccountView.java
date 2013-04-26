@@ -58,6 +58,7 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
     private final UserAccountActionCellFactory actionCellFactory;
 
     private Delegate<UserProxy> editAccount;
+    private Delegate<UserProxy> logingAccount;
 
     @Inject
     public UserAccountView(final Binder uiBinder,
@@ -100,6 +101,13 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
             @Override
             public void execute(UserProxy userProxy) {
                 getUiHandlers().update(userProxy);
+            }
+        };
+
+        logingAccount = new Delegate<UserProxy>() {
+            @Override
+            public void execute(UserProxy userProxy) {
+                getUiHandlers().login(userProxy);
             }
         };
     }
@@ -147,7 +155,7 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
         userPortalTable.addColumn(statusColumn, "Statut");
         userPortalTable.setColumnWidth(statusColumn, 30, Style.Unit.PCT);
 
-        UserAccountActionCell actionsCell = actionCellFactory.create(editAccount);
+        UserAccountActionCell actionsCell = actionCellFactory.create(editAccount, logingAccount);
         Column<UserProxy, UserProxy> actionsColumn = new
                 Column<UserProxy, UserProxy>(actionsCell) {
                     @Override
