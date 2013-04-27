@@ -90,7 +90,7 @@ public class JasperTest {
                 }
                 dto = reportController.buildReportDto(dossier);
                 try {
-                    reportService.generatePdfIntoFolder(dto, dossier.getGeneratedNumDossier());
+                    reportService.generatePdfIntoFolder(dto, "D:\\PDFGSR\\" + dossier.getGeneratedNumDossier() + "_v2.pdf");
                 } catch (Exception e) {
 
                     System.err.println(" ERROR IN DOSSIER NUM = " + dossier.getGeneratedNumDossier());
@@ -100,7 +100,7 @@ public class JasperTest {
         }
     }
 
-     @Test
+    @Test
     public void printBilan() {
         List<BilanDTO> dossiers = dossierRepos.findBilanDossier(DossierStatus.INVITED_TO_TEST);
 

@@ -14,7 +14,7 @@ public class ReportRequestBuilder extends RequestBuilder {
 
     public void buildData(String dossierId) {
         postData = new StringBuffer();
-        postData.append("dossierId=" + dossierId);
+        postData.append("dossierId=").append(dossierId);
     }
 
     public void sendRequest() {

@@ -38,7 +38,7 @@ public class ReportServiceImpl implements ReportService, ResourceLoaderAware {
         JREmptyDataSource emptyDataSource = new JREmptyDataSource();
         JasperPrint jasperPrint = JasperFillManager.fillReport(resource.getInputStream(),
                 reportDTO.getReportParameters(), emptyDataSource);
-        JasperExportManager.exportReportToPdfFile(jasperPrint, "D:\\PDFGSR\\"+filename+"_v2.pdf");
+        JasperExportManager.exportReportToPdfFile(jasperPrint, filename);
     }
 
     @Override
