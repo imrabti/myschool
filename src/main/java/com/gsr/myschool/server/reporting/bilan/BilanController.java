@@ -25,6 +25,7 @@ import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.reporting.ReportService;
 import com.gsr.myschool.server.repos.DossierRepos;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +45,10 @@ public class BilanController {
     private DossierRepos dossierRepos;
     @Autowired
     private ReportService reportService;
+    @Value("${bilanCycle}")
+    private String bilanCycle;
+    @Value("${bilan}")
+    private String bilan;
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/pdf")
     @ResponseStatus(HttpStatus.OK)
@@ -57,7 +62,7 @@ public class BilanController {
                 dossierStatus = DossierStatus.valueOf(status);
             }
         } catch (Exception e) {
-            return ;
+            return;
         }
         if (BilanType.CYCLE.ordinal() == bilanType) {
             List<BilanDTO> dossiers;
@@ -69,11 +74,11 @@ public class BilanController {
             }
 
             SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
-            dto = new ReportDTO("bilan_cycle");
+            dto = new ReportDTO(bilanCycle);
 
             Map<String, Object> myMap = new HashMap<String, Object>();
 
-            myMap.put("status", dossierStatus==null?null:dossierStatus.toString());
+            myMap.put("status", dossierStatus == null ? null : dossierStatus.toString());
             myMap.put("date", dateFormat.format(new Date()));
             Long total1 = 0L;
 
@@ -88,7 +93,7 @@ public class BilanController {
             myMap.put("cyclesTotal", total1.toString());
 
             dto.setReportParameters(myMap);
-            dto.setFileName("BilanCycle_"+ System.currentTimeMillis()  +".pdf");
+            dto.setFileName("BilanCycle_" + System.currentTimeMillis() + ".pdf");
 
         } else if (BilanType.NIVEAU_ETUDE.ordinal() == bilanType) {
             List<BilanDTO> dossiers;
@@ -98,11 +103,11 @@ public class BilanController {
                 dossiers = dossierRepos.findBilanDossier(dossierStatus);
             }
             SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
-            dto = new ReportDTO("bilan");
+            dto = new ReportDTO(bilan);
 
             Map<String, Object> myMap = new HashMap<String, Object>();
 
-            myMap.put("status", dossierStatus==null?null:dossierStatus.toString());
+            myMap.put("status", dossierStatus == null ? null : dossierStatus.toString());
             myMap.put("date", dateFormat.format(new Date()));
             Long total1 = 0L, total2 = 0L, total3 = 0L;
 
@@ -117,7 +122,7 @@ public class BilanController {
                     total2 += bilan.getTotal();
                 } else if (bilan.getFiliere() >= GlobalParameters.PREPA_FILIERE_FROM) {
                     if (bilan.getNiveau().contains("("))
-                    bilan.setNiveau(bilan.getNiveau().substring(0, bilan.getNiveau().indexOf("(")));
+                        bilan.setNiveau(bilan.getNiveau().substring(0, bilan.getNiveau().indexOf("(")));
                     myList3.add(bilan.getReportsAttributes());
                     total3 += bilan.getTotal();
                 }
@@ -131,7 +136,7 @@ public class BilanController {
             myMap.put("prepasTotal", total3.toString());
 
             dto.setReportParameters(myMap);
-            dto.setFileName("BilanNiveauEtude_"+ System.currentTimeMillis()  +".pdf");
+            dto.setFileName("BilanNiveauEtude_" + System.currentTimeMillis() + ".pdf");
         }
 
         try {

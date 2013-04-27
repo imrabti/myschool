@@ -16,12 +16,14 @@
 
 package com.gsr.myschool.common.shared.dto;
 
+import com.gsr.myschool.server.util.BeanMapper;
 import org.adorsys.xlseasy.annotation.CellAlign;
 import org.adorsys.xlseasy.annotation.Sheet;
 import org.adorsys.xlseasy.annotation.SheetCellStyle;
 import org.adorsys.xlseasy.annotation.SheetColumn;
 
 import java.io.Serializable;
+import java.util.Map;
 
 @Sheet(autoSizeColumns = true,
         columnOrder = {"generatedNumDossier", "name", "birthDate",
@@ -108,5 +110,9 @@ public class DossierConvoqueExcelDTO implements Serializable {
 
     public void setEtablissement(String etablissement) {
         this.etablissement = etablissement;
+    }
+
+    public Map getReportsAttributes() {
+        return BeanMapper.beanToMap(this);
     }
 }

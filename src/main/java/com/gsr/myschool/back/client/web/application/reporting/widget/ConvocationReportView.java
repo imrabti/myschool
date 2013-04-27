@@ -1,5 +1,6 @@
 package com.gsr.myschool.back.client.web.application.reporting.widget;
 
+import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.SimplePager;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
@@ -39,6 +40,8 @@ public class ConvocationReportView extends ViewWithUiHandlers<ConvocationReportU
     CellTable<DossierConvocationDTOProxy> convocationsTable;
     @UiField(provided = true)
     SimplePager pager;
+    @UiField
+    Button report;
 
     private final DateTimeFormat dateFormat;
     private final AsyncDataProvider<DossierConvocationDTOProxy> dataProvider;
@@ -46,9 +49,9 @@ public class ConvocationReportView extends ViewWithUiHandlers<ConvocationReportU
 
     @Inject
     public ConvocationReportView(final Binder uiBinder, final SharedMessageBundle sharedMessageBundle,
-            final DossierFilterEditor dossierFilterEditor,
-            final LoadingIndicator loadingIndicator,
-            final SimplePager.Resources pagerResources) {
+                                 final DossierFilterEditor dossierFilterEditor,
+                                 final LoadingIndicator loadingIndicator,
+                                 final SimplePager.Resources pagerResources) {
         this.dossierFilterEditor = dossierFilterEditor;
         this.dataProvider = setupDataProvider();
         this.pager = new SimplePager(SimplePager.TextLocation.RIGHT, pagerResources, false, 0, true);
@@ -59,60 +62,67 @@ public class ConvocationReportView extends ViewWithUiHandlers<ConvocationReportU
         dataProvider.addDataDisplay(convocationsTable);
         pager.setDisplay(convocationsTable);
         pager.setPageSize(GlobalParameters.PAGE_SIZE);
+        report.setVisible(false);
 
         dateFormat = DateTimeFormat.getFormat(GlobalParameters.DATE_FORMAT);
         convocationsTable.setLoadingIndicator(loadingIndicator);
         convocationsTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
     }
 
-	@Override
-	public void reloadData() {
-		convocationsTable.setVisibleRangeAndClearData(convocationsTable.getVisibleRange(), true);
-	}
+    @Override
+    public void reloadData() {
+        convocationsTable.setVisibleRangeAndClearData(convocationsTable.getVisibleRange(), true);
+    }
 
-	@Override
-	public void setDossierCount(Integer result) {
-		dataProvider.updateRowCount(result, true);
-	}
+    @Override
+    public void setDossierCount(Integer result) {
+        dataProvider.updateRowCount(result, true);
+    }
 
-	@Override
-	public void displayDossiers(Integer offset, List<DossierConvocationDTOProxy> cars) {
-		dataProvider.updateRowData(offset, cars);
-	}
+    @Override
+    public void displayDossiers(Integer offset, List<DossierConvocationDTOProxy> cars) {
+        dataProvider.updateRowData(offset, cars);
+    }
 
-	@Override
-	public void editDossierFilter(DossierFilterDTOProxy dossierFilter) {
-		dossierFilterEditor.edit(dossierFilter);
-	}
+    @Override
+    public void editDossierFilter(DossierFilterDTOProxy dossierFilter) {
+        report.setVisible(dossierFilter.getNiveauEtude() != null && dossierFilter.getNiveauEtude().getNom() != null);
+        dossierFilterEditor.edit(dossierFilter);
+    }
 
-	@UiHandler("search")
-	void onSearch(ClickEvent event) {
-		getUiHandlers().searchWithFilter(dossierFilterEditor.get());
-	}
+    @UiHandler("search")
+    void onSearch(ClickEvent event) {
+        getUiHandlers().searchWithFilter(dossierFilterEditor.get());
+    }
 
-	@UiHandler("export")
-	void onExport(ClickEvent event) {
-		getUiHandlers().export(dossierFilterEditor.get());
-	}
+    @UiHandler("export")
+    void onExport(ClickEvent event) {
+        getUiHandlers().export(dossierFilterEditor.get());
+    }
 
-	@UiHandler("initialize")
-	void onInitialize(ClickEvent event) {
-		getUiHandlers().init();
-	}
+    @UiHandler("initialize")
+    void onInitialize(ClickEvent event) {
+        getUiHandlers().init();
+    }
 
-	private AsyncDataProvider<DossierConvocationDTOProxy> setupDataProvider() {
-		return new AsyncDataProvider<DossierConvocationDTOProxy>() {
-			@Override
-			protected void onRangeChanged(HasData<DossierConvocationDTOProxy> display) {
-				Range range = display.getVisibleRange();
-				if (getUiHandlers() != null) {
-					getUiHandlers().fetchData(range.getStart(), range.getLength());
-				}
-			}
-		};
-	}
+    @UiHandler("report")
+    void onGenerateReport(ClickEvent event) {
+        getUiHandlers().printRapport(dossierFilterEditor.get());
+    }
 
-	private void initDataGrid() {
+    private AsyncDataProvider<DossierConvocationDTOProxy> setupDataProvider() {
+        return new AsyncDataProvider<DossierConvocationDTOProxy>() {
+            @Override
+            protected void onRangeChanged(HasData<DossierConvocationDTOProxy> display) {
+                Range range = display.getVisibleRange();
+                if (getUiHandlers() != null) {
+                    getUiHandlers().fetchData(range.getStart(), range.getLength());
+                }
+            }
+        };
+    }
+
+    private void initDataGrid() {
         TextColumn<DossierConvocationDTOProxy> refColumn = new TextColumn<DossierConvocationDTOProxy>() {
             @Override
             public String getValue(DossierConvocationDTOProxy object) {
@@ -124,39 +134,40 @@ public class ConvocationReportView extends ViewWithUiHandlers<ConvocationReportU
         convocationsTable.setColumnWidth(refColumn, 10, Style.Unit.PCT);
 
         TextColumn<DossierConvocationDTOProxy> nomColumn = new TextColumn<DossierConvocationDTOProxy>() {
-			@Override
-			public String getValue(DossierConvocationDTOProxy object) {
-				if (object.getDossierSession().getDossier().getCandidat() == null) return "";
-				return object.getDossierSession().getDossier().getCandidat().getLastname() + " " +
+            @Override
+            public String getValue(DossierConvocationDTOProxy object) {
+                if (object.getDossierSession().getDossier().getCandidat() == null) return "";
+                return object.getDossierSession().getDossier().getCandidat().getLastname() + " " +
                         object.getDossierSession().getDossier().getCandidat().getFirstname();
-			}
-		};
-		nomColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		convocationsTable.addColumn(nomColumn, "Nom prénom");
-		convocationsTable.setColumnWidth(nomColumn, 15, Style.Unit.PCT);
+            }
+        };
+        nomColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+        convocationsTable.addColumn(nomColumn, "Nom prénom");
+        convocationsTable.setColumnWidth(nomColumn, 15, Style.Unit.PCT);
 
-		TextColumn<DossierConvocationDTOProxy> dateColumn = new TextColumn<DossierConvocationDTOProxy>() {
-			@Override
-			public String getValue(DossierConvocationDTOProxy object) {
-				if (object.getDossierSession().getDossier().getCandidat().getBirthDate() == null) return "";
-				return dateFormat.format(object.getDossierSession().getDossier().getCandidat().getBirthDate());
-			}
-		};
-		dateColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		convocationsTable.addColumn(dateColumn, "Date de naissance");
-		convocationsTable.setColumnWidth(dateColumn, 10, Style.Unit.PCT);
+        TextColumn<DossierConvocationDTOProxy> dateColumn = new TextColumn<DossierConvocationDTOProxy>() {
+            @Override
+            public String getValue(DossierConvocationDTOProxy object) {
+                if (object.getDossierSession().getDossier().getCandidat().getBirthDate() == null) return "";
+                return dateFormat.format(object.getDossierSession().getDossier().getCandidat().getBirthDate());
+            }
+        };
+        dateColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+        convocationsTable.addColumn(dateColumn, "Date de naissance");
+        convocationsTable.setColumnWidth(dateColumn, 10, Style.Unit.PCT);
 
-		TextColumn<DossierConvocationDTOProxy> etsColumn = new TextColumn<DossierConvocationDTOProxy>() {
-			@Override
-			public String getValue(DossierConvocationDTOProxy object) {
-				if (object.getDossierSession().getDossier().getScolariteActuelle() == null ||
-                    object.getDossierSession().getDossier().getScolariteActuelle().getEtablissement() == null) return "";
-				return object.getDossierSession().getDossier().getScolariteActuelle().getEtablissement().getNom();
-			}
-		};
+        TextColumn<DossierConvocationDTOProxy> etsColumn = new TextColumn<DossierConvocationDTOProxy>() {
+            @Override
+            public String getValue(DossierConvocationDTOProxy object) {
+                if (object.getDossierSession().getDossier().getScolariteActuelle() == null ||
+                        object.getDossierSession().getDossier().getScolariteActuelle().getEtablissement() == null)
+                    return "";
+                return object.getDossierSession().getDossier().getScolariteActuelle().getEtablissement().getNom();
+            }
+        };
         etsColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-		convocationsTable.addColumn(etsColumn, "Etablissement D'origine");
-		convocationsTable.setColumnWidth(etsColumn, 10, Style.Unit.PCT);
+        convocationsTable.addColumn(etsColumn, "Etablissement D'origine");
+        convocationsTable.setColumnWidth(etsColumn, 10, Style.Unit.PCT);
 
         TextColumn<DossierConvocationDTOProxy> sessionColumn = new TextColumn<DossierConvocationDTOProxy>() {
             @Override
@@ -187,5 +198,5 @@ public class ConvocationReportView extends ViewWithUiHandlers<ConvocationReportU
         parentGsrColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         convocationsTable.addColumn(parentGsrColumn, "Parent-GSR");
         convocationsTable.setColumnWidth(parentGsrColumn, 10, Style.Unit.PCT);
-	}
+    }
 }
