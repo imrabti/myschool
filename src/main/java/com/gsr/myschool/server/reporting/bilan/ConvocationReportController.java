@@ -94,7 +94,7 @@ public class ConvocationReportController {
             }
 
             String niveauEtude = "";
-            if (requestdata.getNiveauEtude().getNom().contains("(")) {
+            if (requestdata.getNiveauEtude() != null && requestdata.getNiveauEtude().getNom().contains("(")) {
                 niveauEtude = requestdata.getNiveauEtude().getNom().contains("(")
                         ? requestdata.getNiveauEtude().getNom().substring(0, requestdata.getNiveauEtude().getNom().indexOf("("))
                         : requestdata.getNiveauEtude().getNom();
