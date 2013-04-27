@@ -59,7 +59,7 @@ public class ConvocationReportController {
 
             ReportDTO dto = new ReportDTO(convocationReport);
             Map<String, Object> myMap = new HashMap<String, Object>();
-            List<Map> myList = new ArrayList<Map>();
+            List<DossierConvoqueExcelDTO> myList = new ArrayList<DossierConvoqueExcelDTO>();
 
             SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
             for (DossierConvocationDTO dossier : dossiers) {
@@ -90,20 +90,18 @@ public class ConvocationReportController {
                 if (dossier.getDossierSession().getSessionExamen() != null) {
                     d.setSession(dossier.getDossierSession().getSessionExamen().getNom());
                 }
-                myList.add(d.getReportsAttributes());
+                myList.add(d);
             }
 
             String niveauEtude = "";
-            if (requestdata.getNiveauEtude().getNom().contains("(")) {
+            if (requestdata.getNiveauEtude() != null && requestdata.getNiveauEtude().getNom().contains("(")) {
                 niveauEtude = requestdata.getNiveauEtude().getNom().contains("(")
                         ? requestdata.getNiveauEtude().getNom().substring(0, requestdata.getNiveauEtude().getNom().indexOf("("))
                         : requestdata.getNiveauEtude().getNom();
             }
             myMap.put("dossiers", myList);
-            myMap.put("section", requestdata.getFiliere() != null ? requestdata.getFiliere().getNom() : "");
+            myMap.put("section", requestdata.getNiveauEtude() != null ? requestdata.getNiveauEtude().getFiliere().getNom() : "");
             myMap.put("cycle", niveauEtude);
-            myMap.put("date", dateFormat.format(new Date()));
-            myMap.put("status", requestdata.getStatus() != null ? requestdata.getStatus().toString() : null);
 
             dto.setReportParameters(myMap);
 
@@ -113,7 +111,7 @@ public class ConvocationReportController {
                 file.getParentFile().mkdirs();
             }
 
-            reportService.generatePdfIntoFolder(dto, request.getSession().getServletContext().getRealPath("/") + TMP_FOLDER_PATH + fileName);
+           	reportService.generatePdfIntoFolder(dto, request.getSession().getServletContext().getRealPath("/") + TMP_FOLDER_PATH + fileName);
 
             response.getWriter().println(fileName);
         } catch (Exception e) {
