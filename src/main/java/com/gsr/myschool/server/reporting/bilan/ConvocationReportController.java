@@ -32,7 +32,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -90,9 +93,15 @@ public class ConvocationReportController {
                 myList.add(d.getReportsAttributes());
             }
 
+            String niveauEtude = "";
+            if (requestdata.getNiveauEtude().getNom().contains("(")) {
+                niveauEtude = requestdata.getNiveauEtude().getNom().contains("(")
+                        ? requestdata.getNiveauEtude().getNom().substring(0, requestdata.getNiveauEtude().getNom().indexOf("("))
+                        : requestdata.getNiveauEtude().getNom();
+            }
             myMap.put("dossiers", myList);
-            myMap.put("section", requestdata.getFiliere());
-            myMap.put("cycle", requestdata.getNiveauEtude());
+            myMap.put("section", requestdata.getFiliere() != null ? requestdata.getFiliere().getNom() : "");
+            myMap.put("cycle", niveauEtude);
             myMap.put("date", dateFormat.format(new Date()));
             myMap.put("status", requestdata.getStatus() != null ? requestdata.getStatus().toString() : null);
 
@@ -119,7 +128,7 @@ public class ConvocationReportController {
             final int buffersize = 1024;
             final byte[] buffer = new byte[buffersize];
 
-            response.addHeader("Content-Disposition", "attachment; filename=recherche.pdf");
+            response.addHeader("Content-Disposition", "attachment; filename=convocation_report.pdf");
 
             File file = new File(request.getSession().getServletContext().getRealPath("/") + TMP_FOLDER_PATH + fileName);
             InputStream inputStream = new FileInputStream(file);
