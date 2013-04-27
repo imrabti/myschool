@@ -56,7 +56,7 @@ public class ConvocationReportController {
 
             ReportDTO dto = new ReportDTO(convocationReport);
             Map<String, Object> myMap = new HashMap<String, Object>();
-            List<Map> myList = new ArrayList<Map>();
+            List<DossierConvoqueExcelDTO> myList = new ArrayList<DossierConvoqueExcelDTO>();
 
             SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
             for (DossierConvocationDTO dossier : dossiers) {
@@ -87,14 +87,12 @@ public class ConvocationReportController {
                 if (dossier.getDossierSession().getSessionExamen() != null) {
                     d.setSession(dossier.getDossierSession().getSessionExamen().getNom());
                 }
-                myList.add(d.getReportsAttributes());
+                myList.add(d);
             }
 
             myMap.put("dossiers", myList);
-            myMap.put("section", requestdata.getFiliere());
-            myMap.put("cycle", requestdata.getNiveauEtude());
-            myMap.put("date", dateFormat.format(new Date()));
-            myMap.put("status", requestdata.getStatus() != null ? requestdata.getStatus().toString() : null);
+            myMap.put("section", requestdata.getNiveauEtude() != null ? requestdata.getNiveauEtude().getFiliere().getNom() : "");
+            myMap.put("cycle", requestdata.getNiveauEtude() != null ? requestdata.getNiveauEtude().getNom() : "");
 
             dto.setReportParameters(myMap);
 
@@ -104,7 +102,7 @@ public class ConvocationReportController {
                 file.getParentFile().mkdirs();
             }
 
-            reportService.generatePdfIntoFolder(dto, request.getSession().getServletContext().getRealPath("/") + TMP_FOLDER_PATH + fileName);
+           	reportService.generatePdfIntoFolder(dto, request.getSession().getServletContext().getRealPath("/") + TMP_FOLDER_PATH + fileName);
 
             response.getWriter().println(fileName);
         } catch (Exception e) {
@@ -119,7 +117,7 @@ public class ConvocationReportController {
             final int buffersize = 1024;
             final byte[] buffer = new byte[buffersize];
 
-            response.addHeader("Content-Disposition", "attachment; filename=recherche.pdf");
+            response.addHeader("Content-Disposition", "attachment; filename=dossiersConvoques.pdf");
 
             File file = new File(request.getSession().getServletContext().getRealPath("/") + TMP_FOLDER_PATH + fileName);
             InputStream inputStream = new FileInputStream(file);

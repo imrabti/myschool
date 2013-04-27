@@ -1,135 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="convocation_report" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="1dc2f5ba-6bff-4a80-aefd-cf1c65e33436">
-	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<subDataset name="dataset" uuid="e5e78060-9521-470f-ba62-d65999e710df">
-		<field name="dossier" class="org.apache.commons.beanutils.BeanMap">
-			<fieldDescription><![CDATA[_THIS]]></fieldDescription>
-		</field>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="a4893412-8672-464f-8d8d-2e927ba780e0">
+		<field name="name" class="java.lang.String"/>
+		<field name="generatedNumDossier" class="java.lang.String"/>
+		<field name="etablissement" class="java.lang.String"/>
+		<field name="session" class="java.lang.String"/>
+		<field name="birthDate" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="date" class="java.lang.String"/>
-	<parameter name="dossiers" class="java.util.List"/>
-	<parameter name="status" class="java.lang.String"/>
-	<parameter name="cycle" class="java.lang.String"/>
-	<parameter name="section" class="java.lang.String"/>
+	<parameter name="date" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="dossiers" class="java.util.List" isForPrompting="false"/>
+	<parameter name="status" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="cycle" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="section" class="java.lang.String" isForPrompting="false"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="700" splitType="Prevent">
+		<band height="98" splitType="Stretch">
 			<image>
 				<reportElement uuid="e81b6025-2acb-4471-87d4-120fbaed85f7" x="27" y="22" width="70" height="51"/>
 				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"logo.png"]]></imageExpression>
 			</image>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="743aecd8-1e69-43b6-9590-4fa79c80759b" x="336" y="22" width="227" height="11"/>
-				<textElement textAlignment="Right">
-					<font fontName="Serif" size="8" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Date d'impression : "+$P{date}]]></textFieldExpression>
-			</textField>
-			<componentElement>
-				<reportElement uuid="9dbe190e-b1e7-44cf-b971-306b95b3aba9" mode="Transparent" x="29" y="176" width="506" height="15" isPrintWhenDetailOverflows="true"/>
-				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
-					<datasetRun subDataset="dataset" uuid="6ba6aefc-e885-49e9-9fd7-00eafd929b71">
-						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{dossiers})]]></dataSourceExpression>
-					</datasetRun>
-					<jr:listContents height="15" width="506">
-						<textField isBlankWhenNull="true">
-							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" stretchType="RelativeToTallestObject" x="83" y="0" width="82" height="15"/>
-							<textElement verticalAlignment="Middle">
-								<font fontName="Serif" size="8" isPdfEmbedded="true"/>
-							</textElement>
-							<textFieldExpression><![CDATA[$F{dossier}.get("name")]]></textFieldExpression>
-						</textField>
-						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" x="379" y="0" width="127" height="15"/>
-							<textElement textAlignment="Right" verticalAlignment="Middle">
-								<font fontName="Serif" size="8" isPdfEmbedded="true"/>
-							</textElement>
-							<textFieldExpression><![CDATA[$F{dossier}.get("etablissement")]]></textFieldExpression>
-						</textField>
-						<line direction="BottomUp">
-							<reportElement uuid="56d4a612-c8a7-48cc-96a9-f92647654866" x="0" y="14" width="506" height="1"/>
-							<graphicElement>
-								<pen lineWidth="0.25"/>
-							</graphicElement>
-						</line>
-						<textField isBlankWhenNull="true">
-							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" stretchType="RelativeToTallestObject" x="1" y="0" width="82" height="15"/>
-							<textElement verticalAlignment="Middle">
-								<font fontName="Serif" size="8" isPdfEmbedded="true"/>
-							</textElement>
-							<textFieldExpression><![CDATA[$F{dossier}.get("generatedNumDossier")]]></textFieldExpression>
-						</textField>
-						<textField isBlankWhenNull="true">
-							<reportElement uuid="3d216fe5-9464-431a-a7ab-7d342842e706" stretchType="RelativeToTallestObject" x="224" y="0" width="97" height="15"/>
-							<textElement verticalAlignment="Middle">
-								<font fontName="Serif" size="8" isPdfEmbedded="true"/>
-							</textElement>
-							<textFieldExpression><![CDATA[$F{dossier}.get("birthDate")]]></textFieldExpression>
-						</textField>
-					</jr:listContents>
-				</jr:list>
-			</componentElement>
-			<staticText>
-				<reportElement uuid="517ad049-9ea5-4ee6-a00c-12522e6ffc96" x="408" y="146" width="127" height="20"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="9a16eaf1-6882-4a63-a03b-219131b1a5a7" x="179" y="57" width="356" height="18"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Etablissement d'origine]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="399eff13-86d7-4ac2-a7b3-e13026d4c502" x="39" y="146" width="70" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[N Dossier]]></text>
-			</staticText>
-			<line>
-				<reportElement uuid="a510bceb-3884-4ddd-a301-b9d0b9085297" x="29" y="166" width="506" height="1"/>
-				<graphicElement>
-					<pen lineWidth="3.0"/>
-				</graphicElement>
-			</line>
-			<staticText>
-				<reportElement uuid="399eff13-86d7-4ac2-a7b3-e13026d4c502" x="109" y="146" width="83" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Nom prénom]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="399eff13-86d7-4ac2-a7b3-e13026d4c502" x="253" y="146" width="97" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[D. Naissance]]></text>
-			</staticText>
-			<textField>
-				<reportElement uuid="9a16eaf1-6882-4a63-a03b-219131b1a5a7" x="179" y="73" width="356" height="20"/>
-				<textElement textAlignment="Right" markup="none">
-					<font fontName="Serif" size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Cycle demandée : " + $P{cycle}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="9a16eaf1-6882-4a63-a03b-219131b1a5a7" x="179" y="53" width="356" height="20"/>
-				<textElement textAlignment="Right" markup="none">
-					<font fontName="Serif" size="10" isBold="true"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="9a16eaf1-6882-4a63-a03b-219131b1a5a7" x="179" y="37" width="356" height="18"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Section demandée : " + $P{section}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="8104e29b-6996-4435-a706-b32d6b3fcb8c" x="373" y="93" width="162" height="20"/>
-				<textElement textAlignment="Right">
-					<font fontName="Serif" isBold="true"/>
+				<reportElement uuid="8104e29b-6996-4435-a706-b32d6b3fcb8c" x="349" y="78" width="186" height="18"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Etat : Convocation(s) envoyée(s)]]></text>
+				<text><![CDATA[Etat : Convocation(s) envoyée(s) ]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -140,13 +97,208 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band splitType="Stretch"/>
+		<band height="200" splitType="Prevent">
+			<componentElement>
+				<reportElement uuid="75fec7d3-aa6c-4cc5-b088-a78ce7ac5ec9" key="table 1" style="table 1" x="27" y="21" width="540" height="37"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Table Dataset 1" uuid="72fdd460-d19d-43a5-87a6-f5f1ba5e4237">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{dossiers})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="82" uuid="8570f4a9-cd30-4902-a89c-00b2fc7e650a">
+						<jr:columnHeader style="table 1_CH" height="19" rowSpan="1">
+							<staticText>
+								<reportElement uuid="5540d562-bbfe-4453-b54a-7a9015cd17df" mode="Opaque" x="0" y="0" width="82" height="19"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[N°]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="17" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement uuid="8b2e839a-9eb7-44ae-a353-a4ba181ec9e5" mode="Transparent" x="0" y="0" width="82" height="17"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="127d8340-c7b9-46f3-b70d-a38d67355e11">
+						<jr:columnHeader style="table 1_CH" height="19" rowSpan="1">
+							<staticText>
+								<reportElement uuid="5540d562-bbfe-4453-b54a-7a9015cd17df" mode="Opaque" x="0" y="0" width="90" height="19"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[N° dossier]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="17" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="8b2e839a-9eb7-44ae-a353-a4ba181ec9e5" mode="Transparent" x="0" y="0" width="90" height="17"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{generatedNumDossier}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="e957b60c-1964-490c-b599-193ec0c70014">
+						<jr:columnHeader style="table 1_CH" height="19" rowSpan="1">
+							<staticText>
+								<reportElement uuid="5540d562-bbfe-4453-b54a-7a9015cd17df" mode="Opaque" x="0" y="0" width="90" height="19"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Nom et prénom]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="17" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="8b2e839a-9eb7-44ae-a353-a4ba181ec9e5" mode="Transparent" x="0" y="0" width="90" height="17"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="61af1a63-f07b-45a9-b45f-beaec0677ee2">
+						<jr:columnHeader style="table 1_CH" height="19" rowSpan="1">
+							<staticText>
+								<reportElement uuid="5540d562-bbfe-4453-b54a-7a9015cd17df" mode="Opaque" x="0" y="0" width="90" height="19"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[D.naissance]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="17" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="8b2e839a-9eb7-44ae-a353-a4ba181ec9e5" mode="Transparent" x="0" y="0" width="90" height="17"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{birthDate}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="98" uuid="1a4be494-4df1-4dd3-9974-18edefae6662">
+						<jr:columnHeader style="table 1_CH" height="19" rowSpan="1">
+							<staticText>
+								<reportElement uuid="5540d562-bbfe-4453-b54a-7a9015cd17df" mode="Opaque" x="0" y="0" width="98" height="19"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Etablissement d'origine]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="17" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="8b2e839a-9eb7-44ae-a353-a4ba181ec9e5" mode="Transparent" x="0" y="0" width="98" height="17"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{etablissement}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="cb2bdc82-5f84-44a2-95d0-e5eafea96dac">
+						<jr:columnHeader style="table 1_CH" height="19" rowSpan="1">
+							<staticText>
+								<reportElement uuid="5540d562-bbfe-4453-b54a-7a9015cd17df" mode="Opaque" x="0" y="0" width="90" height="19"/>
+								<box>
+									<pen lineWidth="0.25"/>
+									<topPen lineWidth="0.25"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.25"/>
+									<rightPen lineWidth="0.25"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<text><![CDATA[session]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="17" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement uuid="8b2e839a-9eb7-44ae-a353-a4ba181ec9e5" mode="Transparent" x="0" y="0" width="90" height="17"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{session}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
 	</detail>
 	<columnFooter>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band splitType="Stretch"/>
+		<band height="30" splitType="Prevent">
+			<rectangle>
+				<reportElement uuid="3b86072f-6ec0-472a-88b8-e64294f15971" x="0" y="0" width="595" height="30" backcolor="#CCCCCC"/>
+			</rectangle>
+			<textField>
+				<reportElement uuid="134cb50d-800a-4d67-a086-cc381e2a848d" x="462" y="6" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" sur"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="43e4a7d1-b269-4e33-a041-232336712a39" x="542" y="6" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="89e2a776-9ac6-4653-993c-826616278b30" x="13" y="6" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH.mm">
+				<reportElement uuid="bf77d07c-1195-4fb6-8de8-35269bc256b2" x="113" y="6" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band splitType="Stretch"/>
