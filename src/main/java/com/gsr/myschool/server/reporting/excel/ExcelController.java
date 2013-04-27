@@ -274,7 +274,7 @@ public class ExcelController {
             DossierConvoqueExcelDTO d = new DossierConvoqueExcelDTO();
             /* candidat */
             Candidat candidat = dossier.getDossierSession().getDossier().getCandidat();
-            if (candidat != null) {;
+            if (candidat != null) {
                 d.setName(candidat.getLastname() + " " + candidat.getFirstname());
                 if (candidat.getBirthDate() != null) {
                     d.setBirthDate(dateFormat.format(candidat.getBirthDate()));

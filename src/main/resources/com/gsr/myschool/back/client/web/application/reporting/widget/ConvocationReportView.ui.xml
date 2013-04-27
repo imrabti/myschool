@@ -17,6 +17,7 @@
             <boot:Button text="Rechercher" icon="SEARCH" ui:field="search"/>
             <boot:Button text="Initialiser formulaire" ui:field="initialize"/>
             <boot:Button text="Export Excel" icon="TH_LIST" ui:field="export"/>
+            <boot:Button text="Imprimer rapport" icon="PRINT" ui:field="report"/>
         </boot:Well>
 
         <div class="{style.tableWrapper}">

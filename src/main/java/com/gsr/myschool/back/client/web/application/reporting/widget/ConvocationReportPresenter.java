@@ -9,9 +9,9 @@ import com.gsr.myschool.common.client.proxy.DossierConvocationDTOProxy;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.PagedDossiersProxy;
 import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
+import com.gsr.myschool.common.client.request.ConvocationReportRequestBuilder;
 import com.gsr.myschool.common.client.request.ExcelRequestBuilder;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
-import com.gsr.myschool.common.client.request.ReportRequestBuilder;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -39,7 +39,7 @@ public class ConvocationReportPresenter extends PresenterWidget<MyView> implemen
 
     @Inject
     public ConvocationReportPresenter(final EventBus eventBus, final MyView view,
-            final BackRequestFactory requestFactory) {
+                                      final BackRequestFactory requestFactory) {
         super(eventBus, view);
 
         this.requestFactory = requestFactory;
@@ -80,9 +80,12 @@ public class ConvocationReportPresenter extends PresenterWidget<MyView> implemen
 
     @Override
     public void printRapport(DossierFilterDTOProxy dossierFilter) {
-        ReportRequestBuilder requestBuilder = new ReportRequestBuilder();
-        // requestBuilder.buildData(dossier.getId().toString());
-        requestBuilder.sendRequest();
+        if (dossierFilter.getNiveauEtude() != null && dossierFilter.getNiveauEtude().getNom() != null) {
+            ConvocationReportRequestBuilder requestBuilder = new ConvocationReportRequestBuilder("resource/convocationReport");
+            requestBuilder.sendRequest(dossierFilter);
+        } else {
+            init();
+        }
     }
 
     @Override

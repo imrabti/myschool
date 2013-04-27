@@ -328,10 +328,10 @@ public class DossierServiceImpl implements DossierService {
             dossierConvocationDTO.setDossierSession(dossierSessionRepos.findByDossierId(dossierConv.getId()));
             dossierConvocationDTO.setGsrFraterie(fraterieRepos.findByCandidatIdAndEtablissementGsr(
                     dossierConv.getCandidat().getId(), true
-            ).size() > 0 ? true : false);
+            ).size() > 0);
             dossierConvocationDTO.setGsrParent(infoParentRepos.findByDossierIdAndParentGsr(
                     dossierConv.getId(), true
-            ).size() > 0 ? true : false);
+            ).size() > 0);
             dossierConvocationDTOs.add(dossierConvocationDTO);
         }
         return dossierConvocationDTOs;
