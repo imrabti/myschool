@@ -4,7 +4,6 @@ import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.CellTable;
 import com.github.gwtbootstrap.client.ui.SimplePager;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
-import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -45,7 +44,6 @@ public class ConvocationReportView extends ViewWithUiHandlers<ConvocationReportU
 
     private final DateTimeFormat dateFormat;
     private final AsyncDataProvider<DossierConvocationDTOProxy> dataProvider;
-    private Delegate<DossierConvocationDTOProxy> printAction;
 
     @Inject
     public ConvocationReportView(final Binder uiBinder, final SharedMessageBundle sharedMessageBundle,
