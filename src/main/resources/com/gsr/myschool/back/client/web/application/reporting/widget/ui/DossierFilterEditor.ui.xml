@@ -1,7 +1,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'
-             xmlns:b2='urn:import:com.github.gwtbootstrap.datepicker.client.ui'>
+             xmlns:boot='urn:import:com.github.gwtbootstrap.client.ui'>
 
     <ui:style>
         .row {
@@ -23,7 +22,7 @@
     <g:HTMLPanel>
         <div class="{style.row}">
             <g:Label text="Sessions" styleName="{style.label}"/>
-            <boot:ValueListBox ui:field="session" width="180px"/>
+            <g:ListBox ui:field="session" width="180px"/>
         </div>
 
         <div class="{style.row}">

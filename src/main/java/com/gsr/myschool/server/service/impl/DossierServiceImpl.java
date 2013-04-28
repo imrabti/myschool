@@ -298,8 +298,8 @@ public class DossierServiceImpl implements DossierService {
             spec = spec.and(DossierSpec.isParentGsr(filter.getParentGsr()));
         }
 
-        if (filter.getSessionList() != null && !filter.getSessionList().isEmpty()) {
-            spec = spec.and(DossierSpec.sessionIn(filter.getSessionList()));
+        if (filter.getSessionIds() != null && !filter.getSessionIds().isEmpty()) {
+            //spec = spec.and(DossierSpec.sessionIn(filter.getSessionList()));
         }
 
         List<DossierConvocationDTO> dossierConvocationDTOs = new ArrayList<DossierConvocationDTO>();

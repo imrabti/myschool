@@ -69,11 +69,6 @@ public class ConvocationReportPresenter extends PresenterWidget<MyView> implemen
                 currentContext.edit(dossierFilter.getFiliere()) : null);
         dossierFilter.setNiveauEtude(dossierFilter.getNiveauEtude() != null ?
                 currentContext.edit(dossierFilter.getNiveauEtude()) : null);
-        List<SessionExamenProxy> sessions = new ArrayList<SessionExamenProxy>();
-        if (dossierFilter.getSession() != null) {
-            sessions.add(dossierFilter.getSession());
-        }
-        dossierFilter.setSessionList(sessions);
 
         loadDossiersCounts();
     }

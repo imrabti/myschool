@@ -21,7 +21,7 @@ public class DossierFilterDTO implements Serializable {
     private Boolean parentGsr;
     private List<DossierStatus> statusList;
     private SessionExamen session;
-    private List<SessionExamen> sessionList;
+    private List<Long> sessionIds;
 
     public String getNumDossier() {
         return numDossier;
@@ -111,11 +111,11 @@ public class DossierFilterDTO implements Serializable {
         this.session = session;
     }
 
-    public List<SessionExamen> getSessionList() {
-        return sessionList;
+    public List<Long> getSessionIds() {
+        return sessionIds;
     }
 
-    public void setSessionList(List<SessionExamen> sessionList) {
-        this.sessionList = sessionList;
+    public void setSessionIds(List<Long> sessionIds) {
+        this.sessionIds = sessionIds;
     }
 }
