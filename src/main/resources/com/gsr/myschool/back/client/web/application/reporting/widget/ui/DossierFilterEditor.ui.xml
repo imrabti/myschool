@@ -22,7 +22,7 @@
     <g:HTMLPanel>
         <div class="{style.row}">
             <g:Label text="Sessions" styleName="{style.label}"/>
-            <g:ListBox ui:field="session" width="180px"/>
+            <g:ListBox ui:field="session" width="300px"/>
         </div>
 
         <div class="{style.row}">

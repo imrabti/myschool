@@ -17,7 +17,6 @@ import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
 import com.gsr.myschool.common.client.ui.dossier.renderer.BooleanListRenderer;
 import com.gsr.myschool.common.client.ui.dossier.renderer.FiliereRenderer;
 import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
-import com.gsr.myschool.common.client.ui.dossier.renderer.SessionExamenRenderer;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
 
@@ -62,10 +61,6 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         gsrFraterie.setAcceptableValues(BooleanListRenderer.acceptedValues());
         parentGsr.setAcceptableValues(BooleanListRenderer.acceptedValues());
 
-        for (SessionExamenProxy item : valueList.getClosedSessionsList()) {
-            session.addItem(item.getNom(), item.getId().toString());
-        }
-
         filiere.addValueChangeHandler(new ValueChangeHandler<FiliereProxy>() {
             @Override
             public void onValueChange(ValueChangeEvent<FiliereProxy> event) {
@@ -82,6 +77,10 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
 
     @Override
     public void edit(DossierFilterDTOProxy object) {
+        for (SessionExamenProxy item : valueList.getClosedSessionsList()) {
+            session.addItem(item.getNom(), item.getId().toString());
+        }
+
         driver.edit(object);
         filiere.setAcceptableValues(valueList.getFiliereList());
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
@@ -92,7 +91,17 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         DossierFilterDTOProxy dossierFilter = driver.flush();
         if (driver.hasErrors()) {
             return null;
+        } else {
+            StringBuffer ids = new StringBuffer();
+            for (int i = 0; i < session.getItemCount(); i++) {
+                if (session.isItemSelected(i)) {
+                    ids.append(session.getValue(i) + ";");
+                }
+            }
+
+            dossierFilter.setSessionIds(ids.toString());
         }
+
         return dossierFilter;
     }
 }
