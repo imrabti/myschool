@@ -39,12 +39,11 @@ public interface InscriptionService {
 
     void deleteFraterie(Long fraterieId);
 
-    List<String> submitInscription(Long dossierId) throws InscriptionClosedException;
+    List<String> submitInscription(Long dossierId, Boolean isSuperUser) throws InscriptionClosedException;
 
     Boolean statusInscriptionOpened();
 
     void deleteInscriptionInProcess(Long dossierId);
 
-    @Transactional(readOnly = true)
     Boolean statusFilieresGeneralesOpened();
 }

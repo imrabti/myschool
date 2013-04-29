@@ -355,10 +355,9 @@ public class InscriptionServiceImpl implements InscriptionService {
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<String> submitInscription(Long dossierId) throws InscriptionClosedException {
+    public List<String> submitInscription(Long dossierId, Boolean isSuperUser) throws InscriptionClosedException {
         Settings status = settingsRepos.findOne(SettingsKey.STATUS);
-        if (!GlobalParameters.APP_STATUS_OPENED.equals(status.getValue())) throw new InscriptionClosedException();
+        if (!isSuperUser && !GlobalParameters.APP_STATUS_OPENED.equals(status.getValue())) throw new InscriptionClosedException();
 
         Set<String> validationErrors = new HashSet<String>();
 
