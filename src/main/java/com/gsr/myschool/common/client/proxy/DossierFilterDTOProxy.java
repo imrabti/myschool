@@ -54,7 +54,7 @@ public interface DossierFilterDTOProxy extends ValueProxy {
 
     void setSession(SessionExamenProxy session);
 
-    List<SessionExamenProxy> getSessionList();
+    String getSessionIds();
 
-    void setSessionList(List<SessionExamenProxy> sessionList);
+    void setSessionIds(String sessionIds);
 }
