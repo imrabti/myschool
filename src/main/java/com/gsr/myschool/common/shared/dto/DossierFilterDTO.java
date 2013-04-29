@@ -6,6 +6,7 @@ import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.core.SessionExamen;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class DossierFilterDTO implements Serializable {
     private Boolean parentGsr;
     private List<DossierStatus> statusList;
     private SessionExamen session;
-    private List<SessionExamen> sessionList;
+    private String sessionIds;
 
     public String getNumDossier() {
         return numDossier;
@@ -111,11 +112,11 @@ public class DossierFilterDTO implements Serializable {
         this.session = session;
     }
 
-    public List<SessionExamen> getSessionList() {
-        return sessionList;
+    public String getSessionIds() {
+        return sessionIds;
     }
 
-    public void setSessionList(List<SessionExamen> sessionList) {
-        this.sessionList = sessionList;
+    public void setSessionIds(String sessionIds) {
+        this.sessionIds = sessionIds;
     }
 }
