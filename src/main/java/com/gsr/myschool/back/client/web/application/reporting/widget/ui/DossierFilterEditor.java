@@ -80,7 +80,6 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         for (SessionExamenProxy item : valueList.getClosedSessionsList()) {
             session.addItem(item.getNom(), item.getId().toString());
         }
-
         driver.edit(object);
         filiere.setAcceptableValues(valueList.getFiliereList());
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
