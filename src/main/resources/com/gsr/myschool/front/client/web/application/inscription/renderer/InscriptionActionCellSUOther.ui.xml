@@ -5,10 +5,6 @@
                 <i class="icon-edit"/>
                 <span class="">Modifier</span>
             </a>
-            <a href="javascript:;" class="btn btn-mini btn-success" ui:field="submit">
-                <i class="icon-share"/>
-                <span class="">Valider</span>
-            </a>
         </div>
 
         <div class="btn-group" style="display: none;">
@@ -23,6 +19,10 @@
             <a href="javascript:;" class="btn btn-mini" ui:field="print">
                 <i class="icon-print"/>
                 <span class="">Imprimer</span>
+            </a>
+            <a href="javascript:;" class="btn btn-mini btn-success" ui:field="submit">
+                <i class="icon-share"/>
+                <span class="">Valider</span>
             </a>
         </div>
     </div>

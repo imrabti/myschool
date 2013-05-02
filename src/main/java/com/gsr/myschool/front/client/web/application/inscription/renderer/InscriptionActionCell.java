@@ -53,11 +53,19 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
         void onBrowserEvent(InscriptionActionCell o, NativeEvent e, Element p);
     }
 
+    @UiTemplate("InscriptionActionCellSUOther.ui.xml")
+    public interface RendererSUOther extends UiRenderer {
+        void render(SafeHtmlBuilder sb);
+
+        void onBrowserEvent(InscriptionActionCell o, NativeEvent e, Element p);
+    }
+
     private final RendererCreated uiRendererCreated;
     private final RendererSubmitted uiRendererSubmitted;
     private final RendererOther uiRendererOther;
     private final RendererInscriptionClosed rendererInscriptionClosed;
     private final RendererSU uiRendererSU;
+    private final RendererSUOther uiRendererSUOther;
 
     private final SecurityUtils securityUtils;
 
@@ -77,6 +85,7 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
                                  final RendererOther uiRendererOther,
                                  final RendererInscriptionClosed rendererInscriptionClosed,
                                  final RendererSU uiRendererSU,
+                                 final RendererSUOther uiRendererSUOther,
                                  final SecurityUtils securityUtils,
                                  @Assisted("preview") Delegate<DossierProxy> preview,
                                  @Assisted("edit") Delegate<DossierProxy> edit,
@@ -90,6 +99,7 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
         this.uiRendererOther = uiRendererOther;
         this.rendererInscriptionClosed = rendererInscriptionClosed;
         this.uiRendererSU = uiRendererSU;
+        this.uiRendererSUOther = uiRendererSUOther;
         this.securityUtils = securityUtils;
         this.preview = preview;
         this.edit = edit;
@@ -104,7 +114,14 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
         selectedObject = value;
 
         if (securityUtils.isSuperUser()) {
-            uiRendererSU.onBrowserEvent(this, event, parent);
+            switch (value.getStatus()) {
+                case CREATED:
+                    uiRendererSU.onBrowserEvent(this, event, parent);
+                    break;
+                default:
+                    uiRendererSUOther.onBrowserEvent(this, event, parent);
+                    break;
+            }
         } else {
             switch (selectedObject.getStatus()) {
                 case CREATED:
@@ -136,7 +153,14 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
     @Override
     public void render(Context context, DossierProxy value, SafeHtmlBuilder builder) {
         if (securityUtils.isSuperUser()) {
-            uiRendererSU.render(builder);
+            switch (value.getStatus()) {
+                case CREATED:
+                    uiRendererSU.render(builder);
+                    break;
+                default:
+                    uiRendererSUOther.render(builder);
+                    break;
+            }
         } else {
             switch (value.getStatus()) {
                 case CREATED:
@@ -217,16 +241,20 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
     @UiHandler({"submit"})
     void onSubmitClicked(ClickEvent event) {
         DossierProxy value = selectedObject;
-        if (filieresGeneralesOpened && inscriptionOpened ||
-                !filieresGeneralesOpened
-                        && inscriptionOpened
-                        && value.getNiveauEtude() != null
-                        && value.getNiveauEtude().getFiliere() != null
-                        && value.getNiveauEtude().getFiliere().getId() >= GlobalParameters.PREPA_FILIERE_FROM
-                || !filieresGeneralesOpened
-                && inscriptionOpened
-                && value.getNiveauEtude() == null) {
+        if (securityUtils.isSuperUser()) {
             submit.execute(selectedObject);
+        } else {
+            if (filieresGeneralesOpened && inscriptionOpened ||
+                    !filieresGeneralesOpened
+                            && inscriptionOpened
+                            && value.getNiveauEtude() != null
+                            && value.getNiveauEtude().getFiliere() != null
+                            && value.getNiveauEtude().getFiliere().getId() >= GlobalParameters.PREPA_FILIERE_FROM
+                    || !filieresGeneralesOpened
+                    && inscriptionOpened
+                    && value.getNiveauEtude() == null) {
+                submit.execute(selectedObject);
+            }
         }
     }
 

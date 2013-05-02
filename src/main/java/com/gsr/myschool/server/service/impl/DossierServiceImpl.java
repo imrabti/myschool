@@ -28,6 +28,7 @@ import com.gsr.myschool.server.business.Dossier;
 import com.gsr.myschool.server.business.InfoParent;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.business.core.PieceJustif;
+import com.gsr.myschool.server.business.core.SessionExamen;
 import com.gsr.myschool.server.business.valuelist.ValueList;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.process.impl.ValidationProcessServiceImpl.ValidationTask;
@@ -36,6 +37,7 @@ import com.gsr.myschool.server.repos.DossierSessionRepos;
 import com.gsr.myschool.server.repos.FraterieRepos;
 import com.gsr.myschool.server.repos.InfoParentRepos;
 import com.gsr.myschool.server.repos.PieceJustifRepos;
+import com.gsr.myschool.server.repos.SessionExamenRepos;
 import com.gsr.myschool.server.repos.UserRepos;
 import com.gsr.myschool.server.repos.ValueListRepos;
 import com.gsr.myschool.server.repos.spec.DossierSpec;
@@ -70,6 +72,8 @@ public class DossierServiceImpl implements DossierService {
     private ValueListRepos valueListRepos;
     @Autowired
     private InfoParentRepos infoParentRepos;
+    @Autowired
+    private SessionExamenRepos sessionExamenRepos;
     @Autowired
     private ValidationProcessService validationProcessService;
 
@@ -298,8 +302,18 @@ public class DossierServiceImpl implements DossierService {
             spec = spec.and(DossierSpec.isParentGsr(filter.getParentGsr()));
         }
 
-        if (filter.getSessionList() != null && !filter.getSessionList().isEmpty()) {
-            spec = spec.and(DossierSpec.sessionIn(filter.getSessionList()));
+        if (!Strings.isNullOrEmpty(filter.getSessionIds())) {
+            String[] ids = filter.getSessionIds().split(";");
+            List<SessionExamen> sessions = new ArrayList<SessionExamen>();
+            for (String id : ids) {
+                if (!Strings.isNullOrEmpty(id)) {
+                    sessions.add(sessionExamenRepos.findOne(Long.parseLong(id)));
+                }
+            }
+
+            if (!sessions.isEmpty()) {
+                spec = spec.and(DossierSpec.sessionIn(sessions));
+            }
         }
 
         List<DossierConvocationDTO> dossierConvocationDTOs = new ArrayList<DossierConvocationDTO>();

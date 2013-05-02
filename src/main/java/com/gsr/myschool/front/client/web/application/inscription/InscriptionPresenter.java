@@ -24,16 +24,17 @@ import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.request.ReportRequestBuilder;
 import com.gsr.myschool.common.client.security.LoggedInGatekeeper;
+import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
+import com.gsr.myschool.common.shared.exception.InscriptionClosedException;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
 import com.gsr.myschool.front.client.web.application.ApplicationPresenter;
 import com.gsr.myschool.front.client.web.application.inscription.event.DossierSubmitEvent;
 import com.gsr.myschool.front.client.web.application.inscription.popup.ConfirmationInscriptionPresenter;
-import com.gsr.myschool.common.shared.exception.InscriptionClosedException;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -66,6 +67,7 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
 
     private final FrontRequestFactory requestFactory;
     private final PlaceManager placeManager;
+    private final SecurityUtils securityUtils;
     private final MessageBundle messageBundle;
     private final ConfirmationInscriptionPresenter confirmationInscriptionPresenter;
 
@@ -75,12 +77,14 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
     public InscriptionPresenter(final EventBus eventBus, final MyView view, final MyProxy proxy,
                                 final FrontRequestFactory requestFactory,
                                 final PlaceManager placeManager,
+                                final SecurityUtils securityUtils,
                                 final MessageBundle messageBundle,
                                 final ConfirmationInscriptionPresenter confirmationInscriptionPresenter) {
         super(eventBus, view, proxy, ApplicationPresenter.TYPE_SetMainContent);
 
         this.requestFactory = requestFactory;
         this.placeManager = placeManager;
+        this.securityUtils = securityUtils;
         this.messageBundle = messageBundle;
         this.confirmationInscriptionPresenter = confirmationInscriptionPresenter;
 
@@ -96,6 +100,7 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
                 placeRequest = placeRequest.with("id", newDossier.getId().toString());
                 placeManager.revealPlace(placeRequest);
             }
+
             @Override
             public void onException(String type) {
                 if (InscriptionClosedException.class.getName().equals(type)) {
@@ -158,7 +163,7 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
     public void onDossierSubmit(DossierSubmitEvent event) {
         if (event.getAgreement()) {
             Long dossierId = submittedDossier.getId();
-            requestFactory.inscriptionService().submitInscription(dossierId).fire(new ReceiverImpl<List<String>>() {
+            requestFactory.inscriptionService().submitInscription(dossierId, securityUtils.isSuperUser()).fire(new ReceiverImpl<List<String>>() {
                 @Override
                 public void onSuccess(List<String> response) {
                     if (response.isEmpty()) {

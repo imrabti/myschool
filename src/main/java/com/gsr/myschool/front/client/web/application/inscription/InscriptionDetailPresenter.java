@@ -123,7 +123,7 @@ public class InscriptionDetailPresenter extends Presenter<MyView, MyProxy>
     public void onDossierSubmit(DossierSubmitEvent event) {
         if (event.getAgreement()) {
             Long dossierId = currentDossier.getId();
-            requestFactory.inscriptionService().submitInscription(dossierId).fire(new ReceiverImpl<List<String>>() {
+            requestFactory.inscriptionService().submitInscription(dossierId, false).fire(new ReceiverImpl<List<String>>() {
                 @Override
                 public void onSuccess(List<String> response) {
                     if (response.isEmpty()) {

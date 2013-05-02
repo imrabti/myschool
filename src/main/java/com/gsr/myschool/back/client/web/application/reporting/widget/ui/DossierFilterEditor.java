@@ -7,6 +7,7 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
@@ -35,7 +36,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     @UiField(provided = true)
     ValueListBox<FiliereProxy> filiere;
     @UiField(provided = true)
-    ValueListBox<SessionExamenProxy> session;
+    ListBox session;
     @UiField(provided = true)
     ValueListBox<Boolean> parentGsr;
     @UiField(provided = true)
@@ -51,15 +52,14 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
 
         this.filiere = new ValueListBox<FiliereProxy>(new FiliereRenderer());
         this.niveauEtude = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
-        this.session = new ValueListBox<SessionExamenProxy>(new SessionExamenRenderer());
         this.gsrFraterie = new ValueListBox<Boolean>(new BooleanListRenderer());
         this.parentGsr = new ValueListBox<Boolean>(new BooleanListRenderer());
+        this.session = new ListBox(true);
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
 
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
-        session.setAcceptableValues(valueList.getClosedSessionsList());
         gsrFraterie.setAcceptableValues(BooleanListRenderer.acceptedValues());
         parentGsr.setAcceptableValues(BooleanListRenderer.acceptedValues());
 
@@ -79,6 +79,10 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
 
     @Override
     public void edit(DossierFilterDTOProxy object) {
+        for (SessionExamenProxy item : valueList.getClosedSessionsList()) {
+            session.addItem(item.getNom(), item.getId().toString());
+        }
+
         driver.edit(object);
         filiere.setAcceptableValues(valueList.getFiliereList());
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
@@ -94,7 +98,17 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         DossierFilterDTOProxy dossierFilter = driver.flush();
         if (driver.hasErrors()) {
             return null;
+        } else {
+            StringBuffer ids = new StringBuffer();
+            for (int i = 0; i < session.getItemCount(); i++) {
+                if (session.isItemSelected(i)) {
+                    ids.append(session.getValue(i) + ";");
+                }
+            }
+
+            dossierFilter.setSessionIds(ids.toString());
         }
+
         return dossierFilter;
     }
 }
