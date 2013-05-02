@@ -17,12 +17,10 @@ import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
 import com.gsr.myschool.common.client.ui.dossier.renderer.BooleanListRenderer;
 import com.gsr.myschool.common.client.ui.dossier.renderer.FiliereRenderer;
 import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
-import com.gsr.myschool.common.client.ui.dossier.renderer.SessionExamenRenderer;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DossierFilterEditor extends Composite implements EditorView<DossierFilterDTOProxy> {
     public interface Binder extends UiBinder<Widget, DossierFilterEditor> {
@@ -82,15 +80,9 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         for (SessionExamenProxy item : valueList.getClosedSessionsList()) {
             session.addItem(item.getNom(), item.getId().toString());
         }
-
         driver.edit(object);
         filiere.setAcceptableValues(valueList.getFiliereList());
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
-        List<SessionExamenProxy> sessions = new ArrayList<SessionExamenProxy>();
-        sessions.addAll(valueList.getClosedSessionsList());
-        sessions.add(null);
-        session.setAcceptableValues(sessions);
-        session.setValue(object.getSession());
     }
 
     @Override
