@@ -98,7 +98,9 @@ public class ConvocationReportController {
                 niveauEtude = requestdata.getNiveauEtude().getNom().contains("(")
                         ? requestdata.getNiveauEtude().getNom().substring(0, requestdata.getNiveauEtude().getNom().indexOf("("))
                         : requestdata.getNiveauEtude().getNom();
-            }
+            } else if (requestdata.getNiveauEtude() != null) {
+				niveauEtude = requestdata.getNiveauEtude().getNom();
+			}
             myMap.put("dossiers", myList);
             myMap.put("section", requestdata.getNiveauEtude() != null ? requestdata.getNiveauEtude().getFiliere().getNom() : "");
             myMap.put("cycle", niveauEtude);

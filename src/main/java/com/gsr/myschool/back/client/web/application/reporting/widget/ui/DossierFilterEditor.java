@@ -21,6 +21,7 @@ import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DossierFilterEditor extends Composite implements EditorView<DossierFilterDTOProxy> {
     public interface Binder extends UiBinder<Widget, DossierFilterEditor> {
@@ -58,7 +59,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         driver.initialize(this);
 
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
-        session.setAcceptableValues(valueList.getSessionsList());
+        session.setAcceptableValues(valueList.getClosedSessionsList());
         gsrFraterie.setAcceptableValues(BooleanListRenderer.acceptedValues());
         parentGsr.setAcceptableValues(BooleanListRenderer.acceptedValues());
 
@@ -81,8 +82,11 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         driver.edit(object);
         filiere.setAcceptableValues(valueList.getFiliereList());
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
+        List<SessionExamenProxy> sessions = new ArrayList<SessionExamenProxy>();
+        sessions.addAll(valueList.getClosedSessionsList());
+        sessions.add(null);
+        session.setAcceptableValues(sessions);
         session.setValue(object.getSession());
-        session.setAcceptableValues(valueList.getClosedSessionsList());
     }
 
     @Override

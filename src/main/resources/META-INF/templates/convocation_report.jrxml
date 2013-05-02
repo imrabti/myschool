@@ -62,44 +62,44 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
 		<band height="98" splitType="Stretch">
 			<image>
-				<reportElement uuid="e81b6025-2acb-4471-87d4-120fbaed85f7" x="27" y="22" width="70" height="51"/>
+				<reportElement uuid="e81b6025-2acb-4471-87d4-120fbaed85f7" x="13" y="11" width="86" height="56"/>
 				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"logo.png"]]></imageExpression>
 			</image>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="9a16eaf1-6882-4a63-a03b-219131b1a5a7" x="179" y="57" width="356" height="18"/>
+				<reportElement uuid="9a16eaf1-6882-4a63-a03b-219131b1a5a7" x="205" y="46" width="356" height="18"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Cycle demandée : " + $P{cycle}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Cycle demandé : " + $P{cycle}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="9a16eaf1-6882-4a63-a03b-219131b1a5a7" x="179" y="37" width="356" height="18"/>
+				<reportElement uuid="9a16eaf1-6882-4a63-a03b-219131b1a5a7" x="205" y="26" width="356" height="18"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Section demandée : " + $P{section}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="8104e29b-6996-4435-a706-b32d6b3fcb8c" x="349" y="78" width="186" height="18"/>
+				<reportElement uuid="8104e29b-6996-4435-a706-b32d6b3fcb8c" x="375" y="67" width="186" height="18"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Etat : Convocation(s) envoyée(s) ]]></text>
 			</staticText>
 		</band>
-	</title>
-	<pageHeader>
-		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="200" splitType="Prevent">
+		<band height="200">
 			<componentElement>
-				<reportElement uuid="75fec7d3-aa6c-4cc5-b088-a78ce7ac5ec9" key="table 1" style="table 1" x="27" y="21" width="540" height="37"/>
+				<reportElement uuid="75fec7d3-aa6c-4cc5-b088-a78ce7ac5ec9" key="table 1" style="table 1" stretchType="RelativeToBandHeight" x="27" y="21" width="540" height="37"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Table Dataset 1" uuid="72fdd460-d19d-43a5-87a6-f5f1ba5e4237">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{dossiers})]]></dataSourceExpression>
