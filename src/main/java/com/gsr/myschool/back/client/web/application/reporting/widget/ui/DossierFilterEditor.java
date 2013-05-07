@@ -77,6 +77,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
 
     @Override
     public void edit(DossierFilterDTOProxy object) {
+        session.clear();
         for (SessionExamenProxy item : valueList.getClosedSessionsList()) {
             session.addItem(item.getNom(), item.getId().toString());
         }

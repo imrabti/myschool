@@ -75,7 +75,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Cycle demandé : " + $P{cycle}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Niveau demandé : " + $P{cycle}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="9a16eaf1-6882-4a63-a03b-219131b1a5a7" x="205" y="26" width="356" height="18"/>
