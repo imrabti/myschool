@@ -10,7 +10,11 @@ public interface ValueList {
 
     List<EtablissementScolaireProxy> getEtablissementScolaireList();
 
+    List<NiveauEtudeProxy> getNiveauEtudeList(Long filiere, Boolean isSuperUser);
+
     List<NiveauEtudeProxy> getNiveauEtudeList(Long filiere);
+
+    List<NiveauEtudeProxy> getNiveauEtudeList(Boolean isSuperUser);
 
     List<NiveauEtudeProxy> getNiveauEtudeList();
 
@@ -24,9 +28,9 @@ public interface ValueList {
 
     void initEtablissementScolaireList();
 
-    void initNiveauEtudeMap();
-
     void initValueListMap();
 
     List<SessionExamenProxy> getClosedSessionsList();
+
+    void initNiveauEtudeMap(Boolean isSuperUser);
 }

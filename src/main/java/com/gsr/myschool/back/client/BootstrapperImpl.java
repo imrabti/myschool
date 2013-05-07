@@ -61,7 +61,7 @@ public class BootstrapperImpl implements Bootstrapper {
 
         valueList.initFiliereList();
         valueList.initEtablissementScolaireList();
-        valueList.initNiveauEtudeMap();
+        valueList.initNiveauEtudeMap(false);
         valueList.initValueListMap();
 
         getCurrentUserCallback = new CallbackImpl<AdminUserProxy>() {

@@ -93,7 +93,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
         requestFactory.inscriptionService().findDossierByIdToEdit(dossierId).fire(new ReceiverImpl<DossierProxy>() {
             @Override
             public void onSuccess(DossierProxy result) {
-                if (result != null && result.getStatus() == DossierStatus.CREATED) {
+                if ((result != null && result.getStatus() == DossierStatus.CREATED) || securityUtils.isSuperUser()) {
                     currentDossier = result;
                     parentPresenter.editData(currentDossier);
                     candidatPresenter.editData(currentDossier.getCandidat());

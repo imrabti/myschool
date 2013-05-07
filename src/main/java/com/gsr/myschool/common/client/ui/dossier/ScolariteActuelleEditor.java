@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.proxy.ScolariteActuelleDTOProxy;
+import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
@@ -45,14 +46,17 @@ public class ScolariteActuelleEditor extends Composite implements EditorView<Sco
 
     private final Driver driver;
     private final ValueList valueList;
+    private final SecurityUtils securityUtils;
 
     private Handler handler;
 
     @Inject
     public ScolariteActuelleEditor(final Binder uiBinder, final Driver driver,
-                                   final ValueList valueList) {
+                                   final ValueList valueList,
+                                   final SecurityUtils securityUtils) {
         this.driver = driver;
         this.valueList = valueList;
+        this.securityUtils = securityUtils;
 
         typeEnseignement = new ValueListBox<TypeEnseignement>(new EnumRenderer<TypeEnseignement>());
         niveauEtude = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
@@ -98,7 +102,7 @@ public class ScolariteActuelleEditor extends Composite implements EditorView<Sco
     void onTypeEnseignementChanged(ValueChangeEvent<TypeEnseignement> event) {
         if (event.getValue() != null) {
             niveauEtude.setValue(null);
-            niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(typeEnseignement.getValue().getId()));
+            niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(typeEnseignement.getValue().getId(), securityUtils.isSuperUser()));
         } else {
             niveauEtude.setValue(null);
             niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());

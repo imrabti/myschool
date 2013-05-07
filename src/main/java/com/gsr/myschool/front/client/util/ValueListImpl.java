@@ -54,18 +54,28 @@ public class ValueListImpl implements ValueList {
     }
 
     @Override
-    public List<NiveauEtudeProxy> getNiveauEtudeList(Long filiere) {
+    public List<NiveauEtudeProxy> getNiveauEtudeList() {
+        return getNiveauEtudeList(false);
+    }
+
+    @Override
+    public List<NiveauEtudeProxy> getNiveauEtudeList(Long filiere, Boolean isSuperUser) {
         if (niveauEtudeMap == null && !niveauEtudeMap.containsKey(filiere)) {
-            initNiveauEtudeMap();
+            initNiveauEtudeMap(isSuperUser);
         }
 
         return Objects.firstNonNull(niveauEtudeMap.get(filiere), new ArrayList<NiveauEtudeProxy>());
     }
 
     @Override
-    public List<NiveauEtudeProxy> getNiveauEtudeList() {
+    public List<NiveauEtudeProxy> getNiveauEtudeList(Long filiere) {
+        return getNiveauEtudeList(filiere, false);
+    }
+
+    @Override
+    public List<NiveauEtudeProxy> getNiveauEtudeList(Boolean isSuperUser) {
         if (niveauEtudeList == null) {
-            initNiveauEtudeMap();
+            initNiveauEtudeMap(isSuperUser);
         }
         return niveauEtudeList;
     }
@@ -119,20 +129,36 @@ public class ValueListImpl implements ValueList {
     }
 
     @Override
-    public void initNiveauEtudeMap() {
-        requestFactory.cachedListValueService().findNiveauEtudes().fire(new Receiver<List<NiveauEtudeProxy>>() {
-            @Override
-            public void onSuccess(List<NiveauEtudeProxy> result) {
-                niveauEtudeList.addAll(result);
-                niveauEtudeMap = new HashMap<Long, List<NiveauEtudeProxy>>();
-                for (NiveauEtudeProxy niveauEtude : result) {
-                    if (!niveauEtudeMap.containsKey(niveauEtude.getFiliere().getId())) {
-                        niveauEtudeMap.put(niveauEtude.getFiliere().getId(), new ArrayList<NiveauEtudeProxy>());
+    public void initNiveauEtudeMap(Boolean isSuperUser) {
+        if (isSuperUser) {
+            requestFactory.cachedListValueService().findAllNiveauEtude().fire(new Receiver<List<NiveauEtudeProxy>>() {
+                @Override
+                public void onSuccess(List<NiveauEtudeProxy> result) {
+                    niveauEtudeList.addAll(result);
+                    niveauEtudeMap = new HashMap<Long, List<NiveauEtudeProxy>>();
+                    for (NiveauEtudeProxy niveauEtude : result) {
+                        if (!niveauEtudeMap.containsKey(niveauEtude.getFiliere().getId())) {
+                            niveauEtudeMap.put(niveauEtude.getFiliere().getId(), new ArrayList<NiveauEtudeProxy>());
+                        }
+                        niveauEtudeMap.get(niveauEtude.getFiliere().getId()).add(niveauEtude);
                     }
-                    niveauEtudeMap.get(niveauEtude.getFiliere().getId()).add(niveauEtude);
                 }
-            }
-        });
+            });
+        } else {
+            requestFactory.cachedListValueService().findNiveauEtudes().fire(new Receiver<List<NiveauEtudeProxy>>() {
+                @Override
+                public void onSuccess(List<NiveauEtudeProxy> result) {
+                    niveauEtudeList.addAll(result);
+                    niveauEtudeMap = new HashMap<Long, List<NiveauEtudeProxy>>();
+                    for (NiveauEtudeProxy niveauEtude : result) {
+                        if (!niveauEtudeMap.containsKey(niveauEtude.getFiliere().getId())) {
+                            niveauEtudeMap.put(niveauEtude.getFiliere().getId(), new ArrayList<NiveauEtudeProxy>());
+                        }
+                        niveauEtudeMap.get(niveauEtude.getFiliere().getId()).add(niveauEtude);
+                    }
+                }
+            });
+        }
     }
 
     @Override

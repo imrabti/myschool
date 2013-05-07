@@ -52,21 +52,31 @@ public class ValueListImpl implements ValueList {
     }
 
     @Override
-    public List<NiveauEtudeProxy> getNiveauEtudeList(Long filiere) {
+    public List<NiveauEtudeProxy> getNiveauEtudeList(Long filiere, Boolean isSuperUser) {
         if (niveauEtudeMap == null && !niveauEtudeMap.containsKey(filiere)) {
-            initNiveauEtudeMap();
+            initNiveauEtudeMap(isSuperUser);
         }
 
         return Objects.firstNonNull(niveauEtudeMap.get(filiere), new ArrayList<NiveauEtudeProxy>());
     }
 
     @Override
-    public List<NiveauEtudeProxy> getNiveauEtudeList() {
+    public List<NiveauEtudeProxy> getNiveauEtudeList(Long filiere) {
+        return getNiveauEtudeList(filiere, false);
+    }
+
+    @Override
+    public List<NiveauEtudeProxy> getNiveauEtudeList(Boolean isSuperUser) {
         if(niveauEtudeList == null) {
-            initNiveauEtudeMap();
+            initNiveauEtudeMap(isSuperUser);
         }
 
         return niveauEtudeList;
+    }
+
+    @Override
+    public List<NiveauEtudeProxy> getNiveauEtudeList() {
+        return getNiveauEtudeList(false);
     }
 
     @Override
@@ -140,7 +150,7 @@ public class ValueListImpl implements ValueList {
     }
 
     @Override
-    public void initNiveauEtudeMap() {
+     public void initNiveauEtudeMap(Boolean isSuperUser) {
         requestFactory.cachedListValueService().findAllNiveauEtude().fire(new Receiver<List<NiveauEtudeProxy>>() {
             @Override
             public void onSuccess(List<NiveauEtudeProxy> result) {
