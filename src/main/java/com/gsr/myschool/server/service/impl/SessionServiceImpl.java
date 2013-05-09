@@ -293,6 +293,15 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public void sendEmailConvocation(DossierSession session, String link) {
         Dossier dossier = dossierRepos.findOne(session.getDossier().getId());
+        DossierSession dossierSession = dossierSessionRepos.findOne(session.getId());
+
+        if (Strings.isNullOrEmpty(dossierSession.getGeneratedConvocationPDFPath())) {
+            String token = Base64.encode(dossierSession.getDossier().getGeneratedNumDossier() + "" + (new Date()).toString());
+            token = token.replace("=", "E");
+            dossierSession.setGeneratedConvocationPDFPath(token);
+            dossierSessionRepos.save(dossierSession);
+        }
+
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("gender", dossier.getOwner().getGender().toString());
         params.put("lastname", dossier.getOwner().getLastName());
@@ -300,7 +309,7 @@ public class SessionServiceImpl implements SessionService {
         params.put("nomEnfant", dossier.getCandidat().getLastname());
         params.put("prenomEnfant", dossier.getCandidat().getFirstname());
         params.put("refdossier", dossier.getGeneratedNumDossier());
-        params.put("link", link + "resource/convocation?number=" + session.getGeneratedConvocationPDFPath());
+        params.put("link", link + "resource/convocation?number=" + dossierSession.getGeneratedConvocationPDFPath());
 
         try {
             EmailDTO email = emailService.populateEmail(EmailType.CONVOCATED_FOR_TEST,
