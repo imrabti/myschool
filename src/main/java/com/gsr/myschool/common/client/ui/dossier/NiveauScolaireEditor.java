@@ -12,6 +12,7 @@ import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.FiliereProxy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
+import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gsr.myschool.common.client.ui.dossier.renderer.FiliereRenderer;
 import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
 import com.gsr.myschool.common.client.util.EditorView;
@@ -50,7 +51,7 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
 
     @Inject
     public NiveauScolaireEditor(final Binder uiBinder, final ValueList valueList,
-                                final Driver driver) {
+                                final Driver driver, final SecurityUtils securityUtils) {
         this.valueList = valueList;
         this.driver = driver;
 
@@ -62,7 +63,7 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
 
-        filieres = valueList.getFiliereList();
+        filieres = valueList.getFiliereList(securityUtils.isSuperUser());
         initFilieres(filieres);
 
         filiere.setAcceptableValues(filieres);
