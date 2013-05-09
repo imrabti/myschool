@@ -22,5 +22,7 @@ public interface CachedListValueRequest extends RequestContext {
 
     Request<List<FiliereProxy>> findFilieres();
 
+    Request<List<FiliereProxy>> findAllFiliere();
+
     Request<List<NiveauEtudeProxy>> findAllNiveauEtude();
 }

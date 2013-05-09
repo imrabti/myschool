@@ -31,11 +31,6 @@ public class SchedulerService {
     @Qualifier("expiredDossierJob")
     private Worker worker;
 
-    @PostConstruct
-    public void startupJobs() {
-        worker.work();
-    }
-
     @Scheduled(cron = "0 30 2 * * ?")
     public void doSchedule() {
         worker.work();

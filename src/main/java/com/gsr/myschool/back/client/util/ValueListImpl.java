@@ -36,7 +36,16 @@ public class ValueListImpl implements ValueList {
     @Override
     public List<FiliereProxy> getFiliereList() {
         if (filiereList == null) {
-            initFiliereList();
+            initFiliereList(false);
+        }
+
+        return filiereList;
+    }
+
+    @Override
+    public List<FiliereProxy> getFiliereList(Boolean isSuperUser) {
+        if (filiereList == null) {
+            initFiliereList(isSuperUser);
         }
 
         return filiereList;
@@ -129,7 +138,7 @@ public class ValueListImpl implements ValueList {
     }
 
     @Override
-    public void initFiliereList() {
+    public void initFiliereList(Boolean isSuperUser) {
         requestFactory.cachedListValueService().findAllFiliere().fire(new Receiver<List<FiliereProxy>>() {
             @Override
             public void onSuccess(List<FiliereProxy> result) {
