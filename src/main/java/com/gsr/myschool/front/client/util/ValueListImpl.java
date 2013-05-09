@@ -8,13 +8,7 @@ import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ValueListImpl implements ValueList {
     private final FrontRequestFactory requestFactory;
@@ -38,7 +32,16 @@ public class ValueListImpl implements ValueList {
     @Override
     public List<FiliereProxy> getFiliereList() {
         if (filiereList == null) {
-            initFiliereList();
+            initFiliereList(false);
+        }
+
+        return filiereList;
+    }
+
+    @Override
+    public List<FiliereProxy> getFiliereList(Boolean isSuperUser) {
+        if (filiereList == null) {
+            initFiliereList(isSuperUser);
         }
 
         return filiereList;
@@ -108,13 +111,22 @@ public class ValueListImpl implements ValueList {
     }
 
     @Override
-    public void initFiliereList() {
-        requestFactory.cachedListValueService().findFilieres().fire(new Receiver<List<FiliereProxy>>() {
-            @Override
-            public void onSuccess(List<FiliereProxy> result) {
-                filiereList = result;
-            }
-        });
+    public void initFiliereList(Boolean isSuperUser) {
+        if (isSuperUser) {
+            requestFactory.cachedListValueService().findAllFiliere().fire(new Receiver<List<FiliereProxy>>() {
+                @Override
+                public void onSuccess(List<FiliereProxy> result) {
+                    filiereList = result;
+                }
+            });
+        } else {
+            requestFactory.cachedListValueService().findFilieres().fire(new Receiver<List<FiliereProxy>>() {
+                @Override
+                public void onSuccess(List<FiliereProxy> result) {
+                    filiereList = result;
+                }
+            });
+        }
     }
 
     @Override

@@ -8,6 +8,8 @@ import java.util.List;
 public interface ValueList {
     List<FiliereProxy> getFiliereList();
 
+    List<FiliereProxy> getFiliereList(Boolean isSuperUser);
+
     List<EtablissementScolaireProxy> getEtablissementScolaireList();
 
     List<NiveauEtudeProxy> getNiveauEtudeList(Long filiere, Boolean isSuperUser);
@@ -24,7 +26,7 @@ public interface ValueList {
 
     List<ValueListProxy> getValueListByCode(ValueTypeCode valueTypeCode, Boolean asc);
 
-    void initFiliereList();
+    void initFiliereList(Boolean isSuperUser);
 
     void initEtablissementScolaireList();
 
