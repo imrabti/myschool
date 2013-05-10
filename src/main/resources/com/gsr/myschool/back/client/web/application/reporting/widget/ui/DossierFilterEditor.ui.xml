@@ -20,25 +20,29 @@
     </ui:style>
 
     <g:HTMLPanel>
-        <div class="{style.row}">
-            <g:Label text="Sessions" styleName="{style.label}"/>
-            <g:ListBox ui:field="session" width="300px"/>
+        <div style="float: right;">
+            <g:Label text="Sessions"/>
+            <g:ListBox ui:field="session" width="300px" height="150px"/>
         </div>
 
-        <div class="{style.row}">
-            <g:Label text="Formation" styleName="{style.label}"/>
-            <boot:ValueListBox ui:field="filiere" width="180px"/>
+        <div style="float: left;">
+            <div class="{style.row}">
+                <g:Label text="Formation" styleName="{style.label}"/>
+                <boot:ValueListBox ui:field="filiere" width="180px"/>
 
-            <g:Label text="Niveau demandé" styleName="{style.label}"/>
-            <boot:ValueListBox ui:field="niveauEtude" width="180px"/>
+                <g:Label text="Niveau demandé" styleName="{style.label}"/>
+                <boot:ValueListBox ui:field="niveauEtude" width="180px"/>
+            </div>
+
+            <div class="{style.row}">
+                <g:Label text="Fratrie au GSR" styleName="{style.label}"/>
+                <boot:ValueListBox ui:field="gsrFraterie" styleName="{style.inline}" width="180px"/>
+
+                <g:Label text="Parents au GSR" styleName="{style.label}"/>
+                <boot:ValueListBox ui:field="parentGsr" styleName="{style.inline}" width="180px"/>
+            </div>
         </div>
 
-        <div class="{style.row}">
-            <g:Label text="Fratrie au GSR" styleName="{style.label}"/>
-            <boot:ValueListBox ui:field="gsrFraterie" styleName="{style.inline}" width="180px"/>
-
-            <g:Label text="Parents au GSR" styleName="{style.label}"/>
-            <boot:ValueListBox ui:field="parentGsr" styleName="{style.inline}" width="180px"/>
-        </div>
+        <div style="clear: both;"/>
     </g:HTMLPanel>
 </ui:UiBinder>

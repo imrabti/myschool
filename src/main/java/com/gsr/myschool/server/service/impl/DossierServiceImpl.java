@@ -47,6 +47,7 @@ import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -326,7 +327,7 @@ public class DossierServiceImpl implements DossierService {
 
             return new PagedDossiers(null, dossierConvocationDTOs, (int) resultPage.getTotalElements());
         } else {
-            List<Dossier> result = dossierRepos.findAll(spec);
+            List<Dossier> result = dossierRepos.findAll(spec, new Sort(new Sort.Order("candidat.lastname")));
 
             dossierConvocationDTOs = setConvocationAttrs(dossierConvocationDTOs, result);
 

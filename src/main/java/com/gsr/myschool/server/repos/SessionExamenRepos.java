@@ -20,7 +20,7 @@ public interface SessionExamenRepos extends JpaRepository<SessionExamen, Long> {
                                           @Param("id") Long id,
                                           @Param("status") SessionStatus status);
 
-    List<SessionExamen> findByAnneeScolaireIdAndStatus(Long id, SessionStatus status);
+    List<SessionExamen> findByAnneeScolaireIdAndStatusOrderByNomAsc(Long id, SessionStatus status);
 
     @Query("select s from SessionExamen s "+
             "where s.anneeScolaire.id = :anneeId " +

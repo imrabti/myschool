@@ -380,7 +380,7 @@ public class SessionServiceImpl implements SessionService {
                 ValueTypeCode.SCHOOL_YEAR);
 
         if (currentAnnee != null) {
-            return sessionExamenRepos.findByAnneeScolaireIdAndStatus(currentAnnee.getId(), sessionStatus);
+            return sessionExamenRepos.findByAnneeScolaireIdAndStatusOrderByNomAsc(currentAnnee.getId(), sessionStatus);
         } else {
             return new ArrayList<SessionExamen>();
         }
