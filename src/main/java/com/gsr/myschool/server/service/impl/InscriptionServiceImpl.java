@@ -44,6 +44,8 @@ public class InscriptionServiceImpl implements InscriptionService {
     @Autowired
     private ScolariteActuelleRepos scolariteActuelleRepos;
     @Autowired
+    private DossierSessionRepos dossierSessionRepos;
+    @Autowired
     private ValueListRepos valueListRepos;
     @Autowired
     private FraterieRepos fraterieRepos;
@@ -155,6 +157,10 @@ public class InscriptionServiceImpl implements InscriptionService {
         for (InfoParent infoParent : infoParents) {
             infoParentRepos.delete(infoParent);
         }
+        DossierSession dossierSession = dossierSessionRepos.findByDossierId(dossierId);
+        if (dossierSession != null) {
+            dossierSessionRepos.delete(dossierSession);
+        }
 
         Dossier currentDossier = dossierRepos.findOne(dossierId);
         List<Fraterie> fraterie = fraterieRepos.findByCandidatId(currentDossier.getCandidat().getId());
@@ -169,6 +175,11 @@ public class InscriptionServiceImpl implements InscriptionService {
         List<InfoParent> infoParents = infoParentRepos.findByDossierId(dossierId);
         for (InfoParent infoParent : infoParents) {
             infoParentRepos.delete(infoParent);
+        }
+
+        DossierSession dossierSession = dossierSessionRepos.findByDossierId(dossierId);
+        if (dossierSession != null) {
+            dossierSessionRepos.delete(dossierSession);
         }
 
         Dossier currentDossier = dossierRepos.findOne(dossierId);
@@ -357,7 +368,8 @@ public class InscriptionServiceImpl implements InscriptionService {
     @Override
     public List<String> submitInscription(Long dossierId, Boolean isSuperUser) throws InscriptionClosedException {
         Settings status = settingsRepos.findOne(SettingsKey.STATUS);
-        if (!isSuperUser && !GlobalParameters.APP_STATUS_OPENED.equals(status.getValue())) throw new InscriptionClosedException();
+        if (!isSuperUser && !GlobalParameters.APP_STATUS_OPENED.equals(status.getValue()))
+            throw new InscriptionClosedException();
 
         Set<String> validationErrors = new HashSet<String>();
 

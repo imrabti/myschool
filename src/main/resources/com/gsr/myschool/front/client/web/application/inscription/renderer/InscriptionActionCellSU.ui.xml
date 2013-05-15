@@ -5,6 +5,10 @@
                 <i class="icon-edit"/>
                 <span class="">Modifier</span>
             </a>
+            <a href="javascript:;" class="btn btn-mini" ui:field="delete">
+                <i class="icon-remove"/>
+                <span class="">Supprimer</span>
+            </a>
             <a href="javascript:;" class="btn btn-mini btn-success" ui:field="submit">
                 <i class="icon-share"/>
                 <span class="">Valider</span>
@@ -15,10 +19,6 @@
             <a href="javascript:;" class="btn btn-mini" ui:field="preview">
                 <i class="icon-search"/>
                 <span class="">Détails</span>
-            </a>
-            <a href="javascript:;" class="btn btn-mini" ui:field="delete">
-                <i class="icon-remove"/>
-                <span class="">Supprimer</span>
             </a>
             <a href="javascript:;" class="btn btn-mini" ui:field="print">
                 <i class="icon-print"/>

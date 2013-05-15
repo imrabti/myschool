@@ -225,16 +225,20 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
     @UiHandler({"delete"})
     void onDeleteClicked(ClickEvent event) {
         DossierProxy value = selectedObject;
-        if (filieresGeneralesOpened && inscriptionOpened ||
-                !filieresGeneralesOpened
-                        && inscriptionOpened
-                        && value.getNiveauEtude() != null
-                        && value.getNiveauEtude().getFiliere() != null
-                        && value.getNiveauEtude().getFiliere().getId() >= GlobalParameters.PREPA_FILIERE_FROM
-                || !filieresGeneralesOpened
-                && inscriptionOpened
-                && value.getNiveauEtude() == null) {
+        if (securityUtils.isSuperUser()) {
             delete.execute(selectedObject);
+        } else {
+            if (filieresGeneralesOpened && inscriptionOpened ||
+                    !filieresGeneralesOpened
+                            && inscriptionOpened
+                            && value.getNiveauEtude() != null
+                            && value.getNiveauEtude().getFiliere() != null
+                            && value.getNiveauEtude().getFiliere().getId() >= GlobalParameters.PREPA_FILIERE_FROM
+                    || !filieresGeneralesOpened
+                    && inscriptionOpened
+                    && value.getNiveauEtude() == null) {
+                delete.execute(selectedObject);
+            }
         }
     }
 
