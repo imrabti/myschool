@@ -65,7 +65,8 @@ public class NiveauEtudeInfosTree implements TreeViewModel {
                 @Override
                 public void render(Context context, NiveauEtudeProxy value, SafeHtmlBuilder sb) {
                     if (value != null) {
-                        sb.appendEscaped(value.getNom());
+                        sb.appendEscaped(value.getNom() + "  Age : " + value.getAnnee() + "  Email Convocation : " +
+                                (value.getEmailConvocation() == null || !value.getEmailConvocation() ? "NON" : "OUI"));
                     }
                 }
 

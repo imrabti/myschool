@@ -60,6 +60,14 @@
                             <span class="{resource.sharedStyleCss.requiredField}"/>
                         </boot:Controls>
                     </boot:ControlGroup>
+
+                    <boot:ControlGroup addStyleNames="{style.smallMarginButtom}">
+                        <boot:ControlLabel width="80px">Email Convocation ?</boot:ControlLabel>
+                        <boot:Controls styleName="{style.smallMargin}">
+                            <g:SimpleCheckBox ui:field="emailConvocation"/>
+                            <span class="{resource.sharedStyleCss.requiredField}"/>
+                        </boot:Controls>
+                    </boot:ControlGroup>
                 </boot:Form>
             </g:HTMLPanel>
 

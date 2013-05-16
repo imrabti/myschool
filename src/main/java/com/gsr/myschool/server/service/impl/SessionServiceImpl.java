@@ -257,6 +257,10 @@ public class SessionServiceImpl implements SessionService {
             dossierRepos.save(dossier);
             dossierSessionRepos.save(dossiersession);
 
+            if (dossier.getNiveauEtude().getEmailConvocation() == null || !dossier.getNiveauEtude().getEmailConvocation())
+                continue;
+
+            // preparing the email data
             Map<String, Object> params = new HashMap<String, Object>();
             params.put("gender", dossier.getOwner().getGender().toString());
             params.put("lastname", dossier.getOwner().getLastName());
@@ -356,16 +360,15 @@ public class SessionServiceImpl implements SessionService {
     }
 
 
-
     @Override
     @Transactional(readOnly = true)
-    public List<SessionExamen> findAllSessions(List<Integer> sessionIdList ) {
+    public List<SessionExamen> findAllSessions(List<Integer> sessionIdList) {
         String currentAnneeScolaire = DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1);
         ValueList currentAnnee = valueListRepos.findByValueAndValueTypeCode(currentAnneeScolaire,
                 ValueTypeCode.SCHOOL_YEAR);
 
         if (currentAnnee != null) {
-            return sessionExamenRepos.findByAnneeScolaireAndStatusList(currentAnnee.getId(),  sessionIdList);   // SessionStatus.OPEN);
+            return sessionExamenRepos.findByAnneeScolaireAndStatusList(currentAnnee.getId(), sessionIdList);   // SessionStatus.OPEN);
         } else {
             return new ArrayList<SessionExamen>();
         }

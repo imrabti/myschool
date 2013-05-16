@@ -26,4 +26,8 @@ public interface NiveauEtudeProxy extends ValueProxy {
     TypeNiveauEtude getType();
 
     void setType(TypeNiveauEtude type);
+
+    Boolean getEmailConvocation();
+
+    void setEmailConvocation(Boolean emailConvocation);
 }

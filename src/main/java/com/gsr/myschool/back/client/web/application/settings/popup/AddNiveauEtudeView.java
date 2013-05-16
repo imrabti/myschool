@@ -9,6 +9,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.ui.SimpleCheckBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
@@ -41,6 +42,8 @@ public class AddNiveauEtudeView extends PopupViewWithUiHandlers<AddNiveauEtudeUi
     ValueListBox<TypeNiveauEtude> type;
     @UiField
     IntegerBox annee;
+    @UiField
+    SimpleCheckBox emailConvocation;
 
     private final Driver driver;
 

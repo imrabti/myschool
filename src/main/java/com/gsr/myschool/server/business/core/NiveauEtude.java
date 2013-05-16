@@ -23,6 +23,7 @@ public class NiveauEtude implements java.io.Serializable {
     private String nom;
     @Enumerated
     private TypeNiveauEtude type;
+    private Boolean emailConvocation;
 
     public Long getId() {
         return id;
@@ -67,4 +68,13 @@ public class NiveauEtude implements java.io.Serializable {
     public Map getReportsAttributes() {
         return BeanMapper.beanToMap(this);
 	}
+
+    public Boolean getEmailConvocation() {
+        return emailConvocation;
+    }
+
+    public void setEmailConvocation(Boolean emailConvocation) {
+        this.emailConvocation = emailConvocation;
+    }
 }
+
