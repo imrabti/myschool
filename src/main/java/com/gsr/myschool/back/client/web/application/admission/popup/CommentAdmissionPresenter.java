@@ -7,6 +7,7 @@ import com.gsr.myschool.back.client.request.BackRequestFactory;
 import com.gsr.myschool.back.client.web.application.admission.event.CloseCompletedEvent;
 import com.gsr.myschool.common.client.mvp.ValidatedPopupView;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
+import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
 import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
 import com.gsr.myschool.common.client.widget.messages.Message;
@@ -15,10 +16,13 @@ import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class CommentAdmissionPresenter extends PresenterWidget<CommentAdmissionPresenter.MyView>
         implements CommentAdmissionUiHandlers {
     public interface MyView extends ValidatedPopupView, HasUiHandlers<CommentAdmissionUiHandlers> {
-        void resetReason();
+        void resetReason(List<NiveauEtudeProxy> list);
     }
 
     private final BackRequestFactory requestFactory;
@@ -29,8 +33,8 @@ public class CommentAdmissionPresenter extends PresenterWidget<CommentAdmissionP
 
     @Inject
     public CommentAdmissionPresenter(final EventBus eventBus, final MyView view,
-            final BackRequestFactory requestFactory,
-            final SharedMessageBundle messageBundle) {
+                                     final BackRequestFactory requestFactory,
+                                     final SharedMessageBundle messageBundle) {
         super(eventBus, view);
 
         this.requestFactory = requestFactory;
@@ -51,12 +55,12 @@ public class CommentAdmissionPresenter extends PresenterWidget<CommentAdmissionP
 
     @Override
     protected void onReveal() {
-        getView().resetReason();
+        getView().resetReason(Arrays.asList(currentDossier.getNiveauEtude(), currentDossier.getNiveauEtude2()));
     }
 
     @Override
-    public void setAdmissionComment(String comment) {
-        requestFactory.dossierService().closeDossier(currentDossier, closedStatus, comment).fire(new ReceiverImpl<Boolean>() {
+    public void setAdmissionComment(String comment, NiveauEtudeProxy niveau) {
+        requestFactory.dossierService().closeDossier(currentDossier, closedStatus, comment, currentDossier.getNiveauEtude().getId().longValue() == niveau.getId().longValue()).fire(new ReceiverImpl<Boolean>() {
             @Override
             public void onSuccess(Boolean response) {
                 String messageString = response ? messageBundle.operationSuccess() : messageBundle.operationFailure();
