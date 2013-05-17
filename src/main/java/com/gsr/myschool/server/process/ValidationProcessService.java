@@ -103,9 +103,9 @@ public interface ValidationProcessService {
 
     Task getDossierToAdmission(Long dossierId);
 
-    void rejectFinalDossier(Task task, Dossier dossier);
+    void rejectFinalDossier(Task task, Dossier dossier, Boolean choix);
 
-    void admitFinalDossier(Task task, Dossier dossier);
+    void admitFinalDossier(Task task, Dossier dossier, Boolean choix);
 
     void deleteProcessInstance(Long dossierId);
 }

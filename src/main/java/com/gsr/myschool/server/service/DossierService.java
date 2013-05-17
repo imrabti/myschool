@@ -40,7 +40,7 @@ public interface DossierService {
 
     Boolean acceptDossier(Dossier dossier);
 
-    Boolean closeDossier(Dossier dossier, DossierStatus status, String comment);
+    Boolean closeDossier(Dossier dossier, DossierStatus status, String comment, Boolean choix);
 
     PagedDossiers findAllDossiersBySessionAndCriteria(DossierFilterDTO filter, Integer pageNumber, Integer length);
 

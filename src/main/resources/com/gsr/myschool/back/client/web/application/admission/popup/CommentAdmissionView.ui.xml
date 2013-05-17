@@ -7,7 +7,6 @@
     <ui:with field="resource" type="com.gsr.myschool.common.client.resource.SharedResources"/>
 
     <ui:style>
-
         .contentWrapper {
             padding: 10px;
             padding-right: 20px;
@@ -18,10 +17,24 @@
     <g:PopupPanel modal="true" autoHideEnabled="false" styleName="{resource.popupStyleCss.gwtPopupPanel}"
                   glassEnabled="true">
         <g:FlowPanel>
-            <s:ModalHeader ui:field="modalHeader" text="Ajouter un commentaire"/>
+            <s:ModalHeader ui:field="modalHeader" text="Choix de l'admission"/>
 
             <g:HTMLPanel styleName="{style.contentWrapper}">
-                <boot:TextArea ui:field="reason" />
+                <boot:Form type="VERTICAL">
+                    <boot:ControlGroup>
+                        <boot:Controls>
+                            <g:Label text="Filière - Niveau étude"/>
+                            <boot:ValueListBox ui:field="choix" width="100%"/>
+                        </boot:Controls>
+                    </boot:ControlGroup>
+
+                    <boot:ControlGroup>
+                        <boot:Controls>
+                            <g:Label text="Commentaire"/>
+                            <boot:TextArea ui:field="reason" width="100%"/>
+                        </boot:Controls>
+                    </boot:ControlGroup>
+                </boot:Form>
             </g:HTMLPanel>
 
             <g:HTMLPanel styleName="{resource.sharedStyleCss.buttonContainerPopup}">

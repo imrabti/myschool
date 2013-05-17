@@ -315,7 +315,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     }
 
     @Override
-    public void admitFinalDossier(Task task, Dossier dossier) {
+    public void admitFinalDossier(Task task, Dossier dossier, Boolean choix) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("gender", dossier.getOwner().getGender().toString());
         params.put("lastname", dossier.getOwner().getLastName());
@@ -323,6 +323,15 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
         params.put("nomEnfant", dossier.getCandidat().getLastname());
         params.put("prenomEnfant", dossier.getCandidat().getFirstname());
         params.put("refdossier", dossier.getGeneratedNumDossier());
+        if (choix) {
+            params.put("choix", "N°1");
+            params.put("filiere", dossier.getFiliere().getNom());
+            params.put("niveau", dossier.getNiveauEtude().getNom());
+        } else {
+            params.put("choix", "N°2");
+            params.put("filiere", dossier.getFiliere2().getNom());
+            params.put("niveau", dossier.getNiveauEtude2().getNom());
+        }
         try {
             EmailDTO email = emailService.populateEmail(EmailType.FINAL_ADMISSION,
                     dossier.getOwner().getEmail(), sender,
@@ -343,7 +352,7 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     }
 
     @Override
-    public void rejectFinalDossier(Task task, Dossier dossier) {
+    public void rejectFinalDossier(Task task, Dossier dossier, Boolean choix) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("gender", dossier.getOwner().getGender().toString());
         params.put("lastname", dossier.getOwner().getLastName());
@@ -351,6 +360,15 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
         params.put("nomEnfant", dossier.getCandidat().getLastname());
         params.put("prenomEnfant", dossier.getCandidat().getFirstname());
         params.put("refdossier", dossier.getGeneratedNumDossier());
+        if (choix) {
+            params.put("choix", "N°1");
+            params.put("filiere", dossier.getFiliere().getNom());
+            params.put("niveau", dossier.getNiveauEtude().getNom());
+        } else {
+            params.put("choix", "N°2");
+            params.put("filiere", dossier.getFiliere2().getNom());
+            params.put("niveau", dossier.getNiveauEtude2().getNom());
+        }
         try {
             EmailDTO email = emailService.populateEmail(EmailType.FINAL_REJECTION,
                     dossier.getOwner().getEmail(), sender,
