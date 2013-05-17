@@ -23,6 +23,13 @@
                     <boot:TextBox ui:field="prenom" width="250px"/>
                 </boot:Controls>
             </boot:ControlGroup>
+
+            <boot:ControlGroup>
+                <boot:ControlLabel>Utilisateur VIP ?</boot:ControlLabel>
+                <boot:Controls>
+                    <g:SimpleCheckBox ui:field="vip" width="250px"/>
+                </boot:Controls>
+            </boot:ControlGroup>
         </boot:Form>
     </g:HTMLPanel>
 </ui:UiBinder>

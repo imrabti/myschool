@@ -39,6 +39,8 @@ public class UserAccountEditor extends Composite implements EditorView<UserProxy
     @UiField
     ControlGroup statusGroup;
     @UiField
+    ControlGroup roleGroup;
+    @UiField
     PasswordTextBox password;
     @UiField
     ControlGroup passwordField;
@@ -88,6 +90,7 @@ public class UserAccountEditor extends Composite implements EditorView<UserProxy
 
     public void setStatusVisible(Boolean bool) {
         this.statusGroup.setVisible(bool);
+        this.roleGroup.setVisible(bool);
     }
 
     public void setPasswordVisible(boolean bool) {

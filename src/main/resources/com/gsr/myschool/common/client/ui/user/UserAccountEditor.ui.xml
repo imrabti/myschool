@@ -44,7 +44,9 @@
                 <boot:Controls styleName="{style.smallMargin}">
                     <boot:ValueListBox ui:field="status" width="250px"/>
                 </boot:Controls>
+            </boot:ControlGroup>
 
+            <boot:ControlGroup ui:field="roleGroup">
                 <boot:ControlLabel width="100px">Authority</boot:ControlLabel>
                 <boot:Controls styleName="{style.smallMargin}">
                     <boot:ValueListBox ui:field="authority" width="250px"/>

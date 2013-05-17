@@ -21,6 +21,7 @@ import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.SimpleCheckBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.UserFilterDTOProxy;
@@ -39,6 +40,8 @@ public class UserFilterEditor extends Composite implements EditorView<UserFilter
     TextBox nom;
     @UiField
     TextBox prenom;
+    @UiField
+    SimpleCheckBox vip;
 
     private final Driver driver;
 

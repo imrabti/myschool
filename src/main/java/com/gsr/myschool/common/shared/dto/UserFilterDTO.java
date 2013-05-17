@@ -22,6 +22,7 @@ public class UserFilterDTO implements Serializable {
     private String email;
     private String nom;
     private String prenom;
+    private Boolean vip;
 
     public String getEmail() {
         return email;
@@ -45,5 +46,13 @@ public class UserFilterDTO implements Serializable {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+    }
+
+    public Boolean getVip() {
+        return vip;
+    }
+
+    public void setVip(Boolean vip) {
+        this.vip = vip;
     }
 }
