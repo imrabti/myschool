@@ -14,6 +14,7 @@ import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
+import com.gsr.myschool.common.shared.type.Authority;
 import com.gsr.myschool.common.shared.type.UserStatus;
 
 import java.util.Arrays;
@@ -41,6 +42,8 @@ public class UserAccountEditor extends Composite implements EditorView<UserProxy
     PasswordTextBox password;
     @UiField
     ControlGroup passwordField;
+    @UiField(provided = true)
+    ValueListBox<Authority> authority;
 
     private final Diver driver;
 
@@ -52,6 +55,10 @@ public class UserAccountEditor extends Composite implements EditorView<UserProxy
         status.setValue(UserStatus.ACTIVE);
         status.setAcceptableValues(Arrays.asList(UserStatus.values()));
 
+        authority = new ValueListBox<Authority>(new EnumRenderer<Authority>());
+        authority.setValue(Authority.ROLE_USER);
+        authority.setAcceptableValues(Arrays.asList(Authority.ROLE_USER,Authority.ROLE_USER_VIP));
+
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
 
@@ -60,6 +67,7 @@ public class UserAccountEditor extends Composite implements EditorView<UserProxy
         $(lastName).id("lastName");
         $(email).id("email");
         $(status).id("status");
+        $(authority).id("authority");
     }
 
     @Override

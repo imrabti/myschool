@@ -18,6 +18,7 @@ import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
+import com.gsr.myschool.common.shared.type.Authority;
 import com.gsr.myschool.common.shared.type.TypeEnseignement;
 
 import java.util.ArrayList;
@@ -63,7 +64,8 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
 
-        filieres = valueList.getFiliereList(securityUtils.isSuperUser());
+        filieres = valueList.getFiliereList(securityUtils.isSuperUser()
+                || securityUtils.hasAuthority(Authority.ROLE_USER_VIP.name()));
         initFilieres(filieres);
 
         filiere.setAcceptableValues(filieres);

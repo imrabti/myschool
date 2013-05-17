@@ -4,7 +4,8 @@ public enum Authority {
     ROLE_USER("Utilisateur"),
     ROLE_ADMIN("Administrateur"),
     ROLE_OPERATOR("Operateur"),
-    ROLE_REPORTER("Reporter");
+    ROLE_REPORTER("Reporter"),
+    ROLE_USER_VIP("Utilisateur VIP");
 
     private String label;
 

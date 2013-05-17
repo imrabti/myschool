@@ -29,6 +29,7 @@ import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.exception.InscriptionClosedException;
+import com.gsr.myschool.common.shared.type.Authority;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 import com.gsr.myschool.front.client.resource.message.MessageBundle;
@@ -163,7 +164,9 @@ public class InscriptionPresenter extends Presenter<InscriptionPresenter.MyView,
     public void onDossierSubmit(DossierSubmitEvent event) {
         if (event.getAgreement()) {
             Long dossierId = submittedDossier.getId();
-            requestFactory.inscriptionService().submitInscription(dossierId, securityUtils.isSuperUser()).fire(new ReceiverImpl<List<String>>() {
+            requestFactory.inscriptionService().submitInscription(dossierId,
+                    securityUtils.isSuperUser() || securityUtils.hasAuthority(Authority.ROLE_USER_VIP.name()))
+                    .fire(new ReceiverImpl<List<String>>() {
                 @Override
                 public void onSuccess(List<String> response) {
                     if (response.isEmpty()) {
