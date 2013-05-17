@@ -18,6 +18,7 @@ import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
+import com.gsr.myschool.common.shared.type.Authority;
 import com.gsr.myschool.common.shared.type.TypeEnseignement;
 
 import java.util.ArrayList;
@@ -102,7 +103,8 @@ public class ScolariteActuelleEditor extends Composite implements EditorView<Sco
     void onTypeEnseignementChanged(ValueChangeEvent<TypeEnseignement> event) {
         if (event.getValue() != null) {
             niveauEtude.setValue(null);
-            niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(typeEnseignement.getValue().getId(), securityUtils.isSuperUser()));
+            niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(typeEnseignement.getValue().getId(),
+                    securityUtils.isSuperUser() || securityUtils.hasAuthority(Authority.ROLE_USER_VIP.name())));
         } else {
             niveauEtude.setValue(null);
             niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());

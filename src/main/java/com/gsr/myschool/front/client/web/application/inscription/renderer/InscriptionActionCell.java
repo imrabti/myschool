@@ -16,6 +16,7 @@ import com.google.inject.assistedinject.Assisted;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
+import com.gsr.myschool.common.shared.type.Authority;
 
 public class InscriptionActionCell extends AbstractCell<DossierProxy> {
     @UiTemplate("InscriptionActionCellCreated.ui.xml")
@@ -113,7 +114,7 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
                                ValueUpdater<DossierProxy> valueUpdater) {
         selectedObject = value;
 
-        if (securityUtils.isSuperUser()) {
+        if (securityUtils.isSuperUser() || securityUtils.hasAuthority(Authority.ROLE_USER_VIP.name())) {
             switch (value.getStatus()) {
                 case CREATED:
                     uiRendererSU.onBrowserEvent(this, event, parent);
@@ -152,7 +153,7 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
 
     @Override
     public void render(Context context, DossierProxy value, SafeHtmlBuilder builder) {
-        if (securityUtils.isSuperUser()) {
+        if (securityUtils.isSuperUser() || securityUtils.hasAuthority(Authority.ROLE_USER_VIP.name())) {
             switch (value.getStatus()) {
                 case CREATED:
                     uiRendererSU.render(builder);
@@ -205,7 +206,7 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
     @UiHandler({"edit"})
     void onEditClicked(ClickEvent event) {
         DossierProxy value = selectedObject;
-        if (securityUtils.isSuperUser()) {
+        if (securityUtils.isSuperUser() || securityUtils.hasAuthority(Authority.ROLE_USER_VIP.name())) {
             edit.execute(selectedObject);
         } else {
             if (filieresGeneralesOpened && inscriptionOpened ||
@@ -225,7 +226,7 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
     @UiHandler({"delete"})
     void onDeleteClicked(ClickEvent event) {
         DossierProxy value = selectedObject;
-        if (securityUtils.isSuperUser()) {
+        if (securityUtils.isSuperUser() || securityUtils.hasAuthority(Authority.ROLE_USER_VIP.name())) {
             delete.execute(selectedObject);
         } else {
             if (filieresGeneralesOpened && inscriptionOpened ||
@@ -245,7 +246,7 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
     @UiHandler({"submit"})
     void onSubmitClicked(ClickEvent event) {
         DossierProxy value = selectedObject;
-        if (securityUtils.isSuperUser()) {
+        if (securityUtils.isSuperUser() || securityUtils.hasAuthority(Authority.ROLE_USER_VIP.name())) {
             submit.execute(selectedObject);
         } else {
             if (filieresGeneralesOpened && inscriptionOpened ||

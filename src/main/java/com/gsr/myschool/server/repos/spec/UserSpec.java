@@ -17,6 +17,7 @@
 package com.gsr.myschool.server.repos.spec;
 
 import com.google.common.base.Strings;
+import com.gsr.myschool.common.shared.type.Authority;
 import com.gsr.myschool.server.business.User;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -52,6 +53,15 @@ public class UserSpec {
             public Predicate toPredicate(Root<User> userRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 String likePattern = Strings.isNullOrEmpty(mail) ? "%" : "%" + mail + "%";
                 return cb.like(userRoot.<String>get("email"), likePattern);
+            }
+        };
+    }
+
+    public static Specification<User> isVip() {
+        return new Specification<User>() {
+            @Override
+            public Predicate toPredicate(Root<User> userRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.equal(userRoot.<Authority>get("authority"), Authority.ROLE_USER_VIP);
             }
         };
     }

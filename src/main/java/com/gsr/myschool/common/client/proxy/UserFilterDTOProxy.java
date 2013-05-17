@@ -33,4 +33,8 @@ public interface UserFilterDTOProxy extends ValueProxy {
     String getPrenom();
 
     void setPrenom(String prenom);
+
+    Boolean getVip();
+
+    void setVip(Boolean vip);
 }
