@@ -176,7 +176,7 @@ public class DossierServiceImpl implements DossierService {
     }
 
     @Override
-    public Boolean closeDossier(Dossier dossier, DossierStatus status, String comment) {
+    public Boolean closeDossier(Dossier dossier, DossierStatus status, String comment, Boolean choix) {
         Dossier affectedDossier = dossierRepos.findOne(dossier.getId());
 
         Task task = validationProcessService.getDossierToAdmission(dossier.getId());
@@ -186,9 +186,9 @@ public class DossierServiceImpl implements DossierService {
         affectedDossier.setMotifRefus(comment);
 
         if (DossierStatus.TO_BE_REGISTERED == status) {
-            validationProcessService.admitFinalDossier(task, dossier);
+            validationProcessService.admitFinalDossier(task, dossier, choix);
         } else {
-            validationProcessService.rejectFinalDossier(task, dossier);
+            validationProcessService.rejectFinalDossier(task, dossier, choix);
         }
 
         dossierRepos.save(affectedDossier);
