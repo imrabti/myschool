@@ -101,6 +101,10 @@ public class UserManagementServiceImpl implements UserManagementService {
             spec = spec.and(UserSpec.lastnameLike(filter.getNom()));
         }
 
+        if (filter.getVip() != null && filter.getVip()) {
+            spec = spec.and(UserSpec.isVip());
+        }
+
         return userRepos.findAll(spec);
     }
 }

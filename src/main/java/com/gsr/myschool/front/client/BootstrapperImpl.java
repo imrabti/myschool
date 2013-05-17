@@ -17,18 +17,21 @@
 package com.gsr.myschool.front.client;
 
 import com.google.inject.Inject;
+import com.gsr.myschool.common.client.proxy.UserProxy;
 import com.gsr.myschool.common.client.resource.SharedResources;
-import com.gsr.myschool.front.client.security.CurrentUserProvider;
 import com.gsr.myschool.common.client.security.SecurityUtils;
 import com.gsr.myschool.common.client.util.CallbackImpl;
-import com.gsr.myschool.front.client.place.NameTokens;
-import com.gsr.myschool.common.client.proxy.UserProxy;
-import com.gsr.myschool.front.client.resource.FrontResources;
 import com.gsr.myschool.common.client.util.ValueList;
+import com.gsr.myschool.common.shared.type.Authority;
+import com.gsr.myschool.front.client.place.NameTokens;
+import com.gsr.myschool.front.client.resource.FrontResources;
+import com.gsr.myschool.front.client.security.CurrentUserProvider;
 import com.gwtplatform.mvp.client.Bootstrapper;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class BootstrapperImpl implements Bootstrapper {
@@ -56,9 +59,11 @@ public class BootstrapperImpl implements Bootstrapper {
         sharedResources.suggestBoxStyleCss().ensureInjected();
         sharedResources.datePickerStyle().ensureInjected();
 
-        valueList.initFiliereList(securityUtils.isSuperUser());
+        valueList.initFiliereList(securityUtils.isSuperUser()
+                || securityUtils.hasAuthority(Authority.ROLE_USER_VIP.name()));
         valueList.initEtablissementScolaireList();
-        valueList.initNiveauEtudeMap(securityUtils.isSuperUser());
+        valueList.initNiveauEtudeMap(securityUtils.isSuperUser()
+                || securityUtils.hasAuthority(Authority.ROLE_USER_VIP.name()));
         valueList.initValueListMap();
 
         getCurrentUserCallback = new CallbackImpl<UserProxy>() {
@@ -83,6 +88,10 @@ public class BootstrapperImpl implements Bootstrapper {
             logger.info("User is not authentified -- access denied...");
             placeManager.revealCurrentPlace();
         } else {
+            List<String> authorities = new ArrayList<String>();
+            authorities.add(currentUser.getAuthority().name());
+            securityUtils.setAuthorities(authorities);
+
             bounceToHome();
         }
     }

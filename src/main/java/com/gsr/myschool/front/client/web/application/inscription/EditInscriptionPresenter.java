@@ -12,6 +12,7 @@ import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
 import com.gsr.myschool.common.shared.exception.InscriptionClosedException;
 import com.gsr.myschool.common.shared.exception.UnAuthorizedException;
+import com.gsr.myschool.common.shared.type.Authority;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.front.client.place.NameTokens;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
@@ -93,7 +94,9 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
         requestFactory.inscriptionService().findDossierByIdToEdit(dossierId).fire(new ReceiverImpl<DossierProxy>() {
             @Override
             public void onSuccess(DossierProxy result) {
-                if ((result != null && result.getStatus() == DossierStatus.CREATED) || securityUtils.isSuperUser()) {
+                if ((result != null && result.getStatus() == DossierStatus.CREATED)
+                        || securityUtils.isSuperUser()
+                        || securityUtils.hasAuthority(Authority.ROLE_USER_VIP.name())) {
                     currentDossier = result;
                     parentPresenter.editData(currentDossier);
                     candidatPresenter.editData(currentDossier.getCandidat());
@@ -105,7 +108,7 @@ public class EditInscriptionPresenter extends Presenter<MyView, MyProxy>
 
             @Override
             public void onException(String type) {
-                if (!securityUtils.isSuperUser()) {
+                if (!securityUtils.isSuperUser() && !securityUtils.hasAuthority(Authority.ROLE_USER_VIP.name())) {
                     if (type.equals(UnAuthorizedException.class.getName())) {
                         Message message = new Message.Builder(messageBundle.unAuthorized())
                                 .style(AlertType.ERROR).build();

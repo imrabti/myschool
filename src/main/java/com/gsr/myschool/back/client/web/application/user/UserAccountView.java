@@ -131,7 +131,7 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
         };
         emailColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         userPortalTable.addColumn(emailColumn, "Email");
-        userPortalTable.setColumnWidth(emailColumn, 40, Style.Unit.PCT);
+        userPortalTable.setColumnWidth(emailColumn, 30, Style.Unit.PCT);
 
         TextColumn<UserProxy> submittedColumn = new TextColumn<UserProxy>() {
             @Override
@@ -142,7 +142,7 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
         };
         submittedColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
         userPortalTable.addColumn(submittedColumn, "Date de création");
-        userPortalTable.setColumnWidth(submittedColumn, 30, Style.Unit.PCT);
+        userPortalTable.setColumnWidth(submittedColumn, 20, Style.Unit.PCT);
 
         TextColumn<UserProxy> statusColumn = new TextColumn<UserProxy>() {
             @Override
@@ -151,9 +151,20 @@ public class UserAccountView extends ViewWithUiHandlers<UserAccountUiHandlers>
                 return object.getStatus().toString();
             }
         };
-        statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        statusColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         userPortalTable.addColumn(statusColumn, "Statut");
-        userPortalTable.setColumnWidth(statusColumn, 30, Style.Unit.PCT);
+        userPortalTable.setColumnWidth(statusColumn, 15, Style.Unit.PCT);
+
+        TextColumn<UserProxy> roleColumn = new TextColumn<UserProxy>() {
+            @Override
+            public String getValue(UserProxy object) {
+                if(object.getAuthority() == null) return "";
+                return object.getAuthority().toString();
+            }
+        };
+        roleColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+        userPortalTable.addColumn(roleColumn, "Type");
+        userPortalTable.setColumnWidth(roleColumn, 15, Style.Unit.PCT);
 
         UserAccountActionCell actionsCell = actionCellFactory.create(editAccount, logingAccount);
         Column<UserProxy, UserProxy> actionsColumn = new
