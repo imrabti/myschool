@@ -14,7 +14,7 @@ import java.util.List;
 @Sheet(autoSizeColumns = true,
         columnOrder = {
                 "compte", "numDossier", "candidat", "etablissement", "pere",
-                "mere", "tuteur", "filiere", "niveauEtude"
+                "mere", "tuteur", "filiere", "niveauEtude", "statut"
         })
 public class DossierMultiple {
     @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true), columnName = "Compte")
@@ -35,6 +35,8 @@ public class DossierMultiple {
     private String filiere;
     @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true), columnName = "Niveau d'étude")
     private String niveauEtude;
+    @SheetColumn(headerStyle = @SheetCellStyle(align = CellAlign.CENTER, fontStyleBold = true), columnName = "Statut")
+    private String statut;
 
     public DossierMultiple() {
     }
@@ -42,7 +44,7 @@ public class DossierMultiple {
     public DossierMultiple(User user, Dossier dossier, List<InfoParent> infoParents) {
         compte = user.getEmail();
         numDossier = dossier.getGeneratedNumDossier();
-
+        statut = dossier.getStatus().toString();
         if (null != dossier.getCandidat()) {
             candidat = dossier.getCandidat().getFirstname() + " " + dossier.getCandidat().getLastname();
         }
@@ -62,16 +64,17 @@ public class DossierMultiple {
         for (InfoParent item : infoParents) {
             switch (item.getParentType()) {
                 case PERE:
-                    pere = Objects.firstNonNull(item.getPrenom(), "")  + " " + Objects.firstNonNull(item.getNom(), "");
+                    pere = Objects.firstNonNull(item.getPrenom(), "") + " " + Objects.firstNonNull(item.getNom(), "");
                     break;
                 case MERE:
-                    mere = Objects.firstNonNull(item.getPrenom(), "")  + " " + Objects.firstNonNull(item.getNom(), "");
+                    mere = Objects.firstNonNull(item.getPrenom(), "") + " " + Objects.firstNonNull(item.getNom(), "");
                     break;
                 case TUTEUR:
-                    tuteur = Objects.firstNonNull(item.getPrenom(), "")  + " " + Objects.firstNonNull(item.getNom(), "");
+                    tuteur = Objects.firstNonNull(item.getPrenom(), "") + " " + Objects.firstNonNull(item.getNom(), "");
                     break;
             }
         }
+
     }
 
     public String getCompte() {
@@ -144,5 +147,13 @@ public class DossierMultiple {
 
     public void setNiveauEtude(String niveauEtude) {
         this.niveauEtude = niveauEtude;
+    }
+
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
     }
 }
