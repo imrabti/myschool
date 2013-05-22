@@ -126,6 +126,4 @@ public class SolariteSouhaitePresenter extends PresenterWidget<SolariteSouhaiteP
     protected void onBind() {
         addRegisteredHandler(ChangeStepEvent.getType(), this);
     }
-
-
 }
