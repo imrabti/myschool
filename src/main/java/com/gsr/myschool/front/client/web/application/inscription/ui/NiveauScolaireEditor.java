@@ -1,4 +1,4 @@
-package com.gsr.myschool.common.client.ui.dossier;
+package com.gsr.myschool.front.client.web.application.inscription.ui;
 
 import com.github.gwtbootstrap.client.ui.ValueListBox;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
@@ -9,6 +9,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.proxy.FiliereProxy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
@@ -20,6 +21,7 @@ import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
 import com.gsr.myschool.common.shared.type.Authority;
 import com.gsr.myschool.common.shared.type.TypeEnseignement;
+import com.gsr.myschool.front.client.request.FrontRequestFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,8 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
 
     private final ValueList valueList;
     private final Driver driver;
+    private final SecurityUtils securityUtils;
+    private final FrontRequestFactory requestFactory;
 
     private FiliereProxy sectionFr;
     private FiliereProxy sectionBilingue;
@@ -52,9 +56,12 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
 
     @Inject
     public NiveauScolaireEditor(final Binder uiBinder, final ValueList valueList,
-                                final Driver driver, final SecurityUtils securityUtils) {
+                                final Driver driver, final SecurityUtils securityUtils,
+                                final FrontRequestFactory requestFactory) {
         this.valueList = valueList;
         this.driver = driver;
+        this.securityUtils = securityUtils;
+        this.requestFactory = requestFactory;
 
         filiere = new ValueListBox<FiliereProxy>(new FiliereRenderer());
         niveauEtude = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
@@ -64,11 +71,8 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
 
-        filieres = valueList.getFiliereList(securityUtils.isSuperUser()
-                || securityUtils.hasAuthority(Authority.ROLE_USER_VIP.name()));
-        initFilieres(filieres);
+        initFilieres();
 
-        filiere.setAcceptableValues(filieres);
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
 
         filiere2.setAcceptableValues(new ArrayList<FiliereProxy>());
@@ -83,6 +87,7 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
     @Override
     public void edit(DossierProxy dossier) {
         driver.edit(dossier);
+        initFilieres();
     }
 
     @Override
@@ -131,10 +136,34 @@ public class NiveauScolaireEditor extends Composite implements EditorView<Dossie
         }
     }
 
-    private void initFilieres(List<FiliereProxy> list) {
-        for (FiliereProxy filiere : list) {
-            if (TypeEnseignement.BILINGUE.getId() == filiere.getId()) sectionBilingue = filiere;
-            if (TypeEnseignement.MISSION.getId() == filiere.getId()) sectionFr = filiere;
+    private void initFilieres() {
+        if (securityUtils.isSuperUser()
+                || securityUtils.hasAuthority(Authority.ROLE_USER_VIP.name())) {
+            requestFactory.cachedListValueService().findAllFiliere().fire(new Receiver<List<FiliereProxy>>() {
+                @Override
+                public void onSuccess(List<FiliereProxy> result) {
+                    filieres = result;
+                    for (FiliereProxy filiere : filieres) {
+                        if (TypeEnseignement.BILINGUE.getId() == filiere.getId()) sectionBilingue = filiere;
+                        if (TypeEnseignement.MISSION.getId() == filiere.getId()) sectionFr = filiere;
+                    }
+
+                    filiere.setAcceptableValues(filieres);
+                }
+            });
+        } else {
+            requestFactory.cachedListValueService().findFilieres().fire(new Receiver<List<FiliereProxy>>() {
+                @Override
+                public void onSuccess(List<FiliereProxy> result) {
+                    filieres = result;
+                    for (FiliereProxy filiere : filieres) {
+                        if (TypeEnseignement.BILINGUE.getId() == filiere.getId()) sectionBilingue = filiere;
+                        if (TypeEnseignement.MISSION.getId() == filiere.getId()) sectionFr = filiere;
+                    }
+
+                    filiere.setAcceptableValues(filieres);
+                }
+            });
         }
     }
 

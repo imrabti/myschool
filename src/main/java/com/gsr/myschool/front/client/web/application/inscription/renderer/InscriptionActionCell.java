@@ -114,13 +114,25 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
                                ValueUpdater<DossierProxy> valueUpdater) {
         selectedObject = value;
 
-        if (securityUtils.isSuperUser() || securityUtils.hasAuthority(Authority.ROLE_USER_VIP.name())) {
+        if (securityUtils.isSuperUser()) {
             switch (value.getStatus()) {
                 case CREATED:
                     uiRendererSU.onBrowserEvent(this, event, parent);
                     break;
                 default:
                     uiRendererSUOther.onBrowserEvent(this, event, parent);
+                    break;
+            }
+        } else if (securityUtils.hasAuthority(Authority.ROLE_USER_VIP.name())) {
+            switch (selectedObject.getStatus()) {
+                case CREATED:
+                    uiRendererCreated.onBrowserEvent(this, event, parent);
+                    break;
+                case SUBMITTED:
+                    uiRendererSubmitted.onBrowserEvent(this, event, parent);
+                    break;
+                default:
+                    uiRendererOther.onBrowserEvent(this, event, parent);
                     break;
             }
         } else {
@@ -153,13 +165,25 @@ public class InscriptionActionCell extends AbstractCell<DossierProxy> {
 
     @Override
     public void render(Context context, DossierProxy value, SafeHtmlBuilder builder) {
-        if (securityUtils.isSuperUser() || securityUtils.hasAuthority(Authority.ROLE_USER_VIP.name())) {
+        if (securityUtils.isSuperUser()) {
             switch (value.getStatus()) {
                 case CREATED:
                     uiRendererSU.render(builder);
                     break;
                 default:
                     uiRendererSUOther.render(builder);
+                    break;
+            }
+        } else if (securityUtils.hasAuthority(Authority.ROLE_USER_VIP.name())) {
+            switch (value.getStatus()) {
+                case CREATED:
+                    uiRendererCreated.render(builder);
+                    break;
+                case SUBMITTED:
+                    uiRendererSubmitted.render(builder);
+                    break;
+                default:
+                    uiRendererOther.render(builder);
                     break;
             }
         } else {

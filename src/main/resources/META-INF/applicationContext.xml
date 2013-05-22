@@ -90,12 +90,10 @@
         <property name="caches">
             <set>
                 <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="filiere"/>
-                <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="filiereFront"/>
                 <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="niveauEtude"/>
                 <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
                       p:name="etablissementScolaire"/>
                 <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="valueList"/>
-                <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="niveauEtudeFront"/>
             </set>
         </property>
     </bean>

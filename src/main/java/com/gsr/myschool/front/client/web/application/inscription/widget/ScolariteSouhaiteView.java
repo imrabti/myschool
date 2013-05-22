@@ -7,7 +7,7 @@ import com.google.inject.Inject;
 import com.gsr.myschool.common.client.mvp.ValidatedViewImpl;
 import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
-import com.gsr.myschool.common.client.ui.dossier.NiveauScolaireEditor;
+import com.gsr.myschool.front.client.web.application.inscription.ui.NiveauScolaireEditor;
 
 public class ScolariteSouhaiteView extends ValidatedViewImpl implements SolariteSouhaitePresenter.MyView {
     public interface Binder extends UiBinder<Widget, ScolariteSouhaiteView> {

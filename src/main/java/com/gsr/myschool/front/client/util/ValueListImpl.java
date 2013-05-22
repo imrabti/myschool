@@ -40,10 +40,7 @@ public class ValueListImpl implements ValueList {
 
     @Override
     public List<FiliereProxy> getFiliereList(Boolean isSuperUser) {
-        if (filiereList == null) {
-            initFiliereList(isSuperUser);
-        }
-
+        initFiliereList(isSuperUser);
         return filiereList;
     }
 

@@ -6,7 +6,6 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.gsr.myschool.common.client.mvp.ValidatedView;
 import com.gsr.myschool.common.client.proxy.DossierProxy;
 import com.gsr.myschool.common.client.request.ValidatedReceiverImpl;
-import com.gsr.myschool.common.client.ui.dossier.NiveauScolaireEditor;
 import com.gsr.myschool.common.client.widget.messages.CloseDelay;
 import com.gsr.myschool.common.client.widget.messages.Message;
 import com.gsr.myschool.common.client.widget.messages.event.MessageEvent;
@@ -127,4 +126,6 @@ public class SolariteSouhaitePresenter extends PresenterWidget<SolariteSouhaiteP
     protected void onBind() {
         addRegisteredHandler(ChangeStepEvent.getType(), this);
     }
+
+
 }
