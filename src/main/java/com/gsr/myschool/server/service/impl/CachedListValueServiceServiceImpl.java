@@ -56,7 +56,6 @@ public class CachedListValueServiceServiceImpl implements CachedListValueService
 
 
     @Override
-    @Cacheable("filiereFront")
     public List<Filiere> findFilieres() {
         Settings settings = settingsRepos.findOne(SettingsKey.FILIERE_GENERAL_CLOSED);
         if (settings == null) {
@@ -89,7 +88,6 @@ public class CachedListValueServiceServiceImpl implements CachedListValueService
     }
 
     @Override
-    @Cacheable("niveauEtudeFront")
     public List<NiveauEtude> findNiveauEtudes() {
         Settings settings = settingsRepos.findOne(SettingsKey.FILIERE_GENERAL_CLOSED);
         if (settings == null) {
