@@ -94,6 +94,8 @@ public class BootstrapperImpl implements Bootstrapper {
                 bounceToHome();
             } else if (securityUtils.hasAuthority(GlobalParameters.ROLE_OPERATOR)) {
                 bounceToReception();
+            } else if (securityUtils.hasAuthority(GlobalParameters.ROLE_REPORTER)) {
+                bounceToReporting();
             }
         }
     }
@@ -105,6 +107,11 @@ public class BootstrapperImpl implements Bootstrapper {
 
     private void bounceToReception() {
         PlaceRequest place = new PlaceRequest(NameTokens.getReception());
+        placeManager.revealPlace(place);
+    }
+
+    private void bounceToReporting() {
+        PlaceRequest place = new PlaceRequest(NameTokens.getReporting());
         placeManager.revealPlace(place);
     }
 }

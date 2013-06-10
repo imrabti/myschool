@@ -31,15 +31,15 @@ import com.gsr.myschool.server.repos.spec.DossierSpec;
 import com.gsr.myschool.server.service.DossierService;
 import com.gsr.myschool.server.service.InscriptionService;
 import com.gsr.myschool.server.service.SettingsService;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
+import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -68,6 +68,8 @@ public class SettingsServiceImpl implements SettingsService {
     private DossierService dossierService;
     @Autowired
     private RuntimeService runtimeService;
+    @Autowired
+    private HistoryService historyService;
     @Autowired
     private DossierRepos dossierRepos;
     @Autowired
@@ -178,8 +180,8 @@ public class SettingsServiceImpl implements SettingsService {
         for (Dossier dossier : dossiers) {
             // ne supprimer que les dossier crées non soumis des prepa
             Boolean skipCondition = isPrepa ?
-                    dossier.getFiliere() != null  && dossier.getFiliere().getId().longValue() < GlobalParameters.PREPA_FILIERE_FROM :
-                    dossier.getFiliere() != null  && dossier.getFiliere().getId().longValue() >= GlobalParameters.PREPA_FILIERE_FROM;
+                    dossier.getFiliere() != null && dossier.getFiliere().getId().longValue() < GlobalParameters.PREPA_FILIERE_FROM :
+                    dossier.getFiliere() != null && dossier.getFiliere().getId().longValue() >= GlobalParameters.PREPA_FILIERE_FROM;
             if (skipCondition)
                 continue;
 
@@ -205,16 +207,23 @@ public class SettingsServiceImpl implements SettingsService {
         List<Dossier> dossiers = dossierRepos.findAll(DossierSpec.dossierStatusIs(DossierStatus.SUBMITTED));
         int count = 0;
         for (Dossier dossier : dossiers) {
-
             try {
+                HistoricProcessInstance historic = historyService.createHistoricProcessInstanceQuery()
+                        .finished()
+                        .processDefinitionKey("validation")
+                        .processInstanceBusinessKey(dossier.getId().toString())
+                        .singleResult();
+                if (historic != null) {
+                    historyService.deleteHistoricProcessInstance(historic.getId());
+                }
                 ProcessInstance pi = runtimeService.createProcessInstanceQuery()
                         .processDefinitionKey("validation")
-                        .processInstanceBusinessKey(dossier.getId().toString()).singleResult();
+                        .processInstanceBusinessKey(dossier.getId().toString())
+                        .singleResult();
                 if (pi == null) {
                     validationProcessService.startProcess(dossier);
                     count++;
                 }
-
             } catch (Exception e) {
                 System.out.println(dossier.getId().toString());
                 e.printStackTrace();
