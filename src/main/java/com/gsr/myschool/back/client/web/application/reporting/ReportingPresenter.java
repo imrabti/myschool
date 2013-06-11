@@ -27,7 +27,7 @@ public class ReportingPresenter extends Presenter<MyView, MyProxy> implements Re
     @ProxyStandard
     @NameToken(NameTokens.reporting)
     @UseGatekeeper(HasRoleGatekeeper.class)
-    @GatekeeperParams({GlobalParameters.ROLE_ADMIN})
+    @GatekeeperParams({GlobalParameters.ROLE_ADMIN, GlobalParameters.ROLE_REPORTER})
     public interface MyProxy extends ProxyPlace<ReportingPresenter> {
     }
 

@@ -58,7 +58,7 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
     public void setupMenuSecurity() {
         preInscription.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
         reception.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN, GlobalParameters.ROLE_OPERATOR));
-        validation.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
+        validation.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN, GlobalParameters.ROLE_OPERATOR));
         confirmation.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN, GlobalParameters.ROLE_OPERATOR));
         admission.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN, GlobalParameters.ROLE_OPERATOR));
         userPortal.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
@@ -67,7 +67,7 @@ public class MenuView extends ViewWithUiHandlers<MenuUiHandlers> implements Menu
         generalSettings.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
         session.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
         affectation.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
-        reporting.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
+        reporting.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN, GlobalParameters.ROLE_REPORTER));
         settingsHeader.setVisible(securityUtils.hasAuthority(GlobalParameters.ROLE_ADMIN));
     }
 
