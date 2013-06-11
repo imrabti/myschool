@@ -11,6 +11,7 @@ public class GlobalParameters {
 
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
     public static final String ROLE_OPERATOR = "ROLE_OPERATOR";
+    public static final String ROLE_REPORTER = "ROLE_REPORTER";
 
     public static final Long SECTION_FRANCAISE = 10l;
     public static final Long SECTION_BILINGUE = 20l;
@@ -23,7 +24,7 @@ public class GlobalParameters {
 
     public static final Long PREPA_FILIERE_FROM = 30l;
 
-    public static final List<Long> NE_toute_petite_section_ids = Arrays.asList(49L,50L);
+    public static final List<Long> NE_toute_petite_section_ids = Arrays.asList(49L, 50L);
 
     public static final String APP_STATUS_OPENED = "open";
     public static final String APP_STATUS_CLOSED = "closed";

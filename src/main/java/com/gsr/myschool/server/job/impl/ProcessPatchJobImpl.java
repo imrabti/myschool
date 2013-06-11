@@ -22,12 +22,13 @@ import com.gsr.myschool.server.job.Worker;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.repos.spec.DossierSpec;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
+import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,6 +41,8 @@ public class ProcessPatchJobImpl implements Worker {
     @Autowired
     private RuntimeService runtimeService;
     @Autowired
+    private HistoryService historyService;
+    @Autowired
     private DossierRepos dossierRepos;
     @Autowired
     private ValidationProcessService validationProcessService;
@@ -51,9 +54,18 @@ public class ProcessPatchJobImpl implements Worker {
         for (Dossier dossier : dossiers) {
 
             try {
+                HistoricProcessInstance historic = historyService.createHistoricProcessInstanceQuery()
+                        .finished()
+                        .processDefinitionKey("validation")
+                        .processInstanceBusinessKey(dossier.getId().toString())
+                        .singleResult();
+                if (historic != null) {
+                    historyService.deleteHistoricProcessInstance(historic.getId());
+                }
                 ProcessInstance pi = runtimeService.createProcessInstanceQuery()
                         .processDefinitionKey("validation")
-                        .processInstanceBusinessKey(dossier.getId().toString()).singleResult();
+                        .processInstanceBusinessKey(dossier.getId().toString())
+                        .singleResult();
                 if (pi == null) {
                     validationProcessService.startProcess(dossier);
                     count++;
@@ -67,6 +79,4 @@ public class ProcessPatchJobImpl implements Worker {
         System.out.println("Number of process started = " + count);
         logger.info("Number of process started = " + count);
     }
-
-
 }
