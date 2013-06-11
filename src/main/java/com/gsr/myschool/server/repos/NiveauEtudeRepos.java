@@ -25,4 +25,8 @@ import java.util.List;
 
 public interface NiveauEtudeRepos extends JpaRepository<NiveauEtude, Long> {
     List<NiveauEtude> findByAnneeGreaterThanOrderByAnneeDesc(Integer annee);
+
+    List<NiveauEtude> findByAnneeGreaterThanAndFiliereIdOrderByAnneeDesc(Integer annee, Long filiere);
+
+    List<NiveauEtude> findByFiliereIdOrderByAnneeDesc(Long filiere);
 }

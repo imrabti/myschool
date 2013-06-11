@@ -18,6 +18,8 @@ public interface CachedListValueRequest extends RequestContext {
 
     Request<List<NiveauEtudeProxy>> findNiveauEtudes();
 
+    Request<List<NiveauEtudeProxy>> findNiveauEtudesByFiliere(Long filiere, Boolean isSuper);
+
     Request<List<ValueListProxy>> findAllValueList();
 
     Request<List<FiliereProxy>> findFilieres();

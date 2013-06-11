@@ -8,7 +8,7 @@ import com.gsr.myschool.common.client.mvp.ValidatedViewWithUiHandlers;
 import com.gsr.myschool.common.client.widget.ValidationErrorPopup;
 import com.gsr.myschool.common.client.proxy.EtablissementScolaireProxy;
 import com.gsr.myschool.common.client.proxy.ScolariteActuelleDTOProxy;
-import com.gsr.myschool.common.client.ui.dossier.ScolariteActuelleEditor;
+import com.gsr.myschool.front.client.web.application.inscription.ui.ScolariteActuelleEditor;
 
 public class ScolariteActuelleView extends ValidatedViewWithUiHandlers<ScolariteActuelleUiHandlers>
         implements ScolariteActuellePresenter.MyView, ScolariteActuelleEditor.Handler {

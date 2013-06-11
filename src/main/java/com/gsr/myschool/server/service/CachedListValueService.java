@@ -25,6 +25,9 @@ public interface CachedListValueService {
 
     List<String> findMatieres();
 
-    @Cacheable("niveauEtudeFront")
     List<NiveauEtude> findNiveauEtudes();
+
+    List<NiveauEtude> findNiveauEtudes(Boolean isSuper);
+
+    List<NiveauEtude> findNiveauEtudesByFiliere(Long filiere, Boolean isSuper);
 }

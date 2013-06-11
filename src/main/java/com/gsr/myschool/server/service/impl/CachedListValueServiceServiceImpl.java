@@ -54,7 +54,6 @@ public class CachedListValueServiceServiceImpl implements CachedListValueService
         return filiereRepos.findAll();
     }
 
-
     @Override
     public List<Filiere> findFilieres() {
         Settings settings = settingsRepos.findOne(SettingsKey.FILIERE_GENERAL_CLOSED);
@@ -88,7 +87,7 @@ public class CachedListValueServiceServiceImpl implements CachedListValueService
     }
 
     @Override
-    public List<NiveauEtude> findNiveauEtudes() {
+     public List<NiveauEtude> findNiveauEtudes() {
         Settings settings = settingsRepos.findOne(SettingsKey.FILIERE_GENERAL_CLOSED);
         if (settings == null) {
             settings = new Settings();
@@ -97,6 +96,38 @@ public class CachedListValueServiceServiceImpl implements CachedListValueService
             settingsRepos.save(settings);
         }
         if (GlobalParameters.APP_STATUS_OPENED.equals(settings.getValue())) {
+            return niveauEtudeRepos.findAll(new Sort(new Order("annee")));
+        } else {
+            return niveauEtudeRepos.findByAnneeGreaterThanOrderByAnneeDesc(16);
+        }
+    }
+
+    @Override
+    public List<NiveauEtude> findNiveauEtudesByFiliere(Long filiere, Boolean isSuper) {
+        Settings settings = settingsRepos.findOne(SettingsKey.FILIERE_GENERAL_CLOSED);
+        if (settings == null) {
+            settings = new Settings();
+            settings.setSetting(SettingsKey.FILIERE_GENERAL_CLOSED);
+            settings.setValue(GlobalParameters.APP_STATUS_OPENED);
+            settingsRepos.save(settings);
+        }
+        if (isSuper || GlobalParameters.APP_STATUS_OPENED.equals(settings.getValue())) {
+            return niveauEtudeRepos.findByFiliereIdOrderByAnneeDesc(filiere);
+        } else {
+            return niveauEtudeRepos.findByAnneeGreaterThanAndFiliereIdOrderByAnneeDesc(16, filiere);
+        }
+    }
+
+    @Override
+    public List<NiveauEtude> findNiveauEtudes(Boolean isSuper) {
+        Settings settings = settingsRepos.findOne(SettingsKey.FILIERE_GENERAL_CLOSED);
+        if (settings == null) {
+            settings = new Settings();
+            settings.setSetting(SettingsKey.FILIERE_GENERAL_CLOSED);
+            settings.setValue(GlobalParameters.APP_STATUS_OPENED);
+            settingsRepos.save(settings);
+        }
+        if (!isSuper && GlobalParameters.APP_STATUS_OPENED.equals(settings.getValue())) {
             return niveauEtudeRepos.findAll(new Sort(new Order("annee")));
         } else {
             return niveauEtudeRepos.findByAnneeGreaterThanOrderByAnneeDesc(16);
