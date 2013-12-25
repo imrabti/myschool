@@ -9,6 +9,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,14 @@ public class EmailPreparatorServiceImpl implements EmailPreparatorService {
     private EmailTemplateRepos emailTemplateRepos;
     @Autowired
     private RabbitTemplate rabbitTemplate;
+    @Value("${dev.mode}")
+    private String devMode;
+    @Value("${dev.mail.to}")
+    private String devEmailTo;
+    @Value("${dev.mail.cc}")
+    private String devEmailCc;
+    @Value("${dev.mail.bcc}")
+    private String devEmailBcc;
 
     @Override
     public EmailDTO populateEmail(EmailType code, String to, String from, Map<String, Object> params, String cc,
@@ -46,11 +55,19 @@ public class EmailPreparatorServiceImpl implements EmailPreparatorService {
         String message = contenuWriter.toString();
 
         EmailDTO resultMail = new EmailDTO();
+
+        if ("true".equals(devMode)) {
+            resultMail.setTo(devEmailTo);
+            resultMail.setCc(devEmailCc);
+            resultMail.setBcc(devEmailBcc);
+        } else {
+            resultMail.setTo(to);
+            resultMail.setCc(cc);
+            resultMail.setBcc(bcc);
+        }
+
         resultMail.setSubject(emailTemplate.getSubject());
         resultMail.setFrom(from);
-        resultMail.setTo(to);
-        resultMail.setCc(cc);
-        resultMail.setBcc(bcc);
         resultMail.setMessage(message);
 
         return resultMail;
