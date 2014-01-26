@@ -55,14 +55,14 @@ public class SessionServiceImpl implements SessionService {
     private EmailPreparatorService emailService;
     @Autowired
     private InboxMessageRepos inboxMessageRepos;
+    @Autowired
+    private ValueTypeRepos valueTypeRepos;
     @Value("${mailserver.sender}")
     private String sender;
 
     @Override
     public void createNewSession(SessionExamen sessionExamen) {
-        String currentAnneeScolaire = DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1);
-        sessionExamen.setAnneeScolaire(valueListRepos.findByValueAndValueTypeCode(currentAnneeScolaire,
-                ValueTypeCode.SCHOOL_YEAR));
+        sessionExamen.setAnneeScolaire(getCurrentScholarYear());
         sessionExamen.setStatus(SessionStatus.CREATED);
         sessionExamen.setCandidates(0);
         sessionExamenRepos.save(sessionExamen);
@@ -348,9 +348,7 @@ public class SessionServiceImpl implements SessionService {
     @Override
     @Transactional(readOnly = true)
     public List<SessionExamen> findAllSessions() {
-        String currentAnneeScolaire = DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1);
-        ValueList currentAnnee = valueListRepos.findByValueAndValueTypeCode(currentAnneeScolaire,
-                ValueTypeCode.SCHOOL_YEAR);
+        ValueList currentAnnee = getCurrentScholarYear();
 
         if (currentAnnee != null) {
             return sessionExamenRepos.findByAnneeScolaireId(currentAnnee.getId());
@@ -363,9 +361,7 @@ public class SessionServiceImpl implements SessionService {
     @Override
     @Transactional(readOnly = true)
     public List<SessionExamen> findAllSessions(List<Integer> sessionIdList) {
-        String currentAnneeScolaire = DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1);
-        ValueList currentAnnee = valueListRepos.findByValueAndValueTypeCode(currentAnneeScolaire,
-                ValueTypeCode.SCHOOL_YEAR);
+        ValueList currentAnnee = getCurrentScholarYear();
 
         if (currentAnnee != null) {
             return sessionExamenRepos.findByAnneeScolaireAndStatusList(currentAnnee.getId(), sessionIdList);   // SessionStatus.OPEN);
@@ -378,9 +374,7 @@ public class SessionServiceImpl implements SessionService {
     @Override
     @Transactional(readOnly = true)
     public List<SessionExamen> findAllSessionsWithStatus(SessionStatus sessionStatus) {
-        String currentAnneeScolaire = DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1);
-        ValueList currentAnnee = valueListRepos.findByValueAndValueTypeCode(currentAnneeScolaire,
-                ValueTypeCode.SCHOOL_YEAR);
+        ValueList currentAnnee = getCurrentScholarYear();
 
         if (currentAnnee != null) {
             return sessionExamenRepos.findByAnneeScolaireIdAndStatusOrderByNomAsc(currentAnnee.getId(), sessionStatus);
@@ -392,9 +386,7 @@ public class SessionServiceImpl implements SessionService {
     @Override
     @Transactional(readOnly = true)
     public List<SessionExamen> findSessionByNE(NiveauEtude niveau) {
-        String currentAnneeScolaire = DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1);
-        ValueList currentAnnee = valueListRepos.findByValueAndValueTypeCode(currentAnneeScolaire,
-                ValueTypeCode.SCHOOL_YEAR);
+        ValueList currentAnnee = getCurrentScholarYear();
 
         if (currentAnnee != null && niveau != null) {
             return sessionExamenRepos.findByNiveauEtude(currentAnnee.getId(), niveau.getId(), SessionStatus.OPEN);
@@ -482,5 +474,19 @@ public class SessionServiceImpl implements SessionService {
             log.error(e.getMessage());
             return false;
         }
+    }
+
+    private ValueList getCurrentScholarYear() {
+        String currentScholarYear = DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1);
+        ValueList scholarYear = valueListRepos.findByValueAndValueTypeCode(currentScholarYear, ValueTypeCode.SCHOOL_YEAR);
+        if (scholarYear == null) {
+            scholarYear = new ValueList();
+            scholarYear.setLabel(currentScholarYear);
+            scholarYear.setValue(currentScholarYear);
+            scholarYear.setValueType(valueTypeRepos.findByCode(ValueTypeCode.BAC_YEAR));
+
+            valueListRepos.save(scholarYear);
+        }
+        return scholarYear;
     }
 }
