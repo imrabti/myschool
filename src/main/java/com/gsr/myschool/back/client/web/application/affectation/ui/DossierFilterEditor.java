@@ -14,10 +14,7 @@ import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.back.client.util.SuggestionListFactory;
-import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
-import com.gsr.myschool.common.client.proxy.FiliereProxy;
-import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
-import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
+import com.gsr.myschool.common.client.proxy.*;
 import com.gsr.myschool.common.client.resource.SharedResources;
 import com.gsr.myschool.common.client.ui.dossier.renderer.FiliereRenderer;
 import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
@@ -26,7 +23,9 @@ import com.gsr.myschool.common.client.util.CallbackImpl;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
+import com.gsr.myschool.common.client.widget.renderer.ValueListRendererFactory;
 import com.gsr.myschool.common.shared.type.DossierStatus;
+import com.gsr.myschool.common.shared.type.ValueTypeCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +53,8 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     CheckBox parentGsr;
     @UiField
     CheckBox gsrFraterie;
+    @UiField(provided = true)
+    ValueListBox<ValueListProxy> anneeScolaire;
 
     private final Driver driver;
     private final ValueList valueList;
@@ -62,7 +63,8 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     @Inject
     public DossierFilterEditor(final Binder uiBinder, final Driver driver,
                                final ValueList valueList, final SharedResources resources,
-                               final SuggestionListFactory suggestionList) {
+                               final SuggestionListFactory suggestionList,
+                               final ValueListRendererFactory valueListRendererFactory) {
         this.driver = driver;
         this.valueList = valueList;
         this.suggestionList = suggestionList;
@@ -71,6 +73,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         this.niveauEtude = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
         this.status = new ValueListBox<DossierStatus>(new EnumRenderer<DossierStatus>());
         this.session = new ValueListBox<SessionExamenProxy>(new SessionExamenRenderer());
+        this.anneeScolaire = new ValueListBox<ValueListProxy>(valueListRendererFactory.create("Année Scolaire"));
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
@@ -82,6 +85,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         filiere.setAcceptableValues(valueList.getFiliereList());
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
         session.setAcceptableValues(valueList.getSessionsList());
+        anneeScolaire.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR));
 
         filiere.addValueChangeHandler(new ValueChangeHandler<FiliereProxy>() {
             @Override
@@ -109,6 +113,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         status.setValue(object.getStatus());
         status.setAcceptableValues(DossierStatus.affectationValues());
         session.setAcceptableValues(valueList.getSessionsList());
+        anneeScolaire.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR));
     }
 
     @Override
