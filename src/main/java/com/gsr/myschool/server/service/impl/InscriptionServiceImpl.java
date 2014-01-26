@@ -61,6 +61,8 @@ public class InscriptionServiceImpl implements InscriptionService {
     private I18nMessageBean messageBean;
     @Autowired
     private SettingsRepos settingsRepos;
+    @Autowired
+    private ValueTypeRepos valueTypeRepos;
 
     @Override
     @Transactional(readOnly = true)
@@ -111,6 +113,8 @@ public class InscriptionServiceImpl implements InscriptionService {
         Settings status = settingsRepos.findOne(SettingsKey.STATUS);
         if (!GlobalParameters.APP_STATUS_OPENED.equals(status.getValue())) throw new InscriptionClosedException();
 
+        ValueList scholarYear = getCurrentScholarYear();
+
         Candidat candidat = new Candidat();
         candidatRepos.save(candidat);
 
@@ -118,7 +122,6 @@ public class InscriptionServiceImpl implements InscriptionService {
         scolariteActuelleRepos.save(scolariteActuelle);
 
         User user = securityContextProvider.getCurrentUser();
-        String currentAnneeScolaire = DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1);
 
         Dossier dossier = new Dossier();
         dossier.setGeneratedNumDossier("GSR_" + DateUtils.currentYear() + "_" + UUIDGenerator.generateUUID());
@@ -127,8 +130,7 @@ public class InscriptionServiceImpl implements InscriptionService {
         dossier.setCandidat(candidat);
         dossier.setScolariteActuelle(scolariteActuelle);
         dossier.setCreateDate(new Date());
-        dossier.setAnneeScolaire(valueListRepos.findByValueAndValueTypeCode(currentAnneeScolaire,
-                ValueTypeCode.SCHOOL_YEAR));
+        dossier.setAnneeScolaire(scholarYear);
         dossierRepos.save(dossier);
 
         InfoParent pere = new InfoParent();
@@ -474,5 +476,19 @@ public class InscriptionServiceImpl implements InscriptionService {
         } else {
             errors.add(messageBean.getMessage("requiredParentInfo"));
         }
+    }
+
+    private ValueList getCurrentScholarYear() {
+        String currentScholarYear = DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1);
+        ValueList scholarYear = valueListRepos.findByValueAndValueTypeCode(currentScholarYear, ValueTypeCode.SCHOOL_YEAR);
+        if (scholarYear == null) {
+            scholarYear = new ValueList();
+            scholarYear.setLabel(currentScholarYear);
+            scholarYear.setValue(currentScholarYear);
+            scholarYear.setValueType(valueTypeRepos.findByCode(ValueTypeCode.BAC_YEAR));
+
+            valueListRepos.save(scholarYear);
+        }
+        return scholarYear;
     }
 }
