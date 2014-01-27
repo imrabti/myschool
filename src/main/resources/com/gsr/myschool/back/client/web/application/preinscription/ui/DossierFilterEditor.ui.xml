@@ -18,9 +18,16 @@
         .inline {
             display: inline-block;
         }
+        .float-right {
+            float: right;
+        }
     </ui:style>
 
     <g:HTMLPanel>
+        <div>
+            <boot:ValueListBox ui:field="anneeScolaire" styleName="{style.float-right}"/>
+            <span style="clear:both;"/>
+        </div>
         <div>
             <g:Label text="N° Dossier" styleName="{style.label}"/>
             <boot:TextBox ui:field="numDossier" width="168px"/>
