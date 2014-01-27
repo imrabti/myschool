@@ -57,4 +57,8 @@ public interface DossierFilterDTOProxy extends ValueProxy {
     String getSessionIds();
 
     void setSessionIds(String sessionIds);
+
+    ValueListProxy getAnneeScolaire();
+
+    void setAnneeScolaire(ValueListProxy anneeScolaire);
 }

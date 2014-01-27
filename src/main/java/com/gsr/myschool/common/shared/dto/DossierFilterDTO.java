@@ -4,6 +4,7 @@ import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.core.Filiere;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.core.SessionExamen;
+import com.gsr.myschool.server.business.valuelist.ValueList;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class DossierFilterDTO implements Serializable {
     private List<DossierStatus> statusList;
     private SessionExamen session;
     private String sessionIds;
+    private ValueList anneeScolaire;
 
     public String getNumDossier() {
         return numDossier;
@@ -118,5 +120,13 @@ public class DossierFilterDTO implements Serializable {
 
     public void setSessionIds(String sessionIds) {
         this.sessionIds = sessionIds;
+    }
+
+    public ValueList getAnneeScolaire() {
+        return anneeScolaire;
+    }
+
+    public void setAnneeScolaire(ValueList anneeScolaire) {
+        this.anneeScolaire = anneeScolaire;
     }
 }
