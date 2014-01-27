@@ -131,6 +131,8 @@ public class ReceptionPresenter extends Presenter<ReceptionPresenter.MyView, Rec
                 currentContext.edit(dossierFilter.getFiliere()) : null);
         dossierFilter.setNiveauEtude(dossierFilter.getNiveauEtude() != null ?
                 currentContext.edit(dossierFilter.getNiveauEtude()) : null);
+        dossierFilter.setAnneeScolaire(dossierFilter.getAnneeScolaire() != null ?
+                currentContext.edit(dossierFilter.getAnneeScolaire()) : null);
 
         loadDossiersCounts();
     }
