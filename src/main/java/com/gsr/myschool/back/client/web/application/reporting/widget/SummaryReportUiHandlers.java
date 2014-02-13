@@ -5,5 +5,5 @@ import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface SummaryReportUiHandlers extends UiHandlers {
-    void generateReport(DossierStatus status, BilanType type);
+    void generateReport(DossierStatus status, BilanType type, String anneeScolaire);
 }

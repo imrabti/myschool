@@ -18,11 +18,7 @@ package com.gsr.myschool.server.reporting.excel;
 
 import com.google.common.base.Strings;
 import com.gsr.myschool.common.shared.constants.GlobalParameters;
-import com.gsr.myschool.common.shared.dto.DossierConvocationDTO;
-import com.gsr.myschool.common.shared.dto.DossierConvoqueExcelDTO;
-import com.gsr.myschool.common.shared.dto.DossierExcelDTO;
-import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
-import com.gsr.myschool.common.shared.dto.DossierMultiple;
+import com.gsr.myschool.common.shared.dto.*;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.server.business.Candidat;
 import com.gsr.myschool.server.business.Dossier;
@@ -31,19 +27,11 @@ import com.gsr.myschool.server.service.XlsExportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -114,9 +102,9 @@ public class ExcelController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/excel/multidossier", produces = "application/vnd.ms-excel")
-    public void generateMultiDossierExcel(@RequestParam String q, HttpServletResponse response) {
-        DossierStatus status = Strings.isNullOrEmpty(q) ? null :  DossierStatus.valueOf(q);
-        List<DossierMultiple> dossierMultiples = dossierService.findMultipleDossierByStatus(status);
+    public void generateMultiDossierExcel(@RequestParam String q, @RequestParam String annee, HttpServletResponse response) {
+        DossierStatus status = Strings.isNullOrEmpty(q) ? null : DossierStatus.valueOf(q);
+        List<DossierMultiple> dossierMultiples = dossierService.findMultipleDossierByStatus(status, annee);
 
         try {
             response.addHeader("Content-Disposition", "attachment; filename=multidossier_" + System.currentTimeMillis() + ".xls");
@@ -133,8 +121,8 @@ public class ExcelController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/dossierconvoques")
     @ResponseStatus(HttpStatus.OK)
-    public void generateDossierConvoquesExcel(@RequestBody DossierFilterDTO requestdata,  HttpServletRequest request,
-            HttpServletResponse response) {
+    public void generateDossierConvoquesExcel(@RequestBody DossierFilterDTO requestdata, HttpServletRequest request,
+                                              HttpServletResponse response) {
         List<DossierConvocationDTO> dossiers = dossierService.findAllDossiersBySessionAndCriteria(requestdata, null,
                 null).getDossierConvocationDTOs();
         List<DossierConvoqueExcelDTO> resultDossiers = mapDossierForConvocation(dossiers);

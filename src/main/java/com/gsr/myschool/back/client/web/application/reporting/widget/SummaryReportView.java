@@ -7,9 +7,13 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import com.gsr.myschool.common.client.proxy.ValueListProxy;
+import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
+import com.gsr.myschool.common.client.widget.renderer.ValueListRendererFactory;
 import com.gsr.myschool.common.shared.type.BilanType;
 import com.gsr.myschool.common.shared.type.DossierStatus;
+import com.gsr.myschool.common.shared.type.ValueTypeCode;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import java.util.Arrays;
@@ -23,9 +27,12 @@ public class SummaryReportView extends ViewWithUiHandlers<SummaryReportUiHandler
     ValueListBox<DossierStatus> statusList;
     @UiField(provided = true)
     ValueListBox<BilanType> reportTypeList;
+    @UiField(provided = true)
+    ValueListBox<ValueListProxy> anneeScolaire;
 
     @Inject
-    public SummaryReportView(final Binder uiBinder) {
+    public SummaryReportView(final Binder uiBinder,
+                             final ValueListRendererFactory valueListRendererFactory, final ValueList valueList) {
         statusList = new ValueListBox<DossierStatus>(new EnumRenderer<DossierStatus>());
         statusList.setAcceptableValues(Arrays.asList(DossierStatus.values()));
 
@@ -34,11 +41,16 @@ public class SummaryReportView extends ViewWithUiHandlers<SummaryReportUiHandler
         reportTypeList.setAcceptableValues(Arrays.asList(BilanType.values()));
         reportTypeList.setValue(BilanType.CYCLE);
 
+        anneeScolaire = new ValueListBox<ValueListProxy>(valueListRendererFactory.create("Année Scolaire"));
+
         initWidget(uiBinder.createAndBindUi(this));
+
+        anneeScolaire.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR));
     }
 
     @UiHandler("generate")
     void onGenerateClicked(ClickEvent event) {
-        getUiHandlers().generateReport(statusList.getValue(), reportTypeList.getValue());
+        getUiHandlers().generateReport(statusList.getValue(), reportTypeList.getValue(),
+                anneeScolaire.getValue() != null ? anneeScolaire.getValue().getValue() : null);
     }
 }

@@ -357,11 +357,15 @@ public class DossierServiceImpl implements DossierService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<DossierMultiple> findMultipleDossierByStatus(DossierStatus status) {
+    public List<DossierMultiple> findMultipleDossierByStatus(DossierStatus status, String anneeScolaire) {
         List<DossierMultiple> dossierMultiples = new ArrayList<DossierMultiple>();
         List<User> listUsers = userRepos.findAll();
 
-        ValueList scholarYear = getCurrentScholarYear();
+        ValueList scholarYear = valueListRepos.findByValueAndValueTypeCode(anneeScolaire, ValueTypeCode.SCHOOL_YEAR);
+        if (scholarYear == null) {
+            scholarYear = getCurrentScholarYear();
+        }
+
         for (User user : listUsers) {
             Integer dossierCount;
             if (status == null) {

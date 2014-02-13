@@ -111,6 +111,18 @@ public class ValueListImpl implements ValueList {
     }
 
     @Override
+    public List<SessionExamenProxy> getClosedSessionsList(ValueListProxy anneeScolaire) {
+        requestFactory.sessionService().findAllSessionsWithStatusAndAnneeScolaire(SessionStatus.CLOSED, anneeScolaire)
+                .fire(new ReceiverImpl<List<SessionExamenProxy>>() {
+            @Override
+            public void onSuccess(List<SessionExamenProxy> sessionExamenProxies) {
+                listSessions = sessionExamenProxies;
+            }
+        });
+        return listSessions;
+    }
+
+    @Override
     public List<ValueListProxy> getValueListByCode(ValueTypeCode valueTypeCode) {
         return getValueListByCode(valueTypeCode, true);
     }

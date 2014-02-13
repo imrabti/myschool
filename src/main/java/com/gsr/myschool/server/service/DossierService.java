@@ -44,5 +44,5 @@ public interface DossierService {
 
     PagedDossiers findAllDossiersBySessionAndCriteria(DossierFilterDTO filter, Integer pageNumber, Integer length);
 
-    List<DossierMultiple> findMultipleDossierByStatus(DossierStatus status);
+    List<DossierMultiple> findMultipleDossierByStatus(DossierStatus status, String anneeScolaire);
 }

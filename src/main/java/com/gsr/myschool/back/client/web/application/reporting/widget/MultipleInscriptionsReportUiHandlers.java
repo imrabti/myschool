@@ -4,7 +4,7 @@ import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface MultipleInscriptionsReportUiHandlers extends UiHandlers {
-    void search(DossierStatus status);
+    void search(DossierStatus status, String anneeScolaire);
 
-    void export(DossierStatus status);
+    void export(DossierStatus status, String anneeScolaire);
 }

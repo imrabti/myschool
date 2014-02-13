@@ -3,11 +3,7 @@ package com.gsr.myschool.back.client.request;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
-import com.gsr.myschool.common.client.proxy.DossierProxy;
-import com.gsr.myschool.common.client.proxy.DossierSessionProxy;
-import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
-import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
-import com.gsr.myschool.common.client.proxy.SessionNiveauEtudeProxy;
+import com.gsr.myschool.common.client.proxy.*;
 import com.gsr.myschool.common.shared.type.SessionStatus;
 import com.gsr.myschool.server.service.impl.SessionServiceImpl;
 import com.gsr.myschool.server.util.SpringServiceLocator;
@@ -42,7 +38,10 @@ public interface SessionRequest extends RequestContext {
 
     Request<List<SessionExamenProxy>> findAllSessionsWithStatus(SessionStatus sessionStatus);
 
-    Request<List<SessionExamenProxy>> findAllSessions(List<Integer> sessionIdList );
+    Request<List<SessionExamenProxy>> findAllSessionsWithStatusAndAnneeScolaire(SessionStatus sessionStatus,
+                                                                                ValueListProxy anneeScolaire);
+
+    Request<List<SessionExamenProxy>> findAllSessions(List<Integer> sessionIdList);
 
     Request<Boolean> affecter(DossierProxy dossier, SessionExamenProxy session);
 

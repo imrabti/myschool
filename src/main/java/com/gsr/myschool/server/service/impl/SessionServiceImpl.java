@@ -385,6 +385,15 @@ public class SessionServiceImpl implements SessionService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<SessionExamen> findAllSessionsWithStatusAndAnneeScolaire(SessionStatus sessionStatus, ValueList anneeScolaire) {
+        if (anneeScolaire == null) {
+            anneeScolaire = getCurrentScholarYear();
+        }
+        return sessionExamenRepos.findByAnneeScolaireIdAndStatusOrderByNomAsc(anneeScolaire.getId(), sessionStatus);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<SessionExamen> findSessionByNE(NiveauEtude niveau) {
         ValueList currentAnnee = getCurrentScholarYear();
 

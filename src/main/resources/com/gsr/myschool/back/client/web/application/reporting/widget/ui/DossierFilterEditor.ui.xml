@@ -21,8 +21,11 @@
 
     <g:HTMLPanel>
         <div style="float: right;">
+            <boot:ValueListBox ui:field="anneeScolaire"/>
+
             <g:Label text="Sessions"/>
             <g:ListBox ui:field="session" width="300px" height="150px"/>
+            <span style="clear:both;"/>
         </div>
 
         <div style="float: left;">

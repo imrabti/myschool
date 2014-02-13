@@ -102,7 +102,7 @@ public class JasperTest {
 
     @Test
     public void printBilan() {
-        List<BilanDTO> dossiers = dossierRepos.findBilanDossier(DossierStatus.INVITED_TO_TEST);
+//        List<BilanDTO> dossiers = dossierRepos.findBilanDossier(DossierStatus.INVITED_TO_TEST);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
         ReportDTO dto = new ReportDTO("bilan");
@@ -115,19 +115,19 @@ public class JasperTest {
 
         List<Map> myList1 = new ArrayList<Map>(), myList2 = new ArrayList<Map>(), myList3 = new ArrayList<Map>();
 
-        for (BilanDTO bilan : dossiers) {
-            if (bilan.getFiliere().longValue() == GlobalParameters.SECTION_FRANCAISE) {
-                myList1.add(bilan.getReportsAttributes());
-                total1 += bilan.getTotal();
-            } else if (bilan.getFiliere().longValue() == GlobalParameters.SECTION_BILINGUE) {
-                myList2.add(bilan.getReportsAttributes());
-                total2 += bilan.getTotal();
-            } else if (bilan.getFiliere() >= GlobalParameters.PREPA_FILIERE_FROM) {
-                bilan.setNiveau(bilan.getNiveau().substring(0, bilan.getNiveau().indexOf("(")));
-                myList3.add(bilan.getReportsAttributes());
-                total3 += bilan.getTotal();
-            }
-        }
+//        for (BilanDTO bilan : dossiers) {
+//            if (bilan.getFiliere().longValue() == GlobalParameters.SECTION_FRANCAISE) {
+//                myList1.add(bilan.getReportsAttributes());
+//                total1 += bilan.getTotal();
+//            } else if (bilan.getFiliere().longValue() == GlobalParameters.SECTION_BILINGUE) {
+//                myList2.add(bilan.getReportsAttributes());
+//                total2 += bilan.getTotal();
+//            } else if (bilan.getFiliere() >= GlobalParameters.PREPA_FILIERE_FROM) {
+//                bilan.setNiveau(bilan.getNiveau().substring(0, bilan.getNiveau().indexOf("(")));
+//                myList3.add(bilan.getReportsAttributes());
+//                total3 += bilan.getTotal();
+//            }
+//        }
         myMap.put("francais", myList1);
         myMap.put("bilingues", myList2);
         myMap.put("prepas", myList3);
@@ -149,38 +149,38 @@ public class JasperTest {
         }
     }
 
-    @Test
-    public void printBilanCycle() {
-        List<BilanDTO> dossiers = dossierRepos.findBilanCycle(DossierStatus.INVITED_TO_TEST);
-        SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
-        ReportDTO dto = new ReportDTO("bilan_cycle");
-
-        Map<String, Object> myMap = new HashMap<String, Object>();
-
-        myMap.put("status", DossierStatus.ACCEPTED_FOR_TEST.toString());
-        myMap.put("date", dateFormat.format(new Date()));
-        Long total1 = 0L;
-
-        List<Map> myList1 = new ArrayList<Map>();
-
-        for (BilanDTO bilan : dossiers) {
-            myList1.add(bilan.getReportsAttributes());
-            total1 += bilan.getTotal();
-        }
-        myMap.put("cycles", myList1);
-
-        myMap.put("cyclesTotal", total1.toString());
-
-        dto.setReportParameters(myMap);
-        dto.setFileName("convocation_.pdf");
-
-        try {
-            FileOutputStream out = new FileOutputStream("filename.pdf");
-            byte[] bytes = reportService.generatePdf(dto);
-            out.write(bytes);
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    public void printBilanCycle() {
+//        List<BilanDTO> dossiers = dossierRepos.findBilanCycle(DossierStatus.INVITED_TO_TEST);
+//        SimpleDateFormat dateFormat = new SimpleDateFormat(GlobalParameters.DATE_FORMAT);
+//        ReportDTO dto = new ReportDTO("bilan_cycle");
+//
+//        Map<String, Object> myMap = new HashMap<String, Object>();
+//
+//        myMap.put("status", DossierStatus.ACCEPTED_FOR_TEST.toString());
+//        myMap.put("date", dateFormat.format(new Date()));
+//        Long total1 = 0L;
+//
+//        List<Map> myList1 = new ArrayList<Map>();
+//
+//        for (BilanDTO bilan : dossiers) {
+//            myList1.add(bilan.getReportsAttributes());
+//            total1 += bilan.getTotal();
+//        }
+//        myMap.put("cycles", myList1);
+//
+//        myMap.put("cyclesTotal", total1.toString());
+//
+//        dto.setReportParameters(myMap);
+//        dto.setFileName("convocation_.pdf");
+//
+//        try {
+//            FileOutputStream out = new FileOutputStream("filename.pdf");
+//            byte[] bytes = reportService.generatePdf(dto);
+//            out.write(bytes);
+//            out.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

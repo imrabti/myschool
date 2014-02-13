@@ -8,6 +8,7 @@ import com.gsr.myschool.server.business.DossierSession;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.core.SessionExamen;
 import com.gsr.myschool.server.business.core.SessionNiveauEtude;
+import com.gsr.myschool.server.business.valuelist.ValueList;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -50,4 +51,7 @@ public interface SessionService {
     List<SessionExamen> findAllSessions(List<Integer> sessionIdList);
 
     void sendEmailConvocation(DossierSession session, String link);
+
+    @Transactional(readOnly = true)
+    List<SessionExamen> findAllSessionsWithStatusAndAnneeScolaire(SessionStatus sessionStatus, ValueList anneeScolaire);
 }
