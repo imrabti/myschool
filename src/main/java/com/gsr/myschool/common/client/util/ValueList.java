@@ -34,5 +34,7 @@ public interface ValueList {
 
     List<SessionExamenProxy> getClosedSessionsList();
 
+    List<SessionExamenProxy> getClosedSessionsList(ValueListProxy anneeScolaire);
+
     void initNiveauEtudeMap(Boolean isSuperUser);
 }

@@ -132,6 +132,8 @@ public class AffectationPresenter extends Presenter<AffectationPresenter.MyView,
                 currentContext.edit(dossierFilter.getNiveauEtude()) : null);
         dossierFilter.setSession(dossierFilter.getSession() != null ?
                 currentContext.edit(dossierFilter.getSession()) : null);
+        dossierFilter.setAnneeScolaire(dossierFilter.getAnneeScolaire() != null ?
+                currentContext.edit(dossierFilter.getAnneeScolaire()) : null);
 
         loadDossiersCounts();
     }

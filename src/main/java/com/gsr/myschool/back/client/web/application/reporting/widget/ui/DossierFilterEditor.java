@@ -10,15 +10,14 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
-import com.gsr.myschool.common.client.proxy.FiliereProxy;
-import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
-import com.gsr.myschool.common.client.proxy.SessionExamenProxy;
+import com.gsr.myschool.common.client.proxy.*;
 import com.gsr.myschool.common.client.ui.dossier.renderer.BooleanListRenderer;
 import com.gsr.myschool.common.client.ui.dossier.renderer.FiliereRenderer;
 import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
+import com.gsr.myschool.common.client.widget.renderer.ValueListRendererFactory;
+import com.gsr.myschool.common.shared.type.ValueTypeCode;
 
 import java.util.ArrayList;
 
@@ -39,12 +38,15 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     ValueListBox<Boolean> parentGsr;
     @UiField(provided = true)
     ValueListBox<Boolean> gsrFraterie;
+    @UiField(provided = true)
+    ValueListBox<ValueListProxy> anneeScolaire;
 
     private final Driver driver;
     private final ValueList valueList;
 
     @Inject
-    public DossierFilterEditor(final Binder uiBinder, final Driver driver, final ValueList valueList) {
+    public DossierFilterEditor(final Binder uiBinder, final Driver driver, final ValueList valueList,
+                               final ValueListRendererFactory valueListRendererFactory) {
         this.driver = driver;
         this.valueList = valueList;
 
@@ -52,6 +54,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         this.niveauEtude = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
         this.gsrFraterie = new ValueListBox<Boolean>(new BooleanListRenderer());
         this.parentGsr = new ValueListBox<Boolean>(new BooleanListRenderer());
+        this.anneeScolaire = new ValueListBox<ValueListProxy>(valueListRendererFactory.create("Année Scolaire"));
         this.session = new ListBox(true);
 
         initWidget(uiBinder.createAndBindUi(this));
@@ -73,6 +76,16 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
                 }
             }
         });
+
+        anneeScolaire.addValueChangeHandler(new ValueChangeHandler<ValueListProxy>() {
+            @Override
+            public void onValueChange(ValueChangeEvent<ValueListProxy> valueListProxyValueChangeEvent) {
+                session.clear();
+                for (SessionExamenProxy item : valueList.getClosedSessionsList(valueListProxyValueChangeEvent.getValue())) {
+                    session.addItem(item.getNom(), item.getId().toString());
+                }
+            }
+        });
     }
 
     @Override
@@ -84,6 +97,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         driver.edit(object);
         filiere.setAcceptableValues(valueList.getFiliereList());
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
+        anneeScolaire.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR));
     }
 
     @Override

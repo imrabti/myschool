@@ -19,6 +19,7 @@ package com.gsr.myschool.server.repos;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.dto.BilanDTO;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.business.valuelist.ValueList;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -33,20 +34,20 @@ public interface DossierRepos extends JpaRepository<Dossier, Long>, JpaSpecifica
     List<Dossier> findByOwnerIdOrderByIdDesc(Long userId);
 
     @Query("select new com.gsr.myschool.common.shared.dto.BilanDTO(d.niveauEtude.nom, d.niveauEtude.filiere.id, count(d)) " +
-            "FROM Dossier d WHERE d.status = :status group by d.niveauEtude ")
-    List<BilanDTO> findBilanDossier(@Param("status") DossierStatus status);
+            "FROM Dossier d WHERE d.status = :status AND d.anneeScolaire = :anneeScolaire group by d.niveauEtude ")
+    List<BilanDTO> findBilanDossier(@Param("status") DossierStatus status, @Param("anneeScolaire") ValueList anneeScolaire);
 
     @Query("select new com.gsr.myschool.common.shared.dto.BilanDTO(d.niveauEtude.type, d.niveauEtude.filiere.id, count(d)) " +
-            "FROM Dossier d WHERE d.status = :status group by d.niveauEtude.type ")
-    List<BilanDTO> findBilanCycle(@Param("status") DossierStatus status);
+            "FROM Dossier d WHERE d.status = :status AND d.anneeScolaire = :anneeScolaire group by d.niveauEtude.type ")
+    List<BilanDTO> findBilanCycle(@Param("status") DossierStatus status, @Param("anneeScolaire") ValueList anneeScolaire);
 
     @Query("select new com.gsr.myschool.common.shared.dto.BilanDTO(d.niveauEtude.nom, d.niveauEtude.filiere.id, count(d)) " +
-            "FROM Dossier d group by d.niveauEtude ")
-    List<BilanDTO> findBilanDossier();
+            "FROM Dossier d WHERE d.anneeScolaire = :anneeScolaire group by d.niveauEtude ")
+    List<BilanDTO> findBilanDossier(@Param("anneeScolaire") ValueList anneeScolaire);
 
     @Query("select new com.gsr.myschool.common.shared.dto.BilanDTO(d.niveauEtude.type, d.niveauEtude.filiere.id, count(d)) " +
-            "FROM Dossier d group by d.niveauEtude.type ")
-    List<BilanDTO> findBilanCycle();
+            "FROM Dossier d WHERE d.anneeScolaire = :anneeScolaire group by d.niveauEtude.type ")
+    List<BilanDTO> findBilanCycle(@Param("anneeScolaire") ValueList anneeScolaire);
 
     List<Dossier> findByOwnerIdAndAnneeScolaireId(Long userId, Long anneeScolaireId);
 

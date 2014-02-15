@@ -15,6 +15,9 @@
         <boot:Well>
             <boot:Form type="INLINE">
                 <boot:ControlGroup>
+                    <boot:ValueListBox ui:field="anneeScolaire"/>
+                </boot:ControlGroup>
+                <boot:ControlGroup>
                     <boot:ControlLabel>
                         <g:Label addStyleNames="{style.label}" text="Statut des dossiers"/>
                     </boot:ControlLabel>
@@ -25,6 +28,12 @@
                         <g:Label addStyleNames="{style.label}" text="Type du rapport"/>
                     </boot:ControlLabel>
                     <boot:ValueListBox ui:field="reportTypeList"/>
+                </boot:ControlGroup>
+                <boot:ControlGroup>
+                    <boot:ControlLabel>
+                        <g:Label addStyleNames="{style.label}" text="Historique"/>
+                    </boot:ControlLabel>
+                    <g:CheckBox ui:field="historic"/>
                 </boot:ControlGroup>
             </boot:Form>
 

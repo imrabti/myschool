@@ -123,6 +123,8 @@ public class PreInscriptionPresenter extends Presenter<PreInscriptionPresenter.M
                 currentContext.edit(dossierFilter.getFiliere()) : null);
         dossierFilter.setNiveauEtude(dossierFilter.getNiveauEtude() != null ?
                 currentContext.edit(dossierFilter.getNiveauEtude()) : null);
+        dossierFilter.setAnneeScolaire(dossierFilter.getAnneeScolaire() != null ?
+                currentContext.edit(dossierFilter.getAnneeScolaire()) : null);
 
         loadDossiersCounts();
     }

@@ -17,14 +17,11 @@
 package com.gsr.myschool.server.service.impl;
 
 import com.google.common.base.Strings;
-import com.gsr.myschool.common.shared.dto.DossierConvocationDTO;
-import com.gsr.myschool.common.shared.dto.DossierFilterDTO;
-import com.gsr.myschool.common.shared.dto.DossierMultiple;
-import com.gsr.myschool.common.shared.dto.PagedDossiers;
-import com.gsr.myschool.common.shared.dto.PiecejustifDTO;
+import com.gsr.myschool.common.shared.dto.*;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.business.DossierHistoric;
 import com.gsr.myschool.server.business.InfoParent;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.business.core.PieceJustif;
@@ -32,14 +29,7 @@ import com.gsr.myschool.server.business.core.SessionExamen;
 import com.gsr.myschool.server.business.valuelist.ValueList;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.process.impl.ValidationProcessServiceImpl.ValidationTask;
-import com.gsr.myschool.server.repos.DossierRepos;
-import com.gsr.myschool.server.repos.DossierSessionRepos;
-import com.gsr.myschool.server.repos.FraterieRepos;
-import com.gsr.myschool.server.repos.InfoParentRepos;
-import com.gsr.myschool.server.repos.PieceJustifRepos;
-import com.gsr.myschool.server.repos.SessionExamenRepos;
-import com.gsr.myschool.server.repos.UserRepos;
-import com.gsr.myschool.server.repos.ValueListRepos;
+import com.gsr.myschool.server.repos.*;
 import com.gsr.myschool.server.repos.spec.DossierSpec;
 import com.gsr.myschool.server.service.DossierService;
 import com.gsr.myschool.server.util.DateUtils;
@@ -52,10 +42,7 @@ import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class DossierServiceImpl implements DossierService {
@@ -77,6 +64,10 @@ public class DossierServiceImpl implements DossierService {
     private SessionExamenRepos sessionExamenRepos;
     @Autowired
     private ValidationProcessService validationProcessService;
+    @Autowired
+    private ValueTypeRepos valueTypeRepos;
+    @Autowired
+    private DossierHistoricRepo dossierHistoricRepo;
 
     @Override
     public Boolean receive(Dossier dossier) {
@@ -97,6 +88,12 @@ public class DossierServiceImpl implements DossierService {
         } else {
             validationProcessService.receiveDossier(task, receivedDossier);
         }
+
+        DossierHistoric dossierHistoric = new DossierHistoric();
+        dossierHistoric.setStatus(dossier.getStatus());
+        dossierHistoric.setCreateDate(new Date());
+        dossierHistoric.setDossier(dossier);
+        dossierHistoricRepo.save(dossierHistoric);
 
         receivedDossier.setStatus(DossierStatus.RECEIVED);
         dossierRepos.save(receivedDossier);
@@ -133,6 +130,12 @@ public class DossierServiceImpl implements DossierService {
             // piece all existing
             validationProcessService.acceptDossier(task, verifiedDossier);
 
+            DossierHistoric dossierHistoric = new DossierHistoric();
+            dossierHistoric.setStatus(verifiedDossier.getStatus());
+            dossierHistoric.setCreateDate(new Date());
+            dossierHistoric.setDossier(verifiedDossier);
+            dossierHistoricRepo.save(dossierHistoric);
+
             verifiedDossier.setStatus(DossierStatus.ACCEPTED_FOR_STUDY);
             dossierRepos.save(verifiedDossier);
         } else {
@@ -154,6 +157,12 @@ public class DossierServiceImpl implements DossierService {
             // there is at least one piece not available
             validationProcessService.rejectDossier(task, verifiedDossier, piecejustifDTOs);
 
+            DossierHistoric dossierHistoric = new DossierHistoric();
+            dossierHistoric.setStatus(verifiedDossier.getStatus());
+            dossierHistoric.setCreateDate(new Date());
+            dossierHistoric.setDossier(verifiedDossier);
+            dossierHistoricRepo.save(dossierHistoric);
+
             verifiedDossier.setStatus(DossierStatus.STANDBY);
             dossierRepos.save(verifiedDossier);
         }
@@ -166,6 +175,12 @@ public class DossierServiceImpl implements DossierService {
         if (task == null) return false;
 
         Dossier analyzedDossier = dossierRepos.findOne(dossierId);
+
+        DossierHistoric dossierHistoric = new DossierHistoric();
+        dossierHistoric.setStatus(analyzedDossier.getStatus());
+        dossierHistoric.setCreateDate(new Date());
+        dossierHistoric.setDossier(analyzedDossier);
+        dossierHistoricRepo.save(dossierHistoric);
 
         analyzedDossier.setStatus(DossierStatus.NOT_ACCEPTED_FOR_TEST);
         analyzedDossier.setMotifRefus(motif);
@@ -181,6 +196,13 @@ public class DossierServiceImpl implements DossierService {
 
         Task task = validationProcessService.getDossierToAdmission(dossier.getId());
         if (task == null) return false;
+
+
+        DossierHistoric dossierHistoric = new DossierHistoric();
+        dossierHistoric.setStatus(dossier.getStatus());
+        dossierHistoric.setCreateDate(new Date());
+        dossierHistoric.setDossier(dossier);
+        dossierHistoricRepo.save(dossierHistoric);
 
         affectedDossier.setStatus(status);
         affectedDossier.setMotifRefus(comment);
@@ -203,12 +225,24 @@ public class DossierServiceImpl implements DossierService {
             Task task = validationProcessService.getDossierToReAccept(dossier.getId());
             if (task == null) return false;
 
+            DossierHistoric dossierHistoric = new DossierHistoric();
+            dossierHistoric.setStatus(dossier.getStatus());
+            dossierHistoric.setCreateDate(new Date());
+            dossierHistoric.setDossier(dossier);
+            dossierHistoricRepo.save(dossierHistoric);
+
             analyzedDossier.setStatus(DossierStatus.ACCEPTED_FOR_TEST);
 
             validationProcessService.acceptAnalysedDossier(task, dossier);
         } else {
             Task task = validationProcessService.getDossierToAnalyse(dossier.getId());
             if (task == null) return false;
+
+            DossierHistoric dossierHistoric = new DossierHistoric();
+            dossierHistoric.setStatus(dossier.getStatus());
+            dossierHistoric.setCreateDate(new Date());
+            dossierHistoric.setDossier(dossier);
+            dossierHistoricRepo.save(dossierHistoric);
 
             analyzedDossier.setStatus(DossierStatus.ACCEPTED_FOR_TEST);
 
@@ -224,6 +258,12 @@ public class DossierServiceImpl implements DossierService {
     @Transactional(readOnly = true)
     public PagedDossiers findAllDossiersByCriteria(DossierFilterDTO filter, Integer pageNumber, Integer length) {
         Specifications<Dossier> spec = Specifications.where(DossierSpec.numDossierLike(filter.getNumDossier()));
+
+        if (filter.getAnneeScolaire() != null) {
+            spec = spec.and(DossierSpec.anneeScolaireEqual(filter.getAnneeScolaire()));
+        } else {
+            spec = spec.and(DossierSpec.anneeScolaireEqual(getCurrentScholarYear()));
+        }
 
         if (filter.getStatus() != null) {
             spec = spec.and(DossierSpec.dossierStatusIs(filter.getStatus()));
@@ -283,6 +323,12 @@ public class DossierServiceImpl implements DossierService {
     public PagedDossiers findAllDossiersBySessionAndCriteria(DossierFilterDTO filter, Integer pageNumber, Integer length) {
         Specifications<Dossier> spec = Specifications.where(DossierSpec.numDossierLike(filter.getNumDossier()));
 
+        if (filter.getAnneeScolaire() != null) {
+            spec = spec.and(DossierSpec.anneeScolaireEqual(filter.getAnneeScolaire()));
+        } else {
+            spec = spec.and(DossierSpec.anneeScolaireEqual(getCurrentScholarYear()));
+        }
+
         if (filter.getStatus() != null) {
             spec = spec.and(DossierSpec.dossierStatusIs(filter.getStatus()));
         }
@@ -336,8 +382,8 @@ public class DossierServiceImpl implements DossierService {
     }
 
     private List<DossierConvocationDTO> setConvocationAttrs(List<DossierConvocationDTO> dossierConvocationDTOs,
-            List<Dossier> dossiers) {
-        for (Object dossier: dossiers) {
+                                                            List<Dossier> dossiers) {
+        for (Object dossier : dossiers) {
             Dossier dossierConv = (Dossier) dossier;
             DossierConvocationDTO dossierConvocationDTO = new DossierConvocationDTO();
             dossierConvocationDTO.setDossierSession(dossierSessionRepos.findByDossierId(dossierConv.getId()));
@@ -354,34 +400,48 @@ public class DossierServiceImpl implements DossierService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<DossierMultiple> findMultipleDossierByStatus(DossierStatus status) {
+    public List<DossierMultiple> findMultipleDossierByStatus(DossierStatus status, String anneeScolaire) {
         List<DossierMultiple> dossierMultiples = new ArrayList<DossierMultiple>();
         List<User> listUsers = userRepos.findAll();
-        String currentAnneeScolaire = DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1);
-        ValueList anneeScolaire = valueListRepos.findByValueAndValueTypeCode(currentAnneeScolaire,
-                ValueTypeCode.SCHOOL_YEAR);
 
-        if (anneeScolaire != null) {
-            for (User user : listUsers) {
-                Integer dossierCount;
-                if (status == null) {
-                    dossierCount = dossierRepos.findByOwnerIdAndAnneeScolaireId(user.getId(),
-                            anneeScolaire.getId()).size();
-                } else {
-                    dossierCount = dossierRepos.findByOwnerIdAndAnneeScolaireIdAndStatus(user.getId(),
-                            anneeScolaire.getId(), status).size();
-                }
+        ValueList scholarYear = valueListRepos.findByValueAndValueTypeCode(anneeScolaire, ValueTypeCode.SCHOOL_YEAR);
+        if (scholarYear == null) {
+            scholarYear = getCurrentScholarYear();
+        }
 
-                if (dossierCount > 1) {
-                    List<Dossier> dossiers = dossierRepos.findByOwnerIdOrderByIdDesc(user.getId());
-                    for (Dossier item : dossiers) {
-                        List<InfoParent> parents = infoParentRepos.findByDossierId(item.getId());
-                        dossierMultiples.add(new DossierMultiple(user, item, parents));
-                    }
+        for (User user : listUsers) {
+            Integer dossierCount;
+            if (status == null) {
+                dossierCount = dossierRepos.findByOwnerIdAndAnneeScolaireId(user.getId(),
+                        scholarYear.getId()).size();
+            } else {
+                dossierCount = dossierRepos.findByOwnerIdAndAnneeScolaireIdAndStatus(user.getId(),
+                        scholarYear.getId(), status).size();
+            }
+
+            if (dossierCount > 1) {
+                List<Dossier> dossiers = dossierRepos.findByOwnerIdOrderByIdDesc(user.getId());
+                for (Dossier item : dossiers) {
+                    List<InfoParent> parents = infoParentRepos.findByDossierId(item.getId());
+                    dossierMultiples.add(new DossierMultiple(user, item, parents));
                 }
             }
         }
 
         return dossierMultiples;
+    }
+
+    private ValueList getCurrentScholarYear() {
+        String currentScholarYear = DateUtils.currentYear() + "-" + (DateUtils.currentYear() + 1);
+        ValueList scholarYear = valueListRepos.findByValueAndValueTypeCode(currentScholarYear, ValueTypeCode.SCHOOL_YEAR);
+        if (scholarYear == null) {
+            scholarYear = new ValueList();
+            scholarYear.setLabel(currentScholarYear);
+            scholarYear.setValue(currentScholarYear);
+            scholarYear.setValueType(valueTypeRepos.findByCode(ValueTypeCode.SCHOOL_YEAR));
+
+            valueListRepos.save(scholarYear);
+        }
+        return scholarYear;
     }
 }

@@ -16,7 +16,7 @@ import com.gsr.myschool.back.client.web.application.reporting.widget.MultipleIns
 import java.util.List;
 
 public class MultipleInscriptionsReportPresenter extends PresenterWidget<MyView>
-        implements MultipleInscriptionsReportUiHandlers  {
+        implements MultipleInscriptionsReportUiHandlers {
     public interface MyView extends View, HasUiHandlers<MultipleInscriptionsReportUiHandlers> {
         void setData(List<DossierMultipleProxy> data);
     }
@@ -34,29 +34,29 @@ public class MultipleInscriptionsReportPresenter extends PresenterWidget<MyView>
     }
 
     @Override
-    public void search(DossierStatus status) {
-        requestFactory.dossierService().findMultipleDossierByStatus(status).fire(
+    public void search(DossierStatus status, String anneeScolaire) {
+        requestFactory.dossierService().findMultipleDossierByStatus(status, anneeScolaire).fire(
                 new ReceiverImpl<List<DossierMultipleProxy>>() {
-            @Override
-            public void onSuccess(List<DossierMultipleProxy> response) {
-                getView().setData(response);
-            }
-        });
+                    @Override
+                    public void onSuccess(List<DossierMultipleProxy> response) {
+                        getView().setData(response);
+                    }
+                });
     }
 
     @Override
-    public void export(DossierStatus status) {
+    public void export(DossierStatus status, String anneeScolaire) {
         if (GWT.isScript()) {
             if (status != null) {
-                Window.open("/preinscription/resource/excel/multidossier?q=" + status.name(), "_blank", "");
+                Window.open("/preinscription/resource/excel/multidossier?q=" + status.name() + "&annee=" + anneeScolaire, "_blank", "");
             } else {
-                Window.open("/preinscription/resource/excel/multidossier?q=", "_blank", "");
+                Window.open("/preinscription/resource/excel/multidossier?q=&annee=" + anneeScolaire, "_blank", "");
             }
         } else {
             if (status != null) {
-                Window.open("/resource/excel/multidossier?q=" + status.name(), "_blank", "");
+                Window.open("/resource/excel/multidossier?q=" + status.name() + "&annee=" + anneeScolaire, "_blank", "");
             } else {
-                Window.open("/resource/excel/multidossier?q=", "_blank", "");
+                Window.open("/resource/excel/multidossier?q=&annee=" + anneeScolaire, "_blank", "");
             }
         }
     }

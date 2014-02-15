@@ -23,8 +23,10 @@ import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.EmailType;
 import com.gsr.myschool.common.shared.type.InboxMessageStatus;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.business.DossierHistoric;
 import com.gsr.myschool.server.business.InboxMessage;
 import com.gsr.myschool.server.process.ValidationProcessService;
+import com.gsr.myschool.server.repos.DossierHistoricRepo;
 import com.gsr.myschool.server.repos.DossierRepos;
 import com.gsr.myschool.server.repos.InboxMessageRepos;
 import com.gsr.myschool.server.service.EmailPreparatorService;
@@ -64,6 +66,8 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
     @Autowired
     private DossierRepos dossierRepos;
     @Autowired
+    private DossierHistoricRepo dossierHistoricRepo;
+    @Autowired
     private EmailPreparatorService emailService;
     @Autowired
     private InboxMessageRepos inboxMessageRepos;
@@ -72,6 +76,12 @@ public class ValidationProcessServiceImpl implements ValidationProcessService {
 
     @Override
     public void startProcess(Dossier dossier) {
+        DossierHistoric dossierHistoric = new DossierHistoric();
+        dossierHistoric.setStatus(dossier.getStatus());
+        dossierHistoric.setCreateDate(new Date());
+        dossierHistoric.setDossier(dossier);
+        dossierHistoricRepo.save(dossierHistoric);
+
         // treatment on Dossier
         dossier.setSubmitDate(new Date());
         dossier.setStatus(DossierStatus.SUBMITTED);

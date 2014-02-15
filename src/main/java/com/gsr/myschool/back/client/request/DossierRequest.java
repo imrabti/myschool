@@ -50,5 +50,5 @@ public interface DossierRequest extends RequestContext {
 
     Request<Boolean> closeDossier(DossierProxy dossier, DossierStatus closedStatus, String comment, Boolean isFirst);
 
-    Request<List<DossierMultipleProxy>> findMultipleDossierByStatus(DossierStatus status);
+    Request<List<DossierMultipleProxy>> findMultipleDossierByStatus(DossierStatus status, String anneeScolaire);
 }

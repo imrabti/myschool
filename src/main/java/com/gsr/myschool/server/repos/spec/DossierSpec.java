@@ -6,6 +6,7 @@ import com.gsr.myschool.server.business.*;
 import com.gsr.myschool.server.business.core.Filiere;
 import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.core.SessionExamen;
+import com.gsr.myschool.server.business.valuelist.ValueList;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;
@@ -158,6 +159,24 @@ public class DossierSpec {
                 infoParentQuery.where(cb.equal(parents.<Boolean>get("parentGsr"), parentGsr));
 
                 return cb.in(root.<Long>get("id")).value(infoParentQuery);
+            }
+        };
+    }
+
+    public static Specification<Dossier> anneeScolaireEqual(final Long anneeId) {
+        return new Specification<Dossier>() {
+            @Override
+            public Predicate toPredicate(Root<Dossier> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.equal(root.<ValueList>get("anneeScolaire").<Long>get("id"), anneeId);
+            }
+        };
+    }
+
+    public static Specification<Dossier> anneeScolaireEqual(final ValueList annee) {
+        return new Specification<Dossier>() {
+            @Override
+            public Predicate toPredicate(Root<Dossier> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.equal(root.<ValueList>get("anneeScolaire"), annee);
             }
         };
     }

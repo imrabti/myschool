@@ -14,10 +14,14 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.DossierMultipleProxy;
+import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.resource.message.SharedMessageBundle;
+import com.gsr.myschool.common.client.util.ValueList;
 import com.gsr.myschool.common.client.widget.EmptyResult;
 import com.gsr.myschool.common.client.widget.renderer.EnumRenderer;
+import com.gsr.myschool.common.client.widget.renderer.ValueListRendererFactory;
 import com.gsr.myschool.common.shared.type.DossierStatus;
+import com.gsr.myschool.common.shared.type.ValueTypeCode;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import java.util.Arrays;
@@ -30,14 +34,19 @@ public class MultipleInscriptionsReportView extends ViewWithUiHandlers<MultipleI
 
     @UiField(provided = true)
     ValueListBox<DossierStatus> status;
+    @UiField(provided = true)
+    ValueListBox<ValueListProxy> anneeScolaire;
     @UiField
     CellTable<DossierMultipleProxy> dossierTable;
 
     private final ListDataProvider<DossierMultipleProxy> dataProvider;
 
     @Inject
-    public MultipleInscriptionsReportView(final Binder uiBinder, final SharedMessageBundle sharedMessageBundle) {
+    public MultipleInscriptionsReportView(final Binder uiBinder, final SharedMessageBundle sharedMessageBundle,
+                                          final ValueList valueList,
+                                          final ValueListRendererFactory valueListRendererFactory) {
         this.status = new ValueListBox<DossierStatus>(new EnumRenderer<DossierStatus>());
+        anneeScolaire = new ValueListBox<ValueListProxy>(valueListRendererFactory.create("Année Scolaire"));
 
         initWidget(uiBinder.createAndBindUi(this));
         initDataGrid();
@@ -47,6 +56,8 @@ public class MultipleInscriptionsReportView extends ViewWithUiHandlers<MultipleI
 
         status.setAcceptableValues(Arrays.asList(DossierStatus.values()));
         dossierTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
+
+        anneeScolaire.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR));
     }
 
     @Override
@@ -58,12 +69,14 @@ public class MultipleInscriptionsReportView extends ViewWithUiHandlers<MultipleI
 
     @UiHandler("search")
     void onSearchClicked(ClickEvent event) {
-        getUiHandlers().search(status.getValue());
+        getUiHandlers().search(status.getValue(),
+                anneeScolaire.getValue() != null ? anneeScolaire.getValue().getValue() : null);
     }
 
     @UiHandler("export")
     void onExportClicked(ClickEvent event) {
-        getUiHandlers().export(status.getValue());
+        getUiHandlers().export(status.getValue(),
+                anneeScolaire.getValue() != null ? anneeScolaire.getValue().getValue() : null);
     }
 
     private void initDataGrid() {
