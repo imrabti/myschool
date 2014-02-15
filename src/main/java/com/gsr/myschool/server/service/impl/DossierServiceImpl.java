@@ -21,6 +21,7 @@ import com.gsr.myschool.common.shared.dto.*;
 import com.gsr.myschool.common.shared.type.DossierStatus;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
 import com.gsr.myschool.server.business.Dossier;
+import com.gsr.myschool.server.business.DossierHistoric;
 import com.gsr.myschool.server.business.InfoParent;
 import com.gsr.myschool.server.business.User;
 import com.gsr.myschool.server.business.core.PieceJustif;
@@ -41,10 +42,7 @@ import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class DossierServiceImpl implements DossierService {
@@ -68,6 +66,8 @@ public class DossierServiceImpl implements DossierService {
     private ValidationProcessService validationProcessService;
     @Autowired
     private ValueTypeRepos valueTypeRepos;
+    @Autowired
+    private DossierHistoricRepo dossierHistoricRepo;
 
     @Override
     public Boolean receive(Dossier dossier) {
@@ -88,6 +88,12 @@ public class DossierServiceImpl implements DossierService {
         } else {
             validationProcessService.receiveDossier(task, receivedDossier);
         }
+
+        DossierHistoric dossierHistoric = new DossierHistoric();
+        dossierHistoric.setStatus(dossier.getStatus());
+        dossierHistoric.setCreateDate(new Date());
+        dossierHistoric.setDossier(dossier);
+        dossierHistoricRepo.save(dossierHistoric);
 
         receivedDossier.setStatus(DossierStatus.RECEIVED);
         dossierRepos.save(receivedDossier);
@@ -124,6 +130,12 @@ public class DossierServiceImpl implements DossierService {
             // piece all existing
             validationProcessService.acceptDossier(task, verifiedDossier);
 
+            DossierHistoric dossierHistoric = new DossierHistoric();
+            dossierHistoric.setStatus(verifiedDossier.getStatus());
+            dossierHistoric.setCreateDate(new Date());
+            dossierHistoric.setDossier(verifiedDossier);
+            dossierHistoricRepo.save(dossierHistoric);
+
             verifiedDossier.setStatus(DossierStatus.ACCEPTED_FOR_STUDY);
             dossierRepos.save(verifiedDossier);
         } else {
@@ -145,6 +157,12 @@ public class DossierServiceImpl implements DossierService {
             // there is at least one piece not available
             validationProcessService.rejectDossier(task, verifiedDossier, piecejustifDTOs);
 
+            DossierHistoric dossierHistoric = new DossierHistoric();
+            dossierHistoric.setStatus(verifiedDossier.getStatus());
+            dossierHistoric.setCreateDate(new Date());
+            dossierHistoric.setDossier(verifiedDossier);
+            dossierHistoricRepo.save(dossierHistoric);
+
             verifiedDossier.setStatus(DossierStatus.STANDBY);
             dossierRepos.save(verifiedDossier);
         }
@@ -157,6 +175,12 @@ public class DossierServiceImpl implements DossierService {
         if (task == null) return false;
 
         Dossier analyzedDossier = dossierRepos.findOne(dossierId);
+
+        DossierHistoric dossierHistoric = new DossierHistoric();
+        dossierHistoric.setStatus(analyzedDossier.getStatus());
+        dossierHistoric.setCreateDate(new Date());
+        dossierHistoric.setDossier(analyzedDossier);
+        dossierHistoricRepo.save(dossierHistoric);
 
         analyzedDossier.setStatus(DossierStatus.NOT_ACCEPTED_FOR_TEST);
         analyzedDossier.setMotifRefus(motif);
@@ -172,6 +196,13 @@ public class DossierServiceImpl implements DossierService {
 
         Task task = validationProcessService.getDossierToAdmission(dossier.getId());
         if (task == null) return false;
+
+
+        DossierHistoric dossierHistoric = new DossierHistoric();
+        dossierHistoric.setStatus(dossier.getStatus());
+        dossierHistoric.setCreateDate(new Date());
+        dossierHistoric.setDossier(dossier);
+        dossierHistoricRepo.save(dossierHistoric);
 
         affectedDossier.setStatus(status);
         affectedDossier.setMotifRefus(comment);
@@ -194,12 +225,24 @@ public class DossierServiceImpl implements DossierService {
             Task task = validationProcessService.getDossierToReAccept(dossier.getId());
             if (task == null) return false;
 
+            DossierHistoric dossierHistoric = new DossierHistoric();
+            dossierHistoric.setStatus(dossier.getStatus());
+            dossierHistoric.setCreateDate(new Date());
+            dossierHistoric.setDossier(dossier);
+            dossierHistoricRepo.save(dossierHistoric);
+
             analyzedDossier.setStatus(DossierStatus.ACCEPTED_FOR_TEST);
 
             validationProcessService.acceptAnalysedDossier(task, dossier);
         } else {
             Task task = validationProcessService.getDossierToAnalyse(dossier.getId());
             if (task == null) return false;
+
+            DossierHistoric dossierHistoric = new DossierHistoric();
+            dossierHistoric.setStatus(dossier.getStatus());
+            dossierHistoric.setCreateDate(new Date());
+            dossierHistoric.setDossier(dossier);
+            dossierHistoricRepo.save(dossierHistoric);
 
             analyzedDossier.setStatus(DossierStatus.ACCEPTED_FOR_TEST);
 

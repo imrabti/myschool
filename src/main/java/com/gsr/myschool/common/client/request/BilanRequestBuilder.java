@@ -31,19 +31,22 @@ public class BilanRequestBuilder extends RequestBuilder {
         setHeader("Content-type", "application/x-www-form-urlencoded");
     }
 
-    public void buildData(DossierStatus status, BilanType type, String anneeScolaire) {
+    public void buildData(DossierStatus status, BilanType type, String anneeScolaire, Boolean historic) {
         postData = new StringBuilder();
         Joiner joiner = Joiner.on("&").skipNulls();
-        String anneeValue = null, statusValue = null, typeValue;
+        String anneeValue = null, statusValue = null, typeValue, historicValue = null;
         if (anneeScolaire != null) {
             anneeValue = "annee=" + anneeScolaire;
         }
         if (status != null) {
-            statusValue = "annee=" + status.name();
+            statusValue = "status=" + status.name();
+        }
+        if (historic != null) {
+            historicValue = "historic=" + historic;
         }
         typeValue = "type=" + type.ordinal();
 
-        joiner.appendTo(postData, anneeValue, statusValue, typeValue);
+        joiner.appendTo(postData, anneeValue, statusValue, typeValue, historicValue);
     }
 
     public void sendRequest() {

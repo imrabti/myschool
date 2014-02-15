@@ -29,6 +29,12 @@
                     </boot:ControlLabel>
                     <boot:ValueListBox ui:field="reportTypeList"/>
                 </boot:ControlGroup>
+                <boot:ControlGroup>
+                    <boot:ControlLabel>
+                        <g:Label addStyleNames="{style.label}" text="Historique"/>
+                    </boot:ControlLabel>
+                    <g:CheckBox ui:field="historic"/>
+                </boot:ControlGroup>
             </boot:Form>
 
             <boot:Button ui:field="generate" text="Générer"/>

@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gsr.myschool.common.client.proxy.ValueListProxy;
@@ -29,6 +30,8 @@ public class SummaryReportView extends ViewWithUiHandlers<SummaryReportUiHandler
     ValueListBox<BilanType> reportTypeList;
     @UiField(provided = true)
     ValueListBox<ValueListProxy> anneeScolaire;
+    @UiField
+    CheckBox historic;
 
     @Inject
     public SummaryReportView(final Binder uiBinder,
@@ -51,6 +54,6 @@ public class SummaryReportView extends ViewWithUiHandlers<SummaryReportUiHandler
     @UiHandler("generate")
     void onGenerateClicked(ClickEvent event) {
         getUiHandlers().generateReport(statusList.getValue(), reportTypeList.getValue(),
-                anneeScolaire.getValue() != null ? anneeScolaire.getValue().getValue() : null);
+                anneeScolaire.getValue() != null ? anneeScolaire.getValue().getValue() : null, historic.getValue());
     }
 }

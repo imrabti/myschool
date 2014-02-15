@@ -18,12 +18,15 @@ import com.gsr.myschool.back.client.util.SuggestionListFactory;
 import com.gsr.myschool.common.client.proxy.DossierFilterDTOProxy;
 import com.gsr.myschool.common.client.proxy.FiliereProxy;
 import com.gsr.myschool.common.client.proxy.NiveauEtudeProxy;
+import com.gsr.myschool.common.client.proxy.ValueListProxy;
 import com.gsr.myschool.common.client.resource.SharedResources;
 import com.gsr.myschool.common.client.ui.dossier.renderer.FiliereRenderer;
 import com.gsr.myschool.common.client.ui.dossier.renderer.NiveauEtudeRenderer;
 import com.gsr.myschool.common.client.util.CallbackImpl;
 import com.gsr.myschool.common.client.util.EditorView;
 import com.gsr.myschool.common.client.util.ValueList;
+import com.gsr.myschool.common.client.widget.renderer.ValueListRendererFactory;
+import com.gsr.myschool.common.shared.type.ValueTypeCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +50,8 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     CheckBox parentGsr;
     @UiField
     CheckBox gsrFraterie;
+    @UiField(provided = true)
+    ValueListBox<ValueListProxy> anneeScolaire;
 
     private final Driver driver;
     private final ValueList valueList;
@@ -55,13 +60,15 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     @Inject
     public DossierFilterEditor(final Binder uiBinder, final Driver driver,
             final ValueList valueList, final SharedResources resources,
-            final SuggestionListFactory suggestionList) {
+            final SuggestionListFactory suggestionList,
+            final ValueListRendererFactory valueListRendererFactory) {
         this.driver = driver;
         this.valueList = valueList;
         this.suggestionList = suggestionList;
 
         this.filiere = new ValueListBox<FiliereProxy>(new FiliereRenderer());
         this.niveauEtude = new ValueListBox<NiveauEtudeProxy>(new NiveauEtudeRenderer());
+        this.anneeScolaire = new ValueListBox<ValueListProxy>(valueListRendererFactory.create("Année Scolaire"));
 
         initWidget(uiBinder.createAndBindUi(this));
         driver.initialize(this);
@@ -72,6 +79,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
 
         filiere.setAcceptableValues(valueList.getFiliereList());
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
+        anneeScolaire.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR));
 
         filiere.addValueChangeHandler(new ValueChangeHandler<FiliereProxy>() {
             @Override
@@ -95,6 +103,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         driver.edit(object);
         filiere.setAcceptableValues(valueList.getFiliereList());
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
+        anneeScolaire.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR));
     }
 
     @Override

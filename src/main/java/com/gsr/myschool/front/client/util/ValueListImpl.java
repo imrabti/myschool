@@ -4,7 +4,9 @@ import com.google.common.base.Objects;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.gsr.myschool.common.client.proxy.*;
+import com.gsr.myschool.common.client.request.ReceiverImpl;
 import com.gsr.myschool.common.client.util.ValueList;
+import com.gsr.myschool.common.shared.type.SessionStatus;
 import com.gsr.myschool.common.shared.type.ValueTypeCode;
 import com.gsr.myschool.front.client.request.FrontRequestFactory;
 
@@ -195,5 +197,10 @@ public class ValueListImpl implements ValueList {
                 }
             }
         });
+    }
+
+    @Override
+    public List<SessionExamenProxy> getClosedSessionsList(ValueListProxy anneeScolaire) {
+        return null;
     }
 }

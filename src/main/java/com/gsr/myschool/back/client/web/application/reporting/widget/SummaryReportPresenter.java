@@ -22,10 +22,10 @@ public class SummaryReportPresenter extends PresenterWidget<MyView> implements S
     }
 
     @Override
-    public void generateReport(DossierStatus status, BilanType type, String anneeScolaire) {
+    public void generateReport(DossierStatus status, BilanType type, String anneeScolaire, Boolean historic) {
         if (type != null) {
             BilanRequestBuilder request = new BilanRequestBuilder();
-            request.buildData(status, type, anneeScolaire);
+            request.buildData(status, type, anneeScolaire, historic);
             request.sendRequest();
         }
     }
