@@ -97,7 +97,11 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     public void edit(DossierFilterDTOProxy object) {
         driver.edit(object);
         filiere.setAcceptableValues(valueList.getFiliereList());
-        niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
+        if (filiere.getValue() != null) {
+            niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(filiere.getValue().getId()));
+        } else {
+            niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
+        }
         anneeScolaire.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR));
     }
 

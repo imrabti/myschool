@@ -23,6 +23,9 @@
         <boot:Well addStyleNames="{style.enhancedWell}">
             <boot:Form type="INLINE">
                 <boot:ControlGroup>
+                    <boot:ControlLabel>
+                        <g:Label addStyleNames="{style.label}" text="Année Scolaire"/>
+                    </boot:ControlLabel>
                     <boot:ValueListBox ui:field="anneeScolaire"/>
                 </boot:ControlGroup>
                 <boot:ControlGroup>

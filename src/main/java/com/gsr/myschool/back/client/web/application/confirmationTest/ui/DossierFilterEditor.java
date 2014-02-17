@@ -110,7 +110,11 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         driver.edit(object);
         filiere.setAcceptableValues(valueList.getFiliereList());
         status.setValue(object.getStatus());
-        niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
+        if (filiere.getValue() != null) {
+            niveauEtude.setAcceptableValues(valueList.getNiveauEtudeList(filiere.getValue().getId()));
+        } else {
+            niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
+        }
         status.setAcceptableValues(DossierStatus.confirmationTestValues());
         anneeScolaire.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR));
     }
