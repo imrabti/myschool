@@ -21,6 +21,7 @@
 
     <g:HTMLPanel>
         <div style="float: right;">
+            <g:Label text="Année Scolaire"/>
             <boot:ValueListBox ui:field="anneeScolaire"/>
 
             <g:Label text="Sessions"/>
