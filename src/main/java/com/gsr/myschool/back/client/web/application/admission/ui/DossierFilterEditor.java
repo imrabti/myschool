@@ -85,7 +85,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         payeeSuggestionDisplay.setPopupStyleName(resources.suggestBoxStyleCss().gwtSuggestBoxPoup());
 
         filiere.setAcceptableValues(valueList.getFiliereList());
-        anneeScolaire.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR));
+        setAnneeScolaireValues(valueList);
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
 
         filiere.addValueChangeHandler(new ValueChangeHandler<FiliereProxy>() {
@@ -118,7 +118,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
             status.setValue(DossierStatus.INVITED_TO_TEST);
         }
         status.setAcceptableValues(DossierStatus.admissionValues());
-        anneeScolaire.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR));
+        setAnneeScolaireValues(valueList);
     }
 
     @Override
@@ -142,5 +142,13 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
                 ((MultiWordSuggestOracle) numDossier.getSuggestOracle()).addAll(result);
             }
         });
+    }
+
+    private void setAnneeScolaireValues(ValueList valueList) {
+        List<ValueListProxy> anneeScolaireList = valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR, false);
+        if (anneeScolaire.getValue() == null) {
+            anneeScolaire.setValue(anneeScolaireList.get(0));
+        }
+        anneeScolaire.setAcceptableValues(anneeScolaireList);
     }
 }

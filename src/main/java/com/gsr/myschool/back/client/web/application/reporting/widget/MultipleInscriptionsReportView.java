@@ -57,7 +57,7 @@ public class MultipleInscriptionsReportView extends ViewWithUiHandlers<MultipleI
         status.setAcceptableValues(Arrays.asList(DossierStatus.values()));
         dossierTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
 
-        anneeScolaire.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR));
+        setAnneeScolaireValues(valueList);
     }
 
     @Override
@@ -77,6 +77,14 @@ public class MultipleInscriptionsReportView extends ViewWithUiHandlers<MultipleI
     void onExportClicked(ClickEvent event) {
         getUiHandlers().export(status.getValue(),
                 anneeScolaire.getValue() != null ? anneeScolaire.getValue().getValue() : null);
+    }
+
+    private void setAnneeScolaireValues(ValueList valueList) {
+        List<ValueListProxy> anneeScolaireList = valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR, false);
+        if (anneeScolaire.getValue() == null) {
+            anneeScolaire.setValue(anneeScolaireList.get(0));
+        }
+        anneeScolaire.setAcceptableValues(anneeScolaireList);
     }
 
     private void initDataGrid() {

@@ -41,6 +41,7 @@
             </boot:Form>
 
             <boot:Button ui:field="generate" text="Générer"/>
+            <boot:Button ui:field="generateSummary" text="Générer sommaire"/>
         </boot:Well>
     </g:HTMLPanel>
 </ui:UiBinder>

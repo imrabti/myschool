@@ -29,6 +29,7 @@ import com.gsr.myschool.common.shared.type.ValueTypeCode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class DossierFilterEditor extends Composite implements EditorView<DossierFilterDTOProxy> {
     public interface Binder extends UiBinder<Widget, DossierFilterEditor> {
@@ -77,7 +78,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
 
         status.setAcceptableValues(Arrays.asList(DossierStatus.values()));
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
-        anneeScolaire.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR));
+        setAnneeScolaireValues(valueList);
 
         filiere.addValueChangeHandler(new ValueChangeHandler<FiliereProxy>() {
             @Override
@@ -102,7 +103,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         } else {
             niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
         }
-        anneeScolaire.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR));
+        setAnneeScolaireValues(valueList);
     }
 
     @Override
@@ -121,5 +122,13 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
 
             return dossierFilter;
         }
+    }
+
+    private void setAnneeScolaireValues(ValueList valueList) {
+        List<ValueListProxy> anneeScolaireList = valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR, false);
+        if (anneeScolaire.getValue() == null) {
+            anneeScolaire.setValue(anneeScolaireList.get(0));
+        }
+        anneeScolaire.setAcceptableValues(anneeScolaireList);
     }
 }

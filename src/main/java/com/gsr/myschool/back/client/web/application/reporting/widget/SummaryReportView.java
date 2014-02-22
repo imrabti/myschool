@@ -18,6 +18,7 @@ import com.gsr.myschool.common.shared.type.ValueTypeCode;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class SummaryReportView extends ViewWithUiHandlers<SummaryReportUiHandlers>
         implements SummaryReportPresenter.MyView {
@@ -48,12 +49,25 @@ public class SummaryReportView extends ViewWithUiHandlers<SummaryReportUiHandler
 
         initWidget(uiBinder.createAndBindUi(this));
 
-        anneeScolaire.setAcceptableValues(valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR));
+        setAnneeScolaireValues(valueList);
     }
 
     @UiHandler("generate")
     void onGenerateClicked(ClickEvent event) {
         getUiHandlers().generateReport(statusList.getValue(), reportTypeList.getValue(),
                 anneeScolaire.getValue() != null ? anneeScolaire.getValue().getValue() : null, historic.getValue());
+    }
+
+    @UiHandler("generateSummary")
+    void onGenerateSummaryClicked(ClickEvent event) {
+        getUiHandlers().generateSummary(anneeScolaire.getValue() != null ? anneeScolaire.getValue().getValue() : null);
+    }
+
+    private void setAnneeScolaireValues(ValueList valueList) {
+        List<ValueListProxy> anneeScolaireList = valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR, false);
+        if (anneeScolaire.getValue() == null) {
+            anneeScolaire.setValue(anneeScolaireList.get(0));
+        }
+        anneeScolaire.setAcceptableValues(anneeScolaireList);
     }
 }

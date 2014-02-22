@@ -23,8 +23,9 @@
     </ui:style>
 
     <g:HTMLPanel>
-        <div>
-            <boot:ValueListBox ui:field="anneeScolaire" styleName="{style.float-right}"/>
+        <div class="{style.float-right}">
+            <g:Label text="Année scolaire" styleName="{style.label}"/>
+            <boot:ValueListBox ui:field="anneeScolaire" />
             <span style="clear:both;"/>
         </div>
         <div>

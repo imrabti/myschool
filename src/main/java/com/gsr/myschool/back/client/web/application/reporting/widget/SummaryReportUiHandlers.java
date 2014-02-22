@@ -6,4 +6,6 @@ import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface SummaryReportUiHandlers extends UiHandlers {
     void generateReport(DossierStatus status, BilanType type, String anneeScolaire, Boolean historic);
+
+    void generateSummary(String anneeScolaire);
 }
