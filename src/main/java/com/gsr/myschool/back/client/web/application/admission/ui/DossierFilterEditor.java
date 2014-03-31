@@ -85,7 +85,6 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
         payeeSuggestionDisplay.setPopupStyleName(resources.suggestBoxStyleCss().gwtSuggestBoxPoup());
 
         filiere.setAcceptableValues(valueList.getFiliereList());
-        setAnneeScolaireValues(valueList);
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
 
         filiere.addValueChangeHandler(new ValueChangeHandler<FiliereProxy>() {
@@ -147,7 +146,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     private void setAnneeScolaireValues(ValueList valueList) {
         List<ValueListProxy> anneeScolaireList = valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR, false);
         if (anneeScolaire.getValue() == null) {
-            anneeScolaire.setValue(anneeScolaireList.get(0));
+            anneeScolaire.setValue(anneeScolaireList.isEmpty() ? null : anneeScolaireList.get(0));
         }
         anneeScolaire.setAcceptableValues(anneeScolaireList);
     }
