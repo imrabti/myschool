@@ -63,6 +63,8 @@ public class InscriptionServiceImpl implements InscriptionService {
     private SettingsRepos settingsRepos;
     @Autowired
     private ValueTypeRepos valueTypeRepos;
+    @Autowired
+    private DossierHistoricRepo dossierHistoricRepo;
 
     @Override
     @Transactional(readOnly = true)
@@ -168,6 +170,7 @@ public class InscriptionServiceImpl implements InscriptionService {
         List<Fraterie> fraterie = fraterieRepos.findByCandidatId(currentDossier.getCandidat().getId());
         fraterieRepos.delete(fraterie);
 
+        dossierHistoricRepo.delete(dossierHistoricRepo.findByDossierId(dossierId));
         dossierRepos.delete(currentDossier);
         candidatRepos.delete(currentDossier.getCandidat());
     }
@@ -188,6 +191,7 @@ public class InscriptionServiceImpl implements InscriptionService {
         List<Fraterie> fraterie = fraterieRepos.findByCandidatId(currentDossier.getCandidat().getId());
         fraterieRepos.delete(fraterie);
 
+        dossierHistoricRepo.delete(dossierHistoricRepo.findByDossierId(dossierId));
         dossierRepos.delete(currentDossier);
         candidatRepos.delete(currentDossier.getCandidat());
 
