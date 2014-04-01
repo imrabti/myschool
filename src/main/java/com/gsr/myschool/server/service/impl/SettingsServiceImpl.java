@@ -208,12 +208,12 @@ public class SettingsServiceImpl implements SettingsService {
         int count = 0;
         for (Dossier dossier : dossiers) {
             try {
-                HistoricProcessInstance historic = historyService.createHistoricProcessInstanceQuery()
+                List<HistoricProcessInstance> historics = historyService.createHistoricProcessInstanceQuery()
                         .finished()
                         .processDefinitionKey("validation")
                         .processInstanceBusinessKey(dossier.getId().toString())
-                        .singleResult();
-                if (historic != null) {
+                        .list();
+                for (HistoricProcessInstance historic : historics) {
                     historyService.deleteHistoricProcessInstance(historic.getId());
                 }
                 ProcessInstance pi = runtimeService.createProcessInstanceQuery()
