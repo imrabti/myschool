@@ -126,6 +126,8 @@ public class ValidationPresenter extends Presenter<ValidationPresenter.MyView, V
                 currentContext.edit(dossierFilter.getFiliere()) : null);
         dossierFilter.setNiveauEtude(dossierFilter.getNiveauEtude() != null ?
                 currentContext.edit(dossierFilter.getNiveauEtude()) : null);
+        dossierFilter.setAnneeScolaire(dossierFilter.getAnneeScolaire() != null ?
+                currentContext.edit(dossierFilter.getAnneeScolaire()) : null);
 
         loadDossiersCounts();
     }

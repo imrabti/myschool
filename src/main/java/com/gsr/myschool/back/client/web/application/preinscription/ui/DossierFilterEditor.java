@@ -78,7 +78,6 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
 
         status.setAcceptableValues(Arrays.asList(DossierStatus.values()));
         niveauEtude.setAcceptableValues(new ArrayList<NiveauEtudeProxy>());
-        setAnneeScolaireValues(valueList);
 
         filiere.addValueChangeHandler(new ValueChangeHandler<FiliereProxy>() {
             @Override
@@ -127,7 +126,7 @@ public class DossierFilterEditor extends Composite implements EditorView<Dossier
     private void setAnneeScolaireValues(ValueList valueList) {
         List<ValueListProxy> anneeScolaireList = valueList.getValueListByCode(ValueTypeCode.SCHOOL_YEAR, false);
         if (anneeScolaire.getValue() == null) {
-            anneeScolaire.setValue(anneeScolaireList.get(0));
+            anneeScolaire.setValue(anneeScolaireList.isEmpty() ? null : anneeScolaireList.get(0));
         }
         anneeScolaire.setAcceptableValues(anneeScolaireList);
     }

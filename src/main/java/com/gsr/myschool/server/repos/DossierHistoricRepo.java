@@ -48,4 +48,6 @@ public interface DossierHistoricRepo extends JpaRepository<DossierHistoric, Long
             "FROM DossierHistoric d WHERE d.status = :status AND d.dossier.anneeScolaire = :anneeScolaire AND d.dossier.niveauEtude = :niveau " +
             "group by d.dossier.niveauEtude ")
     BilanDTO findSummaryHistoric(@Param("status") DossierStatus status, @Param("anneeScolaire") ValueList anneeScolaire, @Param("niveau") NiveauEtude niveauEtude);
+
+    List<DossierHistoric> findByDossierId(Long dossierId);
 }
