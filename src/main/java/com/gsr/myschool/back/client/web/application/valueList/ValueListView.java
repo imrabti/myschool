@@ -66,8 +66,6 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
                          final SharedMessageBundle sharedMessageBundle,
                          final ValueListActionCellFactory actionCellFactory) {
         initWidget(uiBinder.createAndBindUi(this));
-        initActions();
-        initDataGrid();
 
         this.addValueList.setVisible(false);
         this.dataProvider = new ListDataProvider<ValueListProxy>();
@@ -77,6 +75,9 @@ public class ValueListView extends ViewWithUiHandlers<ValueListUiHandlers> imple
         dataProvider.addDataDisplay(valueListTable);
         valueListTable.setSelectionModel(valueListSelectionModel);
         valueListTable.setEmptyTableWidget(new EmptyResult(sharedMessageBundle.noResultFound(), AlertType.WARNING));
+
+        initActions();
+        initDataGrid();
     }
 
     @Override

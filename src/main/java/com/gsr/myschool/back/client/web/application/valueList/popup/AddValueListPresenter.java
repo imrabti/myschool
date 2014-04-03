@@ -59,6 +59,7 @@ public class AddValueListPresenter extends PresenterWidget<AddValueListPresenter
 
         this.requestFactory = requestFactory;
         this.messageBundle = messageBundle;
+        valueListViolation = false;
 
         getView().setUiHandlers(this);
     }
