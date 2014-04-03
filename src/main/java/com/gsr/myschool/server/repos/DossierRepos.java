@@ -27,7 +27,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface DossierRepos extends JpaRepository<Dossier, Long>, JpaSpecificationExecutor {
+public interface DossierRepos extends JpaRepository<Dossier, Long>, JpaSpecificationExecutor<Dossier> {
     @Query("select d.generatedNumDossier from Dossier d")
     List<String> findAllNumDossier();
 

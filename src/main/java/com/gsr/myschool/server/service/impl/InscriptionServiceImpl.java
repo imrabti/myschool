@@ -13,6 +13,7 @@ import com.gsr.myschool.server.business.core.NiveauEtude;
 import com.gsr.myschool.server.business.valuelist.ValueList;
 import com.gsr.myschool.server.process.ValidationProcessService;
 import com.gsr.myschool.server.repos.*;
+import com.gsr.myschool.server.repos.spec.DossierSpec;
 import com.gsr.myschool.server.repos.spec.EtablissementScolaireSpec;
 import com.gsr.myschool.server.security.SecurityContextProvider;
 import com.gsr.myschool.server.service.InscriptionService;
@@ -126,7 +127,13 @@ public class InscriptionServiceImpl implements InscriptionService {
         User user = securityContextProvider.getCurrentUser();
 
         Dossier dossier = new Dossier();
-        dossier.setGeneratedNumDossier("GSR_" + DateUtils.currentYear() + "_" + UUIDGenerator.generateUUID());
+
+        String generatedNumDossier;
+        do {
+            generatedNumDossier = "GSR_" + DateUtils.currentYear() + "_" + UUIDGenerator.generateUUID();
+        } while (!dossierRepos.findAll(DossierSpec.numDossierLike(generatedNumDossier)).isEmpty());
+
+        dossier.setGeneratedNumDossier(generatedNumDossier);
         dossier.setStatus(DossierStatus.CREATED);
         dossier.setOwner(user);
         dossier.setCandidat(candidat);
